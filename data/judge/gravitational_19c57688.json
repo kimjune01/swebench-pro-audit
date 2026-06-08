@@ -1,0 +1,81 @@
+{
+ "case": "gravitational_19c57688",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "TestFnCacheSanity constructs fnCache with TTL/delay scenarios of 40ms/20ms, 20ms/40ms, 40ms/40ms, and 40ms/0, and expects cache.Get to return no error under 100 concurrent workers over 10 TTL rounds.",
+   "covering_prose": "The cache should handle various TTL and delay scenarios correctly, maintaining expected hit/miss ratios under concurrent access patterns.",
+   "gold_anchor": "fnCache *fnCache",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For repeated concurrent Get calls with the same key, the loaded value observed by each worker must be monotonically nondecreasing; callers must not observe older values after newer ones.",
+   "covering_prose": "The cache should support key-based memoization, returning the same result for repeated calls within the TTL window and blocking concurrent calls for the same key until the first computation completes.",
+   "gold_anchor": "c.fnCache.Get(ctx, getNodesCacheKey{namespace}, func() (interface{}, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For the same key, concurrent misses must coalesce so the loader read count is approximately elapsed/(ttl+delay), with actual reads within +/- 1 of that expectation.",
+   "covering_prose": "The cache should support key-based memoization, returning the same result for repeated calls within the TTL window and blocking concurrent calls for the same key until the first computation completes.",
+   "gold_anchor": "c.fnCache.Get(ctx, getNodesCacheKey{namespace}, func() (interface{}, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Cache entries are treated as expiring on a ttl-plus-load-delay cycle in the sanity test's expected read-count formula elapsed/(ttl+delay).",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "TestFnCacheCancellation uses a 10ms context timeout and expects Get to unblock early while the loader is still blocked.",
+   "covering_prose": "Cancellation semantics should allow the caller's context to exit early while in-flight loading operations continue until completion, with their results stored for subsequent requests.",
+   "gold_anchor": "// use cache's close context instead of request context in order to ensure",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the triggering caller's context times out before loading completes, Get returns nil value.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When the triggering caller's context times out before loading completes, trace.Unwrap(err) equals context.DeadlineExceeded.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After the timed-out Get returns, the original in-flight loading operation must continue after blocker is closed and store the result \"val\".",
+   "covering_prose": "Cancellation semantics should allow the caller's context to exit early while in-flight loading operations continue until completion, with their results stored for subsequent requests.",
+   "gold_anchor": "// that we don't cache a context cancellation error.",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A subsequent Get for the same key within a one-minute TTL returns the stored string value \"val\" with no error.",
+   "covering_prose": "Cancellation semantics should allow the caller's context to exit early while in-flight loading operations continue until completion, with their results stored for subsequent requests.",
+   "gold_anchor": "fnCache:              newFnCache(time.Second),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The subsequent Get for the same key must not invoke its supplied loader function after the prior in-flight load stores a result.",
+   "covering_prose": "The cache should support key-based memoization, returning the same result for repeated calls within the TTL window and blocking concurrent calls for the same key until the first computation completes.",
+   "gold_anchor": "c.fnCache.Get(ctx, clusterConfigCacheKey{\"audit\"}, func() (interface{}, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

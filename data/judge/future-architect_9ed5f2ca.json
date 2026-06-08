@@ -1,0 +1,172 @@
+{
+ "case": "future-architect_9ed5f2ca",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 16,
+ "n_covered": 13,
+ "n_gap": 3,
+ "n_out_of_scope": 7,
+ "rows": [
+  {
+   "test": "Parse must accept a Trivy JSON report containing only library findings and return no error for the jar case.",
+   "covering_prose": "The `trivy-to-vuls` importer must accept a Trivy JSON report that contains only library findings (without any operating-system data) and correctly produce a `models.ScanResult` object without causing runtime errors.",
+   "gold_anchor": "func setScanResultMeta(scanResult *models.ScanResult, trivyResult *report.Result) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a library-only jar report with no existing Family, the resulting ScanResult Family is constant.ServerTypePseudo.",
+   "covering_prose": "When the Trivy report does not include operating-system information, the `Family` field must be assigned `constant.ServerTypePseudo`, `ServerName` must be set to `\"library scan by trivy\"` if it is empty, and `Optional[\"trivy-target\"]` must record the received `Target` value.",
+   "gold_anchor": "scanResult.Family = constant.ServerTypePseudo",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a library-only jar report with empty ServerName, the resulting ScanResult ServerName is \"library scan by trivy\".",
+   "covering_prose": "When the Trivy report does not include operating-system information, the `Family` field must be assigned `constant.ServerTypePseudo`, `ServerName` must be set to `\"library scan by trivy\"` if it is empty, and `Optional[\"trivy-target\"]` must record the received `Target` value.",
+   "gold_anchor": "scanResult.ServerName = \"library scan by trivy\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a library-only jar report, Optional contains key \"trivy-target\" with the report Target value.",
+   "covering_prose": "When the Trivy report does not include operating-system information, the `Family` field must be assigned `constant.ServerTypePseudo`, `ServerName` must be set to `\"library scan by trivy\"` if it is empty, and `Optional[\"trivy-target\"]` must record the received `Target` value.",
+   "gold_anchor": "trivyTarget: trivyResult.Target",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Each LibraryScanner produced for the jar report includes Type equal to the report Result.Type, \"jar\".",
+   "covering_prose": "Each element added to `scanResult.LibraryScanners` must include the `Type` field with the value taken from `Result.Type` in the report.",
+   "gold_anchor": "libScanner.Type = trivyResult.Type",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "LibraryScanner entries reconstructed from unique scanner paths preserve Type from the collected scanner data.",
+   "covering_prose": "Each element added to `scanResult.LibraryScanners` must include the `Type` field with the value taken from `Result.Type` in the report.",
+   "gold_anchor": "Type: v.Type",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The parser treats jar as a supported library type instead of an OS package result.",
+   "covering_prose": "Only explicitly supported OS families and library types must be processed, using helper functions that return true or false without throwing exceptions.",
+   "gold_anchor": "ftypes.Jar:      struct{}{}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The parser treats Go module findings as a supported library type instead of an OS package result.",
+   "covering_prose": "Only explicitly supported OS families and library types must be processed, using helper functions that return true or false without throwing exceptions.",
+   "gold_anchor": "ftypes.GoMod:    struct{}{}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The parser treats Go binary findings as a supported library type instead of an OS package result.",
+   "covering_prose": "Only explicitly supported OS families and library types must be processed, using helper functions that return true or false without throwing exceptions.",
+   "gold_anchor": "ftypes.GoBinary: struct{}{}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The supported OS check returns a boolean membership result rather than throwing for unsupported families.",
+   "covering_prose": "Only explicitly supported OS families and library types must be processed, using helper functions that return true or false without throwing exceptions.",
+   "gold_anchor": "return ok",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The supported library check returns a boolean membership result rather than throwing for unsupported library types.",
+   "covering_prose": "Only explicitly supported OS families and library types must be processed, using helper functions that return true or false without throwing exceptions.",
+   "gold_anchor": "func isTrivySupportedLib(typestr string) bool {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For the no-vulnerability debian OS report, Parse returns no error even when Vulnerabilities is null.",
+   "covering_prose": "The `trivy-to-vuls` importer must accept a Trivy JSON report that contains only library findings (without any operating-system data) and correctly produce a `models.ScanResult` object without causing runtime errors.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For the no-vulnerability debian OS report, ServerName is set to the report Target value \"no-vuln-image:v1 (debian 9.13)\".",
+   "covering_prose": null,
+   "gold_anchor": "scanResult.ServerName = trivyResult.Target",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For the no-vulnerability debian OS report, Family is set to the report Type value \"debian\".",
+   "covering_prose": "Only explicitly supported OS families and library types must be processed, using helper functions that return true or false without throwing exceptions.",
+   "gold_anchor": "scanResult.Family = trivyResult.Type",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For the no-vulnerability debian OS report, ScannedBy is \"trivy\".",
+   "covering_prose": null,
+   "gold_anchor": "scanResult.ScannedBy = \"trivy\"",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For the no-vulnerability debian OS report, ScannedVia is \"trivy\".",
+   "covering_prose": null,
+   "gold_anchor": "scanResult.ScannedVia = \"trivy\"",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For the no-vulnerability debian OS report, Optional is map[string]interface{}{\"trivy-target\": \"no-vuln-image:v1 (debian 9.13)\"}.",
+   "covering_prose": "When the Trivy report does not include operating-system information, the `Family` field must be assigned `constant.ServerTypePseudo`, `ServerName` must be set to `\"library scan by trivy\"` if it is empty, and `Optional[\"trivy-target\"]` must record the received `Target` value.",
+   "gold_anchor": "trivyTarget: trivyResult.Target",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For the no-vulnerability debian OS report, ScannedCves remains an empty models.VulnInfos map.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For the no-vulnerability debian OS report, Packages is an empty models.Packages map.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For the no-vulnerability debian OS report, LibraryScanners is an empty models.LibraryScanners slice.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The equality comparison ignores ScannedAt when comparing expected and actual ScanResult values.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The equality comparison ignores Title when comparing expected and actual ScanResult values.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The equality comparison ignores Summary when comparing expected and actual ScanResult values.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

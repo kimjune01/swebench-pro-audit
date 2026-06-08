@@ -1,0 +1,46 @@
+{
+ "case": "future-architect_d1a617cf",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "scanner/base_test.go must compile using Trivy fanal analyzer imports under github.com/aquasecurity/trivy/pkg/fanal instead of github.com/aquasecurity/fanal.",
+   "covering_prose": "Replace all imports from github.com/aquasecurity/fanal/... with github.com/aquasecurity/trivy/pkg/fanal/....",
+   "gold_anchor": "github.com/aquasecurity/trivy/pkg/fanal/analyzer/os",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The dotnet deps analyzer package github.com/aquasecurity/trivy/pkg/fanal/analyzer/language/dotnet/deps must be available/registered for scanner base tests.",
+   "covering_prose": "Register analyzers from new paths in scanner/base.go, including dotnet/deps and nodejs/pnpm.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The pnpm analyzer package github.com/aquasecurity/trivy/pkg/fanal/analyzer/language/nodejs/pnpm must be available/registered for scanner base tests.",
+   "covering_prose": "Register analyzers from new paths in scanner/base.go, including dotnet/deps and nodejs/pnpm.",
+   "gold_anchor": "'pnpm'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The Java pom analyzer package github.com/aquasecurity/trivy/pkg/fanal/analyzer/language/java/pom must be available/registered for scanner base tests.",
+   "covering_prose": "Lockfiles for npm, yarn, pnpm, composer, pip, pipenv, poetry, bundler, cargo, gomod/gosum, jar/pom, nuget and .NET deps are detected and parsed.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The project must depend on Trivy 0.30.2 so the imported trivy/pkg/fanal analyzer packages resolve.",
+   "covering_prose": "Upgrade Vuls library scanning to Trivy 0.30.x, expand package-manager support (PNPM & .NET deps), and align imports/APIs with trivy/pkg/fanal",
+   "gold_anchor": "github.com/aquasecurity/trivy v0.30.2",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

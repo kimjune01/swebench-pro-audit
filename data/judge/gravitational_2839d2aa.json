@@ -1,0 +1,116 @@
+{
+ "case": "gravitational_2839d2aa",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 15,
+ "n_covered": 14,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Roles{}.Check() returns no error for an empty role list.",
+   "covering_prose": "`Check` should return nil for an empty list and for lists where all roles are valid and unique.",
+   "gold_anchor": "return nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles{RoleAuth}.Check() returns no error for a valid unique single-role list.",
+   "covering_prose": "`Check` should return nil for an empty list and for lists where all roles are valid and unique.",
+   "gold_anchor": "return nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles{RoleAuth, RoleWeb, RoleNode, RoleProxy, RoleAdmin, RoleProvisionToken, RoleTrustedCluster, LegacyClusterTokenType, RoleSignup, RoleNop}.Check() returns no error for a valid unique multi-role list.",
+   "covering_prose": "`Check` should return nil for an empty list and for lists where all roles are valid and unique.",
+   "gold_anchor": "return nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles{RoleAuth, RoleNode, RoleAuth}.Check() returns an error because RoleAuth is duplicated.",
+   "covering_prose": "`Check` should return an error when the list contains duplicate roles.",
+   "gold_anchor": "return trace.BadParameter(\"duplicate role %q\", role)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles{Role(\"unknown\")}.Check() returns an error for an unknown role value.",
+   "covering_prose": "`Check` should return an error when the list contains any unknown/invalid role.",
+   "gold_anchor": "return trace.Wrap(err)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles(nil).Equals(nil) returns true.",
+   "covering_prose": "`Equals` should treat nil and empty role collections as equivalent.",
+   "gold_anchor": "rs, os := roles.asSet(), other.asSet()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles{}.Equals(Roles{}) returns true for two empty role collections.",
+   "covering_prose": "`Equals` should treat nil and empty role collections as equivalent.",
+   "gold_anchor": "rs, os := roles.asSet(), other.asSet()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles(nil).Equals(Roles{}) returns true, treating nil and empty as equivalent.",
+   "covering_prose": "`Equals` should treat nil and empty role collections as equivalent.",
+   "gold_anchor": "rs, os := roles.asSet(), other.asSet()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles{RoleAuth}.Equals(Roles{RoleAuth}) returns true for the same single role.",
+   "covering_prose": "`Equals` should return `true` when both role collections contain exactly the same roles, regardless of order.",
+   "gold_anchor": "if _, ok := os[r]; !ok {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles{RoleAuth}.Equals(Roles{RoleAuth, RoleAuth}) returns true, ignoring duplicate RoleAuth entries during equality comparison.",
+   "covering_prose": null,
+   "gold_anchor": "s[r] = struct{}{}",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Roles{RoleAuth, RoleNode}.Equals(Roles{RoleNode, RoleAuth}) returns true despite different ordering.",
+   "covering_prose": "`Equals` should return `true` when both role collections contain exactly the same roles, regardless of order.",
+   "gold_anchor": "for r := range rs {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles{RoleAuth}.Equals(nil) returns false because RoleAuth is extra relative to nil.",
+   "covering_prose": "`Equals` should return `false` when the role collections differ by any element (missing or extra).",
+   "gold_anchor": "if len(rs) != len(os) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles{RoleAuth}.Equals(Roles{RoleNode}) returns false because the role elements differ.",
+   "covering_prose": "`Equals` should return `false` when the role collections differ by any element (missing or extra).",
+   "gold_anchor": "return false",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles{RoleAuth, RoleAuth}.Equals(Roles{RoleAuth, RoleNode}) returns false because RoleNode is missing from the first collection after duplicate collapse.",
+   "covering_prose": "`Equals` should return `false` when the role collections differ by any element (missing or extra).",
+   "gold_anchor": "if len(rs) != len(os) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles{RoleAuth, RoleNode}.Equals(Roles{RoleAuth, RoleAuth}) returns false because RoleNode is extra relative to the second collection after duplicate collapse.",
+   "covering_prose": "`Equals` should return `false` when the role collections differ by any element (missing or extra).",
+   "gold_anchor": "if len(rs) != len(os) {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

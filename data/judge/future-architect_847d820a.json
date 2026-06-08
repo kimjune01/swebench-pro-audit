@@ -1,0 +1,172 @@
+{
+ "case": "future-architect_847d820a",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 23,
+ "n_covered": 22,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "parseSSHConfiguration returns user \"root\" from `user root`.",
+   "covering_prose": "Must implement a package-level function `parseSSHConfiguration` that accepts a string input and returns a value of type `sshConfiguration` with all fields set exactly according to the lines present in the input. If a line is not present, the field must be empty or zero-value.",
+   "gold_anchor": "sshConfig.user = strings.TrimPrefix(line, \"user \")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHConfiguration returns hostname \"127.0.0.1\" from `hostname 127.0.0.1`.",
+   "covering_prose": "Must implement a package-level function `parseSSHConfiguration` that accepts a string input and returns a value of type `sshConfiguration` with all fields set exactly according to the lines present in the input. If a line is not present, the field must be empty or zero-value.",
+   "gold_anchor": "sshConfig.hostname = strings.TrimPrefix(line, \"hostname \")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHConfiguration returns port \"2222\" from `port 2222`.",
+   "covering_prose": "Must implement a package-level function `parseSSHConfiguration` that accepts a string input and returns a value of type `sshConfiguration` with all fields set exactly according to the lines present in the input. If a line is not present, the field must be empty or zero-value.",
+   "gold_anchor": "sshConfig.port = strings.TrimPrefix(line, \"port \")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHConfiguration returns hashKnownHosts \"no\" from `hashknownhosts no`.",
+   "covering_prose": "Must implement a package-level function `parseSSHConfiguration` that accepts a string input and returns a value of type `sshConfiguration` with all fields set exactly according to the lines present in the input. If a line is not present, the field must be empty or zero-value.",
+   "gold_anchor": "sshConfig.hashKnownHosts = strings.TrimPrefix(line, \"hashknownhosts \")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHConfiguration returns strictHostKeyChecking \"ask\" from `stricthostkeychecking ask`.",
+   "covering_prose": "Must implement a package-level function `parseSSHConfiguration` that accepts a string input and returns a value of type `sshConfiguration` with all fields set exactly according to the lines present in the input. If a line is not present, the field must be empty or zero-value.",
+   "gold_anchor": "sshConfig.strictHostKeyChecking = strings.TrimPrefix(line, \"stricthostkeychecking \")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHConfiguration returns hostKeyAlias \"vuls\" from `hostkeyalias vuls`.",
+   "covering_prose": "Must implement a package-level function `parseSSHConfiguration` that accepts a string input and returns a value of type `sshConfiguration` with all fields set exactly according to the lines present in the input. If a line is not present, the field must be empty or zero-value.",
+   "gold_anchor": "sshConfig.hostKeyAlias = strings.TrimPrefix(line, \"hostkeyalias \")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHConfiguration splits `globalknownhostsfile /etc/ssh/ssh_known_hosts /etc/ssh/ssh_known_hosts2` into []string{\"/etc/ssh/ssh_known_hosts\", \"/etc/ssh/ssh_known_hosts2\"} in that order.",
+   "covering_prose": "`parseSSHConfiguration` must split the values of `globalknownhostsfile` and `userknownhostsfile` by spaces into separate slice elements, preserving order.",
+   "gold_anchor": "sshConfig.globalKnownHosts = strings.Split(strings.TrimPrefix(line, \"globalknownhostsfile \"), \" \")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHConfiguration splits `userknownhostsfile ~/.ssh/known_hosts ~/.ssh/known_hosts2` into []string{\"~/.ssh/known_hosts\", \"~/.ssh/known_hosts2\"} in that order.",
+   "covering_prose": "`parseSSHConfiguration` must split the values of `globalknownhostsfile` and `userknownhostsfile` by spaces into separate slice elements, preserving order.",
+   "gold_anchor": "sshConfig.userKnownHosts = strings.Split(strings.TrimPrefix(line, \"userknownhostsfile \"), \" \")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHConfiguration leaves absent fields empty or zero-value, including proxyCommand and proxyJump in the full configuration case.",
+   "covering_prose": "If a line is not present, the field must be empty or zero-value.",
+   "gold_anchor": "sshConfig := sshConfiguration{}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHConfiguration with only `proxycommand ssh -W %h:%p step` returns proxyCommand \"ssh -W %h:%p step\" and no other populated fields.",
+   "covering_prose": "Must handle cases where only a single `proxycommand ...` or `proxyjump ...` line is present, setting only the corresponding field in the result.",
+   "gold_anchor": "sshConfig.proxyCommand = strings.TrimPrefix(line, \"proxycommand \")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHConfiguration with only `proxyjump step` returns proxyJump \"step\" and no other populated fields.",
+   "covering_prose": "Must handle cases where only a single `proxycommand ...` or `proxyjump ...` line is present, setting only the corresponding field in the result.",
+   "gold_anchor": "sshConfig.proxyJump = strings.TrimPrefix(line, \"proxyjump \")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHScan skips comment lines beginning with `# ` and does not include them in the returned map.",
+   "covering_prose": "Only lines in the format `<host> <keyType> <key>` should be parsed, and lines that are empty or start with `#` must be skipped. The returned map must include only entries for valid key lines, matching exactly the input.",
+   "gold_anchor": "if line == \"\" || strings.HasPrefix(line, \"# \") {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHScan maps key type `ssh-ed25519` to key `AAAAC3NzaC1lZDI1NTE5AAAAIGuUutp6L4whnv5YzyjFuQM8TQF2G01M+OGolSfRnPgD`.",
+   "covering_prose": "Must implement a package level function `parseSSHScan` that accepts a string input and returns a `map[string]string` mapping key type to key value.",
+   "gold_anchor": "keys[ss[1]] = ss[2]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHScan maps key type `ssh-rsa` to the long ssh-rsa key value from the valid `[127.0.0.1]:2222 ssh-rsa ...` line.",
+   "covering_prose": "Only lines in the format `<host> <keyType> <key>` should be parsed, and lines that are empty or start with `#` must be skipped. The returned map must include only entries for valid key lines, matching exactly the input.",
+   "gold_anchor": "if ss := strings.Split(line, \" \"); len(ss) == 3 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHScan maps key type `ecdsa-sha2-nistp256` to key `AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCvonZPuWvVd+qqVaIkC7IMP1GWITccQKCZWZCgbsES5/tzFlhJtcaaeVjnjBCbwAgRyhxyNj2FtyXKtKlaWEeQ=`.",
+   "covering_prose": "Must implement a package level function `parseSSHScan` that accepts a string input and returns a `map[string]string` mapping key type to key value.",
+   "gold_anchor": "keys[ss[1]] = ss[2]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHScan ignores the trailing whitespace-only line because it is not in `<host> <keyType> <key>` format.",
+   "covering_prose": "Only lines in the format `<host> <keyType> <key>` should be parsed, and lines that are empty or start with `#` must be skipped. The returned map must include only entries for valid key lines, matching exactly the input.",
+   "gold_anchor": "if ss := strings.Split(line, \" \"); len(ss) == 3 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHKeygen skips the leading `# Host [127.0.0.1]:2222 found: line 6 ` comment line.",
+   "covering_prose": "The function must skip any lines that are empty or start with `#`, support parsing both plain (`<host> <keyType> <key>`) and hashed (`|1|... <keyType> <key>`) known_hosts entries, and must return a non-nil error if no valid key type and key are found.",
+   "gold_anchor": "if line == \"\" || strings.HasPrefix(line, \"# \") {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHKeygen parses hashed known_hosts entry `|1|... ecdsa-sha2-nistp256 ...` and returns keyType `ecdsa-sha2-nistp256`.",
+   "covering_prose": "The function must skip any lines that are empty or start with `#`, support parsing both plain (`<host> <keyType> <key>`) and hashed (`|1|... <keyType> <key>`) known_hosts entries, and must return a non-nil error if no valid key type and key are found.",
+   "gold_anchor": "if strings.HasPrefix(line, \"|1|\") {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHKeygen parses hashed known_hosts entry and returns key `AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCvonZPuWvVd+qqVaIkC7IMP1GWITccQKCZWZCgbsES5/tzFlhJtcaaeVjnjBCbwAgRyhxyNj2FtyXKtKlaWEeQ=`.",
+   "covering_prose": "The function must skip any lines that are empty or start with `#`, support parsing both plain (`<host> <keyType> <key>`) and hashed (`|1|... <keyType> <key>`) known_hosts entries, and must return a non-nil error if no valid key type and key are found.",
+   "gold_anchor": "return ss[1], ss[2], nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHKeygen skips the leading `# Host vuls found: line 6 ` comment line.",
+   "covering_prose": "The function must skip any lines that are empty or start with `#`, support parsing both plain (`<host> <keyType> <key>`) and hashed (`|1|... <keyType> <key>`) known_hosts entries, and must return a non-nil error if no valid key type and key are found.",
+   "gold_anchor": "if line == \"\" || strings.HasPrefix(line, \"# \") {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHKeygen parses plain known_hosts entry `vuls ecdsa-sha2-nistp256 ...` and returns keyType `ecdsa-sha2-nistp256`.",
+   "covering_prose": "The function must skip any lines that are empty or start with `#`, support parsing both plain (`<host> <keyType> <key>`) and hashed (`|1|... <keyType> <key>`) known_hosts entries, and must return a non-nil error if no valid key type and key are found.",
+   "gold_anchor": "if ss := strings.Split(line, \" \"); len(ss) == 3 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHKeygen parses plain known_hosts entry and returns key `AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=`.",
+   "covering_prose": "The function must skip any lines that are empty or start with `#`, support parsing both plain (`<host> <keyType> <key>`) and hashed (`|1|... <keyType> <key>`) known_hosts entries, and must return a non-nil error if no valid key type and key are found.",
+   "gold_anchor": "return ss[1], ss[2], nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseSSHKeygen on input `invalid` returns empty keyType and empty key.",
+   "covering_prose": null,
+   "gold_anchor": "return \"\", \"\", xerrors.New(\"Failed to parse ssh-keygen result. err: public key not found\")",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

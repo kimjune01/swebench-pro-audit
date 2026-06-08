@@ -1,0 +1,81 @@
+{
+ "case": "future-architect_aeaf3086",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 10,
+ "n_covered": 9,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "A callable helper named ensure must exist with parameters servers map, path string, scanResults, and generateFunc, returning needsOverwrite bool and error.",
+   "covering_prose": null,
+   "gold_anchor": "func ensure(servers map[string]c.ServerInfo, path string, scanResults models.ScanResults, generateFunc func() (string, error)) (needsOverwrite bool, err error) {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For a host scan result with an existing valid UUID under serverName, assign that UUID to ServerUUID and return needsOverwrite false without changing the servers map.",
+   "covering_prose": "For each scan result corresponding to a host, if the `servers` map contains a valid UUID for that `serverName`, it must be assigned to the result\u2019s `ServerUUID`; otherwise, a new UUID must be generated with the provided function, stored in the map and flagged as requiring an overwrite.",
+   "gold_anchor": "scanResults[i].ServerUUID = id",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a host scan result with no UUID under serverName, generate a UUID using the supplied generator, store it under serverName, assign it to ServerUUID, and return needsOverwrite true.",
+   "covering_prose": "For each scan result corresponding to a host, if the `servers` map contains a valid UUID for that `serverName`, it must be assigned to the result\u2019s `ServerUUID`; otherwise, a new UUID must be generated with the provided function, stored in the map and flagged as requiring an overwrite.",
+   "gold_anchor": "serverInfo.UUIDs[name] = serverUUID",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a container scan result with no host UUID under serverName, generate a host UUID using the supplied generator, store it under serverName, assign it to ServerUUID, and mark overwrite true.",
+   "covering_prose": "When scanning with the `-containers-only` mode, the host UUID must still be ensured: if the host entry under `serverName` is missing or invalid, a new UUID must be generated and stored under `serverName`, and an overwrite must be marked.",
+   "gold_anchor": "serverInfo.UUIDs[r.ServerName], err = generateFunc()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a container scan result whose container UUID key is missing, store the generated container UUID under containerName@serverName, assign it to Container.UUID, and mark overwrite true.",
+   "covering_prose": "For containers, entries in the UUID map must be stored using the format `containerName@serverName`. If the corresponding key does not exist or contains an invalid UUID, the function must generate a new one using the supplied generator, store it in the map and mark that an overwrite is needed. If it exists and is valid, it should be reused without marking an overwrite.",
+   "gold_anchor": "name = fmt.Sprintf(\"%s@%s\", r.Container.Name, r.ServerName)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a container scan result with an existing valid host UUID and missing container UUID, preserve the host UUID, generate only the container UUID, assign ServerUUID to the existing host UUID, assign Container.UUID to the generated UUID, and mark overwrite true.",
+   "covering_prose": "When assigning the container UUID in a scan result, the result must also receive the host UUID (either obtained or generated previously) in `ServerUUID` to maintain the relationship between the two identifiers.",
+   "gold_anchor": "scanResults[i].ServerUUID = serverInfo.UUIDs[r.ServerName]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a container scan result with existing valid host and container UUIDs, reuse both UUIDs, assign ServerUUID and Container.UUID from the map, and return needsOverwrite false.",
+   "covering_prose": "For containers, entries in the UUID map must be stored using the format `containerName@serverName`. If the corresponding key does not exist or contains an invalid UUID, the function must generate a new one using the supplied generator, store it in the map and mark that an overwrite is needed. If it exists and is valid, it should be reused without marking an overwrite.",
+   "gold_anchor": "scanResults[i].Container.UUID = id",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a container scan result with a missing host UUID but an existing valid container UUID, generate and store the host UUID, preserve and reuse the container UUID, assign both result fields, and mark overwrite true.",
+   "covering_prose": "When assigning the container UUID in a scan result, the result must also receive the host UUID (either obtained or generated previously) in `ServerUUID` to maintain the relationship between the two identifiers.",
+   "gold_anchor": "scanResults[i].ServerUUID = serverInfo.UUIDs[r.ServerName]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For invalid host and invalid container UUID strings, regenerate both values with the supplied generator, overwrite both map entries, assign both result fields, and return needsOverwrite true.",
+   "covering_prose": "If the UUID map for a server is nil, it must be initialized to an empty map before use; UUID validity must be determined by `uuid.ParseUUID`.",
+   "gold_anchor": "} else if _, err := uuid.ParseUUID(id); err != nil {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The generated UUID value in all generation cases is exactly b5d63a00-e4cb-536a-a8f8-ef217bd2624d when the supplied generator returns that value.",
+   "covering_prose": "a new UUID must be generated using a provided function",
+   "gold_anchor": "generateFunc()",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "case": "gravitational_19081df8",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "With DatabaseAWSRegion set to \"us-west-1\", the generated static database config parses with databases.Databases[0].AWS.Region equal to \"us-west-1\".",
+   "covering_prose": "In `lib/config/database.go`, the YAML template for `db_service` must conditionally render cloud provider-specific sections when corresponding fields are defined. This includes:  An `aws` section with optional `region` and `redshift.cluster_id` fields,  An `ad` section with optional `domain`, `spn`, and `keytab_file` fields, A `gcp` section with optional `project_id` and `instance_id` fields.",
+   "gold_anchor": "region: {{ .DatabaseAWSRegion }}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With DatabaseAWSRedshiftClusterID set to \"redshift-cluster-1\", the generated static database config parses with databases.Databases[0].AWS.Redshift.ClusterID equal to \"redshift-cluster-1\".",
+   "covering_prose": "In `lib/config/database.go`, the YAML template for `db_service` must conditionally render cloud provider-specific sections when corresponding fields are defined. This includes:  An `aws` section with optional `region` and `redshift.cluster_id` fields,  An `ad` section with optional `domain`, `spn`, and `keytab_file` fields, A `gcp` section with optional `project_id` and `instance_id` fields.",
+   "gold_anchor": "cluster_id: {{ .DatabaseAWSRedshiftClusterID }}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With DatabaseADDomain set to \"EXAMPLE.com\", the generated static database config parses with databases.Databases[0].AD.Domain equal to \"EXAMPLE.com\".",
+   "covering_prose": "In `lib/config/database.go`, the YAML template for `db_service` must conditionally render cloud provider-specific sections when corresponding fields are defined. This includes:  An `aws` section with optional `region` and `redshift.cluster_id` fields,  An `ad` section with optional `domain`, `spn`, and `keytab_file` fields, A `gcp` section with optional `project_id` and `instance_id` fields.",
+   "gold_anchor": "domain: {{ .DatabaseADDomain }}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With DatabaseADSPN set to \"MSSQLSvc/ec2amaz-4kn05du.dbadir.teleportdemo.net:1433\", the generated static database config parses with databases.Databases[0].AD.SPN equal to that value.",
+   "covering_prose": "In `lib/config/database.go`, the YAML template for `db_service` must conditionally render cloud provider-specific sections when corresponding fields are defined. This includes:  An `aws` section with optional `region` and `redshift.cluster_id` fields,  An `ad` section with optional `domain`, `spn`, and `keytab_file` fields, A `gcp` section with optional `project_id` and `instance_id` fields.",
+   "gold_anchor": "spn: {{ .DatabaseADSPN }}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With DatabaseADKeytabFile set to \"/path/to/keytab\", the generated static database config parses with databases.Databases[0].AD.KeytabFile equal to \"/path/to/keytab\".",
+   "covering_prose": "In `lib/config/database.go`, the YAML template for `db_service` must conditionally render cloud provider-specific sections when corresponding fields are defined. This includes:  An `aws` section with optional `region` and `redshift.cluster_id` fields,  An `ad` section with optional `domain`, `spn`, and `keytab_file` fields, A `gcp` section with optional `project_id` and `instance_id` fields.",
+   "gold_anchor": "keytab_file: {{ .DatabaseADKeytabFile }}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With DatabaseGCPProjectID set to \"xxx-1234\", the generated static database config parses with databases.Databases[0].GCP.ProjectID equal to \"xxx-1234\".",
+   "covering_prose": "In `lib/config/database.go`, the YAML template for `db_service` must conditionally render cloud provider-specific sections when corresponding fields are defined. This includes:  An `aws` section with optional `region` and `redshift.cluster_id` fields,  An `ad` section with optional `domain`, `spn`, and `keytab_file` fields, A `gcp` section with optional `project_id` and `instance_id` fields.",
+   "gold_anchor": "project_id: {{ .DatabaseGCPProjectID }}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With DatabaseGCPInstanceID set to \"example\", the generated static database config parses with databases.Databases[0].GCP.InstanceID equal to \"example\".",
+   "covering_prose": "In `lib/config/database.go`, the YAML template for `db_service` must conditionally render cloud provider-specific sections when corresponding fields are defined. This includes:  An `aws` section with optional `region` and `redshift.cluster_id` fields,  An `ad` section with optional `domain`, `spn`, and `keytab_file` fields, A `gcp` section with optional `project_id` and `instance_id` fields.",
+   "gold_anchor": "instance_id: {{ .DatabaseGCPInstanceID }}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With DatabaseCACertFile set to \"/path/to/pem\", the generated static database config parses with databases.Databases[0].TLS.CACertFile equal to \"/path/to/pem\".",
+   "covering_prose": "In `lib/config/database.go`, the YAML configuration block for each `db_service` entry must support the conditional inclusion of a `tls` section with a `ca_cert_file` field when the `DatabaseCACertFile` value is present, enabling database configurations to optionally declare a TLS CA certificate path.",
+   "gold_anchor": "ca_cert_file: {{ .DatabaseCACertFile }}",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

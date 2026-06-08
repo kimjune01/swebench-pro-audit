@@ -1,0 +1,123 @@
+{
+ "case": "future-architect_61c39637",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 11,
+ "n_covered": 8,
+ "n_gap": 3,
+ "n_out_of_scope": 5,
+ "rows": [
+  {
+   "test": "ConvertToModel returns a DebianSecurityTracker CveContent for Debian CVE input.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ConvertToModel copies the input CVE ID into CveID, e.g. CVE-2022-39260 and CVE-2023-48795.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ConvertToModel copies the CVE description text into Summary.",
+   "covering_prose": "- The `ConvertToModel` function must also populate non-severity fields as follows: `SourceLink` set to the Debian Security Tracker URL for the CVE (`https://security-tracker.debian.org/tracker/<CVE-ID>`), `Summary` copied from the CVE description text, and `Optional[\"attack range\"]` set to the Debian scope value (e.g., `\"local\"`) when present.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ConvertToModel sets SourceLink to https://security-tracker.debian.org/tracker/<CVE-ID>, e.g. https://security-tracker.debian.org/tracker/CVE-2022-39260 and https://security-tracker.debian.org/tracker/CVE-2023-48795.",
+   "covering_prose": "- The `ConvertToModel` function must also populate non-severity fields as follows: `SourceLink` set to the Debian Security Tracker URL for the CVE (`https://security-tracker.debian.org/tracker/<CVE-ID>`), `Summary` copied from the CVE description text, and `Optional[\"attack range\"]` set to the Debian scope value (e.g., `\"local\"`) when present.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ConvertToModel sets Optional to map[string]string{\"attack range\": \"local\"} when the Debian scope is local.",
+   "covering_prose": "- The `ConvertToModel` function must also populate non-severity fields as follows: `SourceLink` set to the Debian Security Tracker URL for the CVE (`https://security-tracker.debian.org/tracker/<CVE-ID>`), `Summary` copied from the CVE description text, and `Optional[\"attack range\"]` set to the Debian scope value (e.g., `\"local\"`) when present.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ConvertToModel with a single unique urgency not yet assigned stores Cvss2Severity and Cvss3Severity as \"not yet assigned\".",
+   "covering_prose": "- The `ConvertToModel` function in the Debian handler must collect all severity values across package releases for a CVE, eliminate duplicates, sort them by the ranking `unknown < unimportant < not yet assigned < end-of-life < low < medium < high` (values not in this list rank below `unknown`), join them with `|`, and store the joined string in both `Cvss2Severity` and `Cvss3Severity`.",
+   "gold_anchor": "severity := strings.Join(ss, \"|\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ConvertToModel collects severities across multiple packages and releases, removes duplicates, and stores \"unimportant|not yet assigned\" in Cvss2Severity and Cvss3Severity.",
+   "covering_prose": "- The `ConvertToModel` function in the Debian handler must collect all severity values across package releases for a CVE, eliminate duplicates, sort them by the ranking `unknown < unimportant < not yet assigned < end-of-life < low < medium < high` (values not in this list rank below `unknown`), join them with `|`, and store the joined string in both `Cvss2Severity` and `Cvss3Severity`.",
+   "gold_anchor": "slices.SortFunc(ss, deb.CompareSeverity)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CompareSeverity(\"low\", \"medium\") returns -1.",
+   "covering_prose": "- The `CompareSeverity` method of `Debian` must return a negative value if the first severity ranks lower than the second, zero if equal, and a positive value if higher, using the rank order `unknown < unimportant < not yet assigned < end-of-life < low < medium < high`, and treating any undefined label as lower than `unknown`.",
+   "gold_anchor": "return cmp.Compare(slices.Index(severityRank, a), slices.Index(severityRank, b))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CompareSeverity(\"low\", \"low\") returns 0.",
+   "covering_prose": "- The `CompareSeverity` method of `Debian` must return a negative value if the first severity ranks lower than the second, zero if equal, and a positive value if higher, using the rank order `unknown < unimportant < not yet assigned < end-of-life < low < medium < high`, and treating any undefined label as lower than `unknown`.",
+   "gold_anchor": "return cmp.Compare(slices.Index(severityRank, a), slices.Index(severityRank, b))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CompareSeverity(\"medium\", \"low\") returns +1.",
+   "covering_prose": "- The `CompareSeverity` method of `Debian` must return a negative value if the first severity ranks lower than the second, zero if equal, and a positive value if higher, using the rank order `unknown < unimportant < not yet assigned < end-of-life < low < medium < high`, and treating any undefined label as lower than `unknown`.",
+   "gold_anchor": "return cmp.Compare(slices.Index(severityRank, a), slices.Index(severityRank, b))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CompareSeverity(\"undefined\", \"unknown\") returns -1 because undefined labels rank lower than unknown.",
+   "covering_prose": "- The `CompareSeverity` method of `Debian` must return a negative value if the first severity ranks lower than the second, zero if equal, and a positive value if higher, using the rank order `unknown < unimportant < not yet assigned < end-of-life < low < medium < high`, and treating any undefined label as lower than `unknown`.",
+   "gold_anchor": "return cmp.Compare(slices.Index(severityRank, a), slices.Index(severityRank, b))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Cvss3Scores on a DebianSecurityTracker entry with Cvss3Severity \"not yet assigned|low\" computes the score from the highest-ranked label, low, yielding Score 3.9.",
+   "covering_prose": "- The `Cvss3Scores` method on `VulnInfo` must, for `DebianSecurityTracker` entries with a pipe-joined severity string, use the highest-ranked label from that string to compute the CVSS score (using the existing rough mapping utility) and must preserve the full joined string uppercased in the returned `Severity` field.",
+   "gold_anchor": "Score:                severityToCvssScoreRoughly(ss[len(ss)-1]),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Cvss3Scores preserves the full pipe-joined Debian severity uppercased as \"NOT YET ASSIGNED|LOW\".",
+   "covering_prose": "- The `Cvss3Scores` method on `VulnInfo` must, for `DebianSecurityTracker` entries with a pipe-joined severity string, use the highest-ranked label from that string to compute the CVSS score (using the existing rough mapping utility) and must preserve the full joined string uppercased in the returned `Severity` field.",
+   "gold_anchor": "Severity:             strings.ToUpper(cont.Cvss3Severity),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Cvss3Scores returns Type DebianSecurityTracker for the DebianSecurityTracker input entry.",
+   "covering_prose": null,
+   "gold_anchor": "Type: ctype,",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Cvss3Scores returns Cvss Type CVSS3 for the DebianSecurityTracker severity-derived score.",
+   "covering_prose": null,
+   "gold_anchor": "Type:                 CVSS3,",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Cvss3Scores marks the DebianSecurityTracker severity-derived score as CalculatedBySeverity true.",
+   "covering_prose": null,
+   "gold_anchor": "CalculatedBySeverity: true,",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

@@ -1,0 +1,102 @@
+{
+ "case": "future-architect_e4728e38",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 13,
+ "n_covered": 8,
+ "n_gap": 5,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "CveContents are keyed by source using names such as `trivy:nvd`, `trivy:debian`, `trivy:ghsa`, `trivy:oracle-oval`, `trivy:redhat`, and `trivy:ubuntu` instead of a single `trivy` key.",
+   "covering_prose": "Each CVE entry should include separate `CveContent` objects for each source, with keys formatted as `trivy:<source>` (for example, `trivy:debian`, `trivy:nvd`, `trivy:redhat`, `trivy:ubuntu`).",
+   "gold_anchor": "fmt.Sprintf(\"%s:%s\", models.Trivy, source)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For each `VendorSeverity` source, the parser emits a source-specific `CveContent` containing `Type`, `CveID`, `Title`, `Summary`, `Cvss3Severity`, and `References`.",
+   "covering_prose": "These objects must contain all relevant fields, including severity, CVSS metrics, and references, as provided by the specific source.",
+   "gold_anchor": "for source, severity := range vuln.VendorSeverity",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For each `CVSS` source, the parser emits a source-specific `CveContent` containing `Type`, `CveID`, `Title`, `Summary`, `Cvss2Score`, `Cvss2Vector`, `Cvss3Score`, `Cvss3Vector`, and `References`.",
+   "covering_prose": "These entries must preserve the severity and CVSS values associated with each source.",
+   "gold_anchor": "for source, cvss := range vuln.CVSS",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a source appears in both `VendorSeverity` and `CVSS`, the expected result contains two separate `CveContent` objects under the same source key rather than one merged object.",
+   "covering_prose": null,
+   "gold_anchor": "append(vulnInfo.CveContents[models.CveContentType(fmt.Sprintf(\"%s:%s\", models.Trivy, source))], models.CveContent{",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For sources appearing in both `VendorSeverity` and `CVSS`, the severity-only `CveContent` appears before the CVSS-score `CveContent` in the slice.",
+   "covering_prose": null,
+   "gold_anchor": "for source, severity := range vuln.VendorSeverity",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "A Trivy numeric vendor severity value of `1` is represented as `Cvss3Severity: \"LOW\"`.",
+   "covering_prose": null,
+   "gold_anchor": "Cvss3Severity: trivydbTypes.SeverityNames[severity]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "A Trivy numeric vendor severity value of `2` is represented as `Cvss3Severity: \"MEDIUM\"`.",
+   "covering_prose": null,
+   "gold_anchor": "Cvss3Severity: trivydbTypes.SeverityNames[severity]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "A Trivy numeric vendor severity value of `3` is represented as `Cvss3Severity: \"HIGH\"`.",
+   "covering_prose": null,
+   "gold_anchor": "Cvss3Severity: trivydbTypes.SeverityNames[severity]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The same CVE can have different severities across source keys, such as `trivy:redhat` having `HIGH` while `trivy:ubuntu` has `MEDIUM`.",
+   "covering_prose": "Each `CveContent` entry generated in `contrib/trivy/pkg/converter.go` and `detector/library.go` should correctly represent differences in `VendorSeverity` and `Cvss3Severity` across sources, ensuring that when the same CVE is reported by multiple vendors (for example, Debian, Ubuntu, NVD, RedHat), each entry preserves the distinct severity and scoring information from its originating source.",
+   "gold_anchor": "Cvss3Severity: trivydbTypes.SeverityNames[severity]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Each generated Trivy reference in these expected `CveContent` entries has `Source: \"trivy\"` and preserves the input URL in `Link`.",
+   "covering_prose": "These objects must contain all relevant fields, including severity, CVSS metrics, and references, as provided by the specific source.",
+   "gold_anchor": "models.Reference{Source: \"trivy\", Link: refURL}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The expected source-specific entries preserve CVE identity and descriptive metadata from the Trivy vulnerability: `CveID`, `Title`, and `Summary`.",
+   "covering_prose": "Each generated `CveContent` entry should include the fields `Type`, `CveID`, `Title`, `Summary`, `Cvss2Score`, `Cvss2Vector`, `Cvss3Score`, `Cvss3Vector`, `Cvss3Severity`, and `References` to ensure that vulnerability records contain complete identification, scoring, and reference information.",
+   "gold_anchor": "CveID:         vuln.VulnerabilityID",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For CVSS v2 data, the expected `CveContent` preserves concrete scores and vectors such as `Cvss2Score: 4.3`, `Cvss2Vector: \"AV:N/AC:M/Au:N/C:N/I:P/A:N\"`, `Cvss2Score: 7.5`, and `Cvss2Vector: \"AV:N/AC:L/Au:N/C:P/I:P/A:P\"`.",
+   "covering_prose": "These entries must preserve the severity and CVSS values associated with each source.",
+   "gold_anchor": "Cvss2Score:   cvss.V2Score",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For CVSS v3 data, the expected `CveContent` preserves concrete scores and vectors such as `Cvss3Score: 3.7` and `Cvss3Vector: \"CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N\"`.",
+   "covering_prose": "These entries must preserve the severity and CVSS values associated with each source.",
+   "gold_anchor": "Cvss3Score:   cvss.V3Score",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

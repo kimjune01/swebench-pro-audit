@@ -1,0 +1,74 @@
+{
+ "case": "gravitational_12cdaed6",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "The Kubernetes backend test code can reference an exported `NamespaceEnv` identifier, and that identifier names the namespace environment variable used by the backend.",
+   "covering_prose": "Export a constant `NamespaceEnv` with the value `\"KUBE_NAMESPACE\"` to reference the Kubernetes namespace environment variable.",
+   "gold_anchor": "NamespaceEnv = \"KUBE_NAMESPACE\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`TestBackend_Exists` sets the namespace environment variable by calling `t.Setenv(NamespaceEnv, tt.fields.namespace)` when the test case namespace is non-empty.",
+   "covering_prose": "All tests that simulate the backend environment must set the `KUBE_NAMESPACE` environment variable using `NamespaceEnv` and the `TELEPORT_REPLICA_NAME` variable explicitly.",
+   "gold_anchor": "NamespaceEnv = \"KUBE_NAMESPACE\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`TestBackend_Get` sets the namespace environment variable by calling `t.Setenv(NamespaceEnv, tt.fields.namespace)` when the test case namespace is non-empty.",
+   "covering_prose": "All tests that simulate the backend environment must set the `KUBE_NAMESPACE` environment variable using `NamespaceEnv` and the `TELEPORT_REPLICA_NAME` variable explicitly.",
+   "gold_anchor": "NamespaceEnv = \"KUBE_NAMESPACE\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`TestBackend_Put` sets the namespace environment variable by calling `t.Setenv(NamespaceEnv, tt.fields.namespace)` when the test case namespace is non-empty.",
+   "covering_prose": "All tests that simulate the backend environment must set the `KUBE_NAMESPACE` environment variable using `NamespaceEnv` and the `TELEPORT_REPLICA_NAME` variable explicitly.",
+   "gold_anchor": "NamespaceEnv = \"KUBE_NAMESPACE\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`NewWithClient()` treats the value stored under `NamespaceEnv` as the backend `Namespace`, so `Exists()`, `Get()`, and `Put()` use the namespace supplied by the tests through `NamespaceEnv`.",
+   "covering_prose": "When creating the Kubernetes backend configuration in `NewWithClient()`, the `Namespace` field must be initialized from the `KUBE_NAMESPACE` environment variable via `NamespaceEnv`.",
+   "gold_anchor": "Namespace: os.Getenv(NamespaceEnv)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`NewWithClient()` returns an error for a test case where `KUBE_NAMESPACE` is not set before `Exists()` can run.",
+   "covering_prose": "In the Kubernetes backend constructor (`NewWithClient()`), verify that the environment variables `NamespaceEnv` (`KUBE_NAMESPACE`) and `TELEPORT_REPLICA_NAME` are set; if either is empty, the method must return an error with the message: `environment variable \"%q\" not set or empty`.",
+   "gold_anchor": "for _, env := range []string{teleportReplicaNameEnv, NamespaceEnv} {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`NewWithClient()` returns an error for a test case where `TELEPORT_REPLICA_NAME` is not set before `Exists()` can run.",
+   "covering_prose": "In the Kubernetes backend constructor (`NewWithClient()`), verify that the environment variables `NamespaceEnv` (`KUBE_NAMESPACE`) and `TELEPORT_REPLICA_NAME` are set; if either is empty, the method must return an error with the message: `environment variable \"%q\" not set or empty`.",
+   "gold_anchor": "for _, env := range []string{teleportReplicaNameEnv, NamespaceEnv} {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`NewWithClient()` formats the missing-environment error as `environment variable \"%q\" not set or empty`.",
+   "covering_prose": "`environment variable \"%q\" not set or empty`.",
+   "gold_anchor": "return nil, trace.BadParameter(\"environment variable %q not set or empty\", env)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`TestBackend_Put` uses the payload byte slice value `[]byte(\"testData\")`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

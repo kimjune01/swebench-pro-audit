@@ -1,0 +1,130 @@
+{
+ "case": "future-architect_76267a54",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 12,
+ "n_covered": 12,
+ "n_gap": 0,
+ "n_out_of_scope": 5,
+ "rows": [
+  {
+   "test": "OS package libgnutls30 is converted with Version \"3.6.7-4\" by combining Version \"3.6.7\" and Release \"4\" with a dash.",
+   "covering_prose": "Maintain the complete package version by combining the base version with the release identifier in the format \"version-release\", and omit the release portion entirely when it is not present so that no trailing dash remains.",
+   "gold_anchor": "pv = fmt.Sprintf(\"%s-%s\", pv, p.Release)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OS package libgnutls30 preserves Arch as \"amd64\".",
+   "covering_prose": "Ensure that the package architecture information from the source data is preserved in the converted results exactly as provided.",
+   "gold_anchor": "Arch:    p.Arch,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Source package gnutls28 is created for binary package libgnutls30 because the package declares SrcName \"gnutls28\".",
+   "covering_prose": "Provide for the creation of source package entries for every package that declares a source name, including when the binary name and source name are identical.",
+   "gold_anchor": "v, ok := srcPkgs[p.SrcName]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Source package gnutls28 has Version \"3.6.7-4\" by combining SrcVersion \"3.6.7\" and SrcRelease \"4\" with a dash.",
+   "covering_prose": "Maintain the source package version using the source version and release fields, applying the same combination and omission rules as for binary packages.",
+   "gold_anchor": "sv = fmt.Sprintf(\"%s-%s\", sv, p.SrcRelease)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Source package gnutls28 has BinaryNames exactly including \"libgnutls30\".",
+   "covering_prose": "Ensure that each source package maintains a list of binary names, that this list includes the related binary even when identical to the source name, and that duplicate entries are avoided.",
+   "gold_anchor": "v.AddBinaryName(p.Name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Source package apt is present even when source name and binary name are identical.",
+   "covering_prose": "Provide for the creation of source package entries for every package that declares a source name, including when the binary name and source name are identical.",
+   "gold_anchor": "v, ok := srcPkgs[p.SrcName]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Source package apt has BinaryNames exactly including identical binary name \"apt\".",
+   "covering_prose": "Ensure that each source package maintains a list of binary names, that this list includes the related binary even when identical to the source name, and that duplicate entries are avoided.",
+   "gold_anchor": "v.AddBinaryName(p.Name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Source package apt has Version \"1.8.2.3\" with no trailing dash when no source release is present.",
+   "covering_prose": "Maintain the source package version using the source version and release fields, applying the same combination and omission rules as for binary packages.",
+   "gold_anchor": "if p.SrcRelease != \"\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Source package adduser is present even when source name and binary name are identical.",
+   "covering_prose": "Provide for the creation of source package entries for every package that declares a source name, including when the binary name and source name are identical.",
+   "gold_anchor": "v, ok := srcPkgs[p.SrcName]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Source package adduser has BinaryNames exactly including identical binary name \"adduser\".",
+   "covering_prose": "Ensure that each source package maintains a list of binary names, that this list includes the related binary even when identical to the source name, and that duplicate entries are avoided.",
+   "gold_anchor": "v.AddBinaryName(p.Name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Source package adduser has Version \"3.118\" with no trailing dash when no source release is present.",
+   "covering_prose": "Maintain the source package version using the source version and release fields, applying the same combination and omission rules as for binary packages.",
+   "gold_anchor": "if p.SrcRelease != \"\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Adding a binary name to a source package avoids duplicate entries.",
+   "covering_prose": "Ensure that each source package maintains a list of binary names, that this list includes the related binary even when identical to the source name, and that duplicate entries are avoided.",
+   "gold_anchor": "if slices.Contains(s.BinaryNames, name) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OS vulnerability CVE-2021-20231 includes affected package name \"libgnutls30\".",
+   "covering_prose": "Provide for vulnerabilities of operating system packages to include affected package names, their fix state, and the version in which they are fixed when available.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "OS vulnerability CVE-2021-20231 includes fixed version \"3.6.7-4+deb10u7\".",
+   "covering_prose": "Provide for vulnerabilities of operating system packages to include affected package names, their fix state, and the version in which they are fixed when available.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "OS vulnerability CVE-2021-20231 is represented as fixed with NotFixedYet false and FixState \"\".",
+   "covering_prose": "Provide for vulnerabilities of operating system packages to include affected package names, their fix state, and the version in which they are fixed when available.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Language package vulnerability CVE-2020-8165 is represented with type \"gemspec\", path \"Ruby\", affected package name \"activesupport\", and fixed version \"6.0.3.1, 5.2.4.3\".",
+   "covering_prose": "Ensure that vulnerabilities of language-specific packages are represented with the correct type, path, affected package names, versions, and the version in which they are fixed, along with the libraries scanned.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Library scanner entry records type \"gemspec\", lockfile path \"Ruby\", and scanned library activesupport version \"6.0.2.1\" at file path \"var/lib/gems/2.5.0/specifications/activesupport-6.0.2.1.gemspec\".",
+   "covering_prose": "Ensure that vulnerabilities of language-specific packages are represented with the correct type, path, affected package names, versions, and the version in which they are fixed, along with the libraries scanned.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

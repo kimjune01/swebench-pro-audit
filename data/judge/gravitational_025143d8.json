@@ -1,0 +1,60 @@
+{
+ "case": "gravitational_025143d8",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "A proxy config with no Kubernetes legacy block and no kube_listen_addr is accepted and leaves service.KubeProxyConfig as the zero value.",
+   "covering_prose": "The system must accept a new optional `kube_listen_addr` parameter under `proxy_service` that enables Kubernetes proxy functionality when set.",
+   "gold_anchor": "case !legacyKube && !newKube:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Legacy proxy_service.kubernetes with enabled: yes and listen_addr 0.0.0.0:8080 is accepted, enables Kubernetes proxy, and sets ListenAddr to 0.0.0.0:8080.",
+   "covering_prose": "Currently, enabling Kubernetes proxy requires verbose nested configuration under `proxy_service.kubernetes` with multiple fields like `enabled: yes` and `listen_addr`.",
+   "gold_anchor": "case legacyKube && !newKube:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Legacy proxy_service.kubernetes with KubeconfigFile /tmp/kubeconfig is accepted and copies it to KubeconfigPath.",
+   "covering_prose": "The system must maintain backward compatibility with existing legacy Kubernetes configuration format.",
+   "gold_anchor": "cfg.Proxy.Kube.KubeconfigPath = fc.Proxy.Kube.KubeconfigFile",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Legacy proxy_service.kubernetes with PublicAddr kube.example.com:443 is accepted and copies it to PublicAddrs as kube.example.com:443.",
+   "covering_prose": "The system must maintain backward compatibility with existing legacy Kubernetes configuration format.",
+   "gold_anchor": "cfg.Proxy.Kube.PublicAddrs = addrs",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "New shorthand Proxy{KubeAddr: \"0.0.0.0:8080\"} is accepted, enables Kubernetes proxy, and sets ListenAddr to 0.0.0.0:8080.",
+   "covering_prose": "The new shorthand should allow users to simply specify `kube_listen_addr: \"0.0.0.0:8080\"` to enable Kubernetes proxy functionality without the verbose nested structure.",
+   "gold_anchor": "case !legacyKube && newKube:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Specifying both kube_listen_addr 0.0.0.0:8080 and legacy kubernetes.enabled yes returns an error.",
+   "covering_prose": "The system must enforce mutual exclusivity between the legacy enabled Kubernetes block and the new shorthand parameter, rejecting configurations that specify both.",
+   "gold_anchor": "case legacyKube && newKube:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Specifying kube_listen_addr 0.0.0.0:8080 with legacy kubernetes.enabled no is accepted, enables Kubernetes proxy, and uses only the shorthand ListenAddr 0.0.0.0:8080 rather than legacy kubeconfig/public address fields.",
+   "covering_prose": "When the legacy Kubernetes block is explicitly disabled but the shorthand is set, the configuration must be accepted with the shorthand taking precedence.",
+   "gold_anchor": "legacyKube, newKube := fc.Proxy.Kube.Configured() && fc.Proxy.Kube.Enabled(), fc.Proxy.KubeAddr != \"\"",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

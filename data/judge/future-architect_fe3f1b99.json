@@ -1,0 +1,46 @@
+{
+ "case": "future-architect_fe3f1b99",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "IsValidImage returns no error when Image has Name set and Tag set, with Digest empty.",
+   "covering_prose": "An image configuration should allow specifying either a tag or a digest, but not both.",
+   "gold_anchor": "return nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "IsValidImage returns no error when Image has Name set and Digest set, with Tag empty.",
+   "covering_prose": "An image configuration should allow specifying either a tag or a digest, but not both.",
+   "gold_anchor": "return nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "IsValidImage returns an error when Image has Tag set but Name empty.",
+   "covering_prose": "Update image validation in config/tomlloader.go::IsValidImage to require Name to be non-empty and exactly one of Tag or Digest to be set; return the exact errors:",
+   "gold_anchor": "if c.Name == \"\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "IsValidImage returns an error when Image has Digest set but Name empty.",
+   "covering_prose": "Update image validation in config/tomlloader.go::IsValidImage to require Name to be non-empty and exactly one of Tag or Digest to be set; return the exact errors:",
+   "gold_anchor": "if c.Name == \"\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "IsValidImage returns an error when Image has Name set but both Tag and Digest empty.",
+   "covering_prose": "when both Tag and Digest are empty: Invalid arguments : no image tag and digest",
+   "gold_anchor": "if c.Tag == \"\" && c.Digest == \"\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

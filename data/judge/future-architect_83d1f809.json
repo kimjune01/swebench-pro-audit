@@ -1,0 +1,74 @@
+{
+ "case": "future-architect_83d1f809",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 5,
+ "n_covered": 4,
+ "n_gap": 1,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "`searchCache` is called with a `map[string]string` value, not a `*map[string]string`, so `searchCache(tt.name, tt.wpVulnCache)` compiles.",
+   "covering_prose": "- The WordPress cache lookup should operate directly on the cache map, without pointer indirection.",
+   "gold_anchor": "func searchCache(name string, wpVulnCaches map[string]string) (string, bool) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the cache contains exactly the requested key `akismet` with value `body`, `searchCache` returns value `body` and `ok == true`.",
+   "covering_prose": "- The cache lookup should clearly signal when a key exists versus when it doesn\u2019t.",
+   "gold_anchor": "value, ok := wpVulnCaches[name]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the cache contains multiple entries including requested key `akismet` with value `body`, `searchCache` returns value `body` and `ok == true`.",
+   "covering_prose": "- The cache lookup should clearly signal when a key exists versus when it doesn\u2019t.",
+   "gold_anchor": "value, ok := wpVulnCaches[name]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the cache does not contain requested key `akismet`, `searchCache` returns empty string `\"\"` and `ok == false`.",
+   "covering_prose": "- The cache lookup should clearly signal when a key exists versus when it doesn\u2019t.",
+   "gold_anchor": "value, ok := wpVulnCaches[name]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the cache map value is nil and the requested key is `akismet`, `searchCache` returns empty string `\"\"` and `ok == false` without panicking.",
+   "covering_prose": null,
+   "gold_anchor": "value, ok := wpVulnCaches[name]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "`removeInactives` returns nil when the input contains only one WordPressPackage whose Status is `inactive`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`removeInactives` returns nil when the input contains multiple WordPressPackages and all have Status `inactive`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`removeInactives` excludes a package whose Status is exactly `inactive` from the returned WordPressPackages list.",
+   "covering_prose": "- Package filtering should examine the `Status` field and exclude packages where `Status` equals `\"inactive\"`, while keeping those where `Status` equals `\"active\"`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`removeInactives` preserves a package whose Status is exactly `active` in the returned WordPressPackages list, with its fields unchanged.",
+   "covering_prose": "- Package filtering should examine the `Status` field and exclude packages where `Status` equals `\"inactive\"`, while keeping those where `Status` equals `\"active\"`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

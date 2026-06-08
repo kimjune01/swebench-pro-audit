@@ -1,0 +1,116 @@
+{
+ "case": "future-architect_fa3c08bd",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 0,
+ "n_covered": 0,
+ "n_gap": 0,
+ "n_out_of_scope": 15,
+ "rows": [
+  {
+   "test": "parsePkgName called with package type maven and name com.google.guava:guava returns namespace \"com.google.guava\".",
+   "covering_prose": "For Maven packages (`t = \"maven\"`), when `n` contains a colon (`:`) separating group and artifact (e.g., `com.google.guava:guava`), the text before the colon must be returned as the namespace and the text after the colon as the name. The subpath must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type maven and name com.google.guava:guava returns name \"guava\".",
+   "covering_prose": "For Maven packages (`t = \"maven\"`), when `n` contains a colon (`:`) separating group and artifact (e.g., `com.google.guava:guava`), the text before the colon must be returned as the namespace and the text after the colon as the name. The subpath must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type maven and name com.google.guava:guava returns subpath \"\".",
+   "covering_prose": "For Maven packages (`t = \"maven\"`), when `n` contains a colon (`:`) separating group and artifact (e.g., `com.google.guava:guava`), the text before the colon must be returned as the namespace and the text after the colon as the name. The subpath must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type pypi and name requests returns namespace \"\".",
+   "covering_prose": "For PyPI packages (`t = \"pypi\"`), the name must be normalized by lowercasing all letters and replacing underscores (`_`) with hyphens (`-`). Namespace and subpath must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type pypi and name requests returns name \"requests\".",
+   "covering_prose": "For PyPI packages (`t = \"pypi\"`), the name must be normalized by lowercasing all letters and replacing underscores (`_`) with hyphens (`-`). Namespace and subpath must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type pypi and name requests returns subpath \"\".",
+   "covering_prose": "For PyPI packages (`t = \"pypi\"`), the name must be normalized by lowercasing all letters and replacing underscores (`_`) with hyphens (`-`). Namespace and subpath must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type golang and name github.com/protobom/protobom returns namespace \"github.com/protobom\".",
+   "covering_prose": "For Golang packages (`t = \"golang\"`), when `n` is a path separated by slashes (e.g., `github.com/protobom/protobom`), the portion up to the final slash must be returned as the namespace and the final segment as the name. Subpath must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type golang and name github.com/protobom/protobom returns name \"protobom\".",
+   "covering_prose": "For Golang packages (`t = \"golang\"`), when `n` is a path separated by slashes (e.g., `github.com/protobom/protobom`), the portion up to the final slash must be returned as the namespace and the final segment as the name. Subpath must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type golang and name github.com/protobom/protobom returns subpath \"\".",
+   "covering_prose": "For Golang packages (`t = \"golang\"`), when `n` is a path separated by slashes (e.g., `github.com/protobom/protobom`), the portion up to the final slash must be returned as the namespace and the final segment as the name. Subpath must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type npm and name @babel/core returns namespace \"@babel\".",
+   "covering_prose": "For npm packages (`t = \"npm\"`), if the name begins with a scope prefix (e.g., `@babel/core`), the scope (`@babel`) must be returned as the namespace and the remainder (`core`) as the name. Subpath must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type npm and name @babel/core returns name \"core\".",
+   "covering_prose": "For npm packages (`t = \"npm\"`), if the name begins with a scope prefix (e.g., `@babel/core`), the scope (`@babel`) must be returned as the namespace and the remainder (`core`) as the name. Subpath must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type npm and name @babel/core returns subpath \"\".",
+   "covering_prose": "For npm packages (`t = \"npm\"`), if the name begins with a scope prefix (e.g., `@babel/core`), the scope (`@babel`) must be returned as the namespace and the remainder (`core`) as the name. Subpath must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type cocoapods and name GoogleUtilities/NSData+zlib returns namespace \"\".",
+   "covering_prose": "For Cocoapods packages (`t = \"cocoapods\"`), if the name contains a slash (e.g., `GoogleUtilities/NSData+zlib`), the portion before the slash must be returned as the name and the portion after the slash as the subpath. Namespace must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type cocoapods and name GoogleUtilities/NSData+zlib returns name \"GoogleUtilities\".",
+   "covering_prose": "For Cocoapods packages (`t = \"cocoapods\"`), if the name contains a slash (e.g., `GoogleUtilities/NSData+zlib`), the portion before the slash must be returned as the name and the portion after the slash as the subpath. Namespace must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "parsePkgName called with package type cocoapods and name GoogleUtilities/NSData+zlib returns subpath \"NSData+zlib\".",
+   "covering_prose": "For Cocoapods packages (`t = \"cocoapods\"`), if the name contains a slash (e.g., `GoogleUtilities/NSData+zlib`), the portion before the slash must be returned as the name and the portion after the slash as the subpath. Namespace must be empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

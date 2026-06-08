@@ -1,0 +1,88 @@
+{
+ "case": "future-architect_fd18df1d",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 8,
+ "rows": [
+  {
+   "test": "Ubuntu 12.10 at 2021-01-06 23:59:59 UTC is not found, with standard support not ended and extended support not ended.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Ubuntu 14.04 at 2021-01-06 23:59:59 UTC is found, standard support is ended, and extended support is not ended.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Ubuntu 14.10 at 2021-01-06 23:59:59 UTC is found, standard support is ended, and extended support is ended.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Ubuntu 18.04 at 2021-01-06 23:59:59 UTC is found, standard support is not ended, and extended support is not ended.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Ubuntu 18.04 at 2025-01-06 23:59:59 UTC is found, standard support is ended, and extended support is not ended.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Ubuntu 20.04 at 2021-05-01 23:59:59 UTC is found, standard support is not ended, and extended support is not ended.",
+   "covering_prose": "The scanner should treat Ubuntu 20.04 as being under extended support until April 2030 and should not mark it as EOL when analysed before that date.",
+   "gold_anchor": "ExtendedSupportUntil: time.Date(2030, 4, 1, 23, 59, 59, 0, time.UTC),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Ubuntu 20.04 at 2025-05-01 23:59:59 UTC is found, standard support is ended, and extended support is not ended.",
+   "covering_prose": "Add end\u2011of\u2011life metadata for Ubuntu\u00a020.04 that includes an extended support end date of 1\u00a0April\u00a02030 so that lifecycle checks indicate that extended support remains active until that time.",
+   "gold_anchor": "ExtendedSupportUntil: time.Date(2030, 4, 1, 23, 59, 59, 0, time.UTC),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Ubuntu 20.10 at 2021-01-06 23:59:59 UTC is found, standard support is not ended, and extended support is not ended.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Ubuntu 21.04 at 2021-01-06 23:59:59 UTC is found, standard support is not ended, and extended support is not ended.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Ubuntu 21.10 at 2021-01-06 23:59:59 UTC is found, standard support is not ended, and extended support is not ended.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Ubuntu 22.04 at 2022-05-01 23:59:59 UTC is found, standard support is not ended, and extended support is not ended.",
+   "covering_prose": "It should also recognise Ubuntu 22.04 as a valid distribution, assigning the appropriate standard and extended support periods so that packages and CVE data can be processed for that version.",
+   "gold_anchor": "\"22.04\": {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

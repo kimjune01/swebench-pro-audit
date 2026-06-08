@@ -1,0 +1,53 @@
+{
+ "case": "future-architect_d8173cdd",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "VulnInfo.Cvss40Scores() includes an Nvd CVSS v4.0 entry when Nvd content is present, in addition to the existing Mitre entry.",
+   "covering_prose": "`VulnInfo.Cvss40Scores()` should aggregate CVSS v4.0 entries in the fixed order [Mitre, Nvd], including each source if present.",
+   "gold_anchor": "+\tfor _, ctype := range []CveContentType{Mitre, Nvd} {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VulnInfo.Cvss40Scores() returns CVSS v4.0 entries in fixed source order: Mitre first, Nvd second.",
+   "covering_prose": "`VulnInfo.Cvss40Scores()` should aggregate CVSS v4.0 entries in the fixed order [Mitre, Nvd], including each source if present.",
+   "gold_anchor": "+\tfor _, ctype := range []CveContentType{Mitre, Nvd} {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The returned Nvd entry has Type Nvd and Value.Type CVSS40.",
+   "covering_prose": "`VulnInfo.Cvss40Scores()` should aggregate CVSS v4.0 entries in the fixed order [Mitre, Nvd], including each source if present.",
+   "gold_anchor": "+\tfor _, ctype := range []CveContentType{Mitre, Nvd} {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The returned Nvd CVSS v4.0 entry preserves Score 6.9 from Cvss40Score.",
+   "covering_prose": "`VulnInfo.Cvss40Scores()` should aggregate CVSS v4.0 entries in the fixed order [Mitre, Nvd], including each source if present.",
+   "gold_anchor": "+\tfor _, ctype := range []CveContentType{Mitre, Nvd} {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The returned Nvd CVSS v4.0 entry preserves Severity \"MEDIUM\" from Cvss40Severity.",
+   "covering_prose": "`VulnInfo.Cvss40Scores()` should aggregate CVSS v4.0 entries in the fixed order [Mitre, Nvd], including each source if present.",
+   "gold_anchor": "+\tfor _, ctype := range []CveContentType{Mitre, Nvd} {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The returned Nvd CVSS v4.0 entry preserves the full Cvss40Vector string \"CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X\".",
+   "covering_prose": "`VulnInfo.Cvss40Scores()` should aggregate CVSS v4.0 entries in the fixed order [Mitre, Nvd], including each source if present.",
+   "gold_anchor": "+\tfor _, ctype := range []CveContentType{Mitre, Nvd} {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

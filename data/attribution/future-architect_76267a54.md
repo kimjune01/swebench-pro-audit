@@ -1,0 +1,32 @@
+# Coverage attribution: future-architect_76267a54
+
+- instance_id: `instance_future-architect__vuls-7e91f5ef7e5712b1a3d7d5066ad6607e9debc21c`
+- verdict: **ENTAILED**  (12/12 in-gold behaviors covered; **0 GAP** = mindreading; 5 out-of-scope)
+- gold patch: [`gold.diff`](../cases/future-architect_76267a54/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/future-architect_76267a54/hidden_test.diff)  ·  spec: [`spec.md`](../cases/future-architect_76267a54/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| OS package libgnutls30 is converted with Version "3.6.7-4" by combining Version "3.6.7" and Release "4" with a dash. | [Maintain the complete package version by combining the base version with the release identifier in the format "version-release", and omit the release portion entirely when it is not present so that no trailing dash remains.](../cases/future-architect_76267a54/spec.md#L7) | [pv = fmt.Sprintf("%s-%s", pv, p.Release)](../cases/future-architect_76267a54/gold.diff#L19) |
+| OS package libgnutls30 preserves Arch as "amd64". | [Ensure that the package architecture information from the source data is preserved in the converted results exactly as provided.](../cases/future-architect_76267a54/spec.md#L7) | [Arch:    p.Arch,](../cases/future-architect_76267a54/gold.diff#L28) |
+| Source package gnutls28 is created for binary package libgnutls30 because the package declares SrcName "gnutls28". | [Provide for the creation of source package entries for every package that declares a source name, including when the binary name and source name are identical.](../cases/future-architect_76267a54/spec.md#L7) | [v, ok := srcPkgs[p.SrcName]](../cases/future-architect_76267a54/gold.diff#L31) |
+| Source package gnutls28 has Version "3.6.7-4" by combining SrcVersion "3.6.7" and SrcRelease "4" with a dash. | [Maintain the source package version using the source version and release fields, applying the same combination and omission rules as for binary packages.](../cases/future-architect_76267a54/spec.md#L7) | [sv = fmt.Sprintf("%s-%s", sv, p.SrcRelease)](../cases/future-architect_76267a54/gold.diff#L45) |
+| Source package gnutls28 has BinaryNames exactly including "libgnutls30". | [Ensure that each source package maintains a list of binary names, that this list includes the related binary even when identical to the source name, and that duplicate entries are avoided.](../cases/future-architect_76267a54/spec.md#L7) | [v.AddBinaryName(p.Name)](../cases/future-architect_76267a54/gold.diff#L38) |
+| Source package apt is present even when source name and binary name are identical. | [Provide for the creation of source package entries for every package that declares a source name, including when the binary name and source name are identical.](../cases/future-architect_76267a54/spec.md#L7) | [v, ok := srcPkgs[p.SrcName]](../cases/future-architect_76267a54/gold.diff#L31) |
+| Source package apt has BinaryNames exactly including identical binary name "apt". | [Ensure that each source package maintains a list of binary names, that this list includes the related binary even when identical to the source name, and that duplicate entries are avoided.](../cases/future-architect_76267a54/spec.md#L7) | [v.AddBinaryName(p.Name)](../cases/future-architect_76267a54/gold.diff#L38) |
+| Source package apt has Version "1.8.2.3" with no trailing dash when no source release is present. | [Maintain the source package version using the source version and release fields, applying the same combination and omission rules as for binary packages.](../cases/future-architect_76267a54/spec.md#L7) | [if p.SrcRelease != "" {](../cases/future-architect_76267a54/gold.diff#L44) |
+| Source package adduser is present even when source name and binary name are identical. | [Provide for the creation of source package entries for every package that declares a source name, including when the binary name and source name are identical.](../cases/future-architect_76267a54/spec.md#L7) | [v, ok := srcPkgs[p.SrcName]](../cases/future-architect_76267a54/gold.diff#L31) |
+| Source package adduser has BinaryNames exactly including identical binary name "adduser". | [Ensure that each source package maintains a list of binary names, that this list includes the related binary even when identical to the source name, and that duplicate entries are avoided.](../cases/future-architect_76267a54/spec.md#L7) | [v.AddBinaryName(p.Name)](../cases/future-architect_76267a54/gold.diff#L38) |
+| Source package adduser has Version "3.118" with no trailing dash when no source release is present. | [Maintain the source package version using the source version and release fields, applying the same combination and omission rules as for binary packages.](../cases/future-architect_76267a54/spec.md#L7) | [if p.SrcRelease != "" {](../cases/future-architect_76267a54/gold.diff#L44) |
+| Adding a binary name to a source package avoids duplicate entries. | [Ensure that each source package maintains a list of binary names, that this list includes the related binary even when identical to the source name, and that duplicate entries are avoided.](../cases/future-architect_76267a54/spec.md#L7) | [if slices.Contains(s.BinaryNames, name) {](../cases/future-architect_76267a54/gold.diff#L84) |
+| OS vulnerability CVE-2021-20231 includes affected package name "libgnutls30". |  | _(not in gold)_ |
+| OS vulnerability CVE-2021-20231 includes fixed version "3.6.7-4+deb10u7". |  | _(not in gold)_ |
+| OS vulnerability CVE-2021-20231 is represented as fixed with NotFixedYet false and FixState "". |  | _(not in gold)_ |
+| Language package vulnerability CVE-2020-8165 is represented with type "gemspec", path "Ruby", affected package name "activesupport", and fix |  | _(not in gold)_ |
+| Library scanner entry records type "gemspec", lockfile path "Ruby", and scanned library activesupport version "6.0.2.1" at file path "var/li |  | _(not in gold)_ |
+
+## Receipts
+- [`spec.md`](../cases/future-architect_76267a54/spec.md)
+- [`gold.diff`](../cases/future-architect_76267a54/gold.diff)
+- [`hidden_test.diff`](../cases/future-architect_76267a54/hidden_test.diff)
+- judge JSON: [`future-architect_76267a54.json`](../judge/future-architect_76267a54.json)

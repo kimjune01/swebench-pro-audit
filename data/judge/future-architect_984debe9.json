@@ -1,0 +1,95 @@
+{
+ "case": "future-architect_984debe9",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 12,
+ "n_covered": 12,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "GetEOL(Amazon, \"2023\") returns found=true and, at now=time.Date(2023, 7, 1, 23, 59, 59, 0, time.UTC), IsStandardSupportEnded(now)=false and IsExtendedSupportEnded(now)=false.",
+   "covering_prose": "- The `GetEOL` function must include accurate end-of-life mappings for Amazon Linux versions \"2023\", \"2025\", \"2027\", and \"2029\", each associated with the correct `StandardSupportUntil` date.",
+   "gold_anchor": "\"2023\": {StandardSupportUntil: time.Date(2027, 6, 30, 23, 59, 59, 0, time.UTC)},",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetEOL(Amazon, \"2031\") returns found=false and, at now=time.Date(2023, 7, 1, 23, 59, 59, 0, time.UTC), IsStandardSupportEnded(now)=false and IsExtendedSupportEnded(now)=false.",
+   "covering_prose": "- For unrecognized Amazon Linux releases, `GetEOL` must return found=false.",
+   "gold_anchor": "return \"unknown\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getAmazonLinuxVersion(\"2017.09\") returns \"1\".",
+   "covering_prose": "- The `getAmazonLinuxVersion` function must return the normalized version string for Amazon Linux releases \"2023\", \"2025\", \"2027\", and \"2029\", along with existing support for \"1\", \"2\", and \"2022\". It must return \"1\" for \"YYYY.MM\" formatted strings and \"unknown\" for unrecognized versions.",
+   "gold_anchor": "return \"1\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getAmazonLinuxVersion(\"2018.03\") returns \"1\".",
+   "covering_prose": "- The `getAmazonLinuxVersion` function must return the normalized version string for Amazon Linux releases \"2023\", \"2025\", \"2027\", and \"2029\", along with existing support for \"1\", \"2\", and \"2022\". It must return \"1\" for \"YYYY.MM\" formatted strings and \"unknown\" for unrecognized versions.",
+   "gold_anchor": "return \"1\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getAmazonLinuxVersion(\"1\") returns \"1\".",
+   "covering_prose": "- The `getAmazonLinuxVersion` function must return the normalized version string for Amazon Linux releases \"2023\", \"2025\", \"2027\", and \"2029\", along with existing support for \"1\", \"2\", and \"2022\". It must return \"1\" for \"YYYY.MM\" formatted strings and \"unknown\" for unrecognized versions.",
+   "gold_anchor": "case \"1\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getAmazonLinuxVersion(\"2\") returns \"2\".",
+   "covering_prose": "- The `getAmazonLinuxVersion` function must return the normalized version string for Amazon Linux releases \"2023\", \"2025\", \"2027\", and \"2029\", along with existing support for \"1\", \"2\", and \"2022\". It must return \"1\" for \"YYYY.MM\" formatted strings and \"unknown\" for unrecognized versions.",
+   "gold_anchor": "case \"2\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getAmazonLinuxVersion(\"2022\") returns \"2022\".",
+   "covering_prose": "- The `getAmazonLinuxVersion` function must return the normalized version string for Amazon Linux releases \"2023\", \"2025\", \"2027\", and \"2029\", along with existing support for \"1\", \"2\", and \"2022\". It must return \"1\" for \"YYYY.MM\" formatted strings and \"unknown\" for unrecognized versions.",
+   "gold_anchor": "case \"2022\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getAmazonLinuxVersion(\"2023\") returns \"2023\".",
+   "covering_prose": "- The `getAmazonLinuxVersion` function must return the normalized version string for Amazon Linux releases \"2023\", \"2025\", \"2027\", and \"2029\", along with existing support for \"1\", \"2\", and \"2022\". It must return \"1\" for \"YYYY.MM\" formatted strings and \"unknown\" for unrecognized versions.",
+   "gold_anchor": "case \"2023\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getAmazonLinuxVersion(\"2025\") returns \"2025\".",
+   "covering_prose": "- The `getAmazonLinuxVersion` function must return the normalized version string for Amazon Linux releases \"2023\", \"2025\", \"2027\", and \"2029\", along with existing support for \"1\", \"2\", and \"2022\". It must return \"1\" for \"YYYY.MM\" formatted strings and \"unknown\" for unrecognized versions.",
+   "gold_anchor": "case \"2025\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getAmazonLinuxVersion(\"2027\") returns \"2027\".",
+   "covering_prose": "- The `getAmazonLinuxVersion` function must return the normalized version string for Amazon Linux releases \"2023\", \"2025\", \"2027\", and \"2029\", along with existing support for \"1\", \"2\", and \"2022\". It must return \"1\" for \"YYYY.MM\" formatted strings and \"unknown\" for unrecognized versions.",
+   "gold_anchor": "case \"2027\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getAmazonLinuxVersion(\"2029\") returns \"2029\".",
+   "covering_prose": "- The `getAmazonLinuxVersion` function must return the normalized version string for Amazon Linux releases \"2023\", \"2025\", \"2027\", and \"2029\", along with existing support for \"1\", \"2\", and \"2022\". It must return \"1\" for \"YYYY.MM\" formatted strings and \"unknown\" for unrecognized versions.",
+   "gold_anchor": "case \"2029\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getAmazonLinuxVersion(\"2031\") returns \"unknown\".",
+   "covering_prose": "- The `getAmazonLinuxVersion` function must return the normalized version string for Amazon Linux releases \"2023\", \"2025\", \"2027\", and \"2029\", along with existing support for \"1\", \"2\", and \"2022\". It must return \"1\" for \"YYYY.MM\" formatted strings and \"unknown\" for unrecognized versions.",
+   "gold_anchor": "return \"unknown\"",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,109 @@
+{
+ "case": "future-architect_e07b6a91",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 5,
+ "rows": [
+  {
+   "test": "FilterByCvssOver returns two values: the filtered VulnInfos and an integer count of excluded items.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": "func (v VulnInfos) FilterByCvssOver(over float64) (_ VulnInfos, nFiltered int)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterByCvssOver with threshold 7.0 reports 1 excluded item.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": "nFiltered++",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterIgnoreCves returns two values: the filtered VulnInfos and an integer count of excluded items.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": "func (v VulnInfos) FilterIgnoreCves(ignoreCveIDs []string) (_ VulnInfos, nFiltered int) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterIgnoreCves for the filter ignored case reports 1 excluded item.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "FilterUnfixed returns two values: the filtered VulnInfos and an integer count of excluded items.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": "r.ScannedCves, nFiltered = r.ScannedCves.FilterUnfixed(config.Conf.IgnoreUnfixed)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterUnfixed for the filter ok case reports 1 excluded item.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "FilterIgnorePkgs returns two values: the filtered VulnInfos and an integer count of excluded items.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": "r.ScannedCves, nFiltered = r.ScannedCves.FilterIgnorePkgs(ignorePkgsRegexps)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterIgnorePkgs filter pkgs 1 reports 1 excluded item.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "FilterIgnorePkgs filter pkgs 2 reports 0 excluded items.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "FilterIgnorePkgs filter pkgs 3 reports 1 excluded item.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "FilterByConfidenceOver returns two values: the filtered VulnInfos and an integer count of excluded items.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": "func (v VulnInfos) FilterByConfidenceOver(over int) (_ VulnInfos, nFiltered int)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterByConfidenceOver with threshold 0 reports 0 excluded items.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": "nFiltered++",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterByConfidenceOver with threshold 20 reports 1 excluded item.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": "nFiltered++",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterByConfidenceOver with threshold 100 reports 0 excluded items.",
+   "covering_prose": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter.",
+   "gold_anchor": "nFiltered++",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

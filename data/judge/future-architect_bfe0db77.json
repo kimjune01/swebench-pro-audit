@@ -1,0 +1,53 @@
+{
+ "case": "future-architect_bfe0db77",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Ubuntu release 5.10 is not recognized: GetEOL for Ubuntu 5.10 returns found=false and IsStandardSupportEnded=false at 2021-01-06 23:59:59 UTC.",
+   "covering_prose": "Ubuntu release recognition should maintain support for all officially published Ubuntu releases including historical versions from `6.06` through `22.10` with clear support status mapping.",
+   "gold_anchor": "\"6.06\":  {Ended: true}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Ubuntu CVE model conversion uses Type UbuntuAPI, CveID equal to the candidate, SourceLink equal to https://ubuntu.com/security/<CVE-ID>, and an empty References list when no references are present.",
+   "covering_prose": "Ubuntu CVE model conversion should generate structures with `Type = UbuntuAPI`, `CveID = <candidate>`, `SourceLink = \"https://ubuntu.com/security/<CVE-ID>\"`, and empty `References` list when no references are present.",
+   "gold_anchor": "github.com/vulsio/gost v0.4.2-0.20230203045609-dcfab39a9ff4",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a fixed non-kernel package, detect returns only released CVEs whose fixed version is newer than the installed source version, with PackageFixStatus Name=\"pkg\" and FixedIn=\"0.0.0-2\"; the released CVE fixed in 0.0.0-0 is omitted.",
+   "covering_prose": "CVE detection results should populate `ScanResult.ScannedCves` with `PackageFixStatus` entries that distinguish fixed cases (with `FixedIn` version) from unfixed cases (with `FixState: \"open\"` and `NotFixedYet: true`).",
+   "gold_anchor": "github.com/vulsio/gost v0.4.2-0.20230203045609-dcfab39a9ff4",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an unfixed non-kernel package with Ubuntu release patch Status=\"open\", detect returns the CVE with PackageFixStatus Name=\"pkg\", FixState=\"open\", and NotFixedYet=true.",
+   "covering_prose": "CVE detection results should populate `ScanResult.ScannedCves` with `PackageFixStatus` entries that distinguish fixed cases (with `FixedIn` version) from unfixed cases (with `FixState: \"open\"` and `NotFixedYet: true`).",
+   "gold_anchor": "github.com/vulsio/gost v0.4.2-0.20230203045609-dcfab39a9ff4",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For source package linux-signed, detect links the fixed CVE only to the running kernel binary package linux-image-generic and ignores linux-headers-generic; the returned PackageFixStatus has Name=\"linux-image-generic\" and FixedIn=\"0.0.0-2\".",
+   "covering_prose": "Kernel source vulnerability association should only link vulnerabilities to binaries matching `runningKernelBinaryPkgName` for sources like `linux-signed` or `linux-meta`, ignoring other binaries such as headers.",
+   "gold_anchor": "github.com/vulsio/gost v0.4.2-0.20230203045609-dcfab39a9ff4",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For source package linux-meta with installed version 0.0.0.1 and release patch Note=\"0.0.0-2\", detect normalizes the fixed version to FixedIn=\"0.0.0.2\" and returns only the newer fixed CVE.",
+   "covering_prose": "Version normalization for kernel meta packages should transform version strings appropriately, converting patterns like `0.0.0-2` into `0.0.0.2` to align with installed versions such as `0.0.0.1` for accurate comparison.",
+   "gold_anchor": "github.com/vulsio/gost v0.4.2-0.20230203045609-dcfab39a9ff4",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

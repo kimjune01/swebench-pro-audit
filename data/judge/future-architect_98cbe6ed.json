@@ -1,0 +1,144 @@
+{
+ "case": "future-architect_98cbe6ed",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 19,
+ "n_covered": 18,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For Alpine OVAL detection, a matching non-source request for openssl 3.3.1-r3 against fixed version 3.3.2-r0 is not affected.",
+   "covering_prose": "The OVAL vulnerability detection logic should correctly identify when Alpine packages are source packages and assess vulnerabilities accordingly.",
+   "gold_anchor": "if family == constant.Alpine && !req.isSrcPack {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Alpine OVAL detection, a matching source-package request for openssl 3.3.1-r3 with binary package names [openssl, libssl3] is affected and returns fixedIn \"3.3.2-r0\".",
+   "covering_prose": "The OVAL vulnerability detection logic should correctly identify when Alpine packages are source packages and assess vulnerabilities accordingly.",
+   "gold_anchor": "if family == constant.Alpine && !req.isSrcPack {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkInstalledList parses `apk list --installed` package lines and ignores preceding WARNING lines that do not match the package-list format.",
+   "covering_prose": null,
+   "gold_anchor": "for _, match := range re.FindAllStringSubmatch(stdout, -1) {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "parseApkInstalledList extracts binary package names alpine-baselayout, alpine-baselayout-data, and ca-certificates-bundle from the package-version field by treating the last two hyphen-separated components as the version/release.",
+   "covering_prose": "Package parsing should extract package names, versions, architectures, and source package associations from Alpine package manager output.",
+   "gold_anchor": "bn := strings.Join(ss[:len(ss)-2], \"-\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkInstalledList extracts installed binary versions 3.6.5-r0 and 20240226-r0 from `apk list --installed` output.",
+   "covering_prose": "Package parsing should extract package names, versions, architectures, and source package associations from Alpine package manager output.",
+   "gold_anchor": "version := strings.Join(ss[len(ss)-2:], \"-\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkInstalledList extracts binary architecture x86_64 from `apk list --installed` output.",
+   "covering_prose": "Package parsing should extract package names, versions, architectures, and source package associations from Alpine package manager output.",
+   "gold_anchor": "Arch:    match[re.SubexpIndex(\"arch\")],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkInstalledList extracts source package names from the origin field in braces: alpine-baselayout and ca-certificates.",
+   "covering_prose": "The Alpine scanner should parse package information from `apk list` output to extract both binary package details and their associated source package names.",
+   "gold_anchor": "sn := match[re.SubexpIndex(\"origin\")]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkInstalledList groups multiple binaries with the same origin into one source package, producing BinaryNames [alpine-baselayout, alpine-baselayout-data] for alpine-baselayout in input order.",
+   "covering_prose": "The Alpine scanner should parse package information from `apk list` output to extract both binary package details and their associated source package names.",
+   "gold_anchor": "base.AddBinaryName(bn)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkInstalledList sets each source package Version from the parsed binary package version, e.g. alpine-baselayout gets 3.6.5-r0 and ca-certificates gets 20240226-r0.",
+   "covering_prose": "Package parsing should extract package names, versions, architectures, and source package associations from Alpine package manager output.",
+   "gold_anchor": "Version: version,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkIndex parses APKINDEX records separated by blank lines into binary packages.",
+   "covering_prose": "The Alpine scanner should parse package index information to build the mapping between binary packages and their source packages.",
+   "gold_anchor": "for _, s := range strings.Split(strings.TrimSuffix(stdout, \"\\n\"), \"\\n\\n\") {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkIndex extracts binary package names from P: fields, producing alpine-baselayout and alpine-baselayout-data.",
+   "covering_prose": "Package parsing should extract package names, versions, architectures, and source package associations from Alpine package manager output.",
+   "gold_anchor": "case \"P\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkIndex extracts package versions from V: fields, producing 3.6.5-r0 for both tested binaries.",
+   "covering_prose": "Package parsing should extract package names, versions, architectures, and source package associations from Alpine package manager output.",
+   "gold_anchor": "case \"V\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkIndex extracts architectures from A: fields, producing x86_64 for both tested binaries.",
+   "covering_prose": "Package parsing should extract package names, versions, architectures, and source package associations from Alpine package manager output.",
+   "gold_anchor": "case \"A\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkIndex extracts source package names from o: fields, mapping alpine-baselayout and alpine-baselayout-data to source alpine-baselayout.",
+   "covering_prose": "The Alpine scanner should parse package index information to build the mapping between binary packages and their source packages.",
+   "gold_anchor": "case \"o\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkIndex groups binaries with the same o: source into one source package BinaryNames list [alpine-baselayout, alpine-baselayout-data] in record order.",
+   "covering_prose": "The Alpine scanner should parse package index information to build the mapping between binary packages and their source packages.",
+   "gold_anchor": "base.AddBinaryName(bn)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkIndex sets the source package Version to 3.6.5-r0 for alpine-baselayout.",
+   "covering_prose": "Package parsing should extract package names, versions, architectures, and source package associations from Alpine package manager output.",
+   "gold_anchor": "Version: version,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkUpgradableList parses `apk list --upgradable` lines into six updatable binary packages: busybox, busybox-binsh, ca-certificates-bundle, libcrypto3, libssl3, and ssl_client.",
+   "covering_prose": "The Alpine scanner should parse upgradable package information using `apk list --upgradable` format to identify packages that can be updated.",
+   "gold_anchor": "func (o *alpine) parseApkUpgradableList(stdout string) (models.Packages, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkUpgradableList extracts new versions from the package-version field, producing 1.36.1-r29, 20240705-r0, and 3.3.2-r0 as NewVersion values.",
+   "covering_prose": "The Alpine scanner should parse upgradable package information using `apk list --upgradable` format to identify packages that can be updated.",
+   "gold_anchor": "NewVersion: version,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "parseApkUpgradableList accepts only status fields beginning with \"upgradable from: \".",
+   "covering_prose": "The Alpine scanner should parse upgradable package information using `apk list --upgradable` format to identify packages that can be updated.",
+   "gold_anchor": "if !strings.HasPrefix(match[re.SubexpIndex(\"status\")], \"upgradable from: \") {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

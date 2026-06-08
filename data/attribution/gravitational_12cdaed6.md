@@ -1,0 +1,24 @@
+# Coverage attribution: gravitational_12cdaed6
+
+- instance_id: `instance_gravitational__teleport-3a5c1e26394df2cb4fb3f01147fb9979662972c5-vee9b09fb20c43af7e520f57e9239bbcf46b7113d`
+- verdict: **ENTAILED**  (8/8 in-gold behaviors covered; **0 GAP** = mindreading; 1 out-of-scope)
+- gold patch: [`gold.diff`](../cases/gravitational_12cdaed6/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/gravitational_12cdaed6/hidden_test.diff)  ·  spec: [`spec.md`](../cases/gravitational_12cdaed6/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| The Kubernetes backend test code can reference an exported `NamespaceEnv` identifier, and that identifier names the namespace environment va | [Export a constant `NamespaceEnv` with the value `"KUBE_NAMESPACE"` to reference the Kubernetes namespace environment variable.](../cases/gravitational_12cdaed6/spec.md#L31) | [NamespaceEnv = "KUBE_NAMESPACE"](../cases/gravitational_12cdaed6/gold.diff#L148) |
+| `TestBackend_Exists` sets the namespace environment variable by calling `t.Setenv(NamespaceEnv, tt.fields.namespace)` when the test case nam | [All tests that simulate the backend environment must set the `KUBE_NAMESPACE` environment variable using `NamespaceEnv` and the `TELEPORT_REPLICA_NAME` variable explicitly.](../cases/gravitational_12cdaed6/spec.md#L45) | [NamespaceEnv = "KUBE_NAMESPACE"](../cases/gravitational_12cdaed6/gold.diff#L148) |
+| `TestBackend_Get` sets the namespace environment variable by calling `t.Setenv(NamespaceEnv, tt.fields.namespace)` when the test case namesp | [All tests that simulate the backend environment must set the `KUBE_NAMESPACE` environment variable using `NamespaceEnv` and the `TELEPORT_REPLICA_NAME` variable explicitly.](../cases/gravitational_12cdaed6/spec.md#L45) | [NamespaceEnv = "KUBE_NAMESPACE"](../cases/gravitational_12cdaed6/gold.diff#L148) |
+| `TestBackend_Put` sets the namespace environment variable by calling `t.Setenv(NamespaceEnv, tt.fields.namespace)` when the test case namesp | [All tests that simulate the backend environment must set the `KUBE_NAMESPACE` environment variable using `NamespaceEnv` and the `TELEPORT_REPLICA_NAME` variable explicitly.](../cases/gravitational_12cdaed6/spec.md#L45) | [NamespaceEnv = "KUBE_NAMESPACE"](../cases/gravitational_12cdaed6/gold.diff#L148) |
+| `NewWithClient()` treats the value stored under `NamespaceEnv` as the backend `Namespace`, so `Exists()`, `Get()`, and `Put()` use the names | [When creating the Kubernetes backend configuration in `NewWithClient()`, the `Namespace` field must be initialized from the `KUBE_NAMESPACE` environment variable via `NamespaceEnv`.](../cases/gravitational_12cdaed6/spec.md#L41) | [Namespace: os.Getenv(NamespaceEnv)](../cases/gravitational_12cdaed6/gold.diff#L183) |
+| `NewWithClient()` returns an error for a test case where `KUBE_NAMESPACE` is not set before `Exists()` can run. | [In the Kubernetes backend constructor (`NewWithClient()`), verify that the environment variables `NamespaceEnv` (`KUBE_NAMESPACE`) and `TELEPORT_REPLICA_NAME` are set; if either is empty, the method must return an error with the message: `environment variable "%q" not set or empty`.](../cases/gravitational_12cdaed6/spec.md#L35) | [for _, env := range []string{teleportReplicaNameEnv, NamespaceEnv} {](../cases/gravitational_12cdaed6/gold.diff#L174) |
+| `NewWithClient()` returns an error for a test case where `TELEPORT_REPLICA_NAME` is not set before `Exists()` can run. | [In the Kubernetes backend constructor (`NewWithClient()`), verify that the environment variables `NamespaceEnv` (`KUBE_NAMESPACE`) and `TELEPORT_REPLICA_NAME` are set; if either is empty, the method must return an error with the message: `environment variable "%q" not set or empty`.](../cases/gravitational_12cdaed6/spec.md#L35) | [for _, env := range []string{teleportReplicaNameEnv, NamespaceEnv} {](../cases/gravitational_12cdaed6/gold.diff#L174) |
+| `NewWithClient()` formats the missing-environment error as `environment variable "%q" not set or empty`. | [`environment variable "%q" not set or empty`.](../cases/gravitational_12cdaed6/spec.md#L16) | [return nil, trace.BadParameter("environment variable %q not set or empty", env)](../cases/gravitational_12cdaed6/gold.diff#L177) |
+| `TestBackend_Put` uses the payload byte slice value `[]byte("testData")`. |  | _(not in gold)_ |
+
+## Receipts
+- [`spec.md`](../cases/gravitational_12cdaed6/spec.md)
+- [`gold.diff`](../cases/gravitational_12cdaed6/gold.diff)
+- [`hidden_test.diff`](../cases/gravitational_12cdaed6/hidden_test.diff)
+- judge JSON: [`gravitational_12cdaed6.json`](../judge/gravitational_12cdaed6.json)

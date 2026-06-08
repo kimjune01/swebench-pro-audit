@@ -1,0 +1,53 @@
+{
+ "case": "future-architect_847c6438",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 6,
+ "n_covered": 5,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "A line ending with \"Permission denied\" returns gotPkg nil, gotIgnored true, and no error.",
+   "covering_prose": "- In parsing RPM query output, lines ending with \"Permission denied\", \"is not owned by any package\", or \"No such file or directory\" must be ignored and not treated as errors.",
+   "gold_anchor": "\"Permission denied\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A line ending with \"is not owned by any package\" returns gotPkg nil, gotIgnored true, and no error.",
+   "covering_prose": "- In parsing RPM query output, lines ending with \"Permission denied\", \"is not owned by any package\", or \"No such file or directory\" must be ignored and not treated as errors.",
+   "gold_anchor": "\"is not owned by any package\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A line ending with \"No such file or directory\" returns gotPkg nil, gotIgnored true, and no error.",
+   "covering_prose": "- In parsing RPM query output, lines ending with \"Permission denied\", \"is not owned by any package\", or \"No such file or directory\" must be ignored and not treated as errors.",
+   "gold_anchor": "\"No such file or directory\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an ignored RPM query output line, parseRpmQfLine returns nil package, ignored true, and nil error.",
+   "covering_prose": "- In parsing RPM query output, lines ending with \"Permission denied\", \"is not owned by any package\", or \"No such file or directory\" must be ignored and not treated as errors.",
+   "gold_anchor": "return nil, true, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A valid RPM query output line \"Percona-Server-shared-56\\t1\\t5.6.19\\trel67.0.el6 x86_64\" returns a package with Name \"Percona-Server-shared-56\", Version \"1:5.6.19\", Release \"rel67.0.el6\", Arch \"x86_64\", ignored false, and no error.",
+   "covering_prose": null,
+   "gold_anchor": "pkg, err = o.parseInstalledPackagesLine(line)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "A line \"/tmp/hogehoge something unknown format\" returns gotPkg nil, gotIgnored false, and an error.",
+   "covering_prose": "- If a line does not match any known valid or ignorable pattern, it must produce an error.",
+   "gold_anchor": "return pkg, false, err",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

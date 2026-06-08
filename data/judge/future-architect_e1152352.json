@@ -1,0 +1,53 @@
+{
+ "case": "future-architect_e1152352",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "PortScanConf.GetScanTechniques returns an empty []ScanTechnique when ScanTechniques is an empty slice.",
+   "covering_prose": "The `GetScanTechniques` function interprets values from the `scanTechniques` field as valid scan types in a case-insensitive manner, returns `NotSupportTechnique` when inputs are unrecognized, and returns an empty slice when no techniques are specified.",
+   "gold_anchor": "return []ScanTechnique{}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PortScanConf.GetScanTechniques maps a single configured technique \"sS\" to []ScanTechnique{TCPSYN}.",
+   "covering_prose": "-TCPSYN \u2192 \"sS\", TCPConnect \u2192 \"sT\", TCPACK \u2192 \"sA\", TCPWindow \u2192 \"sW\", TCPMaimon \u2192 \"sM\", TCPNull \u2192 \"sN\", TCPFIN \u2192 \"sF\", TCPXmas \u2192 \"sX\".",
+   "gold_anchor": "TCPSYN:     \"sS\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PortScanConf.GetScanTechniques maps multiple configured techniques [\"sS\", \"sT\"] to []ScanTechnique{TCPSYN, TCPConnect}.",
+   "covering_prose": "-TCPSYN \u2192 \"sS\", TCPConnect \u2192 \"sT\", TCPACK \u2192 \"sA\", TCPWindow \u2192 \"sW\", TCPMaimon \u2192 \"sM\", TCPNull \u2192 \"sN\", TCPFIN \u2192 \"sF\", TCPXmas \u2192 \"sX\".",
+   "gold_anchor": "scanTechniques = append(scanTechniques, key)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PortScanConf.GetScanTechniques maps an unrecognized configured technique \"sU\" to []ScanTechnique{NotSupportTechnique}.",
+   "covering_prose": "config.PortScanConf.GetScanTechniques() must interpret scanTechniques values case-insensitively against the mapping above. It must return an empty slice when no techniques are specified. It must return a slice containing NotSupportTechnique for any unrecognized technique encountered, and when the input contains only unrecognized values it returns a slice containing exactly NotSupportTechnique.",
+   "gold_anchor": "scanTechniques = append(scanTechniques, NotSupportTechnique)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PortScanConf.IsZero returns false when ScannerBinPath is set to \"/usr/bin/nmap\".",
+   "covering_prose": "The `IsZero` check on a port scan configuration returns true only when all fields (`scannerBinPath`, `scanTechniques`, `sourcePort`, and `hasPrivileged`) are unset or empty.",
+   "gold_anchor": "return c.ScannerBinPath == \"\" && !c.HasPrivileged && len(c.ScanTechniques) == 0 && c.SourcePort == \"\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PortScanConf.IsZero returns true for an empty PortScanConf.",
+   "covering_prose": "The `IsZero` function returns true only when `scannerBinPath`, `scanTechniques`, `sourcePort`, and `hasPrivileged` are all unset or empty.",
+   "gold_anchor": "return c.ScannerBinPath == \"\" && !c.HasPrivileged && len(c.ScanTechniques) == 0 && c.SourcePort == \"\"",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

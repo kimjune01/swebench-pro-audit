@@ -1,0 +1,81 @@
+{
+ "case": "future-architect_f1c38481",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "Parsing an rpm output line with six fields where the sixth field is a modularity label succeeds and returns Name=\"community-mysql\", Version=\"8.0.26\", Release=\"1.module_f35+12627+b26747dd\", ModularityLabel=\"mysql:8.0:3520210817160118:f27b74a8\".",
+   "covering_prose": "When parsing a single line of `rpm` package output that contains six whitespace-separated fields and the sixth field is a modularity label, parsing must succeed and `Package.ModularityLabel` must be set to that sixth field verbatim; `Name`, `Version` (including any epoch such as `1:5.6.19`), and `Release` must be populated from the corresponding fields.",
+   "gold_anchor": "ModularityLabel: modularitylabel,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing an rpm output line with six fields where the sixth field is `(none)` succeeds and returns Name=\"dnf-utils\", Version=\"4.0.24\", Release=\"1.fc35\", ModularityLabel=\"\".",
+   "covering_prose": "When parsing a single line of `rpm` package output that contains six fields and the sixth field is `(none)`, parsing must succeed and `Package.ModularityLabel` must be set to the empty string; `Name`, `Version` (including any epoch), and `Release` must be populated from the corresponding fields.",
+   "gold_anchor": "if len(fields) == 6 && fields[5] != \"(none)\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Red Hat nginx, OVAL label \"nginx:1.16\" and request label \"nginx:1.16:version:context\" match by name:stream prefix; with request version lower than fixed version, result is affected=true, notFixedYet=false, fixedIn=\"1.16.1-1.module+el8.3.0+8844+e5e7039f.1\".",
+   "covering_prose": "In OVAL affectedness evaluation, when the `name:stream` prefixes match, the package must be treated as a candidate for vulnerability matching regardless of additional suffixes present in the request\u2019s label (for example `:version:context`).",
+   "gold_anchor": "if reqModularityLabel != modularityLabel {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Red Hat nginx, when the name:stream prefixes match but the request version \"1.16.2-1.module+el8.3.0+8844+e5e7039f.1\" is not lower than fixed version \"1.16.1-1.module+el8.3.0+8844+e5e7039f.1\", result is affected=false and notFixedYet=false.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For Red Hat nginx, OVAL label \"nginx:1.16\" and request label \"nginx:1.14:version:context\" mismatch by name:stream prefix, so result is affected=false and notFixedYet=false.",
+   "covering_prose": "In OVAL affectedness evaluation, when both the evaluated package (request) and the OVAL package definition carry a modularity label, only the `name:stream` prefix of each label must be used for comparison; a mismatch on `name:stream` must result in \u201cnot affected.\u201d",
+   "gold_anchor": "if reqModularityLabel != modularityLabel {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Fedora community-mysql, OVAL label \"mysql:8.0:3520211031142409:f27b74a8\" and request label \"mysql:8.0:version:context\" match by name:stream prefix; with request version lower than fixed version, result is affected=true, notFixedYet=false, fixedIn=\"0:8.0.27-1.module_f35+13269+c9322734\".",
+   "covering_prose": "In OVAL affectedness evaluation, when the `name:stream` prefixes match, the package must be treated as a candidate for vulnerability matching regardless of additional suffixes present in the request\u2019s label (for example `:version:context`).",
+   "gold_anchor": "reqModularityLabel := fmt.Sprintf(\"%s:%s\", ss[0], ss[1])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Fedora community-mysql, when the OVAL package has ModularityLabel=\"mysql:8.0:3520211031142409:f27b74a8\" but the evaluated request has no modularity label, result is affected=false and notFixedYet=false.",
+   "covering_prose": "In OVAL affectedness evaluation, when exactly one of the evaluated package or the OVAL package definition carries a modularity label, the result must be \u201cnot affected.\u201d",
+   "gold_anchor": "if !slices.Contains(enabledMods, modularityLabel) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Fedora community-mysql, when the evaluated request has ModularityLabel=\"mysql:8.0:3520211031142409:f27b74a8\" but the OVAL package has ModularityLabel=\"\", result is affected=false and notFixedYet=false.",
+   "covering_prose": "In OVAL affectedness evaluation, when exactly one of the evaluated package or the OVAL package definition carries a modularity label, the result must be \u201cnot affected.\u201d",
+   "gold_anchor": "if modularVersionPattern.MatchString(req.versionRelease) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Red Hat nodejs with affected component \"nodejs:20/nodejs\", OVAL label \"nodejs:20\", request label \"nodejs:20:version:context\", and NotFixedYet=true, matching uses the \"nodejs:20/\" prefix plus package name and returns affected=true, notFixedYet=true, fixedIn=\"\".",
+   "covering_prose": "In OVAL affectedness evaluation for Red Hat\u2013family definitions that list affected components using the `name:stream/package` form, matching must be performed using the same `name:stream/` prefix together with the package name.",
+   "gold_anchor": "n = fmt.Sprintf(\"%s/%s\", modularityLabel, req.packName)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Red Hat nodejs NotFixedYet=true, result includes fixState=\"Affected\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "case": "gravitational_040ec6d3",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "createTable passes the requested table name \"table\" to CreateTableWithContext.TableName.",
+   "covering_prose": "Teleport already manages its DynamoDB tables (creates them, sets the throughput, autoscaling, ...) but doesn't support enabling the \"OnDemand\" mode.",
+   "gold_anchor": "TableName:             aws.String(tableName),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When Config.BillingMode is billingModePayPerRequest, createTable passes dynamodb.BillingModePayPerRequest to CreateTableWithContext.BillingMode.",
+   "covering_prose": "When `billing_mode` is set to `pay_per_request` during table creation, the configuration must pass `dynamodb.BillingModePayPerRequest` to the AWS DynamoDB BillingMode parameter, set `ProvisionedThroughput` to `nil` in the `CreateTableWithContext` call, disable auto-scaling, and disregard any values defined for `ReadCapacityUnits` and `WriteCapacityUnits`.",
+   "gold_anchor": "billingMode = aws.String(dynamodb.BillingModePayPerRequest)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When Config.BillingMode is billingModePayPerRequest, createTable ignores configured ReadCapacityUnits=10 and WriteCapacityUnits=10 and still succeeds when no provisioned throughput is expected.",
+   "covering_prose": "When `billing_mode` is set to `pay_per_request` during table creation, the configuration must pass `dynamodb.BillingModePayPerRequest` to the AWS DynamoDB BillingMode parameter, set `ProvisionedThroughput` to `nil` in the `CreateTableWithContext` call, disable auto-scaling, and disregard any values defined for `ReadCapacityUnits` and `WriteCapacityUnits`.",
+   "gold_anchor": "pThroughput = nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When Config.BillingMode is billingModePayPerRequest and the mock expects provisioned throughput values, createTable returns an error classified by trace.IsBadParameter.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When Config.BillingMode is billingModeProvisioned, createTable passes dynamodb.BillingModeProvisioned to CreateTableWithContext.BillingMode.",
+   "covering_prose": "When `billing_mode` is set to `provisioned` during table creation, the configuration must pass `dynamodb.BillingModeProvisioned` to the BillingMode parameter, set `ProvisionedThroughput` based on the configured `ReadCapacityUnits` and `WriteCapacityUnits`, and allow auto-scaling to be enabled if configured.",
+   "gold_anchor": "billingMode := aws.String(dynamodb.BillingModeProvisioned)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When Config.BillingMode is billingModeProvisioned with ReadCapacityUnits=10 and WriteCapacityUnits=10, createTable passes ProvisionedThroughput.ReadCapacityUnits=10 and ProvisionedThroughput.WriteCapacityUnits=10 and succeeds.",
+   "covering_prose": "When `billing_mode` is set to `provisioned` during table creation, the configuration must pass `dynamodb.BillingModeProvisioned` to the BillingMode parameter, set `ProvisionedThroughput` based on the configured `ReadCapacityUnits` and `WriteCapacityUnits`, and allow auto-scaling to be enabled if configured.",
+   "gold_anchor": "ReadCapacityUnits:  aws.Int64(b.ReadCapacityUnits),",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

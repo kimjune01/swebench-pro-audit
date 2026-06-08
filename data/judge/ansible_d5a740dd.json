@@ -1,0 +1,109 @@
+{
+ "case": "ansible_d5a740dd",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 12,
+ "n_covered": 11,
+ "n_gap": 1,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "Before module actions, `iptables -L` succeeds and stdout does not contain `FOOBAR-CHAIN`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "With `chain: FOOBAR-CHAIN`, `chain_management: true`, and `state: present`, the module creates the chain so a later `iptables -L` stdout contains `FOOBAR-CHAIN`.",
+   "covering_prose": "When `chain_management` is `true` and `state` is `present`, the module should create the specified user-defined chain (from the `chain` parameter) if it does not already exist, without modifying or interfering with existing rules in that chain.",
+   "gold_anchor": "create_chain(iptables_path, module, module.params)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `chain: FOOBAR-CHAIN`, `chain_management: true`, and `state: absent` after the chain is flushed, the module deletes the chain so a later `iptables -L` stdout does not contain `FOOBAR-CHAIN`.",
+   "covering_prose": "When `chain_management` is `true` and `state` is `absent`, and only the `chain` parameter and optionally the `table` parameter are provided, the module should delete the specified chain if it exists and contains no rules.",
+   "gold_anchor": "delete_chain(iptables_path, module, module.params)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After deleting `FOOBAR-CHAIN`, `iptables -L` stdout does not contain `FOOBAR-RULE`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For an absent insert rule when the chain exists, the module runs exactly two commands in check-mode-like no-mutation path: first `-C` for the rule, then `-L` for the chain.",
+   "covering_prose": "The module should distinguish between the existence of a chain and the presence of rules within that chain when determining whether a create or delete operation should occur.",
+   "gold_anchor": "chain_is_present = rule_is_present or check_chain_present(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an absent insert rule in normal execution when the chain exists, the module runs exactly three commands: `-C`, then `-L`, then `-I`.",
+   "covering_prose": "The module should distinguish between the existence of a chain and the presence of rules within that chain when determining whether a create or delete operation should occur.",
+   "gold_anchor": "chain_is_present = rule_is_present or check_chain_present(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an absent append rule in check mode when the chain exists, the module runs exactly two commands: `-C`, then `-L`, and does not append.",
+   "covering_prose": "The chain creation and deletion behaviors should function both in normal execution and in check mode.",
+   "gold_anchor": "if not module.check_mode:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an absent append rule in normal execution when the chain exists, the module runs exactly three commands: `-C`, then `-L`, then `-A`.",
+   "covering_prose": "The module should distinguish between the existence of a chain and the presence of rules within that chain when determining whether a create or delete operation should occur.",
+   "gold_anchor": "chain_is_present = rule_is_present or check_chain_present(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For `chain: FOOBAR`, `state: present`, `chain_management: True`, and no existing rule or chain, the module runs `iptables -t filter -C FOOBAR`.",
+   "covering_prose": "Function: `check_rule_present`",
+   "gold_anchor": "def check_rule_present(iptables_path, module, params):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For `chain: FOOBAR`, `state: present`, `chain_management: True`, and no existing rule or chain, the module runs `iptables -t filter -L FOOBAR`.",
+   "covering_prose": "Function: `check_chain_present`",
+   "gold_anchor": "def check_chain_present(iptables_path, module, params):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For `chain: FOOBAR`, `state: present`, `chain_management: True`, and no existing rule or chain, the module runs `iptables -t filter -N FOOBAR`.",
+   "covering_prose": "When `chain_management` is `true` and `state` is `present`, the module should create the specified user-defined chain (from the `chain` parameter) if it does not already exist, without modifying or interfering with existing rules in that chain.",
+   "gold_anchor": "cmd = push_arguments(iptables_path, '-N', params, make_rule=False)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For `chain: FOOBAR`, `state: present`, `chain_management: True`, and no existing rule or chain, the module then runs `iptables -t filter -A FOOBAR`.",
+   "covering_prose": null,
+   "gold_anchor": "append_rule(iptables_path, module, module.params)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For `chain: FOOBAR`, `state: present`, `chain_management: True`, and an already present rule, the module runs only the rule presence check and exits with `changed: False`.",
+   "covering_prose": "If the specified chain already exists and `chain_management` is `true`, the module should not attempt to create it again.",
+   "gold_anchor": "if rule_is_present == should_be_present:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For `chain: FOOBAR`, `state: present`, `chain_management: True`, no existing rule or chain, and check mode enabled, the module checks rule and chain presence but does not run the create-chain command.",
+   "covering_prose": "The chain creation and deletion behaviors should function both in normal execution and in check mode.",
+   "gold_anchor": "if not module.check_mode:",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

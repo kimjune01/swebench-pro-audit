@@ -1,0 +1,81 @@
+{
+ "case": "ansible_e889b106",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "MockVault.decrypt used with a vaulted config entry accepts optional filename=None and obj=None keyword parameters without failing.",
+   "covering_prose": "exceptions should carry a public `.obj` referencing the YAML node that triggered the error.",
+   "gold_anchor": "def decrypt(self, vaulttext, filename=None, obj=None):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "MockVault.decrypt used by ensure_type with a vaulted string accepts optional filename=None and obj=None keyword parameters without failing for value_type=\"str\".",
+   "covering_prose": "exceptions should carry a public `.obj` referencing the YAML node that triggered the error.",
+   "gold_anchor": "return to_text(self.vault.decrypt(self._ciphertext, obj=self))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "MockVault.decrypt used by ensure_type with a vaulted string accepts optional filename=None and obj=None keyword parameters without failing for value_type=\"string\".",
+   "covering_prose": "exceptions should carry a public `.obj` referencing the YAML node that triggered the error.",
+   "gold_anchor": "return to_text(self.vault.decrypt(self._ciphertext, obj=self))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "MockVault.decrypt used by ensure_type with a vaulted string accepts optional filename=None and obj=None keyword parameters without failing for value_type=None.",
+   "covering_prose": "exceptions should carry a public `.obj` referencing the YAML node that triggered the error.",
+   "gold_anchor": "return to_text(self.vault.decrypt(self._ciphertext, obj=self))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Task.load(ds) raises an AnsibleParserError for the kv-form task error case.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The raised AnsibleParserError exposes public obj equal to ds.",
+   "covering_prose": "The attribute storing this context in exceptions must be publicly accessible as obj (not _obj).",
+   "gold_anchor": "self.obj = obj",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The raised AnsibleParserError exposes public obj equal to kv_bad_args_ds.",
+   "covering_prose": "An exception (e.g., AnsibleParserError / AnsibleVaultFormatError) that exposes a public `.obj` attribute pointing to the originating YAML node (such as the task mapping or vaulted scalar), allowing callers to render filename/line/column if desired. The `.obj` must be preserved when the error is caught and re-raised.",
+   "gold_anchor": "raise AnsibleParserError(to_native(e), obj=ds, orig_exc=e)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The raised AnsibleParserError.message includes \"The error appears to be in 'test_task_faux_playbook.yml\".",
+   "covering_prose": "On any vault-format decoding failure, the user-visible error should include: the file path.",
+   "gold_anchor": "return '%s\n\n%s' % (self._message, to_native(extended_error))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The raised AnsibleParserError.message includes kv_bad_args_str.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The raised AnsibleParserError.message includes 'apk'.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

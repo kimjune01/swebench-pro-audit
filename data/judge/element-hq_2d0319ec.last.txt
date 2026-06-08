@@ -1,0 +1,1 @@
+{"rows":[{"test":"ExtraTile renders an `aria-label` attribute with value `test` on the root accessible button element.","covering_prose":null,"gold_anchor":null}]}

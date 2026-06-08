@@ -1,0 +1,18 @@
+{
+ "case": "ansible_d7fbb209",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Calling itr.set_state_for_host(hosts[0].name, res_state) stores res_state as that host's current state, so get_next_task_for_host(hosts[0], peek=True) returns mock_task from the inserted rescue block.",
+   "covering_prose": "Description: Validates and sets the entire HostState object for a specific host by its name. It raises an AnsibleAssertionError if the provided state is not of the correct type.",
+   "gold_anchor": "self._host_states[hostname] = state",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

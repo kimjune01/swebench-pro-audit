@@ -1,0 +1,53 @@
+{
+ "case": "element-hq_16e92a4d",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "Double clicking the visible \u201cGo live\u201d control calls preRecording.start exactly once.",
+   "covering_prose": "Ensure that invoking the \u201cGo live\u201d control performs exactly one call to `voiceBroadcastPreRecording.start()` per user interaction; subsequent invocations triggered within the same initiation window (e.g., multiple rapid clicks or key activations) must not result in additional calls.",
+   "gold_anchor": "disabled={state.disableStartButton}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Clicking the room name shows the broadcast room.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Clicking the room avatar shows the broadcast room.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Clicking the device label displays the device selection menu.",
+   "covering_prose": "Ensure the microphone/device line is interactive and opens a device selection menu anchored to the component\u2019s root container when activated.",
+   "gold_anchor": "onMicrophoneLineClick={() => setState({ ...state, showDeviceSelect: true })}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Selecting a device passes that selected MediaDeviceInfo to setDevice so it becomes the current device.",
+   "covering_prose": "Provide for device selection such that choosing an item representing an audio input device passes the corresponding `MediaDeviceInfo` to `setDevice(device)`; `device` must be non-null and represent the selected item.",
+   "gold_anchor": "setDevice(device);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Selecting a device closes the device selection menu.",
+   "covering_prose": "Ensure that upon device selection the device menu closes and the visible microphone label updates to match the selected device\u2019s `label` (or a resolved display string) without requiring a re-mount of the component.",
+   "gold_anchor": "showDeviceSelect: false,",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

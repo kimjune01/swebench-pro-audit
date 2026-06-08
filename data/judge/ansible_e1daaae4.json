@@ -1,0 +1,102 @@
+{
+ "case": "ansible_e1daaae4",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 13,
+ "n_covered": 10,
+ "n_gap": 3,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Defines a get_locally_reachable_ips method that can be called with ip_path.",
+   "covering_prose": "New function: get_locally_reachable_ips Method",
+   "gold_anchor": "def get_locally_reachable_ips(self, ip_path):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Returns a dictionary with exactly the top-level keys ipv4 and ipv6, each initialized to a list.",
+   "covering_prose": "Output:\n\n  - dict: A dictionary containing two keys, `ipv4` and `ipv6`, each associated with a list of locally reachable IP addresses.",
+   "gold_anchor": "locally_reachable_ips = dict(\n            ipv4=[],\n            ipv6=[],\n        )",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Runs the IPv4 local routing table query as ['fake/ip', '-4', 'route', 'show', 'table', 'local'] when ip_path is 'fake/ip'.",
+   "covering_prose": null,
+   "gold_anchor": "args = [ip_path, '-4', 'route', 'show', 'table', 'local']",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Runs the IPv6 local routing table query as ['fake/ip', '-6', 'route', 'show', 'table', 'local'] when ip_path is 'fake/ip'.",
+   "covering_prose": null,
+   "gold_anchor": "args = [ip_path, '-6', 'route', 'show', 'table', 'local']",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Parses only route output lines whose first whitespace-delimited word is local, excluding broadcast and multicast lines.",
+   "covering_prose": "Description:\n\n  Initializes a dictionary to store reachable IPs and uses routing table queries to populate IPv4 and IPv6 addresses marked as local.",
+   "gold_anchor": "if words[0] != 'local':\n                    continue",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Extracts the address or prefix from the second whitespace-delimited field of each local route line.",
+   "covering_prose": null,
+   "gold_anchor": "address = words[1]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Classifies addresses containing ':' as IPv6 entries.",
+   "covering_prose": "Ensure coverage for both IPv4 and, where applicable, IPv6, including loopback and any locally scoped prefixes, independent of distribution or interface naming.",
+   "gold_anchor": "if \":\" in address:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Classifies addresses not containing ':' as IPv4 entries.",
+   "covering_prose": "Ensure coverage for both IPv4 and, where applicable, IPv6, including loopback and any locally scoped prefixes, independent of distribution or interface naming.",
+   "gold_anchor": "locally_reachable_ips['ipv4'].append(address)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Returns IPv4 list in this exact order: ['127.0.0.0/8', '127.0.0.1', '192.168.1.0/24'].",
+   "covering_prose": "Ensure addresses and prefixes are normalized (e.g., canonical CIDR or single IP form), de-duplicated, and consistently ordered to support reliable comparisons and templating.",
+   "gold_anchor": "locally_reachable_ips['ipv4'].append(address)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Returns IPv6 list in this exact order: ['::1', '2a02:123:3:1::e', '2a02:123:15::/48', '2a02:123:16::/48', 'fe80::2eea:7fff:feca:fe68'].",
+   "covering_prose": "Ensure addresses and prefixes are normalized (e.g., canonical CIDR or single IP form), de-duplicated, and consistently ordered to support reliable comparisons and templating.",
+   "gold_anchor": "locally_reachable_ips['ipv6'].append(address)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Does not include IPv4 broadcast routes 127.0.0.0 and 127.255.255.255 in the result.",
+   "covering_prose": "These lists should contain locally reachable prefixes/addresses that the system considers reachable without external routing.",
+   "gold_anchor": "if words[0] != 'local':\n                    continue",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Does not include IPv6 multicast route ff00::/8 in the result.",
+   "covering_prose": "These lists should contain locally reachable prefixes/addresses that the system considers reachable without external routing.",
+   "gold_anchor": "if words[0] != 'local':\n                    continue",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Returns the collected locally reachable IPs directly from get_locally_reachable_ips.",
+   "covering_prose": "The result is a structured dictionary that reflects the network interfaces' locally reachable addresses.",
+   "gold_anchor": "return locally_reachable_ips",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

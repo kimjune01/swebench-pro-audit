@@ -1,0 +1,172 @@
+{
+ "case": "ansible_db2d5b09",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 23,
+ "n_covered": 23,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When state=present and the specified VRF address-family does not exist, the module reports changed and emits commands in this order: `vrf context <vrf>`, then `address-family <afi> unicast`.",
+   "covering_prose": "When `state=present`, the module must create the address-family context if it does not already exist.",
+   "gold_anchor": "commands.append('address-family %s unicast' % module.params['afi'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When state=present and the specified VRF address-family already exists with no requested changes, the module emits no commands.",
+   "covering_prose": "The module must operate idempotently so that no changes are generated when the current configuration already matches the requested state.",
+   "gold_anchor": "elif module.params['state'] == 'present':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When state=absent and the specified VRF address-family does not exist, the module emits no commands.",
+   "covering_prose": "The module must operate idempotently so that no changes are generated when the current configuration already matches the requested state.",
+   "gold_anchor": "if current:\n            commands.append('no address-family %s unicast' % module.params['afi'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When state=absent and the specified VRF address-family exists, the module reports changed and emits commands in this order: `vrf context <vrf>`, then `no address-family <afi> unicast`.",
+   "covering_prose": "When `state=absent`, the module must remove the address-family context and ignore route-target-related options.",
+   "gold_anchor": "commands.append('no address-family %s unicast' % module.params['afi'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When route_target_both_auto_evpn=True and `route-target both auto evpn` already exists, the module emits no commands.",
+   "covering_prose": "The module must support configuration of `route_target_both_auto_evpn` under an address-family, allowing it to be set (`True`) or removed (`False`), with no change when the configuration already matches the desired state.",
+   "gold_anchor": "have_auto_evpn = 'route-target both auto evpn' in current",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When route_target_both_auto_evpn=True and the address-family does not exist, the module emits `vrf context <vrf>`, `address-family <afi> unicast`, and `route-target both auto evpn` in that order.",
+   "covering_prose": "The module must support configuration of `route_target_both_auto_evpn` under an address-family, allowing it to be set (`True`) or removed (`False`), with no change when the configuration already matches the desired state.",
+   "gold_anchor": "commands.append('route-target both auto evpn')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When route_target_both_auto_evpn=False and `route-target both auto evpn` exists, the module emits `no route-target both auto evpn` under the specified VRF address-family.",
+   "covering_prose": "The module must support configuration of `route_target_both_auto_evpn` under an address-family, allowing it to be set (`True`) or removed (`False`), with no change when the configuration already matches the desired state.",
+   "gold_anchor": "commands.append('no route-target both auto evpn')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When route_target_both_auto_evpn=False and `route-target both auto evpn` is already absent, the module emits no commands.",
+   "covering_prose": "The module must support configuration of `route_target_both_auto_evpn` under an address-family, allowing it to be set (`True`) or removed (`False`), with no change when the configuration already matches the desired state.",
+   "gold_anchor": "elif have_auto_evpn and not want_auto_evpn:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a route_targets entry has direction `import`, state `present`, and the matching import route-target is absent, the module emits `route-target import <rt>`.",
+   "covering_prose": "The module must handle multiple route-target entries in a single invocation, adding those marked `present` and removing those marked `absent`.",
+   "gold_anchor": "command = 'route-target %s %s' % (direction, rt.get('rt'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a route_targets entry omits direction, state `present`, and the route-target is absent, the module emits `route-target import <rt>` followed by `route-target export <rt>`.",
+   "covering_prose": "The module must apply the default direction `both` by adding or removing both `import` and `export` entries for the given value.",
+   "gold_anchor": "if rt.get('direction') == 'both' or not rt.get('direction'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a route_targets entry has default direction and both import and export entries already exist, the module emits no commands.",
+   "covering_prose": "The module must operate idempotently so that no changes are generated when the current configuration already matches the requested state.",
+   "gold_anchor": "if not match and want:\n        rt_commands.append(command)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When multiple import route_targets entries are present and absent from current config, the module emits one `route-target import <rt>` command for each entry in input order.",
+   "covering_prose": "The module must handle multiple route-target entries in a single invocation, adding those marked `present` and removing those marked `absent`.",
+   "gold_anchor": "for rt in module.params['route_targets']:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When multiple import route_targets entries are present and already exist in current config, the module emits no commands.",
+   "covering_prose": "The module must operate idempotently so that no changes are generated when the current configuration already matches the requested state.",
+   "gold_anchor": "match = re.findall(command, current, re.M)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When an import route_targets entry has state `absent` and the matching import route-target is already absent, the module emits no commands.",
+   "covering_prose": "The module must operate idempotently so that no changes are generated when the current configuration already matches the requested state.",
+   "gold_anchor": "elif match and not want:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When an import route_targets entry has state `absent` and the matching import route-target exists, the module emits `no route-target import <rt>`.",
+   "covering_prose": "The module must handle multiple route-target entries in a single invocation, adding those marked `present` and removing those marked `absent`.",
+   "gold_anchor": "rt_commands.append('no %s' % command)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a route_targets entry has direction `export`, state `present`, and the matching export route-target is absent, the module emits `route-target export <rt>`.",
+   "covering_prose": "Each dictionary must include a required `rt` field (string value such as `65000:1000`), a `direction` field with choices `import`, `export`, or `both` (default `both`), and a `state` field with choices `present` or `absent` (default `present`).",
+   "gold_anchor": "rt_commands = match_current_rt(rt, rt.get('direction'), current, rt_commands)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When an export route_targets entry has state `absent` and the matching export route-target exists, the module emits `no route-target export <rt>`.",
+   "covering_prose": "The module must handle multiple route-target entries in a single invocation, adding those marked `present` and removing those marked `absent`.",
+   "gold_anchor": "rt_commands.append('no %s' % command)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When direction is `both` and state is `present`, the module adds both import and export route-target commands for the same value when missing.",
+   "covering_prose": "The module must apply the default direction `both` by adding or removing both `import` and `export` entries for the given value.",
+   "gold_anchor": "rt_commands = match_current_rt(rt, 'import', current, rt_commands)\n                    rt_commands = match_current_rt(rt, 'export', current, rt_commands)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When direction is `both` and state is `absent`, the module removes both import and export route-target commands for the same value when present.",
+   "covering_prose": "The module must apply the default direction `both` by adding or removing both `import` and `export` entries for the given value.",
+   "gold_anchor": "rt_commands = match_current_rt(rt, 'import', current, rt_commands)\n                    rt_commands = match_current_rt(rt, 'export', current, rt_commands)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When route_targets contains a mix of present and absent entries, the module applies all additions and removals in one command list under the same VRF and address-family context.",
+   "covering_prose": "The module must support mixed scenarios where some route-targets are present and others absent, applying all changes under the same VRF and address-family context in a single operation.",
+   "gold_anchor": "if rt_commands:\n            commands.extend(rt_commands)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When state=absent is requested together with route_target_both_auto_evpn or route_targets, the module ignores those route-target options and only removes the address-family if it exists.",
+   "covering_prose": "When `state=absent`, the module must remove the address-family context and ignore route-target-related options.",
+   "gold_anchor": "if module.params['state'] == 'absent':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "All generated route-target and auto-EVPN commands are scoped by inserting `address-family <afi> unicast` before them when the address-family already exists.",
+   "covering_prose": "All operations must be scoped to the specified VRF and address-family only, without affecting unrelated VRFs or address families.",
+   "gold_anchor": "if commands and current:\n            commands.insert(0, 'address-family %s unicast' % module.params['afi'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "All generated address-family and route-target commands are scoped by inserting `vrf context <vrf>` as the first command.",
+   "covering_prose": "All operations must be scoped to the specified VRF and address-family only, without affecting unrelated VRFs or address families.",
+   "gold_anchor": "commands.insert(0, 'vrf context %s' % module.params['vrf'])",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

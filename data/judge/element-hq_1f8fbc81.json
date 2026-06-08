@@ -1,0 +1,53 @@
+{
+ "case": "element-hq_1f8fbc81",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 6,
+ "n_covered": 4,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When starting a recording with noise suppression disabled, getUserMedia is called with audio.noiseSuppression shaped as { ideal: false }.",
+   "covering_prose": null,
+   "gold_anchor": "noiseSuppression: { ideal: MediaDeviceHandler.getAudioNoiseSuppression() }",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When starting a recording with noise suppression disabled, Recorder is constructed with encoderBitRate equal to highQualityRecorderOptions.bitrate, i.e. 96000.",
+   "covering_prose": "Output: `RecorderOptions` (object with `bitrate`: 96000 and `encoderApplication`: 2049)",
+   "gold_anchor": "highQualityRecorderOptions : voiceRecorderOptions",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When starting a recording with noise suppression disabled, Recorder is constructed with encoderApplication equal to highQualityRecorderOptions.encoderApplication, i.e. 2049.",
+   "covering_prose": "Output: `RecorderOptions` (object with `bitrate`: 96000 and `encoderApplication`: 2049)",
+   "gold_anchor": "highQualityRecorderOptions : voiceRecorderOptions",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When starting a recording with noise suppression enabled, getUserMedia is called with audio.noiseSuppression shaped as { ideal: true }.",
+   "covering_prose": null,
+   "gold_anchor": "noiseSuppression: { ideal: MediaDeviceHandler.getAudioNoiseSuppression() }",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When starting a recording with noise suppression enabled, Recorder is constructed with encoderBitRate equal to voiceRecorderOptions.bitrate, i.e. 24000.",
+   "covering_prose": "Output: `RecorderOptions` (object with `bitrate`: 24000 and `encoderApplication`: 2048)",
+   "gold_anchor": "highQualityRecorderOptions : voiceRecorderOptions",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When starting a recording with noise suppression enabled, Recorder is constructed with encoderApplication equal to voiceRecorderOptions.encoderApplication, i.e. 2048.",
+   "covering_prose": "Output: `RecorderOptions` (object with `bitrate`: 24000 and `encoderApplication`: 2048)",
+   "gold_anchor": "highQualityRecorderOptions : voiceRecorderOptions",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,305 @@
+{
+ "case": "ansible_9ab63986",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 42,
+ "n_covered": 29,
+ "n_gap": 13,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Calling mount_facts with no discovered mounts exits successfully with ansible_facts containing an empty mount_points dictionary and an empty aggregate_mounts list.",
+   "covering_prose": "Output: A dictionary under `ansible_facts` containing `mount_points` (a dictionary of unique mount points) and `aggregate_mounts` (a list of all discovered mounts, if enabled).",
+   "gold_anchor": "module.exit_json(ansible_facts={\"mount_points\": mount_points, \"aggregate_mounts\": aggregate_mounts})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A timeout value of 0 is rejected with a failure saying the timeout must be a positive number or null.",
+   "covering_prose": null,
+   "gold_anchor": "module.fail_json(msg=f\"argument 'timeout' must be a positive number or null, not {seconds}\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "mount_binary must be a string or null; a list value is rejected with a failure.",
+   "covering_prose": "- `mount_binary`: Optional path to the `mount` executable to use as a dynamic source.",
+   "gold_anchor": "module.fail_json(msg=f\"argument 'mount_binary' must be a string or null, not {mount_binary}\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A missing mount_binary executable fails through required executable lookup.",
+   "covering_prose": "- `mount_binary`: Optional path to the `mount` executable to use as a dynamic source.",
+   "gold_anchor": "mount_bin = module.get_bin_path(mount_bin, required=True)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A mount_binary command that exits nonzero fails with a message beginning Failed to execute.",
+   "covering_prose": null,
+   "gold_anchor": "module.fail_json(msg=f\"Failed to execute {mount_bin}: {str(e)}\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "An empty string in sources is rejected with the message sources contains an empty string.",
+   "covering_prose": null,
+   "gold_anchor": "module.fail_json(msg=\"sources contains an empty string\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Duplicate resolved source entries trigger exactly one warning and repeat sources are ignored.",
+   "covering_prose": null,
+   "gold_anchor": "module.warn(f\"mount_facts option 'sources' contains duplicate entries, repeat sources will be ignored: {sources}\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The static source alias is expanded to static mount files and parses /etc/fstab entries.",
+   "covering_prose": "- `sources`: Optional list of sources (files like `/etc/fstab` or aliases like \"all\", \"static\", \"dynamic\") to use for gathering mount information.",
+   "gold_anchor": "STATIC_SOURCES = [\"/etc/fstab\", \"/etc/vfstab\", \"/etc/filesystems\"]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The dynamic source alias is expanded to dynamic mount files and parses /etc/mtab entries.",
+   "covering_prose": "- `sources`: Optional list of sources (files like `/etc/fstab` or aliases like \"all\", \"static\", \"dynamic\") to use for gathering mount information.",
+   "gold_anchor": "DYNAMIC_SOURCES = [\"/etc/mtab\", \"/proc/mounts\", \"/etc/mnttab\"]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The all source alias returns both dynamic and static source entries.",
+   "covering_prose": "- `sources`: Optional list of sources (files like `/etc/fstab` or aliases like \"all\", \"static\", \"dynamic\") to use for gathering mount information.",
+   "gold_anchor": "for source in module.params[\"sources\"] or [\"all\"]:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The mount source executes the configured mount binary and parses its stdout as a dynamic source.",
+   "covering_prose": "- The `mount_facts` module must be able to gather mount information from a configurable list of `sources`, including standard static files (like `/etc/fstab`), dynamic files (like `/proc/mounts`), and by executing a specified mount binary (controlled by the `mount_binary` parameter).",
+   "gold_anchor": "stdout = run_mount_bin(module, module.params[\"mount_binary\"])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If configured dynamic file sources produce no results, the mount binary is used as a fallback when mount_binary is set.",
+   "covering_prose": "- The `mount_facts` module must be able to gather mount information from a configurable list of `sources`, including standard static files (like `/etc/fstab`), dynamic files (like `/proc/mounts`), and by executing a specified mount binary (controlled by the `mount_binary` parameter).",
+   "gold_anchor": "if mount_fallback:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unknown mount command stdout is ignored and produces no mounts rather than failing.",
+   "covering_prose": null,
+   "gold_anchor": "stdout = \"\"",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Linux-style mount command output of the form device on mount type fstype (options) is parsed into device, mount, fstype, and options.",
+   "covering_prose": null,
+   "gold_anchor": "LINUX_MOUNT_RE = re.compile(r\"^(?P<device>\\S+) on (?P<mount>\\S+) type (?P<fstype>\\S+) \\((?P<options>.+)\\)$\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "BSD-style mount command output of the form device on mount (fstype, options) is parsed into fstype and options split on the first comma.",
+   "covering_prose": null,
+   "gold_anchor": "parts = re.split(r\"\\s*,\\s*\", match.group(\"fstype\"), 1)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "AIX mount command output is parsed and combines node and mounted fields into a device value when both are present.",
+   "covering_prose": null,
+   "gold_anchor": "device = f\"{node}:{device}\"",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "/etc/fstab-like lines are parsed into device, mount, fstype, options, and optional integer dump and passno fields.",
+   "covering_prose": null,
+   "gold_anchor": "mount_info[\"dump\"] = int(fields[4])",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "/etc/vfstab lines are parsed into device, device_to_fsck, mount, fstype, passno, mount_at_boot, and options fields.",
+   "covering_prose": null,
+   "gold_anchor": "\"device_to_fsck\": fields[1],",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "/etc/mnttab lines are accepted only when the fifth field looks like a 10-digit timestamp and time is returned as an integer.",
+   "covering_prose": null,
+   "gold_anchor": "if not any(len(fields[4]) == 10 for line in lines for fields in [line.split()]):",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "AIX /etc/filesystems stanzas are parsed into mount, device, fstype, and attributes without treating Linux /etc/filesystems as mounts.",
+   "covering_prose": null,
+   "gold_anchor": "if \"=\" not in line:",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Mount facts are filterable by device fnmatch patterns, including selecting the proc device.",
+   "covering_prose": "- The gathered mount facts must be filterable by the user, supporting `fnmatch` patterns for both device names (via a `devices` parameter) and filesystem types (via an `fstypes` parameter).",
+   "gold_anchor": "if not any(fnmatch(device, pattern) for pattern in module.params[\"devices\"] or [\"*\"]):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Mount facts are filterable by filesystem type fnmatch patterns, including selecting fstype proc.",
+   "covering_prose": "- The gathered mount facts must be filterable by the user, supporting `fnmatch` patterns for both device names (via a `devices` parameter) and filesystem types (via an `fstypes` parameter).",
+   "gold_anchor": "if not any(fnmatch(fstype, pattern) for pattern in module.params[\"fstypes\"] or [\"*\"]):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Each returned mount fact includes ansible_context with source and source_data from the parsed source line.",
+   "covering_prose": "Output: A dictionary under `ansible_facts` containing `mount_points` (a dictionary of unique mount points) and `aggregate_mounts` (a list of all discovered mounts, if enabled). Each mount entry includes details like `device`, `fstype`, `mount`, `options`, `size_total`, `uuid`, and context about its source.",
+   "gold_anchor": "fields.update({\"ansible_context\": {\"source\": source, \"source_data\": origin}, \"uuid\": uuid})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Mount size data returned by get_mount_size is merged into each mount entry, including block and inode fields and size_available/size_total.",
+   "covering_prose": "- The module must enrich the gathered mount data by attempting to resolve device UUIDs to device paths and by fetching disk usage statistics (such as total size and available space) for each valid mount point.",
+   "gold_anchor": "fields.update(mount_size)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If a mount size timeout occurs and on_timeout is error or omitted, get_mount_facts fails.",
+   "covering_prose": "- The information gathering process must be configurable with a `timeout` parameter, and the module's behavior upon a timeout must be controllable via an `on_timeout` parameter, supporting actions to `error`, `warn`, or `ignore`.",
+   "gold_anchor": "if module.params[\"on_timeout\"] == \"error\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If a mount size or mount binary timeout occurs and on_timeout is warn, the module warns and continues with no size or no source results.",
+   "covering_prose": "- The information gathering process must be configurable with a `timeout` parameter, and the module's behavior upon a timeout must be controllable via an `on_timeout` parameter, supporting actions to `error`, `warn`, or `ignore`.",
+   "gold_anchor": "elif module.params[\"on_timeout\"] == \"warn\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If a mount size or mount binary timeout occurs and on_timeout is ignore, the module does not warn and continues with no size or no source results.",
+   "covering_prose": "- The information gathering process must be configurable with a `timeout` parameter, and the module's behavior upon a timeout must be controllable via an `on_timeout` parameter, supporting actions to `error`, `warn`, or `ignore`.",
+   "gold_anchor": "return default",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UUID= devices from Linux fstab are resolved to device paths through blkid when possible, while preserving the UUID value.",
+   "covering_prose": "- The module must enrich the gathered mount data by attempting to resolve device UUIDs to device paths and by fetching disk usage statistics (such as total size and available space) for each valid mount point.",
+   "gold_anchor": "if device.startswith(\"UUID=\"):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Device UUID lookup first checks /dev/disk/by-uuid symlinks and returns the matching UUID.",
+   "covering_prose": "- The module must enrich the gathered mount data by attempting to resolve device UUIDs to device paths and by fetching disk usage statistics (such as total size and available space) for each valid mount point.",
+   "gold_anchor": "for uuid in list_uuids_linux():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Device UUID lookup falls back to lsblk NAME,UUID output and returns the matching UUID.",
+   "covering_prose": "- The module must enrich the gathered mount data by attempting to resolve device UUIDs to device paths and by fetching disk usage statistics (such as total size and available space) for each valid mount point.",
+   "gold_anchor": "for dev, uuid in handle_timeout(module, default=[])(run_lsblk)(module):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Device UUID lookup falls back to udevadm and returns ID_FS_UUID when present.",
+   "covering_prose": "- The module must enrich the gathered mount data by attempting to resolve device UUIDs to device paths and by fetching disk usage statistics (such as total size and available space) for each valid mount point.",
+   "gold_anchor": "if line.startswith(\"ID_FS_UUID=\"):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If no UUID lookup method finds a match, get_partition_uuid returns None.",
+   "covering_prose": "- The module must enrich the gathered mount data by attempting to resolve device UUIDs to device paths and by fetching disk usage statistics (such as total size and available space) for each valid mount point.",
+   "gold_anchor": "return handle_timeout(module)(get_udevadm_device_uuid)(module, partname)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Duplicate mount point handling returns a mount_points dictionary with unique mount keys and keeps the first entry for a duplicate mount.",
+   "covering_prose": "- The module's output must handle duplicate mount point entries by returning a primary `mount_points` dictionary with unique entries, and optionally returning a complete `aggregate_mounts` list if the `include_aggregate_mounts` parameter is true; a warning should be issued for duplicates if this is not explicitly configured.",
+   "gold_anchor": "if mount_point not in mount_points:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When include_aggregate_mounts is false or omitted, aggregate_mounts is an empty list.",
+   "covering_prose": "- `include_aggregate_mounts`: Optional boolean to control the inclusion of duplicate mount point entries in the results.",
+   "gold_anchor": "aggregate_mounts = []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When include_aggregate_mounts is true, aggregate_mounts equals the complete unformatted mount list.",
+   "covering_prose": "- The module's output must handle duplicate mount point entries by returning a primary `mount_points` dictionary with unique entries, and optionally returning a complete `aggregate_mounts` list if the `include_aggregate_mounts` parameter is true; a warning should be issued for duplicates if this is not explicitly configured.",
+   "gold_anchor": "aggregate_mounts = mounts",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A duplicate mount warning is emitted only when duplicate mount points exist within a source and include_aggregate_mounts is null.",
+   "covering_prose": "- The module's output must handle duplicate mount point entries by returning a primary `mount_points` dictionary with unique entries, and optionally returning a complete `aggregate_mounts` list if the `include_aggregate_mounts` parameter is true; a warning should be issued for duplicates if this is not explicitly configured.",
+   "gold_anchor": "if duplicates_by_src and module.params[\"include_aggregate_mounts\"] is None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An NFS mount with a non-slash device selected by devices pattern [!/]* and fstype nfs/nfs4 appears in mount_points with device equal to localhost:<source>.",
+   "covering_prose": "Description: A new Ansible module that retrieves detailed information about mounted filesystems from various static and dynamic sources on a POSIX host. It provides advanced filtering by device and filesystem type and allows for configurable timeouts and handling of duplicate mount point entries. This module replaces or enhances the default mount fact gathering for systems with non-standard mounts like GPFS or FUSE.",
+   "gold_anchor": "if not any(fnmatch(device, pattern) for pattern in module.params[\"devices\"] or [\"*\"]):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Collecting static sources produces at least one mount point on non-Darwin integration hosts.",
+   "covering_prose": "- `sources`: Optional list of sources (files like `/etc/fstab` or aliases like \"all\", \"static\", \"dynamic\") to use for gathering mount information.",
+   "gold_anchor": "if source in {\"static\", \"all\"}:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Collecting dynamic sources produces at least one mount point.",
+   "covering_prose": "- `sources`: Optional list of sources (files like `/etc/fstab` or aliases like \"all\", \"static\", \"dynamic\") to use for gathering mount information.",
+   "gold_anchor": "if source in {\"dynamic\", \"all\"}:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Collecting from sources ['mount'] with include_aggregate_mounts true produces at least one mount_point and at least one aggregate_mount.",
+   "covering_prose": "- The `mount_facts` module must be able to gather mount information from a configurable list of `sources`, including standard static files (like `/etc/fstab`), dynamic files (like `/proc/mounts`), and by executing a specified mount binary (controlled by the `mount_binary` parameter).",
+   "gold_anchor": "if source == \"mount\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On non-Darwin and non-FreeBSD hosts, dynamic, mount-binary, and static collection each produce UUID values with more than one unique UUID value across mount entries.",
+   "covering_prose": "- The module must enrich the gathered mount data by attempting to resolve device UUIDs to device paths and by fetching disk usage statistics (such as total size and available space) for each valid mount point.",
+   "gold_anchor": "fields.update({\"ansible_context\": {\"source\": source, \"source_data\": origin}, \"uuid\": uuid})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Listing the same mount source twice with include_aggregate_mounts true returns the same aggregate count as listing it once.",
+   "covering_prose": null,
+   "gold_anchor": "if source in seen or (real_source := os.path.realpath(source)) in seen:",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

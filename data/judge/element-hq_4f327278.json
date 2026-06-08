@@ -1,0 +1,46 @@
+{
+ "case": "element-hq_4f327278",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "On initial render, when the active room is `rooms[4].roomId` and the active space room list contains all 10 rooms in original order, `activeIndex` is `4`.",
+   "covering_prose": "In `useStickyRoomList`, when recalculating the active index, allow the passed room ID to be `null`. In that case, attempt to determine the room ID using the current value from `SdkContextClass.instance.roomViewStore.getRoomId()`. If this inferred room ID is not present in the `rooms` list, leave the `activeIndex` unset.",
+   "gold_anchor": "const activeRoomId = newRoomId ?? SdkContextClass.instance.roomViewStore.getRoomId();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the rooms list is re-evaluated after `SpaceStore.activeSpace` changes from `!space1:matrix.org` to `!space2:matrix.org`, the hook detects the space change by comparing a persistent ref to `SpaceStore.activeSpace`.",
+   "covering_prose": "When the rooms list is re-evaluated, detect space changes by comparing a persistent ref to `SpaceStore.activeSpace`. If the space has changed, recalculate `activeIndex` immediately within the same render cycle, without relying on dispatcher events.",
+   "gold_anchor": "if (currentSpaceRef.current !== newSpace) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On that detected space change, the hook retrieves the new space's last selected room by calling `SpaceStore.instance.getLastSelectedRoomIdForSpace(newSpace)`.",
+   "covering_prose": "When a space change is detected, retrieve the last selected room ID for the new space by calling the public helper `SpaceStore.getLastSelectedRoomIdForSpace()`. Do not access `localStorage` directly in `useStickyRoomList`.",
+   "gold_anchor": "newRoomId = SpaceStore.instance.getLastSelectedRoomIdForSpace(newSpace);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After switching to `!space2:matrix.org`, when `getLastSelectedRoomIdForSpace` returns `rooms[6].roomId` and the active space room list contains only even-indexed original rooms, the active room is `rooms[6].roomId` at `activeIndex` `3`.",
+   "covering_prose": "Upon switching to a different space, the room list and selected room tile should immediately reflect the room associated with that space's most recent active context, without showing stale selection states from the previous space.",
+   "gold_anchor": "updateRoomsAndIndex(newRoomId, isRoomChange);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The active index is recalculated on the space/list update without waiting for a room-change dispatch event.",
+   "covering_prose": "Ensure this logic does not wait for any room-change dispatch.",
+   "gold_anchor": "updateRoomsAndIndex(newRoomId, isRoomChange);",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

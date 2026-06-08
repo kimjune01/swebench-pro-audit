@@ -1,0 +1,18 @@
+{
+ "case": "ansible_dd44449b",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When retrieving WinRM command output after a stdin write failure, the implementation attempts to get output through protocol.send_message rather than protocol.get_command_output, so a requests.exceptions.Timeout raised by send_message is surfaced as an AnsibleConnectionFailure.",
+   "covering_prose": "The WinRM connection plugin should appropriately handle stdin write failures, attempting to get output only once with timeout, and raise a clear exception if the operation cannot be completed, instead of hanging indefinitely.",
+   "gold_anchor": "res = protocol.send_message(xmltodict.unparse(rq))",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

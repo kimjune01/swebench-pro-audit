@@ -1,0 +1,25 @@
+{
+ "case": "ansible_fc8197e3",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`ansible.modules.pip._have_pip_module` exists so the test can patch it to return `False`.",
+   "covering_prose": "- `_have_pip_module` should determine whether the pip library is importable by the current interpreter using modern import mechanisms with a safe fallback, returning false on any exception.",
+   "gold_anchor": "def _have_pip_module():  # type: () -> bool",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `executable` is unset, `virtualenv` is unset, and `_have_pip_module()` returns `False`, `_get_pip` must not construct the current-interpreter `pip` launcher and must continue down the external-pip lookup/failure path.",
+   "covering_prose": "- `_get_pip` should construct a launcher tied to the current Python interpreter when no executable or env is provided and the pip library is available, and it must always normalize the launcher to an argv list that can be combined with state_map[state].",
+   "gold_anchor": "elif executable is None and env is None and _have_pip_module():",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

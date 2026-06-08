@@ -1,0 +1,116 @@
+{
+ "case": "ansible_e80f8048",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 14,
+ "n_covered": 14,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "wrap_var(u'foo') returns an AnsibleUnsafeText instance.",
+   "covering_prose": "If v is text_type (unicode/str), return AnsibleUnsafeText(v).",
+   "gold_anchor": "v = AnsibleUnsafeText(v)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "wrap_var(b'foo') returns an AnsibleUnsafeBytes instance.",
+   "covering_prose": "If v is binary_type (bytes), return AnsibleUnsafeBytes(v).",
+   "gold_anchor": "v = AnsibleUnsafeBytes(v)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On Python 3, wrap_var('foo') returns an AnsibleUnsafeText instance.",
+   "covering_prose": "If v is text_type (unicode/str), return AnsibleUnsafeText(v).",
+   "gold_anchor": "elif isinstance(v, text_type):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On Python 2, wrap_var('foo') returns an AnsibleUnsafeBytes instance.",
+   "covering_prose": "If v is binary_type (bytes), return AnsibleUnsafeBytes(v).",
+   "gold_anchor": "elif isinstance(v, binary_type):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "wrap_var(dict(foo='bar')) returns a dict container, not an AnsibleUnsafe instance.",
+   "covering_prose": "If v is a Mapping, MutableSequence, or Set, return the same container type with all contained elements recursively processed by wrap_var.",
+   "gold_anchor": "if isinstance(v, Mapping):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "wrap_var(dict(foo=u'bar'))['foo'] returns an AnsibleUnsafeText instance.",
+   "covering_prose": "If v is text_type (unicode/str), return AnsibleUnsafeText(v).",
+   "gold_anchor": "v = _wrap_dict(v)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "wrap_var(['foo']) returns a list container, not an AnsibleUnsafe instance.",
+   "covering_prose": "If v is a Mapping, MutableSequence, or Set, return the same container type with all contained elements recursively processed by wrap_var.",
+   "gold_anchor": "elif isinstance(v, MutableSequence):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "wrap_var([u'foo'])[0] returns an AnsibleUnsafeText instance.",
+   "covering_prose": "If v is text_type (unicode/str), return AnsibleUnsafeText(v).",
+   "gold_anchor": "v = _wrap_list(v)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "wrap_var(set(['foo'])) returns a set container, not an AnsibleUnsafe instance.",
+   "covering_prose": "If v is a Mapping, MutableSequence, or Set, return the same container type with all contained elements recursively processed by wrap_var.",
+   "gold_anchor": "elif isinstance(v, Set):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Each item in wrap_var(set([u'foo'])) is an AnsibleUnsafeText instance.",
+   "covering_prose": "If v is text_type (unicode/str), return AnsibleUnsafeText(v).",
+   "gold_anchor": "v = _wrap_set(v)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "wrap_var(None) does not return an AnsibleUnsafe instance.",
+   "covering_prose": "If v is None, return None without wrapping.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "wrap_var(AnsibleUnsafeText(u'foo')) returns an AnsibleUnsafeText instance unchanged enough to preserve that type.",
+   "covering_prose": "* If v is already an AnsibleUnsafe instance, return it unchanged.",
+   "gold_anchor": "return v",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "wrap_var(AnsibleUnsafeBytes(b'foo')) returns an AnsibleUnsafeBytes instance unchanged enough to preserve that type.",
+   "covering_prose": "* If v is already an AnsibleUnsafe instance, return it unchanged.",
+   "gold_anchor": "return v",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AnsibleUnsafeText(u'foo') is an AnsibleUnsafe instance.",
+   "covering_prose": "keep wrap_var and AnsibleUnsafe-related imports only.",
+   "gold_anchor": "class AnsibleUnsafeText(text_type, AnsibleUnsafe):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AnsibleUnsafeBytes(b'foo') is an AnsibleUnsafe instance.",
+   "covering_prose": "If v is binary_type (bytes), return AnsibleUnsafeBytes(v).",
+   "gold_anchor": "class AnsibleUnsafeBytes(binary_type, AnsibleUnsafe):",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

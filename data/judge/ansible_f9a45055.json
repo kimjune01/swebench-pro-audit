@@ -1,0 +1,151 @@
+{
+ "case": "ansible_f9a45055",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 18,
+ "n_covered": 17,
+ "n_gap": 1,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "When `manifest.directives` contains `exclude foo.txt`, the built collection file list excludes `foo.txt`.",
+   "covering_prose": "Ensure manifest directives support a directives list, allowing users to specify inclusion (`include`, `recursive-include`) and exclusion (`exclude`, `recursive-exclude`, `global-exclude`) patterns similar to MANIFEST.in.",
+   "gold_anchor": "m.process_directive(directive)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `manifest.directives` contains `recursive-exclude docs/foobar **`, the built collection file list excludes files under `docs/foobar`.",
+   "covering_prose": "Ensure manifest directives support a directives list, allowing users to specify inclusion (`include`, `recursive-include`) and exclusion (`exclude`, `recursive-exclude`, `global-exclude`) patterns similar to MANIFEST.in.",
+   "gold_anchor": "m.process_directive(directive)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `manifest` present and `omit_default_directives` absent/false, default manifest directives include `README.rst`.",
+   "covering_prose": "Allow insertion of custom manifest directives in addition to default directives, with proper ordering (defaults first, then user-supplied, then final exclusions).",
+   "gold_anchor": "'include *.txt *.md *.rst COPYING LICENSE'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `manifest` present and `omit_default_directives` absent/false, default manifest directives include changelog YAML files such as `changelogs/fragments/bar.yaml` and `changelogs/fragments/foo.yml`.",
+   "covering_prose": "Allow insertion of custom manifest directives in addition to default directives, with proper ordering (defaults first, then user-supplied, then final exclusions).",
+   "gold_anchor": "'recursive-include changelogs **.yml **.yaml'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `manifest` present and `omit_default_directives` absent/false, default manifest directives include docs files matching `.rst`, `.yml`, `.yaml`, `.json`, `.j2`, and `.txt`.",
+   "covering_prose": "Allow insertion of custom manifest directives in addition to default directives, with proper ordering (defaults first, then user-supplied, then final exclusions).",
+   "gold_anchor": "'recursive-include docs **.rst **.yml **.yaml **.json **.j2 **.txt'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `manifest` present and `omit_default_directives` absent/false, default manifest directives include playbook files matching `.yml`, `.yaml`, and `.json`.",
+   "covering_prose": "Allow insertion of custom manifest directives in addition to default directives, with proper ordering (defaults first, then user-supplied, then final exclusions).",
+   "gold_anchor": "'recursive-include playbooks **.yml **.yaml **.json'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `manifest` present and `omit_default_directives` absent/false, default manifest directives include role files matching `.yml`, `.yaml`, `.json`, and `.j2`.",
+   "covering_prose": "Allow insertion of custom manifest directives in addition to default directives, with proper ordering (defaults first, then user-supplied, then final exclusions).",
+   "gold_anchor": "'recursive-include roles **.yml **.yaml **.json **.j2'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `manifest` present and `omit_default_directives` absent/false, default manifest directives include Python plugin files under plugin subdirectories, such as `plugins/action/test.py` and `plugins/terminal/test.py`.",
+   "covering_prose": "Allow insertion of custom manifest directives in addition to default directives, with proper ordering (defaults first, then user-supplied, then final exclusions).",
+   "gold_anchor": "'recursive-include plugins */**.py'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `manifest` present and `omit_default_directives` absent/false, default manifest directives include YAML docs for documentable plugin directories such as `plugins/become/bar.yml` and `plugins/become/baz.yaml`.",
+   "covering_prose": "Allow insertion of custom manifest directives in addition to default directives, with proper ordering (defaults first, then user-supplied, then final exclusions).",
+   "gold_anchor": "f'recursive-include plugins/{plugin} **.yml **.yaml'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `manifest` present and `omit_default_directives` absent/false, default manifest directives include module files matching `.ps1`, `.yml`, and `.yaml` under `plugins/modules`.",
+   "covering_prose": "Allow insertion of custom manifest directives in addition to default directives, with proper ordering (defaults first, then user-supplied, then final exclusions).",
+   "gold_anchor": "'recursive-include plugins/modules **.ps1 **.yml **.yaml'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `manifest` present and `omit_default_directives` absent/false, default manifest directives include module_utils files matching `.ps1`, `.psm1`, and `.cs`, plus Python files through the general plugins Python include.",
+   "covering_prose": "Allow insertion of custom manifest directives in addition to default directives, with proper ordering (defaults first, then user-supplied, then final exclusions).",
+   "gold_anchor": "'recursive-include plugins/module_utils **.ps1 **.psm1 **.cs'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With default manifest directives, the built collection excludes `galaxy.yml`.",
+   "covering_prose": "Allow insertion of custom manifest directives in addition to default directives, with proper ordering (defaults first, then user-supplied, then final exclusions).",
+   "gold_anchor": "f'exclude galaxy.yml galaxy.yaml MANIFEST.json FILES.json {namespace}-{name}-*.tar.gz'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With default manifest directives, the built collection excludes a root artifact tarball matching `<namespace>-<name>-*.tar.gz`, such as `ns-col-1.0.0.tar.gz`.",
+   "covering_prose": "Allow insertion of custom manifest directives in addition to default directives, with proper ordering (defaults first, then user-supplied, then final exclusions).",
+   "gold_anchor": "f'exclude galaxy.yml galaxy.yaml MANIFEST.json FILES.json {namespace}-{name}-*.tar.gz'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With default manifest directives, the built collection excludes files under `tests/output`.",
+   "covering_prose": "Allow insertion of custom manifest directives in addition to default directives, with proper ordering (defaults first, then user-supplied, then final exclusions).",
+   "gold_anchor": "'recursive-exclude tests/output **'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `manifest.omit_default_directives: true`, default directives are not injected and the user-supplied directive list alone controls inclusion and exclusion.",
+   "covering_prose": "Handle the `omit_default_directives` boolean, when true, all default inclusion rules are ignored, and the user must provide a complete set of directives.",
+   "gold_anchor": "if control.omit_default_directives:\n        directives.extend(control.directives)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `manifest.omit_default_directives: true`, a later user-supplied `include galaxy.yml` after an earlier user-supplied `exclude galaxy.yml galaxy.yaml MANIFEST.json FILES.json ns-col-*.tar.gz` causes `galaxy.yml` to be included in the built collection.",
+   "covering_prose": "Implement correct inclusion and exclusion handling for files and directories according to the specified manifest directives, including default directives when `omit_default_directives` is false.",
+   "gold_anchor": "m.process_directive(directive)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The generated artifact includes `MANIFEST.json` and `FILES.json` in the tar listing even though default final exclusions name them.",
+   "covering_prose": "Support empty or minimal manifest dictionaries, producing a valid artifact manifest.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The manifest processing emits directory entries in the artifact listing, such as `changelogs/`, `docs/`, `plugins/`, `roles/`, and `tests/`.",
+   "covering_prose": "Ensure manifest entries include file type and SHA256 checksum for files, and type for directories, consistent with the expected manifest format.",
+   "gold_anchor": "m.sorted(wantdirs=True)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Directory entries in the output listing have trailing `/` path shape, such as `roles/foo/`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The artifact file listing is sorted in the order produced by distlib manifest sorting, with top-level files before directories and nested paths following their parent directories.",
+   "covering_prose": null,
+   "gold_anchor": "for abs_path in m.sorted(wantdirs=True):",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+# Coverage attribution: ansible_e6589957
+
+- instance_id: `instance_ansible__ansible-379058e10f3dbc0fdcaf80394bd09b18927e7d33-v1055803c3a812189a1133297f7f5468579283f86`
+- verdict: **ENTAILED**  (6/6 in-gold behaviors covered; **0 GAP** = mindreading; 1 out-of-scope)
+- gold patch: [`gold.diff`](../cases/ansible_e6589957/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/ansible_e6589957/hidden_test.diff)  ·  spec: [`spec.md`](../cases/ansible_e6589957/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| A controller lookup plugin that needs Sequence imports it from collections.abc rather than ansible.module_utils.common._collections_compat. | [In controller code and controller plugins (e.g., `lib/ansible/plugins/shell/__init__.py`), collection ABCs must be imported from the `collections.abc` standard library.](../cases/ansible_e6589957/spec.md#L7) | [from collections.abc import Mapping, Sequence](../cases/ansible_e6589957/gold.diff#L194) |
+| The ansible-bad-import-from pylint sanity rule recommends ansible.module_utils.six.moves.collections_abc for collection ABC names instead of | [The static checker's "ansible-bad-import-from" sanitization rule should consider `ansible.module_utils.six.moves.collections_abc` as the approved source for ABCs and stop recommending `ansible.module_utils.common._collections_compat`.](../cases/ansible_e6589957/spec.md#L7) | [collections=UnwantedEntry('ansible.module_utils.six.moves.collections_abc',](../cases/ansible_e6589957/gold.diff) |
+| Support module_utils files that need Mapping import it from ansible.module_utils.six.moves.collections_abc rather than ansible.module_utils. | [All existing references to `ansible.module_utils.common._collections_compat` in modules, utilities, and support files should be replaced with the corresponding approved path (`six.moves.collections_abc` in modules/module\_utils; `collections.abc` in controller code) without altering public names, si](../cases/ansible_e6589957/spec.md#L7) | [from ansible.module_utils.six.moves.collections_abc import Mapping](../cases/ansible_e6589957/gold.diff#L22) |
+| Recursive module dependency discovery for modules that pull in module_utils/common dependencies does not include ansible/module_utils/common | [Dependency discovery/packaging logic used when preparing modules must not include `ansible/module_utils/common/_collections_compat.py` unless there is an explicit `import` to that path.](../cases/ansible_e6589957/spec.md#L7) | [from ansible.module_utils.six.moves.collections_abc import (](../cases/ansible_e6589957/gold.diff#L22) |
+| Unit tests under module_utils that need Sequence import it from ansible.module_utils.six.moves.collections_abc rather than ansible.module_ut | [All existing references to `ansible.module_utils.common._collections_compat` in modules, utilities, and support files should be replaced with the corresponding approved path (`six.moves.collections_abc` in modules/module\_utils; `collections.abc` in controller code) without altering public names, si](../cases/ansible_e6589957/spec.md#L7) | [from ansible.module_utils.six.moves.collections_abc import (](../cases/ansible_e6589957/gold.diff#L22) |
+| Unit test conftest files for module_utils/modules that need MutableMapping import it from ansible.module_utils.six.moves.collections_abc rat | [All existing references to `ansible.module_utils.common._collections_compat` in modules, utilities, and support files should be replaced with the corresponding approved path (`six.moves.collections_abc` in modules/module\_utils; `collections.abc` in controller code) without altering public names, si](../cases/ansible_e6589957/spec.md#L7) | [from ansible.module_utils.six.moves.collections_abc import (](../cases/ansible_e6589957/gold.diff#L22) |
+| The ansible-bad-import-from pylint sanity rule no longer has a special ignore path for /lib/ansible/module_utils/common/_collections_compat. |  | _(not in gold)_ |
+
+## Receipts
+- [`spec.md`](../cases/ansible_e6589957/spec.md)
+- [`gold.diff`](../cases/ansible_e6589957/gold.diff)
+- [`hidden_test.diff`](../cases/ansible_e6589957/hidden_test.diff)
+- judge JSON: [`ansible_e6589957.json`](../judge/ansible_e6589957.json)

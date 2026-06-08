@@ -1,0 +1,95 @@
+{
+ "case": "ansible_bc6cd138",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 10,
+ "rows": [
+  {
+   "test": "The Ansible module `ansible.modules.net_tools.nios.nios_fixed_address` exists and is importable.",
+   "covering_prose": "Name: nios_fixed_address.py\\nType: File\\nPath: lib/ansible/modules/net_tools/nios/",
+   "gold_anchor": "nios_fixed_address.py",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `state` is `present` and no existing object is found, `WapiModule.run()` reports `changed` as true.",
+   "covering_prose": "The `lib/ansible/modules/net_tools/nios/nios_fixed_address.py` file must manage Infoblox DHCP Fixed Address entries, supporting `state=present` to create and update, and `state=absent` to delete, and it must support check mode.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When `state` is `present` and no existing IPv4 fixed address object is found, `create_object` is called with object type `testobject` and payload containing `name`, `ipaddr`, `mac`, `network`, and `network_view`.",
+   "covering_prose": "It must support both IPv4 and IPv6 fixed addresses with required parameters: `name`, `ipaddr`, `mac`, and `network`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The create payload includes `network_view` with value `default`.",
+   "covering_prose": "It should provide optional parameters: `network_view` (default `'default'`), `options` (list of DHCP options), `extattrs`, and `comment`.",
+   "gold_anchor": "network_view=dict(default='default', aliases=['network_view'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The create payload omits `comment` and `extattrs` when their values are `None`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When `state` is `present` and an existing object has a different `comment`, `WapiModule.run()` reports `changed` as true.",
+   "covering_prose": "The `lib/ansible/modules/net_tools/nios/nios_fixed_address.py` file must manage Infoblox DHCP Fixed Address entries, supporting `state=present` to create and update, and `state=absent` to delete, and it must support check mode.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When `state` is `absent` and an existing IPv4 fixed address object is found, `WapiModule.run()` reports `changed` as true.",
+   "covering_prose": "The `lib/ansible/modules/net_tools/nios/nios_fixed_address.py` file must manage Infoblox DHCP Fixed Address entries, supporting `state=present` to create and update, and `state=absent` to delete, and it must support check mode.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When `state` is `absent` and an existing IPv4 fixed address object is found, `delete_object` is called once with the object's `_ref` value `fixedaddress/ZG5zLm5ldHdvcmtfdmlldyQw:ansible/false`.",
+   "covering_prose": "The `lib/ansible/modules/net_tools/nios/nios_fixed_address.py` file must manage Infoblox DHCP Fixed Address entries, supporting `state=present` to create and update, and `state=absent` to delete, and it must support check mode.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When `state` is `present` and no existing IPv6 fixed address object is found, `WapiModule.run()` reports `changed` as true.",
+   "covering_prose": "The `lib/ansible/modules/net_tools/nios/nios_fixed_address.py` file must manage Infoblox DHCP Fixed Address entries, supporting `state=present` to create and update, and `state=absent` to delete, and it must support check mode.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When `state` is `present` and no existing IPv6 fixed address object is found, `create_object` is called with object type `testobject` and payload containing `name`, `ipaddr`, `mac`, `network`, and `network_view`.",
+   "covering_prose": "It must support both IPv4 and IPv6 fixed addresses with required parameters: `name`, `ipaddr`, `mac`, and `network`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When `state` is `absent` and an existing IPv6 fixed address object is found, `WapiModule.run()` reports `changed` as true.",
+   "covering_prose": "The `lib/ansible/modules/net_tools/nios/nios_fixed_address.py` file must manage Infoblox DHCP Fixed Address entries, supporting `state=present` to create and update, and `state=absent` to delete, and it must support check mode.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When `state` is `absent` and an existing IPv6 fixed address object is found, `delete_object` is called once with the object's `_ref` value `ipv6fixedaddress/ZG5zLm5ldHdvcmtfdmlldyQw:ansible/false`.",
+   "covering_prose": "The `lib/ansible/modules/net_tools/nios/nios_fixed_address.py` file must manage Infoblox DHCP Fixed Address entries, supporting `state=present` to create and update, and `state=absent` to delete, and it must support check mode.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

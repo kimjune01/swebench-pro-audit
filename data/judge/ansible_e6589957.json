@@ -1,0 +1,60 @@
+{
+ "case": "ansible_e6589957",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "A controller lookup plugin that needs Sequence imports it from collections.abc rather than ansible.module_utils.common._collections_compat.",
+   "covering_prose": "In controller code and controller plugins (e.g., `lib/ansible/plugins/shell/__init__.py`), collection ABCs must be imported from the `collections.abc` standard library.",
+   "gold_anchor": "from collections.abc import Mapping, Sequence",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The ansible-bad-import-from pylint sanity rule recommends ansible.module_utils.six.moves.collections_abc for collection ABC names instead of ansible.module_utils.common._collections_compat.",
+   "covering_prose": "The static checker's \"ansible-bad-import-from\" sanitization rule should consider `ansible.module_utils.six.moves.collections_abc` as the approved source for ABCs and stop recommending `ansible.module_utils.common._collections_compat`.",
+   "gold_anchor": "collections=UnwantedEntry('ansible.module_utils.six.moves.collections_abc',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The ansible-bad-import-from pylint sanity rule no longer has a special ignore path for /lib/ansible/module_utils/common/_collections_compat.py under the collections ABC rule.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Support module_utils files that need Mapping import it from ansible.module_utils.six.moves.collections_abc rather than ansible.module_utils.common._collections_compat.",
+   "covering_prose": "All existing references to `ansible.module_utils.common._collections_compat` in modules, utilities, and support files should be replaced with the corresponding approved path (`six.moves.collections_abc` in modules/module\\_utils; `collections.abc` in controller code) without altering public names, signatures, or observed behavior.",
+   "gold_anchor": "from ansible.module_utils.six.moves.collections_abc import Mapping",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Recursive module dependency discovery for modules that pull in module_utils/common dependencies does not include ansible/module_utils/common/_collections_compat.py when there is no explicit import to that path.",
+   "covering_prose": "Dependency discovery/packaging logic used when preparing modules must not include `ansible/module_utils/common/_collections_compat.py` unless there is an explicit `import` to that path.",
+   "gold_anchor": "from ansible.module_utils.six.moves.collections_abc import (",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unit tests under module_utils that need Sequence import it from ansible.module_utils.six.moves.collections_abc rather than ansible.module_utils.common._collections_compat.",
+   "covering_prose": "All existing references to `ansible.module_utils.common._collections_compat` in modules, utilities, and support files should be replaced with the corresponding approved path (`six.moves.collections_abc` in modules/module\\_utils; `collections.abc` in controller code) without altering public names, signatures, or observed behavior.",
+   "gold_anchor": "from ansible.module_utils.six.moves.collections_abc import (",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unit test conftest files for module_utils/modules that need MutableMapping import it from ansible.module_utils.six.moves.collections_abc rather than ansible.module_utils.common._collections_compat.",
+   "covering_prose": "All existing references to `ansible.module_utils.common._collections_compat` in modules, utilities, and support files should be replaced with the corresponding approved path (`six.moves.collections_abc` in modules/module\\_utils; `collections.abc` in controller code) without altering public names, signatures, or observed behavior.",
+   "gold_anchor": "from ansible.module_utils.six.moves.collections_abc import (",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

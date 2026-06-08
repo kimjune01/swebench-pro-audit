@@ -1,0 +1,123 @@
+{
+ "case": "ansible_bddb9a74",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 16,
+ "n_covered": 16,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Kerberos TGT acquisition uses subprocess.Popen rather than a pexpect-dependent path, so behavior does not vary when pexpect is present.",
+   "covering_prose": "Obtaining the Kerberos TGT in the winrm plugin must work without relying on optional third-party libraries; the flow must not vary based on the presence or absence of pexpect and must operate with standard library functionality.",
+   "gold_anchor": "p = subprocess.Popen(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "subprocess.Popen is called with start_new_session=True so kinit does not inherit the current TTY.",
+   "covering_prose": "The `kinit` invocation must read the password from `stdin` on all platforms and not inherit the current TTY, ensuring reliable prompt handling on macOS.",
+   "gold_anchor": "start_new_session=True,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "subprocess.Popen is called with stdin=subprocess.PIPE.",
+   "covering_prose": "The `kinit` invocation must read the password from `stdin` on all platforms and not inherit the current TTY, ensuring reliable prompt handling on macOS.",
+   "gold_anchor": "stdin=subprocess.PIPE,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The password passed to kinit is UTF-8 bytes followed by a newline, e.g. password `pass` is sent as `b'pass\\n'`.",
+   "covering_prose": "The `kinit` invocation must read the password from `stdin` on all platforms and not inherit the current TTY, ensuring reliable prompt handling on macOS.",
+   "gold_anchor": "stdout, stderr = p.communicate(b_password + b'\\n')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When no kinit command option or kinit args are supplied, the command is `kinit` followed by the principal `user@domain`.",
+   "covering_prose": "`ansible_winrm_kinit_cmd` must be accepted to define the `kinit` executable; if not specified, the default is used.",
+   "gold_anchor": "kinit_cmdline.append(principal)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `ansible_winrm_kinit_cmd` is `kinit2`, the command uses `kinit2` followed by the principal `user@domain`.",
+   "covering_prose": "`ansible_winrm_kinit_cmd` must be accepted to define the `kinit` executable; if not specified, the default is used.",
+   "gold_anchor": "kinit_cmdline.append(principal)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `ansible_winrm_kerberos_delegation` is True and no kinit args are specified, `-f` is included before the principal.",
+   "covering_prose": "If `ansible_winrm_kerberos_delegation` is `True` and no `kinit_args` are specified, the `kinit` command must include `-f` before the principal.",
+   "gold_anchor": "kinit_cmdline.append(principal)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `ansible_winrm_kinit_args` is `-f -p`, it is interpreted as shell-like arguments and appended before the principal as `-f`, `-p`, `user@domain`.",
+   "covering_prose": "`ansible_winrm_kinit_args` must be accepted; its arguments must be interpreted as a \u201cshell-like\u201d string and appended to the command before the Kerberos principal.",
+   "gold_anchor": "kinit_cmdline.append(principal)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When delegation is True but `ansible_winrm_kinit_args` is `-p`, the command uses the provided args before the principal and does not add `-f`.",
+   "covering_prose": "If `ansible_winrm_kerberos_delegation` is `True` and no `kinit_args` are specified, the `kinit` command must include `-f` before the principal.",
+   "gold_anchor": "kinit_cmdline.append(principal)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The kinit process environment contains only `KRB5CCNAME` and `PATH`.",
+   "covering_prose": "Running `kinit` must be done in an environment that preserves `PATH` and sets `KRB5CCNAME` to a temporary credentials file in the format `FILE:<path>`.",
+   "gold_anchor": "env=krb5env,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The kinit process environment sets `KRB5CCNAME` to a value starting with `FILE:/`.",
+   "covering_prose": "Running `kinit` must be done in an environment that preserves `PATH` and sets `KRB5CCNAME` to a temporary credentials file in the format `FILE:<path>`.",
+   "gold_anchor": "env=krb5env,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The kinit process environment preserves PATH exactly as `os.environ['PATH']`.",
+   "covering_prose": "Running `kinit` must be done in an environment that preserves `PATH` and sets `KRB5CCNAME` to a temporary credentials file in the format `FILE:<path>`.",
+   "gold_anchor": "env=krb5env,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If creating the kinit process raises OSError for `/fake/kinit`, AnsibleConnectionFailure is raised with message `Kerberos auth failure when calling kinit cmd '/fake/kinit': <system reason>`.",
+   "covering_prose": "If the creation of the `kinit` process fails (e.g., a non-existent executable), `AnsibleConnectionFailure` should be raised with the message `Kerberos auth failure when calling kinit cmd '<cmd>': <system reason>`.",
+   "gold_anchor": "\"Kerberos auth failure when calling kinit cmd \"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If kinit exits with return code 1 and stderr `Configuration file does not specify default realm`, AnsibleConnectionFailure is raised as `Kerberos auth failure for principal invaliduser: Configuration file does not specify default realm`.",
+   "covering_prose": "If `kinit` exits with a non-zero exit code, `AnsibleConnectionFailure` should be raised with the message `Kerberos auth failure for principal <principal>: <redacted_stderr>`, where any occurrences of the password in the error output are replaced with `\\\"<redacted>\\\".",
+   "gold_anchor": "err_msg = f\"Kerberos auth failure for principal {principal}: {exp_msg}\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If kinit exits with return code 1 and stderr contains the password, the password occurrence is replaced with `<redacted>` in the AnsibleConnectionFailure message.",
+   "covering_prose": "If `kinit` exits with a non-zero exit code, `AnsibleConnectionFailure` should be raised with the message `Kerberos auth failure for principal <principal>: <redacted_stderr>`, where any occurrences of the password in the error output are replaced with `\\\"<redacted>\\\".",
+   "gold_anchor": "exp_msg = exp_msg.replace(to_native(password), \"<redacted>\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If kinit exits with return code 0, `_kerb_auth` completes without raising AnsibleConnectionFailure.",
+   "covering_prose": "When `kinit` exits successfully (exit code 0), authentication should be considered successful and the normal connection flow should continue.",
+   "gold_anchor": "if rc != 0:",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

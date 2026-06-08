@@ -1,0 +1,235 @@
+{
+ "case": "ansible_6d34eb88",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 32,
+ "n_covered": 23,
+ "n_gap": 9,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "No-color integration runs set no-color mode so output uses textual markers instead of ANSI escapes.",
+   "covering_prose": "Readable, TTY-friendly output with ANSI styling (color, bold, underline) and no-color fallbacks.",
+   "gold_anchor": "NOCOLOR = {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "No-color italic markup `I(italic)` renders as `italic` with both opening and closing backticks.",
+   "covering_prose": "In no-color mode, textual substitutions for styles must use stable and unambiguous markers.",
+   "gold_anchor": "'UNDERLINE': r'`%s`',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Plugin text output first line uses the plugin type followed by the resolved lower-case FQCN and filename, e.g. `> MODULE testns.testcol.randommodule (...)`.",
+   "covering_prose": "Ensure plugin documentation includes an accurate, fully-qualified identifier when available.",
+   "gold_anchor": "text.append(\"> %s %s (%s)\" % (plugin_type.upper(), _format(doc.pop('plugin_name'), 'bold'), doc.pop('filename')))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "JSON metadata for plugins includes `plugin_name` set to the resolved FQCN, such as `testns.testcol.noop`, `testns.testcol.randommodule`, and `testns.testcol.yolo`.",
+   "covering_prose": "Ensure plugin documentation includes an accurate, fully-qualified identifier when available.",
+   "gold_anchor": "docs[0]['plugin_name'] = context.resolved_fqcn",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The detailed-doc ignore list suppresses `plugin_name` from being printed again as a generic field in text output.",
+   "covering_prose": null,
+   "gold_anchor": "'now_date', 'plainexamples', 'returndocs', 'collection', 'plugin_name')",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Role text output first line uses `> ROLE: *role_name* (path)` in no-color mode.",
+   "covering_prose": null,
+   "gold_anchor": "text.append(\"> ROLE: %s (%s)\" % (_format(role, 'BOLD'), role_json.get('path')))",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Role entry point headers render the entry point name in no-color bold markers, e.g. `ENTRY POINT: *main* - ...`.",
+   "covering_prose": null,
+   "gold_anchor": "text.append(\"ENTRY POINT: %s %s\" % (_format(entry_point, \"BOLD\"), desc))",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Role and plugin descriptions are wrapped with a two-space base indent for plugins and ten-space role indent, with continuation alignment matching the new golden files.",
+   "covering_prose": "Provide for correct indentation and line wrapping of nested suboptions and return values, avoiding mid-word breaks and preserving readability at typical terminal widths.",
+   "gold_anchor": "base_indent = \"  \"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Wrapping avoids breaking long words or hyphenated URL components across lines.",
+   "covering_prose": "Clear section structure (e.g., OPTIONS, NOTES, SEE ALSO), improved wrapping (no mid-word breaks), and proper indentation for nested suboptions.",
+   "gold_anchor": "break_on_hyphens=False, break_long_words=False, drop_whitespace=True",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Base text output omits top-level `ADDED IN` metadata, while verbose output includes `ADDED_IN: version ...`.",
+   "covering_prose": "Maintain concise, readable terminal output by default; ensure higher verbosity levels include additional metadata without cluttering the base view.",
+   "gold_anchor": "if display.verbosity > 0:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Option-level `added in:` metadata is suppressed in default man output but appears in verbose output.",
+   "covering_prose": "Visual indication of required fields; extra metadata (e.g., \u201cadded in\u201d) surfaced when verbosity is increased.",
+   "gold_anchor": "if version_added and not man:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Options sections use the exact no-color heading text `OPTIONS (= inicates it is required):` for plugin docs.",
+   "covering_prose": null,
+   "gold_anchor": "text.append(_format(\"OPTIONS\", 'bold') + \" (%s inicates it is required):\" % (\"=\" if C.ANSIBLE_NOCOLOR else 'red'))",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Role options sections use the exact no-color heading text `Options (= inicates it is required):` with title-case `Options`.",
+   "covering_prose": null,
+   "gold_anchor": "text.append(_format(\"Options\", 'bold') + \" (%s inicates it is required):\" % (\"=\" if C.ANSIBLE_NOCOLOR else 'red'))",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Required options use `=` as the no-color lead-in marker.",
+   "covering_prose": "Ensure required options are clearly indicated in both styled and no-color modes.",
+   "gold_anchor": "opt_leadin = \"=\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Optional options and return values use `-` as the no-color lead-in marker.",
+   "covering_prose": "Ensure ANSI-capable terminals render visual hierarchy (headers, required markers, links, constants) while providing a no-color fallback with clear ASCII indicators.",
+   "gold_anchor": "opt_leadin = \"-\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The first description line for an option or return value is printed inline after the option name rather than on a separate indented line.",
+   "covering_prose": "Maintain concise, readable terminal output by default; ensure higher verbosity levels include additional metadata without cluttering the base view.",
+   "gold_anchor": "text.append(key + DocCLI.warp_fill(DocCLI.tty_ify(opt['description']), limit, initial_indent=inline_indent, subsequent_indent=sub_indent))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Nested `options`, `suboptions`, and return `contains` headings are emitted in lowercase with a colon, not uppercase section headers.",
+   "covering_prose": null,
+   "gold_anchor": "text.append(\"%s%s:\" % (opt_indent, subkey))",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Nested suboptions and return-value `contains` entries are rendered through the same field formatter with deeper indentation.",
+   "covering_prose": "Provide for correct indentation and line wrapping of nested suboptions and return values, avoiding mid-word breaks and preserving readability at typical terminal widths.",
+   "gold_anchor": "DocCLI.add_fields(text, subdata, limit, opt_indent + '  ', return_values, opt_indent)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Return values are rendered after an `RETURN VALUES:` heading using the inline field style, including nested `contains:` blocks.",
+   "covering_prose": "Ensure a consistent section structure and ordering (overview/description, options, attributes, notes, examples, return values) without relying on exact labels or copy.",
+   "gold_anchor": "DocCLI.add_fields(text, doc.pop('returndocs'), limit, opt_indent, return_values=True, man=(display.verbosity == 0))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Relative documentation URLs are resolved to versioned docs URLs such as `https://docs.ansible.com/ansible-core/devel/#stq=foo_bar&stp=1`.",
+   "covering_prose": "Ensure URL-like references are emitted as human-friendly links; when relative, resolve them to the appropriate versioned documentation site.",
+   "gold_anchor": "url = get_versioned_doclink(url)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "No-color plugin references produced from `P(...)` are wrapped as double brackets when the original replacement already includes brackets, e.g. `[[foo.bar.baz]]`.",
+   "covering_prose": null,
+   "gold_anchor": "t = cls._PLUGIN.sub(_format(\"[\" + r\"\\1\" + \"]\", 'PLUGIN'), t)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Role listing output groups each role under one heading, adds a `specs:` line, and lists entry points underneath, changing expected line counts to 4 for the collection role listing and 8 for all roles.",
+   "covering_prose": "Maintain a role listing format that groups each role under a single heading and shows its entry points with short descriptions beneath that heading.",
+   "gold_anchor": "text.append('  specs:')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Roles with only `meta/main.yml` are discoverable as roles by treating metadata files as role argspec candidates.",
+   "covering_prose": "Try roles with only `meta/main.yml` (no `argument_specs`) or with doc fragments listed as a comma-separated string; observe inconsistencies.",
+   "gold_anchor": "ROLE_ARGSPEC_FILES = ['argument_specs' + e for e in C.YAML_FILENAME_EXTENSIONS] + ROLE_METADATA_FILES",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When role metadata is missing, role summaries use the standardized placeholder description `UNDOCUMENTED`.",
+   "covering_prose": "When metadata is missing, role summaries must include a standardized placeholder description that makes the absence clear.",
+   "gold_anchor": "summary = {'description': 'UNDOCUMENTED'}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When role argspec processing fails in non-strict listing mode, the role is skipped with a warning and processing continues.",
+   "covering_prose": "Provide for non-fatal error handling so a failure processing one item does not prevent rendering of others, while allowing a strict mode when needed.",
+   "gold_anchor": "display.warning('Skipping role (%s) due to: %s' % (role, argspec['error']), True)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Strict role-listing mode re-raises the stored exception when argspec loading failed.",
+   "covering_prose": "Provide for non-fatal error handling so a failure processing one item does not prevent rendering of others, while allowing a strict mode when needed.",
+   "gold_anchor": "raise argspec['exception']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Documentation fragments supplied as a comma-separated string are split into multiple fragment names.",
+   "covering_prose": "Maintain backward compatibility for documentation fragments provided as a comma-separated string or as a list, trimming whitespace and handling both forms consistently.",
+   "gold_anchor": "fragments = fragments.split(',')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Whitespace around documentation fragment names is trimmed before loading each fragment.",
+   "covering_prose": "Maintain backward compatibility for documentation fragments provided as a comma-separated string or as a list, trimming whitespace and handling both forms consistently.",
+   "gold_anchor": "fragment_name = fragment_slug.strip()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The copy module return sample for file mode is represented as the single-quoted string `'0644'`.",
+   "covering_prose": "Maintain consistent representation of values in examples and return sections (e.g., quoting for file modes, explicit booleans).",
+   "gold_anchor": "sample: '0644'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The strftime example uses explicit keyword arguments and boolean spelling, `seconds=1441357287, utc=true`.",
+   "covering_prose": "Maintain consistent representation of values in examples and return sections (e.g., quoting for file modes, explicit booleans).",
+   "gold_anchor": "{{ '%Y-%m-%d' | strftime(seconds=1441357287, utc=true) }} # => 2015-09-04",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Playbook docs include `Handler` in the documented playbook object list.",
+   "covering_prose": null,
+   "gold_anchor": "PB_OBJECTS = ['Play', 'Role', 'Block', 'Task', 'Handler']",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Listing a valid collection name with `ansible-doc --list testns.testcol --playbook-dir ./` must not emit `Invalid collection name`.",
+   "covering_prose": null,
+   "gold_anchor": "Plugin = namedtuple('Plugin', 'name type')",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

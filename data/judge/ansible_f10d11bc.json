@@ -1,0 +1,137 @@
+{
+ "case": "ansible_f10d11bc",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 17,
+ "n_covered": 11,
+ "n_gap": 6,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Adding a rule to an existing FOOBAR-CHAIN with source 0.0.0.0, destination 0.0.0.0, jump DROP, and comment \"FOOBAR-CHAIN RULE\" must make \"FOOBAR-CHAIN RULE\" appear in `iptables -L` output.",
+   "covering_prose": "When rules are explicitly added with parameters (such as `comment`), those rules must appear in the listing output.",
+   "gold_anchor": "append_rule(iptables_path, module, module.params)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an insert rule that is already up to date, the module performs exactly 1 system call.",
+   "covering_prose": null,
+   "gold_anchor": "module.exit_json(**args)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For an insert rule that is already up to date, the only system call is a rule presence check using `['/sbin/iptables', '-t', 'filter', '-C', 'INPUT', '-j', 'ACCEPT']`.",
+   "covering_prose": null,
+   "gold_anchor": "check_rule_present(",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For inserting a missing rule, the module performs exactly 2 system calls.",
+   "covering_prose": null,
+   "gold_anchor": "insert_rule(iptables_path, module, module.params)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For inserting a missing rule, the first system call is the rule presence check and the second system call is the insert command; no chain presence check is executed between them.",
+   "covering_prose": null,
+   "gold_anchor": "insert_rule(iptables_path, module, module.params)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For appending a missing rule in check mode, the module performs exactly 1 system call.",
+   "covering_prose": "Commands that would alter the system must not be executed, and the number of system calls should match the minimum necessary to simulate the change.",
+   "gold_anchor": "if not module.check_mode:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For appending a missing rule in check mode, the only system call is the rule presence check.",
+   "covering_prose": "Commands that would alter the system must not be executed, and the number of system calls should match the minimum necessary to simulate the change.",
+   "gold_anchor": "check_rule_present(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For appending a missing rule outside check mode, the module performs exactly 2 system calls.",
+   "covering_prose": null,
+   "gold_anchor": "append_rule(iptables_path, module, module.params)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For appending a missing rule outside check mode, the first system call is the rule presence check and the second system call is the append command; no chain presence check is executed between them.",
+   "covering_prose": null,
+   "gold_anchor": "append_rule(iptables_path, module, module.params)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Creating a chain with `state: present`, `chain_management: true`, and no rule arguments performs exactly 2 system calls when the chain is absent.",
+   "covering_prose": "When `state: present`, `chain_management: true`, and no rule arguments are provided (for example: `source`, `destination`, `jump`, `comment`), the module must create an empty chain without any default rules.",
+   "gold_anchor": "if (args['state'] == 'present') and not args['rule']:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Creating a chain with `state: present`, `chain_management: true`, and no rule arguments checks chain presence with `['/sbin/iptables', '-t', 'filter', '-L', 'FOOBAR']`.",
+   "covering_prose": "The operation must be idempotent: if the chain already exists, no commands beyond a presence check should be executed, and `changed` must be `False`.",
+   "gold_anchor": "check_chain_present(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Creating a chain with `state: present`, `chain_management: true`, and no rule arguments creates the chain with `['/sbin/iptables', '-t', 'filter', '-N', 'FOOBAR']` when absent.",
+   "covering_prose": "When `state: present`, `chain_management: true`, and no rule arguments are provided (for example: `source`, `destination`, `jump`, `comment`), the module must create an empty chain without any default rules.",
+   "gold_anchor": "create_chain(iptables_path, module, module.params)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Creating a chain with no rule arguments must not run a rule presence check using `-C FOOBAR`.",
+   "covering_prose": "The module should not run any rule-related logic in this case.",
+   "gold_anchor": "not args['rule']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Creating a chain with no rule arguments must not append a default rule using `-A FOOBAR`.",
+   "covering_prose": "the module must create an empty chain without any default rules.",
+   "gold_anchor": "not args['rule']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Creating a chain with no rule arguments in check mode performs exactly 1 system call.",
+   "covering_prose": "Commands that would alter the system must not be executed, and the number of system calls should match the minimum necessary to simulate the change.",
+   "gold_anchor": "not module.check_mode",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Creating a chain with no rule arguments in check mode checks chain presence with `['/sbin/iptables', '-t', 'filter', '-L', 'FOOBAR']`.",
+   "covering_prose": "The operation must be idempotent: if the chain already exists, no commands beyond a presence check should be executed, and `changed` must be `False`.",
+   "gold_anchor": "check_chain_present(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Creating a chain with no rule arguments in check mode must not run a rule presence check using `-C FOOBAR`.",
+   "covering_prose": "The module should not run any rule-related logic in this case.",
+   "gold_anchor": "not args['rule']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After deleting FOOBAR-CHAIN, `iptables -L` output must not contain \"FOOBAR-CHAIN\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

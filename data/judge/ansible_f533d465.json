@@ -1,0 +1,109 @@
+{
+ "case": "ansible_f533d465",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 10,
+ "n_covered": 9,
+ "n_gap": 1,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "CLI `ansible-galaxy collection init abc._def` exits with `0`.",
+   "covering_prose": "both segments must be valid Python identifiers under language rules.",
+   "gold_anchor": "and is_python_identifier(ns_or_name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CLI `ansible-galaxy collection init abc._def -vvv` sets verbosity/exit expectation to `3`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "CLI `ansible-galaxy -vv collection init abc._def` sets verbosity/exit expectation to `2`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "CLI `ansible-galaxy -vv collection init abc._def -v` sets verbosity/exit expectation to `1`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "CLI `ansible-galaxy -vv collection init abc._def -vvvv` sets verbosity/exit expectation to `4`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`AnsibleCollectionRef.is_valid_collection_name('ns1.coll2') is True`.",
+   "covering_prose": "both segments must be valid Python identifiers under language rules.",
+   "gold_anchor": "return all(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`AnsibleCollectionRef.is_valid_collection_name('def.coll3') is False` because the namespace is a Python keyword.",
+   "covering_prose": "The method `is_valid_collection_name` must reject names where either `<namespace>` or `<name>` is a Python keyword, and both segments must be valid Python identifiers under language rules.",
+   "gold_anchor": "not iskeyword(ns_or_name) and is_python_identifier(ns_or_name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`AnsibleCollectionRef.is_valid_collection_name('ns4.return') is False` because the collection name is a Python keyword.",
+   "covering_prose": "The method `is_valid_collection_name` must reject names where either `<namespace>` or `<name>` is a Python keyword, and both segments must be valid Python identifiers under language rules.",
+   "gold_anchor": "not iskeyword(ns_or_name) and is_python_identifier(ns_or_name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`AnsibleCollectionRef.is_valid_collection_name('assert.this') is False` because the namespace is a Python keyword.",
+   "covering_prose": "The method `is_valid_collection_name` must reject names where either `<namespace>` or `<name>` is a Python keyword, and both segments must be valid Python identifiers under language rules.",
+   "gold_anchor": "not iskeyword(ns_or_name) and is_python_identifier(ns_or_name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`AnsibleCollectionRef.is_valid_collection_name('import.that') is False` because the namespace is a Python keyword.",
+   "covering_prose": "The method `is_valid_collection_name` must reject names where either `<namespace>` or `<name>` is a Python keyword, and both segments must be valid Python identifiers under language rules.",
+   "gold_anchor": "not iskeyword(ns_or_name) and is_python_identifier(ns_or_name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`AnsibleCollectionRef.is_valid_collection_name('.that') is False` because the namespace segment is empty and not a valid Python identifier.",
+   "covering_prose": "both segments must be valid Python identifiers under language rules.",
+   "gold_anchor": "and is_python_identifier(ns_or_name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`AnsibleCollectionRef.is_valid_collection_name('this.') is False` because the collection name segment is empty and not a valid Python identifier.",
+   "covering_prose": "both segments must be valid Python identifiers under language rules.",
+   "gold_anchor": "and is_python_identifier(ns_or_name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`AnsibleCollectionRef.is_valid_collection_name('.') is False` because both segments are empty and not valid Python identifiers.",
+   "covering_prose": "both segments must be valid Python identifiers under language rules.",
+   "gold_anchor": "and is_python_identifier(ns_or_name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`AnsibleCollectionRef.is_valid_collection_name('') is False` because the value does not contain exactly one namespace/name separator.",
+   "covering_prose": null,
+   "gold_anchor": "if collection_name.count(u'.') != 1:",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

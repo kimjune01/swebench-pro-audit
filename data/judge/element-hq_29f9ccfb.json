@@ -1,0 +1,67 @@
+{
+ "case": "element-hq_29f9ccfb",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "`setSelection` is importable from `src/components/views/rooms/wysiwyg_composer/utils/selection`.",
+   "covering_prose": "A new file is introduced at `src/components/views/rooms/wysiwyg_composer/utils/selection.ts`, which defines the following new public interface:",
+   "gold_anchor": "export function setSelection(selection:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`setSelection` accepts an object with `anchorNode`, `anchorOffset`, `focusNode`, and `focusOffset`.",
+   "covering_prose": "Input: `Pick<Selection, 'anchorNode' | 'anchorOffset' | 'focusNode' | 'focusOffset'>`",
+   "gold_anchor": "Pick<Selection, 'anchorNode' | 'anchorOffset' | 'focusNode' | 'focusOffset'>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When both `anchorNode` and `focusNode` are present and both offsets are `2`, `setSelection` sets the document selection to that collapsed position, allowing insertion between `wo` and `rd`.",
+   "covering_prose": "When valid information is provided, the current document selection should reflect the given start and end positions.",
+   "gold_anchor": "range.setStart(selection.anchorNode, selection.anchorOffset);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When both `anchorNode` and `focusNode` are present, `setSelection` clears the current document selection with `removeAllRanges()`.",
+   "covering_prose": "Behavior: When both `anchorNode` and `focusNode` are present, constructs a `Range`, clears current document selection via `removeAllRanges()`, and applies the new range with `addRange()`.",
+   "gold_anchor": "document.getSelection()?.removeAllRanges();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When both `anchorNode` and `focusNode` are present, `setSelection` applies the new range with `addRange()`.",
+   "covering_prose": "Behavior: When both `anchorNode` and `focusNode` are present, constructs a `Range`, clears current document selection via `removeAllRanges()`, and applies the new range with `addRange()`.",
+   "gold_anchor": "document.getSelection()?.addRange(range);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The rich text composer textbox has `contentEditable` equal to `\"true\"` when rendered with `isRichTextEnabled: true`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Clicking the Emoji button in an empty rich text composer inserts the emoji `\ud83e\uddab` into the textbox.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Clicking the Emoji button after selecting offset `2` in the text node `word` produces textbox text matching `wo\ud83e\uddabrd`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

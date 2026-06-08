@@ -1,0 +1,473 @@
+{
+ "case": "ansible_dcc5dac1",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 40,
+ "n_covered": 16,
+ "n_gap": 24,
+ "n_out_of_scope": 26,
+ "rows": [
+  {
+   "test": "ensure_type(None, 'str') returns None",
+   "covering_prose": null,
+   "gold_anchor": "if value is None:\n        return None",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type(Unhashable(), 'bool') returns False and does not raise for an unhashable value",
+   "covering_prose": "The boolean function must check if the value is hashable before attempting membership checking in BOOLEANS_TRUE/FALSE sets.",
+   "gold_anchor": "return boolean(value, strict=False)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type('y'/'yes'/'on'/'1'/'true'/'t'/1/1.0/True, 'bool') returns True",
+   "covering_prose": null,
+   "gold_anchor": "return boolean(value, strict=False)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('n'/'no'/'off'/'0'/'false'/'f'/0/0.0/False, 'bool') returns False",
+   "covering_prose": null,
+   "gold_anchor": "return boolean(value, strict=False)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type(False, 'boolean') treats 'boolean' as an alias for 'bool' and returns False",
+   "covering_prose": null,
+   "gold_anchor": "case 'boolean' | 'bool':",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('10', 'int') returns 10",
+   "covering_prose": "Integer type conversion must use Decimal for float and string conversions, verifying that the mantissa is zero before converting to integer.",
+   "gold_anchor": "if (decimal_value := decimal.Decimal(value)) == (int_part := int(decimal_value)):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type(20, 'int') returns 20",
+   "covering_prose": null,
+   "gold_anchor": "if isinstance(value, int):  # handle both int and bool (which is an int)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type(True, 'int') returns 1",
+   "covering_prose": "Integer type conversion must correctly handle boolean values True and False by converting them to 1 and 0 respectively using int(value).",
+   "gold_anchor": "return int(value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type(False, 'int') returns 0",
+   "covering_prose": "Integer type conversion must correctly handle boolean values True and False by converting them to 1 and 0 respectively using int(value).",
+   "gold_anchor": "return int(value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type(42.0, 'int') returns 42",
+   "covering_prose": "Integer type conversion must use Decimal for float and string conversions, verifying that the mantissa is zero before converting to integer.",
+   "gold_anchor": "if (decimal_value := decimal.Decimal(value)) == (int_part := int(decimal_value)):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type(-42.0, 'int') returns -42",
+   "covering_prose": "Integer type conversion must use Decimal for float and string conversions, verifying that the mantissa is zero before converting to integer.",
+   "gold_anchor": "if (decimal_value := decimal.Decimal(value)) == (int_part := int(decimal_value)):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type(-42.0, 'integer') treats 'integer' as an alias for 'int' and returns -42",
+   "covering_prose": null,
+   "gold_anchor": "case 'integer' | 'int':",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('2', 'float') returns 2.0",
+   "covering_prose": null,
+   "gold_anchor": "return float(value)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('0.10', 'float') returns 0.10",
+   "covering_prose": null,
+   "gold_anchor": "return float(value)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type(0.2, 'float') returns 0.2",
+   "covering_prose": null,
+   "gold_anchor": "if isinstance(value, float):\n                return value",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('a,b', 'list') returns ['a', 'b']",
+   "covering_prose": null,
+   "gold_anchor": "return [unquote(x.strip()) for x in value.split(',')]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type(['a', 1], 'list') returns ['a', 1]",
+   "covering_prose": null,
+   "gold_anchor": "if isinstance(value, list):\n                return value",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type(('a', 1), 'list') returns ['a', 1]",
+   "covering_prose": "List type conversion must convert Sequence objects (except bytes) to list using list(value).",
+   "gold_anchor": "return list(value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type('None', 'none') returns None",
+   "covering_prose": null,
+   "gold_anchor": "if value == \"None\":\n                return None",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('/p1', 'pathspec') returns ['/p1']",
+   "covering_prose": null,
+   "gold_anchor": "value = value.split(os.pathsep)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('/p1:/p2', 'pathspec') returns ['/p1', '/p2']",
+   "covering_prose": null,
+   "gold_anchor": "value = value.split(os.pathsep)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type(['/p1', '/p2'], 'pathspec') returns ['/p1', '/p2']",
+   "covering_prose": "The pathspec and pathlist types must verify that all sequence elements are strings before attempting to resolve paths.",
+   "gold_anchor": "all(isinstance(x, str) for x in value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type('/tmp/test.yml,/home/test2.yml', 'pathlist') returns ['/tmp/test.yml', '/home/test2.yml']",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type string inputs 'a', 'Caf\u00e9', '', '29', '13.37', '123j', '0x123', 'true', and 'True' with 'str' return the same string value",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type numeric and boolean inputs 0, 29, 13.37, 123j, 0x123, and True with 'str' return '0', '29', '13.37', '123j', '291', and 'True'",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(True, 'string') treats 'string' as an alias for 'str' and returns 'True'",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(CustomMapping(dict(a=1)), 'dict') returns dict(a=1)",
+   "covering_prose": "Dictionary type conversion must convert Mapping objects to dict using dict(value).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(dict(a=1), 'dict') returns dict(a=1)",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(dict(a=1), 'dictionary') treats 'dictionary' as an alias for 'dict' and returns dict(a=1)",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(123, 'bogustype') returns 123 unchanged for an unknown non-string type",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type('a', 'int') raises ValueError with message containing \"Invalid value provided for 'int': 'a'\"",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type('NaN', 'int') raises ValueError with message containing \"Invalid value provided for 'int': 'NaN'\"",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(b'10', 'int') raises ValueError with message containing \"Invalid value provided for 'int': b'10'\"",
+   "covering_prose": "Test byte values (should report clear errors) ensure_type(b'test', 'str')",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(1.1, 'int') raises ValueError with message containing \"Invalid value provided for 'int': 1.1\"",
+   "covering_prose": "Integer type conversion must use Decimal for float and string conversions, verifying that the mantissa is zero before converting to integer.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type('1.1', 'int') raises ValueError with message containing \"Invalid value provided for 'int': '1.1'\"",
+   "covering_prose": "Integer type conversion must use Decimal for float and string conversions, verifying that the mantissa is zero before converting to integer.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(-1.1, 'int') raises ValueError with message containing \"Invalid value provided for 'int': -1.1\"",
+   "covering_prose": "Integer type conversion must use Decimal for float and string conversions, verifying that the mantissa is zero before converting to integer.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type('a', 'float') raises ValueError with message containing \"Invalid value provided for 'float': 'a'\"",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(b'a', 'float') raises ValueError with message containing \"Invalid value provided for 'float': b'a'\"",
+   "covering_prose": "Values lose their trust/origin metadata when converted, unhashable values cause TypeError exceptions, byte values cause unhandled exceptions, sequences don't convert properly to lists, mappings don't convert to dictionaries, and boolean-to-integer conversion fails.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(1, 'list') raises ValueError with message containing \"Invalid value provided for 'list': 1\"",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(b'a', 'list') raises ValueError with message containing \"Invalid value provided for 'list': b'a'\"",
+   "covering_prose": "List type conversion must convert Sequence objects (except bytes) to list using list(value).",
+   "gold_anchor": "if isinstance(value, Sequence) and not isinstance(value, bytes):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type(1, 'none') raises ValueError with message containing \"Invalid value provided for 'none': 1\"",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(1, 'path') raises ValueError with message containing \"Invalid value provided for 'path': 1\"",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(1, 'tmp') raises ValueError with message containing \"Invalid value provided for 'tmp': 1\"",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(1, 'pathspec') raises ValueError with message containing \"Invalid value provided for 'pathspec': 1\"",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(b'a', 'pathspec') raises ValueError with message containing \"Invalid value provided for 'pathspec': b'a'\"",
+   "covering_prose": "The pathspec and pathlist types must verify that all sequence elements are strings before attempting to resolve paths.",
+   "gold_anchor": "not isinstance(value, bytes)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type([b'a'], 'pathspec') raises ValueError with message containing \"Invalid value provided for 'pathspec': [b'a']\"",
+   "covering_prose": "The pathspec and pathlist types must verify that all sequence elements are strings before attempting to resolve paths.",
+   "gold_anchor": "all(isinstance(x, str) for x in value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type(1, 'pathlist') raises ValueError with message containing \"Invalid value provided for 'pathlist': 1\"",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(b'a', 'pathlist') raises ValueError with message containing \"Invalid value provided for 'pathlist': b'a'\"",
+   "covering_prose": "The pathspec and pathlist types must verify that all sequence elements are strings before attempting to resolve paths.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type([b'a'], 'pathlist') raises ValueError with message containing \"Invalid value provided for 'pathlist': [b'a']\"",
+   "covering_prose": "The pathspec and pathlist types must verify that all sequence elements are strings before attempting to resolve paths.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type(1, 'dict') raises ValueError with message containing \"Invalid value provided for 'dict': 1\"",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type([1], 'str') raises ValueError with message containing \"Invalid value provided for 'str': [1]\"",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ensure_type('\"value\"', 'str', origin_ftype=None) returns '\"value\"' without unquoting",
+   "covering_prose": null,
+   "gold_anchor": "if isinstance(value, str) and origin_ftype and origin_ftype == 'ini':",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('\"value\"', 'str', origin_ftype='yaml') returns '\"value\"' without unquoting",
+   "covering_prose": null,
+   "gold_anchor": "if isinstance(value, str) and origin_ftype and origin_ftype == 'ini':",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('\"value\"', 'str', origin_ftype='ini') returns 'value'",
+   "covering_prose": null,
+   "gold_anchor": "value = unquote(value)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type(\"'value'\", 'str', origin_ftype='ini') returns 'value'",
+   "covering_prose": null,
+   "gold_anchor": "value = unquote(value)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type(\"''value''\", 'str', origin_ftype='ini') returns \"'value'\"",
+   "covering_prose": null,
+   "gold_anchor": "value = unquote(value)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('\"\"value\"\"', 'str', origin_ftype='ini') returns '\"value\"'",
+   "covering_prose": null,
+   "gold_anchor": "value = unquote(value)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('\"x\"', 'bogustype', origin_ftype='ini') returns 'x', so unknown string types are still unquoted for ini origins",
+   "covering_prose": null,
+   "gold_anchor": "value = unquote(value)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type(tagged 'a,b,c', 'list') returns a tagged list and all split string list elements are tagged",
+   "covering_prose": "The implementation must preserve and propagate tags on converted values by copying tags from the original value to the result when the value type is not temppath, tmppath, or tmp.",
+   "gold_anchor": "value = [AnsibleTagHelper.tag_copy(original_value, item) for item in value]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type(tagged ('a', 'b'), 'list') returns a tagged list",
+   "covering_prose": "The implementation must preserve and propagate tags on converted values by copying tags from the original value to the result when the value type is not temppath, tmppath, or tmp.",
+   "gold_anchor": "value = AnsibleTagHelper.tag_copy(original_value, value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type(tagged '1', 'int') returns a tagged int",
+   "covering_prose": "The implementation must preserve and propagate tags on converted values by copying tags from the original value to the result when the value type is not temppath, tmppath, or tmp.",
+   "gold_anchor": "value = AnsibleTagHelper.tag_copy(original_value, value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type(tagged 'plainstr', 'str') returns the same instance when value == result, and result remains tagged",
+   "covering_prose": "The implementation must preserve and propagate tags on converted values by copying tags from the original value to the result when the value type is not temppath, tmppath, or tmp.",
+   "gold_anchor": "if copy_tags and value is not original_value:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type(tagged 'plainstr', 'tmp', origin='/tmp') does not propagate tags",
+   "covering_prose": "The implementation must preserve and propagate tags on converted values by copying tags from the original value to the result when the value type is not temppath, tmppath, or tmp.",
+   "gold_anchor": "copy_tags = value_type not in ('temppath', 'tmppath', 'tmp')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ensure_type('blah1', 'temppath', origin=tmp_path) creates an empty directory path containing 'blah1'",
+   "covering_prose": null,
+   "gold_anchor": "value = tempfile.mkdtemp(prefix=prefix, dir=value)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('blah2', 'tmp', origin=tmp_path) creates an empty directory path containing 'blah2'",
+   "covering_prose": null,
+   "gold_anchor": "case 'temppath' | 'tmppath' | 'tmp':",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ensure_type('blah3', 'tmppath', origin=tmp_path) creates an empty directory path containing 'blah3'",
+   "covering_prose": null,
+   "gold_anchor": "case 'temppath' | 'tmppath' | 'tmp':",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

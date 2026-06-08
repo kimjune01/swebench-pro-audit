@@ -1,0 +1,228 @@
+{
+ "case": "ansible_ea164fdd",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 31,
+ "n_covered": 26,
+ "n_gap": 5,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Integration setup configures system defaults with exactly `no system default switchport` and `system default switchport shutdown` before including CLI tests.",
+   "covering_prose": null,
+   "gold_anchor": "pat = '(no )*system default switchport$'",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Facts gathering requests both `show running-config all | incl 'system default switchport'` and `show running-config | section ^interface`.",
+   "covering_prose": "Facts gathering must query both `show running-config all | incl 'system default switchport'` and `show running-config | section ^interface` so that system default switchport mode and shutdown states are available, alongside individual interface configurations.",
+   "gold_anchor": "data = connection.get(\"show running-config all | incl 'system default switchport'\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Facts parsing computes `sysdefs['mode']` as `layer3` when `no system default switchport` is present and `layer2` when `system default switchport` is present.",
+   "covering_prose": "  * `mode`: the current system default interface mode (`layer2` or `layer3`),",
+   "gold_anchor": "sysdefs['mode'] = 'layer3' if 'no ' in m.groups() else 'layer2'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Facts parsing computes L2 default enabled as True for `no system default switchport shutdown` and False for `system default switchport shutdown`.",
+   "covering_prose": "  * `L2_enabled`: boolean representing default enabled state for L2 interfaces under current USD configuration,",
+   "gold_anchor": "sysdefs['L2_enabled'] = True if 'no ' in m.groups() else False",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Facts parsing computes L3 default enabled as True on legacy N3K/N6K-like platforms and False on N7K/N9K-like platforms.",
+   "covering_prose": "  * `L3_enabled`: boolean representing default enabled state for L3 interfaces, accounting for platform family (True for N3K/N6K, False for N7K/N9K).",
+   "gold_anchor": "L3_enabled = True if re.search('N[356]K', platform) else False",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The hidden integration tests run shutdown/default-state assertions only when `platform is not search('N3[5KL]|N[56]K|titanium')`.",
+   "covering_prose": null,
+   "gold_anchor": "L3_enabled = True if re.search('N[356]K', platform) else False",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Reserved management interface `mgmt0` is excluded from generated `nxos_interfaces` commands even when present in gathered config.",
+   "covering_prose": null,
+   "gold_anchor": "interfaces_facts = remove_rsvd_interfaces(interfaces_facts)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Facts include existing interfaces that have only default state in `default_interfaces`, and desired entries for those names are added to the comparison set as `{'name': <name>}`.",
+   "covering_prose": "A list of `default_interfaces` must be included in facts to track interfaces that exist in default state but have no explicit configuration. These must be included in later config evaluation so that desired playbook entries referring to them do not produce spurious changes.",
+   "gold_anchor": "default_interfaces.append(obj['name'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a desired interface name is in `default_interfaces`, `have` includes that name so default-only interfaces do not look absent.",
+   "covering_prose": "The configuration logic must incorporate `default_interfaces` into the comparison set so that playbook entries referring to them can be applied consistently.",
+   "gold_anchor": "if i['name'] in default_intf_list:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For new absent/default-only interfaces with only default attributes, command generation still emits an `interface <name>` block such as `interface loopback4`, `interface port-channel4`, or `interface Ethernet1/4.101`.",
+   "covering_prose": "Virtual/non-existent or \u201cdefault-only\u201d interfaces are handled without spurious changes, and creation occurs only when explicitly requested.",
+   "gold_anchor": "if commands or not obj_in_have:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`default_intf_enabled` returns None when called without an interface name.",
+   "covering_prose": "Outputs: `bool` (default enabled state) or `None` if indeterminate.",
+   "gold_anchor": "if not name:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loopback and port-channel interfaces default to enabled True.",
+   "covering_prose": "Facts must also include a mapping of interface names to their default enabled states (`enabled_def`). This mapping must apply to loopbacks, port-channels, Ethernet interfaces, and any existing-but-default interfaces.",
+   "gold_anchor": "if re.search('port-channel|loopback', name):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Ethernet default enabled state is selected from L3 or L2 system defaults based on current or target mode.",
+   "covering_prose": "The default administrative state (`enabled`) must be determined based on interface name, mode (current or desired), and system defaults. This determination must drive whether `shutdown` or `no shutdown` is issued when attributes are reset or added.",
+   "gold_anchor": "elif mode == 'layer2':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Changing an interface from L2 to L3 emits `no switchport` before enabled/attribute commands.",
+   "covering_prose": "When applying new attributes, each block must begin with `interface <name>`, mode changes must precede other attributes, and `shutdown` or `no shutdown` must only be issued when the desired state differs from the existing or default state.",
+   "gold_anchor": "commands.append('no switchport')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Changing an interface from L3 to L2 emits `switchport` before enabled/attribute commands.",
+   "covering_prose": "When applying new attributes, each block must begin with `interface <name>`, mode changes must precede other attributes, and `shutdown` or `no shutdown` must only be issued when the desired state differs from the existing or default state.",
+   "gold_anchor": "commands.append('switchport')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When resetting attributes, mode reset commands are emitted before description/speed/duplex/mtu/enabled resets.",
+   "covering_prose": "When resetting attributes, mode-related commands (`switchport` or `no switchport`) must precede other changes. `shutdown` or `no shutdown` must only be issued when the current enabled state differs from the computed default.",
+   "gold_anchor": "commands.append(no_cmd + 'switchport')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When resetting an interface whose current enabled state is False and computed default is True, emit `no shutdown`.",
+   "covering_prose": "When resetting attributes, mode-related commands (`switchport` or `no switchport`) must precede other changes. `shutdown` or `no shutdown` must only be issued when the current enabled state differs from the computed default.",
+   "gold_anchor": "if obj['enabled'] is False and sysdef_enabled is True:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When resetting an interface whose current enabled state is True and computed default is False, emit `shutdown`.",
+   "covering_prose": "When resetting attributes, mode-related commands (`switchport` or `no switchport`) must precede other changes. `shutdown` or `no shutdown` must only be issued when the current enabled state differs from the computed default.",
+   "gold_anchor": "elif obj['enabled'] is True and sysdef_enabled is False:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When applying desired `enabled: False`, emit `shutdown` only if existing/default enabled is True.",
+   "covering_prose": "When applying new attributes, each block must begin with `interface <name>`, mode changes must precede other attributes, and `shutdown` or `no shutdown` must only be issued when the desired state differs from the existing or default state.",
+   "gold_anchor": "if d['enabled'] is False and have_enabled is True:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When applying desired `enabled: True`, emit `no shutdown` only if existing/default enabled is False.",
+   "covering_prose": "When applying new attributes, each block must begin with `interface <name>`, mode changes must precede other attributes, and `shutdown` or `no shutdown` must only be issued when the desired state differs from the existing or default state.",
+   "gold_anchor": "elif d['enabled'] is True and have_enabled is False:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Every non-empty add/reset command block begins with `interface <name>`.",
+   "covering_prose": "When applying new attributes, each block must begin with `interface <name>`, mode changes must precede other attributes, and `shutdown` or `no shutdown` must only be issued when the desired state differs from the existing or default state.",
+   "gold_anchor": "commands.insert(0, 'interface' + ' ' + d['name'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`state: replaced` applies the system default mode when the playbook omits mode and the current Ethernet or port-channel mode differs from the system default.",
+   "covering_prose": "In the `replaced` state, if the desired configuration does not explicitly specify a mode and the current mode differs from system defaults, the default system mode (`layer2` or `layer3`) must be applied.",
+   "gold_anchor": "if not w.get('mode') and re.search('Ethernet|port-channel', name):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`state: replaced` resets unspecified non-default attributes only for interfaces that already exist, while still adding desired attributes for new objects.",
+   "covering_prose": "`replaced` should not reset or toggle unrelated attributes (e.g., should not flap `shutdown` when only changing `description` if enabled state already matches).",
+   "gold_anchor": "if obj_in_have:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`state: overridden` processes interfaces present in the playbook with replaced semantics when they differ from current state.",
+   "covering_prose": "In the `overridden` state, attributes for all interfaces not present in the playbook must be reset to system defaults (including interfaces in default-only state), and new interfaces listed in the playbook but absent from current configuration must be created.",
+   "gold_anchor": "replaced_cmds = self._state_replaced(obj_in_want, [h])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`state: overridden` resets attributes for interfaces not present in the playbook, including shutdown reset for an interface configured `no shutdown` when the default is shutdown.",
+   "covering_prose": "In the `overridden` state, attributes for all interfaces not present in the playbook must be reset to system defaults (including interfaces in default-only state), and new interfaces listed in the playbook but absent from current configuration must be created.",
+   "gold_anchor": "cmds.extend(self.del_attribs(h))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`state: overridden` creates new interfaces listed in the playbook but absent from current configuration.",
+   "covering_prose": "In the `overridden` state, attributes for all interfaces not present in the playbook must be reset to system defaults (including interfaces in default-only state), and new interfaces listed in the playbook but absent from current configuration must be created.",
+   "gold_anchor": "if w['name'] not in existing_interfaces:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`state: deleted` with no `config` resets all gathered interface objects to defaults, including `interface Ethernet1/1`, `no switchport`, `interface Ethernet1/2`, `no speed`, and `shutdown` in the unit test fixture.",
+   "covering_prose": null,
+   "gold_anchor": "for h in have:",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "`state: deleted` with a playbook config resets only named existing objects and ignores desired attributes other than name.",
+   "covering_prose": null,
+   "gold_anchor": "obj_in_want = search_obj_in_list(h['name'], want, 'name')",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Merged state updates only differences between desired and current interface state, such as changed description, speed, duplex, mtu, ip_forward, fabric forwarding, mode, or enabled state.",
+   "covering_prose": "The configuration logic must compare desired and current interface states to generate only the necessary commands.",
+   "gold_anchor": "diff = self.diff_of_dicts(w, obj_in_have)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Repeated execution for `merged`, `deleted`, `replaced`, and `overridden` produces `changed == false` and an empty command list when device state already matches desired/default state.",
+   "covering_prose": "Repeated execution of playbooks must not result in repeated or toggling commands. Idempotence must hold across all state values (`merged`, `deleted`, `replaced`, `overridden`).",
+   "gold_anchor": "result['commands'] = commands",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The unit tests can patch `Interfaces.edit_config`, and `execute_module` applies generated commands through that public wrapper instead of directly accessing `_connection.edit_config`.",
+   "covering_prose": "Public wrapper around the connection\u2019s `edit_config` to allow external callers and test doubles to invoke configuration application without accessing the private connection object.",
+   "gold_anchor": "self.edit_config(commands)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

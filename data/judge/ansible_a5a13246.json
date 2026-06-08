@@ -1,0 +1,144 @@
+{
+ "case": "ansible_a5a13246",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 12,
+ "n_covered": 12,
+ "n_gap": 0,
+ "n_out_of_scope": 7,
+ "rows": [
+  {
+   "test": "default_fact_module: module_defaults for the gather_facts action plugin with gather_subset: min results in gather_subset == ['min'].",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "default_fact_module: module_defaults for the short underlying setup module with gather_subset: '!all' results in gather_subset == ['!all'].",
+   "covering_prose": "The `module_defaults` of the underlying module must always be applied equivalent to invoking it directly, regardless of whether the module is referenced by FQCN, by short name, or via `ansible.legacy.*`.",
+   "gold_anchor": "tmp_args.update(module_defaults[legacy].copy())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "default_fact_module: when both setup and gather_facts module_defaults define gather_subset, the effective gather_subset is ['min'] from gather_facts.",
+   "covering_prose": "When `module_defaults` exist for both the `gather_facts` action plugin and the underlying module (e.g., `setup` or `ansible.legacy.setup`) for the same option, the effective value must be that of the action plugin unless the option has been explicitly defined.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "default_fact_module: module_defaults for ansible.legacy.setup with gather_subset: '!all' results in gather_subset == ['!all'].",
+   "covering_prose": "The `module_defaults` of the underlying module must always be applied equivalent to invoking it directly, regardless of whether the module is referenced by FQCN, by short name, or via `ansible.legacy.*`.",
+   "gold_anchor": "tmp_args.update(module_defaults[redirected_action].copy())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "custom_fact_module with ANSIBLE_FACTS_MODULES='ansible.legacy.setup': module_defaults for ansible.legacy.setup with gather_subset: '!all' results in gather_subset == ['!all'].",
+   "covering_prose": "The `module_defaults` of the underlying module must always be applied equivalent to invoking it directly, regardless of whether the module is referenced by FQCN, by short name, or via `ansible.legacy.*`.",
+   "gold_anchor": "tmp_args.update(module_defaults[redirected_action].copy())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "custom_fact_module with ANSIBLE_FACTS_MODULES='ansible.legacy.setup': when both gather_facts and ansible.legacy.setup module_defaults define gather_subset, the effective gather_subset is ['min'] from gather_facts.",
+   "covering_prose": "When `module_defaults` exist for both the `gather_facts` action plugin and the underlying module (e.g., `setup` or `ansible.legacy.setup`) for the same option, the effective value must be that of the action plugin unless the option has been explicitly defined.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "package on Fedora: invoking package with module_defaults under package supplying name: apt and state: present succeeds without explicit package task args.",
+   "covering_prose": "package.run must resolve the context of the managed module (e.g., `dnf`/`apt`) with `module_loader.find_plugin_with_context(module, collection_list=self._task.collections)` and use `context.redirect_list` when calling `get_action_args_with_defaults`, so that both the `module_defaults` of `package` and those of the selected underlying module are applied.",
+   "gold_anchor": "context = self._shared_loader_obj.module_loader.find_plugin_with_context(module, collection_list=self._task.collections)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "package on Fedora: invoking package with module_defaults under dnf supplying name: apt and state: present succeeds when package manager is auto-selected.",
+   "covering_prose": "package.run must resolve the context of the managed module (e.g., `dnf`/`apt`) with `module_loader.find_plugin_with_context(module, collection_list=self._task.collections)` and use `context.redirect_list` when calling `get_action_args_with_defaults`, so that both the `module_defaults` of `package` and those of the selected underlying module are applied.",
+   "gold_anchor": "module, new_module_args, self._task.module_defaults, self._templar, context.redirect_list",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "package on Fedora: invoking package with use: dnf and module_defaults under dnf supplying name: apt and state: present succeeds.",
+   "covering_prose": "package.run must resolve the context of the managed module (e.g., `dnf`/`apt`) with `module_loader.find_plugin_with_context(module, collection_list=self._task.collections)` and use `context.redirect_list` when calling `get_action_args_with_defaults`, so that both the `module_defaults` of `package` and those of the selected underlying module are applied.",
+   "gold_anchor": "module, new_module_args, self._task.module_defaults, self._templar, context.redirect_list",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "service in check mode: invoking service with module_defaults under service supplying name: ansible_test and enabled: yes reports changed.",
+   "covering_prose": "service.run must resolve the context of the effective service module (e.g., `systemd`/`sysvinit`) with `module_loader.find_plugin_with_context(...)` and use `context.redirect_list` when calling `get_action_args_with_defaults`, ensuring that the specific `module_defaults` are reflected; in check mode, when such defaults involve a change (e.g., `enabled: yes` with a `name` set via defaults), the result must indicate `changed: true`.",
+   "gold_anchor": "context = self._shared_loader_obj.module_loader.find_plugin_with_context(module, collection_list=self._task.collections)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "service in check mode when ansible_service_mgr is sysvinit or systemd: module_defaults under sysvinit/systemd supplying name: ansible_test and enabled: yes reports changed.",
+   "covering_prose": "service.run must resolve the context of the effective service module (e.g., `systemd`/`sysvinit`) with `module_loader.find_plugin_with_context(...)` and use `context.redirect_list` when calling `get_action_args_with_defaults`, ensuring that the specific `module_defaults` are reflected; in check mode, when such defaults involve a change (e.g., `enabled: yes` with a `name` set via defaults), the result must indicate `changed: true`.",
+   "gold_anchor": "module, new_module_args, self._task.module_defaults, self._templar, context.redirect_list",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "smart gather_facts with ansible_network_os: ios leaves C.config FACTS_MODULES equal to ['smart'] after run.",
+   "covering_prose": "gather_facts.run must work with a copy of `FACTS_MODULES` (e.g., `modules = list(C.config.get_config_value(...))`) to avoid mutating the configuration and preserve smart mode during execution.",
+   "gold_anchor": "modules = list(C.config.get_config_value('FACTS_MODULES', variables=task_vars))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "smart gather_facts with ansible_network_os: ios calls _get_module_args exactly once.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "smart gather_facts with ansible_network_os: ios passes ('ansible.legacy.ios_facts', {'ansible_network_os': 'ios'}) to _get_module_args.",
+   "covering_prose": "In smart mode, `gather_facts` must resolve the facts module from `ansible_network_os` and pass the resulting effective name to `_get_module_args` (e.g., `ios` \u2192 `ansible.legacy.ios_facts`, `cisco.ios.ios` \u2192 `cisco.ios.ios_facts`) so that the `module_defaults` for that module are reflected in the effective arguments.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "smart gather_facts with ansible_network_os: cisco.ios.ios leaves C.config FACTS_MODULES equal to ['smart'] after run.",
+   "covering_prose": "gather_facts.run must work with a copy of `FACTS_MODULES` (e.g., `modules = list(C.config.get_config_value(...))`) to avoid mutating the configuration and preserve smart mode during execution.",
+   "gold_anchor": "modules = list(C.config.get_config_value('FACTS_MODULES', variables=task_vars))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "smart gather_facts with ansible_network_os: cisco.ios.ios calls _get_module_args exactly once.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "smart gather_facts with ansible_network_os: cisco.ios.ios passes ('cisco.ios.ios_facts', {'ansible_network_os': 'cisco.ios.ios'}) to _get_module_args.",
+   "covering_prose": "In smart mode, `gather_facts` must resolve the facts module from `ansible_network_os` and pass the resulting effective name to `_get_module_args` (e.g., `ios` \u2192 `ansible.legacy.ios_facts`, `cisco.ios.ios` \u2192 `cisco.ios.ios_facts`) so that the `module_defaults` for that module are reflected in the effective arguments.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_get_module_args('ios_facts') with module_defaults {'ios_facts': {'gather_subset': 'min'}} returns mod_args containing gather_subset == 'min'.",
+   "covering_prose": "In smart mode, `gather_facts` must resolve the facts module from `ansible_network_os` and pass the resulting effective name to `_get_module_args` (e.g., `ios` \u2192 `ansible.legacy.ios_facts`, `cisco.ios.ios` \u2192 `cisco.ios.ios_facts`) so that the `module_defaults` for that module are reflected in the effective arguments.",
+   "gold_anchor": "redirect_list = self._shared_loader_obj.module_loader.find_plugin_with_context(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_get_module_args('cisco.ios.ios_facts') with module_defaults {'cisco.ios.ios_facts': {'gather_subset': 'min'}} returns mod_args containing gather_subset == 'min'.",
+   "covering_prose": "In smart mode, `gather_facts` must resolve the facts module from `ansible_network_os` and pass the resulting effective name to `_get_module_args` (e.g., `ios` \u2192 `ansible.legacy.ios_facts`, `cisco.ios.ios` \u2192 `cisco.ios.ios_facts`) so that the `module_defaults` for that module are reflected in the effective arguments.",
+   "gold_anchor": "fact_module, mod_args, self._task.module_defaults, self._templar, redirect_list",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

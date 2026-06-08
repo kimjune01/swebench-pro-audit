@@ -1,0 +1,172 @@
+{
+ "case": "ansible_cd64e0b0",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 22,
+ "n_covered": 22,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Importing IteratingStates and FailedStates from ansible.executor.play_iterator succeeds.",
+   "covering_prose": "The module `lib/ansible/executor/play_iterator.py` must expose two public enumerations: IteratingStates with members `SETUP`, `TASKS`, `RESCUE`, `ALWAYS`, and `COMPLETE`, and `FailedStates` as an `IntFlag` with members `NONE`, `SETUP`, `TASKS`, `RESCUE`, and `ALWAYS`. These enumerations must represent valid execution states and combinable failure states for hosts during play iteration.",
+   "gold_anchor": "__all__ = ['PlayIterator', 'IteratingStates', 'FailedStates']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayIterator.ITERATING_SETUP resolves to IteratingStates.SETUP.",
+   "covering_prose": "Attribute access using legacy constants such as `PlayIterator.ITERATING_TASKS` must remain functional. The `PlayIterator` class must redirect these accesses to the corresponding members of `IteratingStates` or `FailedStates`, and a deprecation warning must be issued upon access.",
+   "gold_anchor": "rv = getattr(IteratingStates, name.replace('ITERATING_', ''))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayIterator.ITERATING_TASKS resolves to IteratingStates.TASKS.",
+   "covering_prose": "Attribute access using legacy constants such as `PlayIterator.ITERATING_TASKS` must remain functional. The `PlayIterator` class must redirect these accesses to the corresponding members of `IteratingStates` or `FailedStates`, and a deprecation warning must be issued upon access.",
+   "gold_anchor": "rv = getattr(IteratingStates, name.replace('ITERATING_', ''))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayIterator.ITERATING_RESCUE resolves to IteratingStates.RESCUE.",
+   "covering_prose": "Attribute access using legacy constants such as `PlayIterator.ITERATING_TASKS` must remain functional. The `PlayIterator` class must redirect these accesses to the corresponding members of `IteratingStates` or `FailedStates`, and a deprecation warning must be issued upon access.",
+   "gold_anchor": "rv = getattr(IteratingStates, name.replace('ITERATING_', ''))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayIterator.ITERATING_ALWAYS resolves to IteratingStates.ALWAYS.",
+   "covering_prose": "Attribute access using legacy constants such as `PlayIterator.ITERATING_TASKS` must remain functional. The `PlayIterator` class must redirect these accesses to the corresponding members of `IteratingStates` or `FailedStates`, and a deprecation warning must be issued upon access.",
+   "gold_anchor": "rv = getattr(IteratingStates, name.replace('ITERATING_', ''))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayIterator.ITERATING_COMPLETE resolves to IteratingStates.COMPLETE.",
+   "covering_prose": "Attribute access using legacy constants such as `PlayIterator.ITERATING_TASKS` must remain functional. The `PlayIterator` class must redirect these accesses to the corresponding members of `IteratingStates` or `FailedStates`, and a deprecation warning must be issued upon access.",
+   "gold_anchor": "rv = getattr(IteratingStates, name.replace('ITERATING_', ''))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayIterator.FAILED_NONE resolves to FailedStates.NONE.",
+   "covering_prose": "Attribute access using legacy constants such as `PlayIterator.ITERATING_TASKS` must remain functional. The `PlayIterator` class must redirect these accesses to the corresponding members of `IteratingStates` or `FailedStates`, and a deprecation warning must be issued upon access.",
+   "gold_anchor": "rv = getattr(FailedStates, name.replace('FAILED_', ''))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayIterator.FAILED_SETUP resolves to FailedStates.SETUP.",
+   "covering_prose": "Attribute access using legacy constants such as `PlayIterator.ITERATING_TASKS` must remain functional. The `PlayIterator` class must redirect these accesses to the corresponding members of `IteratingStates` or `FailedStates`, and a deprecation warning must be issued upon access.",
+   "gold_anchor": "rv = getattr(FailedStates, name.replace('FAILED_', ''))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayIterator.FAILED_TASKS resolves to FailedStates.TASKS.",
+   "covering_prose": "Attribute access using legacy constants such as `PlayIterator.ITERATING_TASKS` must remain functional. The `PlayIterator` class must redirect these accesses to the corresponding members of `IteratingStates` or `FailedStates`, and a deprecation warning must be issued upon access.",
+   "gold_anchor": "rv = getattr(FailedStates, name.replace('FAILED_', ''))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayIterator.FAILED_RESCUE resolves to FailedStates.RESCUE.",
+   "covering_prose": "Attribute access using legacy constants such as `PlayIterator.ITERATING_TASKS` must remain functional. The `PlayIterator` class must redirect these accesses to the corresponding members of `IteratingStates` or `FailedStates`, and a deprecation warning must be issued upon access.",
+   "gold_anchor": "rv = getattr(FailedStates, name.replace('FAILED_', ''))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayIterator.FAILED_ALWAYS resolves to FailedStates.ALWAYS.",
+   "covering_prose": "Attribute access using legacy constants such as `PlayIterator.ITERATING_TASKS` must remain functional. The `PlayIterator` class must redirect these accesses to the corresponding members of `IteratingStates` or `FailedStates`, and a deprecation warning must be issued upon access.",
+   "gold_anchor": "rv = getattr(FailedStates, name.replace('FAILED_', ''))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "iterator.ITERATING_SETUP resolves to IteratingStates.SETUP on a PlayIterator instance.",
+   "covering_prose": "Attribute access at the instance level using deprecated constants must also resolve to the appropriate enum members and emit deprecation warnings, preserving compatibility with third-party code that references instance-level constants.",
+   "gold_anchor": "return _redirect_to_enum(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "iterator.ITERATING_TASKS resolves to IteratingStates.TASKS on a PlayIterator instance.",
+   "covering_prose": "Attribute access at the instance level using deprecated constants must also resolve to the appropriate enum members and emit deprecation warnings, preserving compatibility with third-party code that references instance-level constants.",
+   "gold_anchor": "return _redirect_to_enum(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "iterator.ITERATING_RESCUE resolves to IteratingStates.RESCUE on a PlayIterator instance.",
+   "covering_prose": "Attribute access at the instance level using deprecated constants must also resolve to the appropriate enum members and emit deprecation warnings, preserving compatibility with third-party code that references instance-level constants.",
+   "gold_anchor": "return _redirect_to_enum(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "iterator.ITERATING_ALWAYS resolves to IteratingStates.ALWAYS on a PlayIterator instance.",
+   "covering_prose": "Attribute access at the instance level using deprecated constants must also resolve to the appropriate enum members and emit deprecation warnings, preserving compatibility with third-party code that references instance-level constants.",
+   "gold_anchor": "return _redirect_to_enum(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "iterator.ITERATING_COMPLETE resolves to IteratingStates.COMPLETE on a PlayIterator instance.",
+   "covering_prose": "Attribute access at the instance level using deprecated constants must also resolve to the appropriate enum members and emit deprecation warnings, preserving compatibility with third-party code that references instance-level constants.",
+   "gold_anchor": "return _redirect_to_enum(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "iterator.FAILED_NONE resolves to FailedStates.NONE on a PlayIterator instance.",
+   "covering_prose": "Attribute access at the instance level using deprecated constants must also resolve to the appropriate enum members and emit deprecation warnings, preserving compatibility with third-party code that references instance-level constants.",
+   "gold_anchor": "return _redirect_to_enum(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "iterator.FAILED_SETUP resolves to FailedStates.SETUP on a PlayIterator instance.",
+   "covering_prose": "Attribute access at the instance level using deprecated constants must also resolve to the appropriate enum members and emit deprecation warnings, preserving compatibility with third-party code that references instance-level constants.",
+   "gold_anchor": "return _redirect_to_enum(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "iterator.FAILED_TASKS resolves to FailedStates.TASKS on a PlayIterator instance.",
+   "covering_prose": "Attribute access at the instance level using deprecated constants must also resolve to the appropriate enum members and emit deprecation warnings, preserving compatibility with third-party code that references instance-level constants.",
+   "gold_anchor": "return _redirect_to_enum(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "iterator.FAILED_RESCUE resolves to FailedStates.RESCUE on a PlayIterator instance.",
+   "covering_prose": "Attribute access at the instance level using deprecated constants must also resolve to the appropriate enum members and emit deprecation warnings, preserving compatibility with third-party code that references instance-level constants.",
+   "gold_anchor": "return _redirect_to_enum(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "iterator.FAILED_ALWAYS resolves to FailedStates.ALWAYS on a PlayIterator instance.",
+   "covering_prose": "Attribute access at the instance level using deprecated constants must also resolve to the appropriate enum members and emit deprecation warnings, preserving compatibility with third-party code that references instance-level constants.",
+   "gold_anchor": "return _redirect_to_enum(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A copied host state with fail_state set to FailedStates.TASKS is accepted by _insert_tasks_into_state and returned unchanged when tasks are supplied.",
+   "covering_prose": "All logic across the modified files must use the `IteratingStates` and `FailedStates` enumerations instead of legacy integer constants for state transitions, comparisons, and assignments. This includes usage within `run_state`, `fail_state`, and related control structures in `play_iterator.py`, `strategy/__init__.py`, and `strategy/linear.py`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "A copied host state with run_state set to IteratingStates.RESCUE inserts a supplied task into the current block rescue list.",
+   "covering_prose": "Logic that determines whether hosts are in `SETUP`, `TASKS`, `RESCUE`, `ALWAYS`, or `COMPLETE` states must correctly evaluate the corresponding values of `IteratingStates`. All comparisons and transitions involving failure conditions must respect the bitwise semantics of `FailedStates`.",
+   "gold_anchor": "elif state.run_state == IteratingStates.RESCUE:",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

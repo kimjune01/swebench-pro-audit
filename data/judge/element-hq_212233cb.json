@@ -1,0 +1,60 @@
+{
+ "case": "element-hq_212233cb",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Plain autolink `https://example.com/_test_test2_-test3` is rendered exactly unchanged in the output.",
+   "covering_prose": "- Plain URLs (autolinks) should remain exactly as written\u2014even with single or double underscores (e.g., `https://example.com/_test__test2__test3_`).",
+   "gold_anchor": "const nonEmphasizedText = `${format}${innerNodeLiteral(node)}${format}`;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Plain autolink `https://example.com/_test_test2_test3_` is rendered exactly unchanged in the output.",
+   "covering_prose": "- Plain URLs (autolinks) should remain exactly as written\u2014even with single or double underscores (e.g., `https://example.com/_test__test2__test3_`).",
+   "gold_anchor": "const nonEmphasizedText = `${format}${innerNodeLiteral(node)}${format}`;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Plain autolink `https://example.com/_test__test2_test3_` is rendered exactly unchanged in the output.",
+   "covering_prose": "- Plain URLs (autolinks) should remain exactly as written\u2014even with single or double underscores (e.g., `https://example.com/_test__test2__test3_`).",
+   "gold_anchor": "const nonEmphasizedText = `${format}${innerNodeLiteral(node)}${format}`;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Plain autolink `https://example.com/_test__test2__test3_` is rendered exactly unchanged in the output.",
+   "covering_prose": "- Plain URLs (autolinks) should remain exactly as written\u2014even with single or double underscores (e.g., `https://example.com/_test__test2__test3_`).",
+   "gold_anchor": "const nonEmphasizedText = `${format}${innerNodeLiteral(node)}${format}`;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Plain autolink `https://example.com/_test__test2_test3__` is rendered exactly unchanged in the output.",
+   "covering_prose": "- Plain URLs (autolinks) should remain exactly as written\u2014even with single or double underscores (e.g., `https://example.com/_test__test2__test3_`).",
+   "gold_anchor": "const nonEmphasizedText = `${format}${innerNodeLiteral(node)}${format}`;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Plain autolink `https://example.com/_test__test2` is rendered exactly unchanged in the output.",
+   "covering_prose": "- Plain URLs (autolinks) should remain exactly as written\u2014even with single or double underscores (e.g., `https://example.com/_test__test2__test3_`).",
+   "gold_anchor": "const nonEmphasizedText = `${format}${innerNodeLiteral(node)}${format}`;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The added autolink cases are output in the same line order as the input, separated by `<br />` for newlines.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

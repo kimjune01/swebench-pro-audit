@@ -1,0 +1,102 @@
+{
+ "case": "ansible_fafb2309",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 10,
+ "n_covered": 10,
+ "n_gap": 0,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "The delegate_to integration target runs `test_random_delegate_to_with_loop.yml` once.",
+   "covering_prose": "Create a playbook task that combines a `loop` with a `delegate_to directive` target.",
+   "gold_anchor": "self._calculate_delegate_to(templar, variables)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The loop playbook creates 10 delegated candidate hosts in group `test` using `loop: '{{ range(10) }}'`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The loop playbook uses a random delegated target from `groups.test` together with `delegate_facts: true` and a loop of 5 iterations.",
+   "covering_prose": "Repeat the run a few times to observe intermittent inconsistencies when the delegated target is selected randomly.",
+   "gold_anchor": "delegated_host_name = templar.template(task.delegate_to, fail_on_undefined=False)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For hosts where `dv` is defined after the looped delegated task, `dv` must equal `inventory_hostname`.",
+   "covering_prose": "Returns the final templated hostname for `delegate_to` and a dictionary with the delegated variables associated to that host.",
+   "gold_anchor": "delegated_vars['ansible_delegated_vars'][delegated_host_name]['inventory_hostname'] = variables.get('inventory_hostname')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The delegated variable lookup shape must support `ansible_delegated_vars[ansible_host][\"ansible_host\"]`.",
+   "covering_prose": "Returns the final templated hostname for `delegate_to` and a dictionary with the delegated variables associated to that host.",
+   "gold_anchor": "delegated_vars['ansible_delegated_vars'] = {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The delegate_to integration target runs `test_random_delegate_to_without_loop.yml` multiple times to reduce false negatives.",
+   "covering_prose": "Repeat the run a few times to observe intermittent inconsistencies when the delegated target is selected randomly.",
+   "gold_anchor": "self._calculate_delegate_to(templar, variables)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The no-loop random delegate_to playbook is run exactly 11 times with `seq 0 10`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The no-loop playbook creates 10 delegated candidate hosts in group `test` using `loop: '{{ range(10) }}'`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The no-loop playbook uses a random delegated target from `groups.test` with `delegate_facts: true`.",
+   "covering_prose": "Returns the final templated hostname for `delegate_to` and a dictionary with the delegated variables associated to that host.",
+   "gold_anchor": "delegated_host_name = templar.template(task.delegate_to, fail_on_undefined=False)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TaskExecutor construction requires a `variable_manager` argument in unit tests.",
+   "covering_prose": "The task executor must have access to variable management capabilities so that delegation can be handled consistently during task execution.",
+   "gold_anchor": "def __init__(self, host, task, job_vars, play_context, new_stdin, loader, shared_loader_obj, final_q, variable_manager):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TaskExecutor stores the provided variable manager on `self._variable_manager`.",
+   "covering_prose": "The task executor must have access to variable management capabilities so that delegation can be handled consistently during task execution.",
+   "gold_anchor": "self._variable_manager = variable_manager",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "During `_execute`, the variable manager method `get_delegated_vars_and_hostname` is called and may return `({}, None)` when there is no delegation.",
+   "covering_prose": "Variable retrieval must no longer include delegation resolution by default; legacy delegation resolution methods must be clearly marked as deprecated to avoid future reliance.",
+   "gold_anchor": "self._variable_manager.get_delegated_vars_and_hostname(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The unit execution mock task explicitly has `delegate_to = None`, so delegate calculation must tolerate tasks with no delegation.",
+   "covering_prose": "Returns the final templated hostname for `delegate_to` and a dictionary with the delegated variables associated to that host.",
+   "gold_anchor": "if task.delegate_to:",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

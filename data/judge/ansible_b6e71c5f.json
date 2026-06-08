@@ -1,0 +1,109 @@
+{
+ "case": "ansible_b6e71c5f",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 14,
+ "n_covered": 12,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Adding a host logging destination with name 172.16.10.15 generates changed=True and commands ['logging host 172.16.10.15'].",
+   "covering_prose": "Host adds should include `udp-port` when specified.",
+   "gold_anchor": "commands.append('logging host {0}'.format(name))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Adding a host logging destination with name 172.16.10.15 and udp_port=2500 generates changed=True and commands ['logging host 172.16.10.15 udp-port 2500'].",
+   "covering_prose": "Host adds should include `udp-port` when specified.",
+   "gold_anchor": "commands.append('logging host {0} udp-port {1}'.format(name, udp_port))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Removing console logging with dest=console and state=absent generates changed=True and commands ['no logging console'].",
+   "covering_prose": "For `dest=console` and `state=absent` with no level, the module should disable console logging globally with `no logging console`.",
+   "gold_anchor": "commands.append('no logging {0}'.format(dest))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Removing global logging with dest=on and state=absent uses the command ['no logging on'].",
+   "covering_prose": "For `dest=on` and `state=absent`, the module should disable global logging with `no logging on`.",
+   "gold_anchor": "commands.append('no logging {0}'.format(dest))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For aggregate present, when desired facility local0 differs from running facility local1, the first returned command is 'logging facility local0'.",
+   "covering_prose": "It should support aggregate configurations that process multiple logging settings simultaneously, including setting facilities and adding or removing IPv4/IPv6 hosts in one call.",
+   "gold_anchor": "commands.append('logging facility {0}'.format(facility))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For aggregate present, adding IPv4 host 172.16.10.16 with udp_port=2500 returns 'logging host 172.16.10.16 udp-port 2500'.",
+   "covering_prose": "It should support aggregate configurations that process multiple logging settings simultaneously, including setting facilities and adding or removing IPv4/IPv6 hosts in one call.",
+   "gold_anchor": "commands.append('logging host {0} udp-port {1}'.format(name, udp_port))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For aggregate present, adding IPv6 host 2001:db8::1 with udp_port=5000 returns 'logging host ipv6 2001:db8::1 udp-port 5000'.",
+   "covering_prose": "For IPv6 hosts the generated command should use the literal ICX syntax `logging host ipv6 <address> udp-port <port>`.",
+   "gold_anchor": "name = 'ipv6 ' + name",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For aggregate present, the exact command order is facility command, then IPv4 host command, then IPv6 host command.",
+   "covering_prose": null,
+   "gold_anchor": "if facility:",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For aggregate absent, removing facility local0 while running facility is local1 returns 'no logging facility'.",
+   "covering_prose": "Facility removal must issue `no logging facility` when the facility is being cleared.",
+   "gold_anchor": "commands.append('no logging facility')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For aggregate absent, removing existing IPv4 host 172.16.10.55 with udp_port=2500 returns 'no logging host 172.16.10.55 udp-port 2500'.",
+   "covering_prose": "Host removals should include the UDP port (when provided or discovered from running config) and the `ipv6` keyword for IPv6 addresses; host adds should include `udp-port` when specified.",
+   "gold_anchor": "commands.append('no logging host {0} udp-port {1}'.format(name, udp_port))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For aggregate absent, removing existing IPv6 host 2001:db8::1 with udp_port=5500 returns 'no logging host ipv6 2001:db8::1 udp-port 5500'.",
+   "covering_prose": "Host removals should include the UDP port (when provided or discovered from running config) and the `ipv6` keyword for IPv6 addresses; host adds should include `udp-port` when specified.",
+   "gold_anchor": "name = 'ipv6 ' + name",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For aggregate absent, the exact command order is no facility command, then IPv4 host removal, then IPv6 host removal.",
+   "covering_prose": null,
+   "gold_anchor": "if facility:",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When running config already contains host 172.16.10.21 and check_running_config=True, requesting that host produces changed=False.",
+   "covering_prose": "Idempotency should compare against the running config so that commands are only generated when the target entry (name + IPv4/IPv6 + port, facility value, buffered level state, etc.) actually differs from the current configuration, ensuring that repeated runs with the same parameters result in `changed=False`.",
+   "gold_anchor": "if w not in have:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Running config line 'logging host ipv6 2001:db8::1 udp-port 5500' is parsed as IPv6 host name 2001:db8::1 with udp_port 5500 so absent aggregate can match and remove it.",
+   "covering_prose": "This function will retrieve configuration via get_config(), parse logging destinations and facilities (including defaulting facility to `user` if not present), extract buffered logging levels by interpreting `logging buffered` and `no logging buffered <level>` lines, detect IPv6 addresses using the `ipv6` keyword, and return a list of current configuration objects including an entry for `dest='on'` unless `no logging on` appears in the running config.",
+   "gold_anchor": "match_port = re.search(r'logging host ipv6 \\S+\\s+udp-port\\s+(\\d+)', line, re.M)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,87 @@
+# Admissibility spec: KNOWN_BAD and KNOWN_AMBIGUOUS
+
+The auditable artifact this repo produces is two versioned, receipt-backed lists of public SWE-bench
+Pro tasks that fail admission, where **admission = a from-prose decontaminated expert panel converges
+on a test-passing solution** (the standard). The standard defines admissibility; these lists enumerate
+what fails it. Frozen *before* the panel runs, so what counts as a defect is defined before we see which
+tasks land there (checklist box 0).
+
+Scope: **public set only** (tasks with retrievable prose + gold + tests). Pro's held-out private set is
+unauditable from outside; every claim is scoped and says so. Pinned to a stated dataset commit; frozen
+at a release tag; Pro tasks can change post-publication (comparability caveat).
+
+Ledgers: [`data/KNOWN_BAD.jsonl`](../data/KNOWN_BAD.jsonl), [`data/KNOWN_AMBIGUOUS.jsonl`](../data/KNOWN_AMBIGUOUS.jsonl).
+Per-task receipts: `data/cases/<id>/` = `spec.md` (prose+requirements+interface), `gold.diff`,
+`hidden_test.diff`, `fail_to_pass.txt`, and `our_failed.diff` where we captured our patch.
+
+## KNOWN_BAD — mechanically broken (binary, unimpeachable)
+
+Gold cannot pass its own grader. Categories: `gold_fails_verifier` (reference solution graded by the
+official verifier at the pinned commit scores `reward != 1`), `vacuous_test` (FAIL_TO_PASS already
+passes on the unfixed base), `gold_no_apply` (gold doesn't apply at the pinned commit).
+
+Construction (DeepSWE isolation protocol): pass 1 grade all in parallel; **pass 2 re-run every
+non-passing task sequentially and alone** so a hiccup is never logged as a defect. Audit-yourself-first.
+Receipt: reward ledger + isolated rerun.
+
+**Current contents (3, confirmed, results-independent):** carried from the swebench-pro pre-run audit
+(2026-05-26, frozen before any scored run — exactly the results-independence we require):
+`vuls-bff6b755…` (Go), `NodeBB-00c70ce7…` (JS), `ansible-de5858f4…` (Py), each "gold NOT resolved."
+Verdict receipt: `data/cases/gold_fails_grader.defects.jsonl`; bundles in `data/cases/*_golddefect/`.
+The full gold-passes-verifier sweep across the public set (to find any beyond these 3) is **pending**.
+
+## KNOWN_AMBIGUOUS — the specification lottery (graded, contestable)
+
+Gold passes its verifier, but the prose does not determine the graded behavior. A task qualifies when
+**both** signals fire (one alone is not enough):
+
+1. **Low from-prose convergence** — the panel, solving from prose + codebase but **not** the hidden
+   test, has a low official-test pass rate.
+2. **High solution dispersion** — panelists commit to *different, mutually-incompatible, individually
+   defensible* readings; only the gold's passes. (Dispersion separates "non-determinate" from
+   "determinate-but-hard": hard tasks fail with *similar* attempts, lottery tasks with *divergent* ones.)
+
+A blind second-reader judge (decontaminated; prose + gold-behavior + test) labels
+{entailed / underdetermined / contradicted}; `underdetermined` + the dispersion receipt qualifies.
+Receipt: panelists' divergent solutions side by side + the splitting test assertion + convergence rate
++ judge rating.
+
+**Current contents (4, CANDIDATES — panel NOT yet run):** `qutebrowser-e34dfc68`, `protonmail`,
+`tutao`, `element`, flagged by the pilot (diag recall vs gold, gold-shape, and for qutebrowser the
+`assert fake_dns.used` splitting assertion). These are **not confirmed**: the from-prose panel has not
+run. The pilot is suggestive (qutebrowser: recall 1.0, craft 233/248, lost on an unspecified DNS-consult
+detail; protonmail: a 39-region/11-file feature). Confirmation requires the panel protocol below.
+
+## Panel protocol ("world's best engineers, from the prose" proxy)
+
+- **≥3 models, distinct families**, each with a training cutoff predating the instance's repo state
+  (**decontaminated** — convergence must be from-prose inference, not recall).
+- Each solves **oracle-free**: prose + codebase, **never** the hidden test (the test only scores
+  convergence afterward). k≥3 attempts per (task, model).
+- Report **strict** (matches gold behavior) and **lenient** (passes the official test) convergence, with
+  **clustered** stats (macro-average over tasks; attempts are not independent).
+- Frozen trigger (amend only by dated note): KNOWN_AMBIGUOUS iff lenient convergence ≤ 0.20 **and**
+  panelists split across ≥2 incompatible readings **and** judge = `underdetermined`.
+
+## Integrity rule (non-negotiable)
+
+Both lists are built **blind to our harness's win/loss.** KNOWN_BAD keys only on gold behavior (already
+frozen pre-run). KNOWN_AMBIGUOUS keys only on the panel/judge. Three-cell discipline:
+
+| our oracle-free result | panel verdict | classification |
+|---|---|---|
+| lost | admissible (converges) | **our capability gap — report as ours, do NOT exclude** |
+| lost | non-determinate | KNOWN_AMBIGUOUS |
+| won | non-determinate | likely recall/luck on a lottery task — flag, don't credit |
+
+Never back-fit either list from our losses. If KNOWN_AMBIGUOUS and our-losses overlap, the overlap must
+be shown to **emerge** from the blind criterion. COI disclosed (we authored a Pro harness/paper); the
+receipts + an independent adversarial pass are the mitigation.
+
+## Headline the artifact yields
+
+The honest denominator (generalizing the DeepSWE ÷111-vs-113 finding): *of the public N, KNOWN_BAD are
+broken and KNOWN_AMBIGUOUS fail determinacy → the admissible / determinacy-weighted denominator is M.*
+Report a determinacy-weighted score (down-weight by 1 − convergence), not a binary exclusion only. M is
+the empirical form of the prose-determined floor: **KNOWN_BAD ∪ KNOWN_AMBIGUOUS is the complement of the
+admissible fraction.**

@@ -80,6 +80,8 @@ gold-passes-verifier check, denominator hygiene, the second-reader cold read, an
 
 ## Layout
 
+- `docs/ADMISSIBILITY-SPEC.md` — the artifact spec: two lists, **KNOWN_BAD** (gold fails its own grader) and **KNOWN_AMBIGUOUS** (gold passes but the prose underdetermines the graded behavior), with the from-prose panel protocol, the blind-construction integrity rule, and the entry/receipt schema.
+- `data/KNOWN_BAD.jsonl` — 3 confirmed gold-fails-grader defects (results-independent, frozen pre-run). `data/KNOWN_AMBIGUOUS.jsonl` — 4 candidates (pilot-flagged; panel not yet run). `data/cases/<id>/` — per-task receipts (spec, gold, hidden test, our failed patch).
 - `docs/AUDIT-CHECKLIST.md` — preregistration-shaped rigor checklist (bar: meet/exceed OpenAI's Verified audit), with an honest current-status column. **This pilot is not yet audit-grade; the checklist is the path.**
 - `docs/PRIOR-ART.md` — verified citations, the Verified-vs-Pro split, and the novelty verdict.
 - `docs/FINDINGS.md` — the bands, the oracle-free nulls, the craft autopsy, the recall table.

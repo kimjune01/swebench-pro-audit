@@ -1,0 +1,228 @@
+{
+ "case": "qutebrowser_fce306d5",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 27,
+ "n_covered": 27,
+ "n_gap": 0,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "KeyInfo can be constructed with only a key argument, defaulting modifiers to Qt.KeyboardModifier.NoModifier.",
+   "covering_prose": "encapsulates both the key and its associated modifiers (e.g., Ctrl, Alt, Shift).",
+   "gold_anchor": "modifiers: _ModifierType = Qt.KeyboardModifier.NoModifier",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "KeySequence constructor accepts KeyInfo objects rather than raw integer key combinations.",
+   "covering_prose": "The system's internal representation of a key sequence must be refactored from raw integers to a structured, type-safe format that encapsulates both the key and its associated modifiers (e.g., Ctrl, Alt, Shift).",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Constructing a KeySequence from five KeyInfo objects stores them as two internal QKeySequence chunks.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The first internal QKeySequence chunk contains exactly 4 keys.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The second internal QKeySequence chunk contains exactly 1 key.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Constructing KeySequence(KeyInfo(Qt.Key.Key_unknown)) raises KeyParseError.",
+   "covering_prose": "All operations involving key sequences\u2014including parsing from strings, iterating, appending new keys, stripping modifiers, and applying mappings\u2014must function correctly with this new structured representation.",
+   "gold_anchor": "if info.key < Qt.Key.Key_Space or info.key >= Qt.Key.Key_unknown:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Constructing KeySequence(KeyInfo(-1)) raises KeyParseError.",
+   "covering_prose": "All operations involving key sequences\u2014including parsing from strings, iterating, appending new keys, stripping modifiers, and applying mappings\u2014must function correctly with this new structured representation.",
+   "gold_anchor": "if info.key < Qt.Key.Key_Space or info.key >= Qt.Key.Key_unknown:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Constructing KeySequence(KeyInfo(0)) raises KeyParseError.",
+   "covering_prose": "All operations involving key sequences\u2014including parsing from strings, iterating, appending new keys, stripping modifiers, and applying mappings\u2014must function correctly with this new structured representation.",
+   "gold_anchor": "if info.key < Qt.Key.Key_Space or info.key >= Qt.Key.Key_unknown:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Iterating over a KeySequence built from KeyInfo objects yields the same ordered KeyInfo objects, including Ctrl, Shift, and default NoModifier entries.",
+   "covering_prose": "All operations involving key sequences\u2014including parsing from strings, iterating, appending new keys, stripping modifiers, and applying mappings\u2014must function correctly with this new structured representation.",
+   "gold_anchor": "yield KeyInfo.from_qt(combination)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "repr(KeySequence(KeyInfo(Key_A, ControlModifier), KeyInfo(Key_B, ShiftModifier))) is \"<qutebrowser.keyinput.keyutils.KeySequence keys='<Ctrl+a>B'>\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "strip_modifiers removes KeypadModifier from Key_1 while preserving Key_0 without modifiers and Key_A with ControlModifier.",
+   "covering_prose": "All operations involving key sequences\u2014including parsing from strings, iterating, appending new keys, stripping modifiers, and applying mappings\u2014must function correctly with this new structured representation.",
+   "gold_anchor": "infos = [info.with_stripped_modifiers(modifiers) for info in self]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "with_stripped_modifiers returns a new KeyInfo with the requested modifiers removed by bitmasking.",
+   "covering_prose": "with_stripped_modifiers(self, modifiers: Qt.KeyboardModifier) -> \"KeyInfo\"",
+   "gold_anchor": "return KeyInfo(key=self.key, modifiers=self.modifiers & ~modifiers)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '<Ctrl-Alt-y>' produces KeySequence(KeyInfo(Qt.Key.Key_Y, ControlModifier | AltModifier)).",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing 'x' produces KeySequence(KeyInfo(Qt.Key.Key_X)) with no explicit modifier argument.",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "modifiers: _ModifierType = Qt.KeyboardModifier.NoModifier",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing 'X' produces KeySequence(KeyInfo(Qt.Key.Key_X, ShiftModifier)).",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '<Escape>' produces KeySequence(KeyInfo(Qt.Key.Key_Escape)).",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "modifiers: _ModifierType = Qt.KeyboardModifier.NoModifier",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing 'xyz' produces three ordered KeyInfo entries: Key_X, Key_Y, Key_Z.",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '<Control-x><Meta-y>' produces two ordered KeyInfo entries: Key_X with ControlModifier, then Key_Y with MetaModifier.",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '<Shift-x>' produces KeyInfo(Qt.Key.Key_X, ShiftModifier).",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '<Alt-x>' produces KeyInfo(Qt.Key.Key_X, AltModifier).",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '<Control-x>' produces KeyInfo(Qt.Key.Key_X, ControlModifier).",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '<Meta-x>' produces KeyInfo(Qt.Key.Key_X, MetaModifier).",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '<Num-x>' produces KeyInfo(Qt.Key.Key_X, KeypadModifier).",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '>' produces KeyInfo(Qt.Key.Key_Greater).",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "modifiers: _ModifierType = Qt.KeyboardModifier.NoModifier",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '<' produces KeyInfo(Qt.Key.Key_Less).",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "modifiers: _ModifierType = Qt.KeyboardModifier.NoModifier",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing 'a>' produces two ordered KeyInfo entries: Key_A, then Key_Greater.",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing 'a<' produces two ordered KeyInfo entries: Key_A, then Key_Less.",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '>a' produces two ordered KeyInfo entries: Key_Greater, then Key_A.",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '<a' produces two ordered KeyInfo entries: Key_Less, then Key_A.",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '<alt+greater>' produces KeyInfo(Qt.Key.Key_Greater, AltModifier).",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing '<alt+less>' produces KeyInfo(Qt.Key.Key_Less, AltModifier).",
+   "covering_prose": "The system must provide a reliable and unambiguous way to convert between different key representations, including raw Qt key events, string formats (like `<Ctrl+A>`), and the new internal structured format.",
+   "gold_anchor": "def __init__(self, *keys: KeyInfo) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

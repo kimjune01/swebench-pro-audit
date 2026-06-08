@@ -1,0 +1,46 @@
+{
+ "case": "tutao_5f770409",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Calling `requestReadTokenArchive(null, archiveId)` succeeds and returns the blob server access info from the service response.",
+   "covering_prose": "Calling the APIs with `archiveDataType = null` for owned archives must not raise errors or produce unexpected results.",
+   "gold_anchor": "async requestReadTokenArchive(archiveDataType: ArchiveDataType | null, archiveId: Id): Promise<BlobServerAccessInfo>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The service request created by `requestReadTokenArchive(null, archiveId)` does not require a concrete `archiveDataType`; the expected `BlobAccessTokenPostIn` is built without an `archiveDataType` value.",
+   "covering_prose": "Permit read-token requests for owned archives without `archiveDataType`.",
+   "gold_anchor": "archiveDataType: null | NumberString;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The read request payload for `requestReadTokenArchive(null, archiveId)` contains `read` data with the supplied `archiveId`, `instanceListId: null`, and `instanceId: null`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Two consecutive `requestReadTokenArchive(null, archiveId)` calls for a valid cached token make only one `BlobAccessTokenService` post request.",
+   "covering_prose": "Preserve caching/validation behavior of `BlobServerAccessInfo` regardless of whether `archiveDataType` is provided for owned archives.",
+   "gold_anchor": "const cachedBlobServerAccessInfo = this.readCache.get(archiveId)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After an earlier `requestReadTokenArchive(null, archiveId)` call has populated the cache, a later call with `null` returns the cached token instead of the newer service response while the cached access info is still valid.",
+   "covering_prose": "Preserve caching/validation behavior of `BlobServerAccessInfo` regardless of whether `archiveDataType` is provided for owned archives.",
+   "gold_anchor": "return cachedBlobServerAccessInfo",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

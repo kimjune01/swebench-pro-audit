@@ -1,0 +1,102 @@
+{
+ "case": "tutao_409b3583",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 9,
+ "n_covered": 8,
+ "n_gap": 1,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "Contact merge preserves social ID type OTHER for merged socialIds instead of changing them to TWITTER: keptContact.socialIds[0].type equals ContactSocialType.OTHER and keptContact.socialIds[1].type equals ContactSocialType.OTHER in the modified merge cases.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "A social ID value \"diaspora.de\" is exported as the full URL line `URL:https://www.diaspora.de` rather than `URL:diaspora.de`.",
+   "covering_prose": "The exported vCard text should write each social entry as a `URL:` line containing a full, valid URL (not a raw handle).",
+   "gold_anchor": "CONTENT: getSocialUrl(sId),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A social ID value already containing a scheme, `https://diaspora.de`, is exported as `URL:https://diaspora.de` and the colon in `https:` is not escaped.",
+   "covering_prose": "Colons in URL schemes must not be escaped; URLs should follow RFC 6350 examples and escaping rules.",
+   "gold_anchor": "content = content.replace(/,/g, \"\\\\,\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Colons outside URL schemes are not escaped in formatted vCard fields, including FN, N, ADR, EMAIL, TEL, ORG, and NOTE values.",
+   "covering_prose": null,
+   "gold_anchor": "content = content.replace(/,/g, \"\\\\,\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Newlines, semicolons, and commas remain escaped in vCard values, for example address newlines become `\\n`, semicolons become `\\;`, and commas become `\\,`.",
+   "covering_prose": "Make sure to keep `:` unescaped within URLs while still escaping `\\n`, `;`, and `,` elsewhere, should fold any property line longer than 75 characters by inserting a soft break at or before the 75th character and starting each continuation line with a single space, and should concatenate multiple contacts with exactly one blank line in a stable, repeatable layout.",
+   "gold_anchor": "content = content.replace(/,/g, \"\\\\,\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Multiple contacts are concatenated with exactly one blank line between vCards, as shown by `END:VCARD\\n\\nBEGIN:VCARD` and a final `END:VCARD\\n\\n`.",
+   "covering_prose": "Make sure to keep `:` unescaped within URLs while still escaping `\\n`, `;`, and `,` elsewhere, should fold any property line longer than 75 characters by inserting a soft break at or before the 75th character and starting each continuation line with a single space, and should concatenate multiple contacts with exactly one blank line in a stable, repeatable layout.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Exported vCard properties appear in fixed order: FN, N, NICKNAME, ADR, EMAIL, TEL, URL, ORG, NOTE.",
+   "covering_prose": "The exporter should emit properties in a deterministic, fixed order matching current output (`FN`, `N`, `NICKNAME`, `ADR`, `EMAIL`, `TEL`, `URL`, `ORG`, `NOTE`)",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "A LinkedIn vanity handle `TutanotaTeam` is exported as `URL:https://www.linkedin.com/in/TutanotaTeam`.",
+   "covering_prose": "A shared helper should normalize a `ContactSocialId` into a full URL by mapping known types (Twitter, Facebook, LinkedIn, Xing) to their standard base paths when the value lacks a scheme or `www`, preserving inputs that already include a scheme or `www`, trimming surrounding whitespace, and producing the same normalized form used across the app.",
+   "gold_anchor": "socialUrlType = \"linkedin.com/in/\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A Twitter vanity handle `TutanotaTeam` is exported as `URL:https://www.twitter.com/TutanotaTeam`.",
+   "covering_prose": "A shared helper should normalize a `ContactSocialId` into a full URL by mapping known types (Twitter, Facebook, LinkedIn, Xing) to their standard base paths when the value lacks a scheme or `www`, preserving inputs that already include a scheme or `www`, trimming surrounding whitespace, and producing the same normalized form used across the app.",
+   "gold_anchor": "socialUrlType = \"twitter.com/\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A Facebook vanity handle `TutanotaTeam` is exported as `URL:https://www.facebook.com/TutanotaTeam`.",
+   "covering_prose": "A shared helper should normalize a `ContactSocialId` into a full URL by mapping known types (Twitter, Facebook, LinkedIn, Xing) to their standard base paths when the value lacks a scheme or `www`, preserving inputs that already include a scheme or `www`, trimming surrounding whitespace, and producing the same normalized form used across the app.",
+   "gold_anchor": "socialUrlType = \"facebook.com/\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A social ID value `xing.com` whose input already lacks a scheme but contains no `www` is exported as `URL:https://www.xing.com` when the type is CUSTOM or OTHER, with no Xing profile path appended.",
+   "covering_prose": "While for other or custom sites, it should only add https:// (and www. if missing) without appending a site-specific path.",
+   "gold_anchor": "return `${http}${worldwidew}${socialUrlType}${contactId.socialId.trim()}`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A social ID value `facebook.de` whose input lacks a scheme and `www` is exported as `URL:https://www.facebook.de` when no platform-specific type is assigned.",
+   "covering_prose": "While for other or custom sites, it should only add https:// (and www. if missing) without appending a site-specific path.",
+   "gold_anchor": "return `${http}${worldwidew}${socialUrlType}${contactId.socialId.trim()}`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A long normalized Facebook URL is folded into a continuation line beginning with one space, specifically `URL:https://www.facebook.com/aaaa/bbb/cccccc/DDDDDDD/llllllll/uuuuuuu/ppppp\\n /aaaaaaaaaaaaaaaaaaaaa`.",
+   "covering_prose": "Make sure to keep `:` unescaped within URLs while still escaping `\\n`, `;`, and `,` elsewhere, should fold any property line longer than 75 characters by inserting a soft break at or before the 75th character and starting each continuation line with a single space, and should concatenate multiple contacts with exactly one blank line in a stable, repeatable layout.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

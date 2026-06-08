@@ -1,0 +1,123 @@
+{
+ "case": "qutebrowser_ebf4b987",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 16,
+ "n_covered": 16,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For QtWebEngine with an existing CLI `--qt-flag enable-features=CustomFeature` and overlay scrollbar required, `qt_args` returns exactly one `--enable-features=` argument.",
+   "covering_prose": "when it is `usertypes.Backend.QtWebEngine` the returned arguments must contain at most one `--enable-features=` entry only if features are present",
+   "gold_anchor": "argv = [flag for flag in argv if not flag.startswith('--enable-features=')]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing CLI `--qt-flag enable-features=CustomFeature` and overlay scrollbar required, the single flag is exactly `--enable-features=CustomFeature,OverlayScrollbar`.",
+   "covering_prose": "that single entry must represent the complete set of user provided features (from CLI and `config.val.qt.args`) combined with any features required by configuration for QtWebEngine",
+   "gold_anchor": "yield '--enable-features=' + ','.join(enabled_features)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing CLI `--qt-flag enable-features=CustomFeature`, the standalone `--enable-features=OverlayScrollbar` flag is absent when the combined flag is present.",
+   "covering_prose": "no standalone entry must appear outside the consolidated one.",
+   "gold_anchor": "argv = [flag for flag in argv if not flag.startswith('--enable-features=')]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing config `qt.args` entry `enable-features=CustomFeature` and overlay scrollbar required, `qt_args` returns exactly one `--enable-features=` argument.",
+   "covering_prose": "when it is `usertypes.Backend.QtWebEngine` the returned arguments must contain at most one `--enable-features=` entry only if features are present",
+   "gold_anchor": "argv = [flag for flag in argv if not flag.startswith('--enable-features=')]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing config `qt.args` entry `enable-features=CustomFeature` and overlay scrollbar required, the single flag is exactly `--enable-features=CustomFeature,OverlayScrollbar`.",
+   "covering_prose": "that single entry must represent the complete set of user provided features (from CLI and `config.val.qt.args`) combined with any features required by configuration for QtWebEngine",
+   "gold_anchor": "yield '--enable-features=' + ','.join(enabled_features)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing config `qt.args` entry `enable-features=CustomFeature`, the standalone `--enable-features=OverlayScrollbar` flag is absent when the combined flag is present.",
+   "covering_prose": "no standalone entry must appear outside the consolidated one.",
+   "gold_anchor": "argv = [flag for flag in argv if not flag.startswith('--enable-features=')]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing CLI `--qt-flag enable-features=CustomFeature1,CustomFeature2` and overlay scrollbar required, `qt_args` returns exactly one `--enable-features=` argument.",
+   "covering_prose": "separate `--enable-features=` entries must not remain.",
+   "gold_anchor": "argv = [flag for flag in argv if not flag.startswith('--enable-features=')]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing CLI `--qt-flag enable-features=CustomFeature1,CustomFeature2` and overlay scrollbar required, the single flag is exactly `--enable-features=CustomFeature1,CustomFeature2,OverlayScrollbar`.",
+   "covering_prose": "_qtwebengine_enabled_features(feature_flags)` must remove the `--enable-features=` prefix from each provided string and split comma\u2011separated values to derive each feature for consolidation.",
+   "gold_anchor": "yield from iter(flag.split(','))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing config `qt.args` entry `enable-features=CustomFeature1,CustomFeature2` and overlay scrollbar required, `qt_args` returns exactly one `--enable-features=` argument.",
+   "covering_prose": "separate `--enable-features=` entries must not remain.",
+   "gold_anchor": "argv = [flag for flag in argv if not flag.startswith('--enable-features=')]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing config `qt.args` entry `enable-features=CustomFeature1,CustomFeature2` and overlay scrollbar required, the single flag is exactly `--enable-features=CustomFeature1,CustomFeature2,OverlayScrollbar`.",
+   "covering_prose": "_qtwebengine_enabled_features(feature_flags)` must remove the `--enable-features=` prefix from each provided string and split comma\u2011separated values to derive each feature for consolidation.",
+   "gold_anchor": "yield from iter(flag.split(','))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing CLI `--qt-flag enable-features=CustomFeature` and overlay setting `never`, `qt_args` returns exactly one `--enable-features=` argument.",
+   "covering_prose": "when it is `usertypes.Backend.QtWebEngine` the returned arguments must contain at most one `--enable-features=` entry only if features are present",
+   "gold_anchor": "argv = [flag for flag in argv if not flag.startswith('--enable-features=')]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing CLI `--qt-flag enable-features=CustomFeature` and overlay setting `never`, the single flag is exactly `--enable-features=CustomFeature`.",
+   "covering_prose": "The consolidated `--enable-features=` in the result of `qtargs.qt_args(namespace)` must preserve user specified features verbatim",
+   "gold_anchor": "flag = flag[len(prefix):]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing CLI `--qt-flag enable-features=CustomFeature` and overlay setting `never`, `--enable-features=OverlayScrollbar` is absent.",
+   "covering_prose": "should include `OverlayScrollbar` only when required by environment and configuration (Qt version > 5.11 and not macOS)",
+   "gold_anchor": "yield 'OverlayScrollbar'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing config `qt.args` entry `enable-features=CustomFeature` and overlay setting `never`, `qt_args` returns exactly one `--enable-features=` argument.",
+   "covering_prose": "when it is `usertypes.Backend.QtWebEngine` the returned arguments must contain at most one `--enable-features=` entry only if features are present",
+   "gold_anchor": "argv = [flag for flag in argv if not flag.startswith('--enable-features=')]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing config `qt.args` entry `enable-features=CustomFeature` and overlay setting `never`, the single flag is exactly `--enable-features=CustomFeature`.",
+   "covering_prose": "The consolidated `--enable-features=` in the result of `qtargs.qt_args(namespace)` must preserve user specified features verbatim",
+   "gold_anchor": "flag = flag[len(prefix):]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with an existing config `qt.args` entry `enable-features=CustomFeature` and overlay setting `never`, `--enable-features=OverlayScrollbar` is absent.",
+   "covering_prose": "should include `OverlayScrollbar` only when required by environment and configuration (Qt version > 5.11 and not macOS)",
+   "gold_anchor": "yield 'OverlayScrollbar'",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

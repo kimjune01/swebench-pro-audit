@@ -1,0 +1,46 @@
+{
+ "case": "tutao_7ebf14a3",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "PriceUtilsTest no longer imports the deprecated getPricesAndConfigProvider function for createPriceMock setup.",
+   "covering_prose": "The pricing utility tests should use PriceAndConfigProvider.getInitializedInstance instead of the deprecated getPricesAndConfigProvider function for creating price configuration instances.",
+   "gold_anchor": "import {asPaymentInterval, formatPrice, formatPriceDataWithInfo, getCurrentCount, PriceAndConfigProvider, PaymentInterval} from \"./PriceUtils\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "createPriceMock creates the provider by calling PriceAndConfigProvider.getInitializedInstance.",
+   "covering_prose": "The pricing utility tests should use PriceAndConfigProvider.getInitializedInstance instead of the deprecated getPricesAndConfigProvider function for creating price configuration instances.",
+   "gold_anchor": "static async getInitializedInstance(registrationDataId: string | null, serviceExecutor: IServiceExecutor = locator.serviceExecutor): Promise<PriceAndConfigProvider> {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "createPriceMock passes null as the registrationDataId to the new initialization method.",
+   "covering_prose": "The pricing configuration should continue to accept the same parameters (null service executor and mock executor) through the new initialization method.",
+   "gold_anchor": "PriceAndConfigProvider.getInitializedInstance(null)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "createPriceMock passes executorMock as the service executor to the new initialization method.",
+   "covering_prose": "The pricing configuration should continue to accept the same parameters (null service executor and mock executor) through the new initialization method.",
+   "gold_anchor": "static async getInitializedInstance(registrationDataId: string | null, serviceExecutor: IServiceExecutor = locator.serviceExecutor): Promise<PriceAndConfigProvider> {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PriceAndConfigProvider.getInitializedInstance returns a Promise resolving to a PriceAndConfigProvider instance.",
+   "covering_prose": "Output: Promise<PriceAndConfigProvider>",
+   "gold_anchor": "static async getInitializedInstance(registrationDataId: string | null, serviceExecutor: IServiceExecutor = locator.serviceExecutor): Promise<PriceAndConfigProvider> {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,151 @@
+{
+ "case": "qutebrowser_ef62208c",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 8,
+ "n_covered": 5,
+ "n_gap": 3,
+ "n_out_of_scope": 12,
+ "rows": [
+  {
+   "test": "_Setting.chromium_tuple returns ('key', 'val') for value 'val' with no mapping.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_Setting.chromium_tuple converts integer value 5 to string and returns ('key', '5') with no mapping.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_Setting.chromium_tuple maps True through darkmode._BOOLS and returns ('key', 'true').",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_Setting.chromium_tuple returns None when the value maps to None.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_Setting.with_prefix('prefix') returns a setting with chromium_key 'prefixkey' and preserves option and mapping.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_Definition.prefixed_settings uses an empty prefix by default and returns settings with the configured prefix applied.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_Definition.prefixed_settings uses an option-specific switch name when available and the default None switch name for other settings.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_Definition.copy_remove_setting removes the named setting from the copied definition while leaving the original definition unchanged, and the removal is visible through prefixed_settings.",
+   "covering_prose": "A new method `copy_remove_setting(name: str)` should be implemented in `_Definition` to create a modified instance excluding a specified setting by name. It must raise a `ValueError` if the setting does not exist. The removal must affect the exported settings as well.",
+   "gold_anchor": "filtered_settings = tuple(s for s in self._settings if s.option != name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_Definition.copy_remove_setting('not-found') raises ValueError with a message matching 'Setting not-found not found in '.",
+   "covering_prose": null,
+   "gold_anchor": "raise ValueError(f\"Setting {name} not found in {self}\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "_Definition.copy_add_setting appends a setting to the copied definition while leaving the original definition unchanged.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_Definition.copy_add_setting allows adding an already-existing setting, resulting in duplicate settings in the copy.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_Definition.copy_replace_setting replaces the chromium_key for the named setting in the copied definition while leaving the original unchanged.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_Definition.copy_replace_setting raises ValueError with a message matching 'Setting opt3 not found in ' when the setting is missing.",
+   "covering_prose": null,
+   "gold_anchor": "If `old` is not in the settings list, raise ValueError.",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For QtWebEngine 6.4, dark mode settings include blink-settings forceDarkModeEnabled=true and dark-mode-settings InversionAlgorithm=1, ImagePolicy=2, ForegroundBrightnessThreshold=100.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For QtWebEngine 6.6, dark mode settings include blink-settings forceDarkModeEnabled=true and add dark-mode-settings ImageClassifierPolicy=0.",
+   "covering_prose": null,
+   "gold_anchor": "_DEFINITIONS[Variant.qt_66] = _DEFINITIONS[Variant.qt_64].copy_add_setting(",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For QtWebEngine 6.7 when ForceDarkMode exists, dark mode settings remove blink-settings and keep only dark-mode-settings including ImageClassifierPolicy=0.",
+   "covering_prose": "A new variant \"qt_67\" should be present in the Variant enum to represent support for QtWebEngine 6.7+ features, including runtime toggling of dark mode. The variant must ensure that \"blink-settings\" are removed from the settings and only \"dark-mode-settings\" are used for this version.",
+   "gold_anchor": "_DEFINITIONS[Variant.qt_67] = _DEFINITIONS[Variant.qt_66].copy_remove_setting('enabled')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_variant returns Variant.qt_67 for WebEngine 6.7.0 when QWebEngineSettings.WebAttribute.ForceDarkMode exists.",
+   "covering_prose": "The `_variant()` function must detect if the QtWebEngine version is 6.7+ and if the `ForceDarkMode` attribute exists in `QWebEngineSettings.WebAttribute`. If both conditions are met, it should return `Variant.qt_67`; otherwise, it should return the appropriate variant for the version.",
+   "gold_anchor": "return Variant.qt_67",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_variant returns Variant.qt_66 for WebEngine 6.7.0 when QWebEngineSettings.WebAttribute.ForceDarkMode does not exist.",
+   "covering_prose": "The `_variant()` function must detect if the QtWebEngine version is 6.7+ and if the `ForceDarkMode` attribute exists in `QWebEngineSettings.WebAttribute`. If both conditions are met, it should return `Variant.qt_67`; otherwise, it should return the appropriate variant for the version.",
+   "gold_anchor": "elif versions.webengine >= utils.VersionNumber(6, 6):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For config options whose names start with colors.webpage.darkmode. except colors.webpage.darkmode.enabled, supports_pattern is false and restart is true.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "colors.webpage.darkmode.enabled is exempt from the assertion that dark mode options do not support patterns and require restart.",
+   "covering_prose": "Dark mode should be toggleable at runtime without requiring a restart of the Qutebrowser application.",
+   "gold_anchor": "supports_pattern: true",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

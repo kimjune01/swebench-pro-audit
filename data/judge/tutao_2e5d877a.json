@@ -1,0 +1,32 @@
+{
+ "case": "tutao_2e5d877a",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "After `putLastBatchIdForGroup(calendarGroupId, \"1\")`, a batch with no membership change for `calendarGroupId` leaves `getLastBatchIdForGroup(calendarGroupId)` non-null.",
+   "covering_prose": "- When there is no membership change for `groupId`, `getLastBatchIdForGroup(groupId)` continues to return the previously stored value.",
+   "gold_anchor": "this.lastBatchIdPerGroup.set(groupId, batchId)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After membership loss for `calendarGroupId` that evicts an element entity, `getLastBatchIdForGroup(calendarGroupId)` returns null.",
+   "covering_prose": "- after membership loss for `groupId`, `getLastBatchIdForGroup(groupId)` returns null;",
+   "gold_anchor": "this.lastBatchIdPerGroup.delete(owner)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After membership loss for `calendarGroupId` that evicts a list entity and its range, `getLastBatchIdForGroup(calendarGroupId)` returns null.",
+   "covering_prose": "When a user loses membership in a group (i.e., membership change that triggers eviction of that group\u2019s list/element data), the system must delete that group\u2019s entry from the persistent store that tracks the last processed batch per group, so subsequent lookups for that group return `null`.",
+   "gold_anchor": "DELETE FROM lastUpdateBatchIdPerGroupId WHERE groupId = ${owner}",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "case": "tutao_9dfb7c23",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "The EventBusClient message handler is callable as `_onMessage` and returns a Promise when invoked with `MessageEvent<string>` for websocket messages.",
+   "covering_prose": "The class must define a method named `_onMessage` with the signature `(message: MessageEvent<string>) => Promise<void>`.",
+   "gold_anchor": "async _onMessage(message: MessageEvent<string>): Promise<void> {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`_onMessage` splits the incoming websocket data on `;` to obtain the message type and JSON payload.",
+   "covering_prose": "The `_onMessage` method must parse the incoming message string in the format `<type>;<jsonPayload>`.",
+   "gold_anchor": "const [type, value] = message.data.split(\";\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When two `entityUpdate` websocket messages are received through `_onMessage`, each update is added to the entity update message queue rather than processed directly, so updates are dispatched sequentially without overlap.",
+   "covering_prose": "When the type is `\"entityUpdate\"`, the message must be enqueued and dispatched sequentially so that no second update is processed until the first one completes.",
+   "gold_anchor": "this.entityUpdateMessageQueue.add(data.eventBatchId, data.eventBatchOwner, data.eventBatch)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When an `unreadCounterUpdate` websocket message is received through `_onMessage`, the payload is deserialized as counter data and delivered to `worker.updateCounter(...)`.",
+   "covering_prose": "When the type is `\"unreadCounterUpdate\"`, the payload must be deserialized and passed to `worker.updateCounter(...)`.",
+   "gold_anchor": "this.worker.updateCounter(counterData)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

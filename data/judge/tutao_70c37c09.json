@@ -1,0 +1,53 @@
+{
+ "case": "tutao_70c37c09",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 5,
+ "rows": [
+  {
+   "test": "CalendarFacade._saveCalendarEvents accepts a second argument onProgress with shape (percent: number) => Promise<void>; tests call it as _saveCalendarEvents(eventsWrapper, () => Promise.resolve()).",
+   "covering_prose": "The calendar API must expose the `CalendarFacade._saveCalendarEvents` method with the signature `(eventsWrapper, onProgress: (percent: number) => Promise<void>)` and must invoke `onProgress` to reflect progress, including 100% completion.",
+   "gold_anchor": "onProgress: (percent: number) => Promise<void>,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On the successful save case shown, _saveCalendarEvents results in _sendAlarmNotifications.callCount equaling 1.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When _saveCalendarEvents throws ImportError in the case shown at line 219, the returned error has numFailed equal to 2.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When _saveCalendarEvents throws ImportError in the case shown at line 219, _sendAlarmNotifications.callCount equals 0.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When _saveCalendarEvents throws ImportError in the case shown at line 259, the returned error has numFailed equal to 1.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When _saveCalendarEvents throws ImportError in the case shown at line 259, _sendAlarmNotifications.callCount equals 1.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

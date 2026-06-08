@@ -1,0 +1,67 @@
+{
+ "case": "protonmail_ebed8ea9",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Calling moveSystemFolders(MAILBOX_LABEL_IDS.SENT, MAILBOX_LABEL_IDS.INBOX, [INBOX, DRAFTS, SENT, ALL_SENT, SCHEDULED]) moves the Sent group to directly after Inbox rather than leaving Sent in its original position.",
+   "covering_prose": "Ensure that when MAILBOX_LABEL_IDS.SENT is repositioned relative to MAILBOX_LABEL_IDS.INBOX with the intent of placing it after Inbox, MAILBOX_LABEL_IDS.ALL_SENT is also moved to immediately follow MAILBOX_LABEL_IDS.INBOX and appear directly before MAILBOX_LABEL_IDS.SENT.",
+   "gold_anchor": "const movedItems = moveItems(systemFolders, draggedItemIndex, inboxItemIndex + 1);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ALL_SENT is treated as the linked counterpart of SENT during reordering.",
+   "covering_prose": "Maintain a linked positioning relationship between MAILBOX_LABEL_IDS.SENT and MAILBOX_LABEL_IDS.ALL_SENT so they are treated as an adjacent group in the sidebar ordering.",
+   "gold_anchor": "[MAILBOX_LABEL_IDS.SENT]: MAILBOX_LABEL_IDS.ALL_SENT,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The resulting order places ALL_SENT immediately after INBOX and directly before SENT.",
+   "covering_prose": "Ensure that when MAILBOX_LABEL_IDS.SENT is repositioned relative to MAILBOX_LABEL_IDS.INBOX with the intent of placing it after Inbox, MAILBOX_LABEL_IDS.ALL_SENT is also moved to immediately follow MAILBOX_LABEL_IDS.INBOX and appear directly before MAILBOX_LABEL_IDS.SENT.",
+   "gold_anchor": "return move(movedItems, allSentIndex, droppedItemIndex);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After the move, the concrete final sequence is Inbox, All Sent, Sent, Drafts, Scheduled.",
+   "covering_prose": "Provide for recalculation of the ordering metadata so that, after the move, the resulting sequence is contiguous and reflects the new positions; the expected final sequence for the scenario {Inbox, Drafts, Sent, All sent (hidden), Scheduled} moved to after Inbox is: Inbox, All sent, Sent, Drafts, Scheduled.",
+   "gold_anchor": "const reorderedItems = reorderItems(movedItems);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Order metadata is recalculated contiguously so ALL_SENT has order 2, SENT has order 3, DRAFTS has order 4, and SCHEDULED has order 5.",
+   "covering_prose": "Orders are updated contiguously (Inbox, All Sent, Sent, Drafts, Scheduled).",
+   "gold_anchor": "const reorderedItems = reorderItems(movedItems);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ALL_SENT remains hidden after being repositioned.",
+   "covering_prose": "Maintain the visibility state of MAILBOX_LABEL_IDS.ALL_SENT during the repositioning; if it is hidden prior to the move, it remains hidden afterward while its underlying position in the sequence is updated.",
+   "gold_anchor": "const movedItems = moveItems(systemFolders, draggedItemIndex, inboxItemIndex + 1);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DRAFTS remains before SCHEDULED after the linked Sent and All Sent move.",
+   "covering_prose": "Ensure that folders not involved in the linked move (e.g., MAILBOX_LABEL_IDS.DRAFTS, MAILBOX_LABEL_IDS.SCHEDULED) preserve their relative order with respect to each other after the repositioning of All sent and Sent.",
+   "gold_anchor": "const movedItems = moveItems(systemFolders, draggedItemIndex, inboxItemIndex + 1);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Non-order properties of ALL_SENT, SENT, DRAFTS, and SCHEDULED are preserved while only their order values change.",
+   "covering_prose": "Preserve each item\u2019s non-order properties (e.g., ID, icon, text, display section) during the move unless a change is explicitly required by the repositioning scenario; do not alter the display section for this scenario where all items are in the MAIN section.",
+   "gold_anchor": "const clonedItem = cloneItem(item);",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

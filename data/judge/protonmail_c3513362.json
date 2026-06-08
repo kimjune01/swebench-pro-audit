@@ -1,0 +1,18 @@
+{
+ "case": "protonmail_c3513362",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "The test file can import `SelectedPlan` from `@proton/components/payments/core` instead of `@proton/components/payments/core/subscription/selected-plan`.",
+   "covering_prose": "All call sites should import `SelectedPlan` and `getScribeAddonNameByPlan` from `@proton/components/payments/core` (not from any `.../subscription/...` path). The payments/core package should export both symbols.",
+   "gold_anchor": "export * from './subscription';",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

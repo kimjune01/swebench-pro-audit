@@ -1,0 +1,74 @@
+{
+ "case": "qutebrowser_1547a48e",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 9,
+ "n_covered": 7,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "_validate_untrusted_args returns without error when argv does not contain --untrusted-args, including [] and [':nop'].",
+   "covering_prose": "_validate_untrusted_args should attempt to locate the index of `--untrusted-args` in `argv`, and if it is not present or a `ValueError` is raised, it should return without error.",
+   "gold_anchor": "except ValueError:\n        return",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_validate_untrusted_args returns without error when --untrusted-args is present with no following arguments, including [':nop', '--untrusted-args'] and [':nop', '--debug', '--untrusted-args'].",
+   "covering_prose": null,
+   "gold_anchor": "rest = argv[untrusted_idx + 1:]\n    if len(rest) > 1:",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "_validate_untrusted_args ignores arguments before --untrusted-args when deciding validity, so command-like or flag-like earlier args such as ':nop' or '--debug' do not cause SystemExit.",
+   "covering_prose": "_validate_untrusted_args should terminate execution with a `SystemExit` error if any argument following `--untrusted-args` begins with a dash (`-`) or a colon (`:`), with the message: \"Found <arg> after --untrusted-args, aborting.\", where `<arg>` is the invalid argument encountered.",
+   "gold_anchor": "rest = argv[untrusted_idx + 1:]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_validate_untrusted_args returns without error when exactly one argument follows --untrusted-args and that argument does not start with '-' or ':', including 'foo' and 'bar'.",
+   "covering_prose": "Specifically, only a single argument following the flag should be allowed, and it must be treated as a URL or search term.",
+   "gold_anchor": "if arg.startswith(('-', ':')):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_validate_untrusted_args raises SystemExit with message \"Found --debug after --untrusted-args, aborting.\" when the single following argument is '--debug'.",
+   "covering_prose": "_validate_untrusted_args should terminate execution with a `SystemExit` error if any argument following `--untrusted-args` begins with a dash (`-`) or a colon (`:`), with the message: \"Found <arg> after --untrusted-args, aborting.\", where `<arg>` is the invalid argument encountered.",
+   "gold_anchor": "sys.exit(\"Found {} after --untrusted-args, aborting.\".format(arg))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_validate_untrusted_args raises SystemExit with message \"Found :nop after --untrusted-args, aborting.\" when the single following argument is ':nop'.",
+   "covering_prose": "_validate_untrusted_args should terminate execution with a `SystemExit` error if any argument following `--untrusted-args` begins with a dash (`-`) or a colon (`:`), with the message: \"Found <arg> after --untrusted-args, aborting.\", where `<arg>` is the invalid argument encountered.",
+   "gold_anchor": "if arg.startswith(('-', ':')):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_validate_untrusted_args raises SystemExit when more than one argument follows --untrusted-args, and the message contains the space-separated following arguments, as in \"Found multiple arguments (okay1 okay2) after --untrusted-args, aborting.\"",
+   "covering_prose": "_validate_untrusted_args should terminate execution with a `SystemExit` error if multiple arguments are provided after `--untrusted-args`, with the message: \"Found multiple arguments (<args>) after --untrusted-args, aborting.\", where `<args>` is the space-separated list of arguments found.",
+   "gold_anchor": "\"aborting.\".format(' '.join(rest)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When multiple arguments follow --untrusted-args, _validate_untrusted_args raises the multiple-arguments SystemExit before checking whether one of those following arguments starts with '-' or ':'.",
+   "covering_prose": null,
+   "gold_anchor": "if len(rest) > 1:\n        sys.exit(",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When argv contains more than one --untrusted-args, _validate_untrusted_args uses the first occurrence as the boundary; for [':nop', '--untrusted-args', ':nop', '--untrusted-args', 'https://www.example.org'] the following arguments are ':nop --untrusted-args https://www.example.org'.",
+   "covering_prose": "_validate_untrusted_args should attempt to locate the index of `--untrusted-args` in `argv`, and if it is not present or a `ValueError` is raised, it should return without error.",
+   "gold_anchor": "untrusted_idx = argv.index('--untrusted-args')",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

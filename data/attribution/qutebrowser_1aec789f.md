@@ -1,0 +1,27 @@
+# Coverage attribution: qutebrowser_1aec789f
+
+- instance_id: `instance_qutebrowser__qutebrowser-305e7c96d5e2fdb3b248b27dfb21042fb2b7e0b8-v2ef375ac784985212b1805e1d0431dc8f1b3c171`
+- verdict: **ENTAILED**  (12/12 in-gold behaviors covered; **0 GAP** = mindreading; 0 out-of-scope)
+- gold patch: [`gold.diff`](../cases/qutebrowser_1aec789f/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/qutebrowser_1aec789f/hidden_test.diff)  ·  spec: [`spec.md`](../cases/qutebrowser_1aec789f/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| miscmodels.tab_focus is callable with keyword argument info and returns a model accepted by qtmodeltester.check after set_pattern(''). | [Function: tab_focus Path: qutebrowser/completion/models/miscmodels.py Input: *, info Output: CompletionModel](../cases/qutebrowser_1aec789f/spec.md) | [def tab_focus(*, info):](../cases/qutebrowser_1aec789f/gold.diff#L65) |
+| The returned completion model includes tabs only from the active window info.win_id; with info.win_id = 1 it includes the tab from window 1  | [In `miscmodels.py`, the new function `tab_focus(info)` must return a completion model limited to the tabs of the active window (`info.win_id`).](../cases/qutebrowser_1aec789f/spec.md#L24) | [model = _buffer(win_id_filter=lambda win_id: win_id == info.win_id)](../cases/qutebrowser_1aec789f/gold.diff#L67) |
+| The active-window tab category key is the string form of info.win_id, so info.win_id = 1 produces category "1". | [The completion model returned by `tab_focus(info)` must use the string form of `info.win_id` as the category key (for example `"1"`).](../cases/qutebrowser_1aec789f/spec.md#L28) | [model = _buffer(win_id_filter=lambda win_id: win_id == info.win_id)](../cases/qutebrowser_1aec789f/gold.diff#L67) |
+| A tab entry in category "1" uses the combined window id and 1-based tab index as the first field: "1/1" for window 1 tab index 0. | [Each tab entry in this model must expose its window id and its 1-based tab index as a single string (`"<win_id>/<tab_index+1>"`) together with its URL and title.](../cases/qutebrowser_1aec789f/spec.md#L26) | [model = _buffer(win_id_filter=lambda win_id: win_id == info.win_id)](../cases/qutebrowser_1aec789f/gold.diff#L67) |
+| A tab entry in category "1" includes the tab URL as the second field, e.g. "https://wiki.archlinux.org". | [The list contains tabs from the active window with index, URL, and title.](../cases/qutebrowser_1aec789f/spec.md#L17) | [model = _buffer(win_id_filter=lambda win_id: win_id == info.win_id)](../cases/qutebrowser_1aec789f/gold.diff#L67) |
+| A tab entry in category "1" includes the tab title as the third field, e.g. "ArchWiki". | [The list contains tabs from the active window with index, URL, and title.](../cases/qutebrowser_1aec789f/spec.md#L17) | [model = _buffer(win_id_filter=lambda win_id: win_id == info.win_id)](../cases/qutebrowser_1aec789f/gold.diff#L67) |
+| The returned model has a category named "Special". | [The function `tab_focus(info)` in `miscmodels.py` must add a category named `Special` that contains exactly three entries, in this order: `last`, `stack-next`, `stack-prev`.](../cases/qutebrowser_1aec789f/spec.md#L30) | [model.add_category(listcategory.ListCategory("Special", special))](../cases/qutebrowser_1aec789f/gold.diff#L74) |
+| The Special category contains exactly three entries. | [The function `tab_focus(info)` in `miscmodels.py` must add a category named `Special` that contains exactly three entries, in this order: `last`, `stack-next`, `stack-prev`.](../cases/qutebrowser_1aec789f/spec.md#L30) | [special = [](../cases/qutebrowser_1aec789f/gold.diff#L69) |
+| The first Special entry is ("last", "Focus the last-focused tab", None). | [`("last", "Focus the last-focused tab", None)`](../cases/qutebrowser_1aec789f/spec.md#L34) | [("last", "Focus the last-focused tab"),](../cases/qutebrowser_1aec789f/gold.diff#L70) |
+| The second Special entry is ("stack-next", "Go forward through a stack of focused tabs", None). | [`("stack-next", "Go forward through a stack of focused tabs", None)`](../cases/qutebrowser_1aec789f/spec.md#L36) | [("stack-next", "Go forward through a stack of focused tabs"),](../cases/qutebrowser_1aec789f/gold.diff#L71) |
+| The third Special entry is ("stack-prev", "Go backward through a stack of focused tabs", None). | [`("stack-prev", "Go backward through a stack of focused tabs", None)`](../cases/qutebrowser_1aec789f/spec.md#L38) | [("stack-prev", "Go backward through a stack of focused tabs"),](../cases/qutebrowser_1aec789f/gold.diff#L72) |
+| The Special entries appear in this exact order: last, stack-next, stack-prev. | [The function `tab_focus(info)` in `miscmodels.py` must add a category named `Special` that contains exactly three entries, in this order: `last`, `stack-next`, `stack-prev`.](../cases/qutebrowser_1aec789f/spec.md#L30) | [special = [](../cases/qutebrowser_1aec789f/gold.diff#L69) |
+
+## Receipts
+- [`spec.md`](../cases/qutebrowser_1aec789f/spec.md)
+- [`gold.diff`](../cases/qutebrowser_1aec789f/gold.diff)
+- [`hidden_test.diff`](../cases/qutebrowser_1aec789f/hidden_test.diff)
+- judge JSON: [`qutebrowser_1aec789f.json`](../judge/qutebrowser_1aec789f.json)

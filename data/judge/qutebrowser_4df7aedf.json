@@ -1,0 +1,25 @@
+{
+ "case": "qutebrowser_4df7aedf",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "On a qutebrowser test domain page, specifically QUrl(\"https://test.qutebrowser.org/linkedin\"), the array_at quirk/polyfill is active so the expression can use Array.prototype.at.",
+   "covering_prose": "The polyfill should be active and functional on LinkedIn domain pages and qutebrowser test domains to ensure compatibility testing.",
+   "gold_anchor": "// @include https://test.qutebrowser.org/*",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For the array [1, 2, 3], calling .at(1) returns the element at positive index 1, i.e. 2.",
+   "covering_prose": "The Array.prototype.at method should return the element at the specified positive index when called on array instances, matching standard JavaScript behavior for positive integer indices.",
+   "gold_anchor": "return this[n];",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

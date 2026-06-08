@@ -1,0 +1,172 @@
+{
+ "case": "protonmail_2ea4c94b",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 23,
+ "n_covered": 21,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "The additional-actions dropdown shows an expiration menu item with visible label exactly \"Expiration time\".",
+   "covering_prose": "The composer should provide an \u201cadditional actions\u201d (three-dots) dropdown containing an expiration entry with (data-testid=\\\"composer:expiration-button\\\") whose visible label is exactly \u201cExpiration time\u201d.",
+   "gold_anchor": "{isExpiration ? c('Action').t`Set expiration time` : c('Action').t`Expiration time`}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The expiration menu item is reachable by data-testid \"composer:expiration-button\".",
+   "covering_prose": "The composer should provide an \u201cadditional actions\u201d (three-dots) dropdown containing an expiration entry with (data-testid=\\\"composer:expiration-button\\\") whose visible label is exactly \u201cExpiration time\u201d.",
+   "gold_anchor": "data-testid=\"composer:expiration-button\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Clicking the expiration entry opens an expiration modal titled exactly \"Expiring message\".",
+   "covering_prose": "Pressing the expiration entry should open the expiration modal, and the expiration modal title should be exactly \u201cExpiring message\u201d.",
+   "gold_anchor": "title={isPasswordSet ? c('Info').t`Edit expiration time` : c('Info').t`Expiring message`}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Meta/CTRL + Shift + E opens the first-time encryption modal showing title exactly \"Encrypt message\".",
+   "covering_prose": "Keyboard shortcuts should open the same modals: Meta/CTRL + Shift + E opens the encryption modal for first-time setup (showing \u201cEncrypt message\u201d), and Meta/CTRL + Shift + X opens the expiration modal (showing \u201cExpiring message\u201d).",
+   "gold_anchor": "title={isEdition ? c('Info').t`Edit encryption` : c('Info').t`Encrypt message`}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Meta/CTRL + Shift + X opens the expiration modal showing title exactly \"Expiring message\".",
+   "covering_prose": "Keyboard shortcuts should open the same modals: Meta/CTRL + Shift + E opens the encryption modal for first-time setup (showing \u201cEncrypt message\u201d), and Meta/CTRL + Shift + X opens the expiration modal (showing \u201cExpiring message\u201d).",
+   "gold_anchor": "title={isPasswordSet ? c('Info').t`Edit expiration time` : c('Info').t`Expiring message`}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The composer exposes a lock button for external encryption with data-testid \"composer:password-button\" that opens the encryption modal.",
+   "covering_prose": "The composer should expose a lock button for external encryption with (data-testid=\\\"composer:password-button\\\") that opens the encryption modal when pressed, and the modal\u2019s submit button should be reachable via (data-testid=\\\"modal-footer:set-button\\\").",
+   "gold_anchor": "data-testid=\"composer:password-button\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On first password-button open with no prior external encryption, the encryption modal title is exactly \"Encrypt message\".",
+   "covering_prose": "On first open (no prior external encryption), the encryption modal title should be exactly \u201cEncrypt message\u201d; when editing existing external encryption, the title should be exactly \u201cEdit encryption\u201d.",
+   "gold_anchor": "title={isEdition ? c('Info').t`Edit encryption` : c('Info').t`Encrypt message`}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With EORedesign enabled, the encryption modal exposes a password input with data-testid \"encryption-modal:password-input\".",
+   "covering_prose": "With the `EORedesign` feature flag turned on, the encryption modal should expose a password field via (data-testid=\\\"encryption-modal:password-input\\\") and should not require a confirmation field.",
+   "gold_anchor": "data-testid=\"encryption-modal:password-input\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With EORedesign enabled, setting external encryption only requires the single password field and no confirmation field.",
+   "covering_prose": "With the `EORedesign` feature flag turned on, the encryption modal should expose a password field via (data-testid=\\\"encryption-modal:password-input\\\") and should not require a confirmation field.",
+   "gold_anchor": "{!isEORedesign && (",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Submitting first-time external encryption automatically applies a default expiration based on DEFAULT_EO_EXPIRATION_DAYS.",
+   "covering_prose": "When the user sets external encryption for the first time, the system should automatically apply a default expiration of 28 days, defined by a constant named `DEFAULT_EO_EXPIRATION_DAYS` with value 28.",
+   "gold_anchor": "const valueInHours = DEFAULT_EO_EXPIRATION_DAYS * 24;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The default external-encryption expiration constant exists with value 28.",
+   "covering_prose": "When the user sets external encryption for the first time, the system should automatically apply a default expiration of 28 days, defined by a constant named `DEFAULT_EO_EXPIRATION_DAYS` with value 28.",
+   "gold_anchor": "export const DEFAULT_EO_EXPIRATION_DAYS = 28;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After external encryption is submitted, the composer displays text matching \"This message will expire on\".",
+   "covering_prose": "After external encryption is set, the composer should display a banner or inline notice that includes the exact phrase \u201cThis message will expire on\u201d.",
+   "gold_anchor": "draftFlags: { expiresIn: valueInHours * 3600 },",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When draftFlags.expiresIn is 25 * 3600 and the password modal is opened, the encryption modal title is \"Edit encryption\".",
+   "covering_prose": null,
+   "gold_anchor": "const isEdition = message?.draftFlags?.expiresIn;",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When draftFlags.expiresIn is 25 * 3600 and the password modal is opened, it displays exactly \"Your message will expire tomorrow.\" including the period.",
+   "covering_prose": null,
+   "gold_anchor": "return c('Info').t`Your message will expire tomorrow.`;",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When encryption is active, the encryption button becomes a dropdown opened by data-testid \"composer:encryption-options-button\".",
+   "covering_prose": "When encryption is active, the encryption button should present a dropdown opened via (data-testid=\\\"composer:encryption-options-button\\\"), and that dropdown should include actions with IDs composer:edit-outside-encryption and composer:remove-outside-encryption.",
+   "gold_anchor": "data-testid=\"composer:encryption-options-button\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The active-encryption dropdown includes an edit action with data-testid \"composer:edit-outside-encryption\".",
+   "covering_prose": "When encryption is active, the encryption button should present a dropdown opened via (data-testid=\\\"composer:encryption-options-button\\\"), and that dropdown should include actions with IDs composer:edit-outside-encryption and composer:remove-outside-encryption.",
+   "gold_anchor": "data-testid=\"composer:edit-outside-encryption\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The active-encryption dropdown includes a remove action with data-testid \"composer:remove-outside-encryption\".",
+   "covering_prose": "When encryption is active, the encryption button should present a dropdown opened via (data-testid=\\\"composer:encryption-options-button\\\"), and that dropdown should include actions with IDs composer:edit-outside-encryption and composer:remove-outside-encryption.",
+   "gold_anchor": "data-testid=\"composer:remove-outside-encryption\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After setting password \"password\", opening the edit-encryption action shows the password input value equal to \"password\".",
+   "covering_prose": "When editing existing encryption, the password field should be pre-filled with the previously set password so that reading the field\u2019s value returns the same string that was entered earlier.",
+   "gold_anchor": "const [password, setPassword] = useState(message?.data?.Password || '');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Choosing remove outside encryption clears the expiration-related state so the \"This message will expire on\" banner is absent.",
+   "covering_prose": "Choosing the remove-encryption action should clear external encryption and related state; afterwards, the banner phrase \u201cThis message will expire on\u201d should no longer be present.",
+   "gold_anchor": "expiresIn: undefined,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Choosing remove outside encryption clears the stored password.",
+   "covering_prose": "Choosing the remove-encryption action should clear external encryption and related state; afterwards, the banner phrase \u201cThis message will expire on\u201d should no longer be present.",
+   "gold_anchor": "Password: undefined,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With EORedesign enabled, the redesigned single-password external-encryption flow is governed by feature code exactly \"EORedesign\".",
+   "covering_prose": "A feature flag named exactly `EORedesign` should exist in the features enum and govern the redesigned flows described here (including the single password field without confirmation).",
+   "gold_anchor": "EORedesign = 'EORedesign',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Submitting external encryption stores the entered password and marks the message externally encrypted so the active encryption dropdown is available.",
+   "covering_prose": "When external encryption is set (from the encryption modal or via the expiration path), the message should store the password and password hint and mark itself as externally encrypted; the encryption button should reflect the active state (with the dropdown available).",
+   "gold_anchor": "Flags: setBit(message.data?.Flags, MESSAGE_FLAGS.FLAG_INTERNAL),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Submitting external encryption stores the entered password value in message data.",
+   "covering_prose": "When external encryption is set (from the encryption modal or via the expiration path), the message should store the password and password hint and mark itself as externally encrypted; the encryption button should reflect the active state (with the dropdown available).",
+   "gold_anchor": "Password: password,",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

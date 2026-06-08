@@ -1,0 +1,95 @@
+{
+ "case": "qutebrowser_1aec789f",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 12,
+ "n_covered": 12,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "miscmodels.tab_focus is callable with keyword argument info and returns a model accepted by qtmodeltester.check after set_pattern('').",
+   "covering_prose": "Function: tab_focus\nPath: qutebrowser/completion/models/miscmodels.py\nInput: *, info\nOutput: CompletionModel",
+   "gold_anchor": "def tab_focus(*, info):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The returned completion model includes tabs only from the active window info.win_id; with info.win_id = 1 it includes the tab from window 1 and excludes tabs from window 0.",
+   "covering_prose": "In `miscmodels.py`, the new function `tab_focus(info)` must return a completion model limited to the tabs of the active window (`info.win_id`).",
+   "gold_anchor": "model = _buffer(win_id_filter=lambda win_id: win_id == info.win_id)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The active-window tab category key is the string form of info.win_id, so info.win_id = 1 produces category \"1\".",
+   "covering_prose": "The completion model returned by `tab_focus(info)` must use the string form of `info.win_id` as the category key (for example `\"1\"`).",
+   "gold_anchor": "model = _buffer(win_id_filter=lambda win_id: win_id == info.win_id)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A tab entry in category \"1\" uses the combined window id and 1-based tab index as the first field: \"1/1\" for window 1 tab index 0.",
+   "covering_prose": "Each tab entry in this model must expose its window id and its 1-based tab index as a single string (`\"<win_id>/<tab_index+1>\"`) together with its URL and title.",
+   "gold_anchor": "model = _buffer(win_id_filter=lambda win_id: win_id == info.win_id)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A tab entry in category \"1\" includes the tab URL as the second field, e.g. \"https://wiki.archlinux.org\".",
+   "covering_prose": "The list contains tabs from the active window with index, URL, and title.",
+   "gold_anchor": "model = _buffer(win_id_filter=lambda win_id: win_id == info.win_id)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A tab entry in category \"1\" includes the tab title as the third field, e.g. \"ArchWiki\".",
+   "covering_prose": "The list contains tabs from the active window with index, URL, and title.",
+   "gold_anchor": "model = _buffer(win_id_filter=lambda win_id: win_id == info.win_id)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The returned model has a category named \"Special\".",
+   "covering_prose": "The function `tab_focus(info)` in `miscmodels.py` must add a category named `Special` that contains exactly three entries, in this order: `last`, `stack-next`, `stack-prev`.",
+   "gold_anchor": "model.add_category(listcategory.ListCategory(\"Special\", special))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The Special category contains exactly three entries.",
+   "covering_prose": "The function `tab_focus(info)` in `miscmodels.py` must add a category named `Special` that contains exactly three entries, in this order: `last`, `stack-next`, `stack-prev`.",
+   "gold_anchor": "special = [",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The first Special entry is (\"last\", \"Focus the last-focused tab\", None).",
+   "covering_prose": "`(\"last\", \"Focus the last-focused tab\", None)`",
+   "gold_anchor": "(\"last\", \"Focus the last-focused tab\"),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The second Special entry is (\"stack-next\", \"Go forward through a stack of focused tabs\", None).",
+   "covering_prose": "`(\"stack-next\", \"Go forward through a stack of focused tabs\", None)`",
+   "gold_anchor": "(\"stack-next\", \"Go forward through a stack of focused tabs\"),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The third Special entry is (\"stack-prev\", \"Go backward through a stack of focused tabs\", None).",
+   "covering_prose": "`(\"stack-prev\", \"Go backward through a stack of focused tabs\", None)`",
+   "gold_anchor": "(\"stack-prev\", \"Go backward through a stack of focused tabs\"),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The Special entries appear in this exact order: last, stack-next, stack-prev.",
+   "covering_prose": "The function `tab_focus(info)` in `miscmodels.py` must add a category named `Special` that contains exactly three entries, in this order: `last`, `stack-next`, `stack-prev`.",
+   "gold_anchor": "special = [",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

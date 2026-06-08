@@ -1,0 +1,109 @@
+{
+ "case": "protonmail_94dc494b",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 12,
+ "n_covered": 12,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "The modal renders an enabled workflow with a submit button labeled \"Add calendar\" and an input labeled \"Calendar URL\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "A URL longer than MAX_LENGTHS_API.CALENDAR_URL disables the submit button, including when the URL is invalid, missing .ics, a Google public .ics URL, or an otherwise valid long .ics URL.",
+   "covering_prose": "The submit button should only be enabled when a non-empty URL is valid and within the length limit.",
+   "gold_anchor": "const disabled = !calendarURL || !isURLValid || isURLTooLong;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A URL whose length exceeds MAX_LENGTHS_API.CALENDAR_URL is treated as too long by comparing current length with CALENDAR_URL.",
+   "covering_prose": "In SubscribeCalendarModal, calculate the current URL length and determine whether it exceeds the limit; mark overly long URLs as invalid.",
+   "gold_anchor": "const isURLTooLong = calendarURLLength > CALENDAR_URL;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "MAX_LENGTHS_API exposes CALENDAR_URL with value 10000.",
+   "covering_prose": "Add CALENDAR_URL: 10000 to MAX_LENGTHS_API and remove all hardcoded constants for URL length, replacing them with this centralized value.",
+   "gold_anchor": "CALENDAR_URL: 10000,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An invalid URL such as a Google public URL without protocol shows \"Invalid URL\" and the submit button is disabled.",
+   "covering_prose": "Compute a single disabled flag for the modal\u2019s submit button based on three conditions: the URL is empty, invalid in format, or exceeds the maximum length.",
+   "gold_anchor": "const disabled = !calendarURL || !isURLValid || isURLTooLong;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a Google URL without .ics, the warning shown is \"This link might be wrong\" and it takes priority over public-link and length warnings.",
+   "covering_prose": "A Google or Outlook URL without .ics \u2192 \u201cThis link might be wrong\u201d.",
+   "gold_anchor": "return c('Subscribed calendar extension warning').t`This link might be wrong`;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a Google public URL with .ics, the warning shown is \"By using this link, Google will make the calendar you are subscribing to public\" and it takes priority over length warnings.",
+   "covering_prose": "A Google public URL with .ics \u2192 \u201cBy using this link, Google will make the calendar you are subscribing to public\u201d.",
+   "gold_anchor": ".t`By using this link, Google will make the calendar you are subscribing to public`;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an overly long URL with no higher-priority warning, the warning shown is \"URL is too long\".",
+   "covering_prose": "An overly long URL \u2192 \u201cURL is too long\u201d.",
+   "gold_anchor": "return c('Subscribed calendar URL length warning').t`URL is too long`;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Warnings are mutually exclusive and ordered as extension warning first, Google public warning second, and URL length warning third.",
+   "covering_prose": "Warning messages should follow a clear priority, showing only one at a time: first extension issues, then Google public link concerns, and finally length warnings.",
+   "gold_anchor": "const getWarning = () => {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The field warning is supplied directly from getWarning().",
+   "covering_prose": "Use the getWarning result directly as the field warning; remove character counters, maxLength attributes, and any visual hints based on length.",
+   "gold_anchor": "warning={getWarning()}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A short invalid Google public URL without protocol disables the submit button.",
+   "covering_prose": "Compute a single disabled flag for the modal\u2019s submit button based on three conditions: the URL is empty, invalid in format, or exceeds the maximum length.",
+   "gold_anchor": "const disabled = !calendarURL || !isURLValid || isURLTooLong;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A short valid Google URL without .ics shows \"This link might be wrong\" but does not disable the submit button.",
+   "covering_prose": "The submit button should only be enabled when a non-empty URL is valid and within the length limit.",
+   "gold_anchor": "disabled,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A short valid Google public URL with .ics shows the Google public warning but does not disable the submit button.",
+   "covering_prose": "The submit button should only be enabled when a non-empty URL is valid and within the length limit.",
+   "gold_anchor": "disabled,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The URL too long warning exists as dense input accessible text that is not visible until hovering the input icon, then appears in a visible tooltip.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

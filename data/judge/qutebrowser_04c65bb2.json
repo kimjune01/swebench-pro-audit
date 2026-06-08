@@ -1,0 +1,67 @@
+{
+ "case": "qutebrowser_04c65bb2",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 8,
+ "n_covered": 6,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For template '{{ func1(conf.aliases) }} {{ func2(conf.backend) }}', returns frozenset(['aliases', 'backend']).",
+   "covering_prose": "It must correctly extract all unique, dot-separated configuration keys that are accessed via the `conf.` namespace.",
+   "gold_anchor": "result.append('.'.join(reversed(attrlist)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The return value shape is a FrozenSet[str], concretely compared as frozenset(expected).",
+   "covering_prose": "Outputs:\n   - `FrozenSet[str]` - a set of dot-separated configuration keys referenced within the template (e.g., \"hints.min_chars\")",
+   "gold_anchor": "return frozenset(result)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For template '{{ conf.aliases[\"a\"].propname }}', returns frozenset(['aliases']), stopping the configuration key before the dictionary lookup/property access.",
+   "covering_prose": null,
+   "gold_anchor": "unvisted_nodes.append(node)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For template '{{ conf.auto_save.interval + conf.hints.min_chars }}', returns frozenset(['auto_save.interval', 'hints.min_chars']).",
+   "covering_prose": "The extraction must support simple attribute access (`conf.backend`), nested access with dictionary lookups (`conf.aliases['a'].propname`), and variables used within expressions (`conf.auto_save.interval + conf.hints.min_chars`).",
+   "gold_anchor": "result.append('.'.join(reversed(attrlist)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For template '{{ notconf.a.b.c }}', returns an empty frozenset, ignoring non-conf-prefixed variables.",
+   "covering_prose": "References to variables not prefixed with `conf.`, including `notconf.a.b.c`, must be ignored.",
+   "gold_anchor": "if node.name == 'conf':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For template '{{ func1(conf.aaa) }}', raises configexc.NoOptionError for an invalid referenced option.",
+   "covering_prose": "For each configuration key found, the function must validate that the option exists in the global configuration. If any referenced option is not a valid configuration setting, the function must raise a `configexc.NoOptionError`.",
+   "gold_anchor": "config.instance.ensure_has_opt(option)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For template '{{ conf.bbb[\"a\"].propname }}', raises configexc.NoOptionError for invalid option 'bbb' discovered before the dictionary lookup/property access.",
+   "covering_prose": null,
+   "gold_anchor": "config.instance.ensure_has_opt(option)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For template '{{ conf.ccc + 1 }}', raises configexc.NoOptionError for an invalid referenced option used in an expression.",
+   "covering_prose": "For each configuration key found, the function must validate that the option exists in the global configuration. If any referenced option is not a valid configuration setting, the function must raise a `configexc.NoOptionError`.",
+   "gold_anchor": "config.instance.ensure_has_opt(option)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

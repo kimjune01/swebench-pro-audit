@@ -1,0 +1,46 @@
+{
+ "case": "protonmail_c40dccc3",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "The Contact Group Details modal displays the group name.",
+   "covering_prose": "Observe the count label near the group name.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For a group with 3 email addresses, the count label displays exactly \"3 email addresses\".",
+   "covering_prose": "The label displays \u201cN email addresses,\u201d using correct singular/plural forms based on the number of email addresses shown.",
+   "gold_anchor": "`${emailsCount} email addresses`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The Contact Group Details modal displays contactEmail1.Name.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The Contact Group Details modal displays contactEmail2.Name.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The Contact Group Details modal displays contactEmail3.Name.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

@@ -1,0 +1,137 @@
+{
+ "case": "qutebrowser_142f019c",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 18,
+ "n_covered": 15,
+ "n_gap": 3,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "extra_suffixes_workaround calls qtutils.version_check with compiled=False for the lower bound check \"6.2.3\".",
+   "covering_prose": "The function should only apply the workaround for Qt versions \u22656.2.3 and <6.7.0 where the MIME type extension mapping issue occurs, returning an empty set for other Qt versions.",
+   "gold_anchor": "qtutils.version_check(\"6.2.3\", compiled=False)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "extra_suffixes_workaround calls qtutils.version_check with compiled=False for the upper bound check \"6.7.0\".",
+   "covering_prose": "The function should only apply the workaround for Qt versions \u22656.2.3 and <6.7.0 where the MIME type extension mapping issue occurs, returning an empty set for other Qt versions.",
+   "gold_anchor": "not qtutils.version_check(\"6.7.0\", compiled=False)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "extra_suffixes_workaround([\"image/jpeg\"]) returns {\".jpg\", \".jpe\"}.",
+   "covering_prose": "For specific MIME type inputs like \"image/jpeg\", the function should identify and return missing extensions such as \".jpg\" and \".jpe\" that correspond to that MIME type but are not already present in the input list.",
+   "gold_anchor": "python_suffixes.update(mimetypes.guess_all_extensions(mime))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "extra_suffixes_workaround([\"image/jpeg\", \".jpeg\"]) returns {\".jpg\", \".jpe\"}.",
+   "covering_prose": "For specific MIME type inputs like \"image/jpeg\", the function should identify and return missing extensions such as \".jpg\" and \".jpe\" that correspond to that MIME type but are not already present in the input list.",
+   "gold_anchor": "return python_suffixes - suffixes",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "extra_suffixes_workaround([\"image/jpeg\", \".jpg\", \".jpe\"]) returns set().",
+   "covering_prose": "File extension processing should handle both MIME type strings and existing extension strings in the input, ensuring no duplicate extensions are added to the final result.",
+   "gold_anchor": "return python_suffixes - suffixes",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "extra_suffixes_workaround([\".jpg\"]) returns set().",
+   "covering_prose": "Description: Returns extra file suffixes for given mimetypes not already in the input. Workaround for a Qt bug where some extensions (e.g., jpeg) are missing in file pickers for certain Qt versions.",
+   "gold_anchor": "mimes = {entry for entry in upstream_mimetypes if \"/\" in entry}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "extra_suffixes_workaround([\"image/jpeg\", \"video/mp4\"]) returns {\".jpg\", \".jpe\", \".m4v\", \".mpg4\"}.",
+   "covering_prose": null,
+   "gold_anchor": "python_suffixes.update(mimetypes.guess_all_extensions(mime))",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "extra_suffixes_workaround([\"image/*\"]) returns {\".jpg\", \".jpe\", \".png\"}.",
+   "covering_prose": "When processing wildcard MIME patterns like \"image/*\", the function should include all extensions whose corresponding MIME types begin with the specified prefix, such as \".jpg\", \".png\", \".gif\" for \"image/*\".",
+   "gold_anchor": "if mimetype.startswith(mime[:-1])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "extra_suffixes_workaround([\"image/*\", \".jpg\"]) returns {\".jpe\", \".png\"}.",
+   "covering_prose": "When processing wildcard MIME patterns like \"image/*\", the function should include all extensions whose corresponding MIME types begin with the specified prefix, such as \".jpg\", \".png\", \".gif\" for \"image/*\".",
+   "gold_anchor": "return python_suffixes - suffixes",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "WebEnginePage.chooseFiles calls the parent chooseFiles exactly once.",
+   "covering_prose": null,
+   "gold_anchor": "return super().chooseFiles(mode, old_files, accepted_mimetypes)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "WebEnginePage.chooseFiles passes the final accepted MIME types/extensions as the third positional argument to parent chooseFiles.",
+   "covering_prose": "The `chooseFiles` method should call `extra_suffixes_workaround` with the accepted MIME types and merge the returned additional extensions into the final accepted types list passed to the parent implementation.",
+   "gold_anchor": "accepted_mimetypes = list(accepted_mimetypes) + list(extra_suffixes)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For chooseFiles with [\"image/jpeg\"], parent chooseFiles receives a list whose set is {\"image/jpeg\", \".jpg\", \".jpe\"}.",
+   "covering_prose": "The `chooseFiles` method should call `extra_suffixes_workaround` with the accepted MIME types and merge the returned additional extensions into the final accepted types list passed to the parent implementation.",
+   "gold_anchor": "accepted_mimetypes = list(accepted_mimetypes) + list(extra_suffixes)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For chooseFiles with [\"image/jpeg\", \".jpeg\"], parent chooseFiles receives a list whose set is {\"image/jpeg\", \".jpeg\", \".jpg\", \".jpe\"}.",
+   "covering_prose": "The `chooseFiles` method should call `extra_suffixes_workaround` with the accepted MIME types and merge the returned additional extensions into the final accepted types list passed to the parent implementation.",
+   "gold_anchor": "accepted_mimetypes = list(accepted_mimetypes) + list(extra_suffixes)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For chooseFiles with [\"image/jpeg\", \".jpg\", \".jpe\"], parent chooseFiles receives a list whose set is {\"image/jpeg\", \".jpg\", \".jpe\"}.",
+   "covering_prose": "File extension processing should handle both MIME type strings and existing extension strings in the input, ensuring no duplicate extensions are added to the final result.",
+   "gold_anchor": "if extra_suffixes:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For chooseFiles with [\".jpg\"], parent chooseFiles receives a list whose set is {\".jpg\"}.",
+   "covering_prose": "File extension processing should handle both MIME type strings and existing extension strings in the input, ensuring no duplicate extensions are added to the final result.",
+   "gold_anchor": "if extra_suffixes:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For chooseFiles with [\"image/jpeg\", \"video/mp4\"], parent chooseFiles receives a list whose set is {\"image/jpeg\", \"video/mp4\", \".jpg\", \".jpe\", \".m4v\", \".mpg4\"}.",
+   "covering_prose": null,
+   "gold_anchor": "accepted_mimetypes = list(accepted_mimetypes) + list(extra_suffixes)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For chooseFiles with [\"image/*\"], parent chooseFiles receives a list whose set is {\"image/*\", \".jpg\", \".jpe\", \".png\"}.",
+   "covering_prose": "The `chooseFiles` method should call `extra_suffixes_workaround` with the accepted MIME types and merge the returned additional extensions into the final accepted types list passed to the parent implementation.",
+   "gold_anchor": "accepted_mimetypes = list(accepted_mimetypes) + list(extra_suffixes)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For chooseFiles with [\"image/*\", \".jpg\"], parent chooseFiles receives a list whose set is {\"image/*\", \".jpg\", \".jpe\", \".png\"}.",
+   "covering_prose": "The `chooseFiles` method should call `extra_suffixes_workaround` with the accepted MIME types and merge the returned additional extensions into the final accepted types list passed to the parent implementation.",
+   "gold_anchor": "accepted_mimetypes = list(accepted_mimetypes) + list(extra_suffixes)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

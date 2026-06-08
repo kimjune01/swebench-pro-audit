@@ -1,0 +1,25 @@
+{
+ "case": "protonmail_fc4c6e03",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "getLastPersistedLocalID returns null when localStorage is empty",
+   "covering_prose": "When `localStorage` is empty, `getLastPersistedLocalID` should return `null`.",
+   "gold_anchor": "return lastLocalID?.ID || null;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getLastPersistedLocalID returns null when the only STORAGE_PREFIX key has a non-numeric suffix",
+   "covering_prose": "If a key uses `STORAGE_PREFIX` but the suffix is not numeric, `getLastPersistedLocalID` should treat it as invalid and return `null` when no valid IDs are found.",
+   "gold_anchor": "return lastLocalID?.ID || null;",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

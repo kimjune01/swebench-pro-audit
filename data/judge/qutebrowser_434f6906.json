@@ -1,0 +1,74 @@
+{
+ "case": "qutebrowser_434f6906",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 6,
+ "rows": [
+  {
+   "test": "For Qt version 6.4, with colors.webpage.darkmode.threshold.text set to 100, dark-mode-settings contains ('ForegroundBrightnessThreshold', '100').",
+   "covering_prose": "When colors.webpage.darkmode.threshold.text is configured with a numeric value and the Qt version is detected as 6.4, the dark mode configuration should generate an entry with the key \"ForegroundBrightnessThreshold\" and the numeric value converted to string format.",
+   "gold_anchor": "'threshold.text', 'ForegroundBrightnessThreshold',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Qt version 6.4, the text threshold setting must not use TextBrightnessThreshold and must use ForegroundBrightnessThreshold instead.",
+   "covering_prose": "The dark mode threshold key mapping should be version-specific, ensuring that Qt 6.4 environments use \"ForegroundBrightnessThreshold\" rather than any other key name when processing the text threshold setting.",
+   "gold_anchor": "Variant.qt_64",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Qt version 6.4 is classified as a distinct dark mode variant before Qt 6.3 fallback behavior.",
+   "covering_prose": "When colors.webpage.darkmode.threshold.text is configured with a numeric value and the Qt version is detected as 6.4, the dark mode configuration should generate an entry with the key \"ForegroundBrightnessThreshold\" and the numeric value converted to string format.",
+   "gold_anchor": "if versions.webengine >= utils.VersionNumber(6, 4):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Qt version 6.4, expected output has a blink-settings section exactly equal to [('forceDarkModeEnabled', 'true')].",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For Qt version 6.4, expected dark-mode-settings begins with ('InversionAlgorithm', '1').",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For Qt version 6.4, expected dark-mode-settings includes ('ImagePolicy', '2') after InversionAlgorithm.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For Qt version 6.4, expected dark-mode-settings includes ('IsGrayScale', 'true') after ImagePolicy.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For Qt version 5.15.2, with threshold.text set to 100, blink-settings includes ('forceDarkModeTextBrightnessThreshold', '100').",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For Qt version 5.15.3, with threshold.text set to 100, dark-mode-settings includes ('TextBrightnessThreshold', '100').",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

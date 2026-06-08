@@ -1,0 +1,39 @@
+{
+ "case": "protonmail_a5e37d3f",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "CalendarMemberAndInvitationList accepts a canEdit boolean prop when rendered.",
+   "covering_prose": "The CalendarMemberAndInvitationList component should accept a canEdit boolean prop to control edit permissions.",
+   "gold_anchor": "canEdit: boolean;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When CalendarMemberAndInvitationList is rerendered with canEdit={false}, all permission change buttons with accessible names matching /See all event details|Edit/ are disabled.",
+   "covering_prose": "When canEdit is false, permission change buttons (role/access level selectors) should be disabled.",
+   "gold_anchor": "disabled={!canEdit}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When CalendarMemberAndInvitationList is rerendered with canEdit={false}, the \"Remove this member\" button is not disabled.",
+   "covering_prose": "When canEdit is false, member removal actions (\"Remove this member\", \"Revoke this invitation\") should remain enabled.",
+   "gold_anchor": "deleteLabel={c('Action').t`Remove this member`}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Existing invitation/member display remains present, including one \"Revoke this invitation\" text and one \"Delete\" text.",
+   "covering_prose": "The component should properly handle both canEdit states without affecting the display of existing member and invitation data.",
+   "gold_anchor": "displayStatus={displayStatus}",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

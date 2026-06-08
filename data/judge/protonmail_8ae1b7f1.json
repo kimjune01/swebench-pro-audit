@@ -1,0 +1,88 @@
+{
+ "case": "protonmail_8ae1b7f1",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 5,
+ "rows": [
+  {
+   "test": "`getIsRruleSupported` is imported from `@proton/shared/lib/calendar/recurrence/rrule` in the mail calendar invite tests.",
+   "covering_prose": "The `calendar/recurrence` module should expose `rrule`, `rruleEqual`, `rruleUntil`, `rruleWkst`, `recurring`, `getTimezonedFrequencyString`, `getOnDayString`, `getRecurrenceIdValueFromTimestamp`, `getPositiveSetpos`, `getNegativeSetpos`.",
+   "gold_anchor": "@proton/shared/lib/calendar/recurrence/rrule",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`normalizeTrigger` is imported from `../../lib/calendar/alarms/trigger` in the shared alarms tests.",
+   "covering_prose": "The `calendar/alarms` module should expose `getValarmTrigger`, `trigger`, `normalizeTrigger`, `getNotificationString`, `getAlarmMessageText`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`getAggregatedEventVerificationStatus` is imported from `../../lib/calendar/crypto/decrypt` in the shared decrypt tests.",
+   "covering_prose": "The `calendar/crypto` namespace should expose `getAggregatedEventVerificationStatus` (under `crypto/decrypt`) and `getCreationKeys`, `getSharedSessionKey`, `getBase64SharedSessionKey` (under `crypto/helpers`).",
+   "gold_anchor": "@proton/shared/lib/calendar/crypto/decrypt",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`getTimezonedFrequencyString` is imported from `../../lib/calendar/recurrence/getFrequencyString` in the shared frequency string tests.",
+   "covering_prose": "The `calendar/recurrence` module should expose `rrule`, `rruleEqual`, `rruleUntil`, `rruleWkst`, `recurring`, `getTimezonedFrequencyString`, `getOnDayString`, `getRecurrenceIdValueFromTimestamp`, `getPositiveSetpos`, `getNegativeSetpos`.",
+   "gold_anchor": "@proton/shared/lib/calendar/recurrence/getFrequencyString",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`createInviteIcs`, `generateEmailBody`, and `generateEmailSubject` are imported from `../../../lib/calendar/mailIntegration/invite` in the shared invite tests.",
+   "covering_prose": "The `calendar/mailIntegration` module should expose invitation-related helpers.",
+   "gold_anchor": "@proton/shared/lib/calendar/mailIntegration/invite",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`getOccurrences` and `getOccurrencesBetween` are imported from `../../lib/calendar/recurrence/recurring` in the shared recurring tests.",
+   "covering_prose": "The `calendar/recurrence` module should expose `rrule`, `rruleEqual`, `rruleUntil`, `rruleWkst`, `recurring`, `getTimezonedFrequencyString`, `getOnDayString`, `getRecurrenceIdValueFromTimestamp`, `getPositiveSetpos`, `getNegativeSetpos`.",
+   "gold_anchor": "@proton/shared/lib/calendar/recurrence/recurring",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`getIsStandardByday`, `getSupportedRrule`, and `getSupportedUntil` are imported from `../../../lib/calendar/recurrence/rrule` in the rrule tests.",
+   "covering_prose": "The `calendar/recurrence` module should expose `rrule`, `rruleEqual`, `rruleUntil`, `rruleWkst`, `recurring`, `getTimezonedFrequencyString`, `getOnDayString`, `getRecurrenceIdValueFromTimestamp`, `getPositiveSetpos`, `getNegativeSetpos`.",
+   "gold_anchor": "@proton/shared/lib/calendar/recurrence/rrule",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`getIsRruleEqual` is imported from `../../../lib/calendar/recurrence/rruleEqual` in the rrule equality tests.",
+   "covering_prose": "The `calendar/recurrence` module should expose `rrule`, `rruleEqual`, `rruleUntil`, `rruleWkst`, `recurring`, `getTimezonedFrequencyString`, `getOnDayString`, `getRecurrenceIdValueFromTimestamp`, `getPositiveSetpos`, `getNegativeSetpos`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`getIsRruleSubset` is imported from `../../../lib/calendar/recurrence/rruleSubset` in the rrule subset tests.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`withRruleUntil` is imported from `../../../lib/calendar/recurrence/rruleUntil` in the rrule until tests.",
+   "covering_prose": "The `calendar/recurrence` module should expose `rrule`, `rruleEqual`, `rruleUntil`, `rruleWkst`, `recurring`, `getTimezonedFrequencyString`, `getOnDayString`, `getRecurrenceIdValueFromTimestamp`, `getPositiveSetpos`, `getNegativeSetpos`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`withVeventRruleWkst` is imported from `../../../lib/calendar/recurrence/rruleWkst` in the rrule week-start tests.",
+   "covering_prose": "The `calendar/recurrence` module should expose `rrule`, `rruleEqual`, `rruleUntil`, `rruleWkst`, `recurring`, `getTimezonedFrequencyString`, `getOnDayString`, `getRecurrenceIdValueFromTimestamp`, `getPositiveSetpos`, `getNegativeSetpos`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

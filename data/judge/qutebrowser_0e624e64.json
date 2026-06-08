@@ -1,0 +1,130 @@
+{
+ "case": "qutebrowser_0e624e64",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 17,
+ "n_covered": 15,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "qtutils.interpolate_color raises qtutils.QtValueError when the start QColor is invalid.",
+   "covering_prose": null,
+   "gold_anchor": "ensure_valid(start)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "qtutils.interpolate_color raises qtutils.QtValueError when the end QColor is invalid.",
+   "covering_prose": null,
+   "gold_anchor": "ensure_valid(end)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "qtutils.interpolate_color raises ValueError when percent is -1.",
+   "covering_prose": "should raise a `ValueError` for invalid `percent` (outside 0\u2013100) or `colorspace` values, matching its original behavior.",
+   "gold_anchor": "raise ValueError(\"percent needs to be between 0 and 100!\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "qtutils.interpolate_color raises ValueError when percent is 101.",
+   "covering_prose": "should raise a `ValueError` for invalid `percent` (outside 0\u2013100) or `colorspace` values, matching its original behavior.",
+   "gold_anchor": "raise ValueError(\"percent needs to be between 0 and 100!\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "qtutils.interpolate_color raises ValueError when colorspace is QColor.Cmyk.",
+   "covering_prose": "should raise a `ValueError` for invalid `percent` (outside 0\u2013100) or `colorspace` values, matching its original behavior.",
+   "gold_anchor": "raise ValueError(\"Invalid colorspace!\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With QColor.Rgb, percent 0 returns the start color and percent 100 returns the end color.",
+   "covering_prose": "Returns a new QColor that is percent% of the way between start and end colors.",
+   "gold_anchor": "out.setRgb(*components)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With QColor.Hsv, percent 0 returns the start color and percent 100 returns the end color.",
+   "covering_prose": "Returns a new QColor that is percent% of the way between start and end colors.",
+   "gold_anchor": "out.setHsv(*components)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With QColor.Hsl, percent 0 returns the start color and percent 100 returns the end color.",
+   "covering_prose": "Returns a new QColor that is percent% of the way between start and end colors.",
+   "gold_anchor": "out.setHsl(*components)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In RGB colorspace, interpolating Color(0, 40, 100) to Color(0, 20, 200) at 50 percent returns Color(0, 30, 150).",
+   "covering_prose": "Description: Interpolates between two `QColor` objects based on a percentage value (0-100) in the specified color space (RGB, HSV, or HSL).",
+   "gold_anchor": "components = _get_color_percentage(r1, g1, b1, a1, r2, g2, b2, a2, percent)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In HSV colorspace, interpolating HSV(0, 40, 100) to HSV(0, 20, 200) at 50 percent returns HSV(0, 30, 150).",
+   "covering_prose": "Description: Interpolates between two `QColor` objects based on a percentage value (0-100) in the specified color space (RGB, HSV, or HSL).",
+   "gold_anchor": "components = _get_color_percentage(h1, s1, v1, a1, h2, s2, v2, a2, percent)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In HSL colorspace, interpolating HSL(0, 40, 100) to HSL(0, 20, 200) at 50 percent returns HSL(0, 30, 150).",
+   "covering_prose": "Description: Interpolates between two `QColor` objects based on a percentage value (0-100) in the specified color space (RGB, HSV, or HSL).",
+   "gold_anchor": "components = _get_color_percentage(h1, s1, l1, a1, h2, s2, l2, a2, percent)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In RGB colorspace, alpha is interpolated from 30 to 100 at 50 percent to 65.",
+   "covering_prose": "Description: Interpolates between two `QColor` objects based on a percentage value (0-100) in the specified color space (RGB, HSV, or HSL).",
+   "gold_anchor": "a = round(a1 + (a2 - a1) * percent / 100)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In HSV colorspace, alpha is interpolated from 30 to 100 at 50 percent to 65.",
+   "covering_prose": "Description: Interpolates between two `QColor` objects based on a percentage value (0-100) in the specified color space (RGB, HSV, or HSL).",
+   "gold_anchor": "a = round(a1 + (a2 - a1) * percent / 100)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In HSL colorspace, alpha is interpolated from 30 to 100 at 50 percent to 65.",
+   "covering_prose": "Description: Interpolates between two `QColor` objects based on a percentage value (0-100) in the specified color space (RGB, HSV, or HSL).",
+   "gold_anchor": "a = round(a1 + (a2 - a1) * percent / 100)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When colorspace is None and percent is 0, qtutils.interpolate_color returns the start color as a QColor.",
+   "covering_prose": "If colorspace is None, returns start color for percentages < 100 and end color for 100%.",
+   "gold_anchor": "return QColor(*start.getRgb())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When colorspace is None and percent is 99, qtutils.interpolate_color returns the start color as a QColor.",
+   "covering_prose": "If colorspace is None, returns start color for percentages < 100 and end color for 100%.",
+   "gold_anchor": "return QColor(*start.getRgb())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When colorspace is None and percent is 100, qtutils.interpolate_color returns the end color as a QColor.",
+   "covering_prose": "If colorspace is None, returns start color for percentages < 100 and end color for 100%.",
+   "gold_anchor": "return QColor(*end.getRgb())",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

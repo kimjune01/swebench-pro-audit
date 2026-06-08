@@ -1,0 +1,102 @@
+{
+ "case": "protonmail_bf70473d",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 13,
+ "n_covered": 13,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Rendering RenewToggle with props returned from useRenewToggle produces a non-empty DOM element.",
+   "covering_prose": "The UI component renders the modal element provided by the hook and a toggle bound to the hook\u2019s state.",
+   "gold_anchor": "{disableRenewModal}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When useSubscription().Renew is RenewState.Active, the rendered toggle with id \"toggle-subscription-renew\" has the checked attribute.",
+   "covering_prose": "UI contract should render the provided `disableRenewModal` element and a `Toggle` control with (id=\"toggle-subscription-renew\", data-testid=\"toggle-subscription-renew\", checked={renewState === RenewState.Active}, disabled={isUpdating}, and a <label htmlFor=\"toggle-subscription-renew\"> element).",
+   "gold_anchor": "checked={renewState === RenewState.Active}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When useSubscription().Renew is RenewState.Disabled, the rendered toggle with id \"toggle-subscription-renew\" does not have the checked attribute.",
+   "covering_prose": "UI contract should render the provided `disableRenewModal` element and a `Toggle` control with (id=\"toggle-subscription-renew\", data-testid=\"toggle-subscription-renew\", checked={renewState === RenewState.Active}, disabled={isUpdating}, and a <label htmlFor=\"toggle-subscription-renew\"> element).",
+   "gold_anchor": "checked={renewState === RenewState.Active}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When useSubscription().Renew is RenewState.DisableAutopay, the rendered toggle with id \"toggle-subscription-renew\" does not have the checked attribute.",
+   "covering_prose": "UI contract should render the provided `disableRenewModal` element and a `Toggle` control with (id=\"toggle-subscription-renew\", data-testid=\"toggle-subscription-renew\", checked={renewState === RenewState.Active}, disabled={isUpdating}, and a <label htmlFor=\"toggle-subscription-renew\"> element).",
+   "gold_anchor": "checked={renewState === RenewState.Active}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Clicking the toggle while renewal is active shows a confirmation modal containing the text \"Our system will no longer auto-charge you using this payment method\".",
+   "covering_prose": "Disabling from Active: show a confirmation modal.",
+   "gold_anchor": "await showDisableRenewModal({ isVPNPlan: false });",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The disable confirmation modal for a non-VPN subscription includes the exact sentence \"Our system will no longer auto-charge you using this payment method\".",
+   "covering_prose": "`DisableRenewModal` copy (non-VPN) should include the exact sentence: \u201cOur system will no longer auto-charge you using this payment method\u201d.",
+   "gold_anchor": "Our system will no longer auto-charge you using this payment method",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Clicking the modal cancel action with data-testid \"action-keep-autopay\" after attempting to disable active auto-pay sends no API request.",
+   "covering_prose": "canceling should result in no request and no state change.",
+   "gold_anchor": "<PrimaryButton data-testid=\"action-keep-autopay\" onClick={onReject}>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Clicking the modal confirm action with data-testid \"action-disable-autopay\" after attempting to disable active auto-pay sends api(querySubscriptionRenew({ RenewalState: RenewState.DisableAutopay })).",
+   "covering_prose": "onChange should, when the current state is RenewState.Active, present a confirmation modal and only send querySubscriptionRenew({ RenewalState: RenewState.DisableAutopay }) if the user confirms;",
+   "gold_anchor": "await sendRequest(RenewState.DisableAutopay);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Clicking the toggle while initial renewal state is RenewState.DisableAutopay does not show the disable confirmation modal text.",
+   "covering_prose": "When the current state is not active (e.g., RenewState.DisableAutopay), it should send querySubscriptionRenew({ RenewalState: RenewState.Active }) directly and should not show a modal.",
+   "gold_anchor": "await sendRequest(RenewState.Active);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Clicking the toggle while initial renewal state is RenewState.DisableAutopay sends api(querySubscriptionRenew({ RenewalState: RenewState.Active })) directly.",
+   "covering_prose": "When the current state is not active (e.g., RenewState.DisableAutopay), it should send querySubscriptionRenew({ RenewalState: RenewState.Active }) directly and should not show a modal.",
+   "gold_anchor": "await sendRequest(RenewState.Active);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The toggle can be selected by data-testid \"toggle-subscription-renew\".",
+   "covering_prose": "UI contract should render the provided `disableRenewModal` element and a `Toggle` control with (id=\"toggle-subscription-renew\", data-testid=\"toggle-subscription-renew\", checked={renewState === RenewState.Active}, disabled={isUpdating}, and a <label htmlFor=\"toggle-subscription-renew\"> element).",
+   "gold_anchor": "data-testid=\"toggle-subscription-renew\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The confirmation modal exposes a confirm action element with data-testid \"action-disable-autopay\".",
+   "covering_prose": "`DisableRenewModal` should accept props ({ isVPNPlan: boolean; onResolve: () => void; onReject: () => void; ...ModalProps } and render two action elements with data-testid=\"action-disable-autopay\" (confirm) and data-testid=\"action-keep-autopay\" (cancel)).",
+   "gold_anchor": "data-testid=\"action-disable-autopay\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The confirmation modal exposes a cancel action element with data-testid \"action-keep-autopay\".",
+   "covering_prose": "`DisableRenewModal` should accept props ({ isVPNPlan: boolean; onResolve: () => void; onReject: () => void; ...ModalProps } and render two action elements with data-testid=\"action-disable-autopay\" (confirm) and data-testid=\"action-keep-autopay\" (cancel)).",
+   "gold_anchor": "data-testid=\"action-keep-autopay\"",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

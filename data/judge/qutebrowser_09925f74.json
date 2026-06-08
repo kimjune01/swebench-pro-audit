@@ -1,0 +1,67 @@
+{
+ "case": "qutebrowser_09925f74",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For a bound SignalObject.signal1, signal_name returns exactly \"signal1\".",
+   "covering_prose": "The function `signal_name` should return exactly the signal\u2019s attribute name for both bound and unbound signals across PyQt versions.",
+   "gold_anchor": "if hasattr(sig, 'signal'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an unbound SignalObject.signal1, signal_name returns exactly \"signal1\".",
+   "covering_prose": "The function `signal_name` should return exactly the signal\u2019s attribute name for both bound and unbound signals across PyQt versions.",
+   "gold_anchor": "r'<unbound PYQT_SIGNAL [^.]*\\.(?P<name>[^[]*)\\[.*>',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a bound SignalObject.signal2, signal_name returns exactly \"signal2\".",
+   "covering_prose": "The function `signal_name` should return exactly the signal\u2019s attribute name for both bound and unbound signals across PyQt versions.",
+   "gold_anchor": "m = re.fullmatch(r'[0-9]+(?P<name>.*)\\(.*\\)',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an unbound SignalObject.signal2, signal_name returns exactly \"signal2\".",
+   "covering_prose": "The function `signal_name` should return exactly the signal\u2019s attribute name for both bound and unbound signals across PyQt versions.",
+   "gold_anchor": "r'<unbound PYQT_SIGNAL [^.]*\\.(?P<name>[^[]*)\\[.*>',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a bound QTimer.timeout, signal_name returns exactly \"timeout\".",
+   "covering_prose": "The function `signal_name` should return exactly the signal\u2019s attribute name for both bound and unbound signals across PyQt versions.",
+   "gold_anchor": "m = re.fullmatch(r'[0-9]+(?P<name>.*)\\(.*\\)',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an unbound QTimer.timeout, signal_name returns exactly \"timeout\".",
+   "covering_prose": "The function `signal_name` should return exactly the signal\u2019s attribute name for both bound and unbound signals across PyQt versions.",
+   "gold_anchor": "r'<unbound PYQT_SIGNAL (?P<name>[^(]*)\\(.*>',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a bound QSpinBox.valueChanged overloaded signal, signal_name returns exactly \"valueChanged\" with no overload details.",
+   "covering_prose": "The returned value in `signal_name` should be a clean string containing only the signal name, without overload indices, parameter lists, or type details.",
+   "gold_anchor": "return m.group('name')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an unbound QSpinBox.valueChanged overloaded signal, signal_name returns exactly \"valueChanged\" with no overload details.",
+   "covering_prose": "The returned value in `signal_name` should be a clean string containing only the signal name, without overload indices, parameter lists, or type details.",
+   "gold_anchor": "r'<unbound PYQT_SIGNAL (?P<name>[^(]*)\\(.*>'",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

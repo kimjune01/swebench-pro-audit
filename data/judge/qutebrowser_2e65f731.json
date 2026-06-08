@@ -1,0 +1,130 @@
+{
+ "case": "qutebrowser_2e65f731",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 17,
+ "n_covered": 17,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "utils.parse_duration(\"-1s\") returns -1",
+   "covering_prose": "The function must return `-1` for negative values such as `\"-1s\"` or `\"-1\"`.",
+   "gold_anchor": "return -1",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"-1\") returns -1",
+   "covering_prose": "The function must return `-1` for negative values such as `\"-1s\"` or `\"-1\"`.",
+   "gold_anchor": "return -1",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"34ss\") returns -1",
+   "covering_prose": "The function must return `-1` for duplicate units such as `\"34ss\"`.",
+   "gold_anchor": "has_only_valid_chars = re.match(\"^([0-9]+[shm]?){1,3}$\", duration)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"0\") returns 0",
+   "covering_prose": "The input `\"0\"` must return `0`.",
+   "gold_anchor": "seconds = int(duration)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"0s\") returns 0",
+   "covering_prose": "The input `\"0s\"` must return `0`.",
+   "gold_anchor": "return (int(seconds) + int(minutes) * 60 + int(hours) * 3600) * 1000",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"59s\") returns 59000",
+   "covering_prose": "The input `\"59s\"` must return `59000`.",
+   "gold_anchor": "return (int(seconds) + int(minutes) * 60 + int(hours) * 3600) * 1000",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"60\") returns 60000",
+   "covering_prose": "The input `\"60\"` must return `60000`.",
+   "gold_anchor": "seconds = int(duration)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"60.4s\") returns -1",
+   "covering_prose": "The function must return `-1` for fractional values such as `\"60.4s\"`.",
+   "gold_anchor": "return -1",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1m1s\") returns 61000",
+   "covering_prose": "The input `\"1m1s\"` must return `61000`.",
+   "gold_anchor": "return (int(seconds) + int(minutes) * 60 + int(hours) * 3600) * 1000",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1m\") returns 60000",
+   "covering_prose": "The input `\"1m\"` must return `60000`.",
+   "gold_anchor": "minutes = match.group(1) if match else 0",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1h\") returns 3600000",
+   "covering_prose": "The input `\"1h\"` must return `3600000`.",
+   "gold_anchor": "hours = match.group(1) if match else 0",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1h1s\") returns 3601000",
+   "covering_prose": "The input `\"1h1s\"` must return `3601000`.",
+   "gold_anchor": "return (int(seconds) + int(minutes) * 60 + int(hours) * 3600) * 1000",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1s1h\") returns 3601000",
+   "covering_prose": "The order of units must not matter; for example, `1h1s` and `1s1h` must produce the same result.",
+   "gold_anchor": "match = re.search(\"([0-9]+)h\", duration)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1h1m\") returns 3660000",
+   "covering_prose": "The input `\"1h1m\"` must return `3660000`.",
+   "gold_anchor": "return (int(seconds) + int(minutes) * 60 + int(hours) * 3600) * 1000",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1h1m1s\") returns 3661000",
+   "covering_prose": "The input `\"1h1m1s\"` must return `3661000`.",
+   "gold_anchor": "return (int(seconds) + int(minutes) * 60 + int(hours) * 3600) * 1000",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1h1m10s\") returns 3670000",
+   "covering_prose": "The input `\"1h1m10s\"` must return `3670000`.",
+   "gold_anchor": "return (int(seconds) + int(minutes) * 60 + int(hours) * 3600) * 1000",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"10h1m10s\") returns 36070000",
+   "covering_prose": "The input `\"10h1m10s\"` must return `36070000`.",
+   "gold_anchor": "return (int(seconds) + int(minutes) * 60 + int(hours) * 3600) * 1000",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

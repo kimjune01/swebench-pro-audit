@@ -1,0 +1,60 @@
+{
+ "case": "protonmail_bf575a52",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`getMinExpirationTime` is a named export from `applications/mail/src/app/helpers/expiration.ts` and can be imported by the test.",
+   "covering_prose": "The expiration helpers should export a function named `getMinExpirationTime` that receives a `Date` and computes the minimal valid time for the expiration input.",
+   "gold_anchor": "export const getMinExpirationTime = (date: Date) => {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `getMinExpirationTime(addDays(new Date(), 1))` returns `undefined` for a date that is not today.",
+   "covering_prose": "`getMinExpirationTime` should return `undefined` when the provided date is not the same local calendar day as \u201cnow\u201d, so no minimum constraint is applied.",
+   "gold_anchor": "return undefined;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `getMinExpirationTime(new Date())` returns a `Date` instance when the provided date is today.",
+   "covering_prose": "If the date is today, the returned value is a `Date` object representing the next available time slot, rounded to the nearest 30-minute step and guaranteed to be at least 30 minutes later than the current time.",
+   "gold_anchor": "return nextIntervals.find((interval) => interval > now && differenceInMinutes(interval, now) >= 30);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For today, the returned `Date` has `getMinutes()` equal to either `0` or `30`.",
+   "covering_prose": "When the provided date is today, `getMinExpirationTime` should return a `Date` whose minutes component is normalized to \"0\" or \"30\".",
+   "gold_anchor": "const nextIntervals = Array.from(Array(3)).map((_, i) => addMinutes(nowForInterval, 30 * (i + 1)));",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For today, `getMinExpirationTime(now)` must not return `undefined`; otherwise the hidden test throws `new Error('Interval is undefined')`.",
+   "covering_prose": "When the selected date is today, the minimum time should correspond to the next valid 30-minute interval that is strictly later than the current time and at least 30 minutes ahead.",
+   "gold_anchor": "return nextIntervals.find((interval) => interval > now && differenceInMinutes(interval, now) >= 30);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For today, the returned interval is strictly later than the `now` passed to the test, satisfying `interval > now`.",
+   "covering_prose": "The `Date` returned by `getMinExpirationTime` should be strictly later than the current time and at least 30 minutes ahead.",
+   "gold_anchor": "interval > now",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For today, `differenceInMinutes(interval, now)` is greater than or equal to `30`.",
+   "covering_prose": "The `Date` returned by `getMinExpirationTime` should be strictly later than the current time and at least 30 minutes ahead.",
+   "gold_anchor": "differenceInMinutes(interval, now) >= 30",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

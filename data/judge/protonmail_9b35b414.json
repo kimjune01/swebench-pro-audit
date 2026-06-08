@@ -1,0 +1,81 @@
+{
+ "case": "protonmail_9b35b414",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "For app APPS.PROTONCALENDAR with isAndroid false and isIos false, SmartBanner renders no link named \u201cDownload\u201d.",
+   "covering_prose": "The banner must only be displayed if the detected operating system is Android or iOS. Devices running any other operating system must not render the banner.",
+   "gold_anchor": "if (!isSupportedOS) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For app APPS.PROTONCALENDAR with isAndroid true and isIos false, SmartBanner renders a link named \u201cDownload\u201d whose href is CALENDAR_MOBILE_APP_LINKS.playStore.",
+   "covering_prose": "The file should obtain store links directly from MAIL_MOBILE_APP_LINKS and CALENDAR_MOBILE_APP_LINKS, selecting playStore for Android and appStore for iOS.",
+   "gold_anchor": "return storeLinks[app][isAndroid ? 'playStore' : 'appStore'];",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For app APPS.PROTONCALENDAR with isAndroid false and isIos true, SmartBanner renders a link named \u201cDownload\u201d whose href is CALENDAR_MOBILE_APP_LINKS.appStore.",
+   "covering_prose": "The file should obtain store links directly from MAIL_MOBILE_APP_LINKS and CALENDAR_MOBILE_APP_LINKS, selecting playStore for Android and appStore for iOS.",
+   "gold_anchor": "return storeLinks[app][isAndroid ? 'playStore' : 'appStore'];",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For app APPS.PROTONMAIL with isAndroid false and isIos false, SmartBanner renders no link named \u201cDownload\u201d.",
+   "covering_prose": "The banner must only be displayed if the detected operating system is Android or iOS. Devices running any other operating system must not render the banner.",
+   "gold_anchor": "if (!isSupportedOS) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For app APPS.PROTONMAIL with isAndroid true and isIos false, SmartBanner renders a link named \u201cDownload\u201d whose href is MAIL_MOBILE_APP_LINKS.playStore.",
+   "covering_prose": "The file should obtain store links directly from MAIL_MOBILE_APP_LINKS and CALENDAR_MOBILE_APP_LINKS, selecting playStore for Android and appStore for iOS.",
+   "gold_anchor": "return storeLinks[app][isAndroid ? 'playStore' : 'appStore'];",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For app APPS.PROTONMAIL with isAndroid false and isIos true, SmartBanner renders a link named \u201cDownload\u201d whose href is MAIL_MOBILE_APP_LINKS.appStore.",
+   "covering_prose": "The file should obtain store links directly from MAIL_MOBILE_APP_LINKS and CALENDAR_MOBILE_APP_LINKS, selecting playStore for Android and appStore for iOS.",
+   "gold_anchor": "return storeLinks[app][isAndroid ? 'playStore' : 'appStore'];",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When title is \u201cHawkeye\u201d and subtitle is \u201cThe coolest Avenger\u201d, SmartBanner renders those exact text values.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When title is undefined and subtitle is undefined, SmartBanner renders its default text values.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For app APPS.PROTONCALENDAR, when isCalendarMobileAppUser returns true, SmartBanner renders no link named \u201cDownload\u201d.",
+   "covering_prose": "The banner must not be rendered if the user has previously used the corresponding native application (Mail or Calendar), as determined by the `UsedClientFlags` value in the user settings.",
+   "gold_anchor": "const hasUsedNativeApp = isUser[app](BigInt(userSettings.UsedClientFlags));",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For app APPS.PROTONMAIL, when isMailMobileAppUser returns true, SmartBanner renders no link named \u201cDownload\u201d.",
+   "covering_prose": "The banner must not be rendered if the user has previously used the corresponding native application (Mail or Calendar), as determined by the `UsedClientFlags` value in the user settings.",
+   "gold_anchor": "const hasUsedNativeApp = isUser[app](BigInt(userSettings.UsedClientFlags));",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

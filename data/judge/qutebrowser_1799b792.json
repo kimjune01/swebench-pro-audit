@@ -1,0 +1,39 @@
+{
+ "case": "qutebrowser_1799b792",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "repr(values) must use the key vmap= and print the ordered values as odict_values([ScopedValue(...), ...]) with the global value before the example.com pattern value.",
+   "covering_prose": "`repr(values)` must include `opt={!r}` and return the state using a `vmap=` key whose contents are printed as `odict_values([ScopedValue(...), ...])`, in the same order as the iteration.",
+   "gold_anchor": "return utils.get_repr(self, opt=self.opt, vmap=self._vmap.values(),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "list(iter(values)) must exactly equal list(iter(values._vmap.values())).",
+   "covering_prose": "There must be an accessible `values._vmap` attribute whose iteration order reflects the insertion order; the sequence produced by `iter(values)` must exactly match `list(values._vmap.values())`.",
+   "gold_anchor": "yield from self._vmap.values()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "values._vmap must exist and expose a .values() view usable by tests.",
+   "covering_prose": "There must be an accessible `values._vmap` attribute whose iteration order reflects the insertion order; the sequence produced by `iter(values)` must exactly match `list(values._vmap.values())`.",
+   "gold_anchor": "self._vmap = collections.OrderedDict()  \\",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Adding every URL pattern line from the blocked-hosts data file via repeated values.add(False, urlmatch.UrlPattern(line)) must complete under the benchmark without exceptions, hangs, or timeouts.",
+   "covering_prose": "Bulk insertion of thousands of patterned entries must not cause exceptions, hangs, or timeouts within the test environment; the addition benchmark must complete successfully.",
+   "gold_anchor": "self._vmap[pattern] = scoped",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

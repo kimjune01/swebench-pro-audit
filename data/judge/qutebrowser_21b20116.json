@@ -1,0 +1,53 @@
+{
+ "case": "qutebrowser_21b20116",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When `completion.open_categories` is set to `['filesystem']`, the URL completion model includes a category named `Filesystem`.",
+   "covering_prose": "The `:open` completion model should include a `Filesystem` category when it is enabled in the configuration, and omit it when it is not.",
+   "gold_anchor": "name='Filesystem'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an absolute directory path ending in the OS separator, the `Filesystem` category suggests the files in that directory in deterministic sorted order: `<dir>/file1.txt` before `<dir>/file2.txt`.",
+   "covering_prose": "When an absolute path is typed (for example, `<dir>/`), the `Filesystem` category should suggest the matching entries under that directory in a deterministic order.",
+   "gold_anchor": "expanded_paths = sorted(glob.glob(glob_str))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Filesystem completion suggestions are represented as three-element tuples with the path first and `None` in the two accessory positions, e.g. `(val + 'file1.txt', None, None)`.",
+   "covering_prose": "`Filesystem` suggestions should be integrated into the URL completion model consistently with other categories, with each suggestion presenting the path in the first position and `None` in the accessory positions (as three-element tuples like (`path`, `None`, `None`)).",
+   "gold_anchor": "return self._paths[index.row()]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the pattern is empty, the `Filesystem` category displays exactly the configured `completion.favorite_paths` element `str(local_files_path)` as its only suggestion.",
+   "covering_prose": "When updating the completion search pattern, if the pattern is empty, the Filesystem category must display exactly the elements of \u2018completion.favorite_paths\u2019 as suggestions (no decoration or extra fields).",
+   "gold_anchor": "self._paths = config.val.completion.favorite_paths or []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With the default URL completion categories and no quickmarks, an enabled `Filesystem` category is still present even with no matching entries, represented as an empty list.",
+   "covering_prose": "Ensure that the presence of the `Filesystem` category does not affect the representation of other empty or disabled categories (for example, quickmarks or bookmarks), and that it appears when enabled, even if there are no matching entries.",
+   "gold_anchor": "- filesystem",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With the default URL completion categories and no bookmarks, an enabled `Filesystem` category is still present even with no matching entries, represented as an empty list.",
+   "covering_prose": "Ensure that the presence of the `Filesystem` category does not affect the representation of other empty or disabled categories (for example, quickmarks or bookmarks), and that it appears when enabled, even if there are no matching entries.",
+   "gold_anchor": "- filesystem",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

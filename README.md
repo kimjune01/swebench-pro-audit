@@ -77,3 +77,10 @@ determine 39 regions, not because the inquiry is narrow.
 
 Harness, drivers, and reproduction live in the companion repo
 [`swebench-pro`](https://github.com/kimjune01/swebench-pro).
+
+## License
+
+Dual-licensed (copyleft): code (`tools/`) under [AGPL-3.0](LICENSE-CODE.txt); everything else (prose,
+findings, `data/` receipts) under **CC BY-SA-NS** (CC BY-SA 4.0 + a Network Services clause). See
+[`LICENSE.md`](LICENSE.md) and [june.kim/cc-by-sa-ns](https://june.kim/cc-by-sa-ns). Build a service on
+this and source flows back to users; no paywall, no gated access.

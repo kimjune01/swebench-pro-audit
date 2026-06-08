@@ -1,0 +1,1 @@
+test/database.js | Test database List methods listRemoveAll() should remove multiple elements from list

@@ -1,0 +1,15 @@
+TestCore
+TestAgents
+TestLastFM
+TestSpotify
+TestTranscoder
+TestDB
+TestPersistence
+TestScanner
+TestServer
+TestEvents
+TestNativeApi
+TestSubsonicApi
+TestCache
+TestGravatar
+TestPool

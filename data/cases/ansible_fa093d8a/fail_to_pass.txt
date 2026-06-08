@@ -1,0 +1,4 @@
+test/units/module_utils/urls/test_fetch_url.py::test_fetch_url
+test/units/module_utils/urls/test_fetch_url.py::test_fetch_url_params
+test/units/module_utils/urls/test_Request.py::test_Request_fallback
+test/units/module_utils/urls/test_Request.py::test_open_url

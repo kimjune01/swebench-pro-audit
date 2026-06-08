@@ -1,0 +1,4 @@
+tests/unit/utils/test_debug.py::test_signal_name[False-SignalObject-signal1]
+tests/unit/utils/test_debug.py::test_signal_name[False-SignalObject-signal2]
+tests/unit/utils/test_debug.py::test_signal_name[False-QTimer-timeout]
+tests/unit/utils/test_debug.py::test_signal_name[False-QSpinBox-valueChanged]

@@ -1,0 +1,3 @@
+test/topics.js | Topic's order pinned topics should error with unprivileged user
+test/topics.js | Topic's order pinned topics should not do anything if topics are not pinned
+test/topics.js | Topic's order pinned topics should order pinned topics

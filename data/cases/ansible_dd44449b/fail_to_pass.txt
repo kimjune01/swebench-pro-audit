@@ -1,0 +1,1 @@
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_exec_command_get_output_timeout

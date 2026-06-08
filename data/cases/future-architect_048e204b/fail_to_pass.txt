@@ -1,0 +1,7 @@
+Test_getMaxConfidence
+Test_getMaxConfidence/JvnVendorProductMatch
+Test_getMaxConfidence/NvdExactVersionMatch
+Test_getMaxConfidence/NvdRoughVersionMatch
+Test_getMaxConfidence/NvdVendorProductMatch
+Test_getMaxConfidence/FortinetExactVersionMatch
+Test_getMaxConfidence/empty

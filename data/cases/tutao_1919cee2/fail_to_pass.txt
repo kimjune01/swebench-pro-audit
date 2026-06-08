@@ -1,0 +1,2 @@
+test/tests/misc/news/items/ReferralLinkNewsTest.js | test suite
+test/tests/misc/NewsModelTest.js | test suite

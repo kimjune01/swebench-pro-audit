@@ -1,0 +1,4 @@
+test/middleware.js | Middlewares expose should expose privilege set
+test/categories.js | Categories privileges should load global user privileges
+test/categories.js | Categories privileges should load global group privileges
+test/i18n.js | source language file structure should only contain lowercase or numeric language keys separated by either dashes or periods chat-with-privileged

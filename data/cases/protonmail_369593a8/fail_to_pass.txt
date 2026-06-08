@@ -1,0 +1,1 @@
+src/app/store/_devices/useDevicesListing.test.tsx | useLinksState getLink should be call to get root link

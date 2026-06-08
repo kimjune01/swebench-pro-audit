@@ -1,0 +1,1 @@
+test/database/hash.js | Hash methods getObjects() should return fields if given

@@ -1,0 +1,12 @@
+components/country/CountrySelect.helpers.test.ts | should return expected dropdown options
+components/country/CountrySelect.helpers.test.ts | should return dropdown options with pre-selected options
+components/country/CountrySelect.helpers.test.ts | should return dropdown options with pre-selected options and divider text
+containers/calendar/holidaysCalendarModal/tests/HolidaysCalendarModal.test.tsx | should pre-select the default holidays calendar based on time zone
+containers/calendar/holidaysCalendarModal/tests/HolidaysCalendarModal.test.tsx | should pre-select the default holidays calendar based on time zone and user language
+containers/calendar/holidaysCalendarModal/tests/HolidaysCalendarModal.test.tsx | should pre-select the default holidays calendar based on time zone and first language
+containers/calendar/holidaysCalendarModal/tests/HolidaysCalendarModal.test.tsx | should not pre-select a default holidays calendar when no corresponding time zone is found
+containers/calendar/holidaysCalendarModal/tests/HolidaysCalendarModal.test.tsx | should not pre-select the default calendar if the user already added it
+containers/calendar/holidaysCalendarModal/tests/HolidaysCalendarModal.test.tsx | should display an error message when selecting a country of an already added holidays calendar
+containers/calendar/holidaysCalendarModal/tests/HolidaysCalendarModal.test.tsx | should pre-select all fields in modal
+containers/calendar/holidaysCalendarModal/tests/HolidaysCalendarModal.test.tsx | should display a message when user wants to change country to an already subscribed calendar
+containers/calendar/settings/CalendarsSettingsSection.test.tsx | in their respective sections

@@ -1,0 +1,3 @@
+TestAuthenticate
+TestAuthenticate/local_user_and_remote_cluster,_no_tunnel
+TestAuthenticate/unknown_kubernetes_cluster_in_local_cluster

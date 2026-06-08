@@ -1,0 +1,6 @@
+tests/unit/completion/test_models.py::test_tab_completion
+tests/unit/completion/test_models.py::test_tab_completion_delete
+tests/unit/completion/test_models.py::test_tab_completion_not_sorted
+tests/unit/completion/test_models.py::test_tab_completion_tabs_are_windows
+tests/unit/completion/test_models.py::test_other_tabs_completion
+tests/unit/completion/test_models.py::test_other_tabs_completion_id0

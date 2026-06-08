@@ -1,0 +1,8 @@
+helpers/url.test.ts | should return the correct hostname
+helpers/url.test.ts | should return the correct hostname with www
+helpers/url.test.ts | should return the correct hostname with www and subdomain
+helpers/url.test.ts | should return the correct hostname with subdomain
+helpers/url.test.ts | should encode the url with punycode
+helpers/url.test.ts | should encode url with punycode and keep pathname, query parameters and fragment
+helpers/url.test.ts | should not encode url already punycode
+helpers/url.test.ts | should not encode url with no punycode

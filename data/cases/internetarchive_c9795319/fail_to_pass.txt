@@ -1,0 +1,2 @@
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCXML::test_xml[nybc200247]
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCBinary::test_binary[880_arabic_french_many_linkages.mrc]

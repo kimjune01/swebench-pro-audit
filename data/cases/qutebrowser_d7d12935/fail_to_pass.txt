@@ -1,0 +1,4 @@
+tests/unit/misc/test_guiprocess.py::test_start_verbose
+tests/unit/misc/test_guiprocess.py::test_exit_unsuccessful
+tests/unit/misc/test_guiprocess.py::test_exit_unsuccessful_output[stdout]
+tests/unit/misc/test_guiprocess.py::test_exit_unsuccessful_output[stderr]

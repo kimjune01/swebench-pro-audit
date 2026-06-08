@@ -1,0 +1,2 @@
+src/app/utils/lastActivePersistedUserSession.test.ts | getLastPersistedLocalID returns null when localStorage is empty
+src/app/utils/lastActivePersistedUserSession.test.ts | getLastPersistedLocalID handles non-numeric IDs correctly

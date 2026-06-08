@@ -1,0 +1,6 @@
+openlibrary/tests/solr/test_utils.py::TestSolrUpdate::test_successful_response
+openlibrary/tests/solr/test_utils.py::TestSolrUpdate::test_non_json_solr_503
+openlibrary/tests/solr/test_utils.py::TestSolrUpdate::test_solr_offline
+openlibrary/tests/solr/test_utils.py::TestSolrUpdate::test_invalid_solr_request
+openlibrary/tests/solr/test_utils.py::TestSolrUpdate::test_bad_apple_in_solr_request
+openlibrary/tests/solr/test_utils.py::TestSolrUpdate::test_other_non_ok_status

@@ -1,0 +1,4 @@
+tests/unit/utils/test_version.py::test_distribution[None-None]
+tests/unit/utils/test_version.py::test_is_sandboxed[None-False]
+tests/unit/utils/test_version.py::test_is_sandboxed[distribution1-True]
+tests/unit/utils/test_version.py::test_is_sandboxed[distribution2-False]

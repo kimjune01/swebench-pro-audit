@@ -1,0 +1,2 @@
+tests/unit/misc/test_elf.py::test_find_versions[\x00QtWebEngine/6.4.0
+tests/unit/misc/test_elf.py::test_find_versions_invalid[\x00QtWebEngine/6.4.0

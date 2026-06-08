@@ -1,0 +1,1 @@
+test/controllers.js | Controllers registration interstitials email update blocking access for unconfirmed emails should continue to redirect back to interstitial after an email is entered, as it is not confirmed

@@ -1,0 +1,2 @@
+test/utils/AutoDiscoveryUtils-test.tsx | buildValidatedConfigFromDiscovery() | ignores delegated auth config when discovery was not successful
+test/utils/AutoDiscoveryUtils-test.tsx | buildValidatedConfigFromDiscovery() | sets delegated auth config when discovery was successful

@@ -1,0 +1,4 @@
+test/units/executor/test_play_iterator.py::TestPlayIterator::test_play_iterator
+test/units/executor/test_play_iterator.py::TestPlayIterator::test_play_iterator_nested_blocks
+test/units/plugins/strategy/test_linear.py::TestStrategyLinear::test_noop_64999
+test/units/plugins/strategy/test_linear.py::TestStrategyLinear::test_noop

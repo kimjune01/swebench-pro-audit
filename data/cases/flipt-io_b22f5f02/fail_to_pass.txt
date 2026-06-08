@@ -1,0 +1,8 @@
+TestJSONSchema
+TestLoad
+TestParseReference
+TestStore_Fetch_InvalidMediaType
+TestStore_Fetch
+TestStore_Build
+TestStore_List
+TestStore_Copy

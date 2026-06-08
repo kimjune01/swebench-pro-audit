@@ -1,0 +1,1 @@
+test/posts.js | Post's voting should fail to get upvoters if user does not have read privilege

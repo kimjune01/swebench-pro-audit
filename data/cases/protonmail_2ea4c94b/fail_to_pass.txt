@@ -1,0 +1,8 @@
+src/app/components/composer/tests/Composer.outsideEncryption.test.tsx | should set outside encryption and display the expiration banner
+src/app/components/composer/tests/Composer.outsideEncryption.test.tsx | should set outside encryption with a default expiration time
+src/app/components/composer/tests/Composer.outsideEncryption.test.tsx | should be able to edit encryption
+src/app/components/composer/tests/Composer.outsideEncryption.test.tsx | should be able to remove encryption
+src/app/components/composer/tests/Composer.expiration.test.tsx | should open expiration modal with default values
+src/app/components/composer/tests/Composer.expiration.test.tsx | should display expiration banner and open expiration modal when clicking on edit
+src/app/components/composer/tests/Composer.hotkeys.test.tsx | should open encryption modal on meta + shift + E
+src/app/components/composer/tests/Composer.hotkeys.test.tsx | should open encryption modal on meta + shift + X

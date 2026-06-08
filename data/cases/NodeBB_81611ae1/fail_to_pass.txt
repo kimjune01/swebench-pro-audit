@@ -1,0 +1,2 @@
+test/user.js | User invites after invites checks should verify installation with no errors
+test/user.js | User invites after invites checks should joined the groups from invitation after registration

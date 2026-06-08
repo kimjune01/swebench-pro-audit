@@ -1,0 +1,6 @@
+TestParsePkgName
+TestParsePkgName/maven
+TestParsePkgName/pypi
+TestParsePkgName/golang
+TestParsePkgName/npm
+TestParsePkgName/cocoapods

@@ -1,0 +1,7 @@
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCXML::test_xml[warofrebellionco1473unit]
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCXML::test_xml[00schlgoog]
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCBinary::test_binary[memoirsofjosephf00fouc_meta.mrc]
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCBinary::test_binary[ithaca_college_75002321.mrc]
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCBinary::test_binary[lesnoirsetlesrou0000garl_meta.mrc]
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCBinary::test_binary[warofrebellionco1473unit_meta.mrc]
+openlibrary/catalog/add_book/tests/test_add_book.py::Test_From_MARC::test_editior_role_from_700

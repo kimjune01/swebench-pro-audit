@@ -1,0 +1,4 @@
+tests/unit/mainwindow/test_tabwidget.py::TestTabWidget::test_pinned_size[True-True]
+tests/unit/mainwindow/test_tabwidget.py::TestTabWidget::test_pinned_size[True-False]
+tests/unit/mainwindow/test_tabwidget.py::TestTabWidget::test_pinned_size[False-True]
+tests/unit/mainwindow/test_tabwidget.py::TestTabWidget::test_pinned_size[False-False]

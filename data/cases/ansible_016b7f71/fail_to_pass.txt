@@ -1,0 +1,4 @@
+test/units/plugins/lookup/test_password.py::TestParseContent::test
+test/units/plugins/lookup/test_password.py::TestParseContent::test_with_salt
+test/units/plugins/lookup/test_password.py::TestParseContent::test_empty_password_file
+test/units/plugins/lookup/test_password.py::TestParseContent::test_with_salt_and_ident

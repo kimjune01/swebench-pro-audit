@@ -1,0 +1,8 @@
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_kinit_success_subprocess[options2-expected2]
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_kinit_success_subprocess[options4-expected4]
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_kinit_error_pass_in_output_subprocess
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_kinit_with_missing_executable_subprocess
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_kinit_success_subprocess[options3-expected3]
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_kinit_success_subprocess[options1-expected1]
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_kinit_success_subprocess[options0-expected0]
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_kinit_error_subprocess

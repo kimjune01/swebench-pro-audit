@@ -1,0 +1,4 @@
+test/units/plugins/filter/test_core.py::test_from_yaml_trust[True]
+test/units/plugins/filter/test_core.py::test_from_yaml_origin
+test/units/_internal/_yaml/test_dumper.py::test_yaml_dump[to_yaml-True]
+test/units/_internal/_yaml/test_dumper.py::test_yaml_dump[to_nice_yaml-True]

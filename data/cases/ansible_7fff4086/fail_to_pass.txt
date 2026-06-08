@@ -1,0 +1,2 @@
+test/units/executor/module_common/test_module_common.py::TestGetShebang::test_python_interpreter
+test/units/executor/module_common/test_module_common.py::TestGetShebang::test_non_python_interpreter

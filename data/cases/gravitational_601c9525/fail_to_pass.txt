@@ -1,0 +1,4 @@
+TestCeremony_RunAdmin/non-existing_device
+TestCeremony_RunAdmin/registered_device
+TestCeremony_RunAdmin/non-existing_device,_enrollment_error
+TestCeremony_RunAdmin

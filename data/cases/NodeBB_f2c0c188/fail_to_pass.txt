@@ -1,0 +1,1 @@
+test/uploads.js | Upload Controllers admin uploads should fail to upload invalid file type

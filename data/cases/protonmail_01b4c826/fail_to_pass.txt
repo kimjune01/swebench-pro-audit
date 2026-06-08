@@ -1,0 +1,2 @@
+src/app/components/sidebar/MailSidebar.test.tsx | should redirect on inbox when click on logo
+src/app/components/sidebar/MailSidebar.test.tsx | should open app dropdown

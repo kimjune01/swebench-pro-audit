@@ -1,0 +1,4 @@
+TestConfigure
+TestValidate
+TestConfigServeHTTP
+TestInfoServeHTTP

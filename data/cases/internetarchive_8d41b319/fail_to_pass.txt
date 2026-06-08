@@ -1,0 +1,1 @@
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCBinary::test_binary[ithaca_two_856u.mrc]

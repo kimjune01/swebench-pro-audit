@@ -1,0 +1,3 @@
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCXML::test_xml[zweibchersatir01horauoft]
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCBinary::test_binary[equalsign_title.mrc]
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCBinary::test_binary[zweibchersatir01horauoft_meta.mrc]

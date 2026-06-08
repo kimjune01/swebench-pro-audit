@@ -1,0 +1,7 @@
+src/app/store/_photos/usePhotosRecovery.test.ts | usePhotosRecovery should pass all state if files need to be recovered
+src/app/store/_photos/usePhotosRecovery.test.ts | usePhotosRecovery should pass and set errors count if some moves failed
+src/app/store/_photos/usePhotosRecovery.test.ts | usePhotosRecovery should failed if deleteShare failed
+src/app/store/_photos/usePhotosRecovery.test.ts | usePhotosRecovery should failed if loadChildren failed
+src/app/store/_photos/usePhotosRecovery.test.ts | usePhotosRecovery should failed if moveLinks helper failed
+src/app/store/_photos/usePhotosRecovery.test.ts | usePhotosRecovery should start the process if localStorage value was set to progress
+src/app/store/_photos/usePhotosRecovery.test.ts | usePhotosRecovery should set state to failed if localStorage value was set to failed

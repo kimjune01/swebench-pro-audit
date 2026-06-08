@@ -1,0 +1,1 @@
+test/units/utils/collection_loader/test_collection_loader.py::test_find_module_py3

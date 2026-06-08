@@ -1,0 +1,6 @@
+test/TextForEvent-test.ts | TextForPinnedEvent | mentions message when a single message was pinned, with no previously pinned messages
+test/TextForEvent-test.ts | TextForPinnedEvent | mentions message when a single message was pinned, with multiple previously pinned messages
+test/TextForEvent-test.ts | TextForPinnedEvent | mentions message when a single message was unpinned, with a single message previously pinned
+test/TextForEvent-test.ts | TextForPinnedEvent | mentions message when a single message was unpinned, with multiple previously pinned messages
+test/TextForEvent-test.ts | TextForPinnedEvent | shows generic text when one message was pinned, and another unpinned
+test/TextForEvent-test.ts | textForMemberEvent() | should handle both displayname and avatar changing in one event

@@ -1,0 +1,5 @@
+containers/members/multipleUserCreation/csv.test.ts | errors throws error if file is > 10MB
+containers/members/multipleUserCreation/csv.test.ts | errors does not throw error if file is <= 10MB
+containers/members/multipleUserCreation/csv.test.ts | parsing trims whitespace
+containers/members/multipleUserCreation/csv.test.ts | when true returns no errors if set to a valid number
+containers/members/multipleUserCreation/csv.test.ts | when true allows decimal values

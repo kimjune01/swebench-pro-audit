@@ -1,0 +1,4 @@
+TestOIDCLogin
+TestMakeClient
+TestIdentityRead
+TestOptions

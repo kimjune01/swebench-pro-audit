@@ -1,0 +1,1 @@
+test/database/hash.js | Hash methods deleteObjectField() should not error if fields is empty array

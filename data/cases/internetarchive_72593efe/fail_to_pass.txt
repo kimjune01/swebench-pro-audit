@@ -1,0 +1,1 @@
+openlibrary/tests/solr/test_query_utils.py::test_luqum_replace_fields

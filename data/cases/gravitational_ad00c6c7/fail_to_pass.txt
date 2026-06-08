@@ -1,0 +1,6 @@
+TestKubeConfigUpdate
+TestKubeConfigUpdate/selected_cluster
+TestKubeConfigUpdate/no_selected_cluster
+TestKubeConfigUpdate/invalid_selected_cluster
+TestKubeConfigUpdate/no_kube_clusters
+TestKubeConfigUpdate/no_tsh_path

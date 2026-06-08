@@ -1,0 +1,4 @@
+openlibrary/tests/core/test_wikidata.py::test_get_wikipedia_link
+openlibrary/tests/core/test_wikidata.py::test_get_statement_values
+openlibrary/tests/core/test_wikidata.py::test_get_external_profiles
+openlibrary/tests/core/test_wikidata.py::test_get_external_profiles_multiple_social

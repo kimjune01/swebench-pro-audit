@@ -1,0 +1,5 @@
+test/units/utils/test_encrypt.py::test_password_hash_filter_passlib
+test/units/utils/test_encrypt.py::test_do_encrypt_passlib
+test/units/utils/test_encrypt.py::test_passlib_bcrypt_salt
+test/units/utils/test_encrypt.py::test_encrypt_with_ident
+test/units/plugins/lookup/test_password.py::TestParseParameters::test

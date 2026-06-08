@@ -1,0 +1,2 @@
+openlibrary/tests/core/lists/test_model.py::TestList::test_owner
+openlibrary/plugins/upstream/tests/test_models.py::TestModels::test_setup

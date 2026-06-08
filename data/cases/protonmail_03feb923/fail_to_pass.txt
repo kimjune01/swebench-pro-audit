@@ -1,0 +1,7 @@
+containers/payments/RenewalNotice.test.tsx | regular subscription renew should display the correct renewal date
+containers/payments/RenewalNotice.test.tsx | regular subscription renew should use period end date if custom billing is enabled
+containers/payments/RenewalNotice.test.tsx | regular subscription renew should use the end of upcoming subscription period if scheduled subscription is enabled
+containers/payments/RenewalNotice.test.tsx | vpn2024 special renew cycle should display special renewal notice for vpn2024 3 months
+containers/payments/RenewalNotice.test.tsx | vpn2024 special renew cycle should display special renewal notice for vpn2024 1 months
+containers/payments/RenewalNotice.test.tsx | one time coupons should apply it for 12m vpnpass bundle
+containers/payments/RenewalNotice.test.tsx | one time coupons should apply it for 1m mail offer

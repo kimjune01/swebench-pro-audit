@@ -1,0 +1,3 @@
+components/drawer/views/SecurityCenter/PassAliases/PassAliases.test.tsx | PassAliases renders the aliases list when there are aliases
+components/drawer/views/SecurityCenter/PassAliases/PassAliases.test.tsx | PassAliases renders the "No aliases" message when there are no aliases
+components/drawer/views/SecurityCenter/PassAliases/PassAliases.test.tsx | PassAliases opens the create alias modal when the "Get an alias" button is clicked

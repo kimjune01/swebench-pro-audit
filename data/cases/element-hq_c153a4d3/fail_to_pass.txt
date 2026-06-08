@@ -1,0 +1,4 @@
+test/components/views/messages/EncryptionEvent-test.tsx | for an encrypted room | should show the expected texts
+test/components/views/settings/tabs/user/PreferencesUserSettingsTab-test.tsx | PreferencesUserSettingsTab | should render
+test/components/views/voip/CallView-test.tsx | with an existing call | tracks participants
+test/components/views/right_panel/UserInfo-test.tsx | with crypto enabled | renders <BasicUserInfo />

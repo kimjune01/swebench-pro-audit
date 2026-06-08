@@ -1,0 +1,4 @@
+tests/unit/utils/test_utils.py::TestReadFile::test_glob_resources_pathlib[True]
+tests/unit/utils/test_utils.py::TestReadFile::test_glob_resources_pathlib[False]
+tests/unit/utils/test_utils.py::TestReadFile::test_glob_resources_zipfile[True]
+tests/unit/utils/test_utils.py::TestReadFile::test_glob_resources_zipfile[False]

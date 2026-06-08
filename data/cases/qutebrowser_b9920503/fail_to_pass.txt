@@ -1,0 +1,7 @@
+tests/unit/browser/test_shared.py::test_js_log_to_ui[levels_setting0-excludes_setting0-JsLogLevel.error-qute:test-msg-False-None]
+tests/unit/browser/test_shared.py::test_js_log_to_ui[levels_setting1-excludes_setting1-JsLogLevel.error-qute:bla-msg-True-MessageLevel.error]
+tests/unit/browser/test_shared.py::test_js_log_to_ui[levels_setting2-excludes_setting2-JsLogLevel.error-qute:bla-notfiltered-True-MessageLevel.error]
+tests/unit/browser/test_shared.py::test_js_log_to_ui[levels_setting3-excludes_setting3-JsLogLevel.error-qute:bla-filtered-False-None]
+tests/unit/browser/test_shared.py::test_js_log_to_ui[levels_setting4-excludes_setting4-JsLogLevel.error-qute:bla-msg-True-MessageLevel.error]
+tests/unit/browser/test_shared.py::test_js_log_to_ui[levels_setting5-excludes_setting5-JsLogLevel.info-qute:bla-msg-False-None]
+tests/unit/browser/test_shared.py::test_js_log_to_ui[levels_setting6-excludes_setting6-JsLogLevel.info-qute:bla-msg-True-MessageLevel.info]

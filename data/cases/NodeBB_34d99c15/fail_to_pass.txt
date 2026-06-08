@@ -1,0 +1,7 @@
+test/groups.js | Groups socket methods should rescind invite
+test/groups.js | Groups socket methods should error if user is not invited
+test/groups.js | Groups socket methods should accept invite
+test/groups.js | Groups socket methods should reject invite
+test/utils.js | POST /api/v3/groups/{slug}/invites/{uid} should be defined in schema docs
+test/utils.js | PUT /api/v3/groups/{slug}/invites/{uid} should be defined in schema docs
+test/utils.js | DELETE /api/v3/groups/{slug}/invites/{uid} should be defined in schema docs

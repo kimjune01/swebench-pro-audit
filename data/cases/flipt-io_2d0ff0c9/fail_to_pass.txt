@@ -1,0 +1,6 @@
+TestOpen
+TestParse
+TestDBTestSuite
+TestMigratorRun
+TestMigratorRun_NoChange
+TestMigratorExpectedVersions

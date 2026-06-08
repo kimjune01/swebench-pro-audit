@@ -1,0 +1,7 @@
+TestInitCACert
+TestInitCACert/shouldn't_download_self-hosted_CA
+TestInitCACert/should_download_RDS_CA_when_it's_not_set
+TestInitCACert/shouldn't_download_RDS_CA_when_it's_set
+TestInitCACert/should_download_Redshift_CA_when_it's_not_set
+TestInitCACert/should_download_Cloud_SQL_CA_when_it's_not_set
+TestInitCACertCaching

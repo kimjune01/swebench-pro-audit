@@ -1,0 +1,11 @@
+components/v2/phone/PhoneInput.test.tsx | PhoneInput should set default country async once
+components/v2/phone/PhoneInput.test.tsx | PhoneInput should format input
+components/v2/phone/PhoneInput.test.tsx | PhoneInput format as user enters text
+components/v2/phone/PhoneInput.test.tsx | PhoneInput change country if entering with country calling code
+components/v2/phone/PhoneInput.test.tsx | PhoneInput change country selecting from dropdown
+components/v2/phone/PhoneInput.test.tsx | PhoneInput reset and remember country
+components/v2/phone/PhoneInput.test.tsx | PhoneInput should get a country from a number
+components/v2/phone/PhoneInput.test.tsx | PhoneInput should get a more specific country from a number
+components/v2/phone/PhoneInput.test.tsx | PhoneInput should get cursor at position
+components/v2/phone/PhoneInput.test.tsx | PhoneInput should format input for CH
+components/v2/phone/PhoneInput.test.tsx | PhoneInput should format input for US

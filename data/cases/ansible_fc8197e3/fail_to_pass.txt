@@ -1,0 +1,1 @@
+test/units/modules/test_pip.py::test_failure_when_pip_absent[patch_ansible_module0]

@@ -1,0 +1,1 @@
+test/messaging.js | Messaging Library .canMessageUser() should respect allow/deny list when sending chat messages

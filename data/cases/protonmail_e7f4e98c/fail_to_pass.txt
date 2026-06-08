@@ -1,0 +1,1 @@
+src/app/store/_links/extendedAttributes.test.ts | creates the struct from the file

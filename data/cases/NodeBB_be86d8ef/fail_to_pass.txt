@@ -1,0 +1,1 @@
+test/user.js | User socket methods should return true/false if user/group exists or not

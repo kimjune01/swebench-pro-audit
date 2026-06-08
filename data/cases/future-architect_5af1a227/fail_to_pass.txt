@@ -1,0 +1,4 @@
+Test_detect
+TestRenameKernelSourcePackageName
+TestIsKernelSourcePackage
+Test_debian_parseInstalledPackages

@@ -1,0 +1,3 @@
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCBinary::test_binary[wrapped_lines.mrc]
+openlibrary/catalog/marc/tests/test_get_subjects.py::TestSubjects::test_subjects_bin[histoirereligieu05cr_meta.mrc-expected15]
+openlibrary/catalog/marc/tests/test_get_subjects.py::TestSubjects::test_subjects_bin[wrapped_lines.mrc-expected27]

@@ -1,0 +1,1 @@
+test/database/hash.js | Hash methods incrObjectFieldByBulk should increment multiple object fields

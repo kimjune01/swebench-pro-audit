@@ -1,0 +1,2 @@
+test/database.js | Test database test/database/sorted.js::Sorted Set methods test/database/sorted.js::getSortedSetsMembers should return members of sorted set with scores
+test/database.js | Test database test/database/sorted.js::Sorted Set methods test/database/sorted.js::getSortedSetsMembers should return members of multiple sorted sets with scores

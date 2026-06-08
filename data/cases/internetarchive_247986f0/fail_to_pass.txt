@@ -1,0 +1,6 @@
+openlibrary/plugins/openlibrary/tests/test_bestbookapi.py::test_bestbook_add_award
+openlibrary/plugins/openlibrary/tests/test_bestbookapi.py::test_bestbook_award_removal
+openlibrary/plugins/openlibrary/tests/test_bestbookapi.py::test_bestbook_award_limit
+openlibrary/plugins/openlibrary/tests/test_bestbookapi.py::test_bestbook_award_not_authenticated
+openlibrary/plugins/openlibrary/tests/test_bestbookapi.py::test_bestbook_add_unread_award
+openlibrary/plugins/openlibrary/tests/test_bestbookapi.py::test_bestbook_count

@@ -1,0 +1,4 @@
+test/units/modules/network/f5/test_bigip_message_routing_route.py::TestParameters::test_api_parameters
+test/units/modules/network/f5/test_bigip_message_routing_route.py::TestParameters::test_module_parameters
+test/units/modules/network/f5/test_bigip_message_routing_route.py::TestManager::test_create_generic_route
+test/units/modules/network/f5/test_bigip_message_routing_route.py::TestManager::test_update_generic_peer

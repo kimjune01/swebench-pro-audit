@@ -1,0 +1,8 @@
+TestFile
+TestStore_FetchWithECR
+TestAuthenicationTypeIsValid
+TestDefaultClientFunc
+TestECRCredential
+TestCredential
+TestPrivateClient
+TestPublicClient

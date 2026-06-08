@@ -1,0 +1,4 @@
+TestLoad
+TestNewStore
+TestStore_Fetch_InvalidMediaType
+TestStore_Fetch

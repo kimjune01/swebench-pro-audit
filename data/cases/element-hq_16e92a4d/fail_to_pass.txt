@@ -1,0 +1,6 @@
+test/voice-broadcast/components/molecules/VoiceBroadcastPreRecordingPip-test.tsx | and double clicking »Go live« | should call start once
+test/voice-broadcast/components/molecules/VoiceBroadcastPreRecordingPip-test.tsx | and clicking the room name | should show the broadcast room
+test/voice-broadcast/components/molecules/VoiceBroadcastPreRecordingPip-test.tsx | and clicking the room avatar | should show the broadcast room
+test/voice-broadcast/components/molecules/VoiceBroadcastPreRecordingPip-test.tsx | and clicking the device label | should display the device selection
+test/voice-broadcast/components/molecules/VoiceBroadcastPreRecordingPip-test.tsx | and selecting a device | should set it as current device
+test/voice-broadcast/components/molecules/VoiceBroadcastPreRecordingPip-test.tsx | and selecting a device | should not show the device selection

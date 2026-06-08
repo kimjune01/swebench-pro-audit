@@ -1,0 +1,4 @@
+TestFSWithoutIndex
+TestGetVersion
+TestNewFile
+TestFileInfo

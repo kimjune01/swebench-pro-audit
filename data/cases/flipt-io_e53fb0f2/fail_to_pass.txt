@@ -1,0 +1,7 @@
+TestLoad
+TestNewReporter
+TestReporterClose
+TestReport
+TestReport_Existing
+TestReport_Disabled
+TestReport_SpecifyStateDir

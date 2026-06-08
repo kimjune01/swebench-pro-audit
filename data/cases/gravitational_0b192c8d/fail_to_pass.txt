@@ -1,0 +1,17 @@
+TestClientAPI
+TestParseProxyHostString
+TestWebProxyHostPort
+TestApplyProxySettings
+TestNewClient_UseKeyPrincipals
+TestVirtualPathNames
+TestAddKey
+TestLoadKey
+TestLocalKeyAgent_AddDatabaseKey
+TestListKeys
+TestKeyCRUD
+TestDeleteAll
+TestCheckKey
+TestProxySSHConfig
+TestSaveGetTrustedCerts
+TestAddKey_withoutSSHCert
+TestMemLocalKeyStore

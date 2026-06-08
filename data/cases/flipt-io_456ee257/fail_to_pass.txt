@@ -1,0 +1,5 @@
+TestSetJSON_HandleMarshalError
+TestGetJSON_HandleGetError
+TestGetJSON_HandleUnmarshalError
+TestGetProtobuf_HandleGetError
+TestGetProtobuf_HandleUnmarshalError

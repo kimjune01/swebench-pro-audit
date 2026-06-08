@@ -1,0 +1,1 @@
+test/plugins.js | Plugins install/activate/uninstall should error if plugin id is invalid

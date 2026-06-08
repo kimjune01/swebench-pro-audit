@@ -1,0 +1,5 @@
+test/units/cli/test_doc.py::test_ttyify[HORIZONTALLINE-\n-------------\n]
+test/units/cli/test_doc.py::test_ttyify[The
+test/units/cli/test_doc.py::test_ttyify[IBM(International
+test/units/cli/test_doc.py::test_ttyify[R(the
+test/units/cli/test_doc.py::test_ttyify[L(the

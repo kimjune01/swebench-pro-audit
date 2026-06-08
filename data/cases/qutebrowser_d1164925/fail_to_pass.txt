@@ -1,0 +1,16 @@
+tests/unit/misc/test_elf.py::test_format_sizes[<4sBBBBB7x-16]
+tests/unit/misc/test_elf.py::test_format_sizes[<HHIQQQIHHHHHH-48]
+tests/unit/misc/test_elf.py::test_format_sizes[<HHIIIIIHHHHHH-36]
+tests/unit/misc/test_elf.py::test_format_sizes[<IIQQQQIIQQ-64]
+tests/unit/misc/test_elf.py::test_format_sizes[<IIIIIIIIII-40]
+tests/unit/misc/test_elf.py::test_hypothesis
+tests/unit/utils/test_version.py::TestChromiumVersion::test_no_webengine
+tests/unit/utils/test_version.py::test_version_info[normal]
+tests/unit/utils/test_version.py::test_version_info[no-git-commit]
+tests/unit/utils/test_version.py::test_version_info[frozen]
+tests/unit/utils/test_version.py::test_version_info[no-qapp]
+tests/unit/utils/test_version.py::test_version_info[no-webkit]
+tests/unit/utils/test_version.py::test_version_info[unknown-dist]
+tests/unit/utils/test_version.py::test_version_info[no-ssl]
+tests/unit/utils/test_version.py::test_version_info[no-autoconfig-loaded]
+tests/unit/utils/test_version.py::test_version_info[no-config-py-loaded]

@@ -1,0 +1,2 @@
+scripts/solr_builder/tests/test_fn_to_cli.py::TestFnToCLI::test_lists
+scripts/solr_builder/tests/test_fn_to_cli.py::TestFnToCLI::test_paths

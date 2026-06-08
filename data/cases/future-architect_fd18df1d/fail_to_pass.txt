@@ -1,0 +1,3 @@
+TestEOL_IsStandardSupportEnded
+TestEOL_IsStandardSupportEnded/Ubuntu_20.04_ext_supported
+TestEOL_IsStandardSupportEnded/Ubuntu_22.04_supported

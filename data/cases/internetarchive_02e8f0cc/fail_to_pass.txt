@@ -1,0 +1,1 @@
+scripts/tests/test_partner_batch_imports.py::test_is_low_quality_book

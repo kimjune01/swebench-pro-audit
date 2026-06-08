@@ -1,0 +1,6 @@
+tests/unit/config/test_qtargs.py::TestWebEngineArgs::test_accelerated_2d_canvas[5.15.2-False-auto-False]
+tests/unit/config/test_qtargs.py::TestWebEngineArgs::test_accelerated_2d_canvas[6.5.3-True-auto-True]
+tests/unit/config/test_qtargs.py::TestWebEngineArgs::test_accelerated_2d_canvas[6.6.0-True-auto-False]
+tests/unit/config/test_qtargs.py::TestWebEngineArgs::test_accelerated_2d_canvas[6.5.3-True-always-True]
+tests/unit/config/test_qtargs.py::TestWebEngineArgs::test_accelerated_2d_canvas[6.5.3-True-never-False]
+tests/unit/config/test_qtargs.py::TestWebEngineArgs::test_accelerated_2d_canvas[6.6.0-True-always-True]

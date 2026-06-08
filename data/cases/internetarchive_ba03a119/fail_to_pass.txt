@@ -1,0 +1,2 @@
+openlibrary/tests/solr/test_data_provider.py::TestBetterDataProvider::test_get_document
+openlibrary/tests/solr/test_data_provider.py::TestBetterDataProvider::test_clear_cache

@@ -1,0 +1,4 @@
+TestListNamespaces_WithAuthz
+TestEngine_IsAllowed
+TestViewableNamespaces
+TestAuthorizationRequiredInterceptor

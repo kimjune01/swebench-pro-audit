@@ -1,0 +1,1 @@
+tests/unit/browser/webengine/test_darkmode.py::test_qt_version_differences[6.4-expected2]

@@ -1,0 +1,7 @@
+TestIsOvalDefAffected
+Test_alpine_parseApkInstalledList
+Test_alpine_parseApkInstalledList/happy
+Test_alpine_parseApkIndex
+Test_alpine_parseApkIndex/happy
+Test_alpine_parseApkUpgradableList
+Test_alpine_parseApkUpgradableList/happy

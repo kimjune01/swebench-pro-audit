@@ -1,0 +1,4 @@
+tests/unit/completion/test_models.py::test_filesystem_completion
+tests/unit/completion/test_models.py::test_default_filesystem_completion
+tests/unit/completion/test_models.py::test_url_completion_no_quickmarks
+tests/unit/completion/test_models.py::test_url_completion_no_bookmarks

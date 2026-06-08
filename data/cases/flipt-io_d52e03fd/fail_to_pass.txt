@@ -1,0 +1,6 @@
+TestNewReporter
+TestShutdown
+TestPing
+TestPing_Existing
+TestPing_Disabled
+TestPing_SpecifyStateDir

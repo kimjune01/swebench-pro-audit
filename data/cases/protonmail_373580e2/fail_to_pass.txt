@@ -1,0 +1,1 @@
+containers/payments/subscription/SubscriptionModalProvider.test.tsx | should render <InAppPurchaseModal> if subscription is managed externally

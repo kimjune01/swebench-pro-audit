@@ -1,0 +1,2 @@
+test/units/module_utils/basic/test_deprecate_warn.py::test_deprecate[stdin0]
+test/units/module_utils/basic/test_deprecate_warn.py::test_deprecate_without_list[stdin0]

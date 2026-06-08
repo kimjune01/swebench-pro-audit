@@ -1,0 +1,3 @@
+openlibrary/tests/solr/test_update_work.py::TestAuthorUpdater::test_workless_author
+openlibrary/tests/solr/test_update_work.py::TestWorkSolrUpdater::test_no_title
+openlibrary/tests/solr/test_update_work.py::TestWorkSolrUpdater::test_work_no_title

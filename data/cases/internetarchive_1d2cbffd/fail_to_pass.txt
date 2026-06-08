@@ -1,0 +1,2 @@
+openlibrary/plugins/worksearch/tests/test_autocomplete.py::test_autocomplete
+openlibrary/plugins/worksearch/tests/test_autocomplete.py::test_works_autocomplete

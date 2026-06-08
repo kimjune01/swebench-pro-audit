@@ -1,0 +1,5 @@
+openlibrary/plugins/upstream/tests/test_utils.py::test_get_abbrev_from_full_lang_name
+openlibrary/plugins/importapi/tests/test_code.py::test_get_ia_record
+openlibrary/plugins/importapi/tests/test_code.py::test_get_ia_record_handles_very_short_books[5-1]
+openlibrary/plugins/importapi/tests/test_code.py::test_get_ia_record_handles_very_short_books[4-4]
+openlibrary/plugins/importapi/tests/test_code.py::test_get_ia_record_handles_very_short_books[3-3]

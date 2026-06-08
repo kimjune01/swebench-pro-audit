@@ -1,0 +1,6 @@
+TestDMI/success
+TestDMI/realistic
+TestDMI
+TestParseOSReleaseFromReader/Ubuntu_22.04
+TestParseOSReleaseFromReader/invalid_lines_ignored
+TestParseOSReleaseFromReader

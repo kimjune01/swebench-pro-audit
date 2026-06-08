@@ -1,0 +1,6 @@
+openlibrary/catalog/merge/tests/test_merge_marc.py::TestAuthors::test_author_contrib
+openlibrary/catalog/merge/tests/test_merge_marc.py::TestTitles::test_build_titles
+openlibrary/catalog/merge/tests/test_merge_marc.py::TestTitles::test_build_titles_ampersand
+openlibrary/catalog/merge/tests/test_merge_marc.py::TestTitles::test_build_titles_complex
+openlibrary/catalog/merge/tests/test_merge_marc.py::TestRecordMatching::test_match_without_ISBN
+openlibrary/catalog/merge/tests/test_merge_marc.py::TestRecordMatching::test_match_low_threshold

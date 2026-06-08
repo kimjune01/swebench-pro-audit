@@ -1,0 +1,8 @@
+tests/unit/config/test_configfiles.py::TestYamlMigrations::test_bool[scrolling.bar-False-overlay]
+tests/unit/config/test_configinit.py::TestQtArgs::test_overlay_scrollbar[overlay-True-False-True]
+tests/unit/config/test_configinit.py::TestQtArgs::test_overlay_scrollbar[overlay-True-True-False]
+tests/unit/config/test_configinit.py::TestQtArgs::test_overlay_scrollbar[overlay-False-True-False]
+tests/unit/config/test_configinit.py::TestQtArgs::test_overlay_scrollbar[overlay-False-False-False]
+tests/unit/config/test_configinit.py::TestQtArgs::test_overlay_scrollbar[when-searching-True-False-False]
+tests/unit/config/test_configinit.py::TestQtArgs::test_overlay_scrollbar[always-True-False-False]
+tests/unit/config/test_configinit.py::TestQtArgs::test_overlay_scrollbar[never-True-False-False]

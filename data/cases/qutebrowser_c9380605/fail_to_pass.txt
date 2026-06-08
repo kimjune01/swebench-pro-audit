@@ -1,0 +1,2 @@
+tests/unit/commands/test_cmdexc.py::test_empty_command_error
+tests/unit/commands/test_parser.py::TestCommandParser::test_parse_empty_with_alias[]

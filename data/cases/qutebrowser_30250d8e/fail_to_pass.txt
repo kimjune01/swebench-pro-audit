@@ -1,0 +1,6 @@
+tests/unit/config/test_configtypes.py::TestQtColor::test_valid[hsv(10%,10%,10%)-expected8]
+tests/unit/config/test_configtypes.py::TestQtColor::test_valid[hsva(10%,20%,30%,40%)-expected9]
+tests/unit/config/test_configtypes.py::TestQtColor::test_invalid[foo(1, 2, 3)-foo not in ['hsv', 'hsva', 'rgb', 'rgba']]
+tests/unit/config/test_configtypes.py::TestQtColor::test_invalid[rgb()-expected 3 values for rgb]
+tests/unit/config/test_configtypes.py::TestQtColor::test_invalid[rgb(1, 2, 3, 4)-expected 3 values for rgb]
+tests/unit/config/test_configtypes.py::TestQtColor::test_invalid[rgba(1, 2, 3)-expected 4 values for rgba]

@@ -1,0 +1,5 @@
+test/KeyBindingsManager-test.ts | KeyBindingsManager | should match basic key combo
+test/KeyBindingsManager-test.ts | KeyBindingsManager | should match key + modifier key combo
+test/KeyBindingsManager-test.ts | KeyBindingsManager | should match key + multiple modifiers key combo
+test/KeyBindingsManager-test.ts | KeyBindingsManager | should match ctrlOrMeta key combo
+test/KeyBindingsManager-test.ts | KeyBindingsManager | should match advanced ctrlOrMeta key combo

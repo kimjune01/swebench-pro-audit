@@ -1,0 +1,7 @@
+src/app/store/_downloads/DownloadProvider/useDownloadMetrics.test.ts | useDownloadMetrics should observe downloads and update metrics for successful downloads
+src/app/store/_downloads/DownloadProvider/useDownloadMetrics.test.ts | useDownloadMetrics should observe downloads and update metrics for failed downloads
+src/app/store/_downloads/DownloadProvider/useDownloadMetrics.test.ts | useDownloadMetrics should observe downloads and update metrics correctly for retried downloads
+src/app/store/_downloads/DownloadProvider/useDownloadMetrics.test.ts | useDownloadMetrics should not process the same download twice
+src/app/store/_downloads/DownloadProvider/useDownloadMetrics.test.ts | useDownloadMetrics should not handle multiple LinkDownload in a download
+src/app/store/_downloads/DownloadProvider/useDownloadMetrics.test.ts | useDownloadMetrics should handle different error states
+src/app/store/_downloads/DownloadProvider/useDownloadMetrics.test.ts | useDownloadMetrics should only report failed users every 5min

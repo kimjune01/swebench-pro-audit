@@ -1,0 +1,2 @@
+tests/unit/components/test_readlinecommands.py::test_filename_rubout[/-path|-path-|]
+tests/unit/components/test_readlinecommands.py::test_filename_rubout[\\-path|-path-|]

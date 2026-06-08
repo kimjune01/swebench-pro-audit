@@ -1,0 +1,7 @@
+payments/client-extensions/usePollEvents.test.ts | should run call() several times and then stop
+payments/client-extensions/usePollEvents.test.ts | should run call() 2 times
+payments/client-extensions/usePollEvents.test.ts | should subscribe if there are parameters
+payments/client-extensions/usePollEvents.test.ts | should stop polling if the event is found
+payments/client-extensions/usePollEvents.test.ts | should not unsubscribe if the event is not tracked - wrong action
+payments/client-extensions/usePollEvents.test.ts | should not unsubscribe if the event is not tracked - wrong property
+payments/client-extensions/usePollEvents.test.ts | should ignore subscription events if polling is already done

@@ -1,0 +1,2 @@
+openlibrary/plugins/upstream/tests/test_table_of_contents.py::TestTocEntry::test_from_markdown
+openlibrary/plugins/upstream/tests/test_table_of_contents.py::TestTocEntry::test_to_markdown

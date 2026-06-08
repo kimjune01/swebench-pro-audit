@@ -1,0 +1,6 @@
+TestLoad
+TestWithCredentials
+TestWithManifestVersion
+TestAuthenicationTypeIsValid
+TestECRCredential
+TestCredentialFunc

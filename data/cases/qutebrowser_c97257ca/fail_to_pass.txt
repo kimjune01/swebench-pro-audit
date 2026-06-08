@@ -1,0 +1,5 @@
+tests/unit/utils/test_utils.py::TestParsePoint::test_valid[1,1-expected0]
+tests/unit/utils/test_utils.py::TestParsePoint::test_valid[123,789-expected1]
+tests/unit/utils/test_utils.py::TestParsePoint::test_valid[-123,-789-expected2]
+tests/unit/utils/test_utils.py::TestParsePoint::test_hypothesis_text
+tests/unit/utils/test_utils.py::TestParsePoint::test_hypothesis_sophisticated

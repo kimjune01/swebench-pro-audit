@@ -1,0 +1,4 @@
+tests/unit/browser/webengine/test_darkmode.py::test_qt_version_differences[5.15.2-expected0]
+tests/unit/browser/webengine/test_darkmode.py::test_qt_version_differences[5.15.3-expected1]
+tests/unit/browser/webengine/test_darkmode.py::test_qt_version_differences[6.4-expected2]
+tests/unit/browser/webengine/test_darkmode.py::test_customization[threshold.foreground-100-TextBrightnessThreshold-100]

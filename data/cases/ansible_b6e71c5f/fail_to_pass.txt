@@ -1,0 +1,8 @@
+test/units/modules/network/icx/test_icx_logging.py::TestICXLoggingModule::test_icx_logging_compare
+test/units/modules/network/icx/test_icx_logging.py::TestICXLoggingModule::test_icx_logging_remove_console
+test/units/modules/network/icx/test_icx_logging.py::TestICXLoggingModule::test_icx_logging_remove_on
+test/units/modules/network/icx/test_icx_logging.py::TestICXLoggingModule::test_icx_logging_set_aggregate
+test/units/modules/network/icx/test_icx_logging.py::TestICXLoggingModule::test_icx_logging_set_aggregate_remove
+test/units/modules/network/icx/test_icx_logging.py::TestICXLoggingModule::test_icx_logging_set_host
+test/units/modules/network/icx/test_icx_logging.py::TestICXLoggingModule::test_icx_logging_set_host_udp_port
+test/units/modules/network/icx/test_icx_logging.py::TestICXLoggingModule::test_icx_logging_set_ipv6_host

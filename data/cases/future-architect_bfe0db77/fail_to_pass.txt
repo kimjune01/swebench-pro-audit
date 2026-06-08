@@ -1,0 +1,7 @@
+TestUbuntuConvertToModel
+TestUbuntuConvertToModel/gost_Ubuntu.ConvertToModel
+Test_detect
+Test_detect/fixed
+Test_detect/unfixed
+Test_detect/linux-signed
+Test_detect/linux-meta

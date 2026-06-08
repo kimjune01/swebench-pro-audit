@@ -1,0 +1,3 @@
+test/user.js | User profile methods should send validation email
+test/user.js | User profile methods .updateProfile() should also generate an email confirmation code for the changed email
+test/user.js | User socket methods should send email confirm

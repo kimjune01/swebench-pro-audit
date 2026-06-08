@@ -1,0 +1,2 @@
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCBinary::test_binary[880_Nihon_no_chasho.mrc]
+openlibrary/catalog/marc/tests/test_parse.py::TestParseMARCBinary::test_binary[880_arabic_french_many_linkages.mrc]

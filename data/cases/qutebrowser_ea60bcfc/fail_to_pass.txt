@@ -1,0 +1,2 @@
+tests/unit/misc/test_guiprocess.py::TestProcessCommand::test_cleaned_up_pid
+tests/unit/misc/test_guiprocess.py::test_cleanup

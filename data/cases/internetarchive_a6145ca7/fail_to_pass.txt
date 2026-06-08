@@ -1,0 +1,3 @@
+openlibrary/coverstore/tests/test_archive.py::test_get_filename
+openlibrary/coverstore/tests/test_archive.py::test_get_batch_end_id
+openlibrary/coverstore/tests/test_archive.py::test_id_to_item_and_batch_id

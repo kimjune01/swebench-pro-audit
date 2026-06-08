@@ -1,0 +1,2 @@
+src/app/helpers/elements.test.ts | isFromProton should be an element from Proton
+src/app/helpers/elements.test.ts | isFromProton should not be an element from Proton

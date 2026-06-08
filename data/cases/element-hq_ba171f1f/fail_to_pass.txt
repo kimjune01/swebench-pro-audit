@@ -1,0 +1,6 @@
+test/components/views/settings/devices/DeviceDetails-test.tsx | <DeviceDetails /> | renders device without metadata
+test/components/views/settings/devices/DeviceDetails-test.tsx | <DeviceDetails /> | renders device with metadata
+test/components/views/settings/devices/DeviceDetails-test.tsx | <DeviceDetails /> | renders a verified device
+test/components/views/settings/devices/CurrentDeviceSection-test.tsx | <CurrentDeviceSection /> | renders device and correct security card when device is verified
+test/components/views/settings/devices/CurrentDeviceSection-test.tsx | <CurrentDeviceSection /> | renders device and correct security card when device is unverified
+test/components/views/settings/devices/CurrentDeviceSection-test.tsx | <CurrentDeviceSection /> | displays device details on toggle click

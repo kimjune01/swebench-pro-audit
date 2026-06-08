@@ -1,0 +1,9 @@
+TestDeadline
+TestBuffer
+TestManagedConn/Basic
+TestManagedConn/Deadline
+TestManagedConn/LocalClosed
+TestManagedConn/RemoteClosed
+TestManagedConn/WriteBuffering
+TestManagedConn/ReadBuffering
+TestManagedConn

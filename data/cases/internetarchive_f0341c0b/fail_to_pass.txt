@@ -1,0 +1,4 @@
+openlibrary/catalog/add_book/tests/test_add_book.py::test_validate_record[But
+openlibrary/tests/catalog/test_utils.py::test_publication_year_too_old[1399
+openlibrary/tests/catalog/test_utils.py::test_publication_year_too_old[1400
+openlibrary/tests/catalog/test_utils.py::test_publication_year_too_old[1401

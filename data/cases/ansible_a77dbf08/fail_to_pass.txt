@@ -1,0 +1,4 @@
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_kinit_success_subprocess[options3-expected3]
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_kinit_success_subprocess[options4-expected4]
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_kinit_success_pexpect[options4-expected4]
+test/units/plugins/connection/test_winrm.py::TestWinRMKerbAuth::test_kinit_success_pexpect[options3-expected3]

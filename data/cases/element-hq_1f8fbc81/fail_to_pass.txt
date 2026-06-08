@@ -1,0 +1,5 @@
+test/audio/VoiceRecording-test.ts | when starting a recording | should record high-quality audio if voice processing is disabled
+test/audio/VoiceRecording-test.ts | when starting a recording | should record normal-quality voice if voice processing is enabled
+test/audio/VoiceRecording-test.ts | and there is an audio update and time left | should not call stop
+test/audio/VoiceRecording-test.ts | and there is an audio update and time is up | should call stop
+test/audio/VoiceRecording-test.ts | and there is an audio update and time is up | should not call stop

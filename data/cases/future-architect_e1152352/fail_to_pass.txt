@@ -1,0 +1,8 @@
+TestPortScanConf_getScanTechniques
+TestPortScanConf_getScanTechniques/nil
+TestPortScanConf_getScanTechniques/single
+TestPortScanConf_getScanTechniques/multiple
+TestPortScanConf_getScanTechniques/unknown
+TestPortScanConf_IsZero
+TestPortScanConf_IsZero/not_zero
+TestPortScanConf_IsZero/zero

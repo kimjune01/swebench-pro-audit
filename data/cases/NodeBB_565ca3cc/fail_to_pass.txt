@@ -1,0 +1,4 @@
+test/messaging.js | Messaging Library rooms should return invalid-data error
+test/messaging.js | Messaging Library rooms should return not allowed error if user is not in room
+test/messaging.js | Messaging Library rooms should fail to load recent chats with invalid data
+test/messaging.js | Messaging Library rooms should fail to check if user has private chat with invalid data

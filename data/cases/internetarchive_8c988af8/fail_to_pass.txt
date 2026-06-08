@@ -1,0 +1,4 @@
+openlibrary/plugins/worksearch/schemes/tests/test_works.py::test_q_to_solr_params_edition_key[edition_key:OL123M-+key:"/books/OL123M"]
+openlibrary/plugins/worksearch/schemes/tests/test_works.py::test_q_to_solr_params_edition_key[edition_key:"OL123M"-+key:"/books/OL123M"]
+openlibrary/plugins/worksearch/schemes/tests/test_works.py::test_q_to_solr_params_edition_key[edition_key:"/books/OL123M"-+key:"/books/OL123M"]
+openlibrary/plugins/worksearch/schemes/tests/test_works.py::test_q_to_solr_params_edition_key[edition_key:(OL123M)-+key:("/books/OL123M")]

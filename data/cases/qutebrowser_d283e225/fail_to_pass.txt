@@ -1,0 +1,2 @@
+tests/unit/config/test_configtypes.py::TestQtColor::test_valid[hsv(10%,10%,10%)-expected8]
+tests/unit/config/test_configtypes.py::TestQtColor::test_valid[hsva(10%,20%,30%,40%)-expected9]

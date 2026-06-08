@@ -1,0 +1,5 @@
+test/units/config/test_manager.py::test_ensure_type[value1-bool-False]
+test/units/config/test_manager.py::test_ensure_type[value33-list-expected_value33]
+test/units/config/test_manager.py::test_ensure_type[value56-dict-expected_value56]
+test/units/config/test_manager.py::test_ensure_type_tag_propagation[a,b,c-list]
+test/units/config/test_manager.py::test_ensure_type_tag_propagation[1-int]

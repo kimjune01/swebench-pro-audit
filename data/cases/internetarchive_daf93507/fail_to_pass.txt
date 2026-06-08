@@ -1,0 +1,2 @@
+openlibrary/tests/core/test_lists_model.py::test_seed_with_string
+openlibrary/tests/core/test_lists_model.py::test_seed_with_nonstring

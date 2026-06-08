@@ -1,0 +1,1 @@
+/app/test/components/views/rooms/MessageComposer-test.tsx | MessageComposer | Does not render a SendMessageComposer or MessageComposerButtons when room is tombstoned

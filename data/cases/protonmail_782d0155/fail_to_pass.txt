@@ -1,0 +1,4 @@
+src/app/store/_shares/shareUrl.test.ts | hasCustomPassword returns true is CustomPassword flag is present
+src/app/store/_shares/shareUrl.test.ts | hasGeneratedPasswordIncluded returns true is CustomPassword flag is present
+src/app/store/_shares/shareUrl.test.ts | splitGeneratedAndCustomPassword legacy custom password returns only custom password
+src/app/store/_shares/shareUrl.test.ts | splitGeneratedAndCustomPassword new custom password returns both generated and custom password

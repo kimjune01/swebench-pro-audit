@@ -1,0 +1,2 @@
+openlibrary/plugins/upstream/tests/test_addbook.py::TestMakeWork::test_make_author_adds_the_correct_key
+openlibrary/plugins/upstream/tests/test_addbook.py::TestMakeWork::test_make_work_handles_no_author

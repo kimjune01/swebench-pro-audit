@@ -1,0 +1,2 @@
+test/user.js | User hash methods should return an icon text and valid background if username and picture is explicitly requested
+test/user.js | User hash methods should return a valid background, even if an invalid background colour is set

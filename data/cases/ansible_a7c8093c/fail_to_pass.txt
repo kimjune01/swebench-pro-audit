@@ -1,0 +1,2 @@
+test/units/plugins/callback/test_callback.py::TestCallback::test_host_label_delegated
+test/units/plugins/callback/test_callback.py::TestCallback::test_host_label

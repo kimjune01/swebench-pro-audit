@@ -1,0 +1,6 @@
+test/MatrixClientPeg-test.ts | MatrixClientPeg | setJustRegisteredUserId
+test/MatrixClientPeg-test.ts | .start | should initialise client crypto
+test/MatrixClientPeg-test.ts | .start | should carry on regardless if there is an error initialising crypto
+test/MatrixClientPeg-test.ts | .start | should initialise the rust crypto library, if enabled
+test/MatrixClientPeg-test.ts | .start | should reload when store database closes for a guest user
+test/MatrixClientPeg-test.ts | .start | should show error modal when store database closes

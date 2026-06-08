@@ -1,0 +1,1 @@
+test/components/views/right_panel/RoomHeaderButtons-test.tsx | RoomHeaderButtons-test.tsx | does not explode without a room

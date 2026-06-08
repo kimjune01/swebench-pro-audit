@@ -1,0 +1,4 @@
+openlibrary/catalog/add_book/tests/test_load_book.py::TestImportAuthor::test_author_match_is_case_insensitive_for_names
+openlibrary/catalog/add_book/tests/test_load_book.py::TestImportAuthor::test_author_match_allows_wildcards_for_matching
+openlibrary/catalog/add_book/tests/test_load_book.py::TestImportAuthor::test_second_match_priority_alternate_names_and_dates
+openlibrary/catalog/add_book/tests/test_load_book.py::TestImportAuthor::test_last_match_on_surname_and_dates

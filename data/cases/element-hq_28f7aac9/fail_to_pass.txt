@@ -1,0 +1,2 @@
+test/stores/RoomViewStore-test.ts | Action.RoomLoaded | updates viewRoomOpts
+test/components/structures/RoomView-test.tsx | RoomView | fires Action.RoomLoaded

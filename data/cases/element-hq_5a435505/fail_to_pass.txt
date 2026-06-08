@@ -1,0 +1,4 @@
+test/components/views/messages/MKeyVerificationRequest-test.tsx | MKeyVerificationRequest | shows an error if not wrapped in a client context
+test/components/views/messages/MKeyVerificationRequest-test.tsx | MKeyVerificationRequest | shows an error if the event has no sender
+test/components/views/messages/MKeyVerificationRequest-test.tsx | MKeyVerificationRequest | shows an error if the event has no room
+test/components/views/messages/MKeyVerificationRequest-test.tsx | MKeyVerificationRequest | displays a request from someone else to me

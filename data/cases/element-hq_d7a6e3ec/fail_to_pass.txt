@@ -1,0 +1,3 @@
+test/components/views/elements/ExternalLink-test.tsx | <ExternalLink /> | renders link correctly
+test/components/views/elements/ExternalLink-test.tsx | <ExternalLink /> | defaults target and rel
+test/components/views/elements/ExternalLink-test.tsx | <ExternalLink /> | renders plain text link correctly

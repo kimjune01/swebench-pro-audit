@@ -1,0 +1,2 @@
+test/units/module_utils/facts/hardware/test_aix_processor.py::test_get_cpu_info[scenario0]
+test/units/module_utils/facts/hardware/test_aix_processor.py::test_get_cpu_info[scenario1]

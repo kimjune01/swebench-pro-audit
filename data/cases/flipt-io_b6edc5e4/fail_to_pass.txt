@@ -1,0 +1,5 @@
+TestNewSink_NewFile
+TestNewSink_ExistingFile
+TestNewSink_DirNotExists
+TestNewSink_Error
+TestSink_SendAudits

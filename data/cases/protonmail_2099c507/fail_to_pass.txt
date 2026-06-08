@@ -1,0 +1,3 @@
+src/app/store/_shares/useDefaultShare.test.tsx | useDefaultShare says share is available by default
+src/app/store/_shares/useDefaultShare.test.tsx | useDefaultShare says share is not available if locked
+src/app/store/_shares/useDefaultShare.test.tsx | useDefaultShare says share is not available if soft deleted

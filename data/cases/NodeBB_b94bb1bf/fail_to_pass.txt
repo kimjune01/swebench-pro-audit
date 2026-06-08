@@ -1,0 +1,1 @@
+test/controllers.js | Controllers maintenance mode should return 200 if guests are allowed

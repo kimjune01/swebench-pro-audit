@@ -1,0 +1,4 @@
+src/app/helpers/expiration.test.ts | getMinExpirationTime should return undefined if date is not today
+src/app/helpers/expiration.test.ts | getMinExpirationTime should return a Date if date is today
+src/app/helpers/expiration.test.ts | getMinExpirationTime should return a Date with minutes set to 0 or 30
+src/app/helpers/expiration.test.ts | getMinExpirationTime should return a older next interval from now with a difference of at least 30 minutes

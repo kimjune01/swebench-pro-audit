@@ -1,0 +1,6 @@
+src/app/store/_links/useLink.test.ts | useLink skips failing fetch if already attempted before
+src/app/store/_links/useLink.test.ts | useLink skips load of already cached thumbnail
+src/app/store/_links/useLink.test.ts | useLink loads link thumbnail using cached link thumbnail info
+src/app/store/_links/useLink.test.ts | useLink loads link thumbnail with expired cached link thumbnail info
+src/app/store/_links/useLink.test.ts | useLink loads link thumbnail with its url on API
+src/app/store/_links/useLink.test.ts | useLink decrypts badly signed thumbnail block

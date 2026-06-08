@@ -1,0 +1,2 @@
+test/components/views/right_panel/RoomSummaryCard-test.tsx | poll history | renders poll history option when feature is enabled
+test/components/views/right_panel/RoomSummaryCard-test.tsx | poll history | opens poll history dialog on button click

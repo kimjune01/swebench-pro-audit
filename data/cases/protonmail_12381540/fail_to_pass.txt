@@ -1,0 +1,3 @@
+containers/payments/Bitcoin.test.tsx | should render
+containers/payments/Bitcoin.test.tsx | should show loading during the initial fetching
+containers/payments/Bitcoin.test.tsx | should check the token every 10 seconds

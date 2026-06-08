@@ -1,0 +1,2 @@
+test/hooks/useWindowWidth-test.ts | useWindowWidth | should return the current width of window, according to UIStore
+test/hooks/useWindowWidth-test.ts | useWindowWidth | should update the value when UIStore's value changes

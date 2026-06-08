@@ -1,0 +1,4 @@
+tests/unit/config/test_configtypes.py::TestStatusbarWidget::test_validate_valid_values[text:bar]
+tests/unit/config/test_configtypes.py::TestStatusbarWidget::test_validate_valid_values[foo]
+tests/unit/config/test_configtypes.py::TestStatusbarWidget::test_validate_invalid_values[text]
+tests/unit/config/test_configtypes.py::TestStatusbarWidget::test_validate_invalid_values[foo:bar]

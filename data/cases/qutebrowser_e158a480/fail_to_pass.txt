@@ -1,0 +1,4 @@
+tests/unit/browser/test_shared.py::test_accept_language_no_fallback[None-True-True]
+tests/unit/browser/test_shared.py::test_accept_language_no_fallback[None-False-True]
+tests/unit/browser/test_shared.py::test_accept_language_no_fallback[url2-True-True]
+tests/unit/browser/test_shared.py::test_accept_language_no_fallback[url3-False-False]

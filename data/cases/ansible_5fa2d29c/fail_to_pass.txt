@@ -1,0 +1,3 @@
+test/units/modules/network/netvisor/test_pn_user.py::TestUserModule::test_user_create
+test/units/modules/network/netvisor/test_pn_user.py::TestUserModule::test_user_delete
+test/units/modules/network/netvisor/test_pn_user.py::TestUserModule::test_user_modify

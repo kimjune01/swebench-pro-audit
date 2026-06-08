@@ -1,0 +1,1 @@
+test/units/cli/test_adhoc.py::test_play_ds_positive

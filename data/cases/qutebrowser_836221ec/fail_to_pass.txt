@@ -1,0 +1,5 @@
+tests/unit/browser/test_qutescheme.py::TestQuteConfigdiff::test_default_config[qute://configdiff/?include_hidden=true-chrome-devtools://*: content.javascript.enabled = true]
+tests/unit/config/test_config.py::TestConfig::test_dump_userconfig[True]
+tests/unit/config/test_config.py::TestConfig::test_dump_userconfig[False]
+tests/unit/config/test_configcommands.py::test_diff[True-qute://configdiff?include_hidden=true]
+tests/unit/config/test_configcommands.py::test_diff[False-qute://configdiff]

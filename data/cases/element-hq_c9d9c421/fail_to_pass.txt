@@ -1,0 +1,8 @@
+test/unit-tests/components/views/rooms/PinnedMessageBanner-test.tsx | <PinnedMessageBanner /> | should render a single pinned event
+test/unit-tests/components/views/rooms/PinnedMessageBanner-test.tsx | <PinnedMessageBanner /> | should display the last message when the pinned event array changed
+test/unit-tests/components/views/rooms/PinnedMessageBanner-test.tsx | <PinnedMessageBanner /> | should rotate the pinned events when the banner is clicked
+test/unit-tests/components/views/rooms/PinnedMessageBanner-test.tsx | <PinnedMessageBanner /> | should display the m.file event type
+test/unit-tests/components/views/rooms/PinnedMessageBanner-test.tsx | <PinnedMessageBanner /> | should display the m.audio event type
+test/unit-tests/components/views/rooms/PinnedMessageBanner-test.tsx | <PinnedMessageBanner /> | should display the m.video event type
+test/unit-tests/components/views/rooms/PinnedMessageBanner-test.tsx | <PinnedMessageBanner /> | should display the m.image event type
+test/unit-tests/components/views/rooms/PinnedMessageBanner-test.tsx | <PinnedMessageBanner /> | should display display a poll event

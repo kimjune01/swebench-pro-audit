@@ -1,0 +1,2 @@
+test/tests/api/worker/rest/EntityRestClientTest.js | test suite
+test/tests/api/worker/rest/ServiceExecutorTest.js | test suite

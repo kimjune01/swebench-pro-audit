@@ -1,0 +1,1 @@
+tests/test_docker_compose.py::TestDockerCompose::test_shared_constants

@@ -1,0 +1,1 @@
+tests/unit/components/test_braveadblock.py::test_corrupt_cache_handling

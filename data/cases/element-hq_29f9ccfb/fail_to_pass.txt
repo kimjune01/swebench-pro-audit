@@ -1,0 +1,2 @@
+test/components/views/rooms/wysiwyg_composer/SendWysiwygComposer-test.tsx | Emoji when { isRichTextEnabled: true } | Should add an emoji in an empty composer
+test/components/views/rooms/wysiwyg_composer/SendWysiwygComposer-test.tsx | Emoji when { isRichTextEnabled: true } | Should add an emoji in the middle of a word

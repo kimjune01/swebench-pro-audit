@@ -1,0 +1,16 @@
+test/unit-tests/components/views/settings/encryption/ResetIdentityPanel-test.tsx | <ResetIdentityPanel /> | should reset the encryption when the continue button is clicked
+test/unit-tests/components/views/settings/encryption/ResetIdentityPanel-test.tsx | <ResetIdentityPanel /> | should display the 'forgot recovery key' variant correctly
+test/unit-tests/components/views/settings/tabs/user/EncryptionUserSettingsTab-test.tsx | <EncryptionUserSettingsTab /> | should display a loading state when the encryption state is computed
+test/unit-tests/components/views/settings/tabs/user/EncryptionUserSettingsTab-test.tsx | <EncryptionUserSettingsTab /> | should display a verify button when the encryption is not set up
+test/unit-tests/components/views/settings/tabs/user/EncryptionUserSettingsTab-test.tsx | <EncryptionUserSettingsTab /> | should display the recovery panel when the encryption is set up
+test/unit-tests/components/views/settings/tabs/user/EncryptionUserSettingsTab-test.tsx | <EncryptionUserSettingsTab /> | should display the recovery out of sync panel when secrets are not cached
+test/unit-tests/components/views/settings/tabs/user/EncryptionUserSettingsTab-test.tsx | <EncryptionUserSettingsTab /> | should display the change recovery key panel when the user clicks on the change recovery button
+test/unit-tests/components/views/settings/tabs/user/EncryptionUserSettingsTab-test.tsx | <EncryptionUserSettingsTab /> | should display the set up recovery key when the user clicks on the set up recovery key button
+test/unit-tests/components/views/settings/tabs/user/EncryptionUserSettingsTab-test.tsx | <EncryptionUserSettingsTab /> | should display the reset identity panel when the user clicks on the reset cryptographic identity panel
+test/unit-tests/components/views/settings/tabs/user/EncryptionUserSettingsTab-test.tsx | <EncryptionUserSettingsTab /> | should enter reset flow when showResetIdentity is set
+test/unit-tests/components/views/settings/tabs/user/EncryptionUserSettingsTab-test.tsx | <EncryptionUserSettingsTab /> | should re-check the encryption state and displays the correct panel when the user clicks cancel the reset identity flow
+test/unit-tests/components/views/settings/encryption/ChangeRecoveryKey-test.tsx | flow to set up a recovery key | should display information about the recovery key
+test/unit-tests/components/views/settings/encryption/ChangeRecoveryKey-test.tsx | flow to set up a recovery key | should display the recovery key
+test/unit-tests/components/views/settings/encryption/ChangeRecoveryKey-test.tsx | flow to set up a recovery key | should ask the user to enter the recovery key
+test/unit-tests/components/views/settings/encryption/ChangeRecoveryKey-test.tsx | flow to set up a recovery key | should display errors from bootstrapSecretStorage
+test/unit-tests/components/views/settings/encryption/ChangeRecoveryKey-test.tsx | flow to change the recovery key | should display the recovery key

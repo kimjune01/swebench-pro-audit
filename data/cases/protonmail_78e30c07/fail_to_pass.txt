@@ -1,0 +1,3 @@
+src/app/helpers/message/messageImages.test.ts | should forge the expected image URL
+src/app/components/message/tests/Message.images.test.tsx | should load correctly all elements other than images with proxy
+src/app/components/message/tests/Message.images.test.tsx | should be able to load direct when proxy failed at loading

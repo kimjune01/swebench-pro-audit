@@ -1,0 +1,46 @@
+{
+ "case": "NodeBB_f0d989e4",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "apiPosts.getRaw({ uid: 0 }, { pid }) returns null when the caller lacks topics:read privileges.",
+   "covering_prose": "The `getRaw` operation must verify `topics:read` privileges, load the minimal fields required to return raw content and enforce deletion rules, deny access to deleted posts unless the caller is an administrator, a moderator, or the post\u2019s author, apply existing plugin filters for raw post retrieval, and return the raw content; when access is denied or the post is unavailable, it must return `null`.",
+   "gold_anchor": "if (!userPrivilege['topics:read']) {\n\t\treturn null;\n\t}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "apiPosts.getRaw({ uid: voterUid }, { pid }) returns null when the post is deleted and the caller is not an administrator, moderator, or author.",
+   "covering_prose": "The `getRaw` operation must verify `topics:read` privileges, load the minimal fields required to return raw content and enforce deletion rules, deny access to deleted posts unless the caller is an administrator, a moderator, or the post\u2019s author, apply existing plugin filters for raw post retrieval, and return the raw content; when access is denied or the post is unavailable, it must return `null`.",
+   "gold_anchor": "if (postData.deleted && !(userPrivilege.isAdminOrMod || selfPost)) {\n\t\treturn null;\n\t}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "apiPosts.getRaw({ uid: globalModUid }, { pid }) returns 'raw content' when the post is deleted and the caller is a privileged moderator.",
+   "covering_prose": "If the post is marked as deleted, it ensures that only admins, moderators, or the post author can access it. Triggers the `filter:post.getRawPost` plugin hook before returning the content.",
+   "gold_anchor": "return result.postData.content;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "apiPosts.getRaw({ uid: voterUid }, { pid }) returns 'raw content' when the post is not deleted and the caller can read it.",
+   "covering_prose": "The `getRaw` operation must verify `topics:read` privileges, load the minimal fields required to return raw content and enforce deletion rules, deny access to deleted posts unless the caller is an administrator, a moderator, or the post\u2019s author, apply existing plugin filters for raw post retrieval, and return the raw content; when access is denied or the post is unavailable, it must return `null`.",
+   "gold_anchor": "return result.postData.content;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "apiPosts.getSummary({ uid: voterUid }, { pid }) returns a truthy post summary object.",
+   "covering_prose": "The `getSummary` operation must resolve the topic for the given `pid`, verify `topics:read` privileges, load a privilege-adjusted post summary, and return it; when access is denied or the post is unavailable, it must return `null`.",
+   "gold_anchor": "return postsData[0];",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "case": "NodeBB_8fd8079a",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Calling db.deleteObjectField('someKey', []) completes without throwing an error.",
+   "covering_prose": "In Redis hash utilities, always coerce field values to strings; only delete if non-empty.",
+   "gold_anchor": "field = field.toString();",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

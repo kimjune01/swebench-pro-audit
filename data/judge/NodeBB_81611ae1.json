@@ -1,0 +1,32 @@
+{
+ "case": "NodeBB_81611ae1",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "An invitation creates a retrievable token reference at `invitation:uid:<inviterUid>:invited:<email>` for the invited email.",
+   "covering_prose": "- A reference from the inviter to the invited email must be stored using the key `invitation:uid:<uid>:invited:<email>`.",
+   "gold_anchor": "await db.set(`invitation:uid:${uid}:invited:${email}`, token);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`User.verifyInvitation({ token, email })` succeeds with no error when the token is valid, with validation based on the token rather than requiring the email.",
+   "covering_prose": "- The function `User.verifyInvitation` must require a token and validate it independently of the email address. The `email` parameter should be optional.",
+   "gold_anchor": "const token = await db.getObjectField(`invitation:token:${query.token}`, 'token');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A user registering with an invitation token is added to the groups associated with that token after registration.",
+   "covering_prose": "Automatically add the user to any groups associated with the token.",
+   "gold_anchor": "user.joinGroupsFromInvitation(uid, userData.token),",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

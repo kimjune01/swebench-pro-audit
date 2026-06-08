@@ -1,0 +1,109 @@
+{
+ "case": "NodeBB_09f3ac65",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 12,
+ "n_covered": 12,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "`isValidationPending(uid)` returns strict `false` when the user has not requested email validation.",
+   "covering_prose": "Ensure the system maintains a clear state indicating whether an email confirmation is pending or not, returning a strict true or false.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`isValidationPending(uid, email)` returns strict `false` when the user has not requested email validation.",
+   "covering_prose": "Ensure the pending-state check accepts an optional email argument and returns true only when the provided email matches the stored pending email for that user.",
+   "gold_anchor": "return !!(confirmObj && email === confirmObj.email);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`isValidationPending(uid)` returns strict `true` after `sendValidationEmail(uid, { email })`.",
+   "covering_prose": "Confirmation status should clearly indicate whether a validation is pending or not.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`isValidationPending(uid, email)` returns strict `true` after `sendValidationEmail(uid, { email })` with the same email.",
+   "covering_prose": "Ensure the pending-state check accepts an optional email argument and returns true only when the provided email matches the stored pending email for that user.",
+   "gold_anchor": "return !!(confirmObj && email === confirmObj.email);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`getValidationExpiry(uid)` returns strict `null` when no confirmation is pending.",
+   "covering_prose": "Return null if none is pending.",
+   "gold_anchor": "return pending ? db.pttl(`confirm:byUid:${uid}`) : null;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`getValidationExpiry(uid)` returns a finite number after a confirmation is sent.",
+   "covering_prose": "Provide a way to fetch the remaining TTL (in milliseconds) for a pending email confirmation.",
+   "gold_anchor": "UserEmail.getValidationExpiry = async (uid) => {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`getValidationExpiry(uid)` returns a TTL greater than `0` after a confirmation is sent.",
+   "covering_prose": "When present, TTL should be > 0 and \u2264 emailConfirmExpiry * 24 * 60 * 60 * 1000, and it should be derived from the store\u2019s live TTL so it decreases over time.",
+   "gold_anchor": "return pending ? db.pttl(`confirm:byUid:${uid}`) : null;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`getValidationExpiry(uid)` returns a TTL less than or equal to `meta.config.emailConfirmExpiry * 24 * 60 * 60 * 1000` after a confirmation is sent.",
+   "covering_prose": "When present, TTL should be > 0 and \u2264 emailConfirmExpiry * 24 * 60 * 60 * 1000, and it should be derived from the store\u2019s live TTL so it decreases over time.",
+   "gold_anchor": "await db.pexpire(`confirm:byUid:${uid}`, emailConfirmExpiry * 24 * 60 * 60 * 1000);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After `expireValidation(uid)`, `isValidationPending(uid)` returns strict `false`.",
+   "covering_prose": "Ensure that expiring a pending confirmation fully clears all related data and immediately allows a new confirmation to be requested.",
+   "gold_anchor": "await db.deleteAll([",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After `expireValidation(uid)`, `isValidationPending(uid, email)` returns strict `false`.",
+   "covering_prose": "Maintain that expiring a pending confirmation clears both the per-user marker and any confirmation record, enabling immediate resend eligibility.",
+   "gold_anchor": "`confirm:${code}`,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After `expireValidation(uid)`, `canSendValidation(uid, email)` returns strict `true`.",
+   "covering_prose": "If no confirmation is pending (or it has been explicitly expired), resend should be allowed.",
+   "gold_anchor": "return true;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`canSendValidation(uid, email)` returns truthy when no validation is pending.",
+   "covering_prose": "If no confirmation is pending (or it has been explicitly expired), resend should be allowed.",
+   "gold_anchor": "return true;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Immediately after a pending confirmation exists, `canSendValidation(uid, 'test@example.com')` returns strict `false`.",
+   "covering_prose": "Resend should be blocked while pending unless ttlMs + intervalMs < expiryMs; otherwise, it should be allowed.",
+   "gold_anchor": "return ttl + interval < max;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After setting `confirm:byUid:${uid}` TTL to `1000` milliseconds, `canSendValidation(uid, 'test@example.com')` returns truthy.",
+   "covering_prose": "Provide for resend eligibility to become true once the remaining lifetime condition is met or after the pending confirmation has been explicitly expired.",
+   "gold_anchor": "return ttl + interval < max;",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

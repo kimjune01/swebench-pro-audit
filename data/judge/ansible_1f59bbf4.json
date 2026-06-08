@@ -1,0 +1,88 @@
+{
+ "case": "ansible_1f59bbf4",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 10,
+ "n_covered": 10,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "For a device list with 10 processor entries and smt_threads value 8, `processor_count` is `1`.",
+   "covering_prose": "The `processor_count` fact should be set to a constant value of `1`.",
+   "gold_anchor": "cpu_facts['processor_count'] = 1",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a device list with 12 processor entries and smt_threads value 4, `processor_count` is `1`.",
+   "covering_prose": "The `processor_count` fact should be set to a constant value of `1`.",
+   "gold_anchor": "cpu_facts['processor_count'] = 1",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For 10 lines in `lsdev -Cc processor` output, `processor_cores` is `10`.",
+   "covering_prose": "The `processor_cores` fact should represent the total number of processor cores detected from the device list output.",
+   "gold_anchor": "cpu_facts['processor_cores'] = int(i)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For 12 lines in `lsdev -Cc processor` output, `processor_cores` is `12`.",
+   "covering_prose": "The `processor_cores` fact should represent the total number of processor cores detected from the device list output.",
+   "gold_anchor": "cpu_facts['processor_cores'] = int(i)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `lsattr_smt_threads_output` reports `smt_threads 8 Processor SMT threads False`, `processor_threads_per_core` is `8`.",
+   "covering_prose": "The `processor_threads_per_core` fact should default to `1` when no value is available, or use the reported value when present.",
+   "gold_anchor": "cpu_facts['processor_threads_per_core'] = int(data[1])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `lsattr_smt_threads_output` reports `smt_threads 4 Processor SMT threads False`, `processor_threads_per_core` is `4`.",
+   "covering_prose": "The `processor_threads_per_core` fact should default to `1` when no value is available, or use the reported value when present.",
+   "gold_anchor": "cpu_facts['processor_threads_per_core'] = int(data[1])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For `processor_cores` 10 and `processor_threads_per_core` 8, `processor_vcpus` is `80`.",
+   "covering_prose": "The `processor_vcpus` fact should be derived by multiplying `processor_cores` and `processor_threads_per_core`.",
+   "gold_anchor": "cpu_facts['processor_cores'] * cpu_facts['processor_threads_per_core']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For `processor_cores` 12 and `processor_threads_per_core` 4, `processor_vcpus` is `48`.",
+   "covering_prose": "The `processor_vcpus` fact should be derived by multiplying `processor_cores` and `processor_threads_per_core`.",
+   "gold_anchor": "cpu_facts['processor_cores'] * cpu_facts['processor_threads_per_core']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `lsattr_type_output` reports `type PowerPC_POWER8 Processor type False`, `processor` is `['PowerPC_POWER8']`.",
+   "covering_prose": "The `processor` fact should be provided as a list containing the CPU type string extracted from the device attributes.",
+   "gold_anchor": "cpu_facts['processor'] = [data[1]]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `lsattr_type_output` reports `type PowerPC_POWER7 Processor type False`, `processor` is `['PowerPC_POWER7']`.",
+   "covering_prose": "The `processor` fact should be provided as a list containing the CPU type string extracted from the device attributes.",
+   "gold_anchor": "cpu_facts['processor'] = [data[1]]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`get_cpu_facts()` returns exactly the expected dictionary with only `processor`, `processor_count`, `processor_cores`, `processor_threads_per_core`, and `processor_vcpus` for each scenario.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

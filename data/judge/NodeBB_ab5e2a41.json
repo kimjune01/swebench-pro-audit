@@ -1,0 +1,81 @@
+{
+ "case": "NodeBB_ab5e2a41",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 10,
+ "n_covered": 10,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Groups.removeCover deletes the local disk file referenced by group field `cover:url`; after removal `fs.existsSync(path.join(upload_path, 'files', filename))` is false.",
+   "covering_prose": "- In `src/groups/cover.js`, `Groups.removeCover` must clear the keys `cover:url`, `cover:thumb:url`, and `cover:position` and also remove the corresponding files from disk when they belong to the local uploads.",
+   "gold_anchor": "const fields = ['cover:url', 'cover:thumb:url'];",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Groups.removeCover deletes the local disk file referenced by group field `cover:thumb:url`; after removal `fs.existsSync(path.join(upload_path, 'files', filename))` is false.",
+   "covering_prose": "- In `src/groups/cover.js`, `Groups.removeCover` must clear the keys `cover:url`, `cover:thumb:url`, and `cover:position` and also remove the corresponding files from disk when they belong to the local uploads.",
+   "gold_anchor": "return file.delete(filePath);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Groups.removeCover clears the group database field `cover:url`; after removal the field is falsy.",
+   "covering_prose": "- In `src/groups/cover.js`, `Groups.removeCover` must clear the keys `cover:url`, `cover:thumb:url`, and `cover:position` and also remove the corresponding files from disk when they belong to the local uploads.",
+   "gold_anchor": "await db.deleteObjectFields(`group:${data.groupName}`, ['cover:url', 'cover:thumb:url', 'cover:position']);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "User.getLocalCoverPath(uid) returns a filesystem path for the current local uploaded cover before removal, usable for checking the file after removal.",
+   "covering_prose": "- Returns a string with the local filesystem path to the user's cover image, or `false` if not local",
+   "gold_anchor": "User.getLocalCoverPath = async function (uid) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SocketUser.removeCover removes the user's uploaded cover file from disk; after removal `fs.existsSync(coverPath)` is false.",
+   "covering_prose": "- Removes the user's uploaded cover image from disk and clears the `cover:url` and `cover:position` fields. Handles multiple file extensions and ensures complete cleanup.",
+   "gold_anchor": "await deletePicture(data.uid, 'cover:url');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SocketUser.removeCover clears the user database field `cover:url`; after removal the field is null.",
+   "covering_prose": "- In `src/socket.io/user/profile.js`, `SocketUser.removeCover` must call the user image removal functionality and clear `cover:url` and `cover:position` for the given uid, rejecting invalid `uid` values.",
+   "gold_anchor": "await db.deleteObjectFields(`user:${data.uid}`, ['cover:url', 'cover:position']);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "User.getLocalAvatarPath(uid) returns a non-false filesystem path for the current local uploaded avatar before explicit removal.",
+   "covering_prose": "- Returns a string with the local filesystem path to the user's uploaded avatar, or `false` if not local",
+   "gold_anchor": "User.getLocalAvatarPath = async function (uid) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SocketUser.removeUploadedPicture clears the user database field `uploadedpicture` to the empty string.",
+   "covering_prose": "`User.removeProfileImage(uid)` in `src/user/picture.js` must clear the `uploadedpicture` field and reset `picture` if it matched the removed uploaded avatar. The function should return an object containing the previous values of `uploadedpicture` and `picture` fields.",
+   "gold_anchor": "uploadedpicture: '',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SocketUser.removeUploadedPicture removes the uploaded avatar file from disk; after removal `fs.existsSync(avatarPath)` is false.",
+   "covering_prose": "- In `src/socket.io/user/picture.js`, `SocketUser.removeUploadedPicture` should delegate to centralized removal logic in the user image layer and act when a user explicitly requests to remove their avatar.",
+   "gold_anchor": "const userData = await user.removeProfileImage(data.uid);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Account deletion removes every remaining profile image file in `upload_path/profile` whose filename starts with `${uid}-profilecover` or `${uid}-profileavatar`, leaving exactly 0 such files.",
+   "covering_prose": "- The function handling account deletion in `src/user/delete.js` should ensure that all profile image files for the user are removed from `upload_path/profile`, covering both cover and avatar variants with all supported extensions (.png, .jpeg, .jpg, .bmp).",
+   "gold_anchor": "rimrafAsync(path.join(folder, `${uid}-profilecover*`))",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

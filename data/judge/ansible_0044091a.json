@@ -1,0 +1,102 @@
+{
+ "case": "ansible_0044091a",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 6,
+ "n_covered": 5,
+ "n_gap": 1,
+ "n_out_of_scope": 7,
+ "rows": [
+  {
+   "test": "The module accepts a `destination_ports` argument as a list containing individual ports and a port range: `['80', '443', '8081:8085']`.",
+   "covering_prose": "Add a 'destination_ports' parameter to the iptables module that accepts a list of ports or port ranges, allowing a single rule to target multiple destination ports.",
+   "gold_anchor": "destination_ports=dict(type='list', elements='str', default=[])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The `destination_ports` argument is accepted when `protocol` is `tcp`.",
+   "covering_prose": "- The parameter must be compatible only with the tcp, udp, udplite, dccp, and sctp protocols",
+   "gold_anchor": "It can only be used in conjunction with the protocols tcp, udp, udplite, dccp and sctp.",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The command uses the iptables multiport match by including `-m multiport`.",
+   "covering_prose": "- The functionality must use the iptables multiport module through the `append_match` and `append_csv` functions.",
+   "gold_anchor": "append_match(rule, params['destination_ports'], 'multiport')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The command emits destination ports with `--dports` and joins the list as the CSV string `80,443,8081:8085`.",
+   "covering_prose": "- The functionality must use the iptables multiport module through the `append_match` and `append_csv` functions.",
+   "gold_anchor": "append_csv(rule, params['destination_ports'], '--dports')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Multiple destination ports are handled in one iptables command invocation, with `run_command.call_count == 1`.",
+   "covering_prose": "allowing a single rule to target multiple destination ports.",
+   "gold_anchor": "append_csv(rule, params['destination_ports'], '--dports')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The exact command starts with `['/sbin/iptables', '-t', 'filter', '-C', 'INPUT']`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The exact command includes `['-p', 'tcp']`.",
+   "covering_prose": "- The parameter must be compatible only with the tcp, udp, udplite, dccp, and sctp protocols",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The exact command includes `['-s', '192.168.0.1/32']`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The exact command includes `['-j', 'ACCEPT']`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The multiport tokens appear after `['-j', 'ACCEPT']` and before `['-i', 'eth0']` in the command.",
+   "covering_prose": null,
+   "gold_anchor": "append_match(rule, params['destination_ports'], 'multiport')",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The exact command includes `['-i', 'eth0']` after the multiport destination-port arguments.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The exact command ends with the comment match and value: `['-m', 'comment', '--comment', 'this is a comment']`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Calling `iptables.main()` exits through `AnsibleExitJson`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

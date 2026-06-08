@@ -1,0 +1,102 @@
+{
+ "case": "ansible_016b7f71",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "_parse_content(u'') returns plaintext_password equal to u''.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_parse_content(u'') returns salt equal to None.",
+   "covering_prose": "The password lookup plugin parses password files containing password, salt, and ident values, returning each component separately and treating missing values as None.",
+   "gold_anchor": "salt = None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_parse_content(u'') returns ident equal to None.",
+   "covering_prose": "The password lookup plugin parses password files containing password, salt, and ident values, returning each component separately and treating missing values as None.",
+   "gold_anchor": "ident = None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_parse_content(u'12345678') returns three values: plaintext_password, salt, and ident.",
+   "covering_prose": "The password lookup plugin parses password files containing password, salt, and ident values, returning each component separately and treating missing values as None.",
+   "gold_anchor": "return password, salt, ident",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_parse_content(u'12345678') returns plaintext_password equal to u'12345678'.",
+   "covering_prose": "The password lookup plugin parses password files containing password, salt, and ident values, returning each component separately and treating missing values as None.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_parse_content(u'12345678') returns salt equal to None.",
+   "covering_prose": "The password lookup plugin parses password files containing password, salt, and ident values, returning each component separately and treating missing values as None.",
+   "gold_anchor": "salt = None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_parse_content(u'12345678') returns ident equal to None.",
+   "covering_prose": "The password lookup plugin parses password files containing password, salt, and ident values, returning each component separately and treating missing values as None.",
+   "gold_anchor": "ident = None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_parse_content(u'12345678 salt=87654321') returns plaintext_password equal to u'12345678'.",
+   "covering_prose": "The password lookup plugin parses password files containing password, salt, and ident values, returning each component separately and treating missing values as None.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_parse_content(u'12345678 salt=87654321') returns salt equal to u'87654321'.",
+   "covering_prose": "The password lookup plugin parses password files containing password, salt, and ident values, returning each component separately and treating missing values as None.",
+   "gold_anchor": "salt = rem",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_parse_content(u'12345678 salt=87654321') returns ident equal to None.",
+   "covering_prose": "The password lookup plugin parses password files containing password, salt, and ident values, returning each component separately and treating missing values as None.",
+   "gold_anchor": "ident = None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_parse_content(u'12345678 salt=87654321 ident=2a') returns plaintext_password equal to u'12345678'.",
+   "covering_prose": "The password lookup plugin parses password files containing password, salt, and ident values, returning each component separately and treating missing values as None.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_parse_content(u'12345678 salt=87654321 ident=2a') returns salt equal to u'87654321'.",
+   "covering_prose": "The password lookup plugin parses password files containing password, salt, and ident values, returning each component separately and treating missing values as None.",
+   "gold_anchor": "salt = rem[:sep]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_parse_content(u'12345678 salt=87654321 ident=2a') returns ident equal to u'2a'.",
+   "covering_prose": "The password lookup plugin parses password files containing password, salt, and ident values, returning each component separately and treating missing values as None.",
+   "gold_anchor": "ident = rem[sep + len(ident_slug):]",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,32 @@
+{
+ "case": "NodeBB_6ecc791d",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 3,
+ "n_covered": 2,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Calling sortedSetsCardSum on sortedSetTest1, sortedSetTest2, and sortedSetTest3 with min '-inf' and max 2 returns 5, counting scores less than or equal to 2 across all three sets.",
+   "covering_prose": "- The function must accept multiple sorted sets and apply the score filtering across all of them.",
+   "gold_anchor": "keys.forEach(k => batch.zcount(String(k), min, max));",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling sortedSetsCardSum on sortedSetTest1, sortedSetTest2, and sortedSetTest3 with min 2 and max '+inf' returns 3, counting scores greater than or equal to 2 across all three sets.",
+   "covering_prose": "- The function must accept multiple sorted sets and apply the score filtering across all of them.",
+   "gold_anchor": "keys.forEach(k => batch.zcount(String(k), min, max));",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling sortedSetsCardSum on sortedSetTest1, sortedSetTest2, and sortedSetTest3 with min '-inf' and max '+inf' returns 7, treating those bounds as an unbounded total across all three sets.",
+   "covering_prose": null,
+   "gold_anchor": "if (min !== '-inf' || max !== '+inf')",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

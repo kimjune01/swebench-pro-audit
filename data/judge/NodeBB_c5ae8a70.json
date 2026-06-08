@@ -1,0 +1,25 @@
+{
+ "case": "NodeBB_c5ae8a70",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For category-based getSortedTopics with sort: 'recent', start: 0, stop: -1, the first returned topic title is 'most recent replied' and the second is 'old replied'.",
+   "covering_prose": "The old sort must be the inverse of the existing recent sort over the same topic set, with recent remaining descending by lastposttime.",
+   "gold_anchor": "recent: sortRecent,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For category-based getSortedTopics with sort: 'old', start: 0, stop: -1, the first returned topic title is 'old replied' and the second is 'most recent replied'.",
+   "covering_prose": "Category-based listings must include only topics within params.cids and order them from oldest to most recently replied when params.sort === 'old'.",
+   "gold_anchor": "return a.lastposttime - b.lastposttime;",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

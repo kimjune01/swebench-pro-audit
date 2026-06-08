@@ -1,0 +1,39 @@
+{
+ "case": "NodeBB_bbaaead0",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 3,
+ "n_covered": 2,
+ "n_gap": 1,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "A regular, unprivileged user creating a topic with tag \"locked\" when `meta.config.systemTags` is set to \"moved,locked\" is denied.",
+   "covering_prose": "Unprivileged users attempting to use these tags during topic creation, editing, or in tagging APIs should be denied with a clear error message.",
+   "gold_anchor": "if (!isPrivileged && systemTags.length && tags.some(tag => systemTags.includes(tag))) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The denial from using a reserved system tag throws an error whose internal message is exactly \"[[error:cant-use-system-tag]]\".",
+   "covering_prose": null,
+   "gold_anchor": "throw new Error('[[error:cant-use-system-tag]]');",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "An admin user creating a topic with tag \"locked\" when `meta.config.systemTags` is set to \"moved,locked\" is allowed.",
+   "covering_prose": "These tags should only be assignable by users with elevated privileges.",
+   "gold_anchor": "user.isPrivileged(uid)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After an admin user creates a topic using the reserved tag \"locked\", the created topic's first tag value is exactly \"locked\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

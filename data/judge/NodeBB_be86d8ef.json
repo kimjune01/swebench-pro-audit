@@ -1,0 +1,60 @@
+{
+ "case": "NodeBB_be86d8ef",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "meta.userOrGroupExists('registered-users') resolves to true for a single existing group slug.",
+   "covering_prose": "// Single group slug \u2192 true\n\nawait meta.userOrGroupExists('registered-users');",
+   "gold_anchor": "(userExists || groupExists)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "meta.userOrGroupExists('John Smith') resolves to true for a single existing user name after normalization.",
+   "covering_prose": "// Single user slug \u2192 true\n\nawait meta.userOrGroupExists('John Smith');",
+   "gold_anchor": "slug = isArray ? slug.map(s => slugify(s, false)) : slugify(slug);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "meta.userOrGroupExists('doesnot exist') resolves to false for a single non-existing slug.",
+   "covering_prose": "// Non-existing slug \u2192 false\n\nawait meta.userOrGroupExists('doesnot exist');",
+   "gold_anchor": "(userExists || groupExists)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "meta.userOrGroupExists(['doesnot exist', 'nope not here']) resolves to [false, false].",
+   "covering_prose": "// Array of non-existing slugs \u2192 [false, false]\n\nawait meta.userOrGroupExists(['doesnot exist', 'nope not here']);",
+   "gold_anchor": "slug.map((s, i) => userExists[i] || groupExists[i])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "meta.userOrGroupExists(['doesnot exist', 'John Smith']) resolves to [false, true] in input order.",
+   "covering_prose": "// Mixed array (user + non-existing) \u2192 [false, true]\n\nawait meta.userOrGroupExists(['doesnot exist', 'John Smith']);",
+   "gold_anchor": "slug.map((s, i) => userExists[i] || groupExists[i])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "meta.userOrGroupExists(['administrators', 'John Smith']) resolves to [true, true] for mixed existing group and user values.",
+   "covering_prose": "// Mixed array (group + user) \u2192 [true, true]\n\nawait meta.userOrGroupExists(['administrators', 'John Smith']);",
+   "gold_anchor": "slug.map((s, i) => userExists[i] || groupExists[i])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "meta.userOrGroupExists(['', undefined]) rejects with an Error whose message is [[error:invalid-data]].",
+   "covering_prose": "// Invalid input (falsy values) \u2192 rejects with [[error:invalid-data]]\n\nawait meta.userOrGroupExists(['', undefined]);",
+   "gold_anchor": "throw new Error('[[error:invalid-data]]');",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

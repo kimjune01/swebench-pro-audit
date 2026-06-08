@@ -1,0 +1,60 @@
+{
+ "case": "NodeBB_a2ebf53b",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Calling incrObjectFieldByBulk with an array of [key, increments] tuples is accepted for the input [['testObject16', { age: 5, newField: 10 }], ['testObject17', { newField: -5 }]].",
+   "covering_prose": "incrObjectFieldByBulk must accept input shaped as an array of [key, { field: increment, ... }] tuples (e.g., [['key', { a: 1, b: -2 }], ...]), and reject any other shape in incrObjectFieldByBulk.",
+   "gold_anchor": "module.incrObjectFieldByBulk = async function (data) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For existing object testObject16 with age 100, field age is incremented by 5 so the read-back value is 105.",
+   "covering_prose": "Provide a bulk capability to apply numeric increments to multiple objects in a single operation.",
+   "gold_anchor": "bulk.find({ _key: item[0] }).upsert().update({ $inc: increment });",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For existing object testObject16, missing field newField is initialized and incremented by 10 so the read-back value is 10.",
+   "covering_prose": "If a field does not exist, incrObjectFieldByBulk must initialize it to 0 then apply the increment.",
+   "gold_anchor": "bulk.find({ _key: item[0] }).upsert().update({ $inc: increment });",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For missing object testObject17, incrObjectFieldByBulk creates the object as part of applying the increment.",
+   "covering_prose": "If an object does not exist, incrObjectFieldByBulk must create it as part of the operation.",
+   "gold_anchor": "bulk.find({ _key: item[0] }).upsert().update({ $inc: increment });",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For missing object testObject17, field newField is incremented by -5 so the read-back value is -5.",
+   "covering_prose": "incrObjectFieldByBulk must support positive and negative integer increments only, validating each increment is a safe integer before applying it in incrObjectFieldByBulk.",
+   "gold_anchor": "batch.hincrby(item[0], field, value);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A single call applies multiple field increments to the same object testObject16: age and newField are both updated.",
+   "covering_prose": "incrObjectFieldByBulk must apply multiple field increments to the same object in a single call (e.g., { age: 5, newField: 10 }), in incrObjectFieldByBulk.",
+   "gold_anchor": "for (const [field, value] of Object.entries(item[1])) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After incrObjectFieldByBulk completes, getObjects immediately reads the updated values for testObject16 and testObject17.",
+   "covering_prose": "Missing objects or fields should be created implicitly, and values read immediately after completion should reflect the updates.",
+   "gold_anchor": "await bulk.execute();",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

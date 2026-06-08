@@ -1,0 +1,130 @@
+{
+ "case": "NodeBB_e0149462",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 17,
+ "n_covered": 17,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "api.utils.tokens.list() returns an array of the available tokens; after two tokens exist, the returned array has length 2.",
+   "covering_prose": "Ensure `list()` returns an array of hydrated token objects (`uid`, `description`, `timestamp`, `lastSeen`) in ascending creation-time order; when there are no tokens present, `list()` returns an empty array.",
+   "gold_anchor": "utils.tokens.list = async () => {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.list() returns listed token objects whose uid values are numeric-compatible and equal to 0 for tokens generated with uid 0.",
+   "covering_prose": "Ensure each token is persisted at key `token:{token}` with fields `uid`, `description`, and `timestamp` written as a finite number of milliseconds since epoch, and ensure `uid` is numeric-compatible.",
+   "gold_anchor": "db.setObject(`token:${token}`, { uid, description, timestamp }),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.generate({ uid: 1 }) rejects with [[error:no-user]] when that non-zero user does not exist.",
+   "covering_prose": "Ensure `generate({ uid, description? })` returns the newly created token string, writes `token:{token}` with `uid`, optional `description`, and current `timestamp`, adds the token to `tokens:createtime` and `tokens:uid` with the scores defined above, validates that when `uid` is not `0` the user exists and otherwise throws `[[error:no-user]]`, and allows `uid` equal to `0` without existence validation.",
+   "gold_anchor": "throw new Error('[[error:no-user]]');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.generate({ uid }) succeeds for an existing non-zero user, and api.utils.tokens.get(token) returns a token object whose uid parses to that user id.",
+   "covering_prose": "Ensure `generate({ uid, description? })` returns the newly created token string, writes `token:{token}` with `uid`, optional `description`, and current `timestamp`, adds the token to `tokens:createtime` and `tokens:uid` with the scores defined above, validates that when `uid` is not `0` the user exists and otherwise throws `[[error:no-user]]`, and allows `uid` equal to `0` without existence validation.",
+   "gold_anchor": "const uidExists = await user.exists(uid);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.get(token) accepts a single token string and returns a single hydrated token object whose uid parses to 0 for a token generated with uid 0.",
+   "covering_prose": "Ensure `get(tokens)` accepts either a single token string or an array of token strings, throws `[[error:invalid-data]]` when the input is null or undefined, and returns hydrated token object(s) that include `uid`, `description`, `timestamp`, and `lastSeen` where `lastSeen` is either a finite number or `null`.",
+   "gold_anchor": "return singular ? tokenObjs[0] : tokenObjs;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.get([token, second]) accepts an array of token strings and returns an array of hydrated token objects, each present and with uid parsing to 0 for tokens generated with uid 0.",
+   "covering_prose": "Ensure `get(tokens)` accepts either a single token string or an array of token strings, throws `[[error:invalid-data]]` when the input is null or undefined, and returns hydrated token object(s) that include `uid`, `description`, `timestamp`, and `lastSeen` where `lastSeen` is either a finite number or `null`.",
+   "gold_anchor": "if (!Array.isArray(tokens)) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.get() with missing input rejects with [[error:invalid-data]].",
+   "covering_prose": "Ensure `get(tokens)` accepts either a single token string or an array of token strings, throws `[[error:invalid-data]]` when the input is null or undefined, and returns hydrated token object(s) that include `uid`, `description`, `timestamp`, and `lastSeen` where `lastSeen` is either a finite number or `null`.",
+   "gold_anchor": "throw new Error('[[error:invalid-data]]');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.generate({ uid: 0 }) returns a token string whose metadata exists at key token:{token}.",
+   "covering_prose": "Ensure `generate({ uid, description? })` returns the newly created token string, writes `token:{token}` with `uid`, optional `description`, and current `timestamp`, adds the token to `tokens:createtime` and `tokens:uid` with the scores defined above, validates that when `uid` is not `0` the user exists and otherwise throws `[[error:no-user]]`, and allows `uid` equal to `0` without existence validation.",
+   "gold_anchor": "return token;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.generate({ uid: 0 }) adds the generated token to the tokens:uid sorted set with score 0.",
+   "covering_prose": "Maintain a user ownership sorted index named `tokens:uid` with score equal to `uid` (numeric) and member equal to the token string.",
+   "gold_anchor": "db.sortedSetAdd(`tokens:uid`, uid, token),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.update(token, { description: 'foobar' }) changes the token description to foobar and returns updated stored metadata retrievable by get.",
+   "covering_prose": "Ensure `update(token, { description })` overwrites only the `description` field of `token:{token}`, preserves `uid` and `timestamp` values, and returns the hydrated token object including `lastSeen`.",
+   "gold_anchor": "await db.setObject(`token:${token}`, { description });",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.delete(token) deletes token:{token}; db.exists(token:{token}) becomes false.",
+   "covering_prose": "Ensure `delete(token)` deletes `token:{token}` and removes the token from `tokens:createtime`, `tokens:uid`, and `tokens:lastSeen` so that no residual object or index membership remains and index score lookups return `null`.",
+   "gold_anchor": "db.delete(`token:${token}`),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.delete(token) removes the token from tokens:uid so its sorted-set score lookup returns null.",
+   "covering_prose": "Ensure `delete(token)` deletes `token:{token}` and removes the token from `tokens:createtime`, `tokens:uid`, and `tokens:lastSeen` so that no residual object or index membership remains and index score lookups return `null`.",
+   "gold_anchor": "db.sortedSetRemove(`tokens:uid`, token),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.delete(token) removes the token from tokens:createtime so its sorted-set score lookup returns null.",
+   "covering_prose": "Ensure `delete(token)` deletes `token:{token}` and removes the token from `tokens:createtime`, `tokens:uid`, and `tokens:lastSeen` so that no residual object or index membership remains and index score lookups return `null`.",
+   "gold_anchor": "db.sortedSetRemove(`tokens:createtime`, token),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.delete(token) removes the token from tokens:lastSeen so its sorted-set score lookup returns null.",
+   "covering_prose": "Ensure `delete(token)` deletes `token:{token}` and removes the token from `tokens:createtime`, `tokens:uid`, and `tokens:lastSeen` so that no residual object or index membership remains and index score lookups return `null`.",
+   "gold_anchor": "db.sortedSetRemove(`tokens:lastSeen`, token),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.log(token) records a last-seen score for the token in tokens:lastSeen.",
+   "covering_prose": "Maintain a last-seen sorted index named `tokens:lastSeen` where logging usage writes the current time in milliseconds as the score for the token, and ensure `getLastSeen` returns an array of scores aligned to the input token order with values that are finite numbers or `null` when never seen.",
+   "gold_anchor": "await db.sortedSetAdd('tokens:lastSeen', Date.now(), token);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.getLastSeen([token]) after logging usage returns an array whose first element is present and finite.",
+   "covering_prose": "Maintain a last-seen sorted index named `tokens:lastSeen` where logging usage writes the current time in milliseconds as the score for the token, and ensure `getLastSeen` returns an array of scores aligned to the input token order with values that are finite numbers or `null` when never seen.",
+   "gold_anchor": "utils.tokens.getLastSeen = async tokens => await db.sortedSetScores('tokens:lastSeen', tokens);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "api.utils.tokens.getLastSeen([token]) returns an array whose first element is null when the token has never been seen.",
+   "covering_prose": "Maintain a last-seen sorted index named `tokens:lastSeen` where logging usage writes the current time in milliseconds as the score for the token, and ensure `getLastSeen` returns an array of scores aligned to the input token order with values that are finite numbers or `null` when never seen.",
+   "gold_anchor": "utils.tokens.getLastSeen = async tokens => await db.sortedSetScores('tokens:lastSeen', tokens);",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

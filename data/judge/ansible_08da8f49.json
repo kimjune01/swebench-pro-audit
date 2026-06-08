@@ -1,0 +1,18 @@
+{
+ "case": "ansible_08da8f49",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 0,
+ "n_covered": 0,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "All modified ansible-galaxy collection build/download/init/install commands in the visible hidden-test diff append the templated verbosity argument `{{ galaxy_verbosity }}`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

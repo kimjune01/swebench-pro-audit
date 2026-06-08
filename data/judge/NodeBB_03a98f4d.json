@@ -1,0 +1,53 @@
+{
+ "case": "NodeBB_03a98f4d",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "When `meta.config.groupsExemptFromPostQueue` is set to `['registered-users']`, a newly created registered user posting a topic bypasses the post queue and `socketTopics.post` returns a result whose `title` is exactly `'should not be queued'`.",
+   "covering_prose": "Must allow exempt groups (as defined in `meta.config.groupsExemptFromPostQueue`) to bypass the post queue when posting or replying. If a user belongs to an exempt group, their post should not be added to the post queue.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After a queued reply is created in topic A and topic A is merged into topic B using `{ mainTid: result2.tid }`, `posts.getQueuedPosts()` contains one queued post whose `data.tid` is topic B's tid.",
+   "covering_prose": "Queued posts must have their `data.tid` field updated if their topic is merged into another, with the update persisted using `db.setObjectBulk` and the relevant Redis key pattern.",
+   "gold_anchor": "posts.updateQueuedPostsTopic(mergeIntoTid, otherTids)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The queued post whose topic was updated during merge retains its original `data.content`, exactly `'the moved queued post'`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The queued-post topic update is performed by filtering queued posts by an array of topic IDs, so posts whose `data.tid` matches any merged source topic are selected for update.",
+   "covering_prose": "The `getQueuedPosts` function should support filtering by an array of topic IDs (tid). When an array is provided, the function should return queued posts whose `data.tid` matches any of the IDs in the array.",
+   "gold_anchor": "} else if (Array.isArray(filter.tid)) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The queued-post topic update persists updated queue records using Redis keys shaped as `post:queue:${p.id}` and writes `data` as JSON through `db.setObjectBulk`.",
+   "covering_prose": "Queued posts must have their `data.tid` field updated if their topic is merged into another, with the update persisted using `db.setObjectBulk` and the relevant Redis key pattern.",
+   "gold_anchor": "postData.map(p => `post:queue:${p.id}`)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After matching queued posts have their `data.tid` changed to the merged topic id, the post-queue cache is invalidated by deleting `'post-queue'`.",
+   "covering_prose": "After `Posts.updateQueuedPostsTopic(newTid, tids)` updates the data.tid field for matching queued posts, it should explicitly invalidate the post-queue cache by calling `cache.del('post-queue')`.",
+   "gold_anchor": "cache.del('post-queue');",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

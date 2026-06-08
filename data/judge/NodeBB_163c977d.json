@@ -1,0 +1,53 @@
+{
+ "case": "NodeBB_163c977d",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "After adding members ['v1','v2','v3'] with scores [1,2,3], getSortedSetMembersWithScores('getSortedSetsMembersWithScores') returns [{ value: 'v1', score: 1 }, { value: 'v2', score: 2 }, { value: 'v3', score: 3 }].",
+   "covering_prose": "getSortedSetMembersWithScores(key) should return an array of `{ value, score }` objects for the given `key`, sorted by ascending `score`.",
+   "gold_anchor": "module.getSortedSetMembersWithScores = async function (key) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Returned score fields are numeric values 1, 2, and 3, not strings.",
+   "covering_prose": "Scores should be returned as numbers, not strings.",
+   "gold_anchor": "helpers.zsetToObjectArray(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The single-key result is the per-key array itself, not an outer array containing it.",
+   "covering_prose": "The single-key variant should be consistent with the multi-key behavior and return only the first per-key array.",
+   "gold_anchor": "return data && data[0];",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getSortedSetsMembersWithScores(['doesnotexist', 'getSortedSetsMembersWithScores']) returns an array whose first element corresponds to the first input key and is [] for the missing key.",
+   "covering_prose": "For the multi-key variant, return an array whose i-th element corresponds to `keys[i]`, each being an array of `{ value, score }`, and preserve the input key order.",
+   "gold_anchor": "return keys.map(k => sets[k] || []);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For the non-existent key 'doesnotexist', the corresponding multi-key result is an empty array.",
+   "covering_prose": "For non-existent keys or keys with no members, the corresponding result should be an empty array; for an empty `keys` list, the function should return an empty array.",
+   "gold_anchor": "return keys.map(k => (res.rows.find(r => r.k === k) || {}).m || []);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getSortedSetsMembersWithScores(['doesnotexist', 'getSortedSetsMembersWithScores']) returns the existing key's members at index 1 as [{ value: 'v1', score: 1 }, { value: 'v2', score: 2 }, { value: 'v3', score: 3 }].",
+   "covering_prose": "getSortedSetsMembersWithScores(keys) should return an array where each element corresponds to the same index in `keys` and contains an array of `{ value, score }` objects for that key, sorted by ascending `score`.",
+   "gold_anchor": "return res.map(helpers.zsetToObjectArray);",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

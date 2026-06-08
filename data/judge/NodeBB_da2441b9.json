@@ -1,0 +1,74 @@
+{
+ "case": "NodeBB_da2441b9",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "GET /.well-known/webfinger with no resource query parameter returns HTTP 400.",
+   "covering_prose": "If it is missing, does not begin with acct:, or does not end with the expected hostname from nconf.get('url_parsed').hostname, it must return a 400 Bad Request.",
+   "gold_anchor": "if (!resource || !resource.startsWith('acct:') || !resource.endsWith(hostname)) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GET /.well-known/webfinger with resource=foobar returns HTTP 400.",
+   "covering_prose": "If it is missing, does not begin with acct:, or does not end with the expected hostname from nconf.get('url_parsed').hostname, it must return a 400 Bad Request.",
+   "gold_anchor": "return res.sendStatus(400);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Anonymous GET /.well-known/webfinger returns HTTP 403 when the Guest role lacks groups:view:users.",
+   "covering_prose": "If the Guest role does not have groups:view:users, the endpoint should return 403 Forbidden.",
+   "gold_anchor": "return res.sendStatus(403);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GET /.well-known/webfinger for acct:foobar@<expected hostname> returns HTTP 404 when no local user resolves.",
+   "covering_prose": "If the user identified by the username portion of the resource cannot be resolved, a 404 Not Found must be returned.",
+   "gold_anchor": "return res.sendStatus(404);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GET /.well-known/webfinger for an existing local user returns HTTP 200.",
+   "covering_prose": "Output: HTTP 200 with JSON { subject, aliases, links } on success HTTP 400 / 403 / 404 on validation/authorization/not-found cases",
+   "gold_anchor": "res.status(200).json(response);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Successful WebFinger response body has a subject property.",
+   "covering_prose": "On valid requests, the `/.well-known/webfinger` endpoint should return a structured JSON response that includes the subject field set to the original \"resource\" string, an \"aliases\" array containing both UID-based and slug-based user profile URLs, and a links array that includes at least one entry referencing the user\u2019s HTML profile page (e.g., the canonical /user/<slug> URL).",
+   "gold_anchor": "subject: `acct:${slug}@${hostname}`,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Successful WebFinger response body has an aliases property.",
+   "covering_prose": "On valid requests, the `/.well-known/webfinger` endpoint should return a structured JSON response that includes the subject field set to the original \"resource\" string, an \"aliases\" array containing both UID-based and slug-based user profile URLs, and a links array that includes at least one entry referencing the user\u2019s HTML profile page (e.g., the canonical /user/<slug> URL).",
+   "gold_anchor": "aliases: [",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Successful WebFinger response body has a links property.",
+   "covering_prose": "On valid requests, the `/.well-known/webfinger` endpoint should return a structured JSON response that includes the subject field set to the original \"resource\" string, an \"aliases\" array containing both UID-based and slug-based user profile URLs, and a links array that includes at least one entry referencing the user\u2019s HTML profile page (e.g., the canonical /user/<slug> URL).",
+   "gold_anchor": "links: [",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Successful WebFinger response body subject is truthy.",
+   "covering_prose": "subject set to the original resource",
+   "gold_anchor": "subject: `acct:${slug}@${hostname}`,",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,32 @@
+{
+ "case": "NodeBB_47910d70",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 3,
+ "n_covered": 2,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Middleware exposed privilege set includes key 'chat:privileged' with value true.",
+   "covering_prose": "Introduce a new global privilege chat:privileged to regulate initiating chats with privileged targets.",
+   "gold_anchor": "['chat:privileged', { label: '[[admin/manage/privileges:chat-with-privileged]]', type: 'posting' }],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Categories global user privileges include key 'chat:privileged' with value false.",
+   "covering_prose": "Introduce a new global privilege chat:privileged to regulate initiating chats with privileged targets.",
+   "gold_anchor": "['chat:privileged', { label: '[[admin/manage/privileges:chat-with-privileged]]', type: 'posting' }],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Categories global group privileges include key 'groups:chat:privileged' with value false.",
+   "covering_prose": null,
+   "gold_anchor": "['chat:privileged', { label: '[[admin/manage/privileges:chat-with-privileged]]', type: 'posting' }],",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

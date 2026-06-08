@@ -1,0 +1,53 @@
+{
+ "case": "NodeBB_7f48edc0",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "After appending ['a', 'b', 'c', 'd', 'e'] to the list, an immediate range read returns exactly ['a', 'b', 'c', 'd', 'e'].",
+   "covering_prose": "1. Create a new list with values `['a', 'b', 'c', 'd', 'e']`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "listRemoveAll accepts a single call whose removal value is the array ['b', 'd'].",
+   "covering_prose": "Maintain a list removal operation that accepts an input value that can be an array of distinct string elements to remove in a single call.",
+   "gold_anchor": "if (Array.isArray(value)) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The removal call removes 'b' and 'd' from the targeted list when they are present.",
+   "covering_prose": "Ensure that, when provided with multiple distinct string elements, the operation removes each specified element if it is present in the targeted list and leaves all other elements untouched.",
+   "gold_anchor": "$pull: { array: isArray ? { $in: value } : value }",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The removal call leaves the non-requested elements 'a', 'c', and 'e' in the list.",
+   "covering_prose": "The list should contain only the elements that were not included in the removal request. In the example above, the list should be `['a', 'c', 'e']`.",
+   "gold_anchor": "$pull: { array: isArray ? { $in: value } : value }",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The remaining elements are returned in their original relative order as ['a', 'c', 'e'], not reordered.",
+   "covering_prose": "Ensure the relative order of the remaining elements in the list is preserved exactly as before the removal.",
+   "gold_anchor": "value.forEach(value => batch.lrem(key, 0, value));",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After awaiting the removal operation, a subsequent getListRange of the same list reflects the removals immediately.",
+   "covering_prose": "Provide for immediate consistency: after the removal operation completes, subsequent reads of the same list reflect the updated contents including the removals.",
+   "gold_anchor": "await helpers.execBatch(batch);",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

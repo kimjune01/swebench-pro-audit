@@ -1,0 +1,25 @@
+{
+ "case": "NodeBB_a3e1a666",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "plugins.toggleActive('\\t\\nnodebb-plugin') must reject, and the rejection error must have message '[[error:invalid-plugin-id]]'.",
+   "covering_prose": "Plugin activation requests with invalid identifiers must be rejected with a specific error string `[[error:invalid-plugin-id]]`.",
+   "gold_anchor": "\"invalid-plugin-id\": \"Invalid plugin ID\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "plugins.toggleActive('notaplugin') must reject, and the rejection error must have message '[[error:invalid-plugin-id]]'.",
+   "covering_prose": "Plugin activation requests with invalid identifiers must be rejected with a specific error string `[[error:invalid-plugin-id]]`.",
+   "gold_anchor": "\"invalid-plugin-id\": \"Invalid plugin ID\"",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

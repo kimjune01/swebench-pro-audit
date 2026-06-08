@@ -1,0 +1,186 @@
+{
+ "case": "ansible_02e00aba",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 17,
+ "n_covered": 17,
+ "n_gap": 0,
+ "n_out_of_scope": 8,
+ "rows": [
+  {
+   "test": "callbacks_list.expected asserts v2_on_any count is 95",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "callbacks_list.expected asserts v2_playbook_on_handler_task_start count remains 4",
+   "covering_prose": "For any handler execution, the callbacks must include a single \u201chandler task start\u201d notification for each handler actually run, and must not emit handler callbacks when no handlers are scheduled.",
+   "gold_anchor": "all(not h.notified_hosts for h in self.handlers)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "callbacks_list.expected asserts v2_playbook_on_no_hosts_remaining count is 2",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "handler_notify_earlier_handler.yml first play has task notify h2, handler h2 notifies earlier handler h1, and output contains h1_ran exactly once",
+   "covering_prose": "Handler chains must execute so that when h2 notifies h1 both h2\\_ran and h1\\_ran appear exactly once.",
+   "gold_anchor": "and all(not h.notified_hosts for h in self.handlers)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "handler_notify_earlier_handler.yml first play has task notify h2, handler h2 notifies earlier handler h1, and output contains h2_ran exactly once",
+   "covering_prose": "Handler chains must execute so that when h2 notifies h1 both h2\\_ran and h1\\_ran appear exactly once.",
+   "gold_anchor": "and all(not h.notified_hosts for h in self.handlers)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "handler_notify_earlier_handler.yml second play has task notify h3, handler h3 notifies h4, and output contains h3_ran exactly once",
+   "covering_prose": "Handler chains must execute so that when h3 notifies h4 both h3\\_ran and h4\\_ran appear exactly once.",
+   "gold_anchor": "and all(not h.notified_hosts for h in self.handlers)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "handler_notify_earlier_handler.yml second play has task notify h3, handler h3 notifies h4, and output contains h4_ran exactly once",
+   "covering_prose": "Handler chains must execute so that when h3 notifies h4 both h3\\_ran and h4\\_ran appear exactly once.",
+   "gold_anchor": "and all(not h.notified_hosts for h in self.handlers)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "old_style_vars_plugins baseline run with ANSIBLE_DEBUG=True logs Loading VarsModule 'host_group_vars' exactly 1 time",
+   "covering_prose": "The vars loader, when ANSIBLE_DEBUG is true, must log a one-line summary including counts for host_group_vars, require_enabled, and auto_enabled. When ANSIBLE_VARS_ENABLED restricts vars plugins to ansible.builtin.host_group_vars, the summary must show that require_enabled decreases relative to the baseline run while auto_enabled remains unchanged; host_group_vars discovery must still be reported.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "old_style_vars_plugins baseline run with ANSIBLE_DEBUG=True logs Loading VarsModule 'require_enabled' exactly 22 times",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "old_style_vars_plugins baseline run with ANSIBLE_DEBUG=True logs Loading VarsModule 'auto_enabled' exactly 22 times",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "old_style_vars_plugins restricted run with ANSIBLE_VARS_ENABLED=ansible.builtin.host_group_vars logs Loading VarsModule 'host_group_vars' exactly 1 time",
+   "covering_prose": "The vars loader, when ANSIBLE_DEBUG is true, must log a one-line summary including counts for host_group_vars, require_enabled, and auto_enabled. When ANSIBLE_VARS_ENABLED restricts vars plugins to ansible.builtin.host_group_vars, the summary must show that require_enabled decreases relative to the baseline run while auto_enabled remains unchanged; host_group_vars discovery must still be reported.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "old_style_vars_plugins restricted run with ANSIBLE_VARS_ENABLED=ansible.builtin.host_group_vars logs Loading VarsModule 'require_enabled' fewer than 3 times",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "old_style_vars_plugins restricted run with ANSIBLE_VARS_ENABLED=ansible.builtin.host_group_vars logs Loading VarsModule 'auto_enabled' exactly 22 times",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "test_play_iterator no longer expects an implicit meta task between the first debug task and the role task",
+   "covering_prose": "Play iterator must not yield implicit `meta: flush_handlers` between tasks, nested blocks, always, or post phases.",
+   "gold_anchor": "task.args.get('_raw_params', None) == 'flush_handlers'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "test_play_iterator no longer expects an implicit meta task between the always sub-block debug task and the post task",
+   "covering_prose": "Play iterator must not yield implicit `meta: flush_handlers` between tasks, nested blocks, always, or post phases.",
+   "gold_anchor": "task.args.get('_raw_params', None) == 'flush_handlers'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "test_play_iterator no longer expects an implicit meta task between the post task and end of iteration",
+   "covering_prose": "Play iterator must not yield implicit `meta: flush_handlers` between tasks, nested blocks, always, or post phases.",
+   "gold_anchor": "task.args.get('_raw_params', None) == 'flush_handlers'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "test_play_iterator_nested_blocks no longer expects an implicit meta: flush_handlers before the first task",
+   "covering_prose": "Play iterator must not yield implicit `meta: flush_handlers` between tasks, nested blocks, always, or post phases.",
+   "gold_anchor": "task.args.get('_raw_params', None) == 'flush_handlers'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "test_play_iterator_nested_blocks no longer expects an implicit meta: flush_handlers after the always task before end of iteration",
+   "covering_prose": "Play iterator must not yield implicit `meta: flush_handlers` between tasks, nested blocks, always, or post phases.",
+   "gold_anchor": "task.args.get('_raw_params', None) == 'flush_handlers'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "test_noop no longer expects an initial implicit meta: flush_handlers batch before task1 for both hosts",
+   "covering_prose": "Skip implicit `meta: flush_handlers` when a host has no handler notifications and no other handler has been notified.",
+   "gold_anchor": "not self.get_state_for_host(host.name).handler_notifications",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "test_noop after both hosts run task1 and host01 is marked failed, next batch has length 1",
+   "covering_prose": "After both hosts run debug task1 and host01 is marked failed: batch one returns host00 with action debug and name task2, batch two returns host01 with action debug and name rescue1, batch three returns host01 with action debug and name rescue2, end of iteration returns empty list.",
+   "gold_anchor": "host_tasks.append((host, task))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "test_noop after host01 is marked failed, batch one returns host00 with action debug and name task2",
+   "covering_prose": "After both hosts run debug task1 and host01 is marked failed: batch one returns host00 with action debug and name task2, batch two returns host01 with action debug and name rescue1, batch three returns host01 with action debug and name rescue2, end of iteration returns empty list.",
+   "gold_anchor": "host_tasks.append((host, task))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "test_noop after host01 is marked failed, batch two has length 1 and returns host01 with action debug and name rescue1",
+   "covering_prose": "After both hosts run debug task1 and host01 is marked failed: batch one returns host00 with action debug and name task2, batch two returns host01 with action debug and name rescue1, batch three returns host01 with action debug and name rescue2, end of iteration returns empty list.",
+   "gold_anchor": "host_tasks.append((host, task))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "test_noop after host01 is marked failed, batch three has length 1 and returns host01 with action debug and name rescue2",
+   "covering_prose": "After both hosts run debug task1 and host01 is marked failed: batch one returns host00 with action debug and name task2, batch two returns host01 with action debug and name rescue1, batch three returns host01 with action debug and name rescue2, end of iteration returns empty list.",
+   "gold_anchor": "host_tasks.append((host, task))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "test_noop after rescue2, _get_next_task_lockstep(strategy.get_hosts_left(itr), itr) is empty",
+   "covering_prose": "After both hosts run debug task1 and host01 is marked failed: batch one returns host00 with action debug and name task2, batch two returns host01 with action debug and name rescue1, batch three returns host01 with action debug and name rescue2, end of iteration returns empty list.",
+   "gold_anchor": "return []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "test_noop_64999 no longer expects an initial implicit meta: flush_handlers batch before subsequent lockstep scheduling",
+   "covering_prose": "Skip implicit `meta: flush_handlers` when a host has no handler notifications and no other handler has been notified.",
+   "gold_anchor": "not self.get_state_for_host(host.name).handler_notifications",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

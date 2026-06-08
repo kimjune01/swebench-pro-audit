@@ -1,0 +1,46 @@
+{
+ "case": "ansible_25268509",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Running the 69848 playbook with `--tags foo` prints the tagged role task exactly 2 times across `host1,host2`.",
+   "covering_prose": "When I run the playbook with tags. I expect 1 debug output from Role3. Message \"test_tag\" printed 1 time.",
+   "gold_anchor": "eor_task.args = {'_raw_params': 'role_complete'}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Running the 69848 playbook with `--tags foo` prints the untagged task exactly 0 times.",
+   "covering_prose": "When I run the playbook with tags. I expect 1 debug output from Role3. Message \"test_tag\" printed 1 time.",
+   "gold_anchor": "eor_task.tags = ['always']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After the last role task in `TestPlayIterator::test_play_iterator`, the next task exists before the regular play task.",
+   "covering_prose": "The logic in `lib/ansible/playbook/role/__init__.py` that previously marked the last task block using the `_eor` attribute should be replaced by appending a new block containing a `meta: role_complete` task to the end of the compiled block list.",
+   "gold_anchor": "block_list.append(eor_block)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The task inserted after the last role task has action equal to `'meta'`.",
+   "covering_prose": "The logic in `lib/ansible/playbook/role/__init__.py` that previously marked the last task block using the `_eor` attribute should be replaced by appending a new block containing a `meta: role_complete` task to the end of the compiled block list.",
+   "gold_anchor": "eor_task.action = 'meta'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The task inserted after the last role task has a non-null `_role`.",
+   "covering_prose": "The logic in `lib/ansible/playbook/role/__init__.py` that previously marked the last task block using the `_eor` attribute should be replaced by appending a new block containing a `meta: role_complete` task to the end of the compiled block list.",
+   "gold_anchor": "eor_task._role = self",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

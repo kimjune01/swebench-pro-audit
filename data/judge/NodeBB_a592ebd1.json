@@ -1,0 +1,39 @@
+{
+ "case": "NodeBB_a592ebd1",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 4,
+ "n_covered": 1,
+ "n_gap": 3,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "User.getUserFields(testUid, ['username', 'picture']) returns payload['icon:text'] equal to userData.username.slice(0, 1).toUpperCase().",
+   "covering_prose": null,
+   "gold_anchor": "user['icon:text'] = (user.username[0] || '').toUpperCase();",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "User.getUserFields(testUid, ['username', 'picture']) returns a truthy payload['icon:bgColor'].",
+   "covering_prose": null,
+   "gold_anchor": "user['icon:bgColor'] = bgColor;",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "User.getIconBackgrounds(testUid) is callable and returns valid background options used to validate payload['icon:bgColor'].",
+   "covering_prose": "Output: returns a Promise resolving to an array of strings representing valid CSS color codes for avatar backgrounds.",
+   "gold_anchor": "User.getIconBackgrounds = async (uid = 0) => {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When an invalid saved 'icon:bgColor' value ('teal') exists, User.getUserFields(testUid, ['username', 'picture']) returns a truthy payload['icon:bgColor'] that is included in await User.getIconBackgrounds(testUid).",
+   "covering_prose": null,
+   "gold_anchor": "if (!iconBackgrounds.includes(bgColor)) {",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

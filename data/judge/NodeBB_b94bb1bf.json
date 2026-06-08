@@ -1,0 +1,25 @@
+{
+ "case": "NodeBB_b94bb1bf",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "With Maintenance Mode enabled, an unauthenticated request to `/api/recent` must be allowed through when `groupsExemptFromMaintenanceMode` contains `guests`, producing HTTP status 200 instead of redirecting to the maintenance holding page.",
+   "covering_prose": "Unauthenticated visitors must be treated as members of the guests group; if guests appears in groupsExemptFromMaintenanceMode, unauthenticated requests must be allowed to proceed during Maintenance Mode.",
+   "gold_anchor": "groups.isMemberOfAny(req.uid, meta.config.groupsExemptFromMaintenanceMode),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The allowed unauthenticated `/api/recent` request must produce a truthy JSON response body.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

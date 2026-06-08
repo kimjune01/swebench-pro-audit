@@ -1,0 +1,1 @@
+{"rows":[{"test":"All modified ansible-galaxy collection build/download/init/install commands in the visible hidden-test diff append the templated verbosity argument `{{ galaxy_verbosity }}`.","covering_prose":null,"gold_anchor":null}]}

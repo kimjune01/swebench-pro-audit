@@ -1,0 +1,25 @@
+{
+ "case": "NodeBB_88e891fc",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 2,
+ "n_covered": 1,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Response status code is 307 for the redirect when an unconfirmed logged-in user with requireEmailAddress enabled is blocked after entering an email that is not yet confirmed.",
+   "covering_prose": null,
+   "gold_anchor": "controllers.helpers.redirect(res, '/register/complete');",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Response Location header is `${nconf.get('relative_path')}/register/complete`, not `${nconf.get('relative_path')}/me/edit/email`, for an unconfirmed logged-in non-admin user when requireEmailAddress is enabled and the route is not `/edit/email` and does not start with `/confirm/`.",
+   "covering_prose": "If a user is logged in, their email is unconfirmed, `requireEmailAddress` is enabled, and they are not an administrator, when accessing a route that is not `/edit/email` or does not start with `/confirm/`, the middleware must redirect the user to `/register/complete`. The `Location` header must include the application's `relative_path` prefix.",
+   "gold_anchor": "controllers.helpers.redirect(res, '/register/complete');",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

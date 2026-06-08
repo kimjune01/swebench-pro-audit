@@ -1,0 +1,53 @@
+{
+ "case": "NodeBB_88aee439",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 3,
+ "n_covered": 2,
+ "n_gap": 1,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "Posts.uploads.getOrphans() returns exactly 2 orphan paths after uploading test.png without associating it to a post.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Each path returned by Posts.uploads.getOrphans() starts with \"files/\".",
+   "covering_prose": "The `Posts.uploads.getOrphans()` method must continue to return only unassociated files and always as relative paths under `files/`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Each path returned by Posts.uploads.getOrphans() ends with \"test.png\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Calling posts.uploads.cleanOrphans() when meta.config.orphanExpiryDays is not configured leaves the two orphan files present.",
+   "covering_prose": "The method must return an empty array if `meta.config.orphanExpiryDays` is undefined, null, falsy, or non-numeric.",
+   "gold_anchor": "if (!days) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling posts.uploads.cleanOrphans() with meta.config.orphanExpiryDays = 60 leaves files with mtimes 30 days old present.",
+   "covering_prose": "The system must compute expiry threshold as `Date.now() - (1000 * 60 * 60 * 24 * meta.config.orphanExpiryDays)` and select files with `mtimeMs` strictly before this threshold.",
+   "gold_anchor": "return mtimeMs < expiration ? relPath : null;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling posts.uploads.cleanOrphans() with meta.config.orphanExpiryDays = 7 removes files with mtimes 30 days old so a subsequent posts.uploads.getOrphans() call returns length 0 immediately after awaiting cleanOrphans().",
+   "covering_prose": null,
+   "gold_anchor": "file.delete(_getFullPath(relPath));",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

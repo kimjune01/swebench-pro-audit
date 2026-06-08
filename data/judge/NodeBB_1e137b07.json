@@ -1,0 +1,46 @@
+{
+ "case": "NodeBB_1e137b07",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 5,
+ "n_covered": 3,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "db.mget(['doesnotexist', 'testKey']) returns [null, 'testValue'], including null at the missing key's original index and the found value at the matching input index.",
+   "covering_prose": "The `mget` implementation in all database adapters should preserve the input order of keys and explicitly return null for any key that does not exist in the data store. This behavior should be enforced in the return mapping logic.",
+   "gold_anchor": "return keys.map(k => (map.hasOwnProperty(k) ? map[k] : null));",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "db.mget([]) returns [].",
+   "covering_prose": "Input: keys: string[] (An array of database keys to retrieve.)",
+   "gold_anchor": "return [];",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "db.mget(false) returns [] instead of throwing.",
+   "covering_prose": null,
+   "gold_anchor": "if (!keys || !Array.isArray(keys) || !keys.length) {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "db.mget(null) returns [] instead of throwing.",
+   "covering_prose": null,
+   "gold_anchor": "if (!keys || !Array.isArray(keys) || !keys.length) {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "user.email.canSendValidation(uid, email) returns true after the confirmation object's expires field is set to Date.now() + 1000.",
+   "covering_prose": "In `User.email.canSendValidation(uid, email)`, the interval check must compare the stored TTL timestamp if available (or, if TTL is unavailable, use the current time as the baseline) plus the configured interval against the max confirmation period, ensuring the system prevents excessive resends.",
+   "gold_anchor": "return confirmObj ? Math.max(0, confirmObj.expires - Date.now()) : null;",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

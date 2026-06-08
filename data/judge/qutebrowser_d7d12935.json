@@ -1,0 +1,95 @@
+{
+ "case": "qutebrowser_d7d12935",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "Verbose successful process completion messages include the outcome plus `See :process <pid> for details.`; hidden tests accept wildcard pid in end-to-end cases and assert `See :process 1234 for details.` in the unit test.",
+   "covering_prose": "The `GUIProcess` should display a message with the structure `\"{self.outcome} See :process {self.pid} for details.\"` when the verbose flag is enabled, explicitly including the process outcome (such as exited successfully, exited with status, crashed with signal, or terminated with SIGTERM) along with the process id.",
+   "gold_anchor": "msg = f\"{self.outcome} See :process {self.pid} for details.\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unsuccessful normal exits report `Testprocess exited with status 1. See :process 1234 for details.` rather than omitting the pid.",
+   "covering_prose": "The `GUIProcess` should display a message with the structure `\"{self.outcome} See :process {self.pid} for details.\"` when the verbose flag is enabled, explicitly including the process outcome (such as exited successfully, exited with status, crashed with signal, or terminated with SIGTERM) along with the process id.",
+   "gold_anchor": "message.error(msg)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For failed processes with stdout or stderr, the logged error message includes `See :process 1234 for details.` rather than `See :process for details.`.",
+   "covering_prose": "When a process fails, the error message should suggest the correct process's PID.",
+   "gold_anchor": "message.error(msg)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A process killed with SIGSEGV produces the string/message `Testprocess crashed with status 11 (SIGSEGV).` before the process-details suffix.",
+   "covering_prose": "When a process is killed by a signal, the signal name should be displayed in the message.",
+   "gold_anchor": "return f\"{msg} ({sig.name}).\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A SIGSEGV crash still has `outcome.status == QProcess.ExitStatus.CrashExit`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "A SIGSEGV crash has `outcome.state_str() == 'crashed'`.",
+   "covering_prose": "When a process is killed by a signal, a simple crashing message is displayed.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "A SIGSEGV crash has `outcome.was_successful()` return false.",
+   "covering_prose": "The `GUIProcess` should ensure that the outcome can be either successful, unsuccessful, or terminated with SIGTERM when showing a message after the process finishes.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "A process killed with SIGTERM in verbose mode produces the string/message `Testprocess terminated with status 15 (SIGTERM). See :process 1234 for details.`.",
+   "covering_prose": "The `GUIProcess` should display a message with the structure `\"{self.outcome} See :process {self.pid} for details.\"` when the verbose flag is enabled, explicitly including the process outcome (such as exited successfully, exited with status, crashed with signal, or terminated with SIGTERM) along with the process id.",
+   "gold_anchor": "message.info(msg)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SIGTERM is classified by `was_sigterm()` when status is `CrashExit` and code is `signal.SIGTERM`.",
+   "covering_prose": "Returns: Boolean defined by (self.status == QProcess.ExitStatus.CrashExit and self.code == signal.SIGTERM)",
+   "gold_anchor": "def was_sigterm(self) -> bool:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A SIGTERM-finished process has `outcome.state_str() == 'terminated'`.",
+   "covering_prose": "The `GUIProcess` should set the process state to `\"terminated\"` when the process finishes with SIGTERM.",
+   "gold_anchor": "return 'terminated'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A SIGTERM-finished process has `outcome.status == QProcess.ExitStatus.CrashExit`.",
+   "covering_prose": "Returns: Boolean defined by (self.status == QProcess.ExitStatus.CrashExit and self.code == signal.SIGTERM)",
+   "gold_anchor": "self.status == QProcess.ExitStatus.CrashExit and",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A SIGTERM-finished process has `outcome.was_successful()` return false.",
+   "covering_prose": "The `GUIProcess` should ensure that the outcome can be either successful, unsuccessful, or terminated with SIGTERM when showing a message after the process finishes.",
+   "gold_anchor": "if self.outcome.was_successful() or self.outcome.was_sigterm():",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

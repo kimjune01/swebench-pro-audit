@@ -1,0 +1,137 @@
+{
+ "case": "qutebrowser_6d9c28ce",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 16,
+ "n_covered": 10,
+ "n_gap": 6,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "resources._glob(resource_root, 'html', '.html') returns exactly ['html/test1.html', 'html/test2.html'] after sorting, excluding README, unrelatedhtml, and subdirectory entries.",
+   "covering_prose": "The `_glob(resource_root, \"html\", \".html\")` case must yield only the immediate `.html` files at that level (for example, `[\"html/test1.html\", \"html/test2.html\"]`) and exclude non-matching names like `README` or `unrelatedhtml`.",
+   "gold_anchor": "yield full_path.relative_to(resource_path).as_posix()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "resources._glob(resource_root, 'html', '.html') works when resource_root is a pathlib.Path.",
+   "covering_prose": "The `_glob(resource_root, subdir, ext)` helper must yield relative POSIX paths of files directly under `subdir` whose names end with `ext`, and must operate correctly when `resource_root` is a `pathlib.Path` (filesystem) and when it is a `zipfile.Path` (zip archive).",
+   "gold_anchor": "if isinstance(resource_path, pathlib.Path):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "resources._glob(resource_root, 'html', '.html') works when resource_root is a zipfile.Path.",
+   "covering_prose": "The `_glob(resource_root, subdir, ext)` helper must yield relative POSIX paths of files directly under `subdir` whose names end with `ext`, and must operate correctly when `resource_root` is a `pathlib.Path` (filesystem) and when it is a `zipfile.Path` (zip archive).",
+   "gold_anchor": "for subpath in glob_path.iterdir():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "resources._glob(resource_root, 'html/subdir', '.html') returns exactly ['html/subdir/subdir-file.html'] after sorting.",
+   "covering_prose": "The `_glob(resource_root, \"html/subdir\", \".html\")` case must yield the `.html` files in that subdirectory (for example, `[\"html/subdir/subdir-file.html\"]`).",
+   "gold_anchor": "yield posixpath.join(subdir, subpath.name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The _glob behaviors are asserted with sys.frozen set to True and with sys.frozen set to False.",
+   "covering_prose": "All behaviors above must hold in both frozen and unfrozen runtime modes (for example, whether `sys.frozen` is `True` or `False`).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After resources.preload(), resources.read_file('javascript/scroll.js') returns from cache without calling qutebrowser.utils.resources.importlib_resources.files.",
+   "covering_prose": "After `preload()` completes, `read_file(filename: str)` must return the cached content for preloaded `filename` values without invoking the resource loader or filesystem.",
+   "gold_anchor": "if filename in cache:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After resources.preload(), resources.read_file('html/error.html') returns from cache without calling qutebrowser.utils.resources.importlib_resources.files.",
+   "covering_prose": "After `preload()` completes, `read_file(filename: str)` must return the cached content for preloaded `filename` values without invoking the resource loader or filesystem.",
+   "gold_anchor": "return cache[filename]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "resources.preload() scans html, javascript, and javascript/quirks for .html and .js resources before cached reads.",
+   "covering_prose": "The `preload()` function must scan the resource subdirectories `html/`, `javascript/`, and `javascript/quirks/` for files ending in `.html` or `.js`, and populate an in-memory dictionary named `cache` keyed by each file\u2019s relative POSIX path (for example, `javascript/scroll.js`, `html/error.html`), storing the file contents.",
+   "gold_anchor": "('javascript/quirks', '.js'),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "resources.preload() stores preloaded contents in an in-memory dictionary named cache keyed by relative POSIX paths.",
+   "covering_prose": "The `preload()` function must scan the resource subdirectories `html/`, `javascript/`, and `javascript/quirks/` for files ending in `.html` or `.js`, and populate an in-memory dictionary named `cache` keyed by each file\u2019s relative POSIX path (for example, `javascript/scroll.js`, `html/error.html`), storing the file contents.",
+   "gold_anchor": "cache[name] = read_file(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The cached read behaviors are asserted with sys.frozen set to True and with sys.frozen set to False.",
+   "covering_prose": "All behaviors above must hold in both frozen and unfrozen runtime modes (for example, whether `sys.frozen` is `True` or `False`).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "resources.read_file(os.path.join('utils', 'testfile')) returns text whose first line is exactly \"Hello World!\".",
+   "covering_prose": null,
+   "gold_anchor": "return file_path.read_text(encoding='utf-8')",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "resources.read_file_binary(os.path.join('utils', 'testfile')) returns bytes whose first line is exactly b\"Hello World!\".",
+   "covering_prose": null,
+   "gold_anchor": "return file_binary_path.read_bytes()",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "resources.read_file('doesnotexist') raises FileNotFoundError when the backend raises KeyError.",
+   "covering_prose": "Normalizes backend `KeyError` exceptions encountered during resource access (e.g., via zip-backed paths) to `FileNotFoundError` within its managed block.",
+   "gold_anchor": "raise FileNotFoundError(str(e))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "resources.read_file_binary('doesnotexist') raises FileNotFoundError when the backend raises KeyError.",
+   "covering_prose": "Normalizes backend `KeyError` exceptions encountered during resource access (e.g., via zip-backed paths) to `FileNotFoundError` within its managed block.",
+   "gold_anchor": "with keyerror_workaround():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "resources.read_file('doesnotexist') raises FileNotFoundError when the backend raises FileNotFoundError.",
+   "covering_prose": null,
+   "gold_anchor": "with keyerror_workaround():",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "resources.read_file_binary('doesnotexist') raises FileNotFoundError when the backend raises FileNotFoundError.",
+   "covering_prose": null,
+   "gold_anchor": "with keyerror_workaround():",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "resources.read_file('doesnotexist') raises FileNotFoundError when no fake backend exception is installed.",
+   "covering_prose": null,
+   "gold_anchor": "return file_path.read_text(encoding='utf-8')",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "resources.read_file_binary('doesnotexist') raises FileNotFoundError when no fake backend exception is installed.",
+   "covering_prose": null,
+   "gold_anchor": "return file_binary_path.read_bytes()",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

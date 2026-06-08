@@ -1,0 +1,60 @@
+{
+ "case": "qutebrowser_a6171337",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "When qt.workarounds.disable_accelerated_2d_canvas is set to auto and runtime is not Qt 6 (qt_version 5.15.2, IS_QT6 false), qt_args must not include --disable-accelerated-2d-canvas.",
+   "covering_prose": "If the setting value is `auto`, the browser must disable the accelerated 2D canvas feature only when running with Qt 6 and a Chromium major version below 111; otherwise, it must keep the feature enabled. The value must be determined at runtime based on the detected Qt and Chromium versions.",
+   "gold_anchor": "if machinery.IS_QT6",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When qt.workarounds.disable_accelerated_2d_canvas is set to auto and runtime is Qt 6.5.3 with IS_QT6 true, qt_args must include --disable-accelerated-2d-canvas.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When qt.workarounds.disable_accelerated_2d_canvas is set to auto and runtime is Qt 6.6.0 with IS_QT6 true, qt_args must not include --disable-accelerated-2d-canvas.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When qt.workarounds.disable_accelerated_2d_canvas is set to always on Qt 6.5.3, qt_args must include --disable-accelerated-2d-canvas.",
+   "covering_prose": "If the setting value is `always`, the browser must disable the accelerated 2D canvas feature.",
+   "gold_anchor": "'always': '--disable-accelerated-2d-canvas'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When qt.workarounds.disable_accelerated_2d_canvas is set to never on Qt 6.5.3, qt_args must not include --disable-accelerated-2d-canvas.",
+   "covering_prose": "If the setting value is `never`, the browser must leave the accelerated 2D canvas feature enabled.",
+   "gold_anchor": "'never': None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When qt.workarounds.disable_accelerated_2d_canvas is set to always on Qt 6.6.0, qt_args must include --disable-accelerated-2d-canvas.",
+   "covering_prose": "If the setting value is `always`, the browser must disable the accelerated 2D canvas feature.",
+   "gold_anchor": "'always': '--disable-accelerated-2d-canvas'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Existing qt_args exact-output tests must run with qt.workarounds.disable_accelerated_2d_canvas set to never so they do not gain --disable-accelerated-2d-canvas.",
+   "covering_prose": "If the setting value is `never`, the browser must leave the accelerated 2D canvas feature enabled.",
+   "gold_anchor": "'never': None",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

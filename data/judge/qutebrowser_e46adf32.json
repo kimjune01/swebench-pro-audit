@@ -1,0 +1,81 @@
+{
+ "case": "qutebrowser_e46adf32",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 10,
+ "n_covered": 10,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`utils.parse_version('5.12')` exists and is used as the Qt-native value for a `DistributionInfo.version` field in sandbox test fixtures.",
+   "covering_prose": "In the qutebrowser/utils/utils.py file, a function named parse_version should be created to parse version strings. This function should take a string as input and return a QVersionNumber as output.",
+   "gold_anchor": "def parse_version(version: str) -> QVersionNumber:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`DistributionInfo.version` has Qt-native version shape rather than `pkg_resources.parse_version` shape.",
+   "covering_prose": "- `version.DistributionInfo.version` should be a Qt\u2011native version value (or absent), and `version.distribution` should populate that value from the system distribution version when available.",
+   "gold_anchor": "version: Optional[QVersionNumber] = attr.ib()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Ubuntu 14.04 fixture, `version.distribution()` is expected to populate `DistributionInfo.version` from `VERSION_ID` as `utils.parse_version('14.4')`.",
+   "covering_prose": "- `version.DistributionInfo.version` should be a Qt\u2011native version value (or absent), and `version.distribution` should populate that value from the system distribution version when available.",
+   "gold_anchor": "dist_version: Optional[QVersionNumber] = utils.parse_version(info['VERSION_ID'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Ubuntu 17.04 fixture, `version.distribution()` is expected to populate `DistributionInfo.version` from `VERSION_ID` as `utils.parse_version('17.4')`.",
+   "covering_prose": "- `version.DistributionInfo.version` should be a Qt\u2011native version value (or absent), and `version.distribution` should populate that value from the system distribution version when available.",
+   "gold_anchor": "dist_version: Optional[QVersionNumber] = utils.parse_version(info['VERSION_ID'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Debian Jessie fixture, `version.distribution()` is expected to populate `DistributionInfo.version` from `VERSION_ID` as `utils.parse_version('8')`.",
+   "covering_prose": "- `version.DistributionInfo.version` should be a Qt\u2011native version value (or absent), and `version.distribution` should populate that value from the system distribution version when available.",
+   "gold_anchor": "dist_version: Optional[QVersionNumber] = utils.parse_version(info['VERSION_ID'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Fedora fixture, `version.distribution()` is expected to populate `DistributionInfo.version` from `VERSION_ID` as `utils.parse_version('25')`.",
+   "covering_prose": "- `version.DistributionInfo.version` should be a Qt\u2011native version value (or absent), and `version.distribution` should populate that value from the system distribution version when available.",
+   "gold_anchor": "dist_version: Optional[QVersionNumber] = utils.parse_version(info['VERSION_ID'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For openSUSE fixture, `version.distribution()` is expected to populate `DistributionInfo.version` from `VERSION_ID` as `utils.parse_version('42.2')`.",
+   "covering_prose": "- `version.DistributionInfo.version` should be a Qt\u2011native version value (or absent), and `version.distribution` should populate that value from the system distribution version when available.",
+   "gold_anchor": "dist_version: Optional[QVersionNumber] = utils.parse_version(info['VERSION_ID'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Linux Mint fixture, `version.distribution()` is expected to populate `DistributionInfo.version` from `VERSION_ID` as `utils.parse_version('18.1')`.",
+   "covering_prose": "- `version.DistributionInfo.version` should be a Qt\u2011native version value (or absent), and `version.distribution` should populate that value from the system distribution version when available.",
+   "gold_anchor": "dist_version: Optional[QVersionNumber] = utils.parse_version(info['VERSION_ID'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For KDE Flatpak fixture, `version.distribution()` is expected to populate `DistributionInfo.version` from `VERSION_ID` as `utils.parse_version('5.12')`.",
+   "covering_prose": "- `version.DistributionInfo.version` should be a Qt\u2011native version value (or absent), and `version.distribution` should populate that value from the system distribution version when available.",
+   "gold_anchor": "dist_version: Optional[QVersionNumber] = utils.parse_version(info['VERSION_ID'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When no system distribution version is available, `DistributionInfo.version` is absent as `None`.",
+   "covering_prose": "- `version.DistributionInfo.version` should be a Qt\u2011native version value (or absent), and `version.distribution` should populate that value from the system distribution version when available.",
+   "gold_anchor": "dist_version = None",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

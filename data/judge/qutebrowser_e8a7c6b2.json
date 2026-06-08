@@ -1,0 +1,46 @@
+{
+ "case": "qutebrowser_e8a7c6b2",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 5,
+ "n_covered": 4,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For QtWebEngine 5.15.2, when colors.webpage.darkmode.threshold.foreground is set to 100, generated settings include ('forceDarkModeTextBrightnessThreshold', '100').",
+   "covering_prose": null,
+   "gold_anchor": "_Setting('threshold.foreground', 'TextBrightnessThreshold'),",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For QtWebEngine 5.15.3, when colors.webpage.darkmode.threshold.foreground is set to 100, generated dark-mode-settings include ('TextBrightnessThreshold', '100').",
+   "covering_prose": "In Qt WebEngine < 6.4, translate `colors.webpage.darkmode.threshold.foreground` to the Chromium `TextBrightnessThreshold` key when building dark-mode settings.",
+   "gold_anchor": "_Setting('threshold.foreground', 'TextBrightnessThreshold'),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine 6.4, when colors.webpage.darkmode.threshold.foreground is set to 100, generated dark-mode-settings include ('ForegroundBrightnessThreshold', '100').",
+   "covering_prose": "In Qt WebEngine \u2265 6.4, translate `colors.webpage.darkmode.threshold.foreground` to `ForegroundBrightnessThreshold` when building dark-mode settings.",
+   "gold_anchor": "_DEFINITIONS[Variant.qt_64] = _DEFINITIONS[Variant.qt_63].copy_replace_setting(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "QtWebEngine version 6.4 is classified into a separate >= 6.4 dark-mode variant rather than the 6.3 variant.",
+   "covering_prose": "Automatically select the correct behavior based on the detected WebEngine version, applying the \u2265 6.4 logic where appropriate and the previous logic otherwise.",
+   "gold_anchor": "if versions.webengine >= utils.VersionNumber(6, 4):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The customizable option name is threshold.foreground, and setting it to 100 maps to Chromium TextBrightnessThreshold with value '100' in the customization test.",
+   "covering_prose": "Expose the public `colors.webpage.darkmode.threshold.foreground` option of type Int with default=256, so that its value controls the foreground inversion threshold in dark mode; it should be settable (e.g., `100`) and applied to the backend.",
+   "gold_anchor": "colors.webpage.darkmode.threshold.foreground:",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

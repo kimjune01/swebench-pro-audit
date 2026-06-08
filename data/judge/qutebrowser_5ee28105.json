@@ -1,0 +1,172 @@
+{
+ "case": "qutebrowser_5ee28105",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 23,
+ "n_covered": 10,
+ "n_gap": 13,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When there is no stored Qt version and current Qt version is 5.12.1, StateConfig.qt_version_changed is False.",
+   "covering_prose": null,
+   "gold_anchor": "self.qt_version_changed = False",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When stored Qt version equals current Qt version, StateConfig.qt_version_changed is False.",
+   "covering_prose": "A new functionality `StateConfig._set_changed_attributes` should be defined to set `qt_version_changed`/`qutebrowser_version_changed` attributes.",
+   "gold_anchor": "self.qt_version_changed = old_qt_version != qVersion()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When stored Qt version differs from current Qt version, StateConfig.qt_version_changed is True.",
+   "covering_prose": "A new functionality `StateConfig._set_changed_attributes` should be defined to set `qt_version_changed`/`qutebrowser_version_changed` attributes.",
+   "gold_anchor": "self.qt_version_changed = old_qt_version != qVersion()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When there is no stored qutebrowser version, StateConfig.qutebrowser_version_changed is VersionChange.unknown.",
+   "covering_prose": "unknown` (unparsable or missing version).",
+   "gold_anchor": "self.qutebrowser_version_changed = VersionChange.unknown",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When stored qutebrowser version equals current qutebrowser version, StateConfig.qutebrowser_version_changed is VersionChange.equal.",
+   "covering_prose": "equal` (same version),",
+   "gold_anchor": "self.qutebrowser_version_changed = VersionChange.equal",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When only the patch number differs between stored and current qutebrowser versions, StateConfig.qutebrowser_version_changed is VersionChange.patch.",
+   "covering_prose": "patch` (only patch number differs),",
+   "gold_anchor": "self.qutebrowser_version_changed = VersionChange.patch",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When stored and current qutebrowser versions have the same major version but different minor versions, StateConfig.qutebrowser_version_changed is VersionChange.minor, even when patch numbers also differ.",
+   "covering_prose": "minor` (same major, different minor),",
+   "gold_anchor": "self.qutebrowser_version_changed = VersionChange.minor",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When stored and current qutebrowser versions have different major versions, StateConfig.qutebrowser_version_changed is VersionChange.major.",
+   "covering_prose": "major` (different major version),",
+   "gold_anchor": "self.qutebrowser_version_changed = VersionChange.major",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the current qutebrowser version is lower than the stored qutebrowser version, StateConfig.qutebrowser_version_changed is VersionChange.downgrade.",
+   "covering_prose": "downgrade` (new version lower than old),",
+   "gold_anchor": "self.qutebrowser_version_changed = VersionChange.downgrade",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the stored qutebrowser version is unparsable as blabla, a warning with exactly 'Unable to parse old version blabla' is logged.",
+   "covering_prose": "In `StateConfig._set_changed_attributes`, if the old version cannot be parsed, a warning should be logged and `self.qutebrowser_version_changed` should be set to `VersionChange.unknown`.",
+   "gold_anchor": "log.init.warning(f\"Unable to parse old version {old_qutebrowser_version}\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the stored qutebrowser version is unparsable, StateConfig.qutebrowser_version_changed is VersionChange.unknown.",
+   "covering_prose": "In `StateConfig._set_changed_attributes`, if the old version cannot be parsed, a warning should be logged and `self.qutebrowser_version_changed` should be set to `VersionChange.unknown`.",
+   "gold_anchor": "self.qutebrowser_version_changed = VersionChange.unknown",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VersionChange.major.matches_filter('never') returns False.",
+   "covering_prose": null,
+   "gold_anchor": "'never': []",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VersionChange.minor.matches_filter('never') returns False.",
+   "covering_prose": null,
+   "gold_anchor": "'never': []",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VersionChange.patch.matches_filter('never') returns False.",
+   "covering_prose": null,
+   "gold_anchor": "'never': []",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VersionChange.major.matches_filter('major') returns True.",
+   "covering_prose": null,
+   "gold_anchor": "'major': [VersionChange.major]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VersionChange.minor.matches_filter('major') returns False.",
+   "covering_prose": null,
+   "gold_anchor": "'major': [VersionChange.major]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VersionChange.patch.matches_filter('major') returns False.",
+   "covering_prose": null,
+   "gold_anchor": "'major': [VersionChange.major]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VersionChange.major.matches_filter('minor') returns True.",
+   "covering_prose": null,
+   "gold_anchor": "'minor': [VersionChange.major, VersionChange.minor]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VersionChange.minor.matches_filter('minor') returns True.",
+   "covering_prose": null,
+   "gold_anchor": "'minor': [VersionChange.major, VersionChange.minor]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VersionChange.patch.matches_filter('minor') returns False.",
+   "covering_prose": null,
+   "gold_anchor": "'minor': [VersionChange.major, VersionChange.minor]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VersionChange.major.matches_filter('patch') returns True.",
+   "covering_prose": null,
+   "gold_anchor": "'patch': [VersionChange.major, VersionChange.minor, VersionChange.patch]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VersionChange.minor.matches_filter('patch') returns True.",
+   "covering_prose": null,
+   "gold_anchor": "'patch': [VersionChange.major, VersionChange.minor, VersionChange.patch]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VersionChange.patch.matches_filter('patch') returns True.",
+   "covering_prose": null,
+   "gold_anchor": "'patch': [VersionChange.major, VersionChange.minor, VersionChange.patch]",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

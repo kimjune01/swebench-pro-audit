@@ -1,0 +1,74 @@
+{
+ "case": "qutebrowser_e158a480",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "`custom_headers` accepts the keyword argument `fallback_accept_language` when called as `shared.custom_headers(url=url, fallback_accept_language=fallback)`.",
+   "covering_prose": "The function \u2018custom_headers\u2019 must accept an additional keyword argument named \u2018fallback_accept_language\u2019 (defaulting to \u2018True\u2019)",
+   "gold_anchor": "fallback_accept_language: bool = True",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `url=None` and `fallback_accept_language=True`, `custom_headers` includes `b\"Accept-Language\"`.",
+   "covering_prose": "If \u2018fallback_accept_language=True\u2019 or no URL is provided, the header must be present.",
+   "gold_anchor": "fallback=fallback_accept_language",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `url=None` and `fallback_accept_language=False`, `custom_headers` includes `b\"Accept-Language\"`.",
+   "covering_prose": "If \u2018fallback_accept_language=True\u2019 or no URL is provided, the header must be present.",
+   "gold_anchor": "fallback=fallback_accept_language",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `url=QUrl(\"http://example.org\")` and `fallback_accept_language=True`, `custom_headers` includes `b\"Accept-Language\"`.",
+   "covering_prose": "If \u2018fallback_accept_language=True\u2019 or no URL is provided, the header must be present.",
+   "gold_anchor": "fallback=fallback_accept_language",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With `url=QUrl(\"http://example.org\")` and `fallback_accept_language=False`, `custom_headers` does not include `b\"Accept-Language\"`.",
+   "covering_prose": "When \u2018fallback_accept_language=False\u2019 is used, and the URL has no per-domain override for \u2018content.headers.accept_language\u2019, the resulting header list must not include \u2018Accept-Language\u2019.",
+   "gold_anchor": "if accept_language is not None and not isinstance(accept_language, usertypes.Unset):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an XHR request where JavaScript sets `Accept-Language` to `from XHR` while global `content.headers.accept_language` is `config-value`, the sent `Accept-Language` header is `from XHR`.",
+   "covering_prose": "When making an XHR request via JavaScript and setting a custom Accept-Language header, the browser should send the exact header specified in the request, not the globally configured one.",
+   "gold_anchor": "url=url, fallback_accept_language=not is_xhr",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For XHR requests, `interceptRequest` calls `custom_headers` with `fallback_accept_language=False`; for non-XHR requests, it uses `True`.",
+   "covering_prose": "In \u2018interceptRequest\u2019, the call to \u2018custom_headers\u2019 must pass \u2018fallback_accept_language=False\u2019 only when the request type corresponds to an XHR, and \u2018True\u2019 otherwise.",
+   "gold_anchor": "fallback_accept_language=not is_xhr",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In the Custom headers via XHR scenario, the `Accept` header remains `*/*` even when `content.headers.custom` configures `Accept` as `config-value`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "In the Custom headers via XHR scenario, the `X-Qute-Test` header is `config-value`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

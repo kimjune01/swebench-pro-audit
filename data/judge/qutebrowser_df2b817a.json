@@ -1,0 +1,32 @@
+{
+ "case": "qutebrowser_df2b817a",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For a :spawn startup failure with command_does_not_exist127623, the shown error begins with \"Command 'command_does_not_exist127623' failed to start: \" rather than the old generic spawning message.",
+   "covering_prose": "When a `FailedToStart` error occurs while starting a process in `_on_error` of `qutebrowser/misc/guiprocess.py`, the error message must start with the process name capitalized, followed by the command in single quotes, the phrase \"failed to start:\", and must include the error detail returned by the process.",
+   "gold_anchor": "QProcess.FailedToStart: f\"{what.capitalize()} failed to start\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a unit-test startup failure of process name testprocess and command this_does_not_exist_either, the error text starts with \"Testprocess 'this_does_not_exist_either' failed to start:\".",
+   "covering_prose": "When a `FailedToStart` error occurs while starting a process in `_on_error` of `qutebrowser/misc/guiprocess.py`, the error message must start with the process name capitalized, followed by the command in single quotes, the phrase \"failed to start:\", and must include the error detail returned by the process.",
+   "gold_anchor": "what = f\"{self._what} {self.cmd!r}\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On non-Windows platforms, for a missing-command startup failure, the error text ends with \"(Hint: Make sure 'this_does_not_exist_either' exists and is executable)\".",
+   "covering_prose": "On platforms other than Windows, if the error detail is \"No such file or directory\" or \"Permission denied\", the error message must end with \"(Hint: Make sure '<command>' exists and is executable)\", using the actual command.",
+   "gold_anchor": "msg += f'\\n(Hint: Make sure {self.cmd!r} exists and is executable)'",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

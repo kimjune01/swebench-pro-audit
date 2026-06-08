@@ -1,0 +1,74 @@
+{
+ "case": "qutebrowser_71451483",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "Each module version info object exposes a `_reset_cache()` method, and the hidden test can call `mod_info._reset_cache()` for every object in `version.MODULE_INFO.values()` after mocking version attributes.",
+   "covering_prose": "Provide for invalidating cached module-version detection via a method named `_reset_cache` available on each module\u2019s version info object so that subsequent checks recompute installation state and version.",
+   "gold_anchor": "def _reset_cache(self) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After `_reset_cache()` is called on all module info objects, `version._module_versions()` recomputes module installation/version state from the currently mocked module attributes instead of reusing stale cached values.",
+   "covering_prose": "Provide for invalidating cached module-version detection via a method named `_reset_cache` available on each module\u2019s version info object so that subsequent checks recompute installation state and version.",
+   "gold_anchor": "self._initialized = False",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`version._module_versions()` returns exactly one rendered line per module matching the expected list built by the test.",
+   "covering_prose": "Ensure version reporting renders one line per module in the exact formats: `name: version` when a version is known, `name: yes` when installed without a readable version, and append `(< min_version, outdated)` when the installed version is below the minimum.",
+   "gold_anchor": "return [str(mod_info) for mod_info in MODULE_INFO.values()]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a mocked installed module has a readable version attribute, its rendered version line is `name: 1.2.3`.",
+   "covering_prose": "Ensure version reporting renders one line per module in the exact formats: `name: version` when a version is known, `name: yes` when installed without a readable version, and append `(< min_version, outdated)` when the installed version is below the minimum.",
+   "gold_anchor": "text = f'{self.name}: {version}'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a mocked installed module has no readable version attribute, its rendered version line is `name: yes`.",
+   "covering_prose": "Ensure version reporting renders one line per module in the exact formats: `name: version` when a version is known, `name: yes` when installed without a readable version, and append `(< min_version, outdated)` when the installed version is below the minimum.",
+   "gold_anchor": "return f'{self.name}: yes'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The blocklist download emits one per-item notification for each of the 10 processed blocklist entries, so `num_single_dl_called == total_expected` where `total_expected = 10`.",
+   "covering_prose": "Ensure blocklist downloads emit one per-item notification for every downloaded entry and exactly one completion notification whose reported total equals the number of items processed.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Each per-item blocklist download notification passes a readable byte stream whose decoded content has at least one line.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The blocklist completion notification passes `done_count == total_expected`, with `total_expected = 10`.",
+   "covering_prose": "Ensure blocklist downloads emit one per-item notification for every downloaded entry and exactly one completion notification whose reported total equals the number of items processed.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The consumer connected to the blocklist completion notification receives the final total count as its signal argument, observed as `blocker.args == [total_expected]` where `total_expected = 10`.",
+   "covering_prose": "Maintain that the consumer of the completion notification receives the final total count as an argument suitable for downstream use (e.g., invoking a handler with the total).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

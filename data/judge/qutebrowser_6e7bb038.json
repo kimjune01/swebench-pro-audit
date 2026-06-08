@@ -1,0 +1,438 @@
+{
+ "case": "qutebrowser_6e7bb038",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 60,
+ "n_covered": 60,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "qt_args returns a list whose first element is sys.argv[0] when no Qt arguments are supplied.",
+   "covering_prose": "It must preserve the following order: (1) base argv[0], (2) flags (--flag) and key-value pairs (--key value) from the command-line namespace, (3) user-defined arguments from qt.args, and (4) dynamically assembled QtWebEngine-specific flags from `_qtwebengine_args()` if applicable.",
+   "gold_anchor": "argv = [sys.argv[0]]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A command-line --qt-flag reverse is converted into --reverse in the Qt argument list.",
+   "covering_prose": "It must preserve the following order: (1) base argv[0], (2) flags (--flag) and key-value pairs (--key value) from the command-line namespace, (3) user-defined arguments from qt.args, and (4) dynamically assembled QtWebEngine-specific flags from `_qtwebengine_args()` if applicable.",
+   "gold_anchor": "argv += ['--' + flag[0] for flag in namespace.qt_flag]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Multiple --qt-flag values are emitted as multiple --flag entries after argv[0].",
+   "covering_prose": "It must preserve the following order: (1) base argv[0], (2) flags (--flag) and key-value pairs (--key value) from the command-line namespace, (3) user-defined arguments from qt.args, and (4) dynamically assembled QtWebEngine-specific flags from `_qtwebengine_args()` if applicable.",
+   "gold_anchor": "argv += ['--' + flag[0] for flag in namespace.qt_flag]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A command-line --qt-arg stylesheet foo is converted into --stylesheet followed by foo.",
+   "covering_prose": "It must preserve the following order: (1) base argv[0], (2) flags (--flag) and key-value pairs (--key value) from the command-line namespace, (3) user-defined arguments from qt.args, and (4) dynamically assembled QtWebEngine-specific flags from `_qtwebengine_args()` if applicable.",
+   "gold_anchor": "argv += ['--' + name, value]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Multiple --qt-arg pairs are emitted in input order as --key value pairs after argv[0].",
+   "covering_prose": "It must preserve the following order: (1) base argv[0], (2) flags (--flag) and key-value pairs (--key value) from the command-line namespace, (3) user-defined arguments from qt.args, and (4) dynamically assembled QtWebEngine-specific flags from `_qtwebengine_args()` if applicable.",
+   "gold_anchor": "for name, value in namespace.qt_arg:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When both qt flags and qt args are present, argv[0], the flag, the key, and the value are all present in the returned list.",
+   "covering_prose": "The `qt_args(namespace: argparse.Namespace)` function should construct a complete list of command-line arguments for initializing the Qt application.",
+   "gold_anchor": "def qt_args(namespace: argparse.Namespace) -> typing.List[str]:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Values from config val qt.args are appended as --arg after command-line Qt arguments.",
+   "covering_prose": "It must preserve the following order: (1) base argv[0], (2) flags (--flag) and key-value pairs (--key value) from the command-line namespace, (3) user-defined arguments from qt.args, and (4) dynamically assembled QtWebEngine-specific flags from `_qtwebengine_args()` if applicable.",
+   "gold_anchor": "argv += ['--' + arg for arg in config.val.qt.args]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "QtWebEngine backend can add --disable-shared-workers; QtWebKit backend does not add --disable-shared-workers.",
+   "covering_prose": "dynamically assembled QtWebEngine-specific flags from `_qtwebengine_args()` if applicable.",
+   "gold_anchor": "if objects.backend == usertypes.Backend.QtWebEngine:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with version_check true and debug flag stack present, --enable-in-process-stack-traces is present and --disable-in-process-stack-traces is absent.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "yield '--enable-in-process-stack-traces'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with version_check true and debug flag stack absent, neither --enable-in-process-stack-traces nor --disable-in-process-stack-traces is present.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "if 'stack' in namespace.debug_flags:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with version_check false and debug flag stack present, neither --enable-in-process-stack-traces nor --disable-in-process-stack-traces is present.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "if 'stack' not in namespace.debug_flags:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine with version_check false and debug flag stack absent, --disable-in-process-stack-traces is present and --enable-in-process-stack-traces is absent.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "yield '--disable-in-process-stack-traces'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebKit, stack debug settings never add either in-process stack trace flag.",
+   "covering_prose": "dynamically assembled QtWebEngine-specific flags from `_qtwebengine_args()` if applicable.",
+   "gold_anchor": "if objects.backend == usertypes.Backend.QtWebEngine:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When debug flags include chromium on QtWebEngine, --enable-logging is present.",
+   "covering_prose": "namespace (argparse.Namespace): A parsed command-line arguments object that may contain Qt flags, arguments, and debug settings.",
+   "gold_anchor": "yield '--enable-logging'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When debug flags include chromium on QtWebEngine, --v=1 is present.",
+   "covering_prose": "namespace (argparse.Namespace): A parsed command-line arguments object that may contain Qt flags, arguments, and debug settings.",
+   "gold_anchor": "yield '--v=1'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When debug flags do not include chromium, --enable-logging and --v=1 are absent.",
+   "covering_prose": "namespace (argparse.Namespace): A parsed command-line arguments object that may contain Qt flags, arguments, and debug settings.",
+   "gold_anchor": "if 'chromium' in namespace.debug_flags:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "qt.force_software_rendering value chromium adds --disable-gpu.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'chromium': '--disable-gpu'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "qt.force_software_rendering values none, qt-quick, and software-opengl do not add --disable-gpu.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'software-opengl': None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If content.canvas_reading is False, --disable-reading-from-canvas is present; if True, it is absent.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "False: '--disable-reading-from-canvas'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "content.webrtc_ip_handling_policy all-interfaces adds no --force-webrtc-ip-handling-policy flag.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'all-interfaces': None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "content.webrtc_ip_handling_policy default-public-and-private-interfaces adds --force-webrtc-ip-handling-policy=default_public_and_private_interfaces.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'default_public_and_private_interfaces'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "content.webrtc_ip_handling_policy default-public-interface-only adds --force-webrtc-ip-handling-policy=default_public_interface_only.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'default_public_interface_only'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "content.webrtc_ip_handling_policy disable-non-proxied-udp adds --force-webrtc-ip-handling-policy=disable_non_proxied_udp.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'disable_non_proxied_udp'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "qt.process_model process-per-site-instance adds no process model flag.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'process-per-site-instance': None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "qt.process_model process-per-site adds --process-per-site.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'process-per-site': '--process-per-site'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "qt.process_model single-process adds --single-process.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'single-process': '--single-process'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "qt.low_end_device_mode auto adds no low-end device mode flag.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'auto': None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "qt.low_end_device_mode always adds --enable-low-end-device-mode.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'always': '--enable-low-end-device-mode'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "qt.low_end_device_mode never adds --disable-low-end-device-mode.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'never': '--disable-low-end-device-mode'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "content.headers.referer always adds no referer flag.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'always': None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "content.headers.referer never adds --no-referrers.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'never': '--no-referrers'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "content.headers.referer same-domain adds --reduced-referrer-granularity.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'same-domain': '--reduced-referrer-granularity'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Qt versions where autoplay is not controllable by QWebEngineSettings and content.autoplay is False, --autoplay-policy=user-gesture-required is present.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "False: '--autoplay-policy=user-gesture-required'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Qt versions where autoplay is controllable by QWebEngineSettings, no --autoplay-policy=user-gesture-required flag is added.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "if not qtutils.version_check('5.11'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When content.autoplay is True, no --autoplay-policy=user-gesture-required flag is added.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "True: None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine on Qt >= 5.11 and non-macOS, scrolling.bar overlay adds --enable-features=OverlayScrollbar.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'overlay': '--enable-features=OverlayScrollbar'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For scrolling.bar values always, never, and when-searching, no --enable-features=OverlayScrollbar flag is added.",
+   "covering_prose": "These helpers must accurately reflect backend-specific requirements (e.g., GPU disabling, WebRTC policy flags) and must be covered by unit tests that simulate version checks and diverse configuration states to avoid missed misconfigurations.",
+   "gold_anchor": "'when-searching': None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Qt >= 5.14, colors.webpage.prefers_color_scheme_dark True adds --force-dark-mode.",
+   "covering_prose": "The `_darkmode_settings()` function must translate the colors.webpage.darkmode.* configuration options to `--blink-settings` using the corresponding Blink keys (e.g., DarkModeInversionAlgorithm, DarkModeImagePolicy, DarkModePagePolicy, etc.), with values appropriate to the QtWebEngine version.",
+   "gold_anchor": "True: '--force-dark-mode'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Qt >= 5.14, colors.webpage.prefers_color_scheme_dark False does not add --force-dark-mode.",
+   "covering_prose": "The `_darkmode_settings()` function must translate the colors.webpage.darkmode.* configuration options to `--blink-settings` using the corresponding Blink keys (e.g., DarkModeInversionAlgorithm, DarkModeImagePolicy, DarkModePagePolicy, etc.), with values appropriate to the QtWebEngine version.",
+   "gold_anchor": "False: None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If dark mode is disabled, no --blink-settings argument is added for dark mode settings.",
+   "covering_prose": "The `_darkmode_settings()` function must translate the colors.webpage.darkmode.* configuration options to `--blink-settings` using the corresponding Blink keys (e.g., DarkModeInversionAlgorithm, DarkModeImagePolicy, DarkModePagePolicy, etc.), with values appropriate to the QtWebEngine version.",
+   "gold_anchor": "if not config.val.colors.webpage.darkmode.enabled:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If dark mode settings produce Blink settings, qt_args adds a single --blink-settings= argument containing comma-separated key=value pairs.",
+   "covering_prose": "The `_darkmode_settings()` function must translate the colors.webpage.darkmode.* configuration options to `--blink-settings` using the corresponding Blink keys (e.g., DarkModeInversionAlgorithm, DarkModeImagePolicy, DarkModePagePolicy, etc.), with values appropriate to the QtWebEngine version.",
+   "gold_anchor": "yield '--blink-settings=' + ','.join('{}={}'.format(k, v)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_darkmode_settings maps colors.webpage.darkmode.algorithm brightness-rgb to Chromium enum value 2.",
+   "covering_prose": "The `_darkmode_settings()` function must translate the colors.webpage.darkmode.* configuration options to `--blink-settings` using the corresponding Blink keys (e.g., DarkModeInversionAlgorithm, DarkModeImagePolicy, DarkModePagePolicy, etc.), with values appropriate to the QtWebEngine version.",
+   "gold_anchor": "'brightness-rgb': 2",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_darkmode_settings maps colors.webpage.darkmode.algorithm lightness-hsl to Chromium enum value 3.",
+   "covering_prose": "The `_darkmode_settings()` function must translate the colors.webpage.darkmode.* configuration options to `--blink-settings` using the corresponding Blink keys (e.g., DarkModeInversionAlgorithm, DarkModeImagePolicy, DarkModePagePolicy, etc.), with values appropriate to the QtWebEngine version.",
+   "gold_anchor": "'lightness-hsl': 3",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_darkmode_settings maps colors.webpage.darkmode.algorithm lightness-cielab to Chromium enum value 4.",
+   "covering_prose": "The `_darkmode_settings()` function must translate the colors.webpage.darkmode.* configuration options to `--blink-settings` using the corresponding Blink keys (e.g., DarkModeInversionAlgorithm, DarkModeImagePolicy, DarkModePagePolicy, etc.), with values appropriate to the QtWebEngine version.",
+   "gold_anchor": "'lightness-cielab': 4",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_darkmode_settings maps colors.webpage.darkmode.policy.images always, never, and smart to Chromium enum values 0, 1, and 2 respectively.",
+   "covering_prose": "The `_darkmode_settings()` function must translate the colors.webpage.darkmode.* configuration options to `--blink-settings` using the corresponding Blink keys (e.g., DarkModeInversionAlgorithm, DarkModeImagePolicy, DarkModePagePolicy, etc.), with values appropriate to the QtWebEngine version.",
+   "gold_anchor": "'smart': 2",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_darkmode_settings maps colors.webpage.darkmode.policy.page always and smart to Chromium enum values 0 and 1 respectively.",
+   "covering_prose": "The `_darkmode_settings()` function must translate the colors.webpage.darkmode.* configuration options to `--blink-settings` using the corresponding Blink keys (e.g., DarkModeInversionAlgorithm, DarkModeImagePolicy, DarkModePagePolicy, etc.), with values appropriate to the QtWebEngine version.",
+   "gold_anchor": "'smart': 1",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_darkmode_settings maps boolean darkmode values to lowercase strings true and false.",
+   "covering_prose": "The `_darkmode_settings()` function must translate the colors.webpage.darkmode.* configuration options to `--blink-settings` using the corresponding Blink keys (e.g., DarkModeInversionAlgorithm, DarkModeImagePolicy, DarkModePagePolicy, etc.), with values appropriate to the QtWebEngine version.",
+   "gold_anchor": "True: 'true'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Qt >= 5.15, _darkmode_settings uses enabled and algorithm settings as dark mode Blink settings, with enabled mandatory.",
+   "covering_prose": "The `_darkmode_settings()` function must translate the colors.webpage.darkmode.* configuration options to `--blink-settings` using the corresponding Blink keys (e.g., DarkModeInversionAlgorithm, DarkModeImagePolicy, DarkModePagePolicy, etc.), with values appropriate to the QtWebEngine version.",
+   "gold_anchor": "if qtutils.version_check('5.15', compiled=False):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For Qt < 5.15, _darkmode_settings uses algorithm as the mandatory dark mode Blink setting.",
+   "covering_prose": "The `_darkmode_settings()` function must translate the colors.webpage.darkmode.* configuration options to `--blink-settings` using the corresponding Blink keys (e.g., DarkModeInversionAlgorithm, DarkModeImagePolicy, DarkModePagePolicy, etc.), with values appropriate to the QtWebEngine version.",
+   "gold_anchor": "mandatory_setting = 'algorithm'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "init_envvars sets QT_XCB_FORCE_SOFTWARE_OPENGL to 1 when qt.force_software_rendering is software-opengl on QtWebEngine.",
+   "covering_prose": "This function must set the following Qt-related environment variables based on configuration: `QT_QPA_PLATFORM`, `QT_QPA_PLATFORMTHEME`, `QT_WAYLAND_DISABLE_WINDOWDECORATION`, `QT_XCB_FORCE_SOFTWARE_OPENGL`, `QT_QUICK_BACKEND`, `QT_WEBENGINE_DISABLE_NOUVEAU_WORKAROUND`, and one of `QT_ENABLE_HIGHDPI_SCALING` or `QT_AUTO_SCREEN_SCALE_FACTOR` depending on Qt version.",
+   "gold_anchor": "os.environ['QT_XCB_FORCE_SOFTWARE_OPENGL'] = '1'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "init_envvars sets QT_QUICK_BACKEND to software when qt.force_software_rendering is qt-quick on QtWebEngine.",
+   "covering_prose": "This function must set the following Qt-related environment variables based on configuration: `QT_QPA_PLATFORM`, `QT_QPA_PLATFORMTHEME`, `QT_WAYLAND_DISABLE_WINDOWDECORATION`, `QT_XCB_FORCE_SOFTWARE_OPENGL`, `QT_QUICK_BACKEND`, `QT_WEBENGINE_DISABLE_NOUVEAU_WORKAROUND`, and one of `QT_ENABLE_HIGHDPI_SCALING` or `QT_AUTO_SCREEN_SCALE_FACTOR` depending on Qt version.",
+   "gold_anchor": "os.environ['QT_QUICK_BACKEND'] = 'software'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "init_envvars sets QT_WEBENGINE_DISABLE_NOUVEAU_WORKAROUND to 1 when qt.force_software_rendering is chromium on QtWebEngine.",
+   "covering_prose": "This function must set the following Qt-related environment variables based on configuration: `QT_QPA_PLATFORM`, `QT_QPA_PLATFORMTHEME`, `QT_WAYLAND_DISABLE_WINDOWDECORATION`, `QT_XCB_FORCE_SOFTWARE_OPENGL`, `QT_QUICK_BACKEND`, `QT_WEBENGINE_DISABLE_NOUVEAU_WORKAROUND`, and one of `QT_ENABLE_HIGHDPI_SCALING` or `QT_AUTO_SCREEN_SCALE_FACTOR` depending on Qt version.",
+   "gold_anchor": "os.environ['QT_WEBENGINE_DISABLE_NOUVEAU_WORKAROUND'] = '1'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "init_envvars sets QT_QPA_PLATFORM to the configured qt.force_platform value.",
+   "covering_prose": "This function must set the following Qt-related environment variables based on configuration: `QT_QPA_PLATFORM`, `QT_QPA_PLATFORMTHEME`, `QT_WAYLAND_DISABLE_WINDOWDECORATION`, `QT_XCB_FORCE_SOFTWARE_OPENGL`, `QT_QUICK_BACKEND`, `QT_WEBENGINE_DISABLE_NOUVEAU_WORKAROUND`, and one of `QT_ENABLE_HIGHDPI_SCALING` or `QT_AUTO_SCREEN_SCALE_FACTOR` depending on Qt version.",
+   "gold_anchor": "os.environ['QT_QPA_PLATFORM'] = config.val.qt.force_platform",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "init_envvars sets QT_QPA_PLATFORMTHEME to the configured qt.force_platformtheme value.",
+   "covering_prose": "This function must set the following Qt-related environment variables based on configuration: `QT_QPA_PLATFORM`, `QT_QPA_PLATFORMTHEME`, `QT_WAYLAND_DISABLE_WINDOWDECORATION`, `QT_XCB_FORCE_SOFTWARE_OPENGL`, `QT_QUICK_BACKEND`, `QT_WEBENGINE_DISABLE_NOUVEAU_WORKAROUND`, and one of `QT_ENABLE_HIGHDPI_SCALING` or `QT_AUTO_SCREEN_SCALE_FACTOR` depending on Qt version.",
+   "gold_anchor": "os.environ['QT_QPA_PLATFORMTHEME'] = config.val.qt.force_platformtheme",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "init_envvars sets QT_WAYLAND_DISABLE_WINDOWDECORATION to 1 when window.hide_decoration is true.",
+   "covering_prose": "This function must set the following Qt-related environment variables based on configuration: `QT_QPA_PLATFORM`, `QT_QPA_PLATFORMTHEME`, `QT_WAYLAND_DISABLE_WINDOWDECORATION`, `QT_XCB_FORCE_SOFTWARE_OPENGL`, `QT_QUICK_BACKEND`, `QT_WEBENGINE_DISABLE_NOUVEAU_WORKAROUND`, and one of `QT_ENABLE_HIGHDPI_SCALING` or `QT_AUTO_SCREEN_SCALE_FACTOR` depending on Qt version.",
+   "gold_anchor": "os.environ['QT_WAYLAND_DISABLE_WINDOWDECORATION'] = '1'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When qt.highdpi is true and Qt is new enough, init_envvars sets QT_ENABLE_HIGHDPI_SCALING to 1.",
+   "covering_prose": "This function must set the following Qt-related environment variables based on configuration: `QT_QPA_PLATFORM`, `QT_QPA_PLATFORMTHEME`, `QT_WAYLAND_DISABLE_WINDOWDECORATION`, `QT_XCB_FORCE_SOFTWARE_OPENGL`, `QT_QUICK_BACKEND`, `QT_WEBENGINE_DISABLE_NOUVEAU_WORKAROUND`, and one of `QT_ENABLE_HIGHDPI_SCALING` or `QT_AUTO_SCREEN_SCALE_FACTOR` depending on Qt version.",
+   "gold_anchor": "if qtutils.version_check('5.14', compiled=False)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When qt.highdpi is true and Qt is not new enough, init_envvars sets QT_AUTO_SCREEN_SCALE_FACTOR to 1.",
+   "covering_prose": "This function must set the following Qt-related environment variables based on configuration: `QT_QPA_PLATFORM`, `QT_QPA_PLATFORMTHEME`, `QT_WAYLAND_DISABLE_WINDOWDECORATION`, `QT_XCB_FORCE_SOFTWARE_OPENGL`, `QT_QUICK_BACKEND`, `QT_WEBENGINE_DISABLE_NOUVEAU_WORKAROUND`, and one of `QT_ENABLE_HIGHDPI_SCALING` or `QT_AUTO_SCREEN_SCALE_FACTOR` depending on Qt version.",
+   "gold_anchor": "else 'QT_AUTO_SCREEN_SCALE_FACTOR')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "init_envvars does not set QtWebEngine-only software rendering environment variables when backend is QtWebKit.",
+   "covering_prose": "The new module (qtargs.py) should encapsulate all logic needed for constructing QApplication arguments and initializing Qt-related environment variables.",
+   "gold_anchor": "if objects.backend == usertypes.Backend.QtWebEngine:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "configinit.early_init calls qtargs.init_envvars instead of a local _init_envvars implementation.",
+   "covering_prose": "The call to `_init_envvars()` in `configinit.early_init()` should be replaced with a call to `qtargs.init_envvars()`.",
+   "gold_anchor": "qtargs.init_envvars()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "app.py imports qtargs from qutebrowser.config and calls qtargs.qt_args(args) for Qt startup arguments.",
+   "covering_prose": "The application must be updated to import qt_args from qtargs.py in `app.py`, replacing the previous call to `configinit.qt_args()`.",
+   "gold_anchor": "qt_args = qtargs.qt_args(args)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "coverage mapping includes tests/unit/config/test_qtargs.py for qutebrowser/config/qtargs.py.",
+   "covering_prose": "The `check_coverage.py` script must be updated to map `tests/unit/config/test_qtargs.py` to `qutebrowser/config/qtargs.py`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

@@ -1,0 +1,151 @@
+{
+ "case": "qutebrowser_8e08f046",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 20,
+ "n_covered": 20,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "A private helper named `_get_locale_pak_path` constructs a locale pak path by joining the qtwebengine_locales path with `<locale_name>.pak`.",
+   "covering_prose": "A new private helper function named `_get_locale_pak_path` should be created to construct the full path to a locale's `.pak` file.",
+   "gold_anchor": "return locales_path / (locale_name + '.pak')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A private function named `_get_lang_override` exists in `qutebrowser/config/qtargs.py` for the primary workaround logic.",
+   "covering_prose": "A new private function named `_get_lang_override` should be created in `qutebrowser/config/qtargs.py` to encapsulate the primary workaround logic.",
+   "gold_anchor": "def _get_lang_override(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `qt.workarounds.locale` is disabled, `_get_lang_override` returns `None` and no language override is applied.",
+   "covering_prose": "The system should skip the workaround entirely if any activation condition is not met.",
+   "gold_anchor": "if not config.val.qt.workarounds.locale:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the QtWebEngine version is not exactly `5.15.3`, `_get_lang_override` returns `None` and no language override is applied.",
+   "covering_prose": "The QtWebEngine version is exactly `5.15.3`.",
+   "gold_anchor": "webengine_version != utils.VersionNumber(5, 15, 3)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the operating system is not Linux, `_get_lang_override` returns `None` and no language override is applied.",
+   "covering_prose": "The operating system is Linux.",
+   "gold_anchor": "or not utils.is_linux:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the `qtwebengine_locales` directory does not exist below the Qt translations path, `_get_lang_override` returns `None`.",
+   "covering_prose": "The `qtwebengine_locales` directory exists in the Qt installation path.",
+   "gold_anchor": "if not locales_path.exists():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the exact `.pak` file for the current locale exists, `_get_lang_override` returns `None`.",
+   "covering_prose": "Skip the override if the exact .pak exists or if not on the affected version/OS.",
+   "gold_anchor": "if pak_path.exists():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The active locale name is read from `QLocale().bcp47Name()` when generating QtWebEngine arguments.",
+   "covering_prose": "Detects the active locale and whether a corresponding qtwebengine_locales/<locale>.pak exists.",
+   "gold_anchor": "locale_name=QLocale().bcp47Name(),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`en`, `en-PH`, and `en-LR` map to fallback locale `en-US`.",
+   "covering_prose": "`en`, `en-PH`, or `en-LR` should map to `en-US`.",
+   "gold_anchor": "if locale_name in {'en', 'en-PH', 'en-LR'}:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Other locales starting with `en-` map to fallback locale `en-GB`.",
+   "covering_prose": "Any other locale starting with `en-` should map to `en-GB`.",
+   "gold_anchor": "elif locale_name.startswith('en-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locales starting with `es-` map to fallback locale `es-419`.",
+   "covering_prose": "Any locale starting with `es-` should map to `es-419`.",
+   "gold_anchor": "elif locale_name.startswith('es-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locale `pt` maps to fallback locale `pt-BR`.",
+   "covering_prose": "`pt` should map to `pt-BR`.",
+   "gold_anchor": "elif locale_name == 'pt':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Other locales starting with `pt-` map to fallback locale `pt-PT`.",
+   "covering_prose": "Any other locale starting with `pt-` should map to `pt-PT`.",
+   "gold_anchor": "elif locale_name.startswith('pt-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locales `zh-HK` and `zh-MO` map to fallback locale `zh-TW`.",
+   "covering_prose": "`zh-HK` or `zh-MO` should map to `zh-TW`.",
+   "gold_anchor": "elif locale_name in {'zh-HK', 'zh-MO'}:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locale `zh` and other locales starting with `zh-` map to fallback locale `zh-CN`.",
+   "covering_prose": "`zh` or any other locale starting with `zh-` should map to `zh-CN`.",
+   "gold_anchor": "elif locale_name == 'zh' or locale_name.startswith('zh-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "All other locales use the primary language subtag before the hyphen as the fallback candidate.",
+   "covering_prose": "All other locales should use the primary language subtag (the part before a hyphen) as the fallback.",
+   "gold_anchor": "pak_name = locale_name.split('-')[0]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After determining a fallback locale, the system checks whether that fallback `.pak` file exists.",
+   "covering_prose": "The system should check for the existence of the corresponding `.pak` file after a fallback name is determined.",
+   "gold_anchor": "pak_path = _get_locale_pak_path(locales_path, pak_name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If the fallback locale `.pak` file exists, `_get_lang_override` returns the fallback locale name.",
+   "covering_prose": "The system should use the fallback name for the `--lang` argument if its `.pak` file exists.",
+   "gold_anchor": "return pak_name",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If the fallback locale `.pak` file does not exist, `_get_lang_override` returns final failsafe locale `en-US`.",
+   "covering_prose": "The system should default to using `en-US` as a final failsafe if the fallback `.pak` file does not exist.",
+   "gold_anchor": "return 'en-US'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a language override is chosen, QtWebEngine args include a command-line argument formatted exactly as `--lang=<locale_name>`.",
+   "covering_prose": "The final chosen locale name should be passed to QtWebEngine as a command-line argument formatted as `--lang=<locale_name>`.",
+   "gold_anchor": "yield f'--lang={lang_override}'",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

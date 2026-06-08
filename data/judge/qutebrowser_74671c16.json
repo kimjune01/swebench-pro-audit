@@ -1,0 +1,95 @@
+{
+ "case": "qutebrowser_74671c16",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 12,
+ "n_covered": 9,
+ "n_gap": 3,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "UserVersion.from_int(0x0008_0001) returns an instance with major == 8 and minor == 1.",
+   "covering_prose": "Description: Parses a 32-bit integer into major (bits 31\u201316) and minor (bits 15\u20130).",
+   "gold_anchor": "major = (num & 0x7FFF_0000) >> 16",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserVersion.from_int(0x7FFF_FFFF) returns an instance with major == 0x7FFF and minor == 0xFFFF.",
+   "covering_prose": "Description: Parses a 32-bit integer into major (bits 31\u201316) and minor (bits 15\u20130).",
+   "gold_anchor": "minor = num & 0x0000_FFFF",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserVersion(8, 1).to_int() returns 0x0008_0001.",
+   "covering_prose": "Outputs: Returns an integer packed as (major << 16) | minor suitable for SQLite\u2019s PRAGMA user\\_version.",
+   "gold_anchor": "return self.major << 16 | self.minor",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserVersion(0x7FFF, 0xFFFF).to_int() returns 0x7FFF_FFFF.",
+   "covering_prose": "Outputs: Returns an integer packed as (major << 16) | minor suitable for SQLite\u2019s PRAGMA user\\_version.",
+   "gold_anchor": "return self.major << 16 | self.minor",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserVersion.from_int(0x8000_0000) raises AssertionError.",
+   "covering_prose": null,
+   "gold_anchor": "assert 0 <= num <= 0x7FFF_FFFF, num",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "UserVersion.from_int(-1) raises AssertionError.",
+   "covering_prose": "expose immutable `major` and `minor` attributes as non-negative integers.",
+   "gold_anchor": "assert 0 <= num <= 0x7FFF_FFFF, num",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserVersion(-1, 0).to_int() raises AssertionError.",
+   "covering_prose": "expose immutable `major` and `minor` attributes as non-negative integers.",
+   "gold_anchor": "assert 0 <= self.major <= 0x7FFF",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserVersion(0, -1).to_int() raises AssertionError.",
+   "covering_prose": "expose immutable `major` and `minor` attributes as non-negative integers.",
+   "gold_anchor": "assert 0 <= self.minor <= 0xFFFF",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserVersion(0, 0x10000).to_int() raises AssertionError.",
+   "covering_prose": null,
+   "gold_anchor": "assert 0 <= self.minor <= 0xFFFF",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "UserVersion(0x8000, 0).to_int() raises AssertionError.",
+   "covering_prose": null,
+   "gold_anchor": "assert 0 <= self.major <= 0x7FFF",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For every integer val in [0, 0x7FFF_FFFF], UserVersion.from_int(val).to_int() == val.",
+   "covering_prose": "Function: `to_int` Location: qutebrowser/misc/sql.py Inputs: None (uses the instance\u2019s major and minor fields). \nOutputs: Returns an integer packed as (major << 16) | minor suitable for SQLite\u2019s PRAGMA user\\_version. Description: Converts the instance back to the packed integer form.",
+   "gold_anchor": "return self.major << 16 | self.minor",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For every major in [0, 0x7FFF] and minor in [0, 0xFFFF], UserVersion.from_int(UserVersion(major, minor).to_int()) == UserVersion(major, minor).",
+   "covering_prose": "The `UserVersion` class must support equality and ordering comparisons based on (`major`, `minor`).",
+   "gold_anchor": "@attr.s",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

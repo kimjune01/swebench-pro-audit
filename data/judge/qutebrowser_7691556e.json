@@ -1,0 +1,88 @@
+{
+ "case": "qutebrowser_7691556e",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 8,
+ "n_covered": 7,
+ "n_gap": 1,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "raising machinery.Unavailable() is caught by pytest.raises(ImportError)",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "raising machinery.NoWrapperAvailableError(machinery.SelectionInfo()) is caught by pytest.raises(ImportError)",
+   "covering_prose": "Add a class `NoWrapperAvailableError` in `qutebrowser/qt/machinery.py` to represent the no-wrapper condition. It should subclass `ImportError`, carry a reference to the associated `SelectionInfo`, and format its message as described above.",
+   "gold_anchor": "class NoWrapperAvailableError(Error, ImportError):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SelectionInfo.set_module(\"PyQt5\", \"ImportError: Python imploded\") sets pyqt5 to that string while leaving wrapper=None, reason=unknown, and pyqt6=None",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "str(SelectionInfo(wrapper=\"PyQt5\", reason=cli)) returns exactly \"Qt wrapper: PyQt5 (via --qt-wrapper)\"",
+   "covering_prose": "Refactor `SelectionInfo.__str__` so the short form is Qt wrapper: <wrapper> (via <reason>) when PyQt5 or PyQt6 is missing, and the verbose form begins with Qt wrapper info: before the detailed lines.",
+   "gold_anchor": "return f\"Qt wrapper: {self.wrapper} (via {self.reason.value})\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "str(SelectionInfo(wrapper=\"PyQt6\", reason=env)) returns exactly \"Qt wrapper: PyQt6 (via QUTE_QT_WRAPPER)\"",
+   "covering_prose": null,
+   "gold_anchor": "return f\"Qt wrapper: {self.wrapper} (via {self.reason.value})\"",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "str(SelectionInfo(wrapper=\"PyQt6\", reason=auto, pyqt5=\"ImportError: Python imploded\", pyqt6=\"success\")) returns a verbose multi-line string beginning with \"Qt wrapper info:\" and listing PyQt5, PyQt6, and selected PyQt6 via autoselect",
+   "covering_prose": "Refactor `SelectionInfo.__str__` so the short form is Qt wrapper: <wrapper> (via <reason>) when PyQt5 or PyQt6 is missing, and the verbose form begins with Qt wrapper info: before the detailed lines.",
+   "gold_anchor": "lines = [\"Qt wrapper info:\"]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_autoselect_wrapper() with no available wrappers returns SelectionInfo(wrapper=None, reason=auto, pyqt6=\"ImportError: Fake ImportError for PyQt6.\", pyqt5=\"ImportError: Fake ImportError for PyQt5.\") instead of raising",
+   "covering_prose": "When autoselecting a wrapper, include the exception\u2019s type name alongside the error message to make the failure mode immediately clear.",
+   "gold_anchor": "return info",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_autoselect_wrapper() with PyQt6 unavailable and PyQt5 available records pyqt6 as \"ImportError: Fake ImportError for PyQt6.\" before selecting PyQt5",
+   "covering_prose": "When autoselecting a wrapper, include the exception\u2019s type name alongside the error message to make the failure mode immediately clear.",
+   "gold_anchor": "info.set_module(wrapper, f\"{type(e).__name__}: {e}\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "implicit init with no importable wrapper raises machinery.NoWrapperAvailableError with message matching \"No Qt wrapper was importable.\"",
+   "covering_prose": "During implicit initialization, if there is no importable wrapper, raise `NoWrapperAvailableError`. If a wrapper is importable, complete initialization and stop there without continuing into later selection logic.",
+   "gold_anchor": "raise NoWrapperAvailableError(INFO)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "explicit init with no importable wrapper returns SelectionInfo(wrapper=None, reason=default, pyqt6=\"ImportError: Fake ImportError for PyQt6.\", pyqt5=\"ImportError: Fake ImportError for PyQt5.\")",
+   "covering_prose": "When initializing the Qt wrapper globals in machinery, return the `INFO` object created during initialization so callers can inspect it.",
+   "gold_anchor": "return INFO",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "test_init_properly starts from an uninitialized state with all wrapper modules removed and QUTE_QT_WRAPPER deleted via the undo_init fixture",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

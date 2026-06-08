@@ -1,0 +1,137 @@
+{
+ "case": "qutebrowser_b84ef9b2",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 18,
+ "n_covered": 18,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When `qt.workarounds.locale` is disabled, `_get_lang_override(qtwe_version, \"de-CH\")` returns `None`.",
+   "covering_prose": "When `qt.workarounds.locale` is disabled, no locale override must be applied; additionally, the workaround must be considered only on Linux and only when the current WebEngine version is exactly `5.15.3`, otherwise no override must be applied.",
+   "gold_anchor": "if not config.val.qt.workarounds.locale:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For WebEngine versions `5.14.2`, `5.15.2`, `5.15.4`, and `6`, `_get_lang_override(version, \"de-CH\")` returns `None`.",
+   "covering_prose": "When `qt.workarounds.locale` is disabled, no locale override must be applied; additionally, the workaround must be considered only on Linux and only when the current WebEngine version is exactly `5.15.3`, otherwise no override must be applied.",
+   "gold_anchor": "webengine_version != utils.VersionNumber(5, 15, 3)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On non-Linux (`windows`), `_get_lang_override(qtwe_version, \"de-CH\")` returns `None`.",
+   "covering_prose": "When `qt.workarounds.locale` is disabled, no locale override must be applied; additionally, the workaround must be considered only on Linux and only when the current WebEngine version is exactly `5.15.3`, otherwise no override must be applied.",
+   "gold_anchor": "or not utils.is_linux:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locale `.pak` lookup uses `QLibraryInfo.TranslationsPath` joined with `qtwebengine_locales`.",
+   "covering_prose": "The runtime must look for locale `.pak` files under the translations directory returned by `QLibraryInfo.TranslationsPath` joined with `qtwebengine_locales`, and if a `.pak` for the current locale exists, no override must be applied and no `--lang` argument must be added.",
+   "gold_anchor": "QLibraryInfo.location(QLibraryInfo.TranslationsPath)) / 'qtwebengine_locales'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A locale `.pak` path is formed as `<locales_path>/<locale_name>.pak`.",
+   "covering_prose": "The runtime must look for locale `.pak` files under the translations directory returned by `QLibraryInfo.TranslationsPath` joined with `qtwebengine_locales`, and if a `.pak` for the current locale exists, no override must be applied and no `--lang` argument must be added.",
+   "gold_anchor": "return locales_path / (locale_name + '.pak')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If the current locale `.pak` exists, `_get_lang_override` returns `None` and the test asserts that original path exists.",
+   "covering_prose": "The runtime must look for locale `.pak` files under the translations directory returned by `QLibraryInfo.TranslationsPath` joined with `qtwebengine_locales`, and if a `.pak` for the current locale exists, no override must be applied and no `--lang` argument must be added.",
+   "gold_anchor": "if pak_path.exists():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locales `en`, `en-PH`, and `en-LR` derive `en-US`; hidden cases include `en_LR.UTF-8` and `en_PH.UTF-8` expecting `en-US`.",
+   "covering_prose": "If no `.pak` for the current locale exists, an alternative locale must be derived using Chromium-like rules: `en`, `en-PH`, and `en-LR` map to `en-US`; any other `en-\u2026` maps to `en-GB`; any `es-\u2026` maps to `es-419`; `pt` maps to `pt-BR` and any `pt-\u2026` maps to `pt-PT`; `zh-HK` and `zh-MO` map to `zh-TW`; `zh` or any `zh-\u2026` maps to `zh-CN`; otherwise, use the primary language subtag of the current locale.",
+   "gold_anchor": "if locale_name in {'en', 'en-PH', 'en-LR'}:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Any other `en-*` locale derives `en-GB`; hidden cases include `en_AU.UTF-8`, `en_GB.UTF-8`, and `en_ZA.UTF-8` expecting `en-GB`.",
+   "covering_prose": "If no `.pak` for the current locale exists, an alternative locale must be derived using Chromium-like rules: `en`, `en-PH`, and `en-LR` map to `en-US`; any other `en-\u2026` maps to `en-GB`; any `es-\u2026` maps to `es-419`; `pt` maps to `pt-BR` and any `pt-\u2026` maps to `pt-PT`; `zh-HK` and `zh-MO` map to `zh-TW`; `zh` or any `zh-\u2026` maps to `zh-CN`; otherwise, use the primary language subtag of the current locale.",
+   "gold_anchor": "elif locale_name.startswith('en-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Any `es-*` locale derives `es-419`; hidden cases include `es_AR.UTF-8`, `es_MX.UTF-8`, and `es_US.UTF-8` expecting `es-419` when the original `.pak` is missing.",
+   "covering_prose": "If no `.pak` for the current locale exists, an alternative locale must be derived using Chromium-like rules: `en`, `en-PH`, and `en-LR` map to `en-US`; any other `en-\u2026` maps to `en-GB`; any `es-\u2026` maps to `es-419`; `pt` maps to `pt-BR` and any `pt-\u2026` maps to `pt-PT`; `zh-HK` and `zh-MO` map to `zh-TW`; `zh` or any `zh-\u2026` maps to `zh-CN`; otherwise, use the primary language subtag of the current locale.",
+   "gold_anchor": "elif locale_name.startswith('es-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locale `pt` derives `pt-BR`; hidden case `pt_BR.UTF-8` expects `pt-BR` when the original `.pak` is missing.",
+   "covering_prose": "If no `.pak` for the current locale exists, an alternative locale must be derived using Chromium-like rules: `en`, `en-PH`, and `en-LR` map to `en-US`; any other `en-\u2026` maps to `en-GB`; any `es-\u2026` maps to `es-419`; `pt` maps to `pt-BR` and any `pt-\u2026` maps to `pt-PT`; `zh-HK` and `zh-MO` map to `zh-TW`; `zh` or any `zh-\u2026` maps to `zh-CN`; otherwise, use the primary language subtag of the current locale.",
+   "gold_anchor": "elif locale_name == 'pt':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Any `pt-*` locale derives `pt-PT`; hidden cases include `pt_PT.UTF-8` and `pt_PT@euro.UTF-8` expecting `pt-PT`.",
+   "covering_prose": "If no `.pak` for the current locale exists, an alternative locale must be derived using Chromium-like rules: `en`, `en-PH`, and `en-LR` map to `en-US`; any other `en-\u2026` maps to `en-GB`; any `es-\u2026` maps to `es-419`; `pt` maps to `pt-BR` and any `pt-\u2026` maps to `pt-PT`; `zh-HK` and `zh-MO` map to `zh-TW`; `zh` or any `zh-\u2026` maps to `zh-CN`; otherwise, use the primary language subtag of the current locale.",
+   "gold_anchor": "elif locale_name.startswith('pt-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locales `zh-HK` and `zh-MO` derive `zh-TW`; hidden cases `zh_HK.UTF-8` and `zh_MO.UTF-8` expect `zh-TW`.",
+   "covering_prose": "If no `.pak` for the current locale exists, an alternative locale must be derived using Chromium-like rules: `en`, `en-PH`, and `en-LR` map to `en-US`; any other `en-\u2026` maps to `en-GB`; any `es-\u2026` maps to `es-419`; `pt` maps to `pt-BR` and any `pt-\u2026` maps to `pt-PT`; `zh-HK` and `zh-MO` map to `zh-TW`; `zh` or any `zh-\u2026` maps to `zh-CN`; otherwise, use the primary language subtag of the current locale.",
+   "gold_anchor": "elif locale_name in {'zh-HK', 'zh-MO'}:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locale `zh` and other `zh-*` locales derive `zh-CN`; hidden cases include `zh_CN.UTF-8`, `zh_SG.UTF-8`, and `zh_XX.UTF-8` expecting `zh-CN`.",
+   "covering_prose": "If no `.pak` for the current locale exists, an alternative locale must be derived using Chromium-like rules: `en`, `en-PH`, and `en-LR` map to `en-US`; any other `en-\u2026` maps to `en-GB`; any `es-\u2026` maps to `es-419`; `pt` maps to `pt-BR` and any `pt-\u2026` maps to `pt-PT`; `zh-HK` and `zh-MO` map to `zh-TW`; `zh` or any `zh-\u2026` maps to `zh-CN`; otherwise, use the primary language subtag of the current locale.",
+   "gold_anchor": "elif locale_name == 'zh' or locale_name.startswith('zh-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For non-special locales, the derived locale is the primary language subtag; hidden cases include `ar_AE.UTF-8` expecting `ar`, `de_CH.UTF-8` expecting `de`, and `vi_VN.UTF-8` expecting `vi` when that derived `.pak` exists.",
+   "covering_prose": "If no `.pak` for the current locale exists, an alternative locale must be derived using Chromium-like rules: `en`, `en-PH`, and `en-LR` map to `en-US`; any other `en-\u2026` maps to `en-GB`; any `es-\u2026` maps to `es-419`; `pt` maps to `pt-BR` and any `pt-\u2026` maps to `pt-PT`; `zh-HK` and `zh-MO` map to `zh-TW`; `zh` or any `zh-\u2026` maps to `zh-CN`; otherwise, use the primary language subtag of the current locale.",
+   "gold_anchor": "pak_name = locale_name.split('-')[0]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If the derived locale `.pak` exists, `_get_lang_override` returns that derived locale and the test asserts the original `.pak` does not exist and the derived `.pak` exists.",
+   "covering_prose": "If a `.pak` exists for the derived locale, the browser must include `--lang=<derived-locale>` in the QtWebEngine arguments; if neither the original nor the derived locale has a `.pak`, the browser must include `--lang=en-US`.",
+   "gold_anchor": "return pak_name",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If neither the original locale nor derived locale has a `.pak`, `_get_lang_override` returns `en-US`; hidden cases include `POSIX.UTF-8`, `aa_DJ.UTF-8`, and `zu_ZA.UTF-8` expecting `en-US`.",
+   "covering_prose": "If a `.pak` exists for the derived locale, the browser must include `--lang=<derived-locale>` in the QtWebEngine arguments; if neither the original nor the derived locale has a `.pak`, the browser must include `--lang=en-US`.",
+   "gold_anchor": "return 'en-US'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "QtWebEngine argument construction obtains the override using `versions.webengine` and `QLocale().bcp47Name()`.",
+   "covering_prose": "The construction of QtWebEngine arguments must obtain the potential override using the current WebEngine version and the current locale from `QLocale`, and only when an override is present must the argument `--lang=<...>` be added to the effective QtWebEngine arguments.",
+   "gold_anchor": "locale_name=QLocale().bcp47Name()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "QtWebEngine arguments include `--lang=<override>` only when `_get_lang_override` returns a non-`None` override.",
+   "covering_prose": "The construction of QtWebEngine arguments must obtain the potential override using the current WebEngine version and the current locale from `QLocale`, and only when an override is present must the argument `--lang=<...>` be added to the effective QtWebEngine arguments.",
+   "gold_anchor": "yield f'--lang={lang_override}'",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,130 @@
+{
+ "case": "qutebrowser_9c056f28",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 17,
+ "n_covered": 17,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "_get_locale_pak_path returns locales_path / (locale_name + '.pak'), producing a pathlib path usable for exists() checks.",
+   "covering_prose": "The file `qtargs.py` should provide a helper named `_get_locale_pak_path` that constructs the filesystem location of a locale\u2019s .pak by combining the resolved locales directory with the locale identifier and .pak suffix, returning a path object suitable for existence checks.",
+   "gold_anchor": "return locales_path / (locale_name + '.pak')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When config.val.qt.workarounds.locale is False, _get_lang_override(qtwe_version, \"de-CH\") returns None.",
+   "covering_prose": "The file `qtargs.py` should expose a function named `_get_lang_override(webengine_version, locale_name)` that is only active when the boolean setting config.val.qt.workarounds.locale is enabled, otherwise producing no override value, and where locale_name is a BCP-47 string such as the value returned by `QLocale(...).bcp47Name()`.",
+   "gold_anchor": "if not config.val.qt.workarounds.locale:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For QtWebEngine versions 5.14.2, 5.15.2, 5.15.4, and 6, _get_lang_override returns None even on Linux.",
+   "covering_prose": "The function `_get_lang_override` should consider an override only when running on Linux with QtWebEngine version exactly 5.15.3, returning no override in any other operating system or version context.",
+   "gold_anchor": "webengine_version != utils.VersionNumber(5, 15, 3)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On Windows, _get_lang_override(qtwe_version, \"de-CH\") returns None even for QtWebEngine 5.15.3.",
+   "covering_prose": "The function `_get_lang_override` should consider an override only when running on Linux with QtWebEngine version exactly 5.15.3, returning no override in any other operating system or version context.",
+   "gold_anchor": "or not utils.is_linux:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The WebEngine locales directory is QLibraryInfo.TranslationsPath with qtwebengine_locales appended.",
+   "covering_prose": "The function should locate the WebEngine locales directory by taking Qt\u2019s QLibraryInfo.TranslationsPath and appending the qtwebengine_locales subdirectory, yielding no override when that directory is unavailable.",
+   "gold_anchor": "QLibraryInfo.location(QLibraryInfo.TranslationsPath)) / 'qtwebengine_locales'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If the original locale .pak exists, _get_lang_override returns None and leaves the original locale in effect.",
+   "covering_prose": "The function should check the original locale\u2019s .pak via _get_locale_pak_path and, when present, refrain from providing any override so the original locale remains in effect.",
+   "gold_anchor": "if pak_path.exists():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If the original locale .pak is missing, the test expects an override rather than None for affected locales whose fallback/default .pak exists.",
+   "covering_prose": "If the original .pak exists, do not override; if a mapped fallback .pak exists, return its locale; otherwise, return en-US.",
+   "gold_anchor": "return pak_name",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locale en, en-PH, or en-LR maps to en-US.",
+   "covering_prose": "The function should compute a Chromium-compatible fallback locale when the original .pak is missing, following these precedence rules: en, en-PH, or en-LR \u2192 en-US; any other en-* \u2192 en-GB; any es-* \u2192 es-419; pt \u2192 pt-BR; any other pt-* \u2192 pt-PT; zh-HK or zh-MO \u2192 zh-TW; zh or any other zh-* \u2192 zh-CN; otherwise the base language before the hyphen.",
+   "gold_anchor": "if locale_name in {'en', 'en-PH', 'en-LR'}:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Any other en-* locale maps to en-GB.",
+   "covering_prose": "The function should compute a Chromium-compatible fallback locale when the original .pak is missing, following these precedence rules: en, en-PH, or en-LR \u2192 en-US; any other en-* \u2192 en-GB; any es-* \u2192 es-419; pt \u2192 pt-BR; any other pt-* \u2192 pt-PT; zh-HK or zh-MO \u2192 zh-TW; zh or any other zh-* \u2192 zh-CN; otherwise the base language before the hyphen.",
+   "gold_anchor": "elif locale_name.startswith('en-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Any es-* locale whose original .pak is missing maps to es-419, except cases where the original es .pak exists and no override is returned.",
+   "covering_prose": "The function should compute a Chromium-compatible fallback locale when the original .pak is missing, following these precedence rules: en, en-PH, or en-LR \u2192 en-US; any other en-* \u2192 en-GB; any es-* \u2192 es-419; pt \u2192 pt-BR; any other pt-* \u2192 pt-PT; zh-HK or zh-MO \u2192 zh-TW; zh or any other zh-* \u2192 zh-CN; otherwise the base language before the hyphen.",
+   "gold_anchor": "elif locale_name.startswith('es-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locale pt maps to pt-BR.",
+   "covering_prose": "The function should compute a Chromium-compatible fallback locale when the original .pak is missing, following these precedence rules: en, en-PH, or en-LR \u2192 en-US; any other en-* \u2192 en-GB; any es-* \u2192 es-419; pt \u2192 pt-BR; any other pt-* \u2192 pt-PT; zh-HK or zh-MO \u2192 zh-TW; zh or any other zh-* \u2192 zh-CN; otherwise the base language before the hyphen.",
+   "gold_anchor": "elif locale_name == 'pt':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Any other pt-* locale maps to pt-PT.",
+   "covering_prose": "The function should compute a Chromium-compatible fallback locale when the original .pak is missing, following these precedence rules: en, en-PH, or en-LR \u2192 en-US; any other en-* \u2192 en-GB; any es-* \u2192 es-419; pt \u2192 pt-BR; any other pt-* \u2192 pt-PT; zh-HK or zh-MO \u2192 zh-TW; zh or any other zh-* \u2192 zh-CN; otherwise the base language before the hyphen.",
+   "gold_anchor": "elif locale_name.startswith('pt-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locale zh-HK or zh-MO maps to zh-TW.",
+   "covering_prose": "The function should compute a Chromium-compatible fallback locale when the original .pak is missing, following these precedence rules: en, en-PH, or en-LR \u2192 en-US; any other en-* \u2192 en-GB; any es-* \u2192 es-419; pt \u2192 pt-BR; any other pt-* \u2192 pt-PT; zh-HK or zh-MO \u2192 zh-TW; zh or any other zh-* \u2192 zh-CN; otherwise the base language before the hyphen.",
+   "gold_anchor": "elif locale_name in {'zh-HK', 'zh-MO'}:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Locale zh or any other zh-* maps to zh-CN.",
+   "covering_prose": "The function should compute a Chromium-compatible fallback locale when the original .pak is missing, following these precedence rules: en, en-PH, or en-LR \u2192 en-US; any other en-* \u2192 en-GB; any es-* \u2192 es-419; pt \u2192 pt-BR; any other pt-* \u2192 pt-PT; zh-HK or zh-MO \u2192 zh-TW; zh or any other zh-* \u2192 zh-CN; otherwise the base language before the hyphen.",
+   "gold_anchor": "elif locale_name == 'zh' or locale_name.startswith('zh-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For non-special locales with a hyphenated BCP-47 name, the fallback candidate is the base language before the hyphen, e.g. ar-AE -> ar, de-CH -> de, ru-UA -> ru.",
+   "covering_prose": "The function should compute a Chromium-compatible fallback locale when the original .pak is missing, following these precedence rules: en, en-PH, or en-LR \u2192 en-US; any other en-* \u2192 en-GB; any es-* \u2192 es-419; pt \u2192 pt-BR; any other pt-* \u2192 pt-PT; zh-HK or zh-MO \u2192 zh-TW; zh or any other zh-* \u2192 zh-CN; otherwise the base language before the hyphen.",
+   "gold_anchor": "pak_name = locale_name.split('-')[0]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The computed fallback is returned only if its .pak exists in the locales directory; the test asserts _get_locale_pak_path(locales_path, override).exists().",
+   "covering_prose": "The function should return the computed fallback only when its .pak exists in the locales directory, and otherwise return en-US as the final default when neither the original nor the mapped fallback is available.",
+   "gold_anchor": "if pak_path.exists():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When neither the original nor computed fallback .pak exists, _get_lang_override returns en-US.",
+   "covering_prose": "The function should return the computed fallback only when its .pak exists in the locales directory, and otherwise return en-US as the final default when neither the original nor the mapped fallback is available.",
+   "gold_anchor": "return 'en-US'",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "case": "qutebrowser_def864ad",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 3,
+ "n_covered": 2,
+ "n_gap": 1,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "An ErrorNetworkReply emits reply.errorOccurred after it is constructed.",
+   "covering_prose": "The WebKit `NetworkReply` should emit the modern `errorOccurred` signal when an error reply is constructed, ensuring consistency with updated Qt behavior.",
+   "gold_anchor": "QTimer.singleShot(0, lambda: self.errorOccurred.emit(error))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The error signal observed by the test is errorOccurred rather than the legacy error signal.",
+   "covering_prose": "In the WebKit `NetworkReply` implementation, the initial error emission should use the `errorOccurred` signal with the error code, instead of the legacy `error` signal.",
+   "gold_anchor": "QTimer.singleShot(0, lambda: self.errorOccurred.emit(error))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "reply.errorOccurred is emitted before reply.finished, with strict ordering.",
+   "covering_prose": null,
+   "gold_anchor": "QTimer.singleShot(0, lambda: self.errorOccurred.emit(error))",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "An ErrorNetworkReply emits reply.finished after it is constructed.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

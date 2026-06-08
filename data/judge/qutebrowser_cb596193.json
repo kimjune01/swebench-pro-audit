@@ -1,0 +1,95 @@
+{
+ "case": "qutebrowser_cb596193",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 12,
+ "n_covered": 12,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`FontFamilies.from_str('foo, bar')` iterates as `['foo', 'bar']` in comma order.",
+   "covering_prose": "Font family strings must be parsed using `FontFamilies.from_str`, which interprets comma-separated and quoted names into a clean, ordered list of valid font family names.",
+   "gold_anchor": "for part in family_str.split(','):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`FontFamilies.from_str('foo,   spaces ')` trims surrounding whitespace and iterates as `['foo', 'spaces']`.",
+   "covering_prose": "Font families are parsed into a clean, consistent list of font names, with quotes and whitespace handled correctly.",
+   "gold_anchor": "part = part.strip()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`FontFamilies.from_str('')` iterates as an empty list `[]`.",
+   "covering_prose": "`family`: the first font name in the list or `None` if the list is empty",
+   "gold_anchor": "if not part:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`FontFamilies.from_str('foo, ')` skips the empty trailing entry and iterates as `['foo']`.",
+   "covering_prose": "Font family strings must be parsed using `FontFamilies.from_str`, which interprets comma-separated and quoted names into a clean, ordered list of valid font family names.",
+   "gold_anchor": "continue",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`FontFamilies.from_str('\"One Font\", Two')` strips double quotes and iterates as `['One Font', 'Two']`.",
+   "covering_prose": "Font families are parsed into a clean, consistent list of font names, with quotes and whitespace handled correctly.",
+   "gold_anchor": "part = part[1:-1]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`FontFamilies.from_str(\"One, 'Two Fonts'\")` strips single quotes and iterates as `['One', 'Two Fonts']`.",
+   "covering_prose": "Font families are parsed into a clean, consistent list of font names, with quotes and whitespace handled correctly.",
+   "gold_anchor": "part = part[1:-1]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`FontFamilies.from_str(\"One, 'Two Fonts', 'Three'\")` preserves parsed order and iterates as `['One', 'Two Fonts', 'Three']`.",
+   "covering_prose": "Font family strings must be parsed using `FontFamilies.from_str`, which interprets comma-separated and quoted names into a clean, ordered list of valid font family names.",
+   "gold_anchor": "families.append(part)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`FontFamilies.from_str('\"Weird font name: \\'\"')` strips only the surrounding double quotes and iterates as `[\"Weird font name: '\"]`.",
+   "covering_prose": "Font families are parsed into a clean, consistent list of font names, with quotes and whitespace handled correctly.",
+   "gold_anchor": "(part.startswith('\"') and part.endswith('\"')))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`FontFamilies(['family'])` stringifies to `'family'`.",
+   "covering_prose": "The `__str__` method must return a comma-separated string preserving the input order, suitable for serialization or display.",
+   "gold_anchor": "return ', '.join(self._families)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`FontFamilies(['family1', 'family2'])` stringifies to `'family1, family2'`.",
+   "covering_prose": "The `__str__` method must return a comma-separated string preserving the input order, suitable for serialization or display.",
+   "gold_anchor": "return ', '.join(self._families)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For arbitrary input text, every family yielded by `FontFamilies.from_str` is truthy/non-empty.",
+   "covering_prose": "Font family strings must be parsed using `FontFamilies.from_str`, which interprets comma-separated and quoted names into a clean, ordered list of valid font family names.",
+   "gold_anchor": "if not part:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For arbitrary input text, `str(FontFamilies.from_str(family_str))` completes and returns a comma-separated string representation.",
+   "covering_prose": "The `__str__` method must return a comma-separated string preserving the input order, suitable for serialization or display.",
+   "gold_anchor": "def __str__(self) -> str:",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

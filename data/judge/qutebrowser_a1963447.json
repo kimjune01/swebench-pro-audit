@@ -1,0 +1,256 @@
+{
+ "case": "qutebrowser_a1963447",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 35,
+ "n_covered": 35,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "scripts/dev/quit_segfault_test.sh starts qutebrowser with :cmd-later, so cmd-later must be a callable command replacing :later.",
+   "covering_prose": "`later` \u2192 `cmd-later`",
+   "gold_anchor": "name='cmd-later'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-later must execute the given command after a duration, e.g. ':cmd-later $duration quit' eventually runs quit after the random millisecond delay.",
+   "covering_prose": "Description: Executes a command after some time. (Replaces :later; old name deprecated.)",
+   "gold_anchor": "def cmd_later(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text must be a callable command replacing :set-cmd-text.",
+   "covering_prose": "`set-cmd-text` \u2192 `cmd-set-text`",
+   "gold_anchor": "name='cmd-set-text'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text with '-s :open' presets the command line to ':open ' so completion can focus next with no crash.",
+   "covering_prose": "Type: Command\nName: cmd-set-text\nPath: qutebrowser/mainwindow/statusbar/command.py\nInput: [--space] [--append] [--run-on-count] text\nOutput: None\nDescription: Presets the statusbar to some text. (Replaces :set-cmd-text; old name deprecated.)",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior for command completion: ':cmd-set-text :' makes the completion model be command.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior for help completion: ':cmd-set-text -s :help' makes the completion model be helptopic.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior for quickmark completion: ':cmd-set-text -s :quickmark-load' makes the completion model be quickmark.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior for bookmark completion: ':cmd-set-text -s :bookmark-load' makes the completion model be bookmark.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior for bind completion: ':cmd-set-text -s :bind X' makes the completion model be bind.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior for session completion: ':cmd-set-text -s :session-load' can select a saved session completion, then deleting it makes accepting it show 'Session hello not found!'.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior for option completion: ':cmd-set-text -s :set' makes the completion model be option.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior for value completion: ':cmd-set-text -s :set aliases' makes the completion model be value.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior when deleting an open tab via completion: after ':cmd-set-text -s :tab-select', focusing completion sets text to ':tab-select 0/1' and accepting closes the selected tab.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior when the completer is stale: after ':cmd-set-text -s :tab-select', moving/selecting tabs leaves the expected two tabs open.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior where adding a space after selecting full ':set' updates completion model to option.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-edit must be a callable command replacing :edit-command.",
+   "covering_prose": "`edit-command` \u2192 `cmd-edit`",
+   "gold_anchor": "name='cmd-edit'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-edit --run preserves edit-command behavior: editing ':message-info foo' to 'bar' runs the edited command and shows message 'bar'.",
+   "covering_prose": "Description: Opens an editor to modify the current command. (Replaces :edit-command; old name remains as deprecated.)",
+   "gold_anchor": "def cmd_edit(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-edit --run preserves edit-command behavior by leaving command mode with reason 'cmd accept' after a successful run.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_edit(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-edit preserves edit-command validation: if the editor returns 'message-info foo' without a leading command start character, it shows the error 'command must start with one of :/?'.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_edit(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-edit preserves edit-command validation by not leaving command mode when edited command text lacks a leading command start character.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_edit(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-edit preserves edit-command validation: if the editor returns empty text, it shows the error 'command must start with one of :/?'.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_edit(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text followed by command-accept preserves set-cmd-text behavior by showing message 'Hello World'.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text followed by command-accept --rapid and then command-accept preserves set-cmd-text behavior by showing message 'Hello World' twice.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior with two commands separated by ';;': accepting shows message 'test' and error 'error'.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves URL replacement behavior: '{url}' in the preset command expands to the current URL when accepted.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves encoded URL replacement behavior: '{url}' on a URL with spaces expands with '%20' escapes.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves pretty URL replacement behavior: '{url:pretty}' on a URL with spaces expands with decoded spaces.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves '-s' and '-a' behavior: setting ':message-info \"foo' with space and appending 'bar\"' produces message 'foo bar' when accepted.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text with '-a foo' and no current command text shows the error 'No current text!'.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text with invalid text 'foo' shows the error \"Invalid command text 'foo'.\"",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text --run-on-count without a count does not run the command, so 'message:info:86 Hello World' is not logged.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "if run_on_count and count is not None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text --run-on-count with count 1 runs the command and shows message 'Hello World'.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "self.got_cmd[str, int].emit(text, count)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text preserves set-cmd-text behavior for completing a single option argument: ':cmd-set-text -s :--' causes no crash.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text still works when invoked with multiple leading colons and when setting command text containing multiple leading colons, producing message 'Hello World' after command-accept.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cmd-set-text still works when invoked with whitespace and extra colons in the command, producing message 'Hello World' after command-accept.",
+   "covering_prose": "The application should provide new cmd-prefixed versions of command line related commands that maintain identical functionality to their original counterparts.",
+   "gold_anchor": "def cmd_set_text_command(self, text: str,",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

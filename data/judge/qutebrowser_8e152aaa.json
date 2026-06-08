@@ -1,0 +1,60 @@
+{
+ "case": "qutebrowser_8e152aaa",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For a plain QObject with no objectName and a repr that already contains its Qt class memory-style pattern, qobj_repr(obj) returns exactly repr(obj).",
+   "covering_prose": "If a Qt class name from `metaObject().className()` is available, the output must append `className='\u2026'` only if the stripped original representation does not contain the substring `.<ClassName> object at 0x` (memory-style pattern), separated by a comma and a single space, and enclosed in angle brackets.",
+   "gold_anchor": "if class_name and f\".{class_name} object at 0x\" not in py_repr:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a non-QObject object(), qobj_repr(obj) returns exactly repr(obj) and does not raise.",
+   "covering_prose": "When `obj` is `None` or does not expose `QObject` APIs, `qobj_repr` must return exactly `repr(obj)` and must not raise exceptions.",
+   "gold_anchor": "except AttributeError:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For None, qobj_repr(None) returns exactly repr(None).",
+   "covering_prose": "When `obj` is `None` or does not expose `QObject` APIs, `qobj_repr` must return exactly `repr(obj)` and must not raise exceptions.",
+   "gold_anchor": "if obj is None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a QObject whose objectName() is \"Tux\", qobj_repr returns the stripped original repr wrapped in angle brackets with \", objectName='Tux'\" appended.",
+   "covering_prose": "If `objectName()` returns a non-empty string, the output must append `objectName='\u2026'` after the original representation, separated by a comma and a single space, and enclosed in angle brackets.",
+   "gold_anchor": "parts.append(f\"objectName={object_name!r}\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a QObject whose Qt class name is available as \"QTimer\" and whose stripped original repr does not contain the memory-style QTimer class pattern, qobj_repr appends \", className='QTimer'\".",
+   "covering_prose": "If a Qt class name from `metaObject().className()` is available, the output must append `className='\u2026'` only if the stripped original representation does not contain the substring `.<ClassName> object at 0x` (memory-style pattern), separated by a comma and a single space, and enclosed in angle brackets.",
+   "gold_anchor": "parts.append(f\"className={class_name!r}\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a QObject with objectName() \"Pomodoro\" and className() \"QTimer\", qobj_repr orders identifiers as objectName first, then className, separated by comma-space.",
+   "covering_prose": "When both identifiers are present, `objectName` must appear first, followed by `className`, both using single quotes for their values, and separated by a comma and a single space.",
+   "gold_anchor": "parts.append(f\"objectName={object_name!r}\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a QObject subclass with custom __repr__ returning \"RichRepr()\" not enclosed in angle brackets, qobj_repr uses RichRepr() as the original representation and returns \"<RichRepr(), className='RichRepr'>\".",
+   "covering_prose": "If the object has a custom `__repr__` that is not enclosed in angle brackets, the function must use it as the original representation and apply the same rules above for appending identifiers and formatting.",
+   "gold_anchor": "return f\"<{', '.join(parts)}>\"",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

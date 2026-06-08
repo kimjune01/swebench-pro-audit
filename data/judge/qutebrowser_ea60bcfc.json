@@ -1,0 +1,67 @@
+{
+ "case": "qutebrowser_ea60bcfc",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 8,
+ "n_covered": 7,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When guiprocess.process(tab, 1337) is called and guiprocess.all_processes contains 1337 mapped to None, it raises cmdutils.CommandError with message matching 'Data for process 1337 got cleaned up'.",
+   "covering_prose": "`guiprocess.process(tab, pid, action='show')` must raise `cmdutils.CommandError` with the exact message `f\"Data for process {pid} got cleaned up\"` when `pid` exists in `all_processes` and its value is `None`.",
+   "gold_anchor": "raise cmdutils.CommandError(f\"Data for process {pid} got cleaned up\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The process completion model can be built when guiprocess.all_processes contains a cleaned-up entry with value None, and that None entry is excluded from the model.",
+   "covering_prose": "`qutebrowser/completion/models/miscmodels.py:process` must build its completion model using only non-`None` entries from `guiprocess.all_processes.values()` so cleaned-up processes do not appear in completions.",
+   "gold_anchor": "(p for p in guiprocess.all_processes.values() if p is not None)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Process completion grouping continues to group remaining non-None processes by proc.what when a None entry is present.",
+   "covering_prose": "The grouping and sorting logic for process completions must operate on non-`None` entries and continue to categorize by `proc.what` without error when cleaned entries are present.",
+   "gold_anchor": "lambda proc: proc.what",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GUIProcess exposes _cleanup_timer with setInterval support; the test sets its interval to 100 ms before the process starts.",
+   "covering_prose": "`_cleanup_timer` must expose a `timeout` signal and support runtime interval adjustment.",
+   "gold_anchor": "self._cleanup_timer = usertypes.Timer(self, 'process-cleanup')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After starting a successful process while waiting on proc._cleanup_timer.timeout, the timer emits timeout after the runtime-adjusted interval.",
+   "covering_prose": "`GUIProcess` must start `_cleanup_timer` only when a process finishes successfully (i.e., after `outcome.was_successful()` evaluates to true); unsuccessful exits must not start the timer.",
+   "gold_anchor": "self._cleanup_timer.start()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After proc.start(*py_proc(\"\")) begins, proc.pid is present as a key in guiprocess.all_processes before cleanup fires.",
+   "covering_prose": null,
+   "gold_anchor": "all_processes[self.pid] = self",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When proc._cleanup_timer.timeout fires after the successful process finishes, guiprocess.all_processes[proc.pid] is set to None.",
+   "covering_prose": "When `_cleanup_timer.timeout` is triggered, `GUIProcess` must set the process entry in `all_processes` to `None` and perform cleanup so that resources associated with the process are no longer active.",
+   "gold_anchor": "all_processes[self.pid] = None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Cleanup keeps proc.pid present in guiprocess.all_processes as a key rather than removing it; the post-cleanup lookup guiprocess.all_processes[proc.pid] succeeds and returns None.",
+   "covering_prose": "No key removals from `all_processes` must occur during cleanup; the cleaned entry must remain present with a `None` value so commands and pages can distinguish \u201ccleaned up\u201d from \u201cunknown PID\u201d.",
+   "gold_anchor": "all_processes[self.pid] = None",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,102 @@
+{
+ "case": "qutebrowser_e545faaf",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 12,
+ "n_covered": 10,
+ "n_gap": 2,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Font exposes a public classmethod named set_defaults accepting a default family and default size, so tests can call configtypes.Font.set_defaults(None, '10pt').",
+   "covering_prose": "Name: Font.set_defaults.",
+   "gold_anchor": "def set_defaults(cls, default_family: typing.List[str],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Font.set_defaults(None, '10pt') uses a system monospace default family when the family is None and stores default size '10pt'.",
+   "covering_prose": "Input: default_family: Optional[List[str]] \u2014 preferred font families (or None for system monospace). default_size: str \u2014 size token like \"10pt\" or \"23pt\".",
+   "gold_anchor": "cls.default_size = default_size",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "During late_init, when only fonts.default_family is customized to Comic Sans MS, dependent UI fonts resolve to family Comic Sans MS and size 10.",
+   "covering_prose": "The file should ensure that, in the absence of a user-provided fonts.default_size, a default of 10pt is in effect at initialization, such that dependent options resolve to size 10 when only fonts.default_family is customized.",
+   "gold_anchor": "configtypes.Font.set_defaults(config.val.fonts.default_family,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "During late_init, when fonts.default_family is Comic Sans MS and fonts.default_size is 23pt, dependent UI fonts resolve to family Comic Sans MS and point size 23.",
+   "covering_prose": "The class QtFont in configtypes.py should resolve tokenized values in the same way as Font and produce a QFont whose family() matches the stored default family and whose point size reflects the resolved size (e.g., 23 when the default size is 23pt) for values that reference the defaults.",
+   "gold_anchor": "if size == 'default_size':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Explicit font values like 12pt default_family resolve to size 12 even when fonts.default_size is configured.",
+   "covering_prose": "Explicit sizes in a setting (e.g., 12pt default_family) must take precedence.",
+   "gold_anchor": "if (value.startswith('default_size ') and",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A Font value default_size default_family resolves to exactly 23pt \"Comic Sans MS\" when defaults are size 23pt and family Comic Sans MS.",
+   "covering_prose": "The class Font should expose to_py(...) such that for string-typed font options the resolved value includes a quoted family name when the family contains spaces; for example, when the defaults are size 23pt and family Comic Sans MS, a value written as default_size default_family should resolve to exactly 23pt \"Comic Sans MS\".",
+   "gold_anchor": "value = value.replace('default_size', self.default_size)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After initialization, changing fonts.default_family and then fonts.default_size emits changed for fonts.keyhint, and fonts.keyhint resolves to 23pt \"Comic Sans MS\".",
+   "covering_prose": "The file configinit.py should provide a function named _update_font_defaults that ignores changes to settings other than fonts.default_family and fonts.default_size and, when either of those two settings changes, emits config.instance.changed for every option of type Font/QtFont which reference default_family (with or without default_size).",
+   "gold_anchor": "config.instance.changed.emit(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After initialization, changing fonts.default_family and then fonts.default_size emits changed for fonts.tabs, and fonts.tabs resolves to a QFont with family Comic Sans MS and pointSize 23.",
+   "covering_prose": "The class QtFont in configtypes.py should resolve tokenized values in the same way as Font and produce a QFont whose family() matches the stored default family and whose point size reflects the resolved size (e.g., 23 when the default size is 23pt) for values that reference the defaults.",
+   "gold_anchor": "font.setPointSizeF(float(size[:-2]))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When fonts.default_family/default_size change, fonts.web.family.standard is not emitted because it does not reference default_family.",
+   "covering_prose": "The file configinit.py should provide a function named _update_font_defaults that ignores changes to settings other than fonts.default_family and fonts.default_size and, when either of those two settings changes, emits config.instance.changed for every option of type Font/QtFont which reference default_family (with or without default_size).",
+   "gold_anchor": "if value is None or not (value.endswith(' default_family') or",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "String.to_py accepts a value that fully matches its regex, e.g. regex [aA] accepts 'a'.",
+   "covering_prose": null,
+   "gold_anchor": "if self.regex is not None and not re.fullmatch(self.regex, value):",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "String.to_py raises configexc.ValidationError for a value that does not fully match its regex, e.g. regex [aA] rejects 'abc'.",
+   "covering_prose": null,
+   "gold_anchor": "raise configexc.ValidationError(value, \"does not match {}\"",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Font.to_py('23pt default_family') after set_defaults(['Terminus'], '23pt') resolves to '23pt Terminus'.",
+   "covering_prose": "Any font setting whose value includes default_family (including default_size default_family) should resolve to the configured family and size; changing either fonts.default_size or fonts.default_family should update those dependent settings automatically.",
+   "gold_anchor": "value = value.replace('default_family', self.default_family)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "QtFont.to_py('23pt default_family') after set_defaults(['Terminus'], '23pt') resolves to a QFont with normal style, normal weight, point size 23, and family Terminus.",
+   "covering_prose": "The class QtFont in configtypes.py should resolve tokenized values in the same way as Font and produce a QFont whose family() matches the stored default family and whose point size reflects the resolved size (e.g., 23 when the default size is 23pt) for values that reference the defaults.",
+   "gold_anchor": "font.setFamily(family)",
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

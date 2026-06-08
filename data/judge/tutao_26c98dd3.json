@@ -1,0 +1,67 @@
+{
+ "case": "tutao_26c98dd3",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "In the draft initialization test for a REPLY conversation, initWithDraft is called with a direct new Map() as the fourth parameter instead of Promise.resolve(new Map()).",
+   "covering_prose": "The SendMailModel test calls should accept Map objects directly as the fourth parameter to initWithDraft instead of wrapping them in Promise.resolve() when the test scenario does not require asynchronous behavior.",
+   "gold_anchor": "async initWithDraft(draft: Mail, attachments: TutanotaFile[], bodyText: string, inlineImages: InlineImages): Promise<SendMailModel>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In the draft initialization test for a FORWARD conversation, initWithDraft is called with a direct new Map() as the fourth parameter instead of Promise.resolve(new Map()).",
+   "covering_prose": "The SendMailModel test calls should accept Map objects directly as the fourth parameter to initWithDraft instead of wrapping them in Promise.resolve() when the test scenario does not require asynchronous behavior.",
+   "gold_anchor": "async initWithDraft(draft: Mail, attachments: TutanotaFile[], bodyText: string, inlineImages: InlineImages): Promise<SendMailModel>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The REPLY draft initialization still returns a model whose conversation type equals ConversationType.REPLY after using the simplified direct Map parameter.",
+   "covering_prose": "The parameter change should ensure that both REPLY and FORWARD conversation type tests continue to validate the same SendMailModel initialization behavior with the simplified parameter format.",
+   "gold_anchor": "this.loadedInlineImages = cloneInlineImages(inlineImages)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The REPLY draft initialization still returns a model whose subject equals draftMail.subject after using the simplified direct Map parameter.",
+   "covering_prose": "The test parameter simplification should maintain identical test functionality while removing the unnecessary Promise wrapper around Map objects.",
+   "gold_anchor": "this.loadedInlineImages = cloneInlineImages(inlineImages)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The REPLY draft initialization still returns a model whose body equals BODY_TEXT_1 after using the simplified direct Map parameter.",
+   "covering_prose": "The test parameter simplification should maintain identical test functionality while removing the unnecessary Promise wrapper around Map objects.",
+   "gold_anchor": "this.loadedInlineImages = cloneInlineImages(inlineImages)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The FORWARD draft initialization still returns a model whose conversation type equals ConversationType.FORWARD after using the simplified direct Map parameter.",
+   "covering_prose": "The parameter change should ensure that both REPLY and FORWARD conversation type tests continue to validate the same SendMailModel initialization behavior with the simplified parameter format.",
+   "gold_anchor": "this.loadedInlineImages = cloneInlineImages(inlineImages)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The FORWARD draft initialization still returns a model whose subject equals draftMail.subject after using the simplified direct Map parameter.",
+   "covering_prose": "The test parameter simplification should maintain identical test functionality while removing the unnecessary Promise wrapper around Map objects.",
+   "gold_anchor": "this.loadedInlineImages = cloneInlineImages(inlineImages)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The FORWARD draft initialization still returns a model whose body equals BODY_TEXT_1 after using the simplified direct Map parameter.",
+   "covering_prose": "The test parameter simplification should maintain identical test functionality while removing the unnecessary Promise wrapper around Map objects.",
+   "gold_anchor": "this.loadedInlineImages = cloneInlineImages(inlineImages)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

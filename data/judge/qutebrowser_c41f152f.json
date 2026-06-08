@@ -1,0 +1,123 @@
+{
+ "case": "qutebrowser_c41f152f",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 11,
+ "n_covered": 11,
+ "n_gap": 0,
+ "n_out_of_scope": 5,
+ "rows": [
+  {
+   "test": "In verbose start flow, the first emitted message has level info.",
+   "covering_prose": "Ensure message output in `_on_finished` respects the verbose attribute: when verbosity is enabled, informational messages for successful or SIGTERM-terminated processes are displayed; otherwise, only errors are shown.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "In verbose start flow, the second emitted message has level info.",
+   "covering_prose": "Ensure message output in `_on_finished` respects the verbose attribute: when verbosity is enabled, informational messages for successful or SIGTERM-terminated processes are displayed; otherwise, only errors are shown.",
+   "gold_anchor": "message.info(msg)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In verbose start flow, the first emitted message text starts with \"Executing:\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "In verbose start flow, the successful completion message is exactly \"Testprocess exited successfully. See :process 1234 for details.\"",
+   "covering_prose": "Handle process completion in the `_on_finished` method (called as `finished` externally) in `qutebrowser/misc/guiprocess.py` so that successful exits or SIGTERM terminations produce informational messages including the process identifier.",
+   "gold_anchor": "msg = f\"{self.outcome} See :process {self.pid} for details.\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a process killed with SIGSEGV while verbosity is disabled, the emitted error message is exactly \"Testprocess crashed with status 11 (SIGSEGV). See :process 1234 for details.\"",
+   "covering_prose": "Handle processes that crash due to SIGSEGV in `_on_finished` so that error messages include the process name, exit status, signal name, and reference to the process identifier.",
+   "gold_anchor": "message.error(msg)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a process killed with SIGTERM while verbosity is enabled, the last emitted message is exactly \"Testprocess terminated with status 15 (SIGTERM). See :process 1234 for details.\"",
+   "covering_prose": "Ensure that both `str` and `finished` externally produce outputs, including \"Testprocess crashed with status 11 (SIGSEGV)\" and \"Testprocess terminated with status 15 (SIGTERM)\" for the corresponding termination scenarios.",
+   "gold_anchor": "message.info(msg)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After SIGSEGV termination, proc.outcome.running is False.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After SIGTERM termination, proc.outcome.running is False.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After SIGSEGV termination, proc.outcome.status is QProcess.ExitStatus.CrashExit.",
+   "covering_prose": "A process that crashes with `SIGSEGV` should output a descriptive message including the exit code and the signal name, for example: \"Testprocess crashed with status 11 (SIGSEGV). See :process 1234 for details.\".",
+   "gold_anchor": "self.status == QProcess.ExitStatus.CrashExit",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After SIGTERM termination, proc.outcome.status is QProcess.ExitStatus.CrashExit.",
+   "covering_prose": "Output: <bool> (\"True\" if the finished process exited due to a SIGTERM signal (`status == QProcess.CrashExit` and exit code equals `signal.SIGTERM`); otherwise returns \"False\")",
+   "gold_anchor": "self.status == QProcess.ExitStatus.CrashExit and",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "str(proc.outcome) for SIGSEGV is exactly \"Testprocess crashed with status 11 (SIGSEGV).\"",
+   "covering_prose": "Ensure that both `str` and `finished` externally produce outputs, including \"Testprocess crashed with status 11 (SIGSEGV)\" and \"Testprocess terminated with status 15 (SIGTERM)\" for the corresponding termination scenarios.",
+   "gold_anchor": "return f\"{msg} ({sig.name}).\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "str(proc.outcome) for SIGTERM is exactly \"Testprocess terminated with status 15 (SIGTERM).\"",
+   "covering_prose": "Ensure that both `str` and `finished` externally produce outputs, including \"Testprocess crashed with status 11 (SIGSEGV)\" and \"Testprocess terminated with status 15 (SIGTERM)\" for the corresponding termination scenarios.",
+   "gold_anchor": "return f\"{msg} ({sig.name}).\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "proc.outcome.state_str() for SIGSEGV is exactly \"crashed\".",
+   "covering_prose": "The state string should reflect the nature of the termination, reporting \"crashed\" for genuine crashes and \"terminated\" for controlled terminations.",
+   "gold_anchor": "return 'crashed'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "proc.outcome.state_str() for SIGTERM is exactly \"terminated\".",
+   "covering_prose": "The state string should reflect the nature of the termination, reporting \"crashed\" for genuine crashes and \"terminated\" for controlled terminations.",
+   "gold_anchor": "return 'terminated'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "proc.outcome.was_successful() is False after SIGSEGV termination.",
+   "covering_prose": "Ensure the `state_str` method of the process outcome class in `qutebrowser/misc/guiprocess.py` reports \"running\",  \"not started\", \"crashed\", \"terminated\", or \"exited successfully\" based on the process termination scenario.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "proc.outcome.was_successful() is False after SIGTERM termination.",
+   "covering_prose": "A process terminated with `SIGTERM` should be reported neutrally without signaling an error, for example: \"Testprocess terminated with status 15 (SIGTERM). See :process 1234 for details.\".",
+   "gold_anchor": "self.code == signal.SIGTERM",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

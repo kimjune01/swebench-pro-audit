@@ -1,0 +1,102 @@
+{
+ "case": "qutebrowser_3ae5cc96",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 10,
+ "n_covered": 10,
+ "n_gap": 0,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "For a path value shaped like `/%3A{number}`, the digit in the percent-encoded triplet `%3A` is not selected; the later `{number}` is the numeric sequence incremented or decremented.",
+   "covering_prose": "Numbers that are part of percent-encoded triplets (a '%' followed by two hex digits) must be ignored in all segments; matching logic must not select a digit that belongs to such a triplet.",
+   "gold_anchor": "(?<!%)(?<!%.)",
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For a path value shaped like `/%3A{number}`, updating the later number preserves the `%3A` encoding in the returned URL.",
+   "covering_prose": "Reading and updating URL segments must fully preserve the encoded information; that is, no percent-encoded characters should be lost or altered when retrieving or setting host, port, path, query, or anchor values.",
+   "gold_anchor": "lambda url, path: url.setPath(path, QUrl.StrictMode))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a path value shaped like `/:{number}`, the number after the literal colon is incremented or decremented normally.",
+   "covering_prose": "The `incdec_number` function must locate and modify the last numeric sequence present within the specified URL segments and apply the requested operation (`increment` or `decrement`) by the supplied `count`.",
+   "gold_anchor": "setter(url, _get_incdec_value(match, incdec, url, count))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a query value shaped like `?v=%3A{number}`, the digit in the percent-encoded triplet `%3A` is not selected; the later `{number}` is the numeric sequence incremented or decremented.",
+   "covering_prose": "Numbers that are part of percent-encoded triplets (a '%' followed by two hex digits) must be ignored in all segments; matching logic must not select a digit that belongs to such a triplet.",
+   "gold_anchor": "(?<!%)(?<!%.)",
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For a query value shaped like `?v=%3A{number}`, updating the later number preserves the `%3A` encoding in the returned URL.",
+   "covering_prose": "Reading and updating URL segments must fully preserve the encoded information; that is, no percent-encoded characters should be lost or altered when retrieving or setting host, port, path, query, or anchor values.",
+   "gold_anchor": "lambda url, query: url.setQuery(query, QUrl.StrictMode))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a query value shaped like `?v=:{number}`, the number after the literal colon is incremented or decremented normally.",
+   "covering_prose": "The `incdec_number` function must locate and modify the last numeric sequence present within the specified URL segments and apply the requested operation (`increment` or `decrement`) by the supplied `count`.",
+   "gold_anchor": "setter(url, _get_incdec_value(match, incdec, url, count))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an anchor value shaped like `#%3A{number}`, the digit in the percent-encoded triplet `%3A` is not selected; the later `{number}` is the numeric sequence incremented or decremented.",
+   "covering_prose": "Numbers that are part of percent-encoded triplets (a '%' followed by two hex digits) must be ignored in all segments; matching logic must not select a digit that belongs to such a triplet.",
+   "gold_anchor": "(?<!%)(?<!%.)",
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For an anchor value shaped like `#%3A{number}`, updating the later number preserves the `%3A` encoding in the returned URL.",
+   "covering_prose": "Reading and updating URL segments must fully preserve the encoded information; that is, no percent-encoded characters should be lost or altered when retrieving or setting host, port, path, query, or anchor values.",
+   "gold_anchor": "lambda url, fragment: url.setFragment(fragment, QUrl.StrictMode))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For an anchor value shaped like `#:{number}`, the number after the literal colon is incremented or decremented normally.",
+   "covering_prose": "The `incdec_number` function must locate and modify the last numeric sequence present within the specified URL segments and apply the requested operation (`increment` or `decrement`) by the supplied `count`.",
+   "gold_anchor": "setter(url, _get_incdec_value(match, incdec, url, count))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For `http://localhost/url_encoded_in_query/?v=%3A`, the `3` in `%3A` is ignored and no valid numeric sequence is found, so `IncDecError` is raised.",
+   "covering_prose": "When no numeric sequence is found in the selected segments, the function must raise IncDecError.",
+   "gold_anchor": "raise IncDecError(\"No number found in URL!\", url)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For `http://localhost/url_encoded_in_anchor/#%3A`, the `3` in `%3A` is ignored and no valid numeric sequence is found, so `IncDecError` is raised.",
+   "covering_prose": "When no numeric sequence is found in the selected segments, the function must raise IncDecError.",
+   "gold_anchor": "raise IncDecError(\"No number found in URL!\", url)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Decrementing `http://example.com/page_0.html` by `count=1` raises `IncDecError` instead of producing a negative value.",
+   "covering_prose": "Decrement operations must not produce negative results; if 'count' is greater than the current numeric value, the function must raise IncDecError.",
+   "gold_anchor": "if val < count:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Decrementing `http://example.com/page_1.html` by `count=2` raises `IncDecError` because the decrement count is larger than the current value.",
+   "covering_prose": "If the operation is `decrement` and the current value is less than `count`, the function must reject the operation by raising `IncDecError` to avoid negative results.",
+   "gold_anchor": "if val < count:",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

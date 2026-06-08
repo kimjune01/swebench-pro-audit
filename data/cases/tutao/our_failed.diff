@@ -1,0 +1,95 @@
+diff --git a/src/desktop/DesktopDownloadManager.ts b/src/desktop/DesktopDownloadManager.ts
+index a2064c321..24e47e0d9 100644
+--- a/src/desktop/DesktopDownloadManager.ts
++++ b/src/desktop/DesktopDownloadManager.ts
+@@ -69,13 +69,9 @@ export class DesktopDownloadManager {
+ 	async downloadNative(
+ 		sourceUrl: string,
+ 		fileName: string,
+-		headers: {
+-			v: string
+-			accessToken: string
+-		},
++		headers: Record<string, string>,
+ 	): Promise<DownloadTaskResponse> {
+-		// Propagate error in initial request if it occurs (I/O errors and such)
+-		const response = await this._net.executeRequest(sourceUrl, {
++		const response = await this.requestDownload(sourceUrl, {
+ 			method: "GET",
+ 			timeout: 20000,
+ 			headers,
+@@ -106,6 +102,15 @@ export class DesktopDownloadManager {
+ 		return result
+ 	}
+ 
++	private requestDownload(sourceUrl: string, opts: {method: string; timeout: number; headers: Record<string, string>}): Promise<http.IncomingMessage> {
++		return new Promise<http.IncomingMessage>((resolve, reject) => {
++			this._net.request(sourceUrl, opts)
++			         .on("response", resolve)
++			         .on("error", reject)
++			         .end()
++		})
++	}
++
+ 	/**
+ 	 * Open file at {@param itemPath} in default system handler
+ 	 */
+@@ -201,12 +206,7 @@ export class DesktopDownloadManager {
+ 			await pipeStream(response, fileStream)
+ 			await closeFileStream(fileStream)
+ 		} catch (e) {
+-			// Close first, delete second
+-			// Also yes, we do need to close it manually:
+-			// > One important caveat is that if the Readable stream emits an error during processing, the Writable destination is not closed automatically.
+-			// > If an error occurs, it will be necessary to manually close each stream in order to prevent memory leaks.
+-			// see https://nodejs.org/api/stream.html#readablepipedestination-options
+-			await closeFileStream(fileStream)
++			await cleanupFileStream(fileStream)
+ 			await this._fs.promises.unlink(encryptedFilePath)
+ 			throw e
+ 		}
+@@ -223,14 +223,20 @@ function getHttpHeader(headers: http.IncomingHttpHeaders, name: string): string
+ 	}
+ }
+ 
+-function pipeStream(stream: stream.Readable, into: stream.Writable): Promise<void> {
++function pipeStream(source: stream.Readable, into: stream.Writable): Promise<void> {
+ 	return new Promise((resolve, reject) => {
+-		stream.pipe(into)
+-			  .on("finish", resolve)
+-			  .on("error", reject)
++		source.on("error", reject)
++		into.on("finish", resolve)
++		into.on("error", reject)
++		source.pipe(into)
+ 	})
+ }
+ 
++function cleanupFileStream(stream: FsModule.WriteStream): Promise<void> {
++	stream.removeAllListeners("close")
++	return closeFileStream(stream)
++}
++
+ function closeFileStream(stream: FsModule.WriteStream): Promise<void> {
+ 	return new Promise((resolve) => {
+ 		stream.on("close", resolve)
+diff --git a/src/desktop/DesktopNetworkClient.ts b/src/desktop/DesktopNetworkClient.ts
+index 72075b7ed..c7d07527f 100644
+--- a/src/desktop/DesktopNetworkClient.ts
++++ b/src/desktop/DesktopNetworkClient.ts
+@@ -26,15 +26,6 @@ export class DesktopNetworkClient {
+ 		return this.getModule(url).request(url, opts)
+ 	}
+ 
+-	executeRequest(url: string, opts: ClientRequestOptions): Promise<http.IncomingMessage> {
+-		return new Promise<http.IncomingMessage>((resolve, reject) => {
+-			this.request(url, opts)
+-				.on("response", resolve)
+-				.on("error", reject)
+-				.end()
+-		})
+-	}
+-
+ 	private getModule(url: string): typeof import("http") | typeof import("https") {
+ 		if (url.startsWith("https")) {
+ 			return https

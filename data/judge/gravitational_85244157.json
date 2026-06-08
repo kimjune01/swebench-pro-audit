@@ -1,0 +1,32 @@
+{
+ "case": "gravitational_85244157",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "With input reader containing \"hello\" and limit 4, ReadAtMost returns bytes \"hell\" and error ErrLimitReached.",
+   "covering_prose": "When the read reaches the limit before completing the content, `ReadAtMost` must return the bytes read up to that point and the error `ErrLimitReached`.",
+   "gold_anchor": "return data, ErrLimitReached",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With input reader containing \"hello\" and limit 5, ReadAtMost returns bytes \"hello\" and error ErrLimitReached.",
+   "covering_prose": "Description: Reads from the provided `io.Reader` up to the specified byte `limit`. If the limit is reached, returns the error `ErrLimitReached`.",
+   "gold_anchor": "if limitedReader.N <= 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With input reader containing \"hello\" and limit 6, ReadAtMost returns bytes \"hello\" and no error.",
+   "covering_prose": "When the limit allows reading all available content, `ReadAtMost` must return all bytes without error.",
+   "gold_anchor": "return data, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

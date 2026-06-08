@@ -1,0 +1,53 @@
+{
+ "case": "gravitational_d45e26ce",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "With only the main cluster CA registered, the TLS client observes exactly 1 acceptable CA during GetClientCertificate and the handshake succeeds.",
+   "covering_prose": "For normal cases where the client CA list fits within TLS handshake limits, the per-connection config\u2019s `ClientCAs` must include **all trusted cluster CAs**, so the client observes the full set via `CertificateRequestInfo.AcceptableCAs`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "With 100 additional CAs registered plus the main cluster CA, the TLS client observes exactly 101 acceptable CAs during GetClientCertificate and the handshake succeeds.",
+   "covering_prose": "For normal cases where the client CA list fits within TLS handshake limits, the per-connection config\u2019s `ClientCAs` must include **all trusted cluster CAs**, so the client observes the full set via `CertificateRequestInfo.AcceptableCAs`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "With 1000 total CAs registered, the TLS client observes exactly 1 acceptable CA during GetClientCertificate because the server reduces the advertised CA list to the current cluster Host CA(s).",
+   "covering_prose": "When the client CA list would exceed TLS handshake size limits, the per-connection config\u2019s `ClientCAs` must contain **only the current cluster\u2019s Host CA(s)**, reducing the advertised CA subjects to a minimal, valid set.",
+   "gold_anchor": "pool, err = auth.ClientCertPool(t.AccessPoint, t.ClusterName)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The decision to reduce the CA list is based on the encoded acceptable-CA subjects reaching or exceeding the TLS 2-byte length limit.",
+   "covering_prose": "This bug results from a hard limit in the TLS protocol, which restricts the total size of certificate authority (CA) data sent during an mTLS handshake to 2\u00b9\u2076\u22121 bytes.",
+   "gold_anchor": "if totalSubjectsLen >= int64(math.MaxUint16) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In both the full-list and reduced-list regimes, tls.Dial, explicit con.Handshake, and con.Close complete without error.",
+   "covering_prose": "In both cases above (full list and reduced list), the TLS **handshake must succeed**.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The acceptable CA count is externally observed by the client through CertificateRequestInfo.AcceptableCAs during the handshake.",
+   "covering_prose": "The behavior must be externally observable by a TLS client that inspects `CertificateRequestInfo.AcceptableCAs` during handshake (i.e., length matches the expected regime and the handshake completes).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

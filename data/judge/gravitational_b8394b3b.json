@@ -1,0 +1,39 @@
+{
+ "case": "gravitational_b8394b3b",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "migrateDBAuthority returns without error when a trusted cluster has a host CA but no database CA, and creates a Database CA for the trusted cluster named \"trustedcluster\".",
+   "covering_prose": "During migration, a Database Certificate Authority (Database CA) must be created for every existing cluster, including the local cluster and all trusted clusters, if one does not already exist.",
+   "gold_anchor": "allClusters = append(allClusters, tr.GetName())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The created trusted-cluster Database CA is stored under CertAuthID Type DatabaseCA and DomainName \"trustedcluster\", so GetCertAuthority for that remote database CA succeeds.",
+   "covering_prose": "During migration, a Database Certificate Authority (Database CA) must be created for every existing cluster, including the local cluster and all trusted clusters, if one does not already exist.",
+   "gold_anchor": "Type:        types.DatabaseCA,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The created trusted-cluster Database CA copies the TLS certificate from the trusted cluster's Host CA.",
+   "covering_prose": "If a database CA does not exist for a cluster, the migration must create it by copying only the TLS portion of that cluster's host CA.",
+   "gold_anchor": "TLS: cav2.Spec.ActiveKeys.TLS,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The created trusted-cluster Database CA has no TLS private key when the trusted cluster Host CA contains only public certificate data.",
+   "covering_prose": "For trusted clusters, the created database CA must contain only public certificate data and must never include the private key.",
+   "gold_anchor": "TLS: cav2.Spec.ActiveKeys.TLS,",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

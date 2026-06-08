@@ -1,0 +1,150 @@
+{
+ "case": "gravitational_be52cd32",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 16,
+ "n_covered": 12,
+ "n_gap": 4,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "AuditWriter ResumeMiddle expects exactly one stream creation after resume: streamCreated == 1.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AuditWriter Backoff allows overriding BackoffTimeout to 100ms and BackoffDuration to 1s for the writer instance.",
+   "covering_prose": "Extend AuditWriter config with BackoffTimeout and BackoffDuration, falling back to defaults when zero.",
+   "gold_anchor": "BackoffTimeout time.Duration",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AuditWriter Backoff: when the audit stream hangs, EmitAuditEvent returns no error for all generated events instead of blocking indefinitely.",
+   "covering_prose": "When the channel is full, mark slow write, retry bounded by BackoffTimeout, and if it expires, drop, start backoff for BackoffDuration, and count loss.",
+   "gold_anchor": "t.Reset(a.cfg.BackoffTimeout)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AuditWriter Backoff: emitting 1024 events with BackoffTimeout set to 100ms completes in under one second.",
+   "covering_prose": "The platform should emit audit events asynchronously so that core operations never block.",
+   "gold_anchor": "case <-t.C:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AuditWriter Backoff: after the hang is released, Complete(ctx) returns no error.",
+   "covering_prose": "In writer Close(ctx), cancel internals, gather stats, and log error if losses occurred and debug if slow writes occurred.",
+   "gold_anchor": "return a.Close(ctx)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AuditWriter Backoff: only the first 600 submitted events are collected after the hang; later events are dropped.",
+   "covering_prose": null,
+   "gold_anchor": "a.lostEvents.Inc()",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "AuditWriter Backoff: collected events equal the submitted prefix in the same order.",
+   "covering_prose": null,
+   "gold_anchor": "case a.eventsCh <- event:",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "AuditWriter Backoff: the stream is resumed exactly once after the blocked write path.",
+   "covering_prose": null,
+   "gold_anchor": "if err := a.recoverStream(); err != nil {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "AsyncEmitter Slow: NewAsyncEmitter succeeds with only Inner specified and no BufferSize.",
+   "covering_prose": "Add a configuration type to construct asynchronous emitters with an Inner and optional BufferSize defaulting to defaults.AsyncBufferSize.",
+   "gold_anchor": "c.BufferSize = defaults.AsyncBufferSize",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AsyncEmitter Slow: EmitAuditEvent returns no error for 20 events while the inner emitter blocks for one hour.",
+   "covering_prose": "Implement an asynchronous emitter whose EmitAuditEvent never blocks; it enqueues to a buffer and drops/logs on overflow.",
+   "gold_anchor": "go a.forward()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AsyncEmitter Slow: the one-second caller context has not expired after submitting all events to a slow inner emitter.",
+   "covering_prose": "Implement an asynchronous emitter whose EmitAuditEvent never blocks; it enqueues to a buffer and drops/logs on overflow.",
+   "gold_anchor": "eventsCh: make(chan AuditEvent, cfg.BufferSize)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AsyncEmitter Receive: NewAsyncEmitter succeeds with a channel-backed Inner and default BufferSize.",
+   "covering_prose": "Add a configuration type to construct asynchronous emitters with an Inner and optional BufferSize defaulting to defaults.AsyncBufferSize.",
+   "gold_anchor": "c.BufferSize = defaults.AsyncBufferSize",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AsyncEmitter Receive: every submitted event is eventually forwarded to the inner emitter within one second per event.",
+   "covering_prose": "AsyncEmitter",
+   "gold_anchor": "case event := <-a.eventsCh:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AsyncEmitter Receive: forwarded events are received in exactly the same order as submitted.",
+   "covering_prose": null,
+   "gold_anchor": "case event := <-a.eventsCh:",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "AsyncEmitter Close: Close can be called while concurrent EmitAuditEvent calls are in flight.",
+   "covering_prose": "Support Close() on the asynchronous emitter to cancel its context and stop accepting new events, allowing prompt exit.",
+   "gold_anchor": "func (a *AsyncEmitter) Close() error {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AsyncEmitter Close: after Close, the inner counter is not required to have processed all submitted events.",
+   "covering_prose": "Close",
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AsyncEmitter Close: after Close, emitter.ctx.Done() is closed immediately enough to be observed without waiting.",
+   "covering_prose": "Support Close() on the asynchronous emitter to cancel its context and stop accepting new events, allowing prompt exit.",
+   "gold_anchor": "a.cancel()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AsyncEmitter Close: all concurrent EmitAuditEvent calls return within one second after Close.",
+   "covering_prose": "Support Close() on the asynchronous emitter to cancel its context and stop accepting new events, allowing prompt exit.",
+   "gold_anchor": "a.cancel()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Proto stream Complete on a newly created stream with no emitted events returns no error under a one-second context.",
+   "covering_prose": "Additionally, when completing or closing a stream without events, the corresponding calls should return immediately and not block.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Calling Complete again and then Close on a stream with no emitted events returns before the one-second context timeout.",
+   "covering_prose": "Additionally, when completing or closing a stream without events, the corresponding calls should return immediately and not block.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

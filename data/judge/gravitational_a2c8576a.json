@@ -1,0 +1,102 @@
+{
+ "case": "gravitational_a2c8576a",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 6,
+ "rows": [
+  {
+   "test": "Firestore backend tests are included in the default test run by removing the `// +build firestore` build tag.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`SetUpSuite` skips `TestFirestoreDB` when a TCP connection to `localhost:8618` cannot be opened.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`TearDownSuite` does not call `Close` when `s.bk` is nil.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`Put` accepts 1024 bytes of arbitrary binary data without returning an error.",
+   "covering_prose": "With the updated logic, the system should store and retrieve binary content using the appropriate data type (`[]byte`) and fall back to legacy parsing for existing string-encoded values.",
+   "gold_anchor": "Value     []byte `firestore:\"value,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After `Put` of arbitrary binary data, `Get` returns the exact same byte slice as `backend.Item.Value`.",
+   "covering_prose": "With the updated logic, the system should store and retrieve binary content using the appropriate data type (`[]byte`) and fall back to legacy parsing for existing string-encoded values.",
+   "gold_anchor": "Value: r.Value,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A Firestore document written as `legacyRecord` with string `Value` can be read by `Get` without error.",
+   "covering_prose": "A new function to handle the creation of a new `record` struct based on a provided `firestore.DocumentSnapshot` should be created. It should try first to unmarshal to a `record` struct and fall back to a `legacyRecord` struct if that fails.",
+   "gold_anchor": "var rl legacyRecord",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When reading a legacy string-encoded record, `Get` returns the original key bytes.",
+   "covering_prose": "On the other hand, a new struct named `legacyRecord` should be created to represent the very same structure as the previous `record` struct.",
+   "gold_anchor": "Key:       rl.Key,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When reading a legacy string-encoded record, `Get` returns the original value bytes converted from the legacy string value.",
+   "covering_prose": "With the updated logic, the system should store and retrieve binary content using the appropriate data type (`[]byte`) and fall back to legacy parsing for existing string-encoded values.",
+   "gold_anchor": "Value:     []byte(rl.Value),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When reading a legacy string-encoded record, `Get` returns the original `ID`.",
+   "covering_prose": "On the other hand, a new struct named `legacyRecord` should be created to represent the very same structure as the previous `record` struct.",
+   "gold_anchor": "ID:        rl.ID,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When reading a legacy string-encoded record, `Get` returns an expiration time equal to the original UTC second-rounded expiration.",
+   "covering_prose": "On the other hand, a new struct named `legacyRecord` should be created to represent the very same structure as the previous `record` struct.",
+   "gold_anchor": "bi.Expires = time.Unix(r.Expires, 0).UTC()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Firestore events tests are included in the default test run by removing the `// +build firestore` build tag.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Firestore events `SetUpSuite` skips when a TCP connection to `localhost:8618` cannot be opened.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Firestore events `TearDownSuite` does not call `Close` when `s.log` is nil.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

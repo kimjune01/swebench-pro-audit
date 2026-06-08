@@ -1,0 +1,60 @@
+{
+ "case": "gravitational_d05df372",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 7,
+ "n_covered": 3,
+ "n_gap": 4,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For an authenticate error case whose table entry has wantAuthErr true, the test requires trace.IsAccessDenied(err) to be true.",
+   "covering_prose": "Return `AccessDenied` only when the underlying error is an auth/authorization failure.",
+   "gold_anchor": "if trace.IsAccessDenied(err) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For the authzErr authenticate case, the test sets wantAuthErr to true and requires trace.IsAccessDenied(err) to be true.",
+   "covering_prose": "- `authenticate` should return an `AccessDenied` error only when the failure originates from an authorization or access issue, where `trace.IsAccessDenied(err)` would evaluate to true.",
+   "gold_anchor": "return nil, trace.AccessDenied(accessDeniedMsg)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For the unsupported user type authenticate case, the test sets wantAuthErr to true and requires trace.IsAccessDenied(err) to be true.",
+   "covering_prose": null,
+   "gold_anchor": "return nil, trace.AccessDenied(accessDeniedMsg)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For the local user and cluster, no tunnel authenticate case, the test leaves wantAuthErr false and requires trace.IsAccessDenied(err) to be false.",
+   "covering_prose": null,
+   "gold_anchor": "return nil, trace.Wrap(err)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For the local user and remote cluster, no tunnel authenticate case, the test leaves wantAuthErr false and requires trace.IsAccessDenied(err) to be false.",
+   "covering_prose": null,
+   "gold_anchor": "return nil, trace.Wrap(err)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For the unknown kubernetes cluster in local cluster authenticate case, the test leaves wantAuthErr false and requires trace.IsAccessDenied(err) to be false.",
+   "covering_prose": null,
+   "gold_anchor": "return nil, trace.Wrap(err)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For non-authorization authenticate failures, the test requires a non-AccessDenied error so trace.IsAccessDenied(err) is false.",
+   "covering_prose": "When the failure is unrelated to authorization, `authenticate` should return a non-`AccessDenied` error so that the error type clearly reflects its cause.",
+   "gold_anchor": "return nil, trace.Wrap(err)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

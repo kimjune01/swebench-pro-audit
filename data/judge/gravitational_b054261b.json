@@ -1,0 +1,130 @@
+{
+ "case": "gravitational_b054261b",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 17,
+ "n_covered": 15,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Connection tracking begins on http.StateActive after the TLS handshake, not on http.StateNew; the test forwards StateActive into stateC and expects http.StateActive after the request.",
+   "covering_prose": "Tracking of HTTP connections must only begin when the connection\u2019s state transitions to Active after the TLS handshake.",
+   "gold_anchor": "case http.StateActive:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A TLS HTTPS connection is counted as accepted with accepted connections equal to 1 after it becomes active.",
+   "covering_prose": "Only TLS connections should be tracked; if the link is not TLS it should be skipped. ",
+   "gold_anchor": "r.ConnectionAccepted(service, conn)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A TLS HTTPS connection is counted as active with active connections equal to 1 after it becomes active.",
+   "covering_prose": "Tracking of HTTP connections must only begin when the connection\u2019s state transitions to Active after the TLS handshake.",
+   "gold_anchor": "r.ConnectionAccepted(service, conn)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A TLS connection with a client certificate is counted as authenticated accepted with authenticated accepted connections equal to 1.",
+   "covering_prose": "A connection will only be considered \u201cauthenticated\u201d if it is TLS and the peer certificate list is not empty; otherwise it must not increment authenticated metrics.",
+   "gold_anchor": "r.ConnectionAuthenticated(service, conn)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A TLS connection with a client certificate is counted as authenticated active with authenticated active connections equal to 1.",
+   "covering_prose": "A connection will only be considered \u201cauthenticated\u201d if it is TLS and the peer certificate list is not empty; otherwise it must not increment authenticated metrics.",
+   "gold_anchor": "r.ConnectionAuthenticated(service, conn)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A TLS connection without a client certificate leaves authenticated accepted connections equal to 0.",
+   "covering_prose": "Connections without client certificates should maintain a count of 0 for authenticated connection metrics.",
+   "gold_anchor": "if len(tlsConn.ConnectionState().PeerCertificates) == 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A TLS connection without a client certificate leaves authenticated active connections equal to 0.",
+   "covering_prose": "Connections without client certificates should maintain a count of 0 for authenticated connection metrics.",
+   "gold_anchor": "if len(tlsConn.ConnectionState().PeerCertificates) == 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After the response body is closed and idle connections are closed, the test observes http.StateClosed.",
+   "covering_prose": "When receiving close (Closed) or hijack (Hijacked) events, the system must remove the connection from the tracker and update the counts of active and authenticated connections accordingly.",
+   "gold_anchor": "case http.StateClosed, http.StateHijacked:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On http.StateClosed, accepted connections remains cumulative at 1.",
+   "covering_prose": null,
+   "gold_anchor": "defer r.ConnectionClosed(service, conn)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "On http.StateClosed, active connections is decremented to 0.",
+   "covering_prose": "When receiving close (Closed) or hijack (Hijacked) events, the system must remove the connection from the tracker and update the counts of active and authenticated connections accordingly.",
+   "gold_anchor": "defer r.ConnectionClosed(service, conn)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On http.StateClosed for a TLS connection with a client certificate, authenticated accepted connections remains cumulative at 1.",
+   "covering_prose": null,
+   "gold_anchor": "r.AuthenticatedConnectionClosed(service, conn)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "On http.StateClosed for a TLS connection with a client certificate, authenticated active connections is decremented to 0.",
+   "covering_prose": "When receiving close (Closed) or hijack (Hijacked) events, the system must remove the connection from the tracker and update the counts of active and authenticated connections accordingly.",
+   "gold_anchor": "r.AuthenticatedConnectionClosed(service, conn)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On http.StateClosed for a TLS connection without a client certificate, authenticated accepted connections remains 0.",
+   "covering_prose": "Connections without client certificates should maintain a count of 0 for authenticated connection metrics.",
+   "gold_anchor": "if len(tlsConn.ConnectionState().PeerCertificates) == 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On http.StateClosed for a TLS connection without a client certificate, authenticated active connections remains 0.",
+   "covering_prose": "Connections without client certificates should maintain a count of 0 for authenticated connection metrics.",
+   "gold_anchor": "if len(tlsConn.ConnectionState().PeerCertificates) == 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Each connection is tracked only once so repeated state notifications do not double count before close.",
+   "covering_prose": "Double counting of a connection must be prevented: each link should be added to the tracker only once and removed when it closes or is hijacked.",
+   "gold_anchor": "_, loaded := tracker.LoadOrStore(tlsConn, struct{}{})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Close handling only updates counts for a connection that was previously tracked, preventing duplicate removal.",
+   "covering_prose": "Double counting of a connection must be prevented: each link should be added to the tracker only once and removed when it closes or is hijacked.",
+   "gold_anchor": "_, loaded := tracker.LoadAndDelete(tlsConn)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The implementation finds an underlying *tls.Conn through wrappers before deciding whether the connection is TLS.",
+   "covering_prose": "Provide an internal helper function that walks through wrappers of net.Conn to find the actual tls.Conn instance, returning the TLS connection and a boolean flag.",
+   "gold_anchor": "func getTLSConn(conn net.Conn) (*tls.Conn, bool) {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

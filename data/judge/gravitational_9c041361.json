@@ -1,0 +1,60 @@
+{
+ "case": "gravitational_9c041361",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "With no tunnel connections, GetRemoteCluster returns the remote cluster with connection_status set to teleport.RemoteClusterStatusOffline.",
+   "covering_prose": "When a remote cluster has no tunnel connections, a call to `GetRemoteCluster` should return it with `connection_status` set to `teleport.RemoteClusterStatusOffline`.",
+   "gold_anchor": "remoteCluster.SetConnectionStatus(teleport.RemoteClusterStatusOffline)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After creating multiple tunnel connections, GetRemoteCluster returns connection_status set to teleport.RemoteClusterStatusOnline.",
+   "covering_prose": "When one or more tunnel connections are created or updated for a remote cluster, the cluster should switch its `connection_status` to `teleport.RemoteClusterStatusOnline` and update its `last_heartbeat` to the latest tunnel heartbeat in UTC.",
+   "gold_anchor": "remoteCluster.SetConnectionStatus(tunnelStatus)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After creating tunnel connections with heartbeats one minute apart, GetRemoteCluster returns last_heartbeat equal to the latest tunnel connection heartbeat.",
+   "covering_prose": "When one or more tunnel connections are created or updated for a remote cluster, the cluster should switch its `connection_status` to `teleport.RemoteClusterStatusOnline` and update its `last_heartbeat` to the latest tunnel heartbeat in UTC.",
+   "gold_anchor": "remoteCluster.SetLastHeartbeat(lastConn.GetLastHeartbeat().UTC())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the most recent tunnel connection is deleted while an older tunnel connection remains, GetRemoteCluster keeps connection_status set to teleport.RemoteClusterStatusOnline.",
+   "covering_prose": "When the most recent tunnel connection is deleted but other tunnel connections remain, the cluster\u2019s `connection_status` should remain `teleport.RemoteClusterStatusOnline` and its `last_heartbeat` should not be updated to an older value.",
+   "gold_anchor": "remoteCluster.SetConnectionStatus(tunnelStatus)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the most recent tunnel connection is deleted while an older tunnel connection remains, GetRemoteCluster keeps last_heartbeat equal to the previously recorded newer heartbeat rather than decreasing it to the remaining connection heartbeat.",
+   "covering_prose": "When the most recent tunnel connection is deleted but other tunnel connections remain, the cluster\u2019s `connection_status` should remain `teleport.RemoteClusterStatusOnline` and its `last_heartbeat` should not be updated to an older value.",
+   "gold_anchor": "if lastConn.GetLastHeartbeat().After(prevLastHeartbeat) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the final tunnel connection is deleted, GetRemoteCluster returns connection_status set to teleport.RemoteClusterStatusOffline.",
+   "covering_prose": "When the last tunnel connection is deleted for a remote cluster, the cluster should switch its `connection_status` to `teleport.RemoteClusterStatusOffline` while retaining the previously recorded `last_heartbeat`.",
+   "gold_anchor": "remoteCluster.SetConnectionStatus(teleport.RemoteClusterStatusOffline)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the final tunnel connection is deleted, GetRemoteCluster retains the previously recorded last_heartbeat.",
+   "covering_prose": "When the last tunnel connection is deleted for a remote cluster, the cluster should switch its `connection_status` to `teleport.RemoteClusterStatusOffline` while retaining the previously recorded `last_heartbeat`.",
+   "gold_anchor": "return nil",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

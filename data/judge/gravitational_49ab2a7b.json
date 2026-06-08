@@ -1,0 +1,60 @@
+{
+ "case": "gravitational_49ab2a7b",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 7,
+ "n_covered": 6,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`SQLServerPinger` exists as a concrete type in package `database` and can be instantiated with no fields via `&SQLServerPinger{}`.",
+   "covering_prose": "Name: `SQLServerPinger`  \n\nPackage: `database` (lib/client/conntest/database)  \n\nInputs: None when instantiated; methods accept parameters as described below.",
+   "gold_anchor": "type SQLServerPinger struct{}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`IsConnectionRefusedError` returns `true` for error text `mssql: login error: unable to open tcp connection with host 'sqlserver.ad.teleport.dev:1433': dial tcp 0.0.0.0:1433: i/o timeout`.",
+   "covering_prose": "The `SQLServerPinger` must provide a way to detect when a connection attempt is refused, by categorizing errors that indicate the server is unreachable.",
+   "gold_anchor": "strings.Contains(err.Error(), \"unable to open tcp connection with host\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`IsInvalidDatabaseUserError` returns `true` for error text `mssql: login error: authentication failed`.",
+   "covering_prose": "The `SQLServerPinger` must provide a way to detect when authentication fails due to an invalid or non-existent user.",
+   "gold_anchor": "strings.Contains(err.Error(), \"authentication failed\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`IsInvalidDatabaseNameError` returns `true` for error text `mssql: login error: mssql: login error: Cannot open database \"wrong\" that was requested by the login. Using the user default database \"master\" instead`.",
+   "covering_prose": "The `SQLServerPinger` must provide a way to detect when the specified database name is invalid or does not exist.",
+   "gold_anchor": "strings.Contains(err.Error(), \"Cannot open database\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`Ping` accepts `context.Context` and `PingParams` and returns an `error`.",
+   "covering_prose": "Inputs: `context.Context`, `PingParams`  \n\nOutputs: `error`",
+   "gold_anchor": "func (p *SQLServerPinger) Ping(ctx context.Context, params PingParams) error",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`Ping` returns no error when called with valid SQL Server connection parameters: host `localhost`, the test server port, username `alice`, and database name `master`.",
+   "covering_prose": "The `SQLServerPinger` should provide a `Ping` method that accepts connection parameters (host, port, username, database name) and must successfully connect when the parameters are valid. It must return an error when the connection fails.",
+   "gold_anchor": "err = db.PingContext(ctx)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`Ping` must complete successfully before the caller's `10*time.Second` context timeout expires.",
+   "covering_prose": null,
+   "gold_anchor": "db.PingContext(ctx)",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

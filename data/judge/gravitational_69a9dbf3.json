@@ -1,0 +1,284 @@
+{
+ "case": "gravitational_69a9dbf3",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 39,
+ "n_covered": 39,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "ApplyValueTraits supports nested regexp.replace and email.local expressions against trait email=ab_cd@example.com, producing abcd@example.com, ab_cd, abcd, ab_ce@example.com, ab_ce, and xyz while preserving literal root.",
+   "covering_prose": "Ensure cross-function composition works for string expressions, e.g., nested calls like regexp.replace(email.local(...), \"...\", \"...\"), validating each subexpression\u2019s kind before evaluation.",
+   "gold_anchor": "return &RegexpReplaceExpr{source: source, re: re, replacement: replacement}, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ApplyValueTraits supports constant string expressions inside regexp.replace and email.local, producing vitor@goteleport.com, vitor, and vitor.enes without trait lookup.",
+   "covering_prose": "Constant expressions as valid inputs.",
+   "gold_anchor": "case string:\n\t\tsource = &StringLitExpr{value: v}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression rejects {{\"asdf\"}} with trace.BadParameter.",
+   "covering_prose": "Make the parser reject numeric literals or quoted literals in the variable position (e.g., {{\"asdf\"}}, {{123}}) with trace.BadParameter.",
+   "gold_anchor": "return nil, trace.BadParameter(\"failed to parse: %q, unexpected parser result type %T\", exprStr, result)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression rejects {{123}} with trace.BadParameter.",
+   "covering_prose": "Make the parser reject numeric literals or quoted literals in the variable position (e.g., {{\"asdf\"}}, {{123}}) with trace.BadParameter.",
+   "gold_anchor": "return nil, trace.BadParameter(\"failed to parse: %q, unexpected parser result type %T\", exprStr, result)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression rejects {{internal}} with trace.BadParameter as an incomplete variable.",
+   "covering_prose": "Require variables to be exactly two components: namespace.name. Reject incomplete ({{internal}}) or overly nested ({{internal.foo.bar}}) forms.",
+   "gold_anchor": "if v.name == \"\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression rejects {{internal.foo[\"bar\"]}} with trace.BadParameter as mixed/deeper bracket nesting.",
+   "covering_prose": "For bracket form, support exactly {{namespace[\"name\"]}} as a way to specify the second component; reject deeper or mixed nesting like {{internal.foo[\"bar\"]}}.",
+   "gold_anchor": "return nil, trace.BadParameter(\n\t\t\t\"found invalid map value that is not a literal: %s\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression accepts {{internal[\"foo\"]}} as a variable with namespace internal and name foo.",
+   "covering_prose": "For bracket form, support exactly {{namespace[\"name\"]}} as a way to specify the second component; reject deeper or mixed nesting like {{internal.foo[\"bar\"]}}.",
+   "gold_anchor": "varExpr.name = name",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression treats bare foo as a literal namespace variable named foo.",
+   "covering_prose": "Treat bare tokens with no {{ }} as string-literal expressions under the literal namespace.",
+   "gold_anchor": "expr := &VarExpr{namespace: LiteralNamespace, name: value}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression accepts {{external.foo}} and {{internal.bar}} as two-component variables.",
+   "covering_prose": "Require variables to be exactly two components: namespace.name. Reject incomplete ({{internal}}) or overly nested ({{internal.foo.bar}}) forms.",
+   "gold_anchor": "return &VarExpr{namespace: fields[0], name: fields[1]}, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression trims surrounding whitespace so \"  {{  internal.bar  }}  \" parses as internal.bar.",
+   "covering_prose": "Trim surrounding whitespace inside {{ ... }} and around the outer expression so that \" {{ internal.foo }} \" parses cleanly.",
+   "gold_anchor": "prefix: strings.TrimLeftFunc(prefix, unicode.IsSpace),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression preserves static prefix and suffix around a variable, trimming only outer whitespace, so \"  hello,  {{  internal.bar  }}  there! \" has prefix \"hello,  \" and suffix \"  there!\".",
+   "covering_prose": "Rework NewExpression to parse input into an AST, attach optional static prefix/suffix, and verify the root evaluates to a string kind.",
+   "gold_anchor": "suffix: strings.TrimRightFunc(suffix, unicode.IsSpace),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression parses {{email.local(internal.bar)}} into an email.local AST over internal.bar.",
+   "covering_prose": "Replace ad-hoc parsing in lib/utils/parse with a proper expression AST (Expr interface with concrete nodes for string literals, variables, email local extraction, regex replace, and boolean regex predicates).",
+   "gold_anchor": "return &EmailLocalExpr{email: email}, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression parses {{regexp.replace(internal.foo, \"bar-(.*)\", \"$1\")}} into a regexp.replace AST with source internal.foo, pattern bar-(.*), and replacement $1.",
+   "covering_prose": "Enforce argument types: pattern and replacement for regexp.replace must be constant strings; the source may be a string literal or a string-producing expression; variables in pattern/replacement are rejected.",
+   "gold_anchor": "return &RegexpReplaceExpr{source: source, re: re, replacement: replacement}, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression parses {{regexp.replace(\"abc\", \"c\", \"z\")}} as a regexp.replace whose source is the constant string abc.",
+   "covering_prose": "Enforce argument types: pattern and replacement for regexp.replace must be constant strings; the source may be a string literal or a string-producing expression; variables in pattern/replacement are rejected.",
+   "gold_anchor": "source = &StringLitExpr{value: v}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression rejects unknown function regexp.replac with trace.BadParameter.",
+   "covering_prose": "Normalize function-related errors to use trace.BadParameter for unknown functions, wrong arity, wrong argument types, and invalid regexes (include the offending token/pattern where possible).",
+   "gold_anchor": "return nil, trace.BadParameter(\"failed to parse: %q, error: %s\", exprStr, err)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression rejects regexp.replace calls with missing, no, or extra arguments with trace.BadParameter.",
+   "covering_prose": "Ensure function arity is enforced strictly: email.local takes exactly 1 arg; regexp.replace takes exactly 3; regexp.match/regexp.not_match take exactly 1.",
+   "gold_anchor": "return nil, trace.BadParameter(\"failed to parse: %q, error: %s\", exprStr, err)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewExpression rejects regexp.replace(regexp.match(\"a\"), \"c\", \"x\") with trace.BadParameter because the source argument is boolean, not string-producing.",
+   "covering_prose": "Add clear errors for attempts to use non-string expressions where a string is required (e.g., passing a boolean node into a string position), and vice-versa.",
+   "gold_anchor": "\"found function %q with 1st argument that does not evaluate to a string\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Interpolate resolves {{external.foo}} by looking up traits[\"foo\"] and returns all values a and b.",
+   "covering_prose": "During interpolation, resolve variables by looking up traits[name]. If the key is absent, return a clear error from VarValue that includes the variable reference.",
+   "gold_anchor": "values, ok := traits[v.name]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Interpolate applies email.local to each trait value, extracting alice from \"Alice <alice@example.com>\" and bob from bob@example.com.",
+   "covering_prose": "Name: EmailLocalExpr.Evaluate()\nPathfile: lib/utils/parse/ast.go\nInput: (ctx EvaluateContext)\nOutput: (any, error)\nDescription: Extracts local part from each input email string.",
+   "gold_anchor": "return parts[0], nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Interpolate returns trace.BadParameter when email.local receives malformed address \"Alice <alice\".",
+   "covering_prose": "In email.local, parse the input with RFC-compliant parsing; return trace.BadParameter for empty strings, malformed addresses, or missing local part.",
+   "gold_anchor": "return \"\", trace.BadParameter(\n\t\t\t\t\"failed to parse %q argument %q: %s\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Interpolate adds prefix IAM# and suffix ; only around evaluated trait values, producing IAM#a; and IAM#b;.",
+   "covering_prose": "When concatenating prefix/suffix, append them only to non-empty evaluated elements to avoid fabricating values around empty strings.",
+   "gold_anchor": "out = append(out, e.prefix+val+e.suffix)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Interpolate of bare literal foo returns single value foo, ignoring traits[\"foo\"].",
+   "covering_prose": "Treat literal variables (foo with no braces) as a single-element result in interpolation and as an anchored literal in matcher creation (no variable lookup involved).",
+   "gold_anchor": "return []string{e.name}, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "regexp.replace supports numeric capture replacement: bar-baz with pattern bar-(.*) and replacement $1 yields baz.",
+   "covering_prose": "Name: RegexpReplaceExpr.Evaluate()\nPathfile: lib/utils/parse/ast.go\nInput: (ctx EvaluateContext)\nOutput: (any, error)\nDescription: Replaces pattern matches for each input string.",
+   "gold_anchor": "return e.re.ReplaceAllString(in, e.replacement), nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "regexp.replace supports named capture replacement: bar-baz with pattern bar-(?P<suffix>.*) and replacement $suffix yields baz.",
+   "covering_prose": "Name: RegexpReplaceExpr.Evaluate()\nPathfile: lib/utils/parse/ast.go\nInput: (ctx EvaluateContext)\nOutput: (any, error)\nDescription: Replaces pattern matches for each input string.",
+   "gold_anchor": "return e.re.ReplaceAllString(in, e.replacement), nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "regexp.replace supports multiple capture replacement: foo-bar-baz with replacement $1.$2 yields bar.baz.",
+   "covering_prose": "Name: RegexpReplaceExpr.Evaluate()\nPathfile: lib/utils/parse/ast.go\nInput: (ctx EvaluateContext)\nOutput: (any, error)\nDescription: Replaces pattern matches for each input string.",
+   "gold_anchor": "return e.re.ReplaceAllString(in, e.replacement), nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "regexp.replace omits non-matching elements, so only bar-test2 becomes test2-matched and foo-test1 is absent.",
+   "covering_prose": "In regexp.replace, apply the regex to each source value; if an element doesn\u2019t match at all, omit it from the output for that element (do not carry through the original).",
+   "gold_anchor": "if !e.re.MatchString(in) {\n\t\t\treturn \"\", nil\n\t\t}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Interpolate invokes varValidation; when validation requires external namespace, {{external.foo}} succeeds and {{internal.foo}} errors.",
+   "covering_prose": "In expression interpolation, wire a varValidation(namespace, name string) error callback to allow the caller to constrain which namespaces/names are acceptable for the context.",
+   "gold_anchor": "if err := varValidation(v.namespace, v.name); err != nil {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Interpolate errors when a referenced variable {{external.baz}} is absent from traits.",
+   "covering_prose": "During interpolation, resolve variables by looking up traits[name]. If the key is absent, return a clear error from VarValue that includes the variable reference.",
+   "gold_anchor": "return nil, trace.BadParameter(\"variable not found: %s\", v)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewMatcher rejects {{email.local(external.email)}} because it is not a boolean expression.",
+   "covering_prose": "NewMatcher should allow valid boolean expressions and reject non-boolean ones clearly.",
+   "gold_anchor": "if matcher.Kind() != reflect.Bool {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewMatcher rejects {{external.email}} because variables are not boolean matcher expressions.",
+   "covering_prose": "NewMatcher should allow valid boolean expressions and reject non-boolean ones clearly.",
+   "gold_anchor": "return nil, trace.BadParameter(\"%q does not evaluate to a boolean\", value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewMatcher converts plain string foo into an anchored regexp ^foo$.",
+   "covering_prose": "For plain string and wildcard inputs (no {{ }}), anchor the generated regex (^...$) and translate * into .*, quoting other characters as needed.",
+   "gold_anchor": "raw = \"^\" + utils.GlobToRegexp(raw) + \"$\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewMatcher converts wildcard foo* into anchored regexp ^foo(.*)$.",
+   "covering_prose": "For plain string and wildcard inputs (no {{ }}), anchor the generated regex (^...$) and translate * into .*, quoting other characters as needed.",
+   "gold_anchor": "raw = \"^\" + utils.GlobToRegexp(raw) + \"$\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewMatcher accepts raw regexp ^foo.*$ without re-anchoring it.",
+   "covering_prose": "Implement NewMatcher that accepts: plain strings, glob-like wildcards, raw regexes, or {{regexp.match(\"...\")}} / {{regexp.not_match(\"...\")}}. Anything that doesn\u2019t evaluate to a boolean is rejected.",
+   "gold_anchor": "if !strings.HasPrefix(raw, \"^\") || !strings.HasSuffix(raw, \"$\") {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewMatcher parses {{regexp.match(\"foo\")}} into a boolean regexp.match matcher over pattern foo.",
+   "covering_prose": "Implement NewMatcher that accepts: plain strings, glob-like wildcards, raw regexes, or {{regexp.match(\"...\")}} / {{regexp.not_match(\"...\")}}. Anything that doesn\u2019t evaluate to a boolean is rejected.",
+   "gold_anchor": "return &RegexpMatchExpr{re: re}, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewMatcher parses foo-{{regexp.match(\"bar\")}}-baz with prefix foo-, suffix -baz, and inner pattern bar.",
+   "covering_prose": "Provide a new MatchExpression type that stores optional static prefix/suffix and a boolean matcher AST.",
+   "gold_anchor": "return &MatchExpression{\n\t\tprefix:  prefix,\n\t\tsuffix:  suffix,\n\t\tmatcher: matcher,\n\t}, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewMatcher parses foo-{{regexp.not_match(\"bar\")}}-baz with prefix foo-, suffix -baz, and negated inner pattern bar.",
+   "covering_prose": "Implement NewMatcher that accepts: plain strings, glob-like wildcards, raw regexes, or {{regexp.match(\"...\")}} / {{regexp.not_match(\"...\")}}. Anything that doesn\u2019t evaluate to a boolean is rejected.",
+   "gold_anchor": "return &RegexpNotMatchExpr{re: re}, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "MatchExpression.Match for regexp.match returns true when input foo matches pattern foo and false when input foo does not match pattern bar.",
+   "covering_prose": "Name: RegexpMatchExpr.Evaluate()\nPathfile: lib/utils/parse/ast.go\nInput: (ctx EvaluateContext)\nOutput: (any, error)\nDescription: Tests ctx.MatcherInput against the pattern.",
+   "gold_anchor": "return e.re.MatchString(ctx.MatcherInput), nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "MatchExpression.Match for regexp.not_match returns true when input foo does not match pattern bar.",
+   "covering_prose": "Name: RegexpNotMatchExpr.Evaluate()\nPathfile: lib/utils/parse/ast.go\nInput: (ctx EvaluateContext)\nOutput: (any, error)\nDescription: Negated test of ctx.MatcherInput against the pattern.",
+   "gold_anchor": "return !e.re.MatchString(ctx.MatcherInput), nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "MatchExpression.Match strips required prefix foo- and suffix -baz, then matches only the middle substring; foo-bar-baz matches bar and foo-foo-baz does not.",
+   "covering_prose": "In MatchExpression.Match, first verify/strip prefix/suffix, then evaluate the boolean matcher against the remaining middle substring via MatcherInput.",
+   "gold_anchor": "in = strings.TrimPrefix(in, e.prefix)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

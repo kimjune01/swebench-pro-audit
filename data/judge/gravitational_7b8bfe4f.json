@@ -1,0 +1,39 @@
+{
+ "case": "gravitational_7b8bfe4f",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "NewWriterEmitter can be called with an io.WriteCloser-backed buffer and returns a WriterEmitter usable for emitting events.",
+   "covering_prose": "A new function `NewWriterEmitter(w io.WriteCloser) *WriterEmitter` needs to be implemented to create a `WriterEmitter` that writes audit events to the provided writer. The constructor must initialize both the writer and an embedded `WriterLog`.",
+   "gold_anchor": "func NewWriterEmitter(w io.WriteCloser) *WriterEmitter {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EmitAuditEvent(ctx, event) returns no error when marshaling and writing generated session events to a working writer.",
+   "covering_prose": "The method `EmitAuditEvent(ctx context.Context, event AuditEvent) error` must be implemented on `WriterEmitter` to marshal the event to JSON and write it to the writer, appending a newline. All system errors must be converted to trace errors.",
+   "gold_anchor": "return trace.ConvertSystemError(err)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Each emitted audit event is written to the provided writer as a newline-terminated record readable by bufio.Scanner.",
+   "covering_prose": "The method `EmitAuditEvent(ctx context.Context, event AuditEvent) error` must be implemented on `WriterEmitter` to marshal the event to JSON and write it to the writer, appending a newline. All system errors must be converted to trace errors.",
+   "gold_anchor": "_, err = fmt.Fprintln(w.w, string(line))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Each emitted record contains the event's code because the whole audit event is marshaled to JSON before writing.",
+   "covering_prose": "Description: Writes the provided audit event to the writer after marshaling it to JSON. Appends a newline after each event and converts any system errors to trace errors.",
+   "gold_anchor": "line, err := utils.FastMarshal(event)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,46 @@
+{
+ "case": "gravitational_883cf1ae",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For input kind namespace, name default, verb get, and an accessible pod resource in namespace default with wildcard verbs, KubeResourceMatchesRegex returns matches=true.",
+   "covering_prose": "The `KubeResourceMatchesRegex` function must grant read-only access (`get`, `list`, `watch`) to a namespace if the user has access to any resource defined in that namespace, even if no explicit `kind: namespace` rule exists.",
+   "gold_anchor": "case targetsReadOnlyNamespace && resource.Kind != types.KindKubeNamespace && resource.Namespace != \"\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A resource rule with Verbs []string{types.Wildcard} permits the requested get verb in the namespace-read case.",
+   "covering_prose": "The `isVerbAllowed` function must return true when the list of allowed verbs is non-empty and either contains the requested verb or contains the wildcard (`*`), and must return false otherwise.",
+   "gold_anchor": "allowedVerbs[0] == types.Wildcard",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For input kind namespace, name default, verb update, and an accessible pod resource in namespace default with wildcard verbs, KubeResourceMatchesRegex returns matches=false.",
+   "covering_prose": "The `KubeResourceMatchesRegex` function must not grant write-level access (`create`, `update`, `delete`) to a namespace unless explicitly defined in the user\u2019s rules.",
+   "gold_anchor": "slices.Contains([]string{types.KubeVerbGet, types.KubeVerbList, types.KubeVerbWatch}, verb)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For input kind pod, namespace default, name podname, verb get, and a namespace resource rule named default with verb get, KubeResourceMatchesRegex returns matches=true.",
+   "covering_prose": "The `KubeResourceMatchesRegex` function must allow access to all resources inside a namespace when a rule with `kind: namespace` matches that namespace and the requested verb is permitted.",
+   "gold_anchor": "case resource.Kind == types.KindKubeNamespace && input.Namespace != \"\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For input kind pod, namespace default, name podname, verb update, and a namespace resource rule named default with only verb get, KubeResourceMatchesRegex returns matches=false.",
+   "covering_prose": "The `KubeResourceMatchesRegex` function must allow access to all resources inside a namespace when a rule with `kind: namespace` matches that namespace and the requested verb is permitted.",
+   "gold_anchor": "if !isVerbAllowed(resource.Verbs, verb) {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

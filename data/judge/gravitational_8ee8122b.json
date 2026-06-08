@@ -1,0 +1,39 @@
+{
+ "case": "gravitational_8ee8122b",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Old-client compatibility: JSON produced from U2FAuthenticateChallenge with embedded AuthenticateChallenge and Challenges [c1,c2,c3] must unmarshal successfully into u2f.AuthenticateChallenge with no error.",
+   "covering_prose": "Embeds the legacy single-device challenge for older clients while exposing a list of challenges for multi-device flows.",
+   "gold_anchor": "*u2f.AuthenticateChallenge",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Old-client compatibility: when unmarshalling the new U2FAuthenticateChallenge JSON into u2f.AuthenticateChallenge, the decoded old challenge must equal the embedded AuthenticateChallenge value {Challenge: \"c1\"}, not the multi-device list entries c2 or c3.",
+   "covering_prose": "AuthenticateChallenge (*u2f.AuthenticateChallenge) for backward compatibility",
+   "gold_anchor": "*u2f.AuthenticateChallenge",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "New-client compatibility: JSON produced from the old u2f.AuthenticateChallenge format with Challenge \"c1\" must unmarshal successfully into U2FAuthenticateChallenge with no error.",
+   "covering_prose": "The authentication process should handle both single-device legacy formats and multi-device challenge formats to ensure compatibility across client versions.",
+   "gold_anchor": "*u2f.AuthenticateChallenge",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "New-client compatibility: unmarshalling old u2f.AuthenticateChallenge JSON into U2FAuthenticateChallenge must populate AuthenticateChallenge with the old challenge {Challenge: \"c1\"} and leave Challenges empty.",
+   "covering_prose": "Embeds the legacy single-device challenge for older clients while exposing a list of challenges for multi-device flows.",
+   "gold_anchor": "*u2f.AuthenticateChallenge",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "case": "gravitational_6e16ad66",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "ReadLogin7Packet must not panic when called with malformed or arbitrary packet bytes supplied by FuzzMSSQLLogin, including the seeded malformed byte slices.",
+   "covering_prose": "SQL Server Login7 packet parsing should validate packet boundaries and return appropriate errors when malformed packets are received, preventing any out-of-bounds memory access.",
+   "gold_anchor": "var errInvalidPacket = trace.Errorf(\"invalid login7 packet\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ReadLogin7Packet must not read past pkt.Data when IbUserName/CchUserName calculate a username range beyond the packet buffer.",
+   "covering_prose": "The system must verify that the positions calculated from the `IbUserName` and `CchUserName` fields do not exceed the length of the packet's data buffer before attempting to extract the username.",
+   "gold_anchor": "if len(pkt.Data) < int(header.IbUserName)+int(header.CchUserName)*2 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ReadLogin7Packet must not read past pkt.Data when IbDatabase/CchDatabase calculate a database range beyond the packet buffer.",
+   "covering_prose": "Similarly, the `IbDatabase` and `CchDatabase` fields must be checked to ensure they do not reference positions outside the packet boundaries before attempting to access the database name.",
+   "gold_anchor": "if len(pkt.Data) < int(header.IbDatabase)+int(header.CchDatabase)*2 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When packet data is insufficient for username or database extraction, ReadLogin7Packet must reject it by returning an error rather than continuing to decode the field.",
+   "covering_prose": "If the packet does not contain sufficient information to safely extract these fields, it must be rejected as invalid using an appropriate error mechanism.",
+   "gold_anchor": "return \"\", errInvalidPacket",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

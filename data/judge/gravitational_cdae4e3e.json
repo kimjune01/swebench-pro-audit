@@ -1,0 +1,95 @@
+{
+ "case": "gravitational_cdae4e3e",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 10,
+ "n_covered": 4,
+ "n_gap": 6,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "MakeTableWithTruncatedColumn is callable from lib/asciitable/table_test.go as an exported function named MakeTableWithTruncatedColumn with inputs columns, rows, and truncatedColumn.",
+   "covering_prose": "Name: MakeTableWithTruncatedColumn",
+   "gold_anchor": "func MakeTableWithTruncatedColumn(columnOrder []string, rows [][]string, truncatedColumn string) Table {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When terminal size cannot be determined during go test, the table uses default width 80 for cases with a matching truncated column.",
+   "covering_prose": null,
+   "gold_anchor": "width = 80",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "With columns column1, column2, column3 and one 30-character cell in each column, truncating column2 produces exactly four newline-split rows.",
+   "covering_prose": null,
+   "gold_anchor": "t.AddRow(row)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When truncatedColumn is column2, the data row has length exactly 80.",
+   "covering_prose": null,
+   "gold_anchor": "column.MaxCellLength = width - totalLen - len(\"... \")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When truncatedColumn is column2, column2 is rendered as \"cell2cell2cell...\" while column1 and column3 remain full 30-character cell strings.",
+   "covering_prose": "That column must be truncated and show an ellipsis (\u00ab\u2026\u00bb) when its content exceeds the allotted space.",
+   "gold_anchor": "if column.Title == truncatedColumn {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When truncatedColumn is column2, the complete rendered output rows exactly match: header \"column1                        column2           column3                        \", separator \"------------------------------ ----------------- ------------------------------ \", data \"cell1cell1cell1cell1cell1cell1 cell2cell2cell... cell3cell3cell3cell3cell3cell3 \", and a final empty row.",
+   "covering_prose": null,
+   "gold_anchor": "t.AddColumn(column)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When truncatedColumn is column3, the data row has length exactly 80.",
+   "covering_prose": null,
+   "gold_anchor": "column.MaxCellLength = width - totalLen - len(\"... \")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When truncatedColumn is column3, column3 is rendered as \"cell3cell3cell...\" while column1 and column2 remain full 30-character cell strings.",
+   "covering_prose": "That column must be truncated and show an ellipsis (\u00ab\u2026\u00bb) when its content exceeds the allotted space.",
+   "gold_anchor": "if column.Title == truncatedColumn {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When truncatedColumn is column3, the complete rendered output rows exactly match: header \"column1                        column2                        column3           \", separator \"------------------------------ ------------------------------ ----------------- \", data \"cell1cell1cell1cell1cell1cell1 cell2cell2cell2cell2cell2cell2 cell3cell3cell... \", and a final empty row.",
+   "covering_prose": null,
+   "gold_anchor": "t.AddColumn(column)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When truncatedColumn is \"no column match\", rendering succeeds with all three columns preserved and no truncation.",
+   "covering_prose": "If the name of the column to truncate does not match any real header, the table must render correctly preserving all columns, without errors or data loss.",
+   "gold_anchor": "if column.Title == truncatedColumn {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When truncatedColumn is \"no column match\", the data row has length exactly 93.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When truncatedColumn is \"no column match\", the complete rendered output rows exactly match: header \"column1                        column2                        column3                        \", separator \"------------------------------ ------------------------------ ------------------------------ \", data \"cell1cell1cell1cell1cell1cell1 cell2cell2cell2cell2cell2cell2 cell3cell3cell3cell3cell3cell3 \", and a final empty row.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

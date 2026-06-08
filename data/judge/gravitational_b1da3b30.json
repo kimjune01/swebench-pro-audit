@@ -1,0 +1,60 @@
+{
+ "case": "gravitational_b1da3b30",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "ReadPassword with a context that expires while the password read is blocked returns a context.DeadlineExceeded error.",
+   "covering_prose": "A password read that times out due to context expiration must return an empty result along with a `context.DeadlineExceeded` error.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ReadPassword with a context that expires while the password read is blocked returns an empty result.",
+   "covering_prose": "A password read that times out due to context expiration must return an empty result along with a `context.DeadlineExceeded` error.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After an abandoned password read, a following clean read can reclaim the reader and proceed normally.",
+   "covering_prose": "After a canceled password read, the reader must transition back to a clean state so that subsequent reads can proceed normally.",
+   "gold_anchor": "if err := cr.maybeRestoreTerm(iAmHoldingTheLock{}); err != nil {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ReadContext with a context that expires while a clean read is blocked returns a context.DeadlineExceeded error.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NotifyExit after no pending read must not restore the terminal.",
+   "covering_prose": "The `maybeRestoreTerm` helper must restore the terminal only if the state is `readerStatePassword` and a previous terminal state exists, and it must return any resulting error.",
+   "gold_anchor": "if cr.state == readerStatePassword && cr.previousTermState != nil {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NotifyExit after a pending clean read must not restore the terminal.",
+   "covering_prose": "The `maybeRestoreTerm` helper must restore the terminal only if the state is `readerStatePassword` and a previous terminal state exists, and it must return any resulting error.",
+   "gold_anchor": "if cr.state == readerStatePassword && cr.previousTermState != nil {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NotifyExit after a pending password read must restore the terminal.",
+   "covering_prose": "The `NotifyExit` function must close the global stdin reader and trigger terminal restoration if it is in password mode.",
+   "gold_anchor": "_ = cr.Close()",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

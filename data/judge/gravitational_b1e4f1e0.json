@@ -1,0 +1,25 @@
+{
+ "case": "gravitational_b1e4f1e0",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When readTeleportHome is called and the environment getter returns \"teleport-data/\", CLIConf.HomePath is set to \"teleport-data\" with the trailing slash removed.",
+   "covering_prose": "- Read the `TELEPORT_HOME` environment variable during startup in `readTeleportHome` and normalize it with `path.Clean` to remove redundant separators.\n- Assign the normalized value to `CLIConf.HomePath`.  ",
+   "gold_anchor": "cf.HomePath = path.Clean(homeDir)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When readTeleportHome is called and the environment getter returns an empty string, CLIConf.HomePath remains the empty string.",
+   "covering_prose": "- If `TELEPORT_HOME` is unset or an empty string, leave `CLIConf.HomePath` unchanged (empty), causing the default location to be used.",
+   "gold_anchor": "if homeDir := fn(homeEnvVar); homeDir != \"\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

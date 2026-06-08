@@ -1,0 +1,46 @@
+{
+ "case": "gravitational_31b8f157",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Identity.Subject() accepts an Identity containing GCPServiceAccounts and RouteToApp.GCPServiceAccount without error.",
+   "covering_prose": "The `Subject()` method must encode both the selected `RouteToApp.GCPServiceAccount` and the list `Identity.GCPServiceAccounts` into the certificate subject using ASN.1 extensions.",
+   "gold_anchor": "if id.RouteToApp.GCPServiceAccount != \"\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The selected RouteToApp.GCPServiceAccount value \"acct-3@example-123456.iam.gserviceaccount.com\" is preserved after Subject() -> certificate generation/parsing -> FromSubject().",
+   "covering_prose": "Round-trip operations of an `Identity` through `Subject()` and `FromSubject()` must preserve the values of all GCP-related fields exactly.",
+   "gold_anchor": "id.RouteToApp.GCPServiceAccount = val",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The allowed Identity.GCPServiceAccounts list values [\"acct-1@example-123456.iam.gserviceaccount.com\", \"acct-2@example-123456.iam.gserviceaccount.com\"] are preserved after Subject() -> certificate generation/parsing -> FromSubject().",
+   "covering_prose": "Round-trip operations of an `Identity` through `Subject()` and `FromSubject()` must preserve the values of all GCP-related fields exactly.",
+   "gold_anchor": "id.GCPServiceAccounts = append(id.GCPServiceAccounts, val)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FromSubject() decodes GCP-related ASN.1 extensions and returns no error for a certificate subject containing those fields.",
+   "covering_prose": "The `FromSubject()` method must correctly decode these ASN.1 extensions and populate both `Identity.GCPServiceAccounts` and `RouteToApp.GCPServiceAccount`.",
+   "gold_anchor": "case attr.Type.Equal(AppGCPServiceAccountASN1ExtensionOID):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The full decoded Identity equals the original Identity, leaving non-GCP fields such as Username, Groups, Impersonator, Usage, RouteToApp SessionID/ClusterName/Name, TeleportCluster, and Expires unchanged by the GCP addition.",
+   "covering_prose": "Existing identity round-trip behavior, including device extensions, renewable identities, Kubernetes extensions, and Azure extensions, must remain unaffected and continue to decode correctly after the addition of GCP fields.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

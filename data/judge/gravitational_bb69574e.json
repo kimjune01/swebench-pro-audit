@@ -1,0 +1,137 @@
+{
+ "case": "gravitational_bb69574e",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 18,
+ "n_covered": 18,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Variable(`{{regexp.match(\".*\")}}`) returns an error for matcher functions used in Variable.",
+   "covering_prose": "The `Variable(variable string)` method must reject any input that contains matcher functions, returning the exact error: matcher functions (like regexp.match) are not allowed here: \"<variable>\"",
+   "gold_anchor": "matcher functions (like regexp.match) are not allowed here: %q",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Match(`regexp.match(\".*\")}}`) returns a trace.BadParameter error when the opening `{{` is missing.",
+   "covering_prose": "Malformed template brackets (missing `{{` or `}}`) in matcher expressions must return a `trace.BadParameter` error with the message: \"<value>\" is using template brackets '{{' or '}}', however expression does not parse, make sure the format is {{expression}}",
+   "gold_anchor": "%q is using template brackets '{{' or '}}', however expression does not parse, make sure the format is {{expression}}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Match(`{{regexp.match(\".*\")`) returns a trace.BadParameter error when the closing `}}` is missing.",
+   "covering_prose": "Malformed template brackets (missing `{{` or `}}`) in matcher expressions must return a `trace.BadParameter` error with the message: \"<value>\" is using template brackets '{{' or '}}', however expression does not parse, make sure the format is {{expression}}",
+   "gold_anchor": "%q is using template brackets '{{' or '}}', however expression does not parse, make sure the format is {{expression}}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Match(`{{regexp.surprise(\".*\")}}`) returns a trace.BadParameter error for an unsupported regexp function.",
+   "covering_prose": "Unsupported functions within a valid namespace must return a `trace.BadParameter` error with the message: unsupported function <namespace>.<fn>, supported functions are: regexp.match, regexp.not_match.",
+   "gold_anchor": "unsupported function %v.%v, supported functions are: regexp.match, regexp.not_match",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Match(`{{regexp.match(\"+foo\")}}`) returns a trace.BadParameter error for an invalid regular expression.",
+   "covering_prose": "Invalid regular expressions passed to `regexp.match` or `regexp.not_match` must return a `trace.BadParameter` error with the message: failed parsing regexp \"<raw>\": <error>",
+   "gold_anchor": "failed parsing regexp %q: %v",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Match(`{{surprise.match(\".*\")}}`) returns a trace.BadParameter error for an unsupported namespace.",
+   "covering_prose": "Unsupported namespaces in function calls must return a `trace.BadParameter` error with the message: unsupported function namespace <namespace>, supported namespaces are email and regexp",
+   "gold_anchor": "unsupported function namespace %v, supported namespaces are %v and %v",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Match(`{{email.local(external.email)}}`) returns a trace.BadParameter error because matcher expressions reject transformations and variable parts.",
+   "covering_prose": "Matcher expressions must reject any use of variable parts or transformations. Specifically, expressions with `result.parts` or `result.transform` must return an error.",
+   "gold_anchor": "if result.transform != nil || len(result.parts) > 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Match(`{{external.email}}`) returns a trace.BadParameter error because variable syntax is not a valid matcher expression.",
+   "covering_prose": "Only a single matcher expression is allowed inside the template brackets; multiple variables or nested expressions must produce an error: \"<variable>\" is not a valid matcher expression - no variables and transformations are allowed.",
+   "gold_anchor": "%q is not a valid matcher expression - no variables and transformations are allowed",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Match(`foo`) returns a regexpMatcher compiled from `^foo$`.",
+   "covering_prose": "This function must support literal strings, wildcard patterns (e.g., `*`, `foo*bar`), raw regular expressions (e.g., `^foo$`), and function calls in the `regexp` namespace (`regexp.match` and `regexp.not_match`).",
+   "gold_anchor": "raw = \"^\" + utils.GlobToRegexp(raw) + \"$\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Match(`foo*`) returns a regexpMatcher compiled from `^foo(.*)$`.",
+   "covering_prose": "Wildcard expressions (e.g., `*`) must be automatically converted to regular expressions internally using `utils.GlobToRegexp`, and all converted regexps must be anchored with `^` at the start and `$` at the end.",
+   "gold_anchor": "raw = \"^\" + utils.GlobToRegexp(raw) + \"$\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Match(`^foo.*$`) returns a regexpMatcher compiled from `^foo.*$` without converting or adding anchors.",
+   "covering_prose": "This function must support literal strings, wildcard patterns (e.g., `*`, `foo*bar`), raw regular expressions (e.g., `^foo$`), and function calls in the `regexp` namespace (`regexp.match` and `regexp.not_match`).",
+   "gold_anchor": "if !strings.HasPrefix(raw, \"^\") || !strings.HasSuffix(raw, \"$\") {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Match(`foo-{{regexp.match(\"bar\")}}-baz`) returns a prefixSuffixMatcher with prefix `foo-`, suffix `-baz`, and inner regexpMatcher compiled from `bar`.",
+   "covering_prose": "The parser must preserve any static prefix or suffix outside of `{{...}}` and pass only the inner content to the matcher, as in `foo-{{regexp.match(\"bar\")}}-baz`.",
+   "gold_anchor": "return newPrefixSuffixMatcher(prefix, suffix, result.match), nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Match(`foo-{{regexp.not_match(\"bar\")}}-baz`) returns a prefixSuffixMatcher with prefix `foo-`, suffix `-baz`, and inner notMatcher wrapping a regexpMatcher compiled from `bar`.",
+   "covering_prose": "The `Match` function must handle negation correctly for `regexp.not_match`, ensuring that the returned matcher inverts the result of the inner regexp.",
+   "gold_anchor": "result.match = notMatcher{result.match}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "regexpMatcher with regexp `foo` returns true for input `foo`.",
+   "covering_prose": "A `regexpMatcher` type must be added, that wraps a `*regexp.Regexp` and returns `true` for `Match` when the input matches the compiled regexp.",
+   "gold_anchor": "return m.re.MatchString(in)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "regexpMatcher with regexp `bar` returns false for input `foo`.",
+   "covering_prose": "A `regexpMatcher` type must be added, that wraps a `*regexp.Regexp` and returns `true` for `Match` when the input matches the compiled regexp.",
+   "gold_anchor": "return m.re.MatchString(in)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "notMatcher wrapping regexp `bar` returns true for input `foo`.",
+   "covering_prose": "The system must implement a `notMatcher` type that wraps another `Matcher` and inverts the result of its `Match` method.",
+   "gold_anchor": "func (m notMatcher) Match(in string) bool { return !m.m.Match(in) }",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "prefixSuffixMatcher with prefix `foo-`, suffix `-baz`, and inner regexp `bar` returns true for input `foo-bar-baz`.",
+   "covering_prose": "The `Match` method must first verify the prefix and suffix, and then delegate the remaining substring to an inner matcher.",
+   "gold_anchor": "return m.m.Match(in)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "prefixSuffixMatcher with prefix `foo-`, suffix `-baz`, and inner regexp `bar` returns false for input `foo-foo-baz`.",
+   "covering_prose": "The `Match` method must first verify the prefix and suffix, and then delegate the remaining substring to an inner matcher.",
+   "gold_anchor": "return m.m.Match(in)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

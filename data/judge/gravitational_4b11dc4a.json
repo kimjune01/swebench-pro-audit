@@ -1,0 +1,67 @@
+{
+ "case": "gravitational_4b11dc4a",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 6,
+ "rows": [
+  {
+   "test": "With `SecondFactorOptional`, the existing MFA device management test runs with deletion allowed rather than blocked by the new last-device restriction.",
+   "covering_prose": "When `authPref.GetSecondFactor()` is `SecondFactorOff` or `SecondFactorOptional`, allow device deletion without additional restriction in `DeleteMFADevice`.",
+   "gold_anchor": "case constants.SecondFactorOff, constants.SecondFactorOptional: // MFA is not required, allow deletion",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When registering the user's first MFA device, the authentication challenge is empty.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When registering a U2F MFA device, the registration challenge contains a non-empty U2F challenge.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The U2F MFA device registration completes without an authentication error.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The U2F MFA device registration completes without a registration error.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The registered U2F device has name `u2f-dev` and matches the mock U2F registration data at the fake clock time.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When deleting the user's only MFA device, the deletion authentication challenge contains exactly one U2F challenge.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When `SecondFactorOn` is configured and the user has exactly one MFA device, deleting device `u2f-dev` returns an error.",
+   "covering_prose": "When `authPref.GetSecondFactor()` is `SecondFactorOn`, block deletion if it would remove the user\u2019s final remaining MFA device, returning a `trace.BadParameter` error converted with `trail.ToGRPC`.",
+   "gold_anchor": "if len(devs) == 1 {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

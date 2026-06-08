@@ -1,0 +1,81 @@
+{
+ "case": "gravitational_cc3c38d7",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "`Run([\"login\", \"--insecure\", \"--debug\", \"--auth\", connector.GetName(), \"--proxy\", proxyAddr.String()])` completes without error before running proxy ssh.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`tsh proxy ssh` accepts the target argument in `user@host:port` form, specifically `alice@unknownhost:22`.",
+   "covering_prose": "The running client context should supply SSH parameters (user, host key verification callback, target parsing), and the command should support the user@host:port form.",
+   "gold_anchor": "SSHUserHost:        cf.UserHost,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`tsh proxy ssh alice@unknownhost:22` proceeds far enough through the proxy path that the resulting error string contains `subsystem request failed`.",
+   "covering_prose": "After a secure proxy tunnel is established, connections to unknown targets must surface the proxy\u2019s \u201csubsystem request failed\u201d error, demonstrating that the proxy path\u2014not TLS setup\u2014was exercised.",
+   "gold_anchor": "ClientTLSConfig:    tlsConfig,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The TLS trust store for `tsh proxy ssh` is built from the active client cluster identity before dialing the proxy.",
+   "covering_prose": "The TLS connection used by tsh proxy ssh must rely on a CA pool derived from the active cluster identity held by the local agent; attempts to proceed without valid trust material should return a clear error.",
+   "gold_anchor": "pool, err := tc.LocalAgent().ClientCertPool(tc.SiteName)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The TLS client configuration used by `tsh proxy ssh` includes the generated CA pool as `RootCAs`.",
+   "covering_prose": "This method returns an `x509.CertPool` populated with the trusted TLS Certificate Authorities (CAs) for the specified Teleport cluster.",
+   "gold_anchor": "RootCAs: pool,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The proxy TLS dial uses SNI derived from the current profile proxy address host.",
+   "covering_prose": "The proxy host used for SNI must be taken from the current profile\u2019s proxy address to remain consistent with the logged-in cluster context.",
+   "gold_anchor": "SNI:                address.Host(),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The local proxy applies the configured SNI to `tls.Config.ServerName` before dialing.",
+   "covering_prose": "TLS configuration must set ServerName to the proxy\u2019s host so SNI-based routing and certificate verification function correctly during the teleport-ssh flow.",
+   "gold_anchor": "clientTLSConfig.ServerName = l.cfg.SNI",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The local proxy fails fast with `client TLS config is missing` when no TLS client configuration is provided.",
+   "covering_prose": "A non-nil, usable TLS client configuration is required at the proxy layer; when absent, the command should fail fast with an explicit message rather than attempting a connection.",
+   "gold_anchor": "return trace.BadParameter(\"client TLS config is missing\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The SSH username for proxy ssh is sourced from the active client context host login rather than the CLI username field.",
+   "covering_prose": "The running client context should supply SSH parameters (user, host key verification callback, target parsing), and the command should support the user@host:port form.",
+   "gold_anchor": "SSHUser:            tc.HostLogin,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The SSH host key callback for proxy ssh is sourced from the active client context.",
+   "covering_prose": "The running client context should supply SSH parameters (user, host key verification callback, target parsing), and the command should support the user@host:port form.",
+   "gold_anchor": "SSHHostKeyCallback: tc.HostKeyCallback,",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

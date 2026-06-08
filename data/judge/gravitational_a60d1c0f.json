@@ -1,0 +1,32 @@
+{
+ "case": "gravitational_a60d1c0f",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "A connection whose first bytes are the Teleport proxy hello signature is detected as SSH by the multiplexer.",
+   "covering_prose": "Detect and classify these connections as valid SSH connections.",
+   "gold_anchor": "return ProtoSSH, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The accepted prefixed connection begins with the Teleport-Proxy prefix.",
+   "covering_prose": "The SSH multiplexer must recognize and accept connections that begin with a `Teleport-Proxy` prefix followed by a JSON payload and a null byte terminator.",
+   "gold_anchor": "proxyHelloPrefix = []byte(sshutils.ProxyHelloSignature)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The prefixed connection is routed to the SSH listener rather than TLS or unknown protocol handling.",
+   "covering_prose": "These connections must be classified as SSH protocol and routed accordingly.",
+   "gold_anchor": "return ProtoSSH, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

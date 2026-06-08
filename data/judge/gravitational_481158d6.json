@@ -1,0 +1,165 @@
+{
+ "case": "gravitational_481158d6",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 15,
+ "n_covered": 15,
+ "n_gap": 0,
+ "n_out_of_scope": 7,
+ "rows": [
+  {
+   "test": "Forwarder.requestCertificate must use Forwarder.cfg.AuthClient as the CSR client, so TestRequestCertificate can construct Forwarder with cfg.AuthClient and have ProcessKubeCSR called.",
+   "covering_prose": "When credentials are required, `Forwarder` should obtain ephemeral user credentials via `ForwarderConfig.AuthClient.ProcessKubeCSR()`, should cache these credentials in a TTL cache keyed by the authenticated context and treat them as valid only if the certificate `NotAfter` is at least 1 minute in the future, should serialize concurrent credential requests for the same key so only one CSR is processed at a time, and should not cache request or connection scoped `clusterSession` state.",
+   "gold_anchor": "response, err := f.cfg.AuthClient.ProcessKubeCSR(auth.KubeCSR{",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Forwarder.requestCertificate must use Forwarder.cfg.Keygen to generate the CSR key pair, so TestRequestCertificate can construct Forwarder with cfg.Keygen.",
+   "covering_prose": "`ForwarderConfig` should expose clearly named fields representing distinct responsibilities: `Authz`, `AuthClient`, `CachingAuthClient`, `ReverseTunnelSrv`, `ConnPingPeriod`, `ClusterName`, `Namespace`, `ServerID`, `Clock`, `StreamEmitter`, `Keygen`, `DataDir`, `StaticLabels`, `DynamicLabels`, and names should unambiguously reflect their purpose.",
+   "gold_anchor": "keyPEM, _, err := f.cfg.Keygen.GenerateKeyPair(\"\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Forwarder.requestCertificate must send a KubeCSR whose Username is the authenticated user name and whose ClusterName is the teleport cluster name from the auth context.",
+   "covering_prose": "When credentials are required, `Forwarder` should obtain ephemeral user credentials via `ForwarderConfig.AuthClient.ProcessKubeCSR()`, should cache these credentials in a TTL cache keyed by the authenticated context and treat them as valid only if the certificate `NotAfter` is at least 1 minute in the future, should serialize concurrent credential requests for the same key so only one CSR is processed at a time, and should not cache request or connection scoped `clusterSession` state.",
+   "gold_anchor": "response, err := f.cfg.AuthClient.ProcessKubeCSR(auth.KubeCSR{",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Forwarder.requestCertificate must encode ctx.UnmappedIdentity, not ctx.Identity, into the generated CSR subject.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Forwarder.authenticate must authorize through cfg.Authz.Authorize(req.Context()).",
+   "covering_prose": "`Forwarder` should authorize via `ForwarderConfig.Authz.Authorize()`, should read cluster config via `ForwarderConfig.CachingAuthClient.GetClusterConfig()` and Kubernetes services via `ForwarderConfig.CachingAuthClient.GetKubeServices()`, should default the Teleport target cluster to `ForwarderConfig.ClusterName` when `identity.RouteToCluster` is empty, and for remote clusters should use `ForwarderConfig.ReverseTunnelSrv` to obtain a `reversetunnel.Site` while for local clusters should use the local `Site` for dialing by `serverID`.",
+   "gold_anchor": "userContext, err := f.cfg.Authz.Authorize(req.Context())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Forwarder.authenticate must read cluster config through cfg.CachingAuthClient.GetClusterConfig().",
+   "covering_prose": "`Forwarder` should authorize via `ForwarderConfig.Authz.Authorize()`, should read cluster config via `ForwarderConfig.CachingAuthClient.GetClusterConfig()` and Kubernetes services via `ForwarderConfig.CachingAuthClient.GetKubeServices()`, should default the Teleport target cluster to `ForwarderConfig.ClusterName` when `identity.RouteToCluster` is empty, and for remote clusters should use `ForwarderConfig.ReverseTunnelSrv` to obtain a `reversetunnel.Site` while for local clusters should use the local `Site` for dialing by `serverID`.",
+   "gold_anchor": "clusterConfig, err := f.cfg.CachingAuthClient.GetClusterConfig()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Forwarder.authenticate/authorize must read Kubernetes services through cfg.CachingAuthClient.GetKubeServices(ctx).",
+   "covering_prose": "`Forwarder` should authorize via `ForwarderConfig.Authz.Authorize()`, should read cluster config via `ForwarderConfig.CachingAuthClient.GetClusterConfig()` and Kubernetes services via `ForwarderConfig.CachingAuthClient.GetKubeServices()`, should default the Teleport target cluster to `ForwarderConfig.ClusterName` when `identity.RouteToCluster` is empty, and for remote clusters should use `ForwarderConfig.ReverseTunnelSrv` to obtain a `reversetunnel.Site` while for local clusters should use the local `Site` for dialing by `serverID`.",
+   "gold_anchor": "servers, err := f.cfg.CachingAuthClient.GetKubeServices(ctx)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When identity.RouteToCluster is empty, Forwarder.authenticate must use cfg.ClusterName as the teleport target cluster.",
+   "covering_prose": "`Forwarder` should authorize via `ForwarderConfig.Authz.Authorize()`, should read cluster config via `ForwarderConfig.CachingAuthClient.GetClusterConfig()` and Kubernetes services via `ForwarderConfig.CachingAuthClient.GetKubeServices()`, should default the Teleport target cluster to `ForwarderConfig.ClusterName` when `identity.RouteToCluster` is empty, and for remote clusters should use `ForwarderConfig.ReverseTunnelSrv` to obtain a `reversetunnel.Site` while for local clusters should use the local `Site` for dialing by `serverID`.",
+   "gold_anchor": "teleportClusterName = f.cfg.ClusterName",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For remote teleport clusters, Forwarder.authenticate must obtain the target site from cfg.ReverseTunnelSrv.GetSite(teleportClusterName).",
+   "covering_prose": "`Forwarder` should authorize via `ForwarderConfig.Authz.Authorize()`, should read cluster config via `ForwarderConfig.CachingAuthClient.GetClusterConfig()` and Kubernetes services via `ForwarderConfig.CachingAuthClient.GetKubeServices()`, should default the Teleport target cluster to `ForwarderConfig.ClusterName` when `identity.RouteToCluster` is empty, and for remote clusters should use `ForwarderConfig.ReverseTunnelSrv` to obtain a `reversetunnel.Site` while for local clusters should use the local `Site` for dialing by `serverID`.",
+   "gold_anchor": "targetCluster, err := f.cfg.ReverseTunnelSrv.GetSite(teleportClusterName)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For local teleport clusters with a reverse tunnel server, Forwarder.authenticate must obtain the local site from cfg.ReverseTunnelSrv.GetSite(cfg.ClusterName).",
+   "covering_prose": "`Forwarder` should authorize via `ForwarderConfig.Authz.Authorize()`, should read cluster config via `ForwarderConfig.CachingAuthClient.GetClusterConfig()` and Kubernetes services via `ForwarderConfig.CachingAuthClient.GetKubeServices()`, should default the Teleport target cluster to `ForwarderConfig.ClusterName` when `identity.RouteToCluster` is empty, and for remote clusters should use `ForwarderConfig.ReverseTunnelSrv` to obtain a `reversetunnel.Site` while for local clusters should use the local `Site` for dialing by `serverID`.",
+   "gold_anchor": "localCluster, err := f.cfg.ReverseTunnelSrv.GetSite(f.cfg.ClusterName)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A local user targeting a remote teleport cluster with no ReverseTunnelSrv must return an error.",
+   "covering_prose": "`Forwarder` should authorize via `ForwarderConfig.Authz.Authorize()`, should read cluster config via `ForwarderConfig.CachingAuthClient.GetClusterConfig()` and Kubernetes services via `ForwarderConfig.CachingAuthClient.GetKubeServices()`, should default the Teleport target cluster to `ForwarderConfig.ClusterName` when `identity.RouteToCluster` is empty, and for remote clusters should use `ForwarderConfig.ReverseTunnelSrv` to obtain a `reversetunnel.Site` while for local clusters should use the local `Site` for dialing by `serverID`.",
+   "gold_anchor": "if f.cfg.ReverseTunnelSrv == nil {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A remote user targeting a remote teleport cluster must receive an access denied error.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "An unsupported auth user type must receive an access denied error.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For local cluster authentication with no explicit Kubernetes users, kubeUsers must default to the Teleport username and kubeGroups must include role kube groups plus teleport.KubeSystemAuthenticated.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For local cluster authentication with explicit role Kubernetes users, kubeUsers must be exactly those role kube users rather than the Teleport username.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For remote teleport cluster authentication, kubeGroups must contain teleport.KubeSystemAuthenticated and not the local role Kubernetes groups.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For a local teleport cluster, an unknown requested Kubernetes cluster must return an error, while a requested Kubernetes cluster listed by GetKubeServices must authenticate successfully with that kubeCluster name.",
+   "covering_prose": "`Forwarder` should authorize via `ForwarderConfig.Authz.Authorize()`, should read cluster config via `ForwarderConfig.CachingAuthClient.GetClusterConfig()` and Kubernetes services via `ForwarderConfig.CachingAuthClient.GetKubeServices()`, should default the Teleport target cluster to `ForwarderConfig.ClusterName` when `identity.RouteToCluster` is empty, and for remote clusters should use `ForwarderConfig.ReverseTunnelSrv` to obtain a `reversetunnel.Site` while for local clusters should use the local `Site` for dialing by `serverID`.",
+   "gold_anchor": "servers, err := f.cfg.CachingAuthClient.GetKubeServices(ctx)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Forwarder.newClusterSession for a local cluster without kubeconfig must return a NotFound error and leave clientCredentials length at 0.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Forwarder.newClusterSession for a local cluster with local kube credentials must use f.creds[\"local\"].targetAddr and f.creds[\"local\"].tlsConfig, must not call CSR processing, and must leave clientCredentials length at 0.",
+   "covering_prose": "When credentials are required, `Forwarder` should obtain ephemeral user credentials via `ForwarderConfig.AuthClient.ProcessKubeCSR()`, should cache these credentials in a TTL cache keyed by the authenticated context and treat them as valid only if the certificate `NotAfter` is at least 1 minute in the future, should serialize concurrent credential requests for the same key so only one CSR is processed at a time, and should not cache request or connection scoped `clusterSession` state.",
+   "gold_anchor": "clientCredentials *ttlmap.TTLMap",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Forwarder.newClusterSession for a remote cluster must set targetAddr to reversetunnel.LocalKubernetes, create a non-nil forwarder, obtain a new client cert through CSR instead of using local f.creds, install the returned CA as RootCAs, and increase clientCredentials length to 1.",
+   "covering_prose": "When credentials are required, `Forwarder` should obtain ephemeral user credentials via `ForwarderConfig.AuthClient.ProcessKubeCSR()`, should cache these credentials in a TTL cache keyed by the authenticated context and treat them as valid only if the certificate `NotAfter` is at least 1 minute in the future, should serialize concurrent credential requests for the same key so only one CSR is processed at a time, and should not cache request or connection scoped `clusterSession` state.",
+   "gold_anchor": "sess.tlsConfig, err = f.getOrRequestClientCreds(ctx)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Forwarder must cache ephemeral client credentials in clientCredentials, not cache clusterSession objects in clusterSessions.",
+   "covering_prose": "When credentials are required, `Forwarder` should obtain ephemeral user credentials via `ForwarderConfig.AuthClient.ProcessKubeCSR()`, should cache these credentials in a TTL cache keyed by the authenticated context and treat them as valid only if the certificate `NotAfter` is at least 1 minute in the future, should serialize concurrent credential requests for the same key so only one CSR is processed at a time, and should not cache request or connection scoped `clusterSession` state.",
+   "gold_anchor": "clientCredentials *ttlmap.TTLMap",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Concurrent credential requests for the same auth context key must be serialized through activeRequests and getOrCreateRequestContext using f.mu.",
+   "covering_prose": "When credentials are required, `Forwarder` should obtain ephemeral user credentials via `ForwarderConfig.AuthClient.ProcessKubeCSR()`, should cache these credentials in a TTL cache keyed by the authenticated context and treat them as valid only if the certificate `NotAfter` is at least 1 minute in the future, should serialize concurrent credential requests for the same key so only one CSR is processed at a time, and should not cache request or connection scoped `clusterSession` state.",
+   "gold_anchor": "func (f *Forwarder) serializedRequestClientCreds(authContext authContext) (*tls.Config, error)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,81 @@
+{
+ "case": "gravitational_b58ad484",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 10,
+ "n_covered": 9,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "NewCircularBuffer(-1) returns a non-nil error.",
+   "covering_prose": "The constructor function must accept a size and return an error when the size is less than or equal to zero; if valid it should allocate an internal array of the given length.",
+   "gold_anchor": "if size <= 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewCircularBuffer(-1) returns a nil buffer.",
+   "covering_prose": null,
+   "gold_anchor": "return nil, trace.BadParameter(\"circular buffer size should be > 0\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "NewCircularBuffer(5) returns no error and a non-nil buffer.",
+   "covering_prose": "Creates a circular buffer with the given size and validates it is positive.",
+   "gold_anchor": "return buf, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewCircularBuffer(5) allocates an internal buffer with length 5.",
+   "covering_prose": "The constructor function must accept a size and return an error when the size is less than or equal to zero; if valid it should allocate an internal array of the given length.",
+   "gold_anchor": "buf:   make([]float64, size),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Data(i) on an empty buffer returns nil or an empty slice for i from 0 through 14.",
+   "covering_prose": "There must be a method that takes an integer n and returns up to the n most recent values in insertion order. If n is less than or equal to zero or the buffer is empty, it should return nil; it must compute the correct starting index even when rotating.",
+   "gold_anchor": "if n <= 0 || t.size == 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After Add(1), Data(0) returns nil or an empty slice, Data(1) and Data(i) for i greater than 1 return [1].",
+   "covering_prose": "There must be a method that takes an integer n and returns up to the n most recent values in insertion order. If n is less than or equal to zero or the buffer is empty, it should return nil; it must compute the correct starting index even when rotating.",
+   "gold_anchor": "return t.buf[start : t.end+1]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After Add(1), Add(2), Add(3), Add(4), Data(n) returns the last n values in insertion order: [] for n=0, [4] for n=1, [3,4] for n=2, [2,3,4] for n=3, and [1,2,3,4] for n>=4.",
+   "covering_prose": "There must be a method that takes an integer n and returns up to the n most recent values in insertion order. If n is less than or equal to zero or the buffer is empty, it should return nil; it must compute the correct starting index even when rotating.",
+   "gold_anchor": "start = (t.start + (t.size - n)) % len(t.buf)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Adding values while free slots remain advances the end index and increments the size, preserving [1,2,3,4] before the buffer is full.",
+   "covering_prose": "The type must include a method to insert a value. On the first element it should set start and end to zero; while free slots remain it should advance the end index and increment the size; when full it must overwrite the oldest value and adjust the indices circularly.",
+   "gold_anchor": "} else if t.size < len(t.buf) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After capacity 5 is exceeded by Add(5), Add(6), Add(7), the oldest values are overwritten so the stored insertion-order window is [3,4,5,6,7].",
+   "covering_prose": "The type must include a method to insert a value. On the first element it should set start and end to zero; while free slots remain it should advance the end index and increment the size; when full it must overwrite the oldest value and adjust the indices circularly.",
+   "gold_anchor": "t.start = (t.start + 1) % len(t.buf)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After rotation to [3,4,5,6,7], Data(n) returns the last n values in insertion order: [] for n=0, [7] for n=1, [6,7] for n=2, [5,6,7] for n=3, [4,5,6,7] for n=4, and [3,4,5,6,7] for n>=5.",
+   "covering_prose": "There must be a method that takes an integer n and returns up to the n most recent values in insertion order. If n is less than or equal to zero or the buffer is empty, it should return nil; it must compute the correct starting index even when rotating.",
+   "gold_anchor": "return append(t.buf[start:], t.buf[:t.end+1]...)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

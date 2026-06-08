@@ -1,0 +1,137 @@
+codex:1: command not found: _codex_sync_skills
+Reading additional input from stdin...
+OpenAI Codex v0.137.0
+--------
+workdir: /Users/junekim/Documents/swebench-pro
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: none
+reasoning summaries: none
+session id: 019ea8c2-d0c3-7162-bda4-406597068acf
+--------
+user
+Prior-art survey. I'm writing a paper auditing SWE-bench Pro (Scale AI's contamination-resistant SWE-bench tier). I need to know what prior work already exists so I do not reinvent or overclaim novelty. Cite REAL papers/posts only, with authors + venue + approximate date. If you are not certain a citation is real, say "uncertain/may be misremembered" explicitly — do NOT invent titles, authors, or arXiv IDs. A short list of verified-real items beats a long list with fabrications.
+
+Survey published audits/critiques of SWE-bench and especially SWE-bench Pro on these axes:
+1. Contamination / training-data leakage (instances are public GitHub issues+PRs); recall vs genuine capability; post-cutoff / freshness evaluation (e.g., SWE-rebench and similar).
+2. Construct validity: are the tasks actually "bug fixes"? Multi-file / feature-shaped gold patches; underspecified problem statements.
+3. Held-out tests as oracle: test over-specification (the test pins an implementation the prose underdetermines); "tests as spec"; oracle-in-the-loop / iterate-to-green dynamics.
+4. Scaffold vs model attribution of scores (e.g., SWE-Effi on scaffold-model synergy).
+5. Any audit targeting SWE-bench Pro specifically.
+
+Then assess the NOVELTY of MY findings against that prior art — for each, say "already known (cite)" or "appears novel":
+A. Oracle-free regime: a diagnosis/inquiry stage adds ~0 over blind implementation (0/6 discordant pairs); a stronger cross-model (Opus) diagnosis rescues nothing (0/4); a self-authored-reproduction audit loop is false-green (4/4 self-declared fixed, 0/4 actually resolved by the official tests). Conclusion: the entire above-baseline lift is the oracle gate (iterate-to-green against held-out tests), not reasoning/understanding.
+B. On losses, localization is already solved (a case with diagnosis recall 1.0 vs the gold patch still fails end-to-end); the residual is a fine-grained behavioral detail (e.g., when is_url consults DNS) that the problem prose underdetermines and the held-out test enumerates. I.e., losses live in the prose-underdetermination / test-over-determination gap, downstream of solved localization.
+
+Be concise, organize by axis, keep citations explicit and flagged for confidence, and end with a 3-line novelty verdict for A and B. If you have no web access, say so and answer from training knowledge only.
+codex
+I’ll verify this against live sources because SWE-bench Pro and follow-on audits are recent enough that relying on memory would be risky. I’ll keep the list conservative and flag anything I can’t substantiate.
+web search: 
+web search: SWE-bench Pro Scale AI contamination resistant benchmark audit critique
+web search: 
+web search: https://arxiv.org/abs/2509.16941
+web search: 
+web search: SWE-bench Can Language Models Resolve Real-World GitHub Issues arxiv authors 2024 ICLR
+web search: 
+web search: DeepSWE audited SWE-Bench Pro 32% verdicts wrong Datacurve May 27 2026
+web search: 
+web search: https://arxiv.org/abs/2605.26079
+web search: 
+web search: https://datacurve.ai/research
+web search: 
+web search: https://deepswe.datacurve.ai/
+web search: 
+web search: SWE-Effi Re-evaluating software AI agent authors OpenReview 2025
+web search: 
+web search: https://arxiv.org/abs/2509.09853
+web search: 
+web search: https://www.microsoft.com/en-us/research/publication/saving-swe-bench-a-benchmark-mutation-approach-for-realistic-agent-evaluation/?lang=fr-ca
+web search: 
+web search: "Are \"Solved Issues\" in SWE-bench Really Solved Correctly" authors
+web search: 
+web search: SWE-agent Agent Computer Interfaces Enable Automated Software Engineering authors venue date
+codex
+**Verified Prior Art By Axis**
+
+1. **Contamination / leakage / freshness**
+- Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, Karthik Narasimhan, “SWE-bench: Can Language Models Resolve Real-World GitHub Issues?”, ICLR 2024. Baseline benchmark; public GitHub issue/PR construction is the root contamination surface. [Source](https://proceedings.iclr.cc/paper_files/paper/2024/hash/edac78c3e300629acfe6cbe9ca88fb84-Abstract-Conference.html)
+- Reem Aleithan et al., “SWE-Bench+: Enhanced Coding Benchmark for LLMs”, arXiv, Oct. 2024. Manual audit: solution leakage in successful patches, weak tests, and most issues predating model cutoffs. [Source](https://arxiv.org/abs/2410.06992)
+- Ibragim Badertdinov et al., “SWE-rebench: An Automated Pipeline for Task Collection and Decontaminated Evaluation of Software Engineering Agents”, NeurIPS 2025 / arXiv May 2025. Fresh-task pipeline; reports inflated SWE-bench Verified performance for some models. [Source](https://arxiv.org/abs/2505.20411)
+- Linghao Zhang et al., “SWE-bench Goes Live!”, arXiv, May 2025. Live-updatable post-2024 GitHub issue benchmark targeting overfitting and contamination. [Source](https://arxiv.org/abs/2505.23419)
+- OpenAI, “Why SWE-bench Verified no longer measures frontier coding capabilities”, OpenAI blog, Feb. 2026. Explicitly says Verified is contaminated and recommends SWE-bench Pro. [Source](https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/)
+
+2. **Construct validity: bug fixes, feature-shaped patches, underspecification**
+- OpenAI, Feb. 2026 blog. Audited 138 hard Verified tasks; found material test/design issues, including underspecified statements and tests covering only one interpretation. [Source](https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/)
+- Xiang Deng, Jeff Da, Edwin Pan et al., “SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks?”, Scale AI / arXiv, Sept. 2025. Pro is partly a response: longer tasks, multi-file patches, human augmentation, and explicit claim that earlier Verified had many trivial 1-2 line fixes. [Source](https://arxiv.org/abs/2509.16941)
+- Spandan Garg, Benjamin Steenhoek, Yufan Huang, “Saving SWE-Bench: A Benchmark Mutation Approach for Realistic Agent Evaluation”, Microsoft Research / arXiv, Oct. 2025. Argues GitHub issue prompts mismatch chat-agent use and overestimate real-world capability. [Source](https://www.microsoft.com/en-us/research/publication/saving-swe-bench-a-benchmark-mutation-approach-for-realistic-agent-evaluation/)
+
+3. **Held-out tests as oracle / tests as spec / over-specific tests**
+- OpenAI, Feb. 2026 blog. Strong prior art for “narrow” tests pinning implementation details and “wide” tests checking unstated functionality. [Source](https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/)
+- You Wang, Michael Pradel, Zhongxin Liu, “Are ‘Solved Issues’ in SWE-bench Really Solved Correctly?”, ICSE 2026 Research Track / arXiv Mar. 2025. Shows plausible patches can pass SWE-bench tests while diverging from developer intent; estimates score inflation. [Source](https://conf.researchr.org/details/icse-2026/icse-2026-research-track/59/Are-Solved-Issues-in-SWE-bench-Really-Solved-Correctly-An-Empirical-Study)
+- Junlin Wang, Federico Bianchi, Shang Zhu et al., “Automated Benchmark Auditing for AI Agents and Large Language Models”, arXiv, May 2026. General benchmark audit framework; finds specification gaps and limited grading logic, including SWE-bench Verified ranking shifts after filtering bad tasks. [Source](https://arxiv.org/abs/2605.26079)
+- Wenqi Huang, Charley Lee, Leonard Tng, Serena Ge, “DeepSWE”, Datacurve blog, May 2026. Pro-specific verifier audit: reports SWE-bench Pro false positives and false negatives using an LLM analyzer. Caveat: not peer reviewed, auditor sells an alternative benchmark. [Source](https://deepswe.datacurve.ai/blog)
+
+4. **Scaffold vs model attribution**
+- John Yang, Carlos E. Jimenez, Alexander Wettig et al., “SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering”, NeurIPS 2024. Establishes that agent-computer interface/scaffold design materially changes SWE-bench performance. [Source](https://collaborate.princeton.edu/en/publications/swe-agent-agent-computer-interfaces-enable-automated-software-eng/)
+- Zhiyu Fan, Kirill Vasilevski, Dayi Lin et al., “SWE-Effi: Re-Evaluating Software AI Agent System Effectiveness Under Resource Constraints”, arXiv/OpenReview, Sept. 2025. Directly studies scaffold-model combinations and finds effectiveness depends on scaffold/model integration, not scaffold or model alone. [Source](https://arxiv.org/abs/2509.09853)
+- DeepSWE, Datacurve, May 2026. Holds `mini-swe-agent` fixed and explicitly frames this as separating model capability from native harness effects. [Source](https://deepswe.datacurve.ai/blog)
+
+5. **SWE-bench Pro-specific audits**
+- Scale AI’s own Pro paper/blog, Sept. 2025: not an audit, but the benchmark’s self-critique of Verified and its contamination-resistant design rationale. [Paper](https://arxiv.org/abs/2509.16941), [blog](https://scale.com/blog/swe-bench-pro)
+- Datacurve DeepSWE blog, May 2026: the clearest Pro-specific external critique I found, especially verifier disagreement and possible leakage/cheating patterns. Confidence: real post; claims should be treated as not independently peer-reviewed. [Source](https://deepswe.datacurve.ai/blog)
+
+**Novelty Assessment**
+
+A. **Oracle-free regime finding**: appears mostly novel. Prior work already says tests/verifiers dominate score validity, are narrow/wide, and can misgrade patches. But I did not find prior work showing your specific causal ablation: diagnosis adds ~0, stronger cross-model diagnosis rescues 0, and self-authored reproduction audits false-green 4/4. Your “lift is the oracle gate, not reasoning” claim is stronger than the cited prior art.
+
+B. **Losses after solved localization**: appears novel in its precise form. Prior work already covers prose underdetermination/test overdetermination and weak/narrow tests. I did not find a verified prior claim that, on losses, localization can already be solved against the gold patch and the remaining failure is a fine-grained behavior hidden in the test oracle.
+
+**3-Line Verdict**
+
+A: **Appears novel**, with strong adjacency to OpenAI 2026, Wang/Pradel/Liu 2025/ICSE 2026, and DeepSWE 2026.  
+B: **Appears novel**, while the broader underdetermined-prose / overdetermined-test framing is already known.  
+Most defensible novelty framing: **not “SWE-bench tests are flawed,” but “in SWE-bench Pro, oracle-gated iteration, not diagnosis/localization, explains the above-baseline lift in these audited cases.”**
+tokens used
+88,233
+**Verified Prior Art By Axis**
+
+1. **Contamination / leakage / freshness**
+- Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, Karthik Narasimhan, “SWE-bench: Can Language Models Resolve Real-World GitHub Issues?”, ICLR 2024. Baseline benchmark; public GitHub issue/PR construction is the root contamination surface. [Source](https://proceedings.iclr.cc/paper_files/paper/2024/hash/edac78c3e300629acfe6cbe9ca88fb84-Abstract-Conference.html)
+- Reem Aleithan et al., “SWE-Bench+: Enhanced Coding Benchmark for LLMs”, arXiv, Oct. 2024. Manual audit: solution leakage in successful patches, weak tests, and most issues predating model cutoffs. [Source](https://arxiv.org/abs/2410.06992)
+- Ibragim Badertdinov et al., “SWE-rebench: An Automated Pipeline for Task Collection and Decontaminated Evaluation of Software Engineering Agents”, NeurIPS 2025 / arXiv May 2025. Fresh-task pipeline; reports inflated SWE-bench Verified performance for some models. [Source](https://arxiv.org/abs/2505.20411)
+- Linghao Zhang et al., “SWE-bench Goes Live!”, arXiv, May 2025. Live-updatable post-2024 GitHub issue benchmark targeting overfitting and contamination. [Source](https://arxiv.org/abs/2505.23419)
+- OpenAI, “Why SWE-bench Verified no longer measures frontier coding capabilities”, OpenAI blog, Feb. 2026. Explicitly says Verified is contaminated and recommends SWE-bench Pro. [Source](https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/)
+
+2. **Construct validity: bug fixes, feature-shaped patches, underspecification**
+- OpenAI, Feb. 2026 blog. Audited 138 hard Verified tasks; found material test/design issues, including underspecified statements and tests covering only one interpretation. [Source](https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/)
+- Xiang Deng, Jeff Da, Edwin Pan et al., “SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks?”, Scale AI / arXiv, Sept. 2025. Pro is partly a response: longer tasks, multi-file patches, human augmentation, and explicit claim that earlier Verified had many trivial 1-2 line fixes. [Source](https://arxiv.org/abs/2509.16941)
+- Spandan Garg, Benjamin Steenhoek, Yufan Huang, “Saving SWE-Bench: A Benchmark Mutation Approach for Realistic Agent Evaluation”, Microsoft Research / arXiv, Oct. 2025. Argues GitHub issue prompts mismatch chat-agent use and overestimate real-world capability. [Source](https://www.microsoft.com/en-us/research/publication/saving-swe-bench-a-benchmark-mutation-approach-for-realistic-agent-evaluation/)
+
+3. **Held-out tests as oracle / tests as spec / over-specific tests**
+- OpenAI, Feb. 2026 blog. Strong prior art for “narrow” tests pinning implementation details and “wide” tests checking unstated functionality. [Source](https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/)
+- You Wang, Michael Pradel, Zhongxin Liu, “Are ‘Solved Issues’ in SWE-bench Really Solved Correctly?”, ICSE 2026 Research Track / arXiv Mar. 2025. Shows plausible patches can pass SWE-bench tests while diverging from developer intent; estimates score inflation. [Source](https://conf.researchr.org/details/icse-2026/icse-2026-research-track/59/Are-Solved-Issues-in-SWE-bench-Really-Solved-Correctly-An-Empirical-Study)
+- Junlin Wang, Federico Bianchi, Shang Zhu et al., “Automated Benchmark Auditing for AI Agents and Large Language Models”, arXiv, May 2026. General benchmark audit framework; finds specification gaps and limited grading logic, including SWE-bench Verified ranking shifts after filtering bad tasks. [Source](https://arxiv.org/abs/2605.26079)
+- Wenqi Huang, Charley Lee, Leonard Tng, Serena Ge, “DeepSWE”, Datacurve blog, May 2026. Pro-specific verifier audit: reports SWE-bench Pro false positives and false negatives using an LLM analyzer. Caveat: not peer reviewed, auditor sells an alternative benchmark. [Source](https://deepswe.datacurve.ai/blog)
+
+4. **Scaffold vs model attribution**
+- John Yang, Carlos E. Jimenez, Alexander Wettig et al., “SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering”, NeurIPS 2024. Establishes that agent-computer interface/scaffold design materially changes SWE-bench performance. [Source](https://collaborate.princeton.edu/en/publications/swe-agent-agent-computer-interfaces-enable-automated-software-eng/)
+- Zhiyu Fan, Kirill Vasilevski, Dayi Lin et al., “SWE-Effi: Re-Evaluating Software AI Agent System Effectiveness Under Resource Constraints”, arXiv/OpenReview, Sept. 2025. Directly studies scaffold-model combinations and finds effectiveness depends on scaffold/model integration, not scaffold or model alone. [Source](https://arxiv.org/abs/2509.09853)
+- DeepSWE, Datacurve, May 2026. Holds `mini-swe-agent` fixed and explicitly frames this as separating model capability from native harness effects. [Source](https://deepswe.datacurve.ai/blog)
+
+5. **SWE-bench Pro-specific audits**
+- Scale AI’s own Pro paper/blog, Sept. 2025: not an audit, but the benchmark’s self-critique of Verified and its contamination-resistant design rationale. [Paper](https://arxiv.org/abs/2509.16941), [blog](https://scale.com/blog/swe-bench-pro)
+- Datacurve DeepSWE blog, May 2026: the clearest Pro-specific external critique I found, especially verifier disagreement and possible leakage/cheating patterns. Confidence: real post; claims should be treated as not independently peer-reviewed. [Source](https://deepswe.datacurve.ai/blog)
+
+**Novelty Assessment**
+
+A. **Oracle-free regime finding**: appears mostly novel. Prior work already says tests/verifiers dominate score validity, are narrow/wide, and can misgrade patches. But I did not find prior work showing your specific causal ablation: diagnosis adds ~0, stronger cross-model diagnosis rescues 0, and self-authored reproduction audits false-green 4/4. Your “lift is the oracle gate, not reasoning” claim is stronger than the cited prior art.
+
+B. **Losses after solved localization**: appears novel in its precise form. Prior work already covers prose underdetermination/test overdetermination and weak/narrow tests. I did not find a verified prior claim that, on losses, localization can already be solved against the gold patch and the remaining failure is a fine-grained behavior hidden in the test oracle.
+
+**3-Line Verdict**
+
+A: **Appears novel**, with strong adjacency to OpenAI 2026, Wang/Pradel/Liu 2025/ICSE 2026, and DeepSWE 2026.  
+B: **Appears novel**, while the broader underdetermined-prose / overdetermined-test framing is already known.  
+Most defensible novelty framing: **not “SWE-bench tests are flawed,” but “in SWE-bench Pro, oracle-gated iteration, not diagnosis/localization, explains the above-baseline lift in these audited cases.”**

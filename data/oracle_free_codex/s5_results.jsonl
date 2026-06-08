@@ -1,0 +1,2 @@
+{"instance": "instance_NodeBB__NodeBB-1ea9481af6125ffd6da0592ed439aa62af0bca11-vd59a5728dfc977f44533186ace531248c2917516", "stage": "rc_start", "arm": "recon_craftfree"}
+{"instance": "instance_NodeBB__NodeBB-1ea9481af6125ffd6da0592ed439aa62af0bca11-vd59a5728dfc977f44533186ace531248c2917516", "stage": "rc_done", "arm": "recon_craftfree", "craft_only_resolved": true, "recon_craft_resolved": true, "handoff_bytes": 5067, "co_patch_bytes": 2218, "rc_patch_bytes": 1843, "wall_s": 545}

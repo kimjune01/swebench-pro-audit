@@ -1,0 +1,2 @@
+{"instance": "instance_element-hq__element-web-ad26925bb6628260cfe0fcf90ec0a8cba381f4a4-vnan", "stage": "rc_start", "arm": "recon_craftfree"}
+{"instance": "instance_element-hq__element-web-ad26925bb6628260cfe0fcf90ec0a8cba381f4a4-vnan", "stage": "rc_done", "arm": "recon_craftfree", "craft_only_resolved": false, "recon_craft_resolved": false, "handoff_bytes": 5107, "co_patch_bytes": 24646, "rc_patch_bytes": 23592, "wall_s": 1167}

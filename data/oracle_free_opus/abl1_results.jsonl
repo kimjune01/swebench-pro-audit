@@ -1,0 +1,2 @@
+{"instance": "instance_qutebrowser__qutebrowser-e34dfc68647d087ca3175d9ad3f023c30d8c9746-v363c8a7e5ccdf6968fc7ab84a2053ac78036691d", "stage": "rc_start", "arm": "recon_craftfree"}
+{"instance": "instance_qutebrowser__qutebrowser-e34dfc68647d087ca3175d9ad3f023c30d8c9746-v363c8a7e5ccdf6968fc7ab84a2053ac78036691d", "stage": "rc_done", "arm": "recon_craftfree", "craft_only_resolved": false, "recon_craft_resolved": false, "handoff_bytes": 6214, "co_patch_bytes": 5454, "rc_patch_bytes": 1691, "wall_s": 1267}

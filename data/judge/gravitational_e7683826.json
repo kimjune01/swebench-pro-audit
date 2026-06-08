@@ -1,10 +1,39 @@
 {
  "case": "gravitational_e7683826",
- "ok": false,
- "verdict": "ERROR",
- "in_gold_total": 0,
- "n_covered": 0,
- "n_gap": 0,
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 4,
+ "n_covered": 3,
+ "n_gap": 1,
  "n_out_of_scope": 0,
- "rows": []
+ "rows": [
+  {
+   "test": "For proxy additional principals, include `localhost`.",
+   "covering_prose": "Proxy services should include `localhost`, `127.0.0.1` (IPv4 loopback), and `::1` (IPv6 loopback) in the list of additional principals.",
+   "gold_anchor": "utils.NetAddr{Addr: string(teleport.PrincipalLocalhost)},",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For proxy additional principals, include `127.0.0.1` / IPv4 loopback.",
+   "covering_prose": "Proxy services should include `localhost`, `127.0.0.1` (IPv4 loopback), and `::1` (IPv6 loopback) in the list of additional principals.",
+   "gold_anchor": "utils.NetAddr{Addr: string(teleport.PrincipalLoopbackV4)},",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For proxy additional principals, include `::1` / IPv6 loopback.",
+   "covering_prose": "Proxy services should include `localhost`, `127.0.0.1` (IPv4 loopback), and `::1` (IPv6 loopback) in the list of additional principals.",
+   "gold_anchor": "utils.NetAddr{Addr: string(teleport.PrincipalLoopbackV6)},",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The proxy additional principals list orders the three loopback principals after `Proxy.PublicAddrs` and before `reversetunnel.LocalKubernetes`, in the sequence `localhost`, `127.0.0.1`, `::1`.",
+   "covering_prose": null,
+   "gold_anchor": "utils.NetAddr{Addr: string(teleport.PrincipalLocalhost)},\n\t\t\tutils.NetAddr{Addr: string(teleport.PrincipalLoopbackV4)},\n\t\t\tutils.NetAddr{Addr: string(teleport.PrincipalLoopbackV6)},\n\t\t\tutils.NetAddr{Addr: reversetunnel.LocalKubernetes},",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
 }

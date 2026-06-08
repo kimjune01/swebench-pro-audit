@@ -1,0 +1,12 @@
+{
+ "case": "qutebrowser",
+ "ok": true,
+ "verdict": "underdetermined",
+ "prose_determines_graded_behavior": false,
+ "splitting_assertion": "assert urlutils.is_url('test') == is_url for the four auto_search/open_base_url combinations, especially ('never', False) expecting True while ('never', True) expects False",
+ "alternative_reading": "A competent solution could treat a configured search engine name entered without a query as a search-engine prefix regardless of auto_search, returning not-a-URL for 'test' whether url.open_base_url is true or false, while still opening the base URL only when open_base_url is enabled.",
+ "justification": "The prose says a prefix without a query and url.open_base_url enabled should open the engine base URL, but it does not specify the full is_url classification matrix for a bare configured engine name when open_base_url is disabled or auto_search is 'never'. The hidden test pins that 'test' is a URL only for auto_search='never' and open_base_url=False, which is a when-to-classify decision not stated by the problem. That makes the grader depend on a particular interpretation of search-engine prefix handling rather than prose-entailment alone.",
+ "recognized": false,
+ "confidence": 0.78,
+ "one_line": "The hidden test fixes an unstated classification matrix for a bare search-engine prefix, so the behavior is underdetermined."
+}

@@ -1,0 +1,32 @@
+{
+ "case": "protonmail_0a917c6b",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 3,
+ "n_covered": 2,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Rendering <PhoneInput value=\"\" /> with no defaultCountry shows no selected country: getCountry(button) is null.",
+   "covering_prose": null,
+   "gold_anchor": "defaultCountry = ''",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "After the same mounted PhoneInput is rerendered with defaultCountry=\"US\" while the internal country state is empty, it adopts that country and displays \"United States\".",
+   "covering_prose": "The file should adopt a non-empty defaultCountry provided after mount exactly once when the internal country state is empty.",
+   "gold_anchor": "setOldCountry(defaultCountry);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After adopting defaultCountry=\"US\" once, rerendering the same mounted PhoneInput with defaultCountry=\"CH\" does not change the displayed country, which remains \"United States\".",
+   "covering_prose": "It should ignore subsequent changes to defaultCountry during the same mount.",
+   "gold_anchor": "!onceRef.current",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

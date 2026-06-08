@@ -1,0 +1,60 @@
+{
+ "case": "protonmail_57f1225f",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "When size.maxWidth is DropdownSizeUnit.Viewport, the rendered dropdown has CSS variable --custom-max-width set to initial.",
+   "covering_prose": "When DropdownSizeUnit.Viewport is specified for maxWidth or maxHeight, the component should set the corresponding CSS variable to \"initial\" to allow full viewport usage.",
+   "gold_anchor": "maxWidth: DropdownSizeUnit.Viewport",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When size.maxHeight is DropdownSizeUnit.Viewport, the rendered dropdown has CSS variable --custom-max-height set to initial.",
+   "covering_prose": "When DropdownSizeUnit.Viewport is specified for maxWidth or maxHeight, the component should set the corresponding CSS variable to \"initial\" to allow full viewport usage.",
+   "gold_anchor": "maxHeight: DropdownSizeUnit.Viewport",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When size.maxHeight is the custom unit string \"13em\", the rendered dropdown has CSS variable --custom-max-height set to 13em.",
+   "covering_prose": "Custom CSS unit values (like \"13em\", \"15px\") should be directly applied to the appropriate CSS variables (--width, --height, --custom-max-width, --custom-max-height).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When size.height is the custom unit string \"15px\", the rendered dropdown has CSS variable --height set to 15px.",
+   "covering_prose": "Custom CSS unit values (like \"13em\", \"15px\") should be directly applied to the appropriate CSS variables (--width, --height, --custom-max-width, --custom-max-height).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When size.width is the custom unit string \"13px\", the rendered dropdown has CSS variable --width set to 13px.",
+   "covering_prose": "Custom CSS unit values (like \"13em\", \"15px\") should be directly applied to the appropriate CSS variables (--width, --height, --custom-max-width, --custom-max-height).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When size.maxWidth is the custom unit string \"13em\", the rendered dropdown has CSS variable --custom-max-width set to 13em.",
+   "covering_prose": "Custom CSS unit values (like \"13em\", \"15px\") should be directly applied to the appropriate CSS variables (--width, --height, --custom-max-width, --custom-max-height).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "A single dropdown size object can simultaneously apply mixed width, height, maxWidth, and maxHeight configurations with different unit kinds.",
+   "covering_prose": "Mixed size configurations should work correctly, allowing different units for different dimension properties within the same dropdown instance.",
+   "gold_anchor": "size={size}",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

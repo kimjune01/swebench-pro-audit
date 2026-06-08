@@ -1,0 +1,32 @@
+{
+ "case": "protonmail_373580e2",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "`openSubscriptionModal` is defined before it is called.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After `openSubscriptionModal({} as any)` is called for a subscription managed externally, an element with test id `InAppPurchaseModal/text` is present.",
+   "covering_prose": "The modal should include an element with the test identifier `InAppPurchaseModal/text`.",
+   "gold_anchor": "<p data-testid=\"InAppPurchaseModal/text\">{firstLine}</p>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The `InAppPurchaseModal/text` element is not an empty DOM element.",
+   "covering_prose": "The `InAppPurchaseModal/text` element should not have empty content.",
+   "gold_anchor": "<p data-testid=\"InAppPurchaseModal/text\">{firstLine}</p>",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

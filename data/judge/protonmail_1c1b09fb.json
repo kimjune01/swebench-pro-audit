@@ -1,0 +1,102 @@
+{
+ "case": "protonmail_1c1b09fb",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 10,
+ "n_covered": 9,
+ "n_gap": 1,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "cleanMarkdown is exported from ./markdown and importable by the test.",
+   "covering_prose": null,
+   "gold_anchor": "export const cleanMarkdown = (markdown: string): string => {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "cleanMarkdown preserves indentation for unordered list items such as four leading spaces before '- Item 1' and '- Item 2'.",
+   "covering_prose": "Trim unnecessary leading spaces in lists, headings, code fences, and blockquotes while preserving indentation so list hierarchy and code alignment remain intact.",
+   "gold_anchor": "let result = markdown.replace(/(\\n\\s*)-\\s*/g, '$1- ');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cleanMarkdown preserves indentation and ordered-list markers for ordered list items such as four leading spaces before '1. Item 1' and '2. Item 2'.",
+   "covering_prose": "Trim unnecessary leading spaces in lists, headings, code fences, and blockquotes while preserving indentation so list hierarchy and code alignment remain intact.",
+   "gold_anchor": "result = result.replace(/(\\n\\s*)(\\d+\\.)\\s*/g, '$1$2 ');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cleanMarkdown removes leading spaces before a Markdown heading marker, converting '\\n    # Heading' to '\\n# Heading'.",
+   "covering_prose": "Trim unnecessary leading spaces in lists, headings, code fences, and blockquotes while preserving indentation so list hierarchy and code alignment remain intact.",
+   "gold_anchor": "result = result.replace(/\\n\\s*#/g, '\\n#');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cleanMarkdown removes leading spaces before Markdown code-fence markers while preserving indentation inside the code block.",
+   "covering_prose": "Trim unnecessary leading spaces in lists, headings, code fences, and blockquotes while preserving indentation so list hierarchy and code alignment remain intact.",
+   "gold_anchor": "result = result.replace(/\\n\\s*```/g, '\\n```');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cleanMarkdown removes leading spaces before a Markdown blockquote marker, converting '\\n    > Quote' to '\\n> Quote'.",
+   "covering_prose": "Trim unnecessary leading spaces in lists, headings, code fences, and blockquotes while preserving indentation so list hierarchy and code alignment remain intact.",
+   "gold_anchor": "result = result.replace(/\\n\\s*>/g, '\\n>');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "fixNestedLists is exported from ./markdown and accepts and returns a Document.",
+   "covering_prose": "New public interface: \\n- Name: fixNestedLists \\nType: Function \\nLocation: applications/mail/src/app/helpers/assistant/markdown.ts \\nInput: dom: Document \\nOutput: Document",
+   "gold_anchor": "export const fixNestedLists = (dom: Document): Document => {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "fixNestedLists moves a nested <ul> that is a sibling after an <li> into that preceding <li>.",
+   "covering_prose": "Detect and correct invalid nesting (e.g., <ul> or <ol> placed as siblings of <li> rather than inside it) by ensuring each nested list is contained within an appropriate <li>.",
+   "gold_anchor": "previousSibling.appendChild(list);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "fixNestedLists detects nested <ul>/<ol> elements that are direct children of <ul>/<ol>.",
+   "covering_prose": "Description: Traverses the DOM and corrects invalid list nesting by ensuring that any nested <ul>/<ol> appears inside a containing <li>.",
+   "gold_anchor": "const lists = dom.querySelectorAll('ul > ul, ul > ol, ol > ul, ol > ol');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "restoreURLs removes an hallucinated link with an href when that URL was not stored for the current messageID.",
+   "covering_prose": "The restoration helper should only restore placeholders whose stored messageID matches the current one; otherwise, remove the element (and preserve visible link text where applicable).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "restoreURLs preserves visible link text when removing an hallucinated link element.",
+   "covering_prose": "The restoration helper should only restore placeholders whose stored messageID matches the current one; otherwise, remove the element (and preserve visible link text where applicable).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "restoreURLs removes an hallucinated image with a src when that image was not stored for the current messageID.",
+   "covering_prose": "Links and images are restored only when they belong to the current message (matched by messageID); hallucinated links/images are dropped while preserving link text.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "replaceURLs accepts a messageID argument and restoreURLs is called with the current messageID in URL restoration paths.",
+   "covering_prose": "Helpers that (a) prepare content for the model, (b) prepare content for insertion into the editor, and (c) parse model results back into HTML should accept a messageID argument and use it when performing URL replacement/restoration and related transformations.",
+   "gold_anchor": "export const replaceURLs = (dom: Document, uid: string, messageID: string): Document => {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

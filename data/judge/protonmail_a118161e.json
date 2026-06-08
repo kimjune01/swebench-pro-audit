@@ -1,0 +1,32 @@
+{
+ "case": "protonmail_a118161e",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "mimeTypeFromFile returns 'image/jpeg' for a File whose type is 'image/jpeg'.",
+   "covering_prose": "simplify MIME type detection to prioritize file type and extension-based detection.",
+   "gold_anchor": "return input.type || (await mimetypeFromExtension(input.name)) || 'application/octet-stream';",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "mimeTypeFromFile returns 'image/jxl' for a File named 'test.jxl' whose type is empty.",
+   "covering_prose": "EXTRA_EXTENSION_TYPES object should map the 'jxl' extension to MIME type 'image/jxl'.",
+   "gold_anchor": "jxl: 'image/jxl',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "mimeTypeFromFile returns 'application/octet-stream' for a File whose type is empty and whose extension is unknown.",
+   "covering_prose": "The system returns 'application/octet-stream' as the default MIME type instead of the correct type",
+   "gold_anchor": "return input.type || (await mimetypeFromExtension(input.name)) || 'application/octet-stream';",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,46 @@
+{
+ "case": "protonmail_7ff95b70",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`SelectionState` is exported from `./useSelectionControls` and has members `SOME`, `ALL`, and `NONE` usable by the test.",
+   "covering_prose": "The enum `SelectionState` must define members `NONE`, `ALL`, and `SOME` to represent the three selection states.",
+   "gold_anchor": "export enum SelectionState {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After selecting two of ten items, `hook.current.selectionState` is `SelectionState.SOME`.",
+   "covering_prose": "The function `useSelectionControls` must compute a `selectionState` value based on `selectedItemIds` and `itemIds`, returning `NONE` when no items are selected, `SOME` when some items are selected, and `ALL` when all items are selected.",
+   "gold_anchor": "return SelectionState.SOME;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After `toggleAllSelected()` makes every item selected, `hook.current.selectionState` is `SelectionState.ALL`.",
+   "covering_prose": "The function `useSelectionControls` must compute a `selectionState` value based on `selectedItemIds` and `itemIds`, returning `NONE` when no items are selected, `SOME` when some items are selected, and `ALL` when all items are selected.",
+   "gold_anchor": "return SelectionState.ALL;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a second `toggleAllSelected()` leaves no items selected, `hook.current.selectionState` is `SelectionState.NONE`.",
+   "covering_prose": "The function `useSelectionControls` must compute a `selectionState` value based on `selectedItemIds` and `itemIds`, returning `NONE` when no items are selected, `SOME` when some items are selected, and `ALL` when all items are selected.",
+   "gold_anchor": "return SelectionState.NONE;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`useSelectionControls` return object exposes `selectionState` on `hook.current`.",
+   "covering_prose": "The function `useSelectionControls` must include `selectionState` in its return object, replacing the previous `isIndeterminate` boolean.",
+   "gold_anchor": "selectionState,",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "case": "protonmail_782d0155",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 0,
+ "n_covered": 0,
+ "n_gap": 0,
+ "n_out_of_scope": 9,
+ "rows": [
+  {
+   "test": "hasCustomPassword({ flags: 0 | SharedURLFlags.CustomPassword }) returns true.",
+   "covering_prose": "The function `hasCustomPassword` must determine whether the `CustomPassword` flag is set in the `flags` property of the input object and return `true` only in that case.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "hasCustomPassword({ flags: SharedURLFlags.GeneratedPasswordIncluded | SharedURLFlags.CustomPassword }) returns true.",
+   "covering_prose": "The function `hasCustomPassword` must determine whether the `CustomPassword` flag is set in the `flags` property of the input object and return `true` only in that case.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "hasCustomPassword({ flags: 0 }) returns false.",
+   "covering_prose": "The function `hasCustomPassword` must determine whether the `CustomPassword` flag is set in the `flags` property of the input object and return `true` only in that case.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "hasGeneratedPasswordIncluded({ flags: 0 | SharedURLFlags.GeneratedPasswordIncluded }) returns true.",
+   "covering_prose": "The function `hasGeneratedPasswordIncluded` must determine whether the `GeneratedPasswordIncluded` flag is set in the `flags` property of the input object and return `true` only in that case.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "hasGeneratedPasswordIncluded({ flags: SharedURLFlags.GeneratedPasswordIncluded | SharedURLFlags.CustomPassword }) returns true.",
+   "covering_prose": "The function `hasGeneratedPasswordIncluded` must determine whether the `GeneratedPasswordIncluded` flag is set in the `flags` property of the input object and return `true` only in that case.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "hasGeneratedPasswordIncluded({ flags: 0 }) returns false.",
+   "covering_prose": "The function `hasGeneratedPasswordIncluded` must determine whether the `GeneratedPasswordIncluded` flag is set in the `flags` property of the input object and return `true` only in that case.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "splitGeneratedAndCustomPassword('1234567890ab', { flags: 0 }) returns ['1234567890ab', ''].",
+   "covering_prose": "When the `flags` property indicates no custom password, the function must return the entire string as the generated password and an empty string for the custom password.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "splitGeneratedAndCustomPassword('abc', { flags: SharedURLFlags.CustomPassword }) returns ['', 'abc'].",
+   "covering_prose": "When the `flags` property indicates only a custom password, the function must return an empty string for the generated password and the entire string as the custom password.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "splitGeneratedAndCustomPassword('1234567890ababc', { flags: SharedURLFlags.CustomPassword | SharedURLFlags.GeneratedPasswordIncluded }) returns ['1234567890ab', 'abc'].",
+   "covering_prose": "When the `flags` property indicates both a generated and a custom password, the function must return the first 12 characters of the string as the generated password and the remaining characters as the custom password.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

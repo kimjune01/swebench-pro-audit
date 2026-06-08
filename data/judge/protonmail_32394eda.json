@@ -1,0 +1,74 @@
+{
+ "case": "protonmail_32394eda",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When useUser returns isFree true, useSubscription returns {}, and useUserSettings returns {}, result.current.canMarkItemsAsDone is true.",
+   "covering_prose": "Free users must always have `canMarkItemsAsDone = true`, regardless of subscription contents or checklist entries.",
+   "gold_anchor": "user.isFree",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a free user has userSettings.Checklists containing 'get-started', result.current.canMarkItemsAsDone is true.",
+   "covering_prose": "Free users must always have `canMarkItemsAsDone = true`, regardless of subscription contents or checklist entries.",
+   "gold_anchor": "user.isFree",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a non-free user has an empty subscription object and userSettings.Checklists containing 'get-started', result.current.canMarkItemsAsDone is false.",
+   "covering_prose": "All other combinations (including paid user with `get-started` but no VPN plan, paid VPN user without `get-started`, paid Mail user without `paying-user`) \u2192 false.",
+   "gold_anchor": "(canCheckItemGetStarted(subscription) && userSettings.Checklists?.includes('get-started'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a non-free user has a VPN plan and userSettings.Checklists containing 'get-started', result.current.canMarkItemsAsDone is true.",
+   "covering_prose": "VPN plan eligibility with `get-started` present in `userSettings.Checklists` \u2192 true.",
+   "gold_anchor": "(canCheckItemGetStarted(subscription) && userSettings.Checklists?.includes('get-started'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a non-free user has a VPN plan and userSettings.Checklists is an empty array, result.current.canMarkItemsAsDone is false.",
+   "covering_prose": "All other combinations (including paid user with `get-started` but no VPN plan, paid VPN user without `get-started`, paid Mail user without `paying-user`) \u2192 false.",
+   "gold_anchor": "userSettings.Checklists?.includes('get-started')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a non-free user has a MAIL plan and userSettings.Checklists containing 'get-started', result.current.canMarkItemsAsDone is false.",
+   "covering_prose": "All other combinations (including paid user with `get-started` but no VPN plan, paid VPN user without `get-started`, paid Mail user without `paying-user`) \u2192 false.",
+   "gold_anchor": "(canCheckItemGetStarted(subscription) && userSettings.Checklists?.includes('get-started'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a free user has userSettings.Checklists containing 'paying-user', result.current.canMarkItemsAsDone is true.",
+   "covering_prose": "Free users must always have `canMarkItemsAsDone = true`, regardless of subscription contents or checklist entries.",
+   "gold_anchor": "user.isFree",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a non-free user has a MAIL plan and userSettings.Checklists containing 'paying-user', result.current.canMarkItemsAsDone is true.",
+   "covering_prose": "Mail plan eligibility with `paying-user` present in `userSettings.Checklists` \u2192 true.",
+   "gold_anchor": "(canCheckItemPaidChecklist(subscription) && userSettings.Checklists?.includes('paying-user'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a non-free user has a MAIL plan and userSettings.Checklists is an empty array, result.current.canMarkItemsAsDone is false.",
+   "covering_prose": "All other combinations (including paid user with `get-started` but no VPN plan, paid VPN user without `get-started`, paid Mail user without `paying-user`) \u2192 false.",
+   "gold_anchor": "userSettings.Checklists?.includes('paying-user')",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

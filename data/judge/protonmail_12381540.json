@@ -1,0 +1,81 @@
+{
+ "case": "protonmail_12381540",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 10,
+ "n_covered": 10,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When rendered with amount 1000, currency USD, type signup, and awaitingPayment false, the component starts initialization because the amount is in range.",
+   "covering_prose": "If within range, initialization must begin through `request()`.",
+   "gold_anchor": "withLoading(request());",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After successful initialization using the token response, the DOM becomes non-empty and shows the returned Bitcoin address `address-123`.",
+   "covering_prose": "On successful initialization, show instruction text, a `BitcoinQRCode`, and `BitcoinDetails`.",
+   "gold_anchor": "setModel({ amountBitcoin: Data.CoinAmount, address: Data.CoinAddress, token: Token });",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After successful initialization using the token response, the DOM shows the returned BTC amount `0.00135`.",
+   "covering_prose": "`BitcoinDetails` must show the BTC amount with copy control and the BTC address with copy control.",
+   "gold_anchor": "setModel({ amountBitcoin: Data.CoinAmount, address: Data.CoinAddress, token: Token });",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "During initial fetching, the component renders a loader element exposed by the existing Loader as `data-testid=\"circle-loader\"`.",
+   "covering_prose": "While initialization is pending, the component must show only a spinner.  ",
+   "gold_anchor": "return <Loader />;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Token validation is inactive unless `enableValidation` is true and a token exists; the hidden test enables it with `enableValidation={true}` and token `token-123`.",
+   "covering_prose": "The `useCheckStatus` hook must activate only when `enableValidation` is true and a token is present.",
+   "gold_anchor": "enableValidation = false",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After token creation, validation checks `getTokenStatus` for the returned token `token-123`.",
+   "covering_prose": "The `useCheckStatus` hook must activate only when `enableValidation` is true and a token is present.",
+   "gold_anchor": "getTokenStatus(token)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The first token-status check occurs only after a 10,000 ms delay; advancing fake timers by 11,000 ms is enough to trigger the first pending check.",
+   "covering_prose": "It must wait 10 000 ms before the first check, then poll every 10 000 ms until the token becomes chargeable or the component is unmounted.",
+   "gold_anchor": "return wait(10000);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A second status check occurs after another 10,000 ms polling interval; advancing fake timers by another 11,000 ms is enough to observe the chargeable response.",
+   "covering_prose": "It must wait 10 000 ms before the first check, then poll every 10 000 ms until the token becomes chargeable or the component is unmounted.",
+   "gold_anchor": "await pause();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the status response is `PAYMENT_TOKEN_STATUS.STATUS_CHARGEABLE`, `onTokenValidated` is called once.",
+   "covering_prose": "When chargeable, it must call `onTokenValidated` once with `token`, `cryptoAmount`, and `cryptoAddress`.",
+   "gold_anchor": "if (Status === PAYMENT_TOKEN_STATUS.STATUS_CHARGEABLE) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After validation succeeds once, later timer advances do not call `onTokenValidated` again.",
+   "covering_prose": "When chargeable, it must call `onTokenValidated` once with `token`, `cryptoAmount`, and `cryptoAddress`.",
+   "gold_anchor": "active = false;",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

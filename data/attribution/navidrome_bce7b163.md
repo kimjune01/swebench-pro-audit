@@ -1,0 +1,29 @@
+# Coverage attribution: navidrome_bce7b163
+
+- instance_id: `instance_navidrome__navidrome-8e640bb8580affb7e0ea6225c0bbe240186b6b08`
+- verdict: **ENTAILED**  (12/12 in-gold behaviors covered; **0 GAP** = mindreading; 2 out-of-scope)
+- gold patch: [`gold.diff`](../cases/navidrome_bce7b163/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/navidrome_bce7b163/hidden_test.diff)  ·  spec: [`spec.md`](../cases/navidrome_bce7b163/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| model.Albums has a callable ToAlbumArtist method returning an Artist value. | [Name: `ToAlbumArtist` Type: Method (on `model.Albums`)](../cases/navidrome_bce7b163/spec.md) | [func (als Albums) ToAlbumArtist() Artist {](../cases/navidrome_bce7b163/gold.diff#L36) |
+| For albums with AlbumArtistID "11", ToAlbumArtist returns Artist.ID "11". | [The returned `Artist.ID`, `Artist.Name`, `Artist.SortArtistName`, and `Artist.OrderArtistName` must match the corresponding `AlbumArtistID`, `AlbumArtist`, `SortAlbumArtistName`, and `OrderAlbumArtistName` values from the albums.](../cases/navidrome_bce7b163/spec.md#L27) | [a.ID = al.AlbumArtistID](../cases/navidrome_bce7b163/gold.diff#L40) |
+| For albums with AlbumArtist "Artist", ToAlbumArtist returns Artist.Name "Artist". | [The returned `Artist.ID`, `Artist.Name`, `Artist.SortArtistName`, and `Artist.OrderArtistName` must match the corresponding `AlbumArtistID`, `AlbumArtist`, `SortAlbumArtistName`, and `OrderAlbumArtistName` values from the albums.](../cases/navidrome_bce7b163/spec.md#L27) | [a.Name = al.AlbumArtist](../cases/navidrome_bce7b163/gold.diff#L41) |
+| For albums with SortAlbumArtistName "SortAlbumArtistName", ToAlbumArtist returns Artist.SortArtistName "SortAlbumArtistName". | [The returned `Artist.ID`, `Artist.Name`, `Artist.SortArtistName`, and `Artist.OrderArtistName` must match the corresponding `AlbumArtistID`, `AlbumArtist`, `SortAlbumArtistName`, and `OrderAlbumArtistName` values from the albums.](../cases/navidrome_bce7b163/spec.md#L27) | [a.SortArtistName = al.SortAlbumArtistName](../cases/navidrome_bce7b163/gold.diff#L42) |
+| For albums with OrderAlbumArtistName "OrderAlbumArtistName", ToAlbumArtist returns Artist.OrderArtistName "OrderAlbumArtistName". | [The returned `Artist.ID`, `Artist.Name`, `Artist.SortArtistName`, and `Artist.OrderArtistName` must match the corresponding `AlbumArtistID`, `AlbumArtist`, `SortAlbumArtistName`, and `OrderAlbumArtistName` values from the albums.](../cases/navidrome_bce7b163/spec.md#L27) | [a.OrderArtistName = al.OrderAlbumArtistName](../cases/navidrome_bce7b163/gold.diff#L43) |
+| For a collection of 2 albums, ToAlbumArtist returns Artist.AlbumCount 2. | [The returned `Artist.AlbumCount` must equal the total number of albums in the collection.](../cases/navidrome_bce7b163/spec.md#L28) | [a := Artist{AlbumCount: len(als)}](../cases/navidrome_bce7b163/gold.diff#L37) |
+| For albums with SongCount 4 and 6, ToAlbumArtist returns Artist.SongCount 10. | [The returned `Artist.SongCount` must equal the sum of the `SongCount` values of all albums.](../cases/navidrome_bce7b163/spec.md#L29) | [a.SongCount += al.SongCount](../cases/navidrome_bce7b163/gold.diff#L45) |
+| For albums with Size 1024 and 2048, ToAlbumArtist returns Artist.Size int64(3072). | [The returned `Artist.Size` must equal the sum of the `Size` values of all albums.](../cases/navidrome_bce7b163/spec.md#L30) | [a.Size += al.Size](../cases/navidrome_bce7b163/gold.diff#L46) |
+| For one album genre Genre{ID: "g1", Name: "Rock"}, ToAlbumArtist returns that Genre in Artist.Genres. | [The returned `Artist.Genres` must include all unique `Genre` values found in the albums’ `Genres` fields, sorted in ascending order by `ID`, with duplicates removed.](../cases/navidrome_bce7b163/spec.md#L31) | [a.Genres = append(a.Genres, al.Genres...)](../cases/navidrome_bce7b163/gold.diff#L47) |
+| For genres g1 Rock, g2 Punk, g3 Alternative, and duplicate g2 Punk, ToAlbumArtist returns exactly Genres{{ID: "g1", Name: "Rock"}, {ID: "g2" | [The returned `Artist.Genres` must include all unique `Genre` values found in the albums’ `Genres` fields, sorted in ascending order by `ID`, with duplicates removed.](../cases/navidrome_bce7b163/spec.md#L31) | [a.Genres = slices.Compact(a.Genres)](../cases/navidrome_bce7b163/gold.diff#L52) |
+| For one album with MbzAlbumArtistID "id1", ToAlbumArtist returns Artist.MbzArtistID "id1". | [The returned `Artist.MbzArtistID` must equal the most frequently occurring value among the albums’ `MbzAlbumArtistID` fields. If only one ID is present, that ID must be used.](../cases/navidrome_bce7b163/spec.md#L32) | [a.MbzArtistID = slice.MostFrequent(mbzArtistIds)](../cases/navidrome_bce7b163/gold.diff#L53) |
+| For albums with MbzAlbumArtistID values "id1", "id2", "id1", ToAlbumArtist returns Artist.MbzArtistID "id1". | [The returned `Artist.MbzArtistID` must equal the most frequently occurring value among the albums’ `MbzAlbumArtistID` fields. If only one ID is present, that ID must be used.](../cases/navidrome_bce7b163/spec.md#L32) | [a.MbzArtistID = slice.MostFrequent(mbzArtistIds)](../cases/navidrome_bce7b163/gold.diff#L53) |
+| For MediaFiles.ToAlbum with genres g1 Rock, g2 Punk, and g3 Alternative, Album.Genre is "Rock". |  | _(not in gold)_ |
+| For MediaFiles.ToAlbum with genres g1 Rock, g2 Punk, and g3 Alternative, Album.Genres is exactly Genres{{ID: "g1", Name: "Rock"}, {ID: "g2", |  | _(not in gold)_ |
+
+## Receipts
+- [`spec.md`](../cases/navidrome_bce7b163/spec.md)
+- [`gold.diff`](../cases/navidrome_bce7b163/gold.diff)
+- [`hidden_test.diff`](../cases/navidrome_bce7b163/hidden_test.diff)
+- judge JSON: [`navidrome_bce7b163.json`](../judge/navidrome_bce7b163.json)

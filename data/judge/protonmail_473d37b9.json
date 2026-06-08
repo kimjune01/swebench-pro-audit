@@ -1,0 +1,32 @@
+{
+ "case": "protonmail_473d37b9",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When the provider context reports aliases are present, PassAliases renders the aliases list.",
+   "covering_prose": "If aliases are present, the drawer must render the aliases list.",
+   "gold_anchor": "passAliasesItems: PassBridgeAliasItem[];",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the provider context reports no aliases, PassAliases renders the \"No aliases\" empty state message.",
+   "covering_prose": "If there are no aliases, the drawer must render a clear \u201cNo aliases\u201d message.",
+   "gold_anchor": "hasAliases: boolean;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Clicking the \"Get an alias\" button opens the create alias modal.",
+   "covering_prose": "Clicking the \u201cGet an alias\u201d button must open the alias creation modal.",
+   "gold_anchor": "getAliasOptions: () => Promise<AliasOptions>;",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

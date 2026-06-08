@@ -1,0 +1,46 @@
+{
+ "case": "protonmail_21b45bd4",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`chunk(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'], 3)` returns `[['a','b','c'], ['d','e','f'], ['g','h','i']]`, preserving order in fixed-size chunks of 3.",
+   "covering_prose": "The `chunk` function should divide an array into multiple sub-arrays of a specified size. It must ensure that each subarray contains up to the defined number of elements, maintaining the order of items in the original array.",
+   "gold_anchor": "if (index % size === 0) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`chunk(['a', 'b', 'c'])` defaults the omitted size to 1 and returns `[['a'], ['b'], ['c']]`.",
+   "covering_prose": "When the size argument is omitted or \"undefined\", the `chunk` function should behave as if \"size = 1\", producing one-element chunks in input order.",
+   "gold_anchor": "const chunk = <T>(list: T[] = [], size = 1) => {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`chunk(['a', 'b', 'c', 'd', 'e'], 2)` returns `[['a','b'], ['c','d'], ['e']]`, with the final chunk containing only the remaining element.",
+   "covering_prose": "If the array length is not perfectly divisible by the chunk size, the last subarray should contain the remaining elements.",
+   "gold_anchor": "res[res.length - 1].push(item);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `chunk(input)` does not mutate `input`; after `input = ['a', 'b', 'c']`, `input` remains `['a', 'b', 'c']`.",
+   "covering_prose": "The `chunk` function should be pure: it should not mutate the input array and should return a new array composed of new sub-arrays.",
+   "gold_anchor": "return list.reduce<T[][]>((res, item, index) => {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`chunk()` with no input list returns `[]`.",
+   "covering_prose": "When called without an input list (i.e., the list is undefined), the `chunk` function should return an empty array ([]).",
+   "gold_anchor": "const chunk = <T>(list: T[] = [], size = 1) => {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

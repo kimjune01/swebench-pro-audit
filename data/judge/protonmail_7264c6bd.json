@@ -1,0 +1,60 @@
+{
+ "case": "protonmail_7264c6bd",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "In the same-sorting children fetch case, `getCachedChildren(abortSignal, 'shareId', 'parentLinkId')` returns an object with `links: LINKS` and `isDecrypting: false`, not a tuple.",
+   "covering_prose": "- Functions that retrieve cached link data, including `getCachedChildren`, `getCachedTrashed`, `getCachedSharedByLink`, and `getCachedLinks`, must return an object `{ links: DecryptedLink[]; isDecrypting: boolean }`.",
+   "gold_anchor": "return {\n            links: links.map(({ decrypted }) => decrypted).filter(isTruthy),\n            isDecrypting: linksToBeDecrypted.length > 0,\n        };",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In the sorting-changes case, `getCachedChildren(abortSignal, 'shareId', 'parentLinkId')` returns an object with `links` equal to the local `links` array and `isDecrypting: false`, not a tuple.",
+   "covering_prose": "- The return object must use the exact property names `links` and `isDecrypting`.",
+   "gold_anchor": "return {\n            links: links.map(({ decrypted }) => decrypted).filter(isTruthy),\n            isDecrypting: linksToBeDecrypted.length > 0,\n        };",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In the already-all-fetched case, `getCachedChildren(abortSignal, 'shareId', 'parentLinkId')` returns an object with `links` equal to the local `links` array and `isDecrypting: false`, not a tuple.",
+   "covering_prose": "- `links` must be an array of decrypted entities with stable identifiers; `isDecrypting` must indicate whether any decryption is in progress and be `false` when none is pending.",
+   "gold_anchor": "isDecrypting: linksToBeDecrypted.length > 0,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The same-sorting case fetches page 0 then page 1 with sort `CreateTime` and `Desc: 0`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The sorting-changes case fetches page 0 with `Desc: 0` and then page 0 with `Desc: 1`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The already-all-fetched case calls the request mock exactly once.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The decrypt call link IDs match the returned links' `linkId` values, in order.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

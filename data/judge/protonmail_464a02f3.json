@@ -1,0 +1,88 @@
+{
+ "case": "protonmail_464a02f3",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 11,
+ "n_covered": 11,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "usePollEvents() returns a callable function.",
+   "covering_prose": "A polling function is available and callable.",
+   "gold_anchor": "export const usePollEvents = (props?: PollEventsProps) => {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling the polling function without subscription parameters invokes eventManager.call() exactly maxPollingSteps times after all timers run.",
+   "covering_prose": "It calls the event manager multiple times, up to a maximum number of attempts.",
+   "gold_anchor": "export const maxPollingSteps = 5;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After advancing fake timers by interval * 2, eventManager.call() has been invoked exactly 2 times.",
+   "covering_prose": "Ensure the mechanism respects the defined interval, so that `eventManager.call()` is executed once per interval and does not exceed the configured maximum.",
+   "gold_anchor": "export const interval = 5000;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The polling constants are exported as interval = 5000 and maxPollingSteps = 5.",
+   "covering_prose": "Provide for bounded polling by invoking the update mechanism at fixed intervals of 5000 ms, up to a maximum of 5 attempts, and expose these values as accessible constants (`interval = 5000`, `maxPollingSteps = 5`) for consumers.",
+   "gold_anchor": "export const interval = 5000;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When usePollEvents is called with subscribeToProperty and action parameters, eventManager.subscribe is called exactly once during polling.",
+   "covering_prose": "It can subscribe to a specific property and action, and stop polling early if that event is observed.",
+   "gold_anchor": "const { call, subscribe } = useEventManager();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With subscribeToProperty 'PaymentMethods' and action EVENT_ACTIONS.CREATE, a pushed event on PaymentMethods with Action CREATE causes unsubscribe to be called immediately.",
+   "covering_prose": "Ensure the mechanism can optionally subscribe to a specific property key (e.g., `\"PaymentMethods\"`) and an action from `EVENT_ACTIONS`, and stop early when an event with the matching property and action is observed.",
+   "gold_anchor": "subscribeToProperty: 'PaymentMethods',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a matching subscribed event is observed following 2 polling calls, advancing timers by interval * 3 does not cause additional eventManager.call() calls beyond 2.",
+   "covering_prose": "It ignores irrelevant events or events that arrive after polling has finished.",
+   "gold_anchor": "if (stoppedRef.current) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A subscribed event with the expected property but wrong action EVENT_ACTIONS.DELETE does not call unsubscribe.",
+   "covering_prose": "Maintain correct behavior when non-matching updates occur by continuing polling if the property key differs or the action is not the expected one.",
+   "gold_anchor": "action: EVENT_ACTIONS.CREATE,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A subscribed event with the expected action EVENT_ACTIONS.CREATE but wrong property 'WrongProperty' does not call unsubscribe.",
+   "covering_prose": "Maintain correct behavior when non-matching updates occur by continuing polling if the property key differs or the action is not the expected one.",
+   "gold_anchor": "subscribeToProperty: 'PaymentMethods',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When polling with subscription parameters exhausts all timers without a matching event, unsubscribe is called exactly once when polling is done.",
+   "covering_prose": "Provide for deterministic completion by unsubscribing when polling finishes, whether by early stop on the matching event or by exhausting the maximum attempts.",
+   "gold_anchor": "unsubscribe?.();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When polling with subscription parameters exhausts all timers without a matching event, eventManager.call() is called exactly maxPollingSteps times.",
+   "covering_prose": "It calls the event manager multiple times, up to a maximum number of attempts.",
+   "gold_anchor": "await callOnce(maxPollingSteps - 1);",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

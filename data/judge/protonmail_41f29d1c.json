@@ -1,0 +1,39 @@
+{
+ "case": "protonmail_41f29d1c",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "isFromProton returns truthy for a Conversation whose IsProton property is 1.",
+   "covering_prose": "When the mail element's `IsProton` property has a value of 1, the function should return true to indicate the element is from Proton.",
+   "gold_anchor": "return !!element.IsProton;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isFromProton returns truthy for a Message whose IsProton property is 1.",
+   "covering_prose": "When the mail element's `IsProton` property has a value of 1, the function should return true to indicate the element is from Proton.",
+   "gold_anchor": "return !!element.IsProton;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isFromProton returns falsy for a Conversation whose IsProton property is 0.",
+   "covering_prose": "When the mail element's `IsProton` property has a value of 0, the function should return false to indicate the element is not from Proton.",
+   "gold_anchor": "return !!element.IsProton;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isFromProton returns falsy for a Message whose IsProton property is 0.",
+   "covering_prose": "When the mail element's `IsProton` property has a value of 0, the function should return false to indicate the element is not from Proton.",
+   "gold_anchor": "return !!element.IsProton;",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

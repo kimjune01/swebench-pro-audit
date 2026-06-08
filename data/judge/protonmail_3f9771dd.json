@@ -1,0 +1,39 @@
+{
+ "case": "protonmail_3f9771dd",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 3,
+ "n_covered": 1,
+ "n_gap": 2,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Mail Plus trial user in Proton Mail with user.isFree false, canPay true, referral coupon subscription is eligible: isEligible(...) returns true.",
+   "covering_prose": null,
+   "gold_anchor": "if (isTrial(subscription)) {\n        return true;\n    }",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "User with subscription managed externally on Android is not eligible: isEligible(...) returns false.",
+   "covering_prose": null,
+   "gold_anchor": "if (isManagedExternally(subscription)) {\n        return false;\n    }",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Delinquent user is not eligible: isEligible(...) returns false.",
+   "covering_prose": null,
+   "gold_anchor": "if (user.isDelinquent) {\n        return false;\n    }",
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Free Proton Mail user whose lastSubscriptionEnd equals the current Unix time in seconds is not eligible: isEligible(...) returns false.",
+   "covering_prose": "Recent cancellations must be handled: if `lastSubscriptionEnd` is after the one-month-prior point (including when it equals the current time), the user does not satisfy the \u201cat least one month\u201d condition.",
+   "gold_anchor": "const isFreeSinceAtLeastOneMonth = user.isFree && isBefore(lastSubscriptionEndDate, oneMonthAgo);",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

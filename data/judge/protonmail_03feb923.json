@@ -1,0 +1,10 @@
+{
+ "case": "protonmail_03feb923",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 0,
+ "n_covered": 0,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": []
+}

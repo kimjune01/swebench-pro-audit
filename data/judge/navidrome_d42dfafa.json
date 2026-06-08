@@ -1,0 +1,53 @@
+{
+ "case": "navidrome_d42dfafa",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Calling Encrypt with a 32-byte key and then Decrypt with the same key returns no errors and yields the original string \"Can you keep a secret?\".",
+   "covering_prose": "Encrypts plaintext data using AES-GCM encryption and returns base64-encoded ciphertext.",
+   "gold_anchor": "return base64.StdEncoding.EncodeToString(ciphertext), nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Decrypt returns the original plaintext when called with the same 32-byte key used by Encrypt.",
+   "covering_prose": "it must return the original string when the same key is used and fail by propagating the exact error \"cipher: message authentication failed\" when the key does not match.",
+   "gold_anchor": "return string(plaintext), nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Decrypting encrypted data with a different 32-byte key fails with exactly the error \"cipher: message authentication failed\".",
+   "covering_prose": "it must return the original string when the same key is used and fail by propagating the exact error \"cipher: message authentication failed\" when the key does not match.",
+   "gold_anchor": "plaintext, err := aesGCM.Open(nil, nonce, ciphertext, nil)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserRepository exposes FindByUsernameWithPassword(username string) (*model.User, error).",
+   "covering_prose": "Extend `UserRepository` with `FindByUsernameWithPassword(username string) (*model.User, error)` keeping case\u2011insensitive lookup and exposing the ability to return the plain\u2011text password after decryption.",
+   "gold_anchor": "FindByUsernameWithPassword(username string) (*User, error)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FindByUsernameWithPassword(\"aDmIn\") finds the existing Admin user despite mixed-case username.",
+   "covering_prose": "Extend `UserRepository` with `FindByUsernameWithPassword(username string) (*model.User, error)` keeping case\u2011insensitive lookup and exposing the ability to return the plain\u2011text password after decryption.",
+   "gold_anchor": "usr, err := r.FindByUsername(username)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FindByUsernameWithPassword(\"aDmIn\") returns the user's decrypted password \"wordpass\".",
+   "covering_prose": "Implement `FindByUsernameWithPassword` in the repository to search for the user case\u2011insensitively, decrypt its stored password and return the user with the plain\u2011text password.",
+   "gold_anchor": "_ = r.decryptPassword(usr)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

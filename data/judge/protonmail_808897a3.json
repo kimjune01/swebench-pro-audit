@@ -1,0 +1,53 @@
+{
+ "case": "protonmail_808897a3",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "After transformStyleAttributes(document), element #a with inline height: 100vh has style.height equal to auto.",
+   "covering_prose": "Examine every element of the HTML document that has a style attribute and, if the height property is present and its value includes the \u201cvh\u201d unit, replace that value with \"auto\" so that the height is determined automatically.",
+   "gold_anchor": "element.style.height = 'auto';",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After transformStyleAttributes(document), descendant element #c with inline height: 100vh has style.height equal to auto.",
+   "covering_prose": "Examine every element of the HTML document that has a style attribute and, if the height property is present and its value includes the \u201cvh\u201d unit, replace that value with \"auto\" so that the height is determined automatically.",
+   "gold_anchor": "const nodesWithStyleAttribute = document.querySelectorAll('[style]');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After transformStyleAttributes(document), element #b with inline height: 100px keeps style.height equal to 100px.",
+   "covering_prose": "If the height is defined and includes the \u201cvh\u201d unit, it replaces it with \u201cauto\u201d, leaving other style values untouched.",
+   "gold_anchor": "if (height.includes('vh')) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After transformStyleAttributes(document), width properties are not changed, including #a width staying 100vh and #b/#c width staying 100px.",
+   "covering_prose": "If the height is defined and includes the \u201cvh\u201d unit, it replaces it with \u201cauto\u201d, leaving other style values untouched.",
+   "gold_anchor": "const height = element.style.height;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After transformStyleAttributes(document), margin properties are not changed, with #a/#b/#c style.margin staying 0px.",
+   "covering_prose": "If the height is defined and includes the \u201cvh\u201d unit, it replaces it with \u201cauto\u201d, leaving other style values untouched.",
+   "gold_anchor": "const height = element.style.height;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "transformStyleAttributes mutates the passed document DOM in place so existing element references reflect updated style.height after the call.",
+   "covering_prose": "Output: void \u2013 does not return a value; modifies the DOM in place.",
+   "gold_anchor": "export const transformStyleAttributes = (document: Element) => {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

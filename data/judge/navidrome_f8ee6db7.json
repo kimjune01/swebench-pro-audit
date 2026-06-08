@@ -1,0 +1,60 @@
+{
+ "case": "navidrome_f8ee6db7",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Register returns a Player whose LastSeen is at or after the time immediately before Register was called.",
+   "covering_prose": "After registration, the returned `Player` must have its `UserAgent` set to the provided value, its `Client` and `UserName` unchanged, and its `LastSeen` updated to the current time.",
+   "gold_anchor": "plr.LastSeen = time.Now()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Register returns a Player whose Client remains \"client\".",
+   "covering_prose": "After registration, the returned `Player` must have its `UserAgent` set to the provided value, its `Client` and `UserName` unchanged, and its `LastSeen` updated to the current time.",
+   "gold_anchor": "Client:   client,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Register returns a Player whose UserName remains \"johndoe\".",
+   "covering_prose": "After registration, the returned `Player` must have its `UserAgent` set to the provided value, its `Client` and `UserName` unchanged, and its `LastSeen` updated to the current time.",
+   "gold_anchor": "UserName: userName,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Register returns a Player whose UserAgent equals \"chrome\".",
+   "covering_prose": "After registration, the returned `Player` must have its `UserAgent` set to the provided value, its `Client` and `UserName` unchanged, and its `LastSeen` updated to the current time.",
+   "gold_anchor": "plr.UserAgent = userAgent",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The same Player pointer returned by Register is persisted in the repository as repo.lastSaved.",
+   "covering_prose": "The same `Player` instance returned by `Register` must also be persisted through the repository.",
+   "gold_anchor": "err = p.ds.Player(ctx).Put(plr)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Register returns a nil transcoding value.",
+   "covering_prose": "`Register` must return a `nil` transcoding value.",
+   "gold_anchor": "var trc *model.Transcoding",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The mock PlayerRepository implements FindMatch with signature FindMatch(userName, client, typ string) (*model.Player, error), replacing FindByName.",
+   "covering_prose": "The `PlayerRepository` interface must define a method `FindMatch(userName, client, typ string) (*Player, error)` that returns a `Player` only if the provided `userName`, `client`, and `typ` values exactly match a stored record.",
+   "gold_anchor": "FindMatch(userName, client, typ string) (*Player, error)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

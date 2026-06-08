@@ -1,0 +1,109 @@
+{
+ "case": "navidrome_bce7b163",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 12,
+ "n_covered": 12,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "model.Albums has a callable ToAlbumArtist method returning an Artist value.",
+   "covering_prose": "Name: `ToAlbumArtist`\nType: Method (on `model.Albums`)",
+   "gold_anchor": "func (als Albums) ToAlbumArtist() Artist {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For albums with AlbumArtistID \"11\", ToAlbumArtist returns Artist.ID \"11\".",
+   "covering_prose": "The returned `Artist.ID`, `Artist.Name`, `Artist.SortArtistName`, and `Artist.OrderArtistName` must match the corresponding `AlbumArtistID`, `AlbumArtist`, `SortAlbumArtistName`, and `OrderAlbumArtistName` values from the albums.",
+   "gold_anchor": "a.ID = al.AlbumArtistID",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For albums with AlbumArtist \"Artist\", ToAlbumArtist returns Artist.Name \"Artist\".",
+   "covering_prose": "The returned `Artist.ID`, `Artist.Name`, `Artist.SortArtistName`, and `Artist.OrderArtistName` must match the corresponding `AlbumArtistID`, `AlbumArtist`, `SortAlbumArtistName`, and `OrderAlbumArtistName` values from the albums.",
+   "gold_anchor": "a.Name = al.AlbumArtist",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For albums with SortAlbumArtistName \"SortAlbumArtistName\", ToAlbumArtist returns Artist.SortArtistName \"SortAlbumArtistName\".",
+   "covering_prose": "The returned `Artist.ID`, `Artist.Name`, `Artist.SortArtistName`, and `Artist.OrderArtistName` must match the corresponding `AlbumArtistID`, `AlbumArtist`, `SortAlbumArtistName`, and `OrderAlbumArtistName` values from the albums.",
+   "gold_anchor": "a.SortArtistName = al.SortAlbumArtistName",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For albums with OrderAlbumArtistName \"OrderAlbumArtistName\", ToAlbumArtist returns Artist.OrderArtistName \"OrderAlbumArtistName\".",
+   "covering_prose": "The returned `Artist.ID`, `Artist.Name`, `Artist.SortArtistName`, and `Artist.OrderArtistName` must match the corresponding `AlbumArtistID`, `AlbumArtist`, `SortAlbumArtistName`, and `OrderAlbumArtistName` values from the albums.",
+   "gold_anchor": "a.OrderArtistName = al.OrderAlbumArtistName",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a collection of 2 albums, ToAlbumArtist returns Artist.AlbumCount 2.",
+   "covering_prose": "The returned `Artist.AlbumCount` must equal the total number of albums in the collection.",
+   "gold_anchor": "a := Artist{AlbumCount: len(als)}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For albums with SongCount 4 and 6, ToAlbumArtist returns Artist.SongCount 10.",
+   "covering_prose": "The returned `Artist.SongCount` must equal the sum of the `SongCount` values of all albums.",
+   "gold_anchor": "a.SongCount += al.SongCount",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For albums with Size 1024 and 2048, ToAlbumArtist returns Artist.Size int64(3072).",
+   "covering_prose": "The returned `Artist.Size` must equal the sum of the `Size` values of all albums.",
+   "gold_anchor": "a.Size += al.Size",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For one album genre Genre{ID: \"g1\", Name: \"Rock\"}, ToAlbumArtist returns that Genre in Artist.Genres.",
+   "covering_prose": "The returned `Artist.Genres` must include all unique `Genre` values found in the albums\u2019 `Genres` fields, sorted in ascending order by `ID`, with duplicates removed.",
+   "gold_anchor": "a.Genres = append(a.Genres, al.Genres...)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For genres g1 Rock, g2 Punk, g3 Alternative, and duplicate g2 Punk, ToAlbumArtist returns exactly Genres{{ID: \"g1\", Name: \"Rock\"}, {ID: \"g2\", Name: \"Punk\"}, {ID: \"g3\", Name: \"Alternative\"}} in ascending ID order with the duplicate removed.",
+   "covering_prose": "The returned `Artist.Genres` must include all unique `Genre` values found in the albums\u2019 `Genres` fields, sorted in ascending order by `ID`, with duplicates removed.",
+   "gold_anchor": "a.Genres = slices.Compact(a.Genres)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For one album with MbzAlbumArtistID \"id1\", ToAlbumArtist returns Artist.MbzArtistID \"id1\".",
+   "covering_prose": "The returned `Artist.MbzArtistID` must equal the most frequently occurring value among the albums\u2019 `MbzAlbumArtistID` fields. If only one ID is present, that ID must be used.",
+   "gold_anchor": "a.MbzArtistID = slice.MostFrequent(mbzArtistIds)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For albums with MbzAlbumArtistID values \"id1\", \"id2\", \"id1\", ToAlbumArtist returns Artist.MbzArtistID \"id1\".",
+   "covering_prose": "The returned `Artist.MbzArtistID` must equal the most frequently occurring value among the albums\u2019 `MbzAlbumArtistID` fields. If only one ID is present, that ID must be used.",
+   "gold_anchor": "a.MbzArtistID = slice.MostFrequent(mbzArtistIds)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For MediaFiles.ToAlbum with genres g1 Rock, g2 Punk, and g3 Alternative, Album.Genre is \"Rock\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For MediaFiles.ToAlbum with genres g1 Rock, g2 Punk, and g3 Alternative, Album.Genres is exactly Genres{{ID: \"g1\", Name: \"Rock\"}, {ID: \"g2\", Name: \"Punk\"}, {ID: \"g3\", Name: \"Alternative\"}}.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

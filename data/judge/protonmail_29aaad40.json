@@ -1,0 +1,151 @@
+{
+ "case": "protonmail_29aaad40",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 12,
+ "n_covered": 10,
+ "n_gap": 2,
+ "n_out_of_scope": 8,
+ "rows": [
+  {
+   "test": "Generated decrypted test links include an activeRevision.photo entry so trashed links qualify as photo entries.",
+   "covering_prose": "Provide for building the recovery set by merging regular items with trashed items filtered to photo entries only.",
+   "gold_anchor": "(link) => !!link.activeRevision?.photo",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "During a successful recovery with regular and trashed links available, recovery reaches state \"SUCCEED\".",
+   "covering_prose": "Recovery completes successfully when items are present and ready in both regular and trashed sets.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "During successful recovery, countOfUnrecoveredLinksLeft is 0.",
+   "covering_prose": "Maintain accurate progress metrics by counting items from both sources and updating the number of failed and unrecovered items as operations complete.",
+   "gold_anchor": "totalNbLinks += allLinks.length;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "During successful recovery, getCachedChildren is called exactly 3 times.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "During successful recovery, getCachedTrashed is called exactly 3 times.",
+   "covering_prose": null,
+   "gold_anchor": "getCachedTrashed",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "During successful recovery, moveLinks is called exactly 1 time.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "During successful recovery, loadChildren is called exactly 1 time.",
+   "covering_prose": null,
+   "gold_anchor": "await loadChildren(abortSignal, share.shareId, share.rootLinkId, undefined, undefined, true);",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "During successful recovery, deletePhotosShare is called exactly 1 time when both regular and trashed sources are empty at delete time.",
+   "covering_prose": "Ensure the overall state is marked as SUCCEED only when all targeted items are processed and no photo entries remain in either source.",
+   "gold_anchor": "if (!links.length && !trashLinks.length) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Recovery waits for both regular children and trashed items to stop decrypting before proceeding.",
+   "covering_prose": "Maintain a readiness gate that proceeds only after both sources report that decryption has completed.",
+   "gold_anchor": "return !isDecrypting && !isTrashDecrypting;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Recovery loads children with the explicit include-trashed/show-all flag set to true.",
+   "covering_prose": "Provide for initiating enumeration in a mode that includes trashed items in addition to regular items, while keeping the default behavior unchanged when not explicitly requested.",
+   "gold_anchor": "await loadChildren(abortSignal, share.shareId, share.rootLinkId, undefined, undefined, true);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Recovery preparation merges regular links with trashed links before moving.",
+   "covering_prose": "Ensure the recovery flow includes items from both the regular source and the trashed source as part of the same operation.",
+   "gold_anchor": "const allLinks = links.concat(trashLinks);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Recovery preparation includes only trashed links with activeRevision.photo.",
+   "covering_prose": "Provide for building the recovery set by merging regular items with trashed items filtered to photo entries only.",
+   "gold_anchor": "(link) => !!link.activeRevision?.photo",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When one move fails and both regular and trashed sources still contain one photo link at delete time, recovery state becomes \"FAILED\".",
+   "covering_prose": "Ensure the overall state is marked as FAILED when a core action required to advance the flow (loading, moving, deleting) produces an error.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When one move fails and both regular and trashed sources still contain one photo link at delete time, countOfFailedLinks is 2.",
+   "covering_prose": "Ensure failure scenarios update the counts of failed and unrecovered items to reflect the number of items that could not be processed.",
+   "gold_anchor": "totalNbLinks += allLinks.length;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When one move fails, countOfUnrecoveredLinksLeft is 0.",
+   "covering_prose": "Maintain accurate progress metrics by counting items from both sources and updating the number of failed and unrecovered items as operations complete.",
+   "gold_anchor": "totalNbLinks += allLinks.length;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When recovery fails due to remaining regular and trashed links after moves, deletePhotosShare is not called.",
+   "covering_prose": "Ensure the overall state is marked as SUCCEED only when all targeted items are processed and no photo entries remain in either source.",
+   "gold_anchor": "if (!links.length && !trashLinks.length) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If deletePhotosShare rejects, recovery state becomes \"FAILED\".",
+   "covering_prose": "Ensure the overall state is marked as FAILED when a core action required to advance the flow (loading, moving, deleting) produces an error.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "If loadChildren rejects, recovery state becomes \"FAILED\".",
+   "covering_prose": "Ensure the overall state is marked as FAILED when a core action required to advance the flow (loading, moving, deleting) produces an error.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "If moveLinks rejects, recovery state becomes \"FAILED\".",
+   "covering_prose": "Ensure the overall state is marked as FAILED when a core action required to advance the flow (loading, moving, deleting) produces an error.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When localStorage returns \"progress\" on initialization, recovery starts automatically.",
+   "covering_prose": "Provide for automatic resumption of the recovery flow on initialization when a persisted state indicates it was previously in progress.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

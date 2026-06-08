@@ -1,0 +1,39 @@
+{
+ "case": "protonmail_078178de",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 4,
+ "n_covered": 3,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Rendering `<ModalTwo open>` with an interactive child `<Button>Hello</Button>` allows Testing Library to find that child with `screen.getByRole('button', { name: 'Hello' })`.",
+   "covering_prose": "In JSDOM-based tests, `ModalTwo` should expose its children in the accessible tree whenever it is rendered with `open`, so that queries such as `getByRole('button', { name: 'Hello' })` succeed consistently.",
+   "gold_anchor": "<Dialog",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The child found by role and accessible name is visible according to `toBeVisible()`.",
+   "covering_prose": null,
+   "gold_anchor": "<div {...rest} ref={ref}>",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "`ModalTwo` uses the Dialog abstraction for its modal container instead of instantiating a native `<dialog>` directly, enabling the Jest environment substitution used by the test setup.",
+   "covering_prose": "ModalTwo should depend on the Dialog abstraction for its modal container and should not instantiate a native <dialog> directly.",
+   "gold_anchor": "import Dialog from '../dialog/Dialog';",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In Jest/JSDOM, the Dialog implementation is substituted with a fallback host element that preserves passed props, ref, and children.",
+   "covering_prose": "The Dialog component should allow its implementation to be substituted per environment (for example via module aliasing or dependency injection) so that non-browser or limited DOM environments can provide an alternative host element.",
+   "gold_anchor": "jest.mock('./components/dialog/Dialog.tsx', () => {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

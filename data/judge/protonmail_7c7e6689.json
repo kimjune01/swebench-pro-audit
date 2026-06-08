@@ -1,0 +1,88 @@
+{
+ "case": "protonmail_7c7e6689",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 11,
+ "n_covered": 11,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`observeApiError` is available as a default export from `packages/metrics/lib/observeApiError.ts`, so it can be imported from `../lib/observeApiError`.",
+   "covering_prose": "File: `packages/metrics/lib/observeApiError.ts`",
+   "gold_anchor": "export default function observeApiError",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Each invocation calls `metricObserver` exactly once.",
+   "covering_prose": "The function should always call `metricObserver` exactly once each time it is invoked.",
+   "gold_anchor": "return metricObserver",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `error` is `undefined`, `metricObserver` is called with `'failure'`.",
+   "covering_prose": "If the `error` parameter is falsy (undefined, null, empty string, 0, false, etc.), the function should call `metricObserver` with `'failure'`",
+   "gold_anchor": "if (!error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `error` is `null`, `metricObserver` is called with `'failure'`.",
+   "covering_prose": "If the `error` parameter is falsy (undefined, null, empty string, 0, false, etc.), the function should call `metricObserver` with `'failure'`",
+   "gold_anchor": "if (!error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `error` is the string `'string'`, `metricObserver` is called with `'failure'`.",
+   "covering_prose": "If `error.status` is not greater than or equal to 400, the function should call `metricObserver` with `'failure'`.",
+   "gold_anchor": "return metricObserver('failure');",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `error` is the empty string `''`, `metricObserver` is called with `'failure'`.",
+   "covering_prose": "If the `error` parameter is falsy (undefined, null, empty string, 0, false, etc.), the function should call `metricObserver` with `'failure'`",
+   "gold_anchor": "if (!error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `error.status` is `500`, `metricObserver` is called with `'5xx'`.",
+   "covering_prose": "If `error.status` is greater than or equal to 500, the function should call `metricObserver` with `'5xx'`.",
+   "gold_anchor": "if (error.status >= 500) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `error.status` is `501`, `metricObserver` is called with `'5xx'`.",
+   "covering_prose": "If `error.status` is greater than or equal to 500, the function should call `metricObserver` with `'5xx'`.",
+   "gold_anchor": "if (error.status >= 500) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `error.status` is `400`, `metricObserver` is called with `'4xx'`.",
+   "covering_prose": "If `error.status` is greater than or equal to 400 but less than 500, the function should call `metricObserver` with `'4xx'`.",
+   "gold_anchor": "if (error.status >= 400) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `error.status` is `401`, `metricObserver` is called with `'4xx'`.",
+   "covering_prose": "If `error.status` is greater than or equal to 400 but less than 500, the function should call `metricObserver` with `'4xx'`.",
+   "gold_anchor": "if (error.status >= 400) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `error.status` is `200`, `metricObserver` is called with `'failure'`.",
+   "covering_prose": "If `error.status` is not greater than or equal to 400, the function should call `metricObserver` with `'failure'`.",
+   "gold_anchor": "return metricObserver('failure');",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

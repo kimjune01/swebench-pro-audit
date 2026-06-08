@@ -1,0 +1,74 @@
+{
+ "case": "protonmail_5fe4a7bd",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "isProtonSender returns true for a conversation whose matching sender Recipient has IsProton: 1 when displayRecipients is false.",
+   "covering_prose": "Output: boolean indicating if the sender is from Proton",
+   "gold_anchor": "isProtonSender(element, sender, displayRecipients)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isProtonSender returns true for a message whose Sender has IsProton: 1 when displayRecipients is false.",
+   "covering_prose": "Output: boolean indicating if the sender is from Proton",
+   "gold_anchor": "isProtonSender(element, sender, displayRecipients)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isProtonSender returns false for a conversation when its Senders list contains only a non-Proton sender, even if the RecipientOrGroup argument is a Proton recipient, when displayRecipients is false.",
+   "covering_prose": "Output: boolean indicating if the sender is from Proton",
+   "gold_anchor": "isProtonSender(element, sender, displayRecipients)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isProtonSender returns false for a conversation whose sender is Proton when displayRecipients is true.",
+   "covering_prose": "The verification system should distinguish between verified Proton senders and external senders through clear visual differentiation in the user interface.",
+   "gold_anchor": "isProtonSender(element, sender, displayRecipients)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isProtonSender returns false for a message whose actual Sender is non-Proton, even if the RecipientOrGroup argument is a Proton recipient, when displayRecipients is false.",
+   "covering_prose": "Output: boolean indicating if the sender is from Proton",
+   "gold_anchor": "isProtonSender(element, sender, displayRecipients)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getElementSenders returns a one-element Recipient[] containing message.Sender for a Message when displayRecipients is false.",
+   "covering_prose": "Description: New function that extracts sender/recipient information from elements for display in mail lists.",
+   "gold_anchor": "getElementSenders(element, conversationMode, displayRecipients)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getElementSenders returns message.ToList for a Message when displayRecipients is true.",
+   "covering_prose": "Description: New function that extracts sender/recipient information from elements for display in mail lists.",
+   "gold_anchor": "getElementSenders(element, conversationMode, displayRecipients)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getElementSenders returns conversation.Senders for a Conversation when conversationMode is true and displayRecipients is false.",
+   "covering_prose": "Description: New function that extracts sender/recipient information from elements for display in mail lists.",
+   "gold_anchor": "getElementSenders(element, conversationMode, displayRecipients)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getElementSenders returns conversation.Recipients for a Conversation when conversationMode is true and displayRecipients is true.",
+   "covering_prose": "Description: New function that extracts sender/recipient information from elements for display in mail lists.",
+   "gold_anchor": "getElementSenders(element, conversationMode, displayRecipients)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

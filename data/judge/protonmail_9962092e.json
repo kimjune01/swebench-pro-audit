@@ -1,0 +1,53 @@
+{
+ "case": "protonmail_9962092e",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 6,
+ "n_covered": 4,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "The CSV test imports both BASE_SIZE and sizeUnits from @proton/shared/lib/helpers/size.",
+   "covering_prose": "Any logic requiring the base multiplier must import and use `BASE_SIZE` from the same module to ensure a single authoritative source for all storage size calculations.",
+   "gold_anchor": "import { BASE_SIZE } from '@proton/shared/lib/helpers/size';",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When CSV parsing trims whitespace, a total storage value of 2 is parsed as 2 * sizeUnits.GB.",
+   "covering_prose": "The CSV import logic in `multipleUserCreation/csv.ts` must calculate parsed storage as `totalStorageNumber * sizeUnits.GB` to maintain consistency between batch imports and the UI workflows.",
+   "gold_anchor": "return totalStorageNumber * sizeUnits.GB;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When storage is enabled and set to valid number 123, CSV parsing returns no errors and user.totalStorage is 123 * sizeUnits.GB.",
+   "covering_prose": "The CSV import logic in `multipleUserCreation/csv.ts` must calculate parsed storage as `totalStorageNumber * sizeUnits.GB` to maintain consistency between batch imports and the UI workflows.",
+   "gold_anchor": "return totalStorageNumber * sizeUnits.GB;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When storage is enabled and set to decimal value 1.5, CSV parsing returns no errors and user.totalStorage is 1.5 * sizeUnits.GB.",
+   "covering_prose": "The CSV import logic in `multipleUserCreation/csv.ts` must calculate parsed storage as `totalStorageNumber * sizeUnits.GB` to maintain consistency between batch imports and the UI workflows.",
+   "gold_anchor": "return totalStorageNumber * sizeUnits.GB;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CSV file size validation throws an error if the file is greater than 10MB.",
+   "covering_prose": null,
+   "gold_anchor": "import { BASE_SIZE } from '@proton/shared/lib/helpers/size';",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "CSV file size validation does not throw an error if the file is less than or equal to 10MB.",
+   "covering_prose": null,
+   "gold_anchor": "import { BASE_SIZE } from '@proton/shared/lib/helpers/size';",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

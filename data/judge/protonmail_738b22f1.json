@@ -1,0 +1,67 @@
+{
+ "case": "protonmail_738b22f1",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 8,
+ "n_covered": 4,
+ "n_gap": 4,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "getPageSizeString({ PageSize: undefined }) returns \"50\"",
+   "covering_prose": "returning \"50\" when settings are missing or undefined.",
+   "gold_anchor": "return '50';",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getPageSizeString({ PageSize: MAIL_PAGE_SIZE.FIFTY }) returns \"50\"",
+   "covering_prose": "Converts mail settings page size enumeration values to their corresponding string representations ('50', '100', '200'), defaulting to '50' if no valid page size is found.",
+   "gold_anchor": "case MAIL_PAGE_SIZE.FIFTY:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getPageSizeString({ PageSize: MAIL_PAGE_SIZE.ONE_HUNDRED }) returns \"100\"",
+   "covering_prose": "Converts mail settings page size enumeration values to their corresponding string representations ('50', '100', '200'), defaulting to '50' if no valid page size is found.",
+   "gold_anchor": "case MAIL_PAGE_SIZE.ONE_HUNDRED:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getPageSizeString({ PageSize: MAIL_PAGE_SIZE.TWO_HUNDRED }) returns \"200\"",
+   "covering_prose": "Converts mail settings page size enumeration values to their corresponding string representations ('50', '100', '200'), defaulting to '50' if no valid page size is found.",
+   "gold_anchor": "case MAIL_PAGE_SIZE.TWO_HUNDRED:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getLabelID(\"0\") returns \"0\"",
+   "covering_prose": null,
+   "gold_anchor": "return labelID as MAILBOX_LABEL_IDS;",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "getLabelID(\"1\") returns \"1\"",
+   "covering_prose": null,
+   "gold_anchor": "return labelID as MAILBOX_LABEL_IDS;",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "getLabelID(\"test\") returns \"custom\"",
+   "covering_prose": null,
+   "gold_anchor": "return 'custom';",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "getLabelID(\"-10\") returns \"custom\"",
+   "covering_prose": null,
+   "gold_anchor": "return 'custom';",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

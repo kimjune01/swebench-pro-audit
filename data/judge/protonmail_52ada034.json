@@ -1,0 +1,67 @@
+{
+ "case": "protonmail_52ada034",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "CSV import serializes birthday text `03/12/1969` as a parsed vCard date, containing `BDAY:19690312` instead of `BDAY;VALUE=TEXT:03/12/1969`.",
+   "covering_prose": "Parsed date fields must serialize correctly to vCard and remain consistent with the Date values produced by parsing, without altering their intended calendar values.",
+   "gold_anchor": "return date ? { date } : { text };",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`guessDateFromText('Jun 9, 2022')` returns `new Date(2022, 5, 9)`.",
+   "covering_prose": "Supported cases should include ISO 8601 date/timestamp strings, English month-name dates (`Jun 9, 2022`), slash-separated year-first (`2023/12/3`), and slash-separated numeric dates interpreted per TypeScript\u2019s standard parsing (`03/12/2023`).",
+   "gold_anchor": "const textToDate = new Date(text);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`guessDateFromText('2014-02-11T11:30:30')` returns `new Date(2014, 1, 11, 11, 30, 30)`.",
+   "covering_prose": "During contact import, date fields provided as text (e.g., ISO timestamps like `2014-02-11T11:30:30` or common formats such as `Jun 9, 2022`, `2023/12/3`, `03/12/2023`) are not consistently converted into valid `Date` objects.",
+   "gold_anchor": "const isoDate = parseISO(text);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`guessDateFromText('2023/12/3')` returns `new Date(2023, 11, 3)`.",
+   "covering_prose": "Supported cases should include ISO 8601 date/timestamp strings, English month-name dates (`Jun 9, 2022`), slash-separated year-first (`2023/12/3`), and slash-separated numeric dates interpreted per TypeScript\u2019s standard parsing (`03/12/2023`).",
+   "gold_anchor": "const textToDate = new Date(text);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`guessDateFromText('03/12/2023')` returns `new Date(2023, 2, 12)`, interpreting slash-separated numeric text as month/day/year.",
+   "covering_prose": "Supported cases should include ISO 8601 date/timestamp strings, English month-name dates (`Jun 9, 2022`), slash-separated year-first (`2023/12/3`), and slash-separated numeric dates interpreted per TypeScript\u2019s standard parsing (`03/12/2023`).",
+   "gold_anchor": "const textToDate = new Date(text);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`guessDateFromText('random string to make it fail')` returns `undefined`.",
+   "covering_prose": "When a string cannot be parsed, the date should remain unset rather than defaulting to any value.",
+   "gold_anchor": "if (isValid(textToDate)) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`getDateFromVCardProperty` converts text `Jun 9, 2022` to `new Date(2022, 5, 9)`.",
+   "covering_prose": "Modify `getDateFromVCardProperty` in `packages/shared/lib/contacts/property.ts` to use `guessDateFromText` for text-to-date conversion, returning existing valid dates unchanged.",
+   "gold_anchor": "const textToDate = guessDateFromText(text);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`getDateFromVCardProperty` converts text `2014-02-11T11:30:30` to `new Date(2014, 1, 11, 11, 30, 30)`.",
+   "covering_prose": "Modify `getDateFromVCardProperty` in `packages/shared/lib/contacts/property.ts` to use `guessDateFromText` for text-to-date conversion, returning existing valid dates unchanged.",
+   "gold_anchor": "const textToDate = guessDateFromText(text);",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

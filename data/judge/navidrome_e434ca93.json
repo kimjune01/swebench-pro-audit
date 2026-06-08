@@ -1,0 +1,46 @@
+{
+ "case": "navidrome_e434ca93",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 5,
+ "n_covered": 3,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When only r128_track_gain is present with value \"0\", RGTrackGain() returns 5.0.",
+   "covering_prose": null,
+   "gold_anchor": "return value + 5",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When only r128_track_gain is present with value \"-3776\", RGTrackGain() returns -9.75.",
+   "covering_prose": null,
+   "gold_anchor": "var value = float64(iValue) / 256.0",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When only r128_track_gain is present with value \"Infinity\", RGTrackGain() returns exactly 0.0.",
+   "covering_prose": "If the value of any gain tag is missing, not a valid number, or not a finite value, the scanner must return exactly 0.0 gain and must not raise an error.",
+   "gold_anchor": "if err != nil {\n\t\t\treturn 0\n\t\t}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When only r128_track_gain is present with value \"INVALID VALUE\", RGTrackGain() returns exactly 0.0.",
+   "covering_prose": "If the value of any gain tag is missing, not a valid number, or not a finite value, the scanner must return exactly 0.0 gain and must not raise an error.",
+   "gold_anchor": "if err != nil {\n\t\t\treturn 0\n\t\t}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "RGTrackGain() reads r128_track_gain as a fallback gain source when replaygain_track_gain is absent.",
+   "covering_prose": "The scanner must support reading gain values from both ReplayGain tags (`replaygain_album_gain`, `replaygain_track_gain`) and R128 gain tags (`r128_album_gain`, `r128_track_gain`) for both album and track gain fields.",
+   "gold_anchor": "return t.getGainValue(\"replaygain_track_gain\", \"r128_track_gain\")",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

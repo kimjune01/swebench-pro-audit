@@ -32,73 +32,57 @@ Receipt: reward ledger + isolated rerun.
 Verdict receipt: `data/cases/gold_fails_grader.defects.jsonl`; bundles in `data/cases/*_golddefect/`.
 The full gold-passes-verifier sweep across the public set (to find any beyond these 3) is **pending**.
 
-## KNOWN_AMBIGUOUS — the specification lottery, attributed by a typed witness
+## KNOWN_AMBIGUOUS — gold passes, but the graded behavior is not determinable from the solver's materials
 
-Gold passes its verifier, but the prose admits more than one defensible reading and the hidden test
-scores only the gold's. **Ambiguity is never a dangling pointer** — every ambiguous cell carries a
-**witness**.
+Gold passes its verifier, yet the behavior the hidden test scores is not pinned by what a solver is
+actually given.
 
-**The standard is not our internal rigor; it is the skeptic's reaction, per test case.** For each cell,
-ask: given the committed evidence, would an *adversarial* skeptic — the methodologist hunting to reject
-the claim (the DeepSWE-dossier persona), not a credulous reader — concede the ambiguity? Provide exactly
-the evidence that closes their most likely objection: no more (wasteful), no less (insufficient). The
-witness *form* is whatever does that for this case, chosen by obviousness, not a fixed hierarchy:
+**Construct-validity frame.** The solver has the **prose + the codebase at one commit**, nothing else.
+If the test-passing behavior requires *unspoken context* — a live migration to a new convention, a known
+local drift the maintainer wants normalized, plain author intent — that context is not in the solver's
+materials, so the task is underdetermined **as a benchmark instrument**. The maintainer privately
+knowing the answer does not make the task fair; it *is* the construct-validity failure (it tests insider
+knowledge, not capability). So "we cannot recover the rule" is the finding, not auditor weakness:
+neither the solver nor anyone else derives it from the snapshot.
 
-- **argument witness — the DEFAULT (obvious cases; most legible).** A prose existence proof, labeled
-  `witness: argument`, meeting four points: (1) quote the ambiguous clause; (2) name R1 = gold's reading
-  (with `gold.diff#L` anchor) and R2 = a defensible alternative; (3) point at the exact test assertion
-  that discriminates; (4) the failure of R2 is self-evident to a skeptic reading prose+test+gold. For an
-  obvious coinflip this is *more legible than a patch* — the reader sees the two readings directly
-  instead of reconstructing them from a diff.
-- **graded-patch witness — the ESCALATION (subtle / contestable; fleet).** A real prose-faithful patch,
-  graded red against the official test, labeled `witness: graded-patch`. Reserved for cases where a
-  reader could genuinely doubt that R2 is faithful or that it fails — i.e. where the demonstration must
-  be run, not argued. `gold.diff` (passes) + the produced patch (fails) are the two readings.
+**The standard is the adversarial skeptic's reaction, per cell** (the DeepSWE-dossier persona, not a
+credulous reader): provide exactly the evidence that makes *them* concede — no more, no less.
 
-Decision rule: **prose argument where the ambiguity is obvious; graded patch where it isn't.** Both are
-skeptic-checkable from committed files; the label tells the reader how hard the witness leans.
+**Exhaustive labeling of a finite grid.** The test set per task is fixed and small (qutebrowser's 11,
+etc.), so we label **every** graded behavior — the per-task verdict is complete, not a found example.
+Rows are pinned to the real test cases (granular `FAIL_TO_PASS` IDs, else the `it()`/`def test_`
+declarations parsed from the test file), so the row set is deterministic, not a free codex enumeration.
 
-**Per failed test behavior, the label is three-way (no probability):**
-- **right (DETERMINED)** — the prose *positively* determines the behavior (it enumerates/states it);
-  our failure was a capability gap, not the bench's. (qutebrowser: the prose lists the `is_url` matrix.)
-  Note the asymmetry: a patch *passing* never proves DETERMINED (could be happenstance/recall); only
-  positive coverage does. Absent that, the honest label is **"no witness found (provisional)."**
-- **ambiguous (COINFLIP)** — ≥2 prose-faithful readings, test pins one; carries an argument or
-  graded-patch witness per the rule above.
-- **wrong (DEFECTIVE)** — the test demands behavior the prose *contradicts*, or the gold is buggy ⇒
-  KNOWN_BAD-flavored.
+**Per-cell label (one of seven; the label sets the witness burden):**
 
-The test that decides ambiguous-vs-our-gap: **does `our_failed.diff` believably satisfy the prose
-requirements?** If yes (and it fails while gold passes) → COINFLIP. If no (our patch violates a stated
-requirement) → our capability gap. A skeptic checks it by reading both diffs against `spec.md`.
+| label | the behavior is… | witness (what the skeptic needs) |
+|---|---|---|
+| DETERMINED-prose | pinned by a prose clause | the verbatim clause (`spec.md#L`) — mechanical |
+| DETERMINED-codebase | pinned by a **consistent, binding** convention in the snapshot (no drift, no live migration) | the precedent + that it is consistent |
+| AMBIGUOUS-airtight | keyed to an arbitrary constant / novel unsourced choice present nowhere a solver reads | "value absent from prose+codebase, only in gold+test" — grep, unassailable |
+| AMBIGUOUS-codebase | a convention is relevant but **non-binding** — drift, mid-migration, or conflicting call sites | cite ≥2 coexisting patterns (`repo#L` × 2) + prose silence — grep-checkable |
+| AMBIGUOUS-borderline | a single plausible convention that *might* bind; a competent engineer *might* deviate | **escalate**: a decontaminated codebase-aware panel diverges, or a graded patch fails |
+| DEFECTIVE | test demands behavior the prose contradicts, or gold is buggy | the contradiction → KNOWN_BAD-flavored |
+| OUT-OF-SCOPE | not in gold (pre-existing scaffolding) | not in `gold.diff` |
+| UNKNOWN | cannot establish determined *or* ambiguous from the snapshot | — no claim |
 
-Rows are pinned to the **actual test cases** (granular `FAIL_TO_PASS` IDs where they exist, e.g.
-qutebrowser's 11; else the `it()`/`def test_` declarations parsed from the test file) so the row set is
-deterministic and not a free codex enumeration. Per row: the gold reading (gold anchor), our reading
-(from our patch), and the covering prose (blank = the gap).
+**Positive-evidence-only guard** (symmetric to "a passing patch never proves DETERMINED"). Claim
+ambiguity only on *positive* evidence — an absent constant (airtight) or a shown contradiction/drift
+(codebase) — never on failure-to-find a convention. Where we can neither find a binding convention nor
+show non-binding drift, the label is **UNKNOWN**, not ambiguous: we do not convert our own ignorance
+into a bench indictment. Most cells settle by grep (prose, airtight, codebase-drift); only
+AMBIGUOUS-borderline needs the fleet/panel + a graded patch (`gold.diff` passes / produced patch fails).
 
-**Data requirement:** this needs `our_failed.diff` per case. We have qutebrowser's (the autopsy); the
-others require a craft-capture run (per-assertion grade + captured patch), the `cap1` machinery.
+This closes the two holes the first codex sniff found: determinacy is judged against prose **and** the
+codebase snapshot (not prose alone), and the codebase itself can be non-binding (drift/migration);
+AMBIGUOUS claims are either grep-checkable (airtight, drift) or escalated to an independent panel
+(borderline), never resting on auditor-predicted "obviousness."
 
-**Current contents (1 candidate; 3 reclassified):** after the gold-anchored coverage pass,
-`qutebrowser`, `protonmail`, `element` came back **DETERMINED** (positive coverage) → OUR_CAPABILITY_GAPS,
-**not** ambiguous. Only `tutao` remains a KNOWN_AMBIGUOUS **candidate** (6 GAP behaviors). Nothing is
-confirmed: the panel + independent adjudication below have not run.
-
-## Two holes a codex sniff (2026-06-08) found — both must close before any ambiguity claim is audit-grade
-
-1. **Determinacy is judged against PROSE ONLY; a real solver also has the codebase, conventions, issue
-   context, and API semantics.** A blank (no prose clause) therefore does **not** establish
-   underdetermination — the behavior may be inferable from the repo. The coverage check must be extended
-   to "not determined by prose **and** not inferable from the codebase/conventions a from-prose solver
-   has," or the ambiguity claim collapses to "our solver missed a repo-inferable behavior."
-2. **R2 is auditor-constructed, not independently validated.** "Argument witness, chosen by obviousness"
-   lets the interested auditor pick R2, judge it defensible, and decide no patch is needed — not
-   audit-grade. R2 must be validated by an independent panel/raters (decontaminated, codebase-aware,
-   prose-only-for-the-test), not by us predicting the skeptic.
-
-Until both close, KNOWN_AMBIGUOUS entries are **candidates/screen-flagged**, never "proven," and the
-headline denominator language ("complement of admissible") does **not** apply.
+**Current contents:** after the gold-anchored pass, `qutebrowser`/`protonmail`/`element` →
+DETERMINED (positive coverage) → OUR_CAPABILITY_GAPS; `tutao` is the lone candidate (6 GAP behaviors),
+pending exhaustive re-labeling through the seven-label grid above. Nothing is "proven," and the headline
+denominator language ("complement of admissible") does **not** apply, until each fixed test case carries
+a positive-evidence label.
 
 ## Panel protocol ("world's best engineers, from the prose" proxy)
 

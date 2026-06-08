@@ -32,22 +32,39 @@ Receipt: reward ledger + isolated rerun.
 Verdict receipt: `data/cases/gold_fails_grader.defects.jsonl`; bundles in `data/cases/*_golddefect/`.
 The full gold-passes-verifier sweep across the public set (to find any beyond these 3) is **pending**.
 
-## KNOWN_AMBIGUOUS — the specification lottery, attributed to two real patches
+## KNOWN_AMBIGUOUS — the specification lottery, attributed by a typed witness
 
 Gold passes its verifier, but the prose admits more than one defensible reading and the hidden test
-scores only the gold's. **Ambiguity is never a dangling pointer.** It is attributed to **two concrete
-implementations**:
+scores only the gold's. **Ambiguity is never a dangling pointer** — every ambiguous cell carries a
+**witness**.
 
-- `gold.diff` — the maintainer's reading; **passes** the test.
-- `our_failed.diff` — our recon+craft patch; **fails** the test.
+**The standard is not our internal rigor; it is the skeptic's reaction, per test case.** For each cell,
+ask: given the committed evidence, would an *adversarial* skeptic — the methodologist hunting to reject
+the claim (the DeepSWE-dossier persona), not a credulous reader — concede the ambiguity? Provide exactly
+the evidence that closes their most likely objection: no more (wasteful), no less (insufficient). The
+witness *form* is whatever does that for this case, chosen by obviousness, not a fixed hierarchy:
+
+- **argument witness — the DEFAULT (obvious cases; most legible).** A prose existence proof, labeled
+  `witness: argument`, meeting four points: (1) quote the ambiguous clause; (2) name R1 = gold's reading
+  (with `gold.diff#L` anchor) and R2 = a defensible alternative; (3) point at the exact test assertion
+  that discriminates; (4) the failure of R2 is self-evident to a skeptic reading prose+test+gold. For an
+  obvious coinflip this is *more legible than a patch* — the reader sees the two readings directly
+  instead of reconstructing them from a diff.
+- **graded-patch witness — the ESCALATION (subtle / contestable; fleet).** A real prose-faithful patch,
+  graded red against the official test, labeled `witness: graded-patch`. Reserved for cases where a
+  reader could genuinely doubt that R2 is faithful or that it fails — i.e. where the demonstration must
+  be run, not argued. `gold.diff` (passes) + the produced patch (fails) are the two readings.
+
+Decision rule: **prose argument where the ambiguity is obvious; graded patch where it isn't.** Both are
+skeptic-checkable from committed files; the label tells the reader how hard the witness leans.
 
 **Per failed test behavior, the label is three-way (no probability):**
-- **right (ENTAILED)** — the prose determines the behavior; our patch failed it ⇒ *our capability gap*,
-  not the bench's. (e.g. qutebrowser: the prose enumerates the `is_url` matrix, so our divergent patch
-  was simply wrong against the stated behavior.)
-- **ambiguous (COINFLIP)** — gold's reading **and** our reading both plausibly satisfy the prose, yet
-  only gold passes. The two diffs *are* the two readings; the test discriminates on a choice the prose
-  never stated. Attributed to `gold.diff` + `our_failed.diff`.
+- **right (DETERMINED)** — the prose *positively* determines the behavior (it enumerates/states it);
+  our failure was a capability gap, not the bench's. (qutebrowser: the prose lists the `is_url` matrix.)
+  Note the asymmetry: a patch *passing* never proves DETERMINED (could be happenstance/recall); only
+  positive coverage does. Absent that, the honest label is **"no witness found (provisional)."**
+- **ambiguous (COINFLIP)** — ≥2 prose-faithful readings, test pins one; carries an argument or
+  graded-patch witness per the rule above.
 - **wrong (DEFECTIVE)** — the test demands behavior the prose *contradicts*, or the gold is buggy ⇒
   KNOWN_BAD-flavored.
 

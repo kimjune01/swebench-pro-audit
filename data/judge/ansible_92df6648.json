@@ -1,0 +1,60 @@
+{
+ "case": "ansible_92df6648",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Calling DataLoader.load_from_file('dummy_vault.txt', cache='none') on a vaulted file returns the parsed contents dict(foo='bar').",
+   "covering_prose": "- When called with `cache='none'`, the function must return the parsed contents of the given file and must not add any entry to the internal file cache.",
+   "gold_anchor": "def load_from_file(self, file_name: str, cache: str = 'all', unsafe: bool = False, json_only: bool = False) -> t.Any:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After loading the vaulted file with cache='none', the internal _FILE_CACHE is empty / falsey.",
+   "covering_prose": "- When called with `cache='none'`, the function must return the parsed contents of the given file and must not add any entry to the internal file cache.",
+   "gold_anchor": "if cache == 'all':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling DataLoader.load_from_file('dummy_vault.txt', cache='vaulted') on a vaulted file returns the parsed contents dict(foo='bar').",
+   "covering_prose": "- When called with `cache='vaulted'` on a vaulted file, the function must return the parsed contents of the file and also add the parsed result into the internal file cache.",
+   "gold_anchor": "elif cache == 'vaulted' and not show_content:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After loading the vaulted file with cache='vaulted', the internal _FILE_CACHE contains an entry / is truthy.",
+   "covering_prose": "- The internal file cache must remain empty if only `cache='none'` is used, and must contain an entry if `cache='vaulted'` is used on a vaulted file.",
+   "gold_anchor": "elif cache == 'vaulted' and not show_content:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After replacing the cached value with {'changed': True}, a subsequent load_from_file('dummy_vault.txt', cache='vaulted') returns {'changed': True}, proving the cache entry is used instead of rereading the file.",
+   "covering_prose": "- When a file has already been loaded with `cache='vaulted'`, a subsequent call to `load_from_file` with the same parameters must return the cached result from the internal file cache instead of re-reading the file.",
+   "gold_anchor": "if cache != 'none' and file_name in self._FILE_CACHE:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The test mock loader load_from_file signature accepts a string cache default of 'all'.",
+   "covering_prose": "- The function `DataLoader.load_from_file` must accept a `cache` parameter with at least the values `'none'` and `'vaulted'`.",
+   "gold_anchor": "def load_from_file(self, file_name: str, cache: str = 'all', unsafe: bool = False, json_only: bool = False) -> t.Any:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The notyaml inventory plugin calls load_from_file with cache='none' instead of cache=False.",
+   "covering_prose": "- When called with `cache='none'`, the function must return the parsed contents of the given file and must not add any entry to the internal file cache.",
+   "gold_anchor": "config = self.loader.load_from_file(path, cache='none')",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

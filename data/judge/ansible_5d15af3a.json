@@ -1,0 +1,39 @@
+{
+ "case": "ansible_5d15af3a",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For env_var \"foo\", when os.environ.get returns \"bar\", env_lookup.run([\"foo\"], None) returns [\"bar\"].",
+   "covering_prose": "The plugin should retrieve each environment variable directly from `os.environ` via `os.environ.get()`, return a list with the values in the same order they were requested, and support UTF\u20118 characters without additional conversions.",
+   "gold_anchor": "val = os.environ.get(var, d)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For env_var \"equation\", when os.environ.get returns \"a=b*100\", env_lookup.run([\"equation\"], None) returns [\"a=b*100\"].",
+   "covering_prose": "The plugin should retrieve each environment variable directly from `os.environ` via `os.environ.get()`, return a list with the values in the same order they were requested, and support UTF\u20118 characters without additional conversions.",
+   "gold_anchor": "ret.append(val)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For env_var \"simple_var\", when os.environ.get returns \"alpha-\u03b2-gamma\", env_lookup.run([\"simple_var\"], None) returns [\"alpha-\u03b2-gamma\"].",
+   "covering_prose": "It must support UTF\u20118 values and return the strings exactly as provided by `os.environ`, without alterations.",
+   "gold_anchor": "val = os.environ.get(var, d)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For env_var \"the_var\", when os.environ.get returns \"\u00e3n\u02c8si\u03b2le\", env_lookup.run([\"the_var\"], None) returns [\"\u00e3n\u02c8si\u03b2le\"].",
+   "covering_prose": "It must support UTF\u20118 values and return the strings exactly as provided by `os.environ`, without alterations.",
+   "gold_anchor": "ret.append(val)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

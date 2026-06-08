@@ -1,0 +1,39 @@
+{
+ "case": "ansible_a77dbf08",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "subprocess path: with ansible_winrm_kinit_args='-f -p' and no delegation, kinit is invoked as [\"kinit\", \"-f\", \"-p\", \"user@domain\"], with the two flags split into separate tokens before the principal.",
+   "covering_prose": "Argument strings supplied through ansible_winrm_kinit_args should be parsed so that multiple flags separated by spaces are handled correctly and passed as separate tokens to the underlying command.",
+   "gold_anchor": "kinit_args = [to_text(a) for a in shlex.split(kinit_args) if a.strip()]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "subprocess path: when ansible_winrm_kerberos_delegation is true and ansible_winrm_kinit_args='-p', kinit is invoked as [\"kinit\", \"-p\", \"user@domain\"] with no automatic '-f'.",
+   "covering_prose": "If both ansible_winrm_kerberos_delegation is true and ansible_winrm_kinit_args is set, the arguments from ansible_winrm_kinit_args should take precedence, and no default delegation flag should be added automatically. ",
+   "gold_anchor": "elif boolean(self.get_option('_extras').get('ansible_winrm_kerberos_delegation', False)):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "pexpect path: with ansible_winrm_kinit_args='-f -p' and no delegation, pexpect receives executable \"kinit\" and args [\"-f\", \"-p\", \"user@domain\"], matching the subprocess command content.",
+   "covering_prose": "The behavior must be consistent across both subprocess-based and pexpect-based execution paths for Kerberos authentication within the plugin.",
+   "gold_anchor": "kinit_cmdline.extend(kinit_args)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "pexpect path: when ansible_winrm_kerberos_delegation is true and ansible_winrm_kinit_args='-p', pexpect receives executable \"kinit\" and args [\"-p\", \"user@domain\"], with no automatic '-f'.",
+   "covering_prose": "If both ansible_winrm_kerberos_delegation is true and ansible_winrm_kinit_args is set, the arguments from ansible_winrm_kinit_args should take precedence, and no default delegation flag should be added automatically. ",
+   "gold_anchor": "kinit_cmdline.extend(kinit_args)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

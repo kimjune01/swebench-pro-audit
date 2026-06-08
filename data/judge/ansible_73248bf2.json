@@ -1,0 +1,235 @@
+{
+ "case": "ansible_73248bf2",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 28,
+ "n_covered": 28,
+ "n_gap": 0,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "The module must accept connection parameters and fail early in the integration playbook if netapp_e_api_username, netapp_e_api_password, netapp_e_api_host, or netapp_e_ssid is undefined.",
+   "covering_prose": "It must integrate with the standard E-Series connection parameters (`api_url`, `api_username`, `ssid`, etc.).",
+   "gold_anchor": "extends_documentation_fragment:\n    - netapp.eseries",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The module accepts a list of firmware file paths for downgrade/baseline, upgrade check mode, upgrade, no-change upgrade, and downgrade runs.",
+   "covering_prose": "A new module, `netapp_e_drive_firmware`, should be created that accepts a list of drive firmware file paths.",
+   "gold_anchor": "firmware=dict(type=\"list\", required=True)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When called with wait_for_completion: true, the task waits until firmware changes are complete before the integration test checks drive versions.",
+   "covering_prose": "If `wait_for_completion` is `True`, block on `wait_for_upgrade_completion()` and update the indicator accordingly.",
+   "gold_anchor": "if self.wait_for_completion:\n            self.wait_for_upgrade_completion()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When called with ignore_inaccessible_drives: true, inaccessible affected drives do not cause the integration firmware runs to fail.",
+   "covering_prose": "Exclude drives that are offline or unavailable unless `ignore_inaccessible_drives` is `True`.",
+   "gold_anchor": "if self.ignore_inaccessible_drives or (not drive_info[\"offline\"] and drive_info[\"available\"]):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When called with upgrade_drives_online: false, the upgrade request uses offline mode rather than online update.",
+   "covering_prose": "Implement `upgrade()` to initiate the upgrade for the drives returned by `upgrade_list()`, using an online/offline flag that reflects `upgrade_drives_online`, and set an internal \u201cupgrade in progress\u201d indicator when the request is accepted.",
+   "gold_anchor": "\"true\" if self.upgrade_drives_online else \"false\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In check mode, when an upgrade would be required, the module reports changed true.",
+   "covering_prose": "The final result must exit with `changed: True` iff `upgrade_list()` is non-empty (this holds even in check mode), and include `upgrade_in_process` reflecting the current upgrade-in-progress indicator.",
+   "gold_anchor": "changed=True if self.upgrade_list() else False",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In check mode, when an upgrade would be required, the module does not actually update drive firmware; later drive-version assertions still expect the downgrade versions.",
+   "covering_prose": "only when not in check mode and the list is non-empty, all `upgrade()`.",
+   "gold_anchor": "if self.upgrade_list() and not self.module.check_mode:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a real upgrade run, the module reports changed true.",
+   "covering_prose": "The final result must exit with `changed: True` iff `upgrade_list()` is non-empty (this holds even in check mode), and include `upgrade_in_process` reflecting the current upgrade-in-progress indicator.",
+   "gold_anchor": "changed=True if self.upgrade_list() else False",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a real upgrade run, drives with productID PX04SVQ160 must report softwareVersion MS00 when checked against the provided upgrade firmware set.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After a real upgrade run, drives with productID ST1200MM0017 must report softwareVersion MS02 when checked against the provided upgrade firmware set.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When the same upgrade firmware is applied again and no drive requires an update, the module reports changed false.",
+   "covering_prose": "The final result must exit with `changed: True` iff `upgrade_list()` is non-empty (this holds even in check mode), and include `upgrade_in_process` reflecting the current upgrade-in-progress indicator.",
+   "gold_anchor": "changed=True if self.upgrade_list() else False",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a downgrade run, the module reports changed true.",
+   "covering_prose": "The final result must exit with `changed: True` iff `upgrade_list()` is non-empty (this holds even in check mode), and include `upgrade_in_process` reflecting the current upgrade-in-progress indicator.",
+   "gold_anchor": "changed=True if self.upgrade_list() else False",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a downgrade run, drives with productID PX04SVQ160 must report softwareVersion MSB6 when checked against the provided downgrade firmware set.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After a downgrade run, drives with productID ST1200MM0017 must report softwareVersion MS00 when checked against the provided downgrade firmware set.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The wait loop polls drive firmware state every 5 seconds.",
+   "covering_prose": "Description: Polls /firmware/drives/state every 5 s until each targeted drive reports okay, or a failure/timeout occurs.",
+   "gold_anchor": "sleep(5)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The wait loop uses a timeout constant exposed as WAIT_TIMEOUT_SEC.",
+   "covering_prose": "Use a timeout exposed as `WAIT_TIMEOUT_SEC`; on timeout, abort with a failure message containing `\"Timed out waiting for drive firmware upgrade.\"`",
+   "gold_anchor": "WAIT_TIMEOUT_SEC = 60 * 15",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The upload path POSTs each firmware file to /files/drive.",
+   "covering_prose": "Description: Iterates over self.firmware_list, builds multipart payloads, and POSTs each firmware file to /files/drive on the controller.",
+   "gold_anchor": "self.request(\"/files/drive\", method=\"POST\", headers=headers, data=data)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On upload failure, fail_json message contains Failed to upload drive firmware and identifies firmware file and array.",
+   "covering_prose": "on any upload failure, abort with a failure message that includes the substring `\"Failed to upload drive firmware\"` and identifies the firmware file and array.",
+   "gold_anchor": "msg=\"Failed to upload drive firmware [%s]. Array [%s]. Error [%s].\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "upgrade_list returns dict entries shaped with filename and driveRefList only when a drive reference list is non-empty.",
+   "covering_prose": "returns a list of dicts shaped like `{\"filename\": <basename>, \"driveRefList\": [<driveRef>...]}` only for drives that require an update (current version differs and target version is supported for that model).",
+   "gold_anchor": "{\"filename\": filename, \"driveRefList\": drive_reference_list}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "upgrade_list restricts compatibility processing to os.path.basename of each provided firmware file.",
+   "covering_prose": "restricts processing to the basename of each provided firmware file",
+   "gold_anchor": "filename = os.path.basename(firmware)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If a drive is not online-upgrade capable while upgrade_drives_online is true, fail_json contains Drive is not capable of online upgrade.",
+   "covering_prose": "When `upgrade_drives_online` is `True` and a drive is not online-upgrade capable, abort with a failure message containing `\"Drive is not capable of online upgrade.\"`",
+   "gold_anchor": "msg=\"Drive is not capable of online upgrade. Array [%s]. Drive [%s].\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If compatibility or health fetch fails, fail_json contains Failed to complete compatibility and health check.",
+   "covering_prose": "If the compatibility/health fetch fails, abort with a failure message containing `\"Failed to complete compatibility and health check.\"`",
+   "gold_anchor": "msg=\"Failed to complete compatibility and health check. Array [%s]. Error [%s].\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If per-drive lookup fails, fail_json contains Failed to retrieve drive information.",
+   "covering_prose": "If a per-drive lookup fails, abort with a failure message containing `\"Failed to retrieve drive information.\"`",
+   "gold_anchor": "msg=\"Failed to retrieve drive information. Array [%s]. Drive [%s]. Error [%s].\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "wait_for_upgrade_completion treats status okay as completed for a targeted drive.",
+   "covering_prose": "treat `\"okay\"` as completed",
+   "gold_anchor": "if status[\"status\"] == \"okay\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "wait_for_upgrade_completion treats inProgress, inProgressRecon, pending, and notAttempted as still in progress.",
+   "covering_prose": "Treat statuses `\"inProgress\"`, `\"inProgressRecon\"`, `\"pending\"`, and `\"notAttempted\"` as still in progress",
+   "gold_anchor": "elif status[\"status\"] in [\"inProgress\", \"inProgressRecon\", \"pending\", \"notAttempted\"]:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "wait_for_upgrade_completion fails on any other targeted drive status with message containing Drive firmware upgrade failed.",
+   "covering_prose": "any other status for a targeted drive must abort with a failure message containing `\"Drive firmware upgrade failed.\"`",
+   "gold_anchor": "msg=\"Drive firmware upgrade failed. Array [%s]. Drive [%s]. Status [%s].\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If drive-state fetch fails, fail_json contains Failed to retrieve drive status.",
+   "covering_prose": "If the drive-state fetch fails, abort with a failure message containing `\"Failed to retrieve drive status.\"`",
+   "gold_anchor": "msg=\"Failed to retrieve drive status. Array [%s]. Error [%s].\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On successful wait completion, upgrade_in_progress is cleared false.",
+   "covering_prose": "On successful completion, clear the internal upgrade-in-progress indicator.",
+   "gold_anchor": "self.upgrade_in_progress = False",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "upgrade posts to /firmware/drives/initiate-upgrade and sets upgrade_in_progress true when request is accepted.",
+   "covering_prose": "Description: Posts the upgrade request to /firmware/drives/initiate-upgrade, optionally waits for completion, and records whether an upgrade is still in progress.",
+   "gold_anchor": "self.upgrade_in_progress = True",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On upgrade request failure, fail_json contains Failed to upgrade drive firmware.",
+   "covering_prose": "On request failure, abort with a failure message containing `\"Failed to upgrade drive firmware.\"`",
+   "gold_anchor": "msg=\"Failed to upgrade drive firmware. Array [%s]. Error [%s].\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "apply uploads firmware before computing upgrade_list and before triggering upgrade.",
+   "covering_prose": "Implement `apply()` to orchestrate the sequence: call `upload_firmware()`, compute `upgrade_list()`, and only when not in check mode and the list is non-empty, all `upgrade()`.",
+   "gold_anchor": "self.upload_firmware()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "main instantiates NetAppESeriesDriveFirmware and invokes apply.",
+   "covering_prose": "Ensure `main()` instantiates `NetAppESeriesDriveFirmware` and invokes `apply()` when executed as a script.",
+   "gold_anchor": "drive_firmware.apply()",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

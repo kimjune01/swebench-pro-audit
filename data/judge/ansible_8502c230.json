@@ -1,0 +1,32 @@
+{
+ "case": "ansible_8502c230",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`async_wrapper._run_module` is callable with exactly two arguments, `command` and `jobid`, with no `jobpath` argument.",
+   "covering_prose": "Function: `jwrite`\nLocation: `lib/ansible/modules/async_wrapper.py`\nInputs: `info` (dict), JSON-serializable job status or result.\nOutputs: No return value; atomically writes `info` by serializing to `<job_path>.tmp` and renaming to `job_path`. Raises on I/O errors after logging them via `notice`.",
+   "gold_anchor": "def _run_module(wrapped_cmd, jid):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`_run_module` uses the module-level `job_path` value when writing the job result file.",
+   "covering_prose": "Description: Writes job status/results to the global `job_path` in an atomic manner, ensuring the job file is never left partially written.",
+   "gold_anchor": "global job_path",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`_run_module` writes the job result to the path stored in `async_wrapper.job_path`, so the test can open that job file after `_run_module(command, jobid)` returns.",
+   "covering_prose": "Outputs: No return value; atomically writes `info` by serializing to `<job_path>.tmp` and renaming to `job_path`. Raises on I/O errors after logging them via `notice`.",
+   "gold_anchor": "os.rename(jobfile, job_path)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "case": "ansible_68e270d4",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "On Fedora facts, when /usr/bin/dnf exists and os.path.realpath('/usr/bin/dnf') is /usr/bin/dnf-3, collect(...).get('pkg_mgr') returns 'dnf'.",
+   "covering_prose": "- On Fedora systems (where 'ansible_distribution' equals 'Fedora') in which `/usr/bin/dnf` exists, the result of `os.path.realpath('/usr/bin/dnf')` determines the version: if it points to `/usr/bin/dnf5`, the 'pkg_mgr' value must be 'dnf5'; otherwise it must be 'dnf'.",
+   "gold_anchor": "pkg_mgr_name = 'dnf5' if os.path.realpath(bin_path) == '/usr/bin/dnf5' else 'dnf'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On Fedora facts, when /usr/bin/dnf exists and os.path.realpath('/usr/bin/dnf') is /usr/bin/dnf5, collect(...).get('pkg_mgr') returns 'dnf5'.",
+   "covering_prose": "- On Fedora systems (where 'ansible_distribution' equals 'Fedora') in which `/usr/bin/dnf` exists, the result of `os.path.realpath('/usr/bin/dnf')` determines the version: if it points to `/usr/bin/dnf5`, the 'pkg_mgr' value must be 'dnf5'; otherwise it must be 'dnf'.",
+   "gold_anchor": "pkg_mgr_name = 'dnf5' if os.path.realpath(bin_path) == '/usr/bin/dnf5' else 'dnf'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On Fedora facts, when /usr/bin/dnf, /usr/bin/dnf-3, and /usr/bin/dnf5 all exist and os.path.realpath('/usr/bin/dnf') is /usr/bin/dnf-3, collect(...).get('pkg_mgr') returns 'dnf'.",
+   "covering_prose": "- \u00a0When both `dnf-3` (dnf 4) and `dnf5` coexist, the selection is always determined by the real target of `/usr/bin/dnf`; the simultaneous presence of other binaries (`/usr/bin/dnf-3`, `/usr/bin/dnf5`, `/usr/bin/microdnf`) must not override that priority.",
+   "gold_anchor": "for bin_path in ('/usr/bin/dnf', '/usr/bin/microdnf'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On Fedora facts, when /usr/bin/dnf, /usr/bin/microdnf, /usr/bin/dnf-3, and /usr/bin/dnf5 all exist, os.path.realpath('/usr/bin/dnf') is /usr/bin/dnf-3, and os.path.realpath('/usr/bin/microdnf') is /usr/bin/dnf5, collect(...).get('pkg_mgr') returns 'dnf'.",
+   "covering_prose": "- \u00a0When both `dnf-3` (dnf 4) and `dnf5` coexist, the selection is always determined by the real target of `/usr/bin/dnf`; the simultaneous presence of other binaries (`/usr/bin/dnf-3`, `/usr/bin/dnf5`, `/usr/bin/microdnf`) must not override that priority.",
+   "gold_anchor": "break",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On Fedora facts, when /usr/bin/dnf does not exist and only /usr/bin/microdnf exists, collect(...).get('pkg_mgr') returns 'dnf'.",
+   "covering_prose": "- \u00a0If `/usr/bin/dnf` does not exist but `/usr/bin/microdnf` does, the same resolution criterion applies: if it resolves to `/usr/bin/dnf5`, the method must return 'dnf5'; in any other case, it must return 'dnf'.",
+   "gold_anchor": "pkg_mgr_name = 'dnf5' if os.path.realpath(bin_path) == '/usr/bin/dnf5' else 'dnf'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On Fedora facts, when /usr/bin/dnf does not exist, /usr/bin/microdnf exists, /usr/bin/dnf5 exists, and os.path.realpath('/usr/bin/microdnf') is /usr/bin/dnf5, collect(...).get('pkg_mgr') returns 'dnf5'.",
+   "covering_prose": "- \u00a0If `/usr/bin/dnf` does not exist but `/usr/bin/microdnf` does, the same resolution criterion applies: if it resolves to `/usr/bin/dnf5`, the method must return 'dnf5'; in any other case, it must return 'dnf'.",
+   "gold_anchor": "pkg_mgr_name = 'dnf5' if os.path.realpath(bin_path) == '/usr/bin/dnf5' else 'dnf'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On Fedora facts, when neither /usr/bin/dnf nor /usr/bin/microdnf exists and only /usr/bin/dnf-3 and /usr/bin/dnf5 exist, collect(...).get('pkg_mgr') returns 'unknown'.",
+   "covering_prose": "- If neither `/usr/bin/dnf` nor `/usr/bin/microdnf` are present, and only secondary binaries (`/usr/bin/dnf-3`, `/usr/bin/dnf5`) exist, `PkgMgrFactCollector` must leave 'pkg_mgr' as 'unknown'.",
+   "gold_anchor": "pkg_mgr_name = self._default_unknown_pkg_mgr",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,81 @@
+{
+ "case": "ansible_a870e7d0",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "ensure_type accepts an origin_ftype argument when called as ensure_type(value, value_type, origin, origin_ftype), avoiding a TypeError for the four-argument call used by the test.",
+   "covering_prose": "The `ensure_type` function signature must include an `origin_ftype` parameter, which is used to determine when unquoting applies.",
+   "gold_anchor": "def ensure_type(value, value_type, origin=None, origin_ftype=None):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a string value from an environment-variable origin (`origin` = `env: ENVVAR`, `origin_ftype` = null), ensure_type preserves the surrounding double quotes: input `\"value\"` returns `\"value\"`.",
+   "covering_prose": "This issue affects only strings sourced from INI files; environment variables and other sources are not impacted.",
+   "gold_anchor": "if origin_ftype and origin_ftype == 'ini':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a string value from a YAML origin (`origin_ftype` = `yaml`), ensure_type preserves the surrounding double quotes: input `\"value\"` returns `\"value\"`.",
+   "covering_prose": "This issue affects only strings sourced from INI files; environment variables and other sources are not impacted.",
+   "gold_anchor": "if origin_ftype and origin_ftype == 'ini':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a string value from an INI origin (`origin_ftype` = `ini`), ensure_type removes one outer pair of double quotes: input `\"value\"` returns `value`.",
+   "covering_prose": "Configuration values retrieved from INI files must have surrounding single or double quotes automatically removed during type coercion when the declared type is `\"str\"`.",
+   "gold_anchor": "value = unquote(value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a string value from an INI origin (`origin_ftype` = `ini`), ensure_type removes one outer pair of single quotes: input `'value'` returns `value`.",
+   "covering_prose": "Configuration values retrieved from INI files must have surrounding single or double quotes automatically removed during type coercion when the declared type is `\"str\"`.",
+   "gold_anchor": "value = unquote(value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a string value from an INI origin with doubled single quotes, ensure_type unquotes only one outer layer: input `''value''` returns `'value'`.",
+   "covering_prose": "Unquoting must remove only one outer pair of matching quotes (single `'...'` or double `\"...\"`), leaving any inner quotes intact.",
+   "gold_anchor": "value = unquote(value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a string value from an INI origin with doubled double quotes, ensure_type unquotes only one outer layer: input `\"\"value\"\"` returns `\"value\"`.",
+   "covering_prose": "Unquoting must remove only one outer pair of matching quotes (single `'...'` or double `\"...\"`), leaving any inner quotes intact.",
+   "gold_anchor": "value = unquote(value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A string configuration value read through the config lookup from an INI file as `str_mustunquote = 'foo'` is returned as `foo` without the surrounding quotes.",
+   "covering_prose": "Strings from INI files should have surrounding quotes removed:",
+   "gold_anchor": "value = ensure_type(value, defs[config].get('type'), origin=origin, origin_ftype=origin_ftype)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a value is found in an INI configuration file, get_config_value_and_origin records the file type so ensure_type can treat the origin type as `ini`.",
+   "covering_prose": "The `get_config_value_and_origin` function should assign the retrieved value along with its origin details when the value comes from an INI file.",
+   "gold_anchor": "origin_ftype = ftype",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The INI-sourced string config lookup result has type `AnsibleUnsafeText`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

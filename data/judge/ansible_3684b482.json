@@ -1,0 +1,67 @@
+{
+ "case": "ansible_3684b482",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 4,
+ "n_covered": 3,
+ "n_gap": 1,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "TaskExecutor can be constructed without passing a new_stdin keyword argument.",
+   "covering_prose": "Support connection initialization in `WorkerProcess` and `TaskQueueManager` without requiring the `new_stdin` argument to allow creation of connections and executor contexts using the updated signature.",
+   "gold_anchor": "def __init__(self, host, task, job_vars, play_context, loader, shared_loader_obj, final_q, variable_manager):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TaskExecutor positional construction accepts 8 arguments after self instead of requiring the former new_stdin positional argument.",
+   "covering_prose": "Support connection initialization in `WorkerProcess` and `TaskQueueManager` without requiring the `new_stdin` argument to allow creation of connections and executor contexts using the updated signature.",
+   "gold_anchor": "def __init__(self, host, task, job_vars, play_context, loader, shared_loader_obj, final_q, variable_manager):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TaskExecutor no longer passes a stored new_stdin value into TaskExecutor connection creation; it passes new_stdin=None for backwards-compatible connection plugins.",
+   "covering_prose": "Support connection initialization in `WorkerProcess` and `TaskQueueManager` without requiring the `new_stdin` argument to allow creation of connections and executor contexts using the updated signature.",
+   "gold_anchor": "new_stdin=None,  # No longer used, kept for backwards compat for plugins that explicitly accept this as an arg",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "connection_loader.get('local', play_context) succeeds without a third new_stdin argument.",
+   "covering_prose": "Support connection initialization in `connection_loader` for `ssh`, `winrm`, `psrp`, and `local` without requiring the `new_stdin` argument, allowing connections and executor contexts to be created using the updated signature.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "connection_loader.get('psrp', play_context) succeeds without a third new_stdin argument.",
+   "covering_prose": "Support connection initialization in `connection_loader` for `ssh`, `winrm`, `psrp`, and `local` without requiring the `new_stdin` argument, allowing connections and executor contexts to be created using the updated signature.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "connection_loader.get('ssh', play_context) succeeds without a third new_stdin argument.",
+   "covering_prose": "Support connection initialization in `connection_loader` for `ssh`, `winrm`, `psrp`, and `local` without requiring the `new_stdin` argument, allowing connections and executor contexts to be created using the updated signature.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "connection_loader.get('winrm', play_context) succeeds without a third new_stdin argument.",
+   "covering_prose": "Support connection initialization in `connection_loader` for `ssh`, `winrm`, `psrp`, and `local` without requiring the `new_stdin` argument, allowing connections and executor contexts to be created using the updated signature.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "lib/ansible/plugins/connection/__init__.py is no longer ignored for pylint:ansible-deprecated-version in test/sanity/ignore.txt.",
+   "covering_prose": null,
+   "gold_anchor": "class ConnectionKwargs(t.TypedDict):",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "case": "ansible_6382ea16",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "constraints.txt uses a single unconditional `pywinrm >= 0.4.3  # support for Python 3.11` requirement instead of Python-version-split pywinrm requirements.",
+   "covering_prose": "It is important to review all version-specific references in constraints, requirements, conditional logic, and deprecated comments to ensure a comprehensive and coordinated transition.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Python 3.10 is listed in `REMOTE_ONLY_PYTHON_VERSIONS`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Python 3.10 is not listed in `CONTROLLER_PYTHON_VERSIONS`.",
+   "covering_prose": "Currently, the Ansible controller supports Python 3.10 as its minimum version.",
+   "gold_anchor": "-            - test: '3.10'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`test/sanity/ignore.txt` no longer ignores `lib/ansible/galaxy/collection/__init__.py pylint:ansible-deprecated-version-comment  # 2.18 deprecation`.",
+   "covering_prose": "All references to older Python versions in comments or conditional branches should be removed or simplified to align with the new minimum version.",
+   "gold_anchor": "-            # Remove this once py3.11 is our controller minimum",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`_extract_tar_dir` does not rely on `_ansible_normalized_cache` being present on the tar object.",
+   "covering_prose": "The function install_artifact in lib/ansible/galaxy/collection/__init__.py must not create, populate, or read the private attribute _ansible_normalized_cache on any TarFile instance.",
+   "gold_anchor": "tar_member = tar.getmember(dirname)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`_extract_tar_dir` calls `tar.getmember(dirname)` to find the directory member.",
+   "covering_prose": "In lib/ansible/galaxy/collection/__init__.py, _extract_tar_dir must pass the incoming dirname unchanged to tar.getmember(dirname) and raise ansible.errors.AnsibleError with the exact message \"Unable to extract '%s' from collection\" if the member is missing.",
+   "gold_anchor": "tar_member = tar.getmember(dirname)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`_extract_tar_dir` passes the incoming dirname unchanged, so `'/some/dir/'` is not normalized to `'/some/dir'` before lookup.",
+   "covering_prose": "In lib/ansible/galaxy/collection/__init__.py, _extract_tar_dir must pass the incoming dirname unchanged to tar.getmember(dirname) and raise ansible.errors.AnsibleError with the exact message \"Unable to extract '%s' from collection\" if the member is missing.",
+   "gold_anchor": "dirname = to_native(dirname, errors='surrogate_or_strict')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unit test requirements for `bcrypt`, `passlib`, `pexpect`, and `pywinrm` use `python_version >= '3.11'` rather than `python_version >= '3.10'`.",
+   "covering_prose": "Currently, the Ansible controller supports Python 3.10 as its minimum version.",
+   "gold_anchor": "python_requires = >=3.11",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

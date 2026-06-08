@@ -1,0 +1,116 @@
+{
+ "case": "ansible_9281148b",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 15,
+ "n_covered": 14,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "isidentifier(\"foo\") returns True",
+   "covering_prose": "On Python 3: validation must use str.isidentifier() in combination with keyword.iskeyword(), after enforcing ASCII-only input.",
+   "gold_anchor": "if not ident.isidentifier():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\"foo1_23\") returns True",
+   "covering_prose": "On Python 3: validation must use str.isidentifier() in combination with keyword.iskeyword(), after enforcing ASCII-only input.",
+   "gold_anchor": "if not ident.isidentifier():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\"pass\") returns False",
+   "covering_prose": "On Python 3: validation must use str.isidentifier() in combination with keyword.iskeyword(), after enforcing ASCII-only input.",
+   "gold_anchor": "if keyword.iskeyword(ident):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\"foo \") returns False",
+   "covering_prose": "The implementation must characterize empty strings and strings containing whitespaces as invalid identifiers.",
+   "gold_anchor": "if not ident.isidentifier():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\" foo\") returns False",
+   "covering_prose": "The implementation must characterize empty strings and strings containing whitespaces as invalid identifiers.",
+   "gold_anchor": "if not ident.isidentifier():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\"1234\") returns False",
+   "covering_prose": "On Python 3: validation must use str.isidentifier() in combination with keyword.iskeyword(), after enforcing ASCII-only input.",
+   "gold_anchor": "if not ident.isidentifier():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\"1234abc\") returns False",
+   "covering_prose": "On Python 3: validation must use str.isidentifier() in combination with keyword.iskeyword(), after enforcing ASCII-only input.",
+   "gold_anchor": "if not ident.isidentifier():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\"\") returns False",
+   "covering_prose": "The implementation must characterize empty strings and strings containing whitespaces as invalid identifiers.",
+   "gold_anchor": "if not ident:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\"   \") returns False",
+   "covering_prose": "The implementation must characterize empty strings and strings containing whitespaces as invalid identifiers.",
+   "gold_anchor": "if not ident.isidentifier():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\"foo bar\") returns False",
+   "covering_prose": "The implementation must characterize empty strings and strings containing whitespaces as invalid identifiers.",
+   "gold_anchor": "if not ident.isidentifier():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\"no-dashed-names-for-you\") returns False",
+   "covering_prose": null,
+   "gold_anchor": "if not ident.isidentifier():",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "isidentifier(\"True\") returns False",
+   "covering_prose": "On Python 2: reject identifiers that are keyword.iskeyword() or one of \"True\", \"False\", \"None\".",
+   "gold_anchor": "ADDITIONAL_PY2_KEYWORDS = frozenset((\"True\", \"False\", \"None\"))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\"False\") returns False",
+   "covering_prose": "On Python 2: reject identifiers that are keyword.iskeyword() or one of \"True\", \"False\", \"None\".",
+   "gold_anchor": "ADDITIONAL_PY2_KEYWORDS = frozenset((\"True\", \"False\", \"None\"))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\"None\") returns False",
+   "covering_prose": "On Python 2: reject identifiers that are keyword.iskeyword() or one of \"True\", \"False\", \"None\".",
+   "gold_anchor": "ADDITIONAL_PY2_KEYWORDS = frozenset((\"True\", \"False\", \"None\"))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "isidentifier(\"k\u0159\u00ed\u017eek\") returns False",
+   "covering_prose": "Non-ASCII characters are not allowed as valid identifiers",
+   "gold_anchor": "ident.encode('ascii')",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

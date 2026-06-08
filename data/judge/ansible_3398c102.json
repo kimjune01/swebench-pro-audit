@@ -1,0 +1,74 @@
+{
+ "case": "ansible_3398c102",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "A stderr value consisting only of a valid CLIXML error block is returned as the decoded bytes `b\"My error\"`.",
+   "covering_prose": "Stderr should be returned as readable bytes with any valid CLIXML content replaced by its decoded text.",
+   "gold_anchor": "lines.append(decoded_clixml)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When valid CLIXML is surrounded by non-CLIXML lines, the pre-line and post-line remain in order and only the CLIXML block is replaced, producing `b\"pre\\r\\nMy error\\r\\npost\"`.",
+   "covering_prose": "_replace_stderr_clixml should parse CLIXML content using `_parse_clixml`, replace the original CLIXML block with the decoded text, and preserve any surrounding data (including trailing bytes on the same line) in the correct order, keeping all non-CLIXML lines unchanged.",
+   "gold_anchor": "lines.append(line)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When bytes remain after the closing `</Objs>` tag on the same line, those trailing bytes are preserved after the decoded CLIXML text, producing `b\"pre\\r\\nMy errorinline\\r\\npost\"`.",
+   "covering_prose": "_replace_stderr_clixml should parse CLIXML content using `_parse_clixml`, replace the original CLIXML block with the decoded text, and preserve any surrounding data (including trailing bytes on the same line) in the correct order, keeping all non-CLIXML lines unchanged.",
+   "gold_anchor": "remaining = line[end_idx + 7 :]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A CLIXML block containing invalid UTF-8 byte `b\"\\x82\"` is decoded with cp437 and re-encoded as UTF-8, producing `\"My \u00e9rror\".encode(\"utf-8\")`.",
+   "covering_prose": "_replace_stderr_clixml should decode CLIXML data as UTF-8, and if decoding fails, it should fall back to Windows codepage cp437 before re-encoding to UTF-8.",
+   "gold_anchor": "clixml_text = clixml.decode(\"cp437\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A CLIXML sequence split across lines where the line immediately after the header lacks the closing tag is returned unchanged.",
+   "covering_prose": "_replace_stderr_clixml should handle parsing errors or incomplete CLIXML blocks by leaving the original data unchanged, including cases where the sequence is split across lines or lacks a closing tag.",
+   "gold_anchor": "if end_idx == -1:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Malformed CLIXML data that raises during parsing is returned unchanged.",
+   "covering_prose": "_replace_stderr_clixml should handle parsing errors or incomplete CLIXML blocks by leaving the original data unchanged, including cases where the sequence is split across lines or lacks a closing tag.",
+   "gold_anchor": "except Exception:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When stderr contains no CLIXML, `_replace_stderr_clixml(b\"foo\")` returns the original input unchanged.",
+   "covering_prose": "A new helper function `_replace_stderr_clixml` should accept a bytes `stderr` input and return bytes where any embedded CLIXML block is replaced with decoded content; if no CLIXML is present, it should return the original input unchanged.",
+   "gold_anchor": "return stderr",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When stderr ends with a CLIXML header and no following data, the original input `b\"foo\\r\\n#< CLIXML\\r\\n\"` is returned unchanged.",
+   "covering_prose": "_replace_stderr_clixml should handle parsing errors or incomplete CLIXML blocks by leaving the original data unchanged, including cases where the sequence is split across lines or lacks a closing tag.",
+   "gold_anchor": "if is_clixml:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The CLIXML string escape `_x\\u6100\\u6200\\u6300\\u6400_` is preserved unchanged rather than deserialized as a Unicode escape.",
+   "covering_prose": "The `_STRING_DESERIAL_FIND` regex should be updated to explicitly match UTF-16-BE byte sequences (`b\"\\x00\"` + hex char) while ensuring that valid Unicode escape sequences (e.g., `_x\\u6100\\u6200\\u6300\\u6400_`) remain preserved without alteration.",
+   "gold_anchor": "_STRING_DESERIAL_FIND = re.compile(rb\"\\x00_\\x00x((?:\\x00[a-fA-F0-9]){4})\\x00_\")",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

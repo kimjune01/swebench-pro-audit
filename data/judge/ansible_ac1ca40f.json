@@ -1,0 +1,53 @@
+{
+ "case": "ansible_ac1ca40f",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "The hidden tests import and use `Sentinel` as the marker passed to `_build_files_manifest` for absent `manifest_control`, instead of `{}`.",
+   "covering_prose": "A distinct marker (`Sentinel`) must be used to represent the absence of a `manifest` configuration, so that this case is not confused with a truthy or falsy dictionary value.",
+   "gold_anchor": "from ansible.utils.sentinel import Sentinel",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`_build_files_manifest(to_bytes(input_dir), 'namespace', 'collection', [], Sentinel)` must be accepted as a no-manifest call and produce a valid files manifest.",
+   "covering_prose": "The function `_build_files_manifest` must correctly handle calls where the `manifest_control` argument is set to `Sentinel`, treating it as \u201cno manifest provided\u201d and still producing a valid files manifest.",
+   "gold_anchor": "if manifest_control is not Sentinel:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `_build_files_manifest` is called with `manifest_control` set to `Sentinel`, `actual['format']` must equal `1`.",
+   "covering_prose": "When `manifest_control` is `Sentinel`, the function must return a manifest dictionary that includes a `format` key set to `1` and a `files` list with the expected included or excluded paths.",
+   "gold_anchor": "if manifest_control is not Sentinel:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When `_build_files_manifest` is called with ignore patterns `['*.md', 'plugins/action', 'playbooks/*.j2']` and `manifest_control` set to `Sentinel`, those ignore patterns must still be applied to the generated files list.",
+   "covering_prose": "File ignore patterns provided separately from `manifest` must still apply when `manifest_control` is `Sentinel`.",
+   "gold_anchor": "if ignore_patterns and manifest_control is not Sentinel:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a symlink at `plugins/connection` points outside the collection directory, no manifest entry may have `manifest_entry['name'] == 'plugins/connection'`.",
+   "covering_prose": "A symlink pointing outside the collection directory must not appear in the generated `files` list.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When a symlink inside the collection is created at `playbooks/roles/linked`, generated files whose names start with `playbooks/roles/linked` must have count `1`.",
+   "covering_prose": "A symlink pointing inside the collection must appear once in the `files` list under the linked path.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

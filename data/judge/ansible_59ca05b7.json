@@ -1,0 +1,32 @@
+{
+ "case": "ansible_59ca05b7",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "check_type_dict('k1=v1 k2=v2') returns {'k1': 'v1', 'k2': 'v2'}",
+   "covering_prose": "Inputs to `check_type_dict` using key\u2013value pairs separated by equals (for example, `k1=v1 k2=v2` or with commas) should be parsed into a dictionary, and malformed or incomplete tokens should raise `TypeError`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "check_type_dict('{1}') raises TypeError",
+   "covering_prose": "The function `check_type_dict` in `ansible.module_utils.common.validation` should remove reliance on `safe_eval` and should parse deterministically by first attempting `json.loads`, then falling back to a restricted literal parsing approach only if JSON parsing fails, returning the value only when it is a dictionary, and raising `TypeError` otherwise.",
+   "gold_anchor": "if isinstance(result, dict):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "check_type_dict('k1=v1 k2') raises TypeError",
+   "covering_prose": "Inputs to `check_type_dict` using key\u2013value pairs separated by equals (for example, `k1=v1 k2=v2` or with commas) should be parsed into a dictionary, and malformed or incomplete tokens should raise `TypeError`.",
+   "gold_anchor": "raise TypeError('unable to evaluate string in the \"key=value\" format as dictionary')",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

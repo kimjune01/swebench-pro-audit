@@ -1,0 +1,25 @@
+{
+ "case": "ansible_7fff4086",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "_get_shebang(u'/usr/bin/python3.8', {}, templar) returns ('#!/usr/bin/python3.8', u'/usr/bin/python3.8').",
+   "covering_prose": "For Python, the shebang MUST reflect the interpreter/args from the module\u2019s shebang or a configured override; do NOT force a generic interpreter.",
+   "gold_anchor": "shebang = u'#!{0}'.format(interpreter_out)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_get_shebang(u'/usr/bin/ruby', {}, templar) returns ('#!/usr/bin/ruby', u'/usr/bin/ruby') rather than a None shebang.",
+   "covering_prose": "- `_get_shebang(...)` MUST always return `(shebang: str, interpreter: str)`, with `shebang` starting `#!` and including any args.",
+   "gold_anchor": "shebang = u'#!{0}'.format(interpreter_out)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

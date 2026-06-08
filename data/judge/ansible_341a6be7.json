@@ -1,0 +1,109 @@
+{
+ "case": "ansible_341a6be7",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 13,
+ "n_covered": 10,
+ "n_gap": 3,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "A C# argument spec option using removed_at_date = [DateTime]\"2020-03-10\" records a deprecation for a provided parameter as {msg: \"Param 'removed1' is deprecated. See the module docs for more information\", date: \"2020-03-10\"}.",
+   "covering_prose": "When `AnsibleModule.deprecate(msg, date='YYYY-MM-DD')` is called, the resulting entry in `output['deprecations']` must be `{'msg': <msg>, 'date': 'YYYY-MM-DD'}`.",
+   "gold_anchor": "Deprecate(String.Format(\"Param '{0}' is deprecated. See the module docs for more information\", k), (DateTime)removedAtDate);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A C# argument spec option with removed_at_date but no corresponding provided parameter does not add a deprecation entry.",
+   "covering_prose": null,
+   "gold_anchor": "if (removedAtDate != null && parameters.Contains(k))",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "removed_at_date is accepted as a valid C# argument spec key with value type DateTime.",
+   "covering_prose": "The absence of `removed_at_date` support results in warning systems and validation tools being unable to reflect accurate deprecation states when no version is specified.",
+   "gold_anchor": "{ \"removed_at_date\", new List<object>() { null, typeof(DateTime) } }",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The invalid-key internal error valid-key list includes removed_at_date between removed_in_version and required.",
+   "covering_prose": null,
+   "gold_anchor": "{ \"removed_at_date\", new List<object>() { null, typeof(DateTime) } }",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "A deprecated alias entry with date = [DateTime]\"2020-03-12\" records a deprecation as {msg: \"Alias 'alias5' is deprecated. See the module docs for more information\", date: \"2020-03-12\"}.",
+   "covering_prose": "When `AnsibleModule.deprecate(msg, date='YYYY-MM-DD')` is called, the resulting entry in `output['deprecations']` must be `{'msg': <msg>, 'date': 'YYYY-MM-DD'}`.",
+   "gold_anchor": "Deprecate(FormatOptionsContext(msg, \" - \"), depDate);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A nested deprecated alias entry with date = [DateTime]\"2020-03-09\" records a deprecation message with context suffix \" - found in option3\" and date \"2020-03-09\".",
+   "covering_prose": "When `AnsibleModule.deprecate(msg, date='YYYY-MM-DD')` is called, the resulting entry in `output['deprecations']` must be `{'msg': <msg>, 'date': 'YYYY-MM-DD'}`.",
+   "gold_anchor": "Deprecate(FormatOptionsContext(msg, \" - \"), depDate);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Deprecated alias deprecations are ordered as top-level alias1 version, top-level alias5 date, nested alias2 version, nested alias4 date.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Calling the C# Deprecate overload with [DateTime]\"2020-01-02\" writes an event log message ending \"[DEPRECATION WARNING] message 2020-01-02\".",
+   "covering_prose": null,
+   "gold_anchor": "LogEvent(String.Format(\"[DEPRECATION WARNING] {0} {1}\", message, isoDate));",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Calling the C# Deprecate overload with [DateTime]\"2020-01-02\" records output deprecations as @(@{msg = \"message\"; date = \"2020-01-02\"}).",
+   "covering_prose": "When `AnsibleModule.deprecate(msg, date='YYYY-MM-DD')` is called, the resulting entry in `output['deprecations']` must be `{'msg': <msg>, 'date': 'YYYY-MM-DD'}`.",
+   "gold_anchor": "deprecations.Add(new Dictionary<string, string>() { { \"msg\", message }, { \"date\", isoDate } });",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The C# DateTime deprecation output formats dates as yyyy-MM-dd.",
+   "covering_prose": "When `AnsibleModule.deprecate(msg, date='YYYY-MM-DD')` is called, the resulting entry in `output['deprecations']` must be `{'msg': <msg>, 'date': 'YYYY-MM-DD'}`.",
+   "gold_anchor": "string isoDate = date.ToString(\"yyyy-MM-dd\");",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A deprecated_aliases entry containing neither version nor date fails module creation with msg \"internal error: One of version or date is required in a deprecated_aliases entry\".",
+   "covering_prose": "internal error: One of version or date is required in a deprecated_aliases entry",
+   "gold_anchor": "string msg = \"One of version or date is required in a deprecated_aliases entry\";",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A deprecated_aliases entry containing both version and date fails module creation with msg \"internal error: Only one of version or date is allowed in a deprecated_aliases entry\".",
+   "covering_prose": "internal error: Only one of version or date is allowed in a deprecated_aliases entry",
+   "gold_anchor": "string msg = \"Only one of version or date is allowed in a deprecated_aliases entry\";",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A deprecated_aliases entry whose date value is a string fails module creation with msg \"internal error: A deprecated_aliases date must be a DateTime object\".",
+   "covering_prose": "internal error: A deprecated_aliases date must be a DateTime object",
+   "gold_anchor": "string msg = \"A deprecated_aliases date must be a DateTime object\";",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A deprecated_aliases entry with date is invalid unless the value's runtime type is DateTime.",
+   "covering_prose": "internal error: A deprecated_aliases date must be a DateTime object",
+   "gold_anchor": "if (depInfo.ContainsKey(\"date\") && depInfo[\"date\"].GetType() != typeof(DateTime))",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

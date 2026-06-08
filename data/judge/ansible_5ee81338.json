@@ -1,0 +1,53 @@
+{
+ "case": "ansible_5ee81338",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "HTTPError is importable from ansible.module_utils.network.meraki.meraki.",
+   "covering_prose": "Name: HTTPError",
+   "gold_anchor": "class HTTPError(Exception):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "RateLimitException is importable from ansible.module_utils.network.meraki.meraki.",
+   "covering_prose": "Name: RateLimitException",
+   "gold_anchor": "class RateLimitException(Exception):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "MerakiModule.request(...), when fetch_url reports HTTP status 404, raises HTTPError.",
+   "covering_prose": "- 'MerakiModule.request(path, method=None, payload=None)' must raise 'HTTPError' immediately when the HTTP status code is 400 or higher, except for 429, 500, and 502.",
+   "gold_anchor": "raise HTTPError(\"HTTP error {0} - {1}\".format(self.status, response))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After MerakiModule.request(...) sees HTTP status 404, module.status is 404.",
+   "covering_prose": "- After each call to 'MerakiModule.request(...)', the module instance must expose the last HTTP status code via a public 'status' attribute (for example, 404 for a 4xx failure, 429 during rate limiting, or 200 on success).",
+   "gold_anchor": "self.status = info['status']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "MerakiModule.request(...), when fetch_url keeps reporting HTTP status 429 until the retry budget is exceeded, raises RateLimitException.",
+   "covering_prose": "- When the HTTP status code is 429, 'MerakiModule.request(...)' must retry instead of failing immediately; if the operation ultimately exceeds the allowed retry budget it must raise 'RateLimitException'.",
+   "gold_anchor": "raise RateLimitException(e)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After MerakiModule.request(...) sees HTTP status 429, module.status is 429.",
+   "covering_prose": "- After each call to 'MerakiModule.request(...)', the module instance must expose the last HTTP status code via a public 'status' attribute (for example, 404 for a 4xx failure, 429 during rate limiting, or 200 on success).",
+   "gold_anchor": "self.status = info['status']",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

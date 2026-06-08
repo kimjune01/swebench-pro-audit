@@ -1,0 +1,81 @@
+{
+ "case": "ansible_813c25ee",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "Without --offline, installing a local tarball whose dependency is missing fails when the configured Galaxy server is unreachable, and stderr includes exactly \"ERROR! Unknown error when attempting to call Galaxy at '{{ offline_server }}'\" with the configured URL reflected verbatim.",
+   "covering_prose": "When `--offline` is not used, previous behavior must be maintained, including contacting the configured Galaxy servers; if the configured server is unreachable, the error must include exactly: `ERROR! Unknown error when attempting to call Galaxy at '{{ offline_server }}'`, displaying the configured URL verbatim.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Configuration can supply the active offline server URL through the `offline_server` variable used as the selected server URL.",
+   "covering_prose": "Configuration support must exist for supplying the active server URL via a variable (e.g., `offline_server`) used in the `url` value of the selected server, and error messages must reflect that URL as is.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "With --offline, installing a local tarball whose dependency `ns.coll2:>=1.0.0` is missing fails without contacting the server.",
+   "covering_prose": "In `--offline` mode, if a locally required dependency is missing, the installation must fail without any network attempts, and the message must include exactly:\n\n`ERROR! Failed to resolve the requested dependencies map. Could not satisfy the following requirements:\\n* ns.coll2:>=1.0.0 (dependency of ns.coll1:1.0.0)`",
+   "gold_anchor": "if self._offline:\n            return []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With --offline and missing local dependency, stderr includes exactly `ERROR! Failed to resolve the requested dependencies map. Could not satisfy the following requirements:\\n* ns.coll2:>=1.0.0 (dependency of ns.coll1:1.0.0)`.",
+   "covering_prose": "`ERROR! Failed to resolve the requested dependencies map. Could not satisfy the following requirements:\\n* ns.coll2:>=1.0.0 (dependency of ns.coll1:1.0.0)`",
+   "gold_anchor": "offline=offline,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The install subcommand accepts `--offline` as a boolean flag for collection installation commands.",
+   "covering_prose": "The `ansible-galaxy collection install` subcommand must accept the boolean `--offline` flag (default is `False`), and the help must read exactly: \u201cInstall collection artifacts (tarballs) without contacting any distribution servers. This does not apply to collections in remote Git repositories or URLs to remote tarballs.\u201d",
+   "gold_anchor": "install_parser.add_argument('--offline', dest='offline', action='store_true', default=False,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Installing `ns-coll1-1.0.0.tar.gz` with --offline succeeds when dependency `ns.coll2` is already installed locally, and stdout contains exactly `ns.coll1:1.0.0 was installed successfully`.",
+   "covering_prose": "In `--offline` mode, when the required dependencies are already available locally or provided as local tarballs, the operation must complete successfully and output exactly the following lines as appropriate: `\"ns.coll1:1.0.0 was installed successfully\"`, `\"ns.coll1:2.0.0 was installed successfully\"`, `\"ns.coll2:2.0.0 was installed successfully\"`.",
+   "gold_anchor": "offline=context.CLIARGS.get('offline', False),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Upgrading from local tarball `ns-coll1-2.0.0.tar.gz` with --offline succeeds using local information, and stdout contains exactly `ns.coll1:2.0.0 was installed successfully`.",
+   "covering_prose": "In `--offline` mode, when the required dependencies are already available locally or provided as local tarballs, the operation must complete successfully and output exactly the following lines as appropriate: `\"ns.coll1:1.0.0 was installed successfully\"`, `\"ns.coll1:2.0.0 was installed successfully\"`, `\"ns.coll2:2.0.0 was installed successfully\"`.",
+   "gold_anchor": "offline=offline,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Installing multiple local tarballs with --offline --upgrade succeeds and stdout contains exactly `ns.coll1:2.0.0 was installed successfully`.",
+   "covering_prose": "In `--offline` mode, when the required dependencies are already available locally or provided as local tarballs, the operation must complete successfully and output exactly the following lines as appropriate: `\"ns.coll1:1.0.0 was installed successfully\"`, `\"ns.coll1:2.0.0 was installed successfully\"`, `\"ns.coll2:2.0.0 was installed successfully\"`.",
+   "gold_anchor": "offline=offline,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Installing multiple local tarballs with --offline --upgrade succeeds and stdout contains exactly `ns.coll2:2.0.0 was installed successfully`.",
+   "covering_prose": "In `--offline` mode, when the required dependencies are already available locally or provided as local tarballs, the operation must complete successfully and output exactly the following lines as appropriate: `\"ns.coll1:1.0.0 was installed successfully\"`, `\"ns.coll1:2.0.0 was installed successfully\"`, `\"ns.coll2:2.0.0 was installed successfully\"`.",
+   "gold_anchor": "offline=offline,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In --offline mode, remote version listing returns no remote candidates and produces no network traffic, so dependency resolution uses only installed collections and local tarballs.",
+   "covering_prose": "In `--offline` mode, fetching/listing remote versions should behave as if no remote results were available and should not produce network traffic, forcing resolution to use only local information.",
+   "gold_anchor": "if self._offline:\n            return []",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

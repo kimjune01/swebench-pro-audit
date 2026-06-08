@@ -1,0 +1,179 @@
+{
+ "case": "ansible_6198c737",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 24,
+ "n_covered": 22,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "from_yaml returns {'a': 'b'} for input 'a: b'.",
+   "covering_prose": "`res1 == {\"a\": \"b\"}` and the value `\"b\"` **preserves trust** and **origin** (line/col adjusted to the source string offset).",
+   "gold_anchor": "return yaml.load(data, Loader=_yaml_loader.AnsibleInstrumentedLoader)  # type: ignore[arg-type]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "from_yaml preserves trust on the parsed value when the source string is trusted, and does not add trust when the source string is untrusted.",
+   "covering_prose": "`from_yaml` and `from_yaml_all` should preserve trust and origin annotations on both keys and values.",
+   "gold_anchor": "return yaml.load(data, Loader=_yaml_loader.AnsibleInstrumentedLoader)  # type: ignore[arg-type]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "from_yaml_all returns [{'a': 'b'}] for input 'a: b'.",
+   "covering_prose": "`res2 == [{\"a\": \"b\"}]` with the same trust/origin properties.",
+   "gold_anchor": "return yaml.load_all(data, Loader=_yaml_loader.AnsibleInstrumentedLoader)  # type: ignore[arg-type]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "from_yaml_all preserves trust on the parsed value when the source string is trusted, and does not add trust when the source string is untrusted.",
+   "covering_prose": "`from_yaml` and `from_yaml_all` should preserve trust and origin annotations on both keys and values.",
+   "gold_anchor": "return yaml.load_all(data, Loader=_yaml_loader.AnsibleInstrumentedLoader)  # type: ignore[arg-type]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "from_yaml and from_yaml_all preserve origin description 'a unit test' on parsed scalar 'bar'.",
+   "covering_prose": "Origin (line/col/description) should be carried over with correct offsets relative to the source string.",
+   "gold_anchor": "return yaml.load(data, Loader=_yaml_loader.AnsibleInstrumentedLoader)  # type: ignore[arg-type]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "from_yaml and from_yaml_all offset origin line from 42 to 44 when the source string begins with two blank lines.",
+   "covering_prose": "Origin (line/col/description) should be carried over with correct offsets relative to the source string.",
+   "gold_anchor": "return yaml.load_all(data, Loader=_yaml_loader.AnsibleInstrumentedLoader)  # type: ignore[arg-type]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "from_yaml and from_yaml_all set origin column to 6 for scalar 'bar' in '\\n\\nfoo: bar' with source column 10.",
+   "covering_prose": "Origin (line/col/description) should be carried over with correct offsets relative to the source string.",
+   "gold_anchor": "tags: list[AnsibleDatatagBase] = [self._node_position_info(node)]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "to_yaml and to_nice_yaml accept dump_vault_tags=True, False, and None without emitting warnings or deprecation warnings.",
+   "covering_prose": "`dump_vault_tags=None` is currently treated as implicit behavior (no warning). In the future, it will emit a deprecation warning; keep compatibility.",
+   "gold_anchor": "def __init__(self, *args, dump_vault_tags: bool | None = None, **kwargs) -> None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "to_yaml and to_nice_yaml round-trip a dict containing a list without changing the top-level dict length.",
+   "covering_prose": "Formatting of other data types should succeed, including dicts, lists/tuples, sets, and custom mapping/iterable types produced by templating; `str` and `bytes` should not be treated as iterables.",
+   "gold_anchor": "cls.add_multi_representer(c.Mapping, cls.represent_dict)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "to_yaml and to_nice_yaml preserve scalar string values through YAML dump and parse for trusted and untrusted strings.",
+   "covering_prose": "Other types (dicts/custom mappings, lists/tuples/sets) are serialized without error.",
+   "gold_anchor": "return self.represent_data(AnsibleTagHelper.as_native_type(data))  # automatically decrypts encrypted strings",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing the trusted YAML output from to_yaml/to_nice_yaml marks both originally trusted and originally untrusted plain scalar strings as trusted.",
+   "covering_prose": "`from_yaml` and `from_yaml_all` should preserve trust and origin annotations on both keys and values.",
+   "gold_anchor": "if self.trusted_as_template:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With dump_vault_tags=True, a decryptable vault value is dumped and parsed back with the same ciphertext as the original.",
+   "covering_prose": null,
+   "gold_anchor": "if self._dump_vault_tags is not False and (ciphertext := VaultHelper.get_ciphertext(data, with_tags=False)):",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "With dump_vault_tags=True, an undecryptable vault value is dumped and parsed back with the same ciphertext as the original.",
+   "covering_prose": "If `dump_vault_tags=True`, any undecryptable vault value is emitted as a YAML scalar with tag `!vault` and its ciphertext (no decryption attempted).",
+   "gold_anchor": "return self.represent_scalar('!vault', ciphertext, style='|')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With dump_vault_tags=True, a vault value parsed from the dumped !vault scalar is not trusted as a template.",
+   "covering_prose": null,
+   "gold_anchor": "return self.represent_scalar('!vault', ciphertext, style='|')",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "With dump_vault_tags=False or None, a decryptable vault value is serialized as plaintext and becomes trusted when the trusted YAML output is parsed.",
+   "covering_prose": "Decryptable vault values are serialized as **plain text** (already decrypted).",
+   "gold_anchor": "return self.represent_data(AnsibleTagHelper.as_native_type(data))  # automatically decrypts encrypted strings",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Dumping a template containing an undefined variable raises AnsibleUndefinedVariable.",
+   "covering_prose": "Templates containing undefined variables must raise an `AnsibleUndefinedVariable` when dumped, without producing partial YAML.",
+   "gold_anchor": "@accept_lazy_markers",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Dumping a list containing an undecryptable vault with to_yaml(dump_vault_tags=false) raises AnsibleTemplateError.",
+   "covering_prose": "If `dump_vault_tags=False`, encountering an undecryptable vault value \u00a0should raise `AnsibleTemplateError` and the message should contain the word `undecryptable` (no partial YAML output).",
+   "gold_anchor": "if self._dump_vault_tags is not False and (ciphertext := VaultHelper.get_ciphertext(data, with_tags=False)):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The AnsibleTemplateError raised for to_yaml(dump_vault_tags=false) on an undecryptable vault has a message matching 'undecryptable'.",
+   "covering_prose": "If `dump_vault_tags=False`, encountering an undecryptable vault value \u00a0should raise `AnsibleTemplateError` and the message should contain the word `undecryptable` (no partial YAML output).",
+   "gold_anchor": "return self.represent_data(AnsibleTagHelper.as_native_type(data))  # automatically decrypts encrypted strings",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "to_yaml serializes tuple (1, 2, 3) exactly as '[1, 2, 3]\\n'.",
+   "covering_prose": "Formatting of other data types should succeed, including dicts, lists/tuples, sets, and custom mapping/iterable types produced by templating; `str` and `bytes` should not be treated as iterables.",
+   "gold_anchor": "cls.add_multi_representer(c.Collection, cls.represent_list)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "to_yaml serializes set {1, 2, 3} exactly as '!!set {1: null, 2: null, 3: null}\\n'.",
+   "covering_prose": "Formatting of other data types should succeed, including dicts, lists/tuples, sets, and custom mapping/iterable types produced by templating; `str` and `bytes` should not be treated as iterables.",
+   "gold_anchor": "cls.add_multi_representer(c.Collection, cls.represent_list)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "to_yaml serializes string 'abc' exactly as 'abc\\n' rather than as an iterable list of characters.",
+   "covering_prose": "Formatting of other data types should succeed, including dicts, lists/tuples, sets, and custom mapping/iterable types produced by templating; `str` and `bytes` should not be treated as iterables.",
+   "gold_anchor": "ITERABLE_SCALARS_NOT_TO_ITERATE = (str, bytes)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "to_yaml serializes bytes b'abc' exactly as '!!binary |\\n  YWJj\\n' rather than as an iterable list of integers.",
+   "covering_prose": "Formatting of other data types should succeed, including dicts, lists/tuples, sets, and custom mapping/iterable types produced by templating; `str` and `bytes` should not be treated as iterables.",
+   "gold_anchor": "return isinstance(value, INTERMEDIATE_ITERABLE_TYPES) and not isinstance(value, ITERABLE_SCALARS_NOT_TO_ITERATE)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Integration templating uses to_yaml(dump_vault_tags=False) for an undecryptable vault in a scalar template and trips YAML serialization.",
+   "covering_prose": "With `dump_vault_tags=False`: raise `AnsibleTemplateError` whose message contains \u201cundecryptable\u201d (no partial YAML produced).",
+   "gold_anchor": "def to_yaml(a, *_args, default_flow_style: bool | None = None, dump_vault_tags: bool | None = None, **kwargs) -> str:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Integration templating uses to_yaml(dump_vault_tags=False) for an undecryptable vault inside a list of templates and trips YAML serialization.",
+   "covering_prose": "With `dump_vault_tags=False`: raise `AnsibleTemplateError` whose message contains \u201cundecryptable\u201d (no partial YAML produced).",
+   "gold_anchor": "@accept_lazy_markers",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

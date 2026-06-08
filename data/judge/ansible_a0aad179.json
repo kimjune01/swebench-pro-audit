@@ -1,0 +1,46 @@
+{
+ "case": "ansible_a0aad179",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 5,
+ "n_covered": 3,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "_valid_time_stamp('19800000.000000') returns time.mktime(time.struct_time((1980, 0, 0, 0, 0, 0, 0, 0, 0))) rather than the epoch default or raising ValueError.",
+   "covering_prose": null,
+   "gold_anchor": "date_time = (int(m) for m in match.groups() + (0, 0, 0))",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "_valid_time_stamp('19791231.000000') returns time.mktime(time.struct_time((1980, 1, 1, 0, 0, 0, 0, 0, 0))) for a year below 1980.",
+   "covering_prose": "- The method must provide default date values (epoch: 1980,1,1,0,0,0,0,0,0) for invalid or out-of-range timestamps.",
+   "gold_anchor": "if int(match.groups()[0]) < 1980:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_valid_time_stamp('19810101.000000') returns time.mktime(time.struct_time((1981, 1, 1, 0, 0, 0, 0, 0, 0))) for a valid timestamp in YYYYMMDD.HHMMSS format.",
+   "covering_prose": "- The `_valid_time_stamp` function must use regular expressions to extract date components from the timestamp string in YYYYMMDD.HHMMSS format.",
+   "gold_anchor": "date_time = (int(m) for m in match.groups() + (0, 0, 0))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_valid_time_stamp('21081231.000000') returns time.mktime(time.struct_time((2107, 12, 31, 23, 59, 59, 0, 0, 0))) for a year above 2107.",
+   "covering_prose": null,
+   "gold_anchor": "date_time = (2107, 12, 31, 23, 59, 59, 0, 0, 0)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "_valid_time_stamp('INVALID_TIME_DATE') returns time.mktime(time.struct_time((1980, 1, 1, 0, 0, 0, 0, 0, 0))) for a non-matching timestamp string.",
+   "covering_prose": "- The method must provide default date values (epoch: 1980,1,1,0,0,0,0,0,0) for invalid or out-of-range timestamps.",
+   "gold_anchor": "date_time = epoch_date_time",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

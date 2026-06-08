@@ -1,0 +1,39 @@
+{
+ "case": "ansible_38067860",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "In a child process after `display.set_queue(queue)`, calling `display.display('foo')` invokes `queue.send_display` exactly once with positional arguments `('display', 'foo')`.",
+   "covering_prose": "-A call to `Display.display(msg, \u2026)` inside a child process with `_final_q` defined must result in exactly one invocation of `_final_q.send_display('display', msg, *args, **kwargs)`, using the literal `'display'` as the first argument.",
+   "gold_anchor": "return self._final_q.send_display(method.__name__, *args, **kwargs)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For `display.display('foo')` in a child process, the proxied `send_display` call contains no synthesized default keyword arguments such as `color=None`, `stderr=False`, `screen_only=False`, `log_only=False`, or `newline=True`.",
+   "covering_prose": "If the caller passed no kwargs, the proxied call must contain none.",
+   "gold_anchor": "return self._final_q.send_display(method.__name__, *args, **kwargs)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In a child process after `display.set_queue(queue)`, calling `display.warning('foo')` invokes `queue.send_display` exactly once with positional arguments `('warning', 'foo')`.",
+   "covering_prose": "-A call to `Display.warning(msg, \u2026)` inside a child process with `_final_q` defined must invoke `_final_q.send_display('warning', msg, *args, **kwargs)` exactly once.",
+   "gold_anchor": "return self._final_q.send_display(method.__name__, *args, **kwargs)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Both forked child processes exit with code `0` after the proxied display and warning assertions run.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

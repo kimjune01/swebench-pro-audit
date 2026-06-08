@@ -1,0 +1,186 @@
+{
+ "case": "ansible_375d3889",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 25,
+ "n_covered": 24,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`ansible-config dump --type base --format json` must include a top-level `GALAXY_SERVERS` entry that can be extracted from the JSON output.",
+   "covering_prose": "The `ansible-config dump` command with `--type base` and `--type all` should include a `GALAXY_SERVERS` section, showing each configured server with its defined options.",
+   "gold_anchor": "output.append({'GALAXY_SERVERS': configs})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`ansible-config dump --type all --format json` must include a top-level `GALAXY_SERVERS` entry that can be extracted from the JSON output.",
+   "covering_prose": "The `ansible-config dump` command with `--type base` and `--type all` should include a `GALAXY_SERVERS` section, showing each configured server with its defined options.",
+   "gold_anchor": "output.append({'GALAXY_SERVERS': configs})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In JSON output, `GALAXY_SERVERS` must be a dictionary keyed by the configured server names.",
+   "covering_prose": "In JSON format, Galaxy servers should appear under the `GALAXY_SERVERS` key as nested dictionaries keyed by server name.",
+   "gold_anchor": "configs[server] = server_reduced_config",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The server list from `server_list = my_org_hub, release_galaxy, test_galaxy, my_galaxy_ng` must produce exactly 4 Galaxy server entries in `--type base` JSON output.",
+   "covering_prose": "The configuration system should recognize a dynamic list of Galaxy servers defined by `GALAXY_SERVER_LIST`, ignoring empty entries.",
+   "gold_anchor": "self._galaxy_servers = [s for s in C.GALAXY_SERVER_LIST or [] if s]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The server list from `server_list = my_org_hub, release_galaxy, test_galaxy, my_galaxy_ng` must produce exactly 4 Galaxy server entries in `--type all` JSON output.",
+   "covering_prose": "The configuration system should recognize a dynamic list of Galaxy servers defined by `GALAXY_SERVER_LIST`, ignoring empty entries.",
+   "gold_anchor": "self._galaxy_servers = [s for s in C.GALAXY_SERVER_LIST or [] if s]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The `--type base` JSON `GALAXY_SERVERS` keys must be exactly `my_org_hub`, `release_galaxy`, `test_galaxy`, and `my_galaxy_ng`.",
+   "covering_prose": "The configuration system should recognize a dynamic list of Galaxy servers defined by `GALAXY_SERVER_LIST`, ignoring empty entries.",
+   "gold_anchor": "for server in self._galaxy_servers:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The `--type all` JSON `GALAXY_SERVERS` keys must be exactly `my_org_hub`, `release_galaxy`, `test_galaxy`, and `my_galaxy_ng`.",
+   "covering_prose": "The configuration system should recognize a dynamic list of Galaxy servers defined by `GALAXY_SERVER_LIST`, ignoring empty entries.",
+   "gold_anchor": "for server in self._galaxy_servers:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For server `my_org_hub`, JSON dump must include option `url` with value `https://automation.my_org/` in both `--type base` and `--type all`.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "C.config.get_config_value_and_origin(setting, plugin_type='galaxy_server', plugin_name=server, cfile=self.config_file)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For server `my_org_hub`, JSON dump must include option `username` with value `my_user` in both `--type base` and `--type all`.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "C.config.get_config_value_and_origin(setting, plugin_type='galaxy_server', plugin_name=server, cfile=self.config_file)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For server `my_org_hub`, JSON dump must include option `password` with value `my_pass` in both `--type base` and `--type all`.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "C.config.get_config_value_and_origin(setting, plugin_type='galaxy_server', plugin_name=server, cfile=self.config_file)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For server `release_galaxy`, JSON dump must include option `url` with value `https://galaxy.ansible.com/` in both `--type base` and `--type all`.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "C.config.get_config_value_and_origin(setting, plugin_type='galaxy_server', plugin_name=server, cfile=self.config_file)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For server `release_galaxy`, JSON dump must include option `token` with value `my_token` in both `--type base` and `--type all`.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "C.config.get_config_value_and_origin(setting, plugin_type='galaxy_server', plugin_name=server, cfile=self.config_file)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For server `test_galaxy`, JSON dump must include option `url` with value `https://galaxy-dev.ansible.com/` in both `--type base` and `--type all`.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "C.config.get_config_value_and_origin(setting, plugin_type='galaxy_server', plugin_name=server, cfile=self.config_file)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For server `test_galaxy`, JSON dump must include option `token` with value `my_test_token` in both `--type base` and `--type all`.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "C.config.get_config_value_and_origin(setting, plugin_type='galaxy_server', plugin_name=server, cfile=self.config_file)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For server `my_galaxy_ng`, JSON dump must include option `url` with value `http://my_galaxy_ng:8000/api/automation-hub/` in both `--type base` and `--type all`.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "C.config.get_config_value_and_origin(setting, plugin_type='galaxy_server', plugin_name=server, cfile=self.config_file)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For server `my_galaxy_ng`, JSON dump must include option `token` with value `my_keycloak_access_token` in both `--type base` and `--type all`.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "C.config.get_config_value_and_origin(setting, plugin_type='galaxy_server', plugin_name=server, cfile=self.config_file)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For server `my_galaxy_ng`, JSON dump must include option `auth_url` with value `http://my_keycloak:8080/auth/realms/myco/protocol/openid-connect/token` in both `--type base` and `--type all`.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "C.config.get_config_value_and_origin(setting, plugin_type='galaxy_server', plugin_name=server, cfile=self.config_file)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For server `my_galaxy_ng`, JSON dump must include option `client_id` with value `galaxy-ng` in both `--type base` and `--type all`.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "C.config.get_config_value_and_origin(setting, plugin_type='galaxy_server', plugin_name=server, cfile=self.config_file)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Galaxy server JSON settings must serialize so the setting value is available at index `1` of each option entry.",
+   "covering_prose": null,
+   "gold_anchor": "server_config[setting] = Setting(setting, v, o, None)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "`manager.GALAXY_SERVER_ADDITIONAL` must exist so tests can monkeypatch `manager.GALAXY_SERVER_ADDITIONAL['timeout']['default']`.",
+   "covering_prose": "The constant `GALAXY_SERVER_ADDITIONAL` should provide defaults and choices for specific keys, including `api_version` with allowed values `None`, `2`, or `3`, `timeout` with a default derived from `GALAXY_SERVER_TIMEOUT` if not overridden, and `token` with default `None`.",
+   "gold_anchor": "GALAXY_SERVER_ADDITIONAL",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When no CLI timeout and no server timeout are configured, Galaxy server timeout must resolve from the fallback `GALAXY_SERVER_TIMEOUT` value `10`.",
+   "covering_prose": "Timeout configuration must be correctly resolved, using the fallback from `GALAXY_SERVER_TIMEOUT` when explicit values are not set.",
+   "gold_anchor": "GALAXY_SERVER_ADDITIONAL",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When no CLI timeout is configured but server timeout is configured as `20`, Galaxy server timeout must resolve to `20` rather than fallback `10`.",
+   "covering_prose": "Timeout configuration must be correctly resolved, using the fallback from `GALAXY_SERVER_TIMEOUT` when explicit values are not set.",
+   "gold_anchor": "GALAXY_SERVER_ADDITIONAL",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When CLI timeout is `30`, server timeout is `20`, and fallback timeout is `10`, Galaxy server timeout must resolve to `30`.",
+   "covering_prose": "Timeout configuration must be correctly resolved, using the fallback from `GALAXY_SERVER_TIMEOUT` when explicit values are not set.",
+   "gold_anchor": "GALAXY_SERVER_ADDITIONAL",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`manager.GALAXY_SERVER_DEF` must exist and include `client_id` so token tests can build server option dictionaries from it.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "GALAXY_SERVER_DEF",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Galaxy server options used by `GalaxyCLI` must include `client_id` for a configured Galaxy NG server.",
+   "covering_prose": "For each Galaxy server, configuration definitions should include the keys: `url`, `username`, `password`, `token`, `auth_url`, `api_version`, `validate_certs`, `client_id`, and `timeout`.",
+   "gold_anchor": "server_options = C.config.get_plugin_options(plugin_type='galaxy_server', name=server_key)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

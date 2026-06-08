@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For object input to Posts.uploads.deleteFromDisk, the thrown error message is exactly [[error:wrong-parameter-type, filePaths, object, array]].",
+  "klass": "airtight",
+  "constant": "[[error:wrong-parameter-type, filePaths, object, array]]",
+  "r2_prose_clause": null,
+  "gold_anchor": "throw new Error(`[[error:wrong-parameter-type, filePaths, ${typeof filePaths}, array]]`);",
+  "test_assertion": "assert.strictEqual(err.message, '[[error:wrong-parameter-type, filePaths, object, array]]');",
+  "R1": "Non-string and non-array inputs must throw an Error whose message follows NodeBB's exact translated wrong-parameter-type token format including filePaths, the actual typeof value, and array.",
+  "R2": "Non-string and non-array inputs may be rejected by throwing any error that prevents deletion.",
+  "why_R2_fails": "R2 fails because the hidden test asserts the exact err.message string, not merely that an error was thrown."
+}

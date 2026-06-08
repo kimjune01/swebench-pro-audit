@@ -1,0 +1,25 @@
+{
+ "case": "ansible_c819c172",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "On Python 3, _AnsiblePathHookFinder.find_spec('missing') returns None when no finder is available for the module name.",
+   "covering_prose": "- If the finder is None, the find_spec() method must return None without attempting further processing.",
+   "gold_anchor": "if finder is None:\n            return None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On Python 3, _AnsiblePathHookFinder.find_module('missing') returns None when no finder is available for the module name.",
+   "covering_prose": "- If the finder is None, find_module() must immediately return None without performing any method calls.",
+   "gold_anchor": "if finder is None:\n            return None",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,165 @@
+{
+ "case": "ansible_a58fcde3",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 20,
+ "n_covered": 20,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "_build_files_manifest records only one entry whose name starts with playbooks/roles/linked for a symlinked directory.",
+   "covering_prose": "Build should not expand symlinked directories in the manifest: `_walk` must avoid recursing into symlinked directories and the manifest must record only the symlink itself (not its children).",
+   "gold_anchor": "if not os.path.islink(b_abs_path):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The manifest entry for the symlinked directory is named playbooks/roles/linked.",
+   "covering_prose": "Build should not expand symlinked directories in the manifest: `_walk` must avoid recursing into symlinked directories and the manifest must record only the symlink itself (not its children).",
+   "gold_anchor": "manifest_entry['name'] = rel_path",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The manifest entry for the symlinked directory has ftype dir.",
+   "covering_prose": "Build should not expand symlinked directories in the manifest: `_walk` must avoid recursing into symlinked directories and the manifest must record only the symlink itself (not its children).",
+   "gold_anchor": "manifest_entry['ftype'] = 'dir'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The built tar contains playbooks/roles/linked as a symlink entry.",
+   "covering_prose": "During build, entries that are symlinks to targets inside the collection are written to the tar as symlink entries with correct relative `linkname`.",
+   "gold_anchor": "tar_info.type = tarfile.SYMTYPE",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The built tar symlink playbooks/roles/linked has linkname ../../roles/linked.",
+   "covering_prose": "During build, entries that are symlinks to targets inside the collection are written to the tar as symlink entries with correct relative `linkname`.",
+   "gold_anchor": "tar_info.linkname = to_native(b_rel_path, errors='surrogate_or_strict')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The built tar contains docs/README.md as a symlink entry.",
+   "covering_prose": "During build, entries that are symlinks to targets inside the collection are written to the tar as symlink entries with correct relative `linkname`.",
+   "gold_anchor": "tar_info.type = tarfile.SYMTYPE",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The built tar symlink docs/README.md has linkname ../README.md.",
+   "covering_prose": "During build, entries that are symlinks to targets inside the collection are written to the tar as symlink entries with correct relative `linkname`.",
+   "gold_anchor": "b_rel_path = os.path.relpath(b_link_target, start=os.path.dirname(b_src_path))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Reading docs/README.md from the built tar yields content with SHA1 f4dcc52576b6c2cd8ac2832c52493881c4e54226.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "_get_tar_file_member returns a first tuple element that is a tarfile.TarInfo.",
+   "covering_prose": "Tar helper APIs must expose the member object: `_tarfile_extract` and `_get_tar_file_member` must return both the `TarInfo` and a readable stream so callers can distinguish symlinks from regular files.",
+   "gold_anchor": "with _get_tar_file_member(tar, filename) as (tar_member, tar_obj):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "_get_tar_file_member returns a second tuple element that is a tarfile.ExFileObject.",
+   "covering_prose": "Tar helper APIs must expose the member object: `_tarfile_extract` and `_get_tar_file_member` must return both the `TarInfo` and a readable stream so callers can distinguish symlinks from regular files.",
+   "gold_anchor": "with _get_tar_file_member(tar, filename) as (tar_member, tar_obj):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Installing symlink.symlink emits stdout containing Installing 'symlink.symlink:1.0.0' to.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After install, RE\u00c5DM\u00c8.md-link is a symlink.",
+   "covering_prose": "During install, symlink members in the tar are recreated on disk as symlinks when their targets resolve within the collection destination; file members are written as regular files.",
+   "gold_anchor": "os.symlink(b_link_path, b_dest_filepath)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After install, RE\u00c5DM\u00c8.md-link has link target RE\u00c5DM\u00c8.md.",
+   "covering_prose": "During install, symlink members in the tar are recreated on disk as symlinks when their targets resolve within the collection destination; file members are written as regular files.",
+   "gold_anchor": "os.symlink(b_link_path, b_dest_filepath)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After install, docs/RE\u00c5DM\u00c8.md is a symlink.",
+   "covering_prose": "During install, symlink members in the tar are recreated on disk as symlinks when their targets resolve within the collection destination; file members are written as regular files.",
+   "gold_anchor": "os.symlink(b_link_path, b_dest_filepath)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After install, docs/RE\u00c5DM\u00c8.md has link target ../RE\u00c5DM\u00c8.md.",
+   "covering_prose": "During install, symlink members in the tar are recreated on disk as symlinks when their targets resolve within the collection destination; file members are written as regular files.",
+   "gold_anchor": "os.symlink(b_link_path, b_dest_filepath)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After install, plugins/RE\u00c5DM\u00c8.md is a symlink.",
+   "covering_prose": "During install, symlink members in the tar are recreated on disk as symlinks when their targets resolve within the collection destination; file members are written as regular files.",
+   "gold_anchor": "os.symlink(b_link_path, b_dest_filepath)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After install, plugins/RE\u00c5DM\u00c8.md has link target ../RE\u00c5DM\u00c8.md.",
+   "covering_prose": "During install, symlink members in the tar are recreated on disk as symlinks when their targets resolve within the collection destination; file members are written as regular files.",
+   "gold_anchor": "os.symlink(b_link_path, b_dest_filepath)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After install, RE\u00c5DM\u00c8.md-outside-link is a regular file.",
+   "covering_prose": "During build, entries that are symlinks to targets outside the collection are stored as regular files (content copied), not as symlinks.",
+   "gold_anchor": "tar_file.add(os.path.realpath(b_src_path), arcname=filename, recursive=False, filter=reset_stat)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After install, docs-link is a symlink.",
+   "covering_prose": "During install, symlink members in the tar are recreated on disk as symlinks when their targets resolve within the collection destination; file members are written as regular files.",
+   "gold_anchor": "os.symlink(b_link_path, b_dir_path)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After install, docs-link has link target docs.",
+   "covering_prose": "During install, symlink members in the tar are recreated on disk as symlinks when their targets resolve within the collection destination; file members are written as regular files.",
+   "gold_anchor": "os.symlink(b_link_path, b_dir_path)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After install, docs-link/RE\u00c5DM\u00c8.md is a symlink.",
+   "covering_prose": "During install, symlink members in the tar are recreated on disk as symlinks when their targets resolve within the collection destination; file members are written as regular files.",
+   "gold_anchor": "os.symlink(b_link_path, b_dest_filepath)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After install, docs-link/RE\u00c5DM\u00c8.md has link target ../RE\u00c5DM\u00c8.md.",
+   "covering_prose": "During install, symlink members in the tar are recreated on disk as symlinks when their targets resolve within the collection destination; file members are written as regular files.",
+   "gold_anchor": "os.symlink(b_link_path, b_dest_filepath)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

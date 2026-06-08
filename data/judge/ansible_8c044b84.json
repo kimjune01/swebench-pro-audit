@@ -1,0 +1,39 @@
+{
+ "case": "ansible_8c044b84",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Calling collection._extract_tar_file on a tar entry named '../\u00c5\u00d1\u015a\u00cc\u03b2\u0141\u00c8.sh' whose resolved destination is outside the collection directory raises AnsibleError with message \"Cannot extract tar entry '../\u00c5\u00d1\u015a\u00cc\u03b2\u0141\u00c8.sh' as it will be placed outside the collection directory\".",
+   "covering_prose": "If a path traversal attempt is detected, the function must raise an `AnsibleError` with this exact message: `\"Cannot extract tar entry '%s' as it will be placed outside the collection directory\"` where `%s` is the filename that caused the violation.",
+   "gold_anchor": "raise AnsibleError(\"Cannot extract tar entry '%s' as it will be placed outside the collection directory\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Installing a collection tarball containing the entry '../../outside.sh' is rejected, with stderr containing \"Cannot extract tar entry '../../outside.sh' as it will be placed outside the collection directory\" or a return code of 1 accepted by the task's failed_when condition.",
+   "covering_prose": "ansible-galaxy should reject extracting files outside the collection installation directory and display an error indicating the path traversal attempt.",
+   "gold_anchor": "raise AnsibleError(\"Cannot extract tar entry '%s' as it will be placed outside the collection directory\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After the bad tarball install fails, the partially created suspicious namespace path under the collection install tree does not exist.",
+   "covering_prose": "The `install` method must include exception handling that cleans up the partially installed collection directory using `shutil.rmtree()` if any error occurs during extraction, and remove the namespace directory using `os.rmdir()` if it becomes empty.",
+   "gold_anchor": "shutil.rmtree(b_collection_path)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a path traversal error occurs during install cleanup, the namespace directory is removed if it is empty.",
+   "covering_prose": "The `install` method must include exception handling that cleans up the partially installed collection directory using `shutil.rmtree()` if any error occurs during extraction, and remove the namespace directory using `os.rmdir()` if it becomes empty.",
+   "gold_anchor": "os.rmdir(b_namespace_path)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "case": "ansible_3fffddc1",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 6,
+ "n_covered": 5,
+ "n_gap": 1,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "When a file mapping sets multipart_encoding to '7or8bit', prepare_multipart sends the file content without base64 decoding being required; the integration assertion expects multipart.json.files.file3 == '_multipart/form-data_\\r\\n'.",
+   "covering_prose": "The `prepare_multipart` function must support an optional `multipart_encoding` parameter that allows specifying the encoding type for multipart files.",
+   "gold_anchor": "multipart_encoding_str = value.get('multipart_encoding') or 'base64'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a file mapping sets multipart_encoding to '7or8bit', the multipart part uses email.encoders.encode_7or8bit as the MIMEApplication encoder.",
+   "covering_prose": "The `set_multipart_encoding` function must support at least two encoding types: \"base64\" and \"7or8bit\", with base64 as the default value.",
+   "gold_anchor": "\"7or8bit\": email.encoders.encode_7or8bit",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a file mapping explicitly sets multipart_encoding to 'base64', prepare_multipart accepts it and uses base64 encoding for that file part.",
+   "covering_prose": "The `set_multipart_encoding` function must support at least two encoding types: \"base64\" and \"7or8bit\", with base64 as the default value.",
+   "gold_anchor": "\"base64\": email.encoders.encode_base64",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When multipart_encoding is '7or8bit' for an ASCII text file, the generated multipart fixture contains the header 'Content-Transfer-Encoding: 7bit'.",
+   "covering_prose": null,
+   "gold_anchor": "\"7or8bit\": email.encoders.encode_7or8bit",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When multipart_encoding is '7or8bit' for file7, the generated multipart fixture contains Content-Type: text/plain.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When multipart_encoding is '7or8bit' for file7, the generated multipart fixture contains Content-Disposition: form-data; name=\"file7\"; filename=\"client.txt\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When multipart_encoding is '7or8bit' for file7, the generated multipart fixture contains the raw client.txt content rather than base64 text.",
+   "covering_prose": "The Python email library already provides alternative encoders that could be used to solve this issue by allowing users to select the encoding type.",
+   "gold_anchor": "part = email.mime.application.MIMEApplication(f.read(), _encoder=multipart_encoding)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When an unsupported multipart_encoding value 'unknown' is provided for a file mapping, prepare_multipart raises ValueError.",
+   "covering_prose": "The function must raise a ValueError with a descriptive message when an unsupported encoding type is provided.",
+   "gold_anchor": "raise ValueError(\"multipart_encoding must be one of %s.\" % repr(encoders_dict.keys()))",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

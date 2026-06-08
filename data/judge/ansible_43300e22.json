@@ -1,0 +1,172 @@
+{
+ "case": "ansible_43300e22",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 13,
+ "n_covered": 13,
+ "n_gap": 0,
+ "n_out_of_scope": 10,
+ "rows": [
+  {
+   "test": "Windows SSH integration scp runs are selected with ANSIBLE_SSH_TRANSFER_METHOD=scp rather than ANSIBLE_SCP_IF_SSH=true.",
+   "covering_prose": "The value of `transfer_method` must control file transfer behavior, including fallback and retries when applicable, using the same precedence rules as other options.",
+   "gold_anchor": "ssh_transfer_method:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "put_file reads the retry count from the connection option `retries` instead of the core constant `C.ANSIBLE_SSH_RETRIES`.",
+   "covering_prose": "All runtime decisions for the SSH connection (including command construction, file transfer selection, retry behavior, and persistent connection management) must use the resolved effective values, regardless of their source.",
+   "gold_anchor": "retries:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "put_file allows legacy `scp_if_ssh` to control transfer selection only when `ssh_transfer_method` is explicitly set to None.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "put_file with `scp_if_ssh` set to `smart` first uses sftp and sends stdin data `put /path/to/in/file /path/to/dest/file\\n` when sftp succeeds.",
+   "covering_prose": "The value of `transfer_method` must control file transfer behavior, including fallback and retries when applicable, using the same precedence rules as other options.",
+   "gold_anchor": "default: smart",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "put_file with `scp_if_ssh` set to `smart` falls back to scp with no stdin data after sftp returns failure.",
+   "covering_prose": "The value of `transfer_method` must control file transfer behavior, including fallback and retries when applicable, using the same precedence rules as other options.",
+   "gold_anchor": "- Setting to 'smart' (default) will try them in order, until one succeeds or they all fail",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "put_file with `scp_if_ssh` set to True uses scp with no stdin data.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "put_file with `scp_if_ssh` set to True also uses scp with no stdin data for unicode paths containing `unicode-f\u00f6\u3029`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "put_file with `scp_if_ssh` set to False uses sftp and sends stdin data `put /path/to/in/file /path/to/dest/file\\n`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "fetch_file reads the retry count from the connection option `retries` instead of the core constant `C.ANSIBLE_SSH_RETRIES`.",
+   "covering_prose": "All runtime decisions for the SSH connection (including command construction, file transfer selection, retry behavior, and persistent connection management) must use the resolved effective values, regardless of their source.",
+   "gold_anchor": "retries:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "fetch_file allows legacy `scp_if_ssh` to control transfer selection only when `ssh_transfer_method` is explicitly set to None.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "fetch_file with `scp_if_ssh` set to `smart` first uses sftp and sends stdin data `get /path/to/in/file /path/to/dest/file\\n` when sftp succeeds.",
+   "covering_prose": "The value of `transfer_method` must control file transfer behavior, including fallback and retries when applicable, using the same precedence rules as other options.",
+   "gold_anchor": "default: smart",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "fetch_file with `scp_if_ssh` set to `smart` falls back to scp with no stdin data after sftp returns failure.",
+   "covering_prose": "The value of `transfer_method` must control file transfer behavior, including fallback and retries when applicable, using the same precedence rules as other options.",
+   "gold_anchor": "- Setting to 'smart' (default) will try them in order, until one succeeds or they all fail",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "fetch_file with `scp_if_ssh` set to string `'True'` uses scp with no stdin data.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "fetch_file with `scp_if_ssh` set to string `'True'` also uses scp with no stdin data for unicode paths containing `unicode-f\u00f6\u3029`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "fetch_file with `scp_if_ssh` set to False uses sftp and sends stdin data `get /path/to/in/file /path/to/dest/file\\n`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "exec_command reads `host_key_checking` from the connection option instead of core constant `C.HOST_KEY_CHECKING`.",
+   "covering_prose": "Configuration for SSH connections must be resolved via `get_option()` according to Ansible precedence (CLI, config, environment, inventory/vars). A single effective value per option must be produced at runtime.",
+   "gold_anchor": "host_key_checking:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "exec_command reads the retry count from the connection option `retries` instead of the core constant `C.ANSIBLE_SSH_RETRIES`.",
+   "covering_prose": "All runtime decisions for the SSH connection (including command construction, file transfer selection, retry behavior, and persistent connection management) must use the resolved effective values, regardless of their source.",
+   "gold_anchor": "retries:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An incorrect password with `retries` set to 5 raises `AnsibleAuthenticationFailure` with message beginning `Invalid/incorrect username/password. Skipping remaining 5 retries to prevent account lockout:` and only calls popen once.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "A command with `retries` set to 3 retries after an initial failure and then returns `(0, b'my_stdout', b'my_stderr')` on success.",
+   "covering_prose": "All runtime decisions for the SSH connection (including command construction, file transfer selection, retry behavior, and persistent connection management) must use the resolved effective values, regardless of their source.",
+   "gold_anchor": "retries:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A command with `retries` set to 9 permits 10 popen attempts before raising `AnsibleConnectionFailure` after repeated failures.",
+   "covering_prose": "All runtime decisions for the SSH connection (including command construction, file transfer selection, retry behavior, and persistent connection management) must use the resolved effective values, regardless of their source.",
+   "gold_anchor": "retries:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A command with `retries` set to 9 permits 10 popen attempts before propagating an arbitrary `Exception('bad')`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "put_file with `retries` set to 3 retries a failed transfer and succeeds on the second popen call.",
+   "covering_prose": "The value of `transfer_method` must control file transfer behavior, including fallback and retries when applicable, using the same precedence rules as other options.",
+   "gold_anchor": "retries:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "fetch_file with `retries` set to 3 retries a failed transfer and succeeds on the second popen call.",
+   "covering_prose": "The value of `transfer_method` must control file transfer behavior, including fallback and retries when applicable, using the same precedence rules as other options.",
+   "gold_anchor": "retries:",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

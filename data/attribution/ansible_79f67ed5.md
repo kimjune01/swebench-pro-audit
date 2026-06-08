@@ -1,0 +1,27 @@
+# Coverage attribution: ansible_79f67ed5
+
+- instance_id: `instance_ansible__ansible-a26c325bd8f6e2822d9d7e62f77a424c1db4fbf6-v0f01c69f1e2528b935359cfe578530722bca2c59`
+- verdict: **ENTAILED**  (12/12 in-gold behaviors covered; **0 GAP** = mindreading; 0 out-of-scope)
+- gold patch: [`gold.diff`](../cases/ansible_79f67ed5/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/ansible_79f67ed5/hidden_test.diff)  ·  spec: [`spec.md`](../cases/ansible_79f67ed5/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| Request.__init__ accepts use_netrc=True and Request.open falls back from use_netrc=None to the instance value, producing fallback call(None, | [`Request.__init__` must expose a parameter that determines if `.netrc` credentials are considered and store that preference for later use in request handling.](../cases/ansible_79f67ed5/spec.md#L7) | [self.use_netrc = use_netrc](../cases/ansible_79f67ed5/gold.diff#L26) |
+| Request.open calls _fallback for use_netrc, increasing the fallback call count from 17 to 18. | [`Request.open` should accept a control for `.netrc` usage, apply fallback when not provided, and only attempt to read `.netrc` if allowed.](../cases/ansible_79f67ed5/spec.md#L7) | [use_netrc = self._fallback(use_netrc, self.use_netrc)](../cases/ansible_79f67ed5/gold.diff#L51) |
+| open_url forwards use_netrc=True when creating Request. | [`open_url` has to define a parameter for `.netrc` handling, default it to enabled, and forward the value when creating a `Request`.](../cases/ansible_79f67ed5/spec.md#L7) | [unredirected_headers=unredirected_headers, decompress=decompress, ciphers=ciphers, use_netrc=use_netrc)](../cases/ansible_79f67ed5/gold.diff#L77) |
+| fetch_url forwards use_netrc=True to open_url by default. | [`fetch_url` needs to accept a parameter that signals whether `.netrc` is used, default it to enabled, and pass it along to `open_url`.](../cases/ansible_79f67ed5/spec.md#L7) | [decompress=decompress, ciphers=ciphers, use_netrc=use_netrc)](../cases/ansible_79f67ed5/gold.diff#L78) |
+| get_url accepts use_netrc: false and forwards it so .netrc credentials are ignored while the explicit Authorization: Bearer foobar header is | [The main flow of `get_url` must retrieve the `.netrc` setting from module arguments and consistently forward it to `url_get` for both primary download and checksum retrieval.](../cases/ansible_79f67ed5/spec.md#L7) | [use_netrc = module.params['use_netrc']](../cases/ansible_79f67ed5/gold.diff#L157) |
+| get_url default behavior considers .netrc credentials, so a request with a Bearer Authorization header and a matching netrc entry is expecte | [By default .netrc is used with Basic authentication headers](../cases/ansible_79f67ed5/spec.md) | [use_netrc=dict(type='bool', default=True)](../cases/ansible_79f67ed5/gold.diff#L149) |
+| uri default behavior considers .netrc credentials, so a request with Authorization: Bearer foobar and matching netrc entry returns a token d | [By default .netrc is used with Basic authentication headers](../cases/ansible_79f67ed5/spec.md) | [use_netrc=dict(type='bool', default=True)](../cases/ansible_79f67ed5/gold.diff#L149) |
+| uri with use_netrc: false ignores .netrc, returns status 200, json.token == 'foobar', and preserves the request URL as https://{{ httpbin_ho | [When set to `false`, `.netrc` credentials are ignored, ensuring that any explicitly set `Authorization` headers are respected.](../cases/ansible_79f67ed5/spec.md#L4) | [ciphers=ciphers, use_netrc=use_netrc, **kwargs)](../cases/ansible_79f67ed5/gold.diff#L78) |
+| uri entry point includes use_netrc in accepted module arguments with default true and passes it into uri(). | [The entry point of `uri` has to include `.netrc` in its accepted arguments and forward the captured value into the `uri` function.](../cases/ansible_79f67ed5/spec.md#L7) | [use_netrc=dict(type='bool', default=True)](../cases/ansible_79f67ed5/gold.diff#L149) |
+| url lookup default behavior respects ~/.netrc and uses Basic authentication over the explicit Authorization: Bearer foobar header. | [The `run` method of the `url` lookup plugin must respect the configured `.netrc` option and forward it to the underlying request logic.](../cases/ansible_79f67ed5/spec.md#L7) | [key: use_netrc](../cases/ansible_79f67ed5/gold.diff#L263) |
+| url lookup accepts use_netrc='False' and ignores ~/.netrc so the Bearer token 'foobar' is used. | [The `run` method of the `url` lookup plugin must respect the configured `.netrc` option and forward it to the underlying request logic.](../cases/ansible_79f67ed5/spec.md#L7) | [use_netrc:](../cases/ansible_79f67ed5/gold.diff#L1) |
+| url lookup exposes use_netrc configuration via variable ansible_lookup_url_use_netrc, environment variable ANSIBLE_LOOKUP_URL_USE_NETRC, and | [The `run` method of the `url` lookup plugin must respect the configured `.netrc` option and forward it to the underlying request logic.](../cases/ansible_79f67ed5/spec.md#L7) | [ANSIBLE_LOOKUP_URL_USE_NETRC](../cases/ansible_79f67ed5/gold.diff#L258) |
+
+## Receipts
+- [`spec.md`](../cases/ansible_79f67ed5/spec.md)
+- [`gold.diff`](../cases/ansible_79f67ed5/gold.diff)
+- [`hidden_test.diff`](../cases/ansible_79f67ed5/hidden_test.diff)
+- judge JSON: [`ansible_79f67ed5.json`](../judge/ansible_79f67ed5.json)

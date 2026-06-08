@@ -37,13 +37,16 @@ The full gold-passes-verifier sweep across the public set (to find any beyond th
 Gold passes its verifier, yet the behavior the hidden test scores is not pinned by what a solver is
 actually given.
 
-**Construct-validity frame.** The solver has the **prose + the codebase at one commit**, nothing else.
-If the test-passing behavior requires *unspoken context* — a live migration to a new convention, a known
-local drift the maintainer wants normalized, plain author intent — that context is not in the solver's
-materials, so the task is underdetermined **as a benchmark instrument**. The maintainer privately
-knowing the answer does not make the task fair; it *is* the construct-validity failure (it tests insider
-knowledge, not capability). So "we cannot recover the rule" is the finding, not auditor weakness:
-neither the solver nor anyone else derives it from the snapshot.
+**Construct-validity frame.** A determinacy claim is relative to **everything the benchmark actually
+delivers to the solver** — the prose, the codebase at the commit, and, where the bench provides them,
+the issue thread, PR/commit history, CONTRIBUTING and repo docs, test names, and changelog. An
+AMBIGUOUS claim must survive checking the rule is **not recoverable from any** of these (codex sniff v2:
+"prose + codebase only" over-excludes solver context). If the check is run against only a subset, the
+claim is **explicitly scoped to that reduced solver-material model** and labeled so — never stated as
+"underdetermined for a real solver." Where the behavior requires context absent from *all* delivered
+materials (unspoken migration direction, maintainer intent), the task is underdetermined **as a
+benchmark instrument** — the maintainer privately knowing the answer is the construct-validity failure,
+not a rescue.
 
 **The standard is the adversarial skeptic's reaction, per cell** (the DeepSWE-dossier persona, not a
 credulous reader): provide exactly the evidence that makes *them* concede — no more, no less.
@@ -73,10 +76,18 @@ show non-binding drift, the label is **UNKNOWN**, not ambiguous: we do not conve
 into a bench indictment. Most cells settle by grep (prose, airtight, codebase-drift); only
 AMBIGUOUS-borderline needs the fleet/panel + a graded patch (`gold.diff` passes / produced patch fails).
 
-This closes the two holes the first codex sniff found: determinacy is judged against prose **and** the
-codebase snapshot (not prose alone), and the codebase itself can be non-binding (drift/migration);
-AMBIGUOUS claims are either grep-checkable (airtight, drift) or escalated to an independent panel
-(borderline), never resting on auditor-predicted "obviousness."
+**Mechanical spine vs disciplined hypothesis (codex sniff v2).** Only these are mechanically
+unimpeachable and need no independent adjudication: **KNOWN_BAD** (gold fails its own grader),
+**DETERMINED-prose** (cite the clause), and **AMBIGUOUS-airtight** (an arbitrary constant present only
+in gold+test — no issue thread, doc, or convention derives a magic number). **The codebase classes are
+NOT snapshot-decidable:** a snapshot shows *plurality, not binding force*, so DETERMINED-codebase vs
+AMBIGUOUS-codebase is interpretive, and "cite ≥2 conflicting locations" proves plurality, not
+underdetermination — gameable by cherry-picking deprecated/dead/test-only/example code. So
+AMBIGUOUS-codebase (and AMBIGUOUS-borderline) is a **disciplined hypothesis**, not proven, until it
+carries (a) comparability criteria for the cited locations (same context; exclude deprecated/dead/
+test-only; recency/ownership) **and** (b) ≥2 independent codebase-aware raters with reported agreement
+(κ). **Lead the audit with the mechanical spine; treat codebase-ambiguity and any rate as hypotheses**
+pending that apparatus + sampling. Honest status: a preregistered instrument, not yet a proven result.
 
 **Current contents:** after the gold-anchored pass, `qutebrowser`/`protonmail`/`element` →
 DETERMINED (positive coverage) → OUR_CAPABILITY_GAPS; `tutao` is the lone candidate (6 GAP behaviors),

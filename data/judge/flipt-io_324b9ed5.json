@@ -1,0 +1,200 @@
+{
+ "case": "flipt-io_324b9ed5",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 27,
+ "n_covered": 27,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "NewStore can wrap an underlying storage.Store and return a Store used for mutating method calls.",
+   "covering_prose": "Description: Constructs a read-only wrapper around the provided `storage.Store`.",
+   "gold_anchor": "func NewStore(store storage.Store) *Store",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CreateNamespace returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) CreateNamespace",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UpdateNamespace returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) UpdateNamespace",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DeleteNamespace returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) DeleteNamespace",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CreateFlag returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) CreateFlag",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UpdateFlag returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) UpdateFlag",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DeleteFlag returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) DeleteFlag",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CreateVariant returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) CreateVariant",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UpdateVariant returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) UpdateVariant",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DeleteVariant returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) DeleteVariant",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CreateSegment returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) CreateSegment",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UpdateSegment returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) UpdateSegment",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DeleteSegment returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) DeleteSegment",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CreateConstraint returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) CreateConstraint",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UpdateConstraint returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) UpdateConstraint",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DeleteConstraint returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) DeleteConstraint",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CreateRule returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) CreateRule",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UpdateRule returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) UpdateRule",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DeleteRule returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) DeleteRule",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OrderRules returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation ordering; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) OrderRules",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CreateDistribution returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Description: Mutating operation; in read-only wrapper returns a sentinel error.",
+   "gold_anchor": "func (s *Store) CreateDistribution",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UpdateDistribution returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Each mutating method must return the same sentinel error when invoked in read-only mode.",
+   "gold_anchor": "func (s *Store) UpdateDistribution",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DeleteDistribution returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Mutating methods include those with names starting with `Create*`, `Update*`, `Delete*`, or `Order*` across all entities (namespace, flag, variant, segment, constraint, rule, distribution, rollout).",
+   "gold_anchor": "func (s *Store) DeleteDistribution",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CreateRollout returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Mutating methods include those with names starting with `Create*`, `Update*`, `Delete*`, or `Order*` across all entities (namespace, flag, variant, segment, constraint, rule, distribution, rollout).",
+   "gold_anchor": "func (s *Store) CreateRollout",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UpdateRollout returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Mutating methods include those with names starting with `Create*`, `Update*`, `Delete*`, or `Order*` across all entities (namespace, flag, variant, segment, constraint, rule, distribution, rollout).",
+   "gold_anchor": "func (s *Store) UpdateRollout",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DeleteRollout returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Mutating methods include those with names starting with `Create*`, `Update*`, `Delete*`, or `Order*` across all entities (namespace, flag, variant, segment, constraint, rule, distribution, rollout).",
+   "gold_anchor": "func (s *Store) DeleteRollout",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OrderRollouts returns an error matching the read-only sentinel via errors.Is.",
+   "covering_prose": "Mutating methods include those with names starting with `Create*`, `Update*`, `Delete*`, or `Order*` across all entities (namespace, flag, variant, segment, constraint, rule, distribution, rollout).",
+   "gold_anchor": "func (s *Store) OrderRollouts",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

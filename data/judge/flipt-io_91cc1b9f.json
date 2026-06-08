@@ -1,0 +1,60 @@
+{
+ "case": "flipt-io_91cc1b9f",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "Loading ./testdata/tracing/wrong_sampling_ratio.yml with samplingRatio 1.1 returns error \"sampling ratio should be a number between 0 and 1\".",
+   "covering_prose": "`TracingConfig` must validate that the value of `SamplingRatio` lies within the closed range\u00a00\u20131. If the number is outside that range, the validation must return the exact error message \u201csampling ratio should be a number between 0 and 1\u201d.",
+   "gold_anchor": "return errors.New(\"sampling ratio should be a number between 0 and 1\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading ./testdata/tracing/wrong_propagator.yml with propagator wrong_propagator returns error \"invalid propagator option: wrong_propagator\".",
+   "covering_prose": "The `TracingConfig` validation must ensure that every element in the `Propagators` slice is one of the allowed values. If it encounters an unknown string, it must return the exact message \u201cinvalid propagator option:\u00a0<value>\u201d, replacing `<value>` with the invalid entry.",
+   "gold_anchor": "return fmt.Errorf(\"invalid propagator option: %s\", propagator)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading ./testdata/tracing/otlp.yml with samplingRatio 0.5 preserves cfg.Tracing.SamplingRatio as 0.5.",
+   "covering_prose": "When loading a configuration that sets `samplingRatio` to a specific value (for example, 0.5), that value must be preserved in the resulting configuration.",
+   "gold_anchor": "SamplingRatio float64             `json:\"samplingRatio,omitempty\" mapstructure:\"samplingRatio\" yaml:\"samplingRatio,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Default tracing config includes SamplingRatio equal to 1.",
+   "covering_prose": "The `Default()` function in `internal/config/config.go` must initialise the `Tracing` sub\u2011structure with `SamplingRatio = 1` and `Propagators = []TracingPropagator{TracingPropagatorTraceContext,\u00a0TracingPropagatorBaggage}`.",
+   "gold_anchor": "SamplingRatio: 1",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Default tracing config includes Propagators equal to []TracingPropagator{TracingPropagatorTraceContext, TracingPropagatorBaggage}.",
+   "covering_prose": "The `Default()` function in `internal/config/config.go` must initialise the `Tracing` sub\u2011structure with `SamplingRatio = 1` and `Propagators = []TracingPropagator{TracingPropagatorTraceContext,\u00a0TracingPropagatorBaggage}`.",
+   "gold_anchor": "TracingPropagatorTraceContext",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "newResource with OTEL_RESOURCE_ATTRIBUTES containing key1=value1 and service.name=myservice returns attributes containing key1=value1, service.name=myservice, and service.version=test, without requiring exact attribute ordering or rejecting extra attributes.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "newResource with no OTEL_RESOURCE_ATTRIBUTES returns attributes containing service.name=flipt and service.version=test, without requiring exact attribute ordering or rejecting extra attributes.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

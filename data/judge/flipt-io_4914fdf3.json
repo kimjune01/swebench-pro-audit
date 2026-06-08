@@ -1,0 +1,32 @@
+{
+ "case": "flipt-io_4914fdf3",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "LogEncodingConsole.String() returns \"console\".",
+   "covering_prose": "- The `LogEncoding` type must implement a `String()` method that returns the exact string values `\"console\"` and `\"json\"` respectively.",
+   "gold_anchor": "LogEncodingConsole: \"console\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "LogEncodingJSON.String() returns \"json\".",
+   "covering_prose": "- The `LogEncoding` type must implement a `String()` method that returns the exact string values `\"console\"` and `\"json\"` respectively.",
+   "gold_anchor": "LogEncodingJSON:    \"json\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading a YAML config with log.encoding set to \"json\" produces cfg.Log.Encoding == LogEncodingJSON.",
+   "covering_prose": "- The application must accept the values \"console\" and \"json\" for the 'log.encoding' key when provided through the YAML configuration file.",
+   "gold_anchor": "cfg.Log.Encoding = stringToLogEncoding[viper.GetString(logEncoding)]",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

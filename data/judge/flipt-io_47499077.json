@@ -1,0 +1,151 @@
+{
+ "case": "flipt-io_47499077",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 11,
+ "rows": [
+  {
+   "test": "Loading OCI config with username/password and omitted authentication.type produces Authentication.Type == AuthenticationTypeStatic.",
+   "covering_prose": "when this field is omitted in YAML or ENV, loading should surface `Type == AuthenticationTypeStatic` (including when `username` and/or `password` are provided without `type`).",
+   "gold_anchor": "v.SetDefault(\"storage.oci.authentication.type\", oci.AuthenticationTypeStatic)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading OCI config with type aws-ecr and no username/password produces Authentication.Type == AuthenticationTypeAWSECR.",
+   "covering_prose": "Loading configuration for OCI storage must support three cases: static credentials (`username`/`password` with `type: static` or with `type` omitted), AWS ECR credentials (`type: aws-ecr` with no `username`/`password` required), and no authentication block at all; these must round-trip to the expected in-memory `Config` structure.",
+   "gold_anchor": "Type     oci.AuthenticationType `json:\"-\" mapstructure:\"type\" yaml:\"-\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading OCI config with no authentication block succeeds and leaves Authentication nil.",
+   "covering_prose": "Loading configuration for OCI storage must support three cases: static credentials (`username`/`password` with `type: static` or with `type` omitted), AWS ECR credentials (`type: aws-ecr` with no `username`/`password` required), and no authentication block at all; these must round-trip to the expected in-memory `Config` structure.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Loading OCI config with authentication.type invalid fails with error message `oci authentication type is not supported`.",
+   "covering_prose": "Configuration validation must fail when `authentication.type` is not one of the supported values, returning the error message `oci authentication type is not supported`.",
+   "gold_anchor": "return errors.New(\"oci authentication type is not supported\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ECR fetchCredential returns auth.ErrBasicCredentialNotFound when AuthorizationToken is nil.",
+   "covering_prose": "when the token pointer is `nil`, it must return `auth.ErrBasicCredentialNotFound`;",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ECR fetchCredential returns base64.CorruptInputError(4) for token string `invalid`.",
+   "covering_prose": "when the token is not valid base64, it must return the corresponding `base64.CorruptInputError`;",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ECR fetchCredential returns auth.ErrBasicCredentialNotFound when decoded token has no `:` delimiter.",
+   "covering_prose": "when the decoded token does not contain a single `\":\"` delimiter, it must return `auth.ErrBasicCredentialNotFound`;",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ECR fetchCredential decodes `user_name:password` into credential Username `user_name` and Password `password`.",
+   "covering_prose": "when valid, it must return a credential whose `Username` and `Password` match the decoded pair.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "ECR fetchCredential returns ErrNoAWSECRAuthorizationData when AuthorizationData is an empty array.",
+   "covering_prose": "when the returned `AuthorizationData` array is empty, it must return `ErrNoAWSECRAuthorizationData`;",
+   "gold_anchor": "var ErrNoAWSECRAuthorizationData = errors.New(\"no ecr authorization data provided\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ECR fetchCredential propagates GetAuthorizationToken error io.ErrUnexpectedEOF.",
+   "covering_prose": "when `GetAuthorizationToken` returns an error, that error must be propagated;",
+   "gold_anchor": "GetAuthorizationToken(ctx context.Context, params *ecr.GetAuthorizationTokenInput, optFns ...func(*ecr.Options)) (*ecr.GetAuthorizationTokenOutput, error)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling (*ECR).Credential with unresolved AWS credentials returns an error.",
+   "covering_prose": "The ECR credential provider must expose `(*ECR).Credential(ctx, hostport)` that returns an error when credentials cannot be resolved via the AWS chain,",
+   "gold_anchor": "func (r *ECR) Credential(ctx context.Context, hostport string) (auth.Credential, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "WithCredentials(AuthenticationTypeStatic, \"u\", \"p\") returns no error and an option that sets StoreOptions.auth non-nil.",
+   "covering_prose": "for `kind == \"static\"` it must yield an option that sets a non-nil authenticator such that calling it with a registry returns a non-nil `auth.CredentialFunc`;",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "WithCredentials(AuthenticationTypeStatic, \"u\", \"p\") sets an authenticator whose call with registry `test` returns a non-nil credential function.",
+   "covering_prose": "for `kind == \"static\"` it must yield an option that sets a non-nil authenticator such that calling it with a registry returns a non-nil `auth.CredentialFunc`;",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "WithCredentials(AuthenticationTypeAWSECR, \"\", \"\") returns no error and an option that sets StoreOptions.auth non-nil.",
+   "covering_prose": "for `kind == \"aws-ecr\"` it must yield an option that uses AWS ECR-backed credentials;",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "WithCredentials(AuthenticationTypeAWSECR, \"\", \"\") sets an authenticator whose call with registry `test` returns a non-nil credential function.",
+   "covering_prose": "for `kind == \"aws-ecr\"` it must yield an option that uses AWS ECR-backed credentials;",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "WithCredentials(AuthenticationType(\"unknown\"), \"\", \"\") returns error string `unsupported auth type unknown`.",
+   "covering_prose": "for unsupported kinds it must return the error `unsupported auth type unknown` (where `unknown` is the provided value).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "WithManifestVersion(oras.PackManifestVersion1_1) sets StoreOptions.manifestVersion to oras.PackManifestVersion1_1.",
+   "covering_prose": "`WithManifestVersion(version oras.PackManifestVersion)` must set the `StoreOptions.manifestVersion` to the provided value.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AuthenticationTypeStatic.IsValid() returns true.",
+   "covering_prose": "The type `AuthenticationType` must provide `IsValid() bool` that returns `true` for `\"static\"` and `\"aws-ecr\"` and `false` for any other value.",
+   "gold_anchor": "if !cfg.Authentication.Type.IsValid() {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AuthenticationTypeAWSECR.IsValid() returns true.",
+   "covering_prose": "The type `AuthenticationType` must provide `IsValid() bool` that returns `true` for `\"static\"` and `\"aws-ecr\"` and `false` for any other value.",
+   "gold_anchor": "if !cfg.Authentication.Type.IsValid() {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AuthenticationType(\"\").IsValid() returns false.",
+   "covering_prose": "The type `AuthenticationType` must provide `IsValid() bool` that returns `true` for `\"static\"` and `\"aws-ecr\"` and `false` for any other value.",
+   "gold_anchor": "if !cfg.Authentication.Type.IsValid() {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,81 @@
+{
+ "case": "flipt-io_77e21fd6",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 9,
+ "n_covered": 7,
+ "n_gap": 2,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "GetEvaluationRulesCached reads cached rule JSON with rank 12 and returns []*storage.EvaluationRule{{Rank: 12}}.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "GetEvaluationRulesCached uses cache key \"s:er:ns:flag-1\" for namespace \"ns\" and flag \"flag-1\".",
+   "covering_prose": "The const block should declare both `evaluationRulesCacheKeyFmt` with pattern `\"s:er:%s:%s\"` and `evaluationRolloutsCacheKeyFmt` with pattern `\"s:ero:%s:%s\"` to define cache key formats for rules and rollouts.",
+   "gold_anchor": "evaluationRulesCacheKeyFmt = \"s:er:%s:%s\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetEvaluationRollouts on cache miss delegates to the underlying store with context.TODO(), namespace \"ns\", and flag \"flag-1\".",
+   "covering_prose": "The `GetEvaluationRollouts` method should attempt to retrieve rollouts from the cache using `evaluationRolloutsCacheKeyFmt`, fall back to fetching rollouts from the underlying store on cache miss, and populate the cache before returning.",
+   "gold_anchor": "rollouts, err := s.Store.GetEvaluationRollouts(ctx, namespaceKey, flagKey)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetEvaluationRollouts on cache miss returns nil error when the underlying store succeeds.",
+   "covering_prose": null,
+   "gold_anchor": "return rollouts, nil",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "GetEvaluationRollouts on cache miss returns the underlying store rollouts []*storage.EvaluationRollout{{Rank: 1}}.",
+   "covering_prose": "The `GetEvaluationRollouts` method should attempt to retrieve rollouts from the cache using `evaluationRolloutsCacheKeyFmt`, fall back to fetching rollouts from the underlying store on cache miss, and populate the cache before returning.",
+   "gold_anchor": "return rollouts, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetEvaluationRollouts builds cache key \"s:ero:ns:flag-1\" with namespace before flag.",
+   "covering_prose": "GetEvaluationRollouts(ctx, namespaceKey, flagKey) must build the cache key with fmt.Sprintf(evaluationRolloutsCacheKeyFmt, namespaceKey, flagKey) (namespace first, flag second).",
+   "gold_anchor": "cacheKey := fmt.Sprintf(evaluationRolloutsCacheKeyFmt, namespaceKey, flagKey)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetEvaluationRollouts on cache miss stores JSON bytes [{\"rank\":1}] in the cache, omitting empty rollout fields.",
+   "covering_prose": "The `EvaluationRollout`, `RolloutThreshold`, and `RolloutSegment` structs should have `json` tags with `omitempty` on all fields to ensure empty values are not serialized.",
+   "gold_anchor": "Rank         int32             `json:\"rank,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetEvaluationRollouts on cache hit does not call the underlying store.",
+   "covering_prose": "The `GetEvaluationRollouts` method should attempt to retrieve rollouts from the cache using `evaluationRolloutsCacheKeyFmt`, fall back to fetching rollouts from the underlying store on cache miss, and populate the cache before returning.",
+   "gold_anchor": "if cacheHit {\n\t\treturn rollouts, nil\n\t}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetEvaluationRollouts on cache hit unmarshals cached JSON [{\"rank\":1}] and returns []*storage.EvaluationRollout{{Rank: 1}}.",
+   "covering_prose": "The cached store\u2019s GetEvaluationRollouts must use the existing s.get/s.set helpers for cache interaction and JSON (un)marshalling consistency with other cached methods.",
+   "gold_anchor": "cacheHit := s.get(ctx, cacheKey, &rollouts)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetEvaluationRollouts on cache hit returns nil error.",
+   "covering_prose": null,
+   "gold_anchor": "return rollouts, nil",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

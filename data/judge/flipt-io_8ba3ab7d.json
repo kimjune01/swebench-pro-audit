@@ -1,0 +1,67 @@
+{
+ "case": "flipt-io_8ba3ab7d",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 0,
+ "n_covered": 0,
+ "n_gap": 0,
+ "n_out_of_scope": 8,
+ "rows": [
+  {
+   "test": "Git SnapshotStore instances created successfully in testStore are closed during test cleanup by calling source.Close().",
+   "covering_prose": "Each `SnapshotStore` implementation in `internal/storage/fs` needs to expose a public `Close()` method to safely stop any active polling when necessary",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Git testStoreWithError returns the creation error directly when NewSnapshotStore fails, without returning a SnapshotStore value.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Git testStoreWithError registers a cleanup that calls source.Close() when NewSnapshotStore succeeds.",
+   "covering_prose": "Each `SnapshotStore` implementation in `internal/storage/fs` needs to expose a public `Close()` method to safely stop any active polling when necessary",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Local SnapshotStore instances can be closed during test cleanup by calling s.Close().",
+   "covering_prose": "Each `SnapshotStore` implementation in `internal/storage/fs` needs to expose a public `Close()` method to safely stop any active polling when necessary",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Azure Blob SnapshotStore instances can be closed during test cleanup by calling source.Close().",
+   "covering_prose": "Each `SnapshotStore` implementation in `internal/storage/fs` needs to expose a public `Close()` method to safely stop any active polling when necessary",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "S3 SnapshotStore instances can be closed during test cleanup by calling source.Close().",
+   "covering_prose": "Each `SnapshotStore` implementation in `internal/storage/fs` needs to expose a public `Close()` method to safely stop any active polling when necessary",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "OCI SnapshotStore instances can be closed during test cleanup by calling source.Close().",
+   "covering_prose": "Each `SnapshotStore` implementation in `internal/storage/fs` needs to expose a public `Close()` method to safely stop any active polling when necessary",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Calling Close() on a SnapshotStore during cleanup must be safe even when no polling is active.",
+   "covering_prose": "The `Close()` method in `SnapshotStore` must act as a safe no-op if no polling is active",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

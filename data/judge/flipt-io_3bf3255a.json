@@ -1,0 +1,25 @@
+{
+ "case": "flipt-io_3bf3255a",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "ErrorUnaryInterceptor returns gRPC code DeadlineExceeded when the handler error wraps context.DeadlineExceeded as fmt.Errorf(\"foo: %w\", context.DeadlineExceeded).",
+   "covering_prose": "Any error caused by `context.DeadlineExceeded` should be classified and returned with the gRPC code `DeadlineExceeded`, even if the error is wrapped by another error.",
+   "gold_anchor": "if errors.Is(err, context.DeadlineExceeded) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ErrorUnaryInterceptor returns gRPC code Canceled when the handler error wraps context.Canceled as fmt.Errorf(\"foo: %w\", context.Canceled).",
+   "covering_prose": "Any error caused by `context.Canceled` should be classified and returned with the gRPC code `Canceled`, even if the error is wrapped by another error.",
+   "gold_anchor": "if errors.Is(err, context.Canceled) {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

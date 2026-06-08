@@ -1,0 +1,46 @@
+{
+ "case": "flipt-io_2cdbe9ca",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Loading ./testdata/version/v1.yml succeeds and returns a Config whose Version is \"1.0\".",
+   "covering_prose": "- When provided, the only accepted value for `Version` should be `\"1.0\"`.",
+   "gold_anchor": "Version        string               `json:\"version,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The v1 version fixture exists at internal/config/testdata/version/v1.yml with content version: \"1.0\".",
+   "covering_prose": "- Two new files `internal/config/testdata/version/invalid.yml` and `internal/config/testdata/version/v1.yml` should be created with the content `version: \"2.0\"` and `version: \"1.0\"`, respectively.",
+   "gold_anchor": "+version: \"1.0\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading ./testdata/version/invalid.yml fails with an error whose message is exactly \"invalid version: 2.0\".",
+   "covering_prose": "- If `Version` is set to any other value, configuration loading must fail with an error object with the message`invalid version: <value>`.",
+   "gold_anchor": "return fmt.Errorf(\"invalid version: %s\", c.Version)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The invalid version fixture exists at internal/config/testdata/version/invalid.yml with content version: \"2.0\".",
+   "covering_prose": "- Two new files `internal/config/testdata/version/invalid.yml` and `internal/config/testdata/version/v1.yml` should be created with the content `version: \"2.0\"` and `version: \"1.0\"`, respectively.",
+   "gold_anchor": "+version: \"2.0\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For expected load errors, the test accepts either errors.Is(err, wantErr) or exact equality of err.Error() and wantErr.Error().",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

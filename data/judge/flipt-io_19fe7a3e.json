@@ -1,0 +1,67 @@
+{
+ "case": "flipt-io_19fe7a3e",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Deleting a segment referenced by a variant flag rule fails with error message `segment \"<namespace>/<segmentKey>\" is in use`.",
+   "covering_prose": "When a segment is referenced by at least one rule or rollout, the `DeleteSegment` method should fail and return an error whose message is exactly: `\"segment \"<namespace>/<segmentKey>\" is in use\"`.",
+   "gold_anchor": "rule_segments ADD CONSTRAINT rule_segments_namespace_key_segment_key_fkey FOREIGN KEY (namespace_key, segment_key) REFERENCES segments (namespace_key, key) ON DELETE RESTRICT",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Deleting a segment referenced by a boolean flag rollout fails with error message `segment \"<namespace>/<segmentKey>\" is in use`.",
+   "covering_prose": "When a segment is referenced by at least one rule or rollout, the `DeleteSegment` method should fail and return an error whose message is exactly: `\"segment \"<namespace>/<segmentKey>\" is in use\"`.",
+   "gold_anchor": "rollout_segment_references\n+ ADD CONSTRAINT rollout_segment_references_namespace_key_segment_key_fkey FOREIGN KEY (namespace_key, segment_key) REFERENCES segments (namespace_key, key) ON DELETE RESTRICT",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The in-use deletion behavior applies to both variant and boolean flag types.",
+   "covering_prose": "The behavior and error message should be identical across all supported backends and should apply equally whether the flag type is variant or boolean.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After deleting the rule that referenced the segment, deleting that segment succeeds without error.",
+   "covering_prose": "After all rules or rollouts that reference a segment are deleted, a subsequent call to `DeleteSegment` for that segment should succeed without error.",
+   "gold_anchor": "ON DELETE RESTRICT",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After deleting the rollout that referenced the segment, deleting that segment succeeds without error.",
+   "covering_prose": "After all rules or rollouts that reference a segment are deleted, a subsequent call to `DeleteSegment` for that segment should succeed without error.",
+   "gold_anchor": "ON DELETE RESTRICT",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DeleteSegment receives and uses both `NamespaceKey` and `Key` from `DeleteSegmentRequest` when deleting a segment.",
+   "covering_prose": "`r *flipt.DeleteSegmentRequest`: the request object containing the `NamespaceKey` and `Key` of the segment to be deleted.",
+   "gold_anchor": "FOREIGN KEY (namespace_key, segment_key) REFERENCES segments (namespace_key, key) ON DELETE RESTRICT",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A segment referenced through `rule_segments` is blocked from deletion instead of being cascade-deleted.",
+   "covering_prose": "A segment should not be deleted if it still has references in `rule_segments` or `rollout_segment_references`; the deletion should be blocked instead of cascading.",
+   "gold_anchor": "ALTER TABLE rule_segments ADD CONSTRAINT `rule_segments_ibfk_2` FOREIGN KEY (namespace_key, segment_key) REFERENCES segments (namespace_key, `key`) ON DELETE RESTRICT",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A segment referenced through `rollout_segment_references` is blocked from deletion instead of being cascade-deleted.",
+   "covering_prose": "A segment should not be deleted if it still has references in `rule_segments` or `rollout_segment_references`; the deletion should be blocked instead of cascading.",
+   "gold_anchor": "ALTER TABLE rollout_segment_references\n+ ADD CONSTRAINT `rollout_segment_references_ibfk_2` FOREIGN KEY (namespace_key, segment_key) REFERENCES segments (namespace_key, `key`) ON DELETE RESTRICT",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

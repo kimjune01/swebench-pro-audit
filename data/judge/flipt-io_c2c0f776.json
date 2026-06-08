@@ -1,0 +1,39 @@
+{
+ "case": "flipt-io_c2c0f776",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Loading an OCI storage config without manifest_version sets internal OCI.ManifestVersion to \"1.1\".",
+   "covering_prose": "- The default value for `manifest_version` must be `\\\"1.1\\\"` when not explicitly set by the user.",
+   "gold_anchor": "v.SetDefault(\"storage.oci.manifest_version\", \"1.1\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading ./testdata/storage/oci_provided_full.yml with manifest_version: \"1.0\" sets internal OCI.ManifestVersion to \"1.0\".",
+   "covering_prose": "- Ensure that a configuration file specifying `manifest_version: \\\"1.0\\\"` correctly loads into the internal configuration structure.",
+   "gold_anchor": "ManifestVersion OCIManifestVersion `json:\"manifestVersion,omitempty\" mapstructure:\"manifest_version\" yaml:\"manifest_version,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading ./testdata/storage/oci_invalid_manifest_version.yml with manifest_version: \"1.2\" returns error \"wrong manifest version, it should be 1.0 or 1.1\".",
+   "covering_prose": "- Ensure that a configuration file specifying an unsupported value such as `\\\"1.2\\\"` produces the expected validation error.",
+   "gold_anchor": "return errors.New(\"wrong manifest version, it should be 1.0 or 1.1\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The audit logfile test constructs the expected audit log path by joining the temp directory and \"audit.log\" with filepath.Join.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "case": "flipt-io_6c91b1ad",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "matchesString returns true for operator \"contains\" when the evaluated string \"foobar\" includes constraint value \"bar\" as a substring.",
+   "covering_prose": "Evaluation constraints using the operator `\\\"contains\\\"` should match when the evaluated string value includes the constraint value as a substring.",
+   "gold_anchor": "return strings.Contains(v, value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "matchesString returns false for operator \"contains\" when the evaluated string \"nope\" does not include constraint value \"bar\" as a substring.",
+   "covering_prose": "The evaluation system should support `\\\"contains\\\"` and `\\\"notcontains\\\"` operators, allowing it to evaluate whether a string includes or excludes a specific substring.",
+   "gold_anchor": "return strings.Contains(v, value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "matchesString returns true for operator \"notcontains\" when the evaluated string \"nope\" does not include constraint value \"bar\" as a substring.",
+   "covering_prose": "Evaluation constraints using the operator `\\\"notcontains\\\"` should match when the evaluated string value does not include the constraint value as a substring.",
+   "gold_anchor": "return !strings.Contains(v, value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "matchesString returns false for operator \"notcontains\" when the evaluated string \"foobar\" includes constraint value \"bar\" as a substring.",
+   "covering_prose": "The evaluation system should support `\\\"contains\\\"` and `\\\"notcontains\\\"` operators, allowing it to evaluate whether a string includes or excludes a specific substring.",
+   "gold_anchor": "return !strings.Contains(v, value)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

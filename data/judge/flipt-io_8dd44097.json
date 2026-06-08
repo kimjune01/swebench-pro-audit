@@ -1,0 +1,151 @@
+{
+ "case": "flipt-io_8dd44097",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 15,
+ "rows": [
+  {
+   "test": "defaultClientFunc(\"\")(\"aws_account_id.dkr.ecr.region.amazonaws.com/team-a/app\") returns a value of type *privateClient.",
+   "covering_prose": "The function defaultClientFunc(endpoint string) should return a closure that creates a client based on the registry hostname: if serverAddress starts with \"public.ecr.aws\", it should use a public client; otherwise, it should use a private client. This ensures correct client selection for different ECR types.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "defaultClientFunc(\"\")(\"public.ecr.aws/team-a/app\") returns a value of type *publicClient.",
+   "covering_prose": "The function defaultClientFunc(endpoint string) should return a closure that creates a client based on the registry hostname: if serverAddress starts with \"public.ecr.aws\", it should use a public client; otherwise, it should use a private client. This ensures correct client selection for different ECR types.",
+   "gold_anchor": "github.com/aws/aws-sdk-go-v2/service/ecrpublic v1.23.4",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "extractCredential(\"invalid\") returns base64.CorruptInputError(4).",
+   "covering_prose": "The helper should base64-decode the token using standard encoding. If decoding fails, it should return an empty credential with the exact decode error. On success, it should split the decoded string at the first colon into exactly two parts; otherwise, it should return an empty credential and a \u201cbasic credential not found\u201d error.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "extractCredential(\"invalid\") returns an empty auth.Credential with empty Username and empty Password.",
+   "covering_prose": "The helper should base64-decode the token using standard encoding. If decoding fails, it should return an empty credential with the exact decode error. On success, it should split the decoded string at the first colon into exactly two parts; otherwise, it should return an empty credential and a \u201cbasic credential not found\u201d error.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "extractCredential(\"dXNlcl9uYW1lcGFzc3dvcmQ=\") returns auth.ErrBasicCredentialNotFound.",
+   "covering_prose": "The helper should base64-decode the token using standard encoding. If decoding fails, it should return an empty credential with the exact decode error. On success, it should split the decoded string at the first colon into exactly two parts; otherwise, it should return an empty credential and a \u201cbasic credential not found\u201d error.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "extractCredential(\"dXNlcl9uYW1lcGFzc3dvcmQ=\") returns an empty auth.Credential with empty Username and empty Password.",
+   "covering_prose": "The helper should base64-decode the token using standard encoding. If decoding fails, it should return an empty credential with the exact decode error. On success, it should split the decoded string at the first colon into exactly two parts; otherwise, it should return an empty credential and a \u201cbasic credential not found\u201d error.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "extractCredential(\"dXNlcl9uYW1lOnBhc3N3b3Jk\") returns Username \"user_name\" and Password \"password\" with nil error.",
+   "covering_prose": "A successfully extracted credential should set the username to the part before the colon and the password to the part after it with no trimming or transformation. These values should be cached along with the expiry returned by the client.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "CredentialsStore.Get propagates io.ErrUnexpectedEOF unchanged when Client.GetAuthorizationToken returns that error.",
+   "covering_prose": "If the cache is empty or expired, Get should request a new token from the client function. If this call fails, it should return an empty credential and propagate the error unchanged.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "CredentialsStore.Get returns an error when token extraction fails for token \"failure\".",
+   "covering_prose": "When a token is received, Get should call a helper to convert the token into a username and password. If extraction fails, it should return an empty credential and the error from the helper without modification.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "CredentialsStore.Get calls Client.GetAuthorizationToken only once across three calls before expiry.",
+   "covering_prose": "Subsequent calls to Get for the same serverAddress before expiry should return the cached credential, while calls after expiry should trigger a fresh token request and update the cache.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "CredentialsStore.Get returns cached Username \"user_name\" and Password \"password\" on each of three calls before expiry.",
+   "covering_prose": "The method `Get(ctx, serverAddress)` should first check the cache, and if a non-expired entry exists (expiry later than the current UTC time), it should return that credential immediately without contacting the client.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "privateClient.GetAuthorizationToken propagates errors.ErrUnsupported unchanged from the AWS private client call.",
+   "covering_prose": "The method `GetAuthorizationToken(ctx)` should call the AWS API, require a non-empty AuthorizationData array, require a non-nil AuthorizationToken on the first item, and return (token, expiresAt). It should return ErrNoAWSECRAuthorizationData when the array is empty, and auth.ErrBasicCredentialNotFound when the token pointer is nil, propagating other errors unchanged.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "privateClient.GetAuthorizationToken returns ErrNoAWSECRAuthorizationData when private AuthorizationData is an empty array.",
+   "covering_prose": "The method `GetAuthorizationToken(ctx)` should call the AWS API, require a non-empty AuthorizationData array, require a non-nil AuthorizationToken on the first item, and return (token, expiresAt). It should return ErrNoAWSECRAuthorizationData when the array is empty, and auth.ErrBasicCredentialNotFound when the token pointer is nil, propagating other errors unchanged.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "privateClient.GetAuthorizationToken returns auth.ErrBasicCredentialNotFound when the first private AuthorizationToken pointer is nil.",
+   "covering_prose": "The method `GetAuthorizationToken(ctx)` should call the AWS API, require a non-empty AuthorizationData array, require a non-nil AuthorizationToken on the first item, and return (token, expiresAt). It should return ErrNoAWSECRAuthorizationData when the array is empty, and auth.ErrBasicCredentialNotFound when the token pointer is nil, propagating other errors unchanged.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "privateClient.GetAuthorizationToken returns token \"some:token\" and the ExpiresAt time from the first private AuthorizationData item.",
+   "covering_prose": "The method `GetAuthorizationToken(ctx)` should call the AWS API, require a non-empty AuthorizationData array, require a non-nil AuthorizationToken on the first item, and return (token, expiresAt). It should return ErrNoAWSECRAuthorizationData when the array is empty, and auth.ErrBasicCredentialNotFound when the token pointer is nil, propagating other errors unchanged.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "privateClient.GetAuthorizationToken on a zero-value privateClient returns a non-nil error.",
+   "covering_prose": "The function `NewPrivateClient(endpoint string)` should return a concrete private client that, on first use, loads the default AWS config and constructs an ECR service client. If the endpoint is non-empty, it should set it as the base endpoint.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "publicClient.GetAuthorizationToken propagates errors.ErrUnsupported unchanged from the AWS public client call.",
+   "covering_prose": "The method `GetAuthorizationToken(ctx)` should call the AWS API, require a non-nil AuthorizationData struct, require a non-nil AuthorizationToken, and return (token, expiresAt). It should return ErrNoAWSECRAuthorizationData when the struct is nil, and auth.ErrBasicCredentialNotFound when the token pointer is nil, propagating other errors unchanged.",
+   "gold_anchor": "github.com/aws/aws-sdk-go-v2/service/ecrpublic v1.23.4",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "publicClient.GetAuthorizationToken returns auth.ErrBasicCredentialNotFound when public AuthorizationToken pointer is nil.",
+   "covering_prose": "The method `GetAuthorizationToken(ctx)` should call the AWS API, require a non-nil AuthorizationData struct, require a non-nil AuthorizationToken, and return (token, expiresAt). It should return ErrNoAWSECRAuthorizationData when the struct is nil, and auth.ErrBasicCredentialNotFound when the token pointer is nil, propagating other errors unchanged.",
+   "gold_anchor": "github.com/aws/aws-sdk-go-v2/service/ecrpublic v1.23.4",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "publicClient.GetAuthorizationToken returns token \"some:token\" and the ExpiresAt time from public AuthorizationData.",
+   "covering_prose": "The method `GetAuthorizationToken(ctx)` should call the AWS API, require a non-nil AuthorizationData struct, require a non-nil AuthorizationToken, and return (token, expiresAt). It should return ErrNoAWSECRAuthorizationData when the struct is nil, and auth.ErrBasicCredentialNotFound when the token pointer is nil, propagating other errors unchanged.",
+   "gold_anchor": "github.com/aws/aws-sdk-go-v2/service/ecrpublic v1.23.4",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "publicClient.GetAuthorizationToken on a zero-value publicClient returns a non-nil error.",
+   "covering_prose": "The function `NewPublicClient(endpoint string)` should return a concrete public client that, on first use, loads the default AWS config and constructs an `ecrpublic` service client. If the endpoint is non-empty, it should set it as the base endpoint.",
+   "gold_anchor": "github.com/aws/aws-sdk-go-v2/service/ecrpublic v1.23.4",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

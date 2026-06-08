@@ -1,0 +1,25 @@
+{
+ "case": "flipt-io_7620fe8b",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "TestCleanup reads each authentication method's RequiresDatabase field while iterating authConfig.Methods.AllMethods().",
+   "covering_prose": "The `AuthenticationMethodInfo` struct must include a field indicating whether a database connection is required for each authentication method; this field should be named `RequiresDatabase` and must be set explicitly for each supported authentication method in the configuration.",
+   "gold_anchor": "RequiresDatabase  bool",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TestCleanup skips any authentication method whose RequiresDatabase value is false before creating the cleanup subtest.",
+   "covering_prose": "The authentication service's cleanup routine (`Run` in `AuthenticationService`) must skip execution for any authentication method where `RequiresDatabase` is `false`, regardless of whether cleanup is otherwise configured for the method.",
+   "gold_anchor": "if !info.RequiresDatabase {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

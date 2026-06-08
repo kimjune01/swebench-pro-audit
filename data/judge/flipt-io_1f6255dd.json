@@ -1,0 +1,67 @@
+{
+ "case": "flipt-io_1f6255dd",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 8,
+ "n_covered": 5,
+ "n_gap": 3,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "YAML import of a flag with nested metadata succeeds and creates a flag whose Metadata contains the nested map {\"args\":{\"name\":\"value\"}} rather than failing with a proto/json map type error.",
+   "covering_prose": "The YAML import must use the YAML v3 decoder so that mappings deserialize into JSON compatible structures and preserve nested \u2018metadata\u2019 structures (maps and arrays) without type errors during import.",
+   "gold_anchor": "return yamlv3.NewDecoder(r)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "JSON import accepts an import file whose first line starts with \"#\" by skipping that first line before decoding the JSON payload.",
+   "covering_prose": "When handling JSON in the import flow, the reader must accept files that begin with exactly one leading line starting with \u2018#\u2019 by ignoring only that first line (and only if it starts with \u2018#\u2019) and parsing the subsequent JSON payload; this behavior applies strictly to JSON import.",
+   "gold_anchor": "if b[0] == '#' {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The JSON-leading-# skipping behavior is applied only when the selected import encoding is JSON.",
+   "covering_prose": "this behavior applies strictly to JSON import.",
+   "gold_anchor": "if enc == EncodingJSON {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Imported flags are created in the namespace specified by the input namespace key, here \"default\".",
+   "covering_prose": "If the input includes \u2018namespace.key\u2019, \u2018namespace.name\u2019, or \u2018namespace.description\u2019, these fields must be applied so imported flags are restored to the correct namespace with metadata intact.",
+   "gold_anchor": "NamespaceKey:     namespaceKey,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The imported flag preserves the concrete flag key \"test\" from the input.",
+   "covering_prose": null,
+   "gold_anchor": "Key:             flag.Key,",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The imported flag preserves the concrete flag name \"test\" from the input.",
+   "covering_prose": null,
+   "gold_anchor": "Name:            flag.Name,",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The imported flag preserves the concrete BOOLEAN_FLAG_TYPE flag type from the input.",
+   "covering_prose": null,
+   "gold_anchor": "Type:            flag.Type,",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Metadata is serialized directly from v.Attachment without calling an ad-hoc map conversion helper before json.Marshal.",
+   "covering_prose": "Data read during import that is later serialized to JSON must serialize without errors due to non string keys and without requiring ad-hoc conversions.",
+   "gold_anchor": "out, err = json.Marshal(v.Attachment)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

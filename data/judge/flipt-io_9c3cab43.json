@@ -1,0 +1,60 @@
+{
+ "case": "flipt-io_9c3cab43",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 7,
+ "n_covered": 5,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Loading ./testdata/authentication/token_bootstrap_token.yml populates Authentication.Methods.Token.Method.Bootstrap.Token with \"s3cr3t!\".",
+   "covering_prose": "The configuration loader should parse `authentication.methods.token.bootstrap` from YAML and populate `AuthenticationMethodTokenConfig.Bootstrap.Token` and `AuthenticationMethodTokenBootstrapConfig.Expiration`, preserving the provided `Token` value.",
+   "gold_anchor": "Token      string        `json:\"-\" mapstructure:\"token\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading ./testdata/authentication/token_bootstrap_token.yml populates Authentication.Methods.Token.Method.Bootstrap.Expiration with 24 * time.Hour.",
+   "covering_prose": "The configuration loader should parse `authentication.methods.token.bootstrap` from YAML and populate `AuthenticationMethodTokenConfig.Bootstrap.Token` and `AuthenticationMethodTokenBootstrapConfig.Expiration`, preserving the provided `Token` value.",
+   "gold_anchor": "Expiration time.Duration `json:\"expiration,omitempty\" mapstructure:\"expiration\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AuthenticationMethodTokenConfig has a Bootstrap field shaped as AuthenticationMethodTokenBootstrapConfig under json/mapstructure key \"bootstrap\".",
+   "covering_prose": "`AuthenticationMethodTokenConfig` should be updated to include a `Bootstrap` field of type `AuthenticationMethodTokenBootstrapConfig`.",
+   "gold_anchor": "Bootstrap AuthenticationMethodTokenBootstrapConfig `json:\"bootstrap\" mapstructure:\"bootstrap\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "JSON schema permits authentication.methods.token.bootstrap.token as a string.",
+   "covering_prose": "The system should support a `bootstrap` section for the token authentication method.",
+   "gold_anchor": "\"token\": {\n                      \"type\": \"string\"\n                    }",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "JSON schema permits authentication.methods.token.bootstrap.expiration as either a duration string matching ^([0-9]+(ns|us|\u00b5s|ms|s|m|h))+$ or an integer.",
+   "covering_prose": "The system should support a `bootstrap` section for the token authentication method.",
+   "gold_anchor": "\"pattern\": \"^([0-9]+(ns|us|\u00b5s|ms|s|m|h))+$\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The negative interval fixture is expected at ./testdata/authentication/token_negative_interval.yml and still produces errPositiveNonZeroDuration.",
+   "covering_prose": null,
+   "gold_anchor": "rename to internal/config/testdata/authentication/token_negative_interval.yml",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The zero grace period fixture is expected at ./testdata/authentication/token_zero_grace_period.yml and still produces errPositiveNonZeroDuration.",
+   "covering_prose": null,
+   "gold_anchor": "rename to internal/config/testdata/authentication/token_zero_grace_period.yml",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

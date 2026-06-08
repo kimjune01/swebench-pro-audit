@@ -1,0 +1,25 @@
+{
+ "case": "flipt-io_358e13bf",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 2,
+ "n_covered": 0,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "TestLoad expects AuthenticationSessionCSRF to include Secure set to true alongside the CSRF Key when loading the tested configuration.",
+   "covering_prose": null,
+   "gold_anchor": "secure?:        bool",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The generated JSON schema for authentication.session.csrf exposes a secure property with boolean type.",
+   "covering_prose": null,
+   "gold_anchor": "\"secure\": { \"type\": \"boolean\" }",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

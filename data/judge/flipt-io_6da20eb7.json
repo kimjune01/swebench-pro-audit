@@ -1,0 +1,102 @@
+{
+ "case": "flipt-io_6da20eb7",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 12,
+ "n_covered": 11,
+ "n_gap": 1,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "newResource(context.Background(), \"test\") with OTEL_SERVICE_NAME=myservice and OTEL_RESOURCE_ATTRIBUTES=key1=value1 returns attributes containing key1=value1, service.name=myservice, and service.version=test.",
+   "covering_prose": "There must be a `tracing.newResource(ctx context.Context, fliptVersion string) (*resource.Resource, error)` that constructs a resource with `service.name=\"flipt\"` (unless overridden by relevant OTEL environment variables) and `service.version=<fliptVersion>`, also incorporating attributes defined in the environment (e.g., `OTEL_SERVICE_NAME`, `OTEL_RESOURCE_ATTRIBUTES`).",
+   "gold_anchor": "resource.WithFromEnv()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "newResource(context.Background(), \"test\") with no OTEL environment variables returns attributes containing service.name=flipt and service.version=test.",
+   "covering_prose": "There must be a `tracing.newResource(ctx context.Context, fliptVersion string) (*resource.Resource, error)` that constructs a resource with `service.name=\"flipt\"` (unless overridden by relevant OTEL environment variables) and `service.version=<fliptVersion>`, also incorporating attributes defined in the environment (e.g., `OTEL_SERVICE_NAME`, `OTEL_RESOURCE_ATTRIBUTES`).",
+   "gold_anchor": "semconv.ServiceNameKey.String(\"flipt\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "newResource returns attributes in the exact slice order asserted by the test: env resource attribute first, then service.name, then service.version for the env case; service.name then service.version for the default case.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "GetExporter(context.Background(), cfg) accepts a *config.TracingConfig argument, not a full *config.Config.",
+   "covering_prose": "cfg *config.TracingConfig: A pointer to a tracing configuration object that defines the exporter type and its settings.",
+   "gold_anchor": "func GetExporter(ctx context.Context, cfg *config.TracingConfig) (tracesdk.SpanExporter, func(context.Context) error, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetExporter with Exporter=config.TracingJaeger, Host=localhost, Port=6831 returns no error, a non-nil exporter, and a non-nil shutdown function whose call returns no error.",
+   "covering_prose": "Supports Jaeger, Zipkin, and OTLP exporters.",
+   "gold_anchor": "case config.TracingJaeger:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetExporter with Exporter=config.TracingZipkin and Endpoint=http://localhost:9411/api/v2/spans returns no error, a non-nil exporter, and a non-nil shutdown function whose call returns no error.",
+   "covering_prose": "Supports Jaeger, Zipkin, and OTLP exporters.",
+   "gold_anchor": "case config.TracingZipkin:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetExporter with Exporter=config.TracingOTLP and Endpoint=http://localhost:4317 plus Headers={\"key\":\"value\"} returns no error, a non-nil exporter, and a non-nil shutdown function whose call returns no error.",
+   "covering_prose": "For OTLP, it must accept endpoints with `http://`, `https://`, `grpc://`, and the scheme-less `host:port` format, applying the headers defined in `cfg.OTLP.Headers`.",
+   "gold_anchor": "case \"http\", \"https\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetExporter with Exporter=config.TracingOTLP and Endpoint=https://localhost:4317 plus Headers={\"key\":\"value\"} returns no error, a non-nil exporter, and a non-nil shutdown function whose call returns no error.",
+   "covering_prose": "For OTLP, it must accept endpoints with `http://`, `https://`, `grpc://`, and the scheme-less `host:port` format, applying the headers defined in `cfg.OTLP.Headers`.",
+   "gold_anchor": "case \"http\", \"https\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetExporter with Exporter=config.TracingOTLP and Endpoint=grpc://localhost:4317 plus Headers={\"key\":\"value\"} returns no error, a non-nil exporter, and a non-nil shutdown function whose call returns no error.",
+   "covering_prose": "For OTLP, it must accept endpoints with `http://`, `https://`, `grpc://`, and the scheme-less `host:port` format, applying the headers defined in `cfg.OTLP.Headers`.",
+   "gold_anchor": "case \"grpc\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetExporter with Exporter=config.TracingOTLP and scheme-less Endpoint=localhost:4317 plus Headers={\"key\":\"value\"} returns no error, a non-nil exporter, and a non-nil shutdown function whose call returns no error.",
+   "covering_prose": "For OTLP, it must accept endpoints with `http://`, `https://`, `grpc://`, and the scheme-less `host:port` format, applying the headers defined in `cfg.OTLP.Headers`.",
+   "gold_anchor": "otlptracegrpc.WithEndpoint(cfg.OTLP.Endpoint)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetExporter applies cfg.OTLP.Headers to OTLP HTTP, HTTPS, GRPC, and scheme-less endpoint exporters.",
+   "covering_prose": "For OTLP, it must accept endpoints with `http://`, `https://`, `grpc://`, and the scheme-less `host:port` format, applying the headers defined in `cfg.OTLP.Headers`.",
+   "gold_anchor": "otlptracehttp.WithHeaders(cfg.OTLP.Headers)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetExporter with an empty unrecognized exporter returns an error whose exact string is unsupported tracing exporter: .",
+   "covering_prose": "if `cfg.Exporter` is not recognized, return an error message beginning with `unsupported tracing exporter:` followed by the unsupported value.",
+   "gold_anchor": "traceExpErr = fmt.Errorf(\"unsupported tracing exporter: %s\", cfg.Exporter)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The exporter initialization is guarded by a package-level sync.Once named traceExpOnce that the package test can reset before each subtest.",
+   "covering_prose": null,
+   "gold_anchor": "traceExpOnce sync.Once",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

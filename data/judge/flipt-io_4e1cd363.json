@@ -1,0 +1,18 @@
+{
+ "case": "flipt-io_4e1cd363",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When `Load(path)` loads a configuration that does not specify `log.grpc_level`, the resulting `cfg.Log.GRPCLevel` is `\"ERROR\"`.",
+   "covering_prose": "`LogConfig` should include a new `grpc_level` field (string) that defaults to `\"ERROR\"` when unspecified; the default should be applied by `Default()`.",
+   "gold_anchor": "GRPCLevel: \"ERROR\"",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,130 @@
+{
+ "case": "flipt-io_7ee465fe",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 17,
+ "n_covered": 17,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Readonly variant evaluation response for flag_001 includes FlagKey equal to \"flag_001\".",
+   "covering_prose": "During variant evaluation, the response object must be constructed with the `flag_key` set to the key of the evaluated flag, allowing the returned variant information to be associated with its originating feature flag.",
+   "gold_anchor": "FlagKey:           resp.FlagKey,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Readonly variant evaluation response for flag_variant_and_segments includes FlagKey equal to \"flag_variant_and_segments\".",
+   "covering_prose": "During variant evaluation, the response object must be constructed with the `flag_key` set to the key of the evaluated flag, allowing the returned variant information to be associated with its originating feature flag.",
+   "gold_anchor": "FlagKey:           resp.FlagKey,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Readonly boolean default fallback response includes FlagKey equal to \"flag_boolean\".",
+   "covering_prose": "During boolean evaluation, the returned response must always include the `flag_key` corresponding to the input flag, and this should be set regardless of the evaluation path, whether the result was a threshold match, a segment match, or a default fallback.",
+   "gold_anchor": "resp.FlagKey = flag.Key",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Readonly boolean threshold match response includes FlagKey equal to \"flag_boolean\".",
+   "covering_prose": "During boolean evaluation, the returned response must always include the `flag_key` corresponding to the input flag, and this should be set regardless of the evaluation path, whether the result was a threshold match, a segment match, or a default fallback.",
+   "gold_anchor": "resp.FlagKey = flag.Key",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Readonly boolean segment match response includes FlagKey equal to \"flag_boolean\".",
+   "covering_prose": "During boolean evaluation, the returned response must always include the `flag_key` corresponding to the input flag, and this should be set regardless of the evaluation path, whether the result was a threshold match, a segment match, or a default fallback.",
+   "gold_anchor": "resp.FlagKey = flag.Key",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Readonly boolean segment match with no constraints response includes FlagKey equal to \"flag_boolean_no_constraints\".",
+   "covering_prose": "During boolean evaluation, the returned response must always include the `flag_key` corresponding to the input flag, and this should be set regardless of the evaluation path, whether the result was a threshold match, a segment match, or a default fallback.",
+   "gold_anchor": "resp.FlagKey = flag.Key",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Readonly boolean segment match with AND segments response includes FlagKey equal to \"flag_boolean_and_segments\".",
+   "covering_prose": "During boolean evaluation, the returned response must always include the `flag_key` corresponding to the input flag, and this should be set regardless of the evaluation path, whether the result was a threshold match, a segment match, or a default fallback.",
+   "gold_anchor": "resp.FlagKey = flag.Key",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Readonly batch response at index 0, a boolean response, includes FlagKey equal to \"flag_boolean\".",
+   "covering_prose": "Evaluation batch tests must be expanded to assert that each individual response in a batched evaluation includes the expected `flag_key`, ensuring consistency across single and multiple flag evaluation flows.",
+   "gold_anchor": "assert.Equal(t, \"boolean_disabled\", result.FlagKey)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Readonly batch response at index 2, a variant response, includes FlagKey equal to \"flag_001\".",
+   "covering_prose": "Evaluation batch tests must be expanded to assert that each individual response in a batched evaluation includes the expected `flag_key`, ensuring consistency across single and multiple flag evaluation flows.",
+   "gold_anchor": "assert.Equal(t, \"test\", result.FlagKey)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unit boolean default rule with no rollouts returns res.FlagKey equal to flagKey.",
+   "covering_prose": "During boolean evaluation, the returned response must always include the `flag_key` corresponding to the input flag, and this should be set regardless of the evaluation path, whether the result was a threshold match, a segment match, or a default fallback.",
+   "gold_anchor": "resp.FlagKey = flag.Key",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unit boolean default rule after percentage rollout fallthrough returns res.FlagKey equal to flagKey.",
+   "covering_prose": "During boolean evaluation, the returned response must always include the `flag_key` corresponding to the input flag, and this should be set regardless of the evaluation path, whether the result was a threshold match, a segment match, or a default fallback.",
+   "gold_anchor": "resp.FlagKey = flag.Key",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unit boolean percentage rule match returns res.FlagKey equal to flagKey.",
+   "covering_prose": "During boolean evaluation, the returned response must always include the `flag_key` corresponding to the input flag, and this should be set regardless of the evaluation path, whether the result was a threshold match, a segment match, or a default fallback.",
+   "gold_anchor": "resp.FlagKey = flag.Key",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unit boolean percentage fallthrough then segment match returns res.FlagKey equal to flagKey.",
+   "covering_prose": "During boolean evaluation, the returned response must always include the `flag_key` corresponding to the input flag, and this should be set regardless of the evaluation path, whether the result was a threshold match, a segment match, or a default fallback.",
+   "gold_anchor": "resp.FlagKey = flag.Key",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unit boolean segment match with multiple constraints returns res.FlagKey equal to flagKey.",
+   "covering_prose": "During boolean evaluation, the returned response must always include the `flag_key` corresponding to the input flag, and this should be set regardless of the evaluation path, whether the result was a threshold match, a segment match, or a default fallback.",
+   "gold_anchor": "resp.FlagKey = flag.Key",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unit boolean segment match with multiple segments and AND returns res.FlagKey equal to flagKey.",
+   "covering_prose": "During boolean evaluation, the returned response must always include the `flag_key` corresponding to the input flag, and this should be set regardless of the evaluation path, whether the result was a threshold match, a segment match, or a default fallback.",
+   "gold_anchor": "resp.FlagKey = flag.Key",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unit batch response at index 0, a boolean response, includes FlagKey equal to flagKey.",
+   "covering_prose": "Evaluation batch tests must be expanded to assert that each individual response in a batched evaluation includes the expected `flag_key`, ensuring consistency across single and multiple flag evaluation flows.",
+   "gold_anchor": "assert.Equal(t, \"boolean_disabled\", result.FlagKey)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unit batch response at index 2, a variant response, includes FlagKey equal to variantFlagKey.",
+   "covering_prose": "Evaluation batch tests must be expanded to assert that each individual response in a batched evaluation includes the expected `flag_key`, ensuring consistency across single and multiple flag evaluation flows.",
+   "gold_anchor": "assert.Equal(t, \"test\", result.FlagKey)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

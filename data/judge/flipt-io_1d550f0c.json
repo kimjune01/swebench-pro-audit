@@ -1,0 +1,60 @@
+{
+ "case": "flipt-io_1d550f0c",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 0,
+ "n_covered": 0,
+ "n_gap": 0,
+ "n_out_of_scope": 7,
+ "rows": [
+  {
+   "test": "`NewSnapshotCache[string](zaptest.NewLogger(t), 2)` returns a cache and nil error before delete scenarios run.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`SnapshotCache` has a public method `Delete(ref string) error` invokable by the test.",
+   "covering_prose": "A public method `Delete(ref string) error` should exist on `SnapshotCache` in `internal/storage/fs/cache.go` and be invokable by tests.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After `AddFixed(ctx, referenceFixed, revisionOne, snapshotOne)`, calling `cache.Delete(referenceFixed)` returns a non-nil error.",
+   "covering_prose": "Calling `Delete` with a **fixed** reference should leave the cache unchanged and return a non-nil error whose message contains the phrase `\"cannot be deleted\"` (with `<reference>` replaced by the input string if desired).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The error returned by deleting `referenceFixed` has an error string containing `\"cannot be deleted\"`.",
+   "covering_prose": "Calling `Delete` with a **fixed** reference should leave the cache unchanged and return a non-nil error whose message contains the phrase `\"cannot be deleted\"` (with `<reference>` replaced by the input string if desired).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After attempting to delete fixed `referenceFixed`, `cache.Get(referenceFixed)` still reports `ok == true`.",
+   "covering_prose": "Calling `Delete` with a **fixed** reference should leave the cache unchanged and return a non-nil error whose message contains the phrase `\"cannot be deleted\"` (with `<reference>` replaced by the input string if desired).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After adding `referenceA` as a non-fixed reference with `AddOrBuild`, calling `cache.Delete(referenceA)` returns nil error.",
+   "covering_prose": "Calling `Delete` with a **non-fixed** reference that exists in the cache should remove that reference and return `nil`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After deleting non-fixed `referenceA`, `cache.Get(referenceA)` reports `ok == false`.",
+   "covering_prose": "Calling `Delete` with a **non-fixed** reference that exists in the cache should remove that reference and return `nil`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+{"rows":[{"test":"When `Load(path)` loads a configuration that does not specify `log.grpc_level`, the resulting `cfg.Log.GRPCLevel` is `\"ERROR\"`.","covering_prose":"`LogConfig` should include a new `grpc_level` field (string) that defaults to `\"ERROR\"` when unspecified; the default should be applied by `Default()`.","gold_anchor":"GRPCLevel: \"ERROR\""}]}

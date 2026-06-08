@@ -1,0 +1,172 @@
+{
+ "case": "flipt-io_2d0ff0c9",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 18,
+ "n_covered": 11,
+ "n_gap": 7,
+ "n_out_of_scope": 5,
+ "rows": [
+  {
+   "test": "The test workflow database matrix includes cockroachdb alongside mysql and postgres.",
+   "covering_prose": "CockroachDB is recognized as a supported database protocol alongside MySQL, PostgreSQL, and SQLite in configuration files and environment variables.",
+   "gold_anchor": "test:db:cockroachdb:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Open accepts a logger argument: Open(config.Config{...}, logger).",
+   "covering_prose": null,
+   "gold_anchor": "func Open(cfg config.Config, logger *zap.Logger) (*sql.DB, Driver, error)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "parse accepts a logger argument: parse(config.Config{...}, logger, opts).",
+   "covering_prose": null,
+   "gold_anchor": "func parse(cfg config.Config, _ *zap.Logger, opts options) (Driver, *dburl.URL, error)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Opening URL cockroachdb://cockroachdb@localhost:26257/flipt?sslmode=disable returns driver CockroachDB.",
+   "covering_prose": "Configuration accepts \"cockroach\", \"cockroachdb\", and related URL schemes (cockroach://, crdb://) to specify CockroachDB as the database backend.",
+   "gold_anchor": "\"cockroachdb\": CockroachDB,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing cockroachdb://cockroachdb@localhost:26257/flipt?sslmode=disable returns driver CockroachDB and DSN postgres://cockroachdb@localhost:26257/flipt?sslmode=disable.",
+   "covering_prose": "Connection string parsing handles CockroachDB URL formats and converts them to appropriate PostgreSQL-compatible connection strings for the underlying driver.",
+   "gold_anchor": "case Postgres, CockroachDB:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing cockroach://cockroachdb@localhost:26257/flipt?sslmode=disable returns driver CockroachDB and DSN postgres://cockroachdb@localhost:26257/flipt?sslmode=disable.",
+   "covering_prose": "Configuration accepts \"cockroach\", \"cockroachdb\", and related URL schemes (cockroach://, crdb://) to specify CockroachDB as the database backend.",
+   "gold_anchor": "driver := stringToDriver[url.Unaliased]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing crdb://cockroachdb@localhost:26257/flipt?sslmode=disable returns driver CockroachDB and DSN postgres://cockroachdb@localhost:26257/flipt?sslmode=disable.",
+   "covering_prose": "Configuration accepts \"cockroach\", \"cockroachdb\", and related URL schemes (cockroach://, crdb://) to specify CockroachDB as the database backend.",
+   "gold_anchor": "driver := stringToDriver[url.Unaliased]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing cockroachdb://cockroachdb@localhost:26257/flipt without sslmode adds ?sslmode=disable to the PostgreSQL-compatible DSN.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing structured config with Protocol DatabaseCockroachDB, host localhost, port 26257, user cockroachdb, and sslDisabled true returns DSN postgres://cockroachdb@localhost:26257/flipt?sslmode=disable.",
+   "covering_prose": null,
+   "gold_anchor": "case Postgres, CockroachDB:",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Parsing structured CockroachDB config with no port defaults the DSN port to 26257.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing structured CockroachDB config with no password omits a password from the DSN userinfo.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing structured CockroachDB config with Password \"foo\" includes cockroachdb:foo in the DSN userinfo.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "FLIPT_TEST_DATABASE_PROTOCOL value \"cockroachdb\" selects config.DatabaseCockroachDB in the database test suite.",
+   "covering_prose": "CockroachDB is recognized as a supported database protocol alongside MySQL, PostgreSQL, and SQLite in configuration files and environment variables.",
+   "gold_anchor": "DatabaseCockroachDB: \"cockroachdb\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CockroachDB uses the PostgreSQL store implementation in runtime and test store selection.",
+   "covering_prose": "CockroachDB connections use PostgreSQL-compatible drivers and store implementations, leveraging the wire protocol compatibility between the two systems.",
+   "gold_anchor": "case sql.Postgres, sql.CockroachDB:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CockroachDB uses the pq PostgreSQL-compatible SQL driver while exposing CockroachDB as the driver identity.",
+   "covering_prose": "CockroachDB connections use PostgreSQL-compatible drivers and store implementations, leveraging the wire protocol compatibility between the two systems.",
+   "gold_anchor": "dr = &pq.Driver{}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OpenTelemetry database system attributes identify CockroachDB as CockroachDB, not PostgreSQL.",
+   "covering_prose": "Observability and logging properly identify CockroachDB connections as distinct from PostgreSQL for monitoring and debugging purposes.",
+   "gold_anchor": "attrs = []attribute.KeyValue{semconv.DBSystemCockroachdb}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewMigrator selects golang-migrate's cockroachdb database driver for CockroachDB connections.",
+   "covering_prose": "Enable migrations using the CockroachDB driver in golang-migrate.",
+   "gold_anchor": "dr, err = cockroachdb.WithInstance(sql, &cockroachdb.Config{})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Migrator expectedVersions contains CockroachDB with expected version 0.",
+   "covering_prose": null,
+   "gold_anchor": "CockroachDB: 0,",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "CockroachDB has a migration directory with an initial up migration used by migrator run/no-change tests.",
+   "covering_prose": "Database migrations support CockroachDB through appropriate migration driver selection, ensuring schema changes apply correctly to CockroachDB instances.",
+   "gold_anchor": "config/migrations/cockroachdb/0_initial.up.sql",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CockroachDB table cleanup in DBTestSuite uses TRUNCATE TABLE %s CASCADE.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The CockroachDB integration test container uses image cockroachdb/cockroach:latest-v21.2.",
+   "covering_prose": null,
+   "gold_anchor": "image: cockroachdb/cockroach:latest-v21.2",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The CockroachDB integration test container starts with command start-single-node --insecure.",
+   "covering_prose": null,
+   "gold_anchor": "command: start-single-node --insecure",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The CockroachDB integration configuration uses database defaultdb, user root, and an empty password.",
+   "covering_prose": null,
+   "gold_anchor": "FLIPT_DB_URL=cockroach://root@crdb:26257/defaultdb?sslmode=disable",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

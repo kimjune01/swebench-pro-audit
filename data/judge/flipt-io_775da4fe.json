@@ -1,0 +1,39 @@
+{
+ "case": "flipt-io_775da4fe",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "TestValidate_Success reads fixture file \"fixtures/valid.yaml\" successfully.",
+   "covering_prose": "The `validate` function must be tested using test fixture files located at `fixtures/valid.yaml` (for successful validation) and `fixtures/invalid.yaml` (for validation failure scenarios).",
+   "gold_anchor": "diff --git a/internal/cue/fixtures/valid.yaml b/internal/cue/fixtures/valid.yaml",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `validate(b, cctx)` on the bytes from `fixtures/valid.yaml` returns no error.",
+   "covering_prose": "The `validate` function must be tested using test fixture files located at `fixtures/valid.yaml` (for successful validation) and `fixtures/invalid.yaml` (for validation failure scenarios).",
+   "gold_anchor": "return yv.Validate()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TestValidate_Failure reads fixture file \"fixtures/invalid.yaml\" successfully.",
+   "covering_prose": "The `validate` function must be tested using test fixture files located at `fixtures/valid.yaml` (for successful validation) and `fixtures/invalid.yaml` (for validation failure scenarios).",
+   "gold_anchor": "diff --git a/internal/cue/fixtures/invalid.yaml b/internal/cue/fixtures/invalid.yaml",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `validate(b, cctx)` on the bytes from `fixtures/invalid.yaml` returns exactly the error string \"flags.0.rules.0.distributions.0.rollout: invalid value 110 (out of bound <=100)\".",
+   "covering_prose": "When validating `fixtures/invalid.yaml`, the `validate` function should return the specific error message: `\"flags.0.rules.0.distributions.0.rollout: invalid value 110 (out of bound <=100)\"` to indicate that rollout values must be within the range of 0-100.",
+   "gold_anchor": "rollout: >=0 & <=100",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

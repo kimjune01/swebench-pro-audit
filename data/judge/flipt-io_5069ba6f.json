@@ -1,0 +1,249 @@
+{
+ "case": "flipt-io_5069ba6f",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 33,
+ "n_covered": 33,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Default audit log sink enabled is false when unset.",
+   "covering_prose": "Default values should apply when unset: `sinks.log.enabled=false`, `sinks.log.file=\"\"`, `buffer.capacity=2`, and `buffer.flush_period=2m`.",
+   "gold_anchor": "\"enabled\": \"false\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Default audit log sink file is an empty string when unset.",
+   "covering_prose": "Default values should apply when unset: `sinks.log.enabled=false`, `sinks.log.file=\"\"`, `buffer.capacity=2`, and `buffer.flush_period=2m`.",
+   "gold_anchor": "\"file\":    \"\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Default audit buffer capacity is 2 when unset.",
+   "covering_prose": "Default values should apply when unset: `sinks.log.enabled=false`, `sinks.log.file=\"\"`, `buffer.capacity=2`, and `buffer.flush_period=2m`.",
+   "gold_anchor": "\"capacity\":     2,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Default audit buffer flush period is 2 minutes when unset.",
+   "covering_prose": "Default values should apply when unset: `sinks.log.enabled=false`, `sinks.log.file=\"\"`, `buffer.capacity=2`, and `buffer.flush_period=2m`.",
+   "gold_anchor": "\"flush_period\": \"2m\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading audit config with buffer.capacity 1000 fails with error \"buffer capacity below 2 or above 10\".",
+   "covering_prose": "Configuration validation should fail with clear errors when the log sink is enabled without a file, when `buffer.capacity` is outside `2\u201310`, or when `buffer.flush_period` is outside `2m\u20135m`.",
+   "gold_anchor": "return errors.New(\"buffer capacity below 2 or above 10\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading audit config with buffer.flush_period 30m fails with error \"flush period below 2 minutes or greater than 5 minutes\".",
+   "covering_prose": "Configuration validation should fail with clear errors when the log sink is enabled without a file, when `buffer.capacity` is outside `2\u201310`, or when `buffer.flush_period` is outside `2m\u20135m`.",
+   "gold_anchor": "return errors.New(\"flush period below 2 minutes or greater than 5 minutes\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading audit config with log sink enabled and no file fails with error \"file not specified\".",
+   "covering_prose": "Configuration validation should fail with clear errors when the log sink is enabled without a file, when `buffer.capacity` is outside `2\u201310`, or when `buffer.flush_period` is outside `2m\u20135m`.",
+   "gold_anchor": "return errors.New(\"file not specified\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The span exporter dispatches a valid complete audit span event to the configured sink.",
+   "covering_prose": "The span exporter should convert only span events that contain a complete audit schema into structured audit events, ignore non-conforming events without erroring, and dispatch valid events to all configured sinks.",
+   "gold_anchor": "return s.SendAudits(es)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The span exporter preserves the audit event version from span attributes into the structured audit event.",
+   "covering_prose": "Audit events should be represented on spans via OTEL attributes using these keys: `flipt.event.version`, `flipt.event.metadata.action`, `flipt.event.metadata.type`, `flipt.event.metadata.ip`, `flipt.event.metadata.author`, and `flipt.event.payload`.",
+   "gold_anchor": "e.Version = kv.Value.AsString()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The span exporter preserves audit metadata action from span attributes into the structured audit event.",
+   "covering_prose": "Audit events should be represented on spans via OTEL attributes using these keys: `flipt.event.version`, `flipt.event.metadata.action`, `flipt.event.metadata.type`, `flipt.event.metadata.ip`, `flipt.event.metadata.author`, and `flipt.event.payload`.",
+   "gold_anchor": "e.Metadata.Action = Action(kv.Value.AsString())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The span exporter preserves audit metadata type from span attributes into the structured audit event.",
+   "covering_prose": "Audit events should be represented on spans via OTEL attributes using these keys: `flipt.event.version`, `flipt.event.metadata.action`, `flipt.event.metadata.type`, `flipt.event.metadata.ip`, `flipt.event.metadata.author`, and `flipt.event.payload`.",
+   "gold_anchor": "e.Metadata.Type = Type(kv.Value.AsString())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The span exporter preserves audit metadata IP from span attributes into the structured audit event.",
+   "covering_prose": "Audit events should be represented on spans via OTEL attributes using these keys: `flipt.event.version`, `flipt.event.metadata.action`, `flipt.event.metadata.type`, `flipt.event.metadata.ip`, `flipt.event.metadata.author`, and `flipt.event.payload`.",
+   "gold_anchor": "e.Metadata.IP = kv.Value.AsString()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful CreateFlag RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.CreateFlagRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful UpdateFlag RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.UpdateFlagRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful DeleteFlag RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.DeleteFlagRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful CreateVariant RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.CreateVariantRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful UpdateVariant RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.UpdateVariantRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful DeleteVariant RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.DeleteVariantRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful CreateDistribution RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.CreateDistributionRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful UpdateDistribution RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.UpdateDistributionRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful DeleteDistribution RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.DeleteDistributionRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful CreateSegment RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.CreateSegmentRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful UpdateSegment RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.UpdateSegmentRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful DeleteSegment RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.DeleteSegmentRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful CreateConstraint RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.CreateConstraintRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful UpdateConstraint RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.UpdateConstraintRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful DeleteConstraint RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.DeleteConstraintRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful CreateRule RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.CreateRuleRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful UpdateRule RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.UpdateRuleRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful DeleteRule RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.DeleteRuleRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful CreateNamespace RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.CreateNamespaceRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful UpdateNamespace RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.UpdateNamespaceRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a successful DeleteNamespace RPC, the audit interceptor causes exactly one audit export.",
+   "covering_prose": "The gRPC audit middleware should, after successful RPCs, emit an audit event for create, update, and delete operations on Flags, Variants, Distributions, Segments, Constraints, Rules, and Namespaces, attaching the event to the current span.",
+   "gold_anchor": "case *flipt.DeleteNamespaceRequest:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Unauthenticated GetAuthenticationSelf returns status.Error(codes.Unauthenticated, \"request was not authenticated\").",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

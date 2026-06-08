@@ -1,0 +1,95 @@
+{
+ "case": "internetarchive_0b2e93f2",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 8,
+ "rows": [
+  {
+   "test": "AuthorSolrUpdater.update_key(...) can be unpacked into two values, with the first value used as req.",
+   "covering_prose": "The `update_key` methods of `AuthorSolrUpdater` and `WorkSolrUpdater` should consistently return a tuple containing a `SolrUpdateRequest` as the first element and a list of new keys as the second element.",
+   "gold_anchor": "return await update_author(thing), []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For AuthorSolrUpdater.update_key(make_author(key='/authors/OL25A', name='Somebody')), req.deletes is [].",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "WorkSolrUpdater.update_key({'key': '/books/OL1M', 'type': {'key': '/type/edition'}}) can be unpacked into two values, with the first value used as req.",
+   "covering_prose": "The `update_key` methods of `AuthorSolrUpdater` and `WorkSolrUpdater` should consistently return a tuple containing a `SolrUpdateRequest` as the first element and a list of new keys as the second element.",
+   "gold_anchor": "return update, []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For WorkSolrUpdater.update_key({'key': '/books/OL1M', 'type': {'key': '/type/edition'}}), len(req.deletes) is 0.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For WorkSolrUpdater.update_key({'key': '/books/OL1M', 'type': {'key': '/type/edition'}}), len(req.adds) is 1.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For WorkSolrUpdater.update_key({'key': '/books/OL1M', 'type': {'key': '/type/edition'}}), req.adds[0]['title'] is \"__None__\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "WorkSolrUpdater.update_key({'key': '/works/OL23W', 'type': {'key': '/type/work'}}) can be unpacked into two values, with the first value used as req.",
+   "covering_prose": "The `update_key` methods of `AuthorSolrUpdater` and `WorkSolrUpdater` should consistently return a tuple containing a `SolrUpdateRequest` as the first element and a list of new keys as the second element.",
+   "gold_anchor": "return update, []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For WorkSolrUpdater.update_key({'key': '/works/OL23W', 'type': {'key': '/type/work'}}), len(req.deletes) is 0.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For WorkSolrUpdater.update_key(work) where work has no title and its edition has title 'Some Title!', the call can be unpacked into two values, with the first value used as req.",
+   "covering_prose": "The `update_key` methods of `AuthorSolrUpdater` and `WorkSolrUpdater` should consistently return a tuple containing a `SolrUpdateRequest` as the first element and a list of new keys as the second element.",
+   "gold_anchor": "return update, []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For WorkSolrUpdater.update_key(work) where work has no title and its edition has title 'Some Title!', len(req.deletes) is 0.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For WorkSolrUpdater.update_key(work) where work has no title and its edition has title 'Some Title!', len(req.adds) is 1.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For WorkSolrUpdater.update_key(work) where work has no title and its edition has title 'Some Title!', req.adds[0]['title'] is \"Some Title!\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

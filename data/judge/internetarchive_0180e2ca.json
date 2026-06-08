@@ -1,0 +1,81 @@
+{
+ "case": "internetarchive_0180e2ca",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 10,
+ "n_covered": 8,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "format_languages([\"eng\"]) returns [{\"key\": \"/languages/eng\"}].",
+   "covering_prose": "The `format_languages` function should return a list of dictionaries in canonical form, each exactly `{\"key\": \"/languages/<marc3>\"}` with `<marc3>` in lowercase.",
+   "gold_anchor": "lang_keys.append(f'/languages/{marc_lang_code}')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "format_languages([\"eng\", \"FRE\"]) treats \"FRE\" case-insensitively and returns [{\"key\": \"/languages/eng\"}, {\"key\": \"/languages/fre\"}].",
+   "covering_prose": "`format_languages` should accept inputs case-insensitively in these forms: full key `/languages/<marc3>`, MARC-3 `<marc3>`, ISO-639-1 `<iso2>`, and full names or synonyms.",
+   "gold_anchor": "input_lang = language.lower()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "format_languages([\"German\", \"Deutsch\", \"es\"]) resolves full names or synonyms to canonical language keys.",
+   "covering_prose": "`format_languages` should accept inputs case-insensitively in these forms: full key `/languages/<marc3>`, MARC-3 `<marc3>`, ISO-639-1 `<iso2>`, and full names or synonyms.",
+   "gold_anchor": "or get_abbrev_from_full_lang_name(language)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "format_languages([\"German\", \"Deutsch\", \"es\"]) resolves ISO-639-1 code \"es\" to /languages/spa.",
+   "covering_prose": "`format_languages` should accept inputs case-insensitively in these forms: full key `/languages/<marc3>`, MARC-3 `<marc3>`, ISO-639-1 `<iso2>`, and full names or synonyms.",
+   "gold_anchor": "or convert_iso_to_marc(input_lang)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "format_languages([\"German\", \"Deutsch\", \"es\"]) deduplicates \"German\" and \"Deutsch\" to keep only the first mapped language occurrence, returning [{\"key\": \"/languages/ger\"}, {\"key\": \"/languages/spa\"}].",
+   "covering_prose": "Input resolution should follow a defined precedence and enforce stable ordering with deduplication: first treat as full key, then as MARC-3, then as ISO-639-1, and finally as full name or synonym; when multiple entries map to the same language, only the first occurrence should be kept.",
+   "gold_anchor": "return [{'key': key} for key in uniq(lang_keys)]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "format_languages([]) returns [].",
+   "covering_prose": "Empty input should yield `[]`.",
+   "gold_anchor": "if not languages:\n        return []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "format_languages([\"wtf\"]) raises InvalidLanguage.",
+   "covering_prose": "Unknown or ambiguous inputs should raise `InvalidLanguage`, and no partial results should be returned.",
+   "gold_anchor": "raise InvalidLanguage(input_lang)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "format_languages([\"eng\", \"wtf\"]) raises InvalidLanguage rather than returning a partial result for \"eng\".",
+   "covering_prose": "Unknown or ambiguous inputs should raise `InvalidLanguage`, and no partial results should be returned.",
+   "gold_anchor": "raise InvalidLanguage(input_lang)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The add_languages fixture clears cached get_languages data before seeding mock languages.",
+   "covering_prose": null,
+   "gold_anchor": "get_languages,",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The add_languages fixture clears cached convert_iso_to_marc data before seeding mock languages.",
+   "covering_prose": null,
+   "gold_anchor": "convert_iso_to_marc,",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "case": "internetarchive_409914bf",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 5,
+ "n_covered": 4,
+ "n_gap": 1,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "When web.data() returns b'', ListRecord.from_input() uses web.input() values and returns key=None, name='foo', description='bar', seeds=[].",
+   "covering_prose": null,
+   "gold_anchor": "i = utils.unflatten(web.input(**DEFAULTS))",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When web.data() is non-empty, ListRecord.from_input() ignores conflicting web.input() query values and uses body key='/lists/OL1L'.",
+   "covering_prose": "When body data is present, prefer the body exclusively; the query string must not be merged.",
+   "gold_anchor": "if data := web.data():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When web.data() is non-empty, form field name=foo+data is parsed as name='foo data'.",
+   "covering_prose": "Form data submitted in the body of the request should be processed independently and take precedence over URL query parameters.",
+   "gold_anchor": "for k, v in parse_qs(bytes.decode(data)).items()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When web.data() is non-empty, form field description=bar is used as description='bar'.",
+   "covering_prose": "Form data submitted in the body of the request should be processed independently and take precedence over URL query parameters.",
+   "gold_anchor": "description=i['description']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When body contains seeds--0--key=/books/OL1M and seeds--1--key=/books/OL2M, from_input returns seeds=[{'key': '/books/OL1M'}, {'key': '/books/OL2M'}].",
+   "covering_prose": "After unflattening, seeds must be a list of valid elements when provided as nested/indexed entries; invalid/empty items are ignored.",
+   "gold_anchor": "seeds=normalized_seeds,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When web.input() returns seeds=[], from_input returns seeds=[].",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When web.input() returns seeds=['OL1M'], from_input returns seeds=[{'key': '/books/OL1M'}].",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When web.input() returns seeds=['OL1M', 'OL2M'], from_input returns seeds=[{'key': '/books/OL1M'}, {'key': '/books/OL2M'}] preserving order.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When web.input() returns seeds=['OL1M,OL2M'], from_input splits the comma-separated string and returns seeds=[{'key': '/books/OL1M'}, {'key': '/books/OL2M'}].",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

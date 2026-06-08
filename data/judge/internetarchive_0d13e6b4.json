@@ -1,0 +1,74 @@
+{
+ "case": "internetarchive_0d13e6b4",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`find_entity({'name': 'JoHN SmITh'})` returns a non-null existing author and equals the result for `find_entity({'name': 'John Smith'})`.",
+   "covering_prose": "Matching must be case-insensitive, and different casings of the same name must resolve to the same underlying author record when one exists.",
+   "gold_anchor": "return bool(re.match(regex_pattern, text, re.IGNORECASE))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A wildcard name input `John*` matches an existing author and returns the first candidate by numeric key ordering, yielding the record named `John Smith 0`.",
+   "covering_prose": "Matching must support wildcards in name patterns, and inputs such as `\"John*\"` must return the first candidate according to numeric key ordering. If no match is found, a new author candidate must be returned, preserving the input name including the `*`.",
+   "gold_anchor": "regex_pattern = f\"^{pattern.replace('*', '.*').replace('_', '')}$\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A wildcard name input `Mr. Blobby*` with no matching author returns a new author candidate preserving the input name including the `*`.",
+   "covering_prose": "Matching must support wildcards in name patterns, and inputs such as `\"John*\"` must return the first candidate according to numeric key ordering. If no match is found, a new author candidate must be returned, preserving the input name including the `*`.",
+   "gold_anchor": "regex_pattern = f\"^{pattern.replace('*', '.*').replace('_', '')}$\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When exact-name matches exist, an exact name match with both matching `birth_date` and `death_date` takes priority over an exact name match without dates and over an alternate-name match, returning `/authors/OL5A`.",
+   "covering_prose": "When both `birth_date` and `death_date` are present in the input, they must be used to disambiguate records, and an exact year match for both must take precedence over other matches.",
+   "gold_anchor": "things = find_author(author)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When an author with the same name has `birth_date` `1829` and `death_date` `1910`, searching with `death_date` `1911` does not match it and returns a new author dictionary preserving `death_date: 1911`.",
+   "covering_prose": "Year comparison for `birth_date` and `death_date` must consider only the year component, and any difference in years between input and candidate invalidates a match.",
+   "gold_anchor": "things = find_author(author)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An `alternate_names` match with both matching `birth_date` `1821` and `death_date` `1881` is selected over an alternate-name match without dates, returning `/authors/OL5A`.",
+   "covering_prose": "A match via `alternate_names` requires both `birth_date` and `death_date` to be present in the input and to exactly match the candidate\u2019s values when dates are available.",
+   "gold_anchor": "{\"type\": \"/type/author\", \"alternate_names~\": author[\"name\"]}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A surname match for input `Mr. William H. brewer` resolves to existing author `William Brewer` when both `birth_date` `1829` and `death_date` `1910` match, returning `/authors/OL3A`.",
+   "covering_prose": "A match via surname requires both `birth_date` and `death_date` to be present and to exactly match the candidate\u2019s values, and the surname path must not resolve if either date is missing or mismatched.",
+   "gold_anchor": "\"name~\": f\"* {author['name'].split()[-1]}\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A surname match for input `Mr. William H. brewer` does not resolve when `death_date` is `1911` instead of the candidate\u2019s `1910`, and returns a new author dictionary preserving `name`, `birth_date`, and `death_date`.",
+   "covering_prose": "A match via surname requires both `birth_date` and `death_date` to be present and to exactly match the candidate\u2019s values, and the surname path must not resolve if either date is missing or mismatched.",
+   "gold_anchor": "\"death_date\": author.get(\"death_date\", -1),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A surname-like input `Mr. William J. Brewer` without `birth_date` and `death_date` does not match an existing `William Brewer` author without dates, and returns a new author dictionary with only `name` and `type`.",
+   "covering_prose": "A match via surname requires both `birth_date` and `death_date` to be present and to exactly match the candidate\u2019s values, and the surname path must not resolve if either date is missing or mismatched.",
+   "gold_anchor": "\"birth_date\": author.get(\"birth_date\", -1),",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

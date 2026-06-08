@@ -1,0 +1,67 @@
+{
+ "case": "internetarchive_54085373",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 8,
+ "n_covered": 4,
+ "n_gap": 4,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Batch.get_relpath(\"0008\", \"80\") returns \"covers_0008/covers_0008_80\" with no extension and no size prefix.",
+   "covering_prose": null,
+   "gold_anchor": "return os.path.join(folder, filename)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Batch.get_relpath(\"0008\", \"80\", size=\"s\") returns \"s_covers_0008/s_covers_0008_80\".",
+   "covering_prose": null,
+   "gold_anchor": "prefix = f\"{size.lower()}_\" if size else \"\"",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Batch.get_relpath(\"0008\", \"80\", size=\"m\") returns \"m_covers_0008/m_covers_0008_80\".",
+   "covering_prose": null,
+   "gold_anchor": "prefix = f\"{size.lower()}_\" if size else \"\"",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Batch.get_relpath(\"0008\", \"80\", size=\"l\") returns \"l_covers_0008/l_covers_0008_80\".",
+   "covering_prose": null,
+   "gold_anchor": "prefix = f\"{size.lower()}_\" if size else \"\"",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Batch.get_relpath(\"0008\", \"80\", ext=\"tar\") returns \"covers_0008/covers_0008_80.tar\".",
+   "covering_prose": "The path generation must optionally account for size variations such as small, medium, or large, and support different file extensions such as `.zip` or `.tar`.",
+   "gold_anchor": "ext = f\".{ext}\" if ext else \"\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Batch.get_relpath(\"0008\", \"80\", size=\"l\", ext=\"zip\") returns \"l_covers_0008/l_covers_0008_80.zip\".",
+   "covering_prose": "The path generation must optionally account for size variations such as small, medium, or large, and support different file extensions such as `.zip` or `.tar`.",
+   "gold_anchor": "filename = f\"{prefix}covers_{item_id}_{batch_id}{ext}\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CoverDB._get_batch_end_id(start_id=8820500) returns 8830000.",
+   "covering_prose": "The system must include logic to calculate the end of a 10,000-cover batch range given a starting cover ID.",
+   "gold_anchor": "return start_id - (start_id % BATCH_SIZE) + BATCH_SIZE",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Cover.id_to_item_and_batch_id(987_654_321) returns ('0987', '65').",
+   "covering_prose": "id_to_item_and_batch_id ` will map a numeric id to a zero-padded 4-digit `item_id` and 2-digit `batch_id`.",
+   "gold_anchor": "return f\"{cover_id // ITEM_SIZE:04d}\", f\"{(cover_id % ITEM_SIZE) // BATCH_SIZE:02d}\"",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

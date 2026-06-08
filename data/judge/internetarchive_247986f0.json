@@ -1,0 +1,53 @@
+{
+ "case": "internetarchive_247986f0",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "POST /works/OL{work_id}W/awards with op=\"add\" for an authenticated user returns JSON whose decoded payload has success truthy and award equal to the value returned by Bestbook.add.",
+   "covering_prose": "Responses should be JSON: on add/update {\"success\": true, \"award\": <value>}, on remove {\"success\": true, \"rows\": <int>}, and on failures {\"errors\": \"<message>\"} including \"Authentication failed\" for unauthenticated requests.",
+   "gold_anchor": "class bestbook_award(delegate.page):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "POST /works/OL{work_id}W/awards with op=\"remove\" for an authenticated user returns JSON whose decoded payload has success truthy and rows equal to the value returned by Bestbook.remove.",
+   "covering_prose": "Responses should be JSON: on add/update {\"success\": true, \"award\": <value>}, on remove {\"success\": true, \"rows\": <int>}, and on failures {\"errors\": \"<message>\"} including \"Authentication failed\" for unauthenticated requests.",
+   "gold_anchor": "def remove(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When bestbook_award.POST is patched to return raw JSON {\"success\": false, \"errors\": \"Award already exists\"}, the decoded result has success false and errors exactly \"Award already exists\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "POST /works/OL{work_id}W/awards with no authenticated current user returns JSON whose errors value contains \"Authentication failed\".",
+   "covering_prose": "Responses should be JSON: on add/update {\"success\": true, \"award\": <value>}, on remove {\"success\": true, \"rows\": <int>}, and on failures {\"errors\": \"<message>\"} including \"Authentication failed\" for unauthenticated requests.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "POST /works/OL{work_id}W/awards with op=\"add\" for a user who has not read the work returns JSON whose errors value contains \"Only books which have been marked as read may be given awards\".",
+   "covering_prose": "Nominations should be unique per `(username, work_id)` and per `(username, topic)`. Attempts that violate the read prerequisite or uniqueness should raise `Bestbook.AwardConditionsError` with user\u2011facing messages, including `\"Only books which have been marked as read may be given awards\"`.",
+   "gold_anchor": "\"Only books which have been marked as read may be given awards\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GET /awards/count.json passes optional filters work_id, username, and topic from web.input to Bestbook.get_count and returns JSON whose count equals the Bestbook.get_count result, here 5.",
+   "covering_prose": "`GET /awards/count.json` should accept optional filters `work_id`, `username`, and `topic`, and should return `{\"count\": <int>}` derived from persisted nominations.",
+   "gold_anchor": "return result[0]['count'] if result else 0",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

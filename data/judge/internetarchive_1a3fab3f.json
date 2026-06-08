@@ -1,0 +1,88 @@
+{
+ "case": "internetarchive_1a3fab3f",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "FnToCLI.parse_args accepts an explicit list of CLI tokens ['1', '2', '3'] instead of reading from sys.argv.",
+   "covering_prose": "The `parse_args` method of `FnToCLI` should accept an optional argument `args` of type `Sequence[str] | None` and should parse these when provided.",
+   "gold_anchor": "def parse_args(self, args: typing.Sequence[str] | None = None):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A required parameter annotated as list[int] accepts positional CLI values ['1', '2', '3'].",
+   "covering_prose": "Required list parameters without default values should be accepted positionally such that providing values like `['1', '2', '3']` populates a parameter annotated as `list[int]` when that parameter is required.",
+   "gold_anchor": "return {'nargs': '*', 'type': subtype}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Multiple CLI tokens for list[int] are converted into Python ints, so nums becomes [1, 2, 3] and sum(nums) returns 6.",
+   "covering_prose": "The `FnToCLI` class should accept functions with parameters annotated as lists of supported simple types (`int`, `str`, `float`, `Path`) and parse multiple CLI values into Python lists of the correct element type.",
+   "gold_anchor": "return {'nargs': '*', 'type': subtype}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FnToCLI.run returns the wrapped function result for a synchronous function, so cli.run() equals 6.",
+   "covering_prose": "The `run` method of `FnToCLI` should return the result of the wrapped function when invoked, including for asynchronous functions executed via an event loop.",
+   "gold_anchor": "return self.fn(**args_dicts)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An optional list parameter named files is supplied via the derived --files option.",
+   "covering_prose": "Optional list parameters should be accepted via their derived `--<param>` option, and values following the option should be collected into the target list until another option or the end of the arguments is encountered.",
+   "gold_anchor": "return {'nargs': '*', 'type': subtype}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CLI option name --files maps to the function parameter files.",
+   "covering_prose": "CLI option names should map directly to function parameter names by prefixing the parameter name with `--`; for example, a parameter named `files` should be supplied as `--files` on the command line, and its values should populate the `files` parameter.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For list[Path] | None, values after --files, specifically 'path1' and 'path2', are collected into the files list until the end of arguments.",
+   "covering_prose": "Optional list parameters should be accepted via their derived `--<param>` option, and values following the option should be collected into the target list until another option or the end of the arguments is encountered.",
+   "gold_anchor": "return {'nargs': '*', 'type': subtype}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CLI string values 'path1' and 'path2' for list[Path] | None are converted into pathlib.Path objects, so isinstance(f, Path) is True for both elements.",
+   "covering_prose": "The `FnToCLI` class should accept functions with parameters annotated as lists of supported simple types (`int`, `str`, `float`, `Path`) and parse multiple CLI values into Python lists of the correct element type.",
+   "gold_anchor": "simple_types = (int, str, float, Path)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FnToCLI.run returns the wrapped function result for a synchronous function with Path list input, so cli.run() equals [True, True].",
+   "covering_prose": "The `run` method of `FnToCLI` should return the result of the wrapped function when invoked, including for asynchronous functions executed via an event loop.",
+   "gold_anchor": "return self.fn(**args_dicts)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FnToCLI.parse_args accepts an explicit empty argument list [].",
+   "covering_prose": "The `parse_args` method of `FnToCLI` should accept an optional argument `args` of type `Sequence[str] | None` and should parse these when provided.",
+   "gold_anchor": "self.args = self.parser.parse_args(args)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the optional list parameter files: list[Path] | None = None is omitted, the function receives None and cli.run() is None.",
+   "covering_prose": "When a parameter is annotated as an optional list (e.g., `list[Path] | None`), omitting the corresponding CLI argument should result in the function receiving `None`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

@@ -1,0 +1,151 @@
+{
+ "case": "internetarchive_1e32ae3e",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 15,
+ "n_covered": 15,
+ "n_gap": 0,
+ "n_out_of_scope": 5,
+ "rows": [
+  {
+   "test": "Parsed MARC author role abbreviation `ed.` is emitted as `Editor` instead of `ed.` in expected parsed records.",
+   "covering_prose": "Ensuring that these roles are mapped to clear, human-readable terms (e.g., \"ed.\" \u2192 \"Editor\", \"tr.\" \u2192 \"Translator\").",
+   "gold_anchor": "'ed.': 'Editor'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsed MARC author role abbreviation `comp.` is emitted as `Compiler` instead of `comp.` in expected parsed records.",
+   "covering_prose": "A dictionary named `ROLES` must be defined to map both MARC 21 relator codes and common role abbreviations (such as \"ed.\", \"tr.\", \"comp.\") to clear, human-readable role names (such as \"Editor\", \"Translator\", \"Compiler\").",
+   "gold_anchor": "'comp.': 'Compiler'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsed MARC relator code for translator is emitted as role `Translator` for Raynaud.",
+   "covering_prose": "Adding support for a broader set of MARC 21 relator codes and common freeform abbreviations found in `$e` and `$4` subfields.",
+   "gold_anchor": "'trl': 'Translator'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsed MARC relator code for author is emitted as role `Author` for Garlini.",
+   "covering_prose": "Adding support for a broader set of MARC 21 relator codes and common freeform abbreviations found in `$e` and `$4` subfields.",
+   "gold_anchor": "'aut': 'Author'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsed MARC relator code for editor is emitted as role `Editor` for the first Ithaca College author.",
+   "covering_prose": "Adding support for a broader set of MARC 21 relator codes and common freeform abbreviations found in `$e` and `$4` subfields.",
+   "gold_anchor": "'edt': 'Editor'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsed MARC relator code for editor is emitted as role `Editor` for the second Ithaca College author.",
+   "covering_prose": "Adding support for a broader set of MARC 21 relator codes and common freeform abbreviations found in `$e` and `$4` subfields.",
+   "gold_anchor": "'edt': 'Editor'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`read_author_person` reads `$4` relator-code subfields as possible role data.",
+   "covering_prose": "The function `read_author_person` must extract contributor role information from both `$e` (relator term) and `$4` (relator code) subfields of MARC records. If both are present, the `$4` value must overwrite the `$e` value.",
+   "gold_anchor": "contents = field.get_contents('abcde46')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`read_author_person` treats subfield `$4` as `role`, after `$e`, so `$4` overwrites `$e` when both are present.",
+   "covering_prose": "The function `read_author_person` must extract contributor role information from both `$e` (relator term) and `$4` (relator code) subfields of MARC records. If both are present, the `$4` value must overwrite the `$e` value.",
+   "gold_anchor": "('4', 'role')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Recognized parsed role values are replaced by their `ROLES` human-readable mapping before returning the author dict.",
+   "covering_prose": "If a `role` is present in the MARC record and exists in `ROLES`, the mapped value must be assigned to `author['role']`.",
+   "gold_anchor": "author['role'] = ROLES[author['role']]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`load(rec)` succeeds for the Ithaca College MARC import with contributor roles.",
+   "covering_prose": "Updating the import logic so that contributor roles appear consistently and correctly on Open Library edition and work records, improving metadata quality and discoverability.",
+   "gold_anchor": "author['role'] = role",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The work author-role list preserves `Editor` for the first Ithaca College work author.",
+   "covering_prose": "When creating new work entries, the `new_work` function should accept and preserve the association between authors and their roles as parsed from the MARC record, so that each author listed for a work may include a role field if applicable.",
+   "gold_anchor": "author['role'] = role",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The work author-role list preserves `Editor` for the second Ithaca College work author.",
+   "covering_prose": "When creating new work entries, the `new_work` function should accept and preserve the association between authors and their roles as parsed from the MARC record, so that each author listed for a work may include a role field if applicable.",
+   "gold_anchor": "author['role'] = role",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The third Ithaca College work author has no `role` field, observed as `Nothing`.",
+   "covering_prose": "If no `role` is present or the role is not recognized in `ROLES`, the role field must be omitted from the author dictionary.",
+   "gold_anchor": "if role := rec['authors'][i].get('role'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Work authors preserve one-to-one order: the first work role corresponds to the first parsed record author, the second work role corresponds to the second parsed record author, and the third has no role.",
+   "covering_prose": "The `authors` list created by `new_work` should maintain the correct order and one-to-one association between author keys and any corresponding role, reflecting the roles parsed from the MARC input.",
+   "gold_anchor": "for i, akey in enumerate(edition['authors']):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`new_work` enforces equal counts for `edition['authors']` and `rec['authors']` before pairing authors to roles.",
+   "covering_prose": "`new_work` must enforce a one-to-one correspondence between authors in `edition['authors']` and `rec['authors']`, raising an Exception if the counts do not match.",
+   "gold_anchor": "assert len(edition['authors']) == len(rec['authors']), \"Author import failed!\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The first Ithaca College imported author object is still type `/type/author`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The first Ithaca College imported author name is `Joseph A. Pechman`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The first Ithaca College imported author birth date is `1918`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The second Ithaca College imported author name is `P. Michael Timpane`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The third Ithaca College imported author name is `Brookings Institution, Washington, D.C. Panel on Social Experimentation`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

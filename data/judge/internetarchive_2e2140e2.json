@@ -1,0 +1,39 @@
+{
+ "case": "internetarchive_2e2140e2",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "update_author performs the Solr lookup through requests.get, so monkeypatching update_work.requests.get supplies the Solr response.",
+   "covering_prose": "In `update_author`, Solr GET requests should be performed with `requests`, building query parameters explicitly including `author key`, sort by `edition_count`, requested fields like `title` and `subtitle`, and facet fields for `subject`, `time`, `person`, and `place`.",
+   "gold_anchor": "reply = requests.get(base_url, params=[",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When Solr returns no works for an author update, update_author returns a list object.",
+   "covering_prose": "Author updates produce a list containing a single valid `UpdateRequest` when Solr returns no works.",
+   "gold_anchor": "return solr_requests",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When Solr returns no works for an author update, the returned list has length 1.",
+   "covering_prose": "Author updates produce a list containing a single valid `UpdateRequest` when Solr returns no works.",
+   "gold_anchor": "solr_requests.append(UpdateRequest(d))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When Solr returns no works for an author update, the single returned item is an UpdateRequest instance.",
+   "covering_prose": "Author updates produce a list containing a single valid `UpdateRequest` when Solr returns no works.",
+   "gold_anchor": "solr_requests.append(UpdateRequest(d))",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

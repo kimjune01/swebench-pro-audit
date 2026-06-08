@@ -1,0 +1,151 @@
+{
+ "case": "internetarchive_4315bbe2",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 16,
+ "rows": [
+  {
+   "test": "clean_amazon_metadata_for_load preserves the languages entry for ISBN metadata as ['english'].",
+   "covering_prose": "It's necessary to adjust the conforming fields in the `clean_amazon_metadata_for_load` function so they keep track of the new `languages` entry.",
+   "gold_anchor": "'languages',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "clean_amazon_metadata_for_load preserves the languages entry for translator metadata as ['english'].",
+   "covering_prose": "It's necessary to adjust the conforming fields in the `clean_amazon_metadata_for_load` function so they keep track of the new `languages` entry.",
+   "gold_anchor": "'languages',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "clean_amazon_metadata_for_load preserves the languages entry for subtitle metadata as ['english'].",
+   "covering_prose": "It's necessary to adjust the conforming fields in the `clean_amazon_metadata_for_load` function so they keep track of the new `languages` entry.",
+   "gold_anchor": "'languages',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns authors as [{'name': 'Glasgow, Kathleen'}].",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns contributors as [{'name': 'Paris, Christel', 'role': 'Translator'}].",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns cover as 'https://m.media-amazon.com/images/I/41vfxwDpB2L._SL500_.jpg'.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns edition_num as None.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns isbn_10 as ['2380821313'].",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns isbn_13 as ['9782380821314'].",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns languages as ['French'], deduplicating repeated French display values and excluding the Original Language entry.",
+   "covering_prose": "When serializing a product in our `AmazonAPI` adapter, we should retain the languages that it has (the `display_value` information), with no repeated values. That said, we are not interested in those languages whose type is \"Original Language\". This information should be stored in a `languages` key in the dictionary that we return.",
+   "gold_anchor": "if lang.type != 'Original Language'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns number_of_pages as 448.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns physical_format as 'paperback'.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns price as '$34.59'.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns price_amt as 3459.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns product_group as 'Book'.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns publish_date as 'Sep 22, 2023'.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns publishers as ['ANNE CARRIERE'].",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns source_records as ['amazon:2380821313'].",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns title as 'Girl in pieces'.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "AmazonAPI.serialize(get_sample_amazon_item()) returns url as 'https://www.amazon.com/dp/2380821313/?tag='.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

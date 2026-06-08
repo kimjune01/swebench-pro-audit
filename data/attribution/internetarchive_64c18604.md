@@ -1,0 +1,25 @@
+# Coverage attribution: internetarchive_64c18604
+
+- instance_id: `instance_internetarchive__openlibrary-89e4b4431fe7506c365a6f6eb6f6d048d04c044c-v08d8e8889ec945ab821fb156c04c7d2e2810debb`
+- verdict: **ENTAILED**  (10/10 in-gold behaviors covered; **0 GAP** = mindreading; 0 out-of-scope)
+- gold patch: [`gold.diff`](../cases/internetarchive_64c18604/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/internetarchive_64c18604/hidden_test.diff)  ·  spec: [`spec.md`](../cases/internetarchive_64c18604/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| make_author('OL123A', 'Samuel Clemens') creates/returns an author object using the path '/authors/OL123A'. | [The existing function `make_author` should build the path using the `"/authors/"` prefix concatenated with the key and call `web.ctx.site.new` with that path and the dictionary containing the key, type, and name.](../cases/internetarchive_64c18604/spec.md#L26) | [key = "/authors/" + key](../cases/internetarchive_64c18604/gold.diff#L24) |
+| make_author returns exactly the object produced by web.ctx.site.new. | [The function `make_author` should return exactly the object created by `web.ctx.site.new`.](../cases/internetarchive_64c18604/spec.md#L30) | [return web.ctx.site.new(](../cases/internetarchive_64c18604/gold.diff#L25) |
+| make_work accepts the provided document dictionary and returns an equal web.Storage object rather than a plain dict. | [The existing function `make_work` should be updated to accept a dictionary as input and declare its return type as `web.Storage`.](../cases/internetarchive_64c18604/spec.md#L32) | [def make_work(doc: dict[str, str \| list]) -> web.Storage:](../cases/internetarchive_64c18604/gold.diff#L37) |
+| make_work preserves the provided document fields such as author_key, author_name, key, type, language, and title in the result. | [make_work should return the fully constructed `web.Storage` object containing the preserved document fields together with the required defaults and the processed `"authors"`.](../cases/internetarchive_64c18604/spec.md#L42) | [w = web.storage(doc)](../cases/internetarchive_64c18604/gold.diff#L18) |
+| make_work populates authors with one author created from matching author_key ['OL123A'] and author_name ['Samuel Clemens']. | [`make_work` should populate the `"authors"` field by iterating over the author keys and author names provided in the input document, creating each author using `make_author`.](../cases/internetarchive_64c18604/spec.md#L34) | [for key, name in zip(doc.get('author_key', []), doc.get('author_name', []))](../cases/internetarchive_64c18604/gold.diff#L48) |
+| make_work sets authors to an empty list when the input document has no author_key and no author_name. | [`make_work` should set the `"authors"` field to an empty list when the input document does not provide matching author keys and names.](../cases/internetarchive_64c18604/spec.md#L36) | [doc.get('author_key', []), doc.get('author_name', [])](../cases/internetarchive_64c18604/gold.diff#L49) |
+| make_work sets cover_url to '/images/icons/avatar_book-sm.png' in the returned object when the input document lacks cover_url. | [`make_work` should ensure the field `"cover_url"` is set to `"/images/icons/avatar_book-sm.png"` when it is not present in the input document.](../cases/internetarchive_64c18604/spec.md#L38) | [w.cover_url = "/images/icons/avatar_book-sm.png"](../cases/internetarchive_64c18604/gold.diff#L51) |
+| make_work includes ia as [] when the input document lacks ia. | [`make_work` should ensure the fields `"ia"` and `"first_publish_year"` are included in the result, defaulting to an empty list and `None` when not provided in the input document.](../cases/internetarchive_64c18604/spec.md#L40) | [w.setdefault('ia', [])](../cases/internetarchive_64c18604/gold.diff#L54) |
+| make_work includes first_publish_year as None when the input document lacks first_publish_year. | [`make_work` should ensure the fields `"ia"` and `"first_publish_year"` are included in the result, defaulting to an empty list and `None` when not provided in the input document.](../cases/internetarchive_64c18604/spec.md#L40) | [w.setdefault('first_publish_year', None)](../cases/internetarchive_64c18604/gold.diff#L55) |
+| make_work with no author_key and no author_name raises no exception and returns the constructed work. | [No exception should be raised; the flow should complete normally and yield the constructed work.](../cases/internetarchive_64c18604/spec.md#L23) | [doc.get('author_key', []), doc.get('author_name', [])](../cases/internetarchive_64c18604/gold.diff#L49) |
+
+## Receipts
+- [`spec.md`](../cases/internetarchive_64c18604/spec.md)
+- [`gold.diff`](../cases/internetarchive_64c18604/gold.diff)
+- [`hidden_test.diff`](../cases/internetarchive_64c18604/hidden_test.diff)
+- judge JSON: [`internetarchive_64c18604.json`](../judge/internetarchive_64c18604.json)

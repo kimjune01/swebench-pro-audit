@@ -1,0 +1,60 @@
+{
+ "case": "internetarchive_4d2c6967",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "docker-compose.yml defines a service named `solr` under `services`.",
+   "covering_prose": "The Solr service definition in `docker-compose.yml` contains `-Dsolr.max.booleanClauses=30000` under the `SOLR_OPTS` environment variable, and the backend defines the same cap in `openlibrary/core/bookshelves.py`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The `solr` service has an `environment` entry whose string starts with `SOLR_OPTS=`.",
+   "covering_prose": "The Solr service in `docker-compose.yml` must include the environment variable \u25cb6SOLR_OPTS` containing the JVM flag `-Dsolr.max.booleanClauses=<N>` where `<N>` is greater than or equal to the application cap `FILTER_BOOK_LIMIT`.",
+   "gold_anchor": "- SOLR_OPTS=",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The `SOLR_OPTS` value contains a whitespace-splittable flag starting with `-Dsolr.max.booleanClauses`.",
+   "covering_prose": "The `SOLR_OPTS` value may span multiple lines in YAML, but its flags must be whitespace-separated so they can be parsed by splitting on whitespace (as done in the test).",
+   "gold_anchor": "-Dsolr.max.booleanClauses=30000",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The `-Dsolr.max.booleanClauses` flag value is parseable as an integer from the text after `=`.",
+   "covering_prose": "The Solr service in `docker-compose.yml` must include the environment variable \u25cb6SOLR_OPTS` containing the JVM flag `-Dsolr.max.booleanClauses=<N>` where `<N>` is greater than or equal to the application cap `FILTER_BOOK_LIMIT`.",
+   "gold_anchor": "-Dsolr.max.booleanClauses=30000",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`FILTER_BOOK_LIMIT` is importable from `openlibrary.core.bookshelves`.",
+   "covering_prose": "The constant `FILTER_BOOK_LIMIT` must remain in the module `openlibrary.core.bookshelves` with the same name so other modules and tests can import it consistently.",
+   "gold_anchor": "FILTER_BOOK_LIMIT: Final = 30_000",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`FILTER_BOOK_LIMIT` is an integer value usable in numeric comparison.",
+   "covering_prose": "The bookshelves logic in `openlibrary/core/bookshelves.py` must expose an importable integer constant `FILTER_BOOK_LIMIT` set to `30_000` (i.e., 30000) to define the application\u2019s cap for reading-log filtering.",
+   "gold_anchor": "FILTER_BOOK_LIMIT: Final = 30_000",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The parsed Solr `max.booleanClauses` integer is greater than or equal to `FILTER_BOOK_LIMIT`.",
+   "covering_prose": "The Solr service in `docker-compose.yml` must include the environment variable \u25cb6SOLR_OPTS` containing the JVM flag `-Dsolr.max.booleanClauses=<N>` where `<N>` is greater than or equal to the application cap `FILTER_BOOK_LIMIT`.",
+   "gold_anchor": "-Dsolr.max.booleanClauses=30000",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

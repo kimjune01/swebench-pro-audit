@@ -1,0 +1,26 @@
+# Coverage attribution: internetarchive_1a3fab3f
+
+- instance_id: `instance_internetarchive__openlibrary-6afdb09df692223c3a31df65cfa92f15e5614c01-v08d8e8889ec945ab821fb156c04c7d2e2810debb`
+- verdict: **ENTAILED**  (9/9 in-gold behaviors covered; **0 GAP** = mindreading; 2 out-of-scope)
+- gold patch: [`gold.diff`](../cases/internetarchive_1a3fab3f/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/internetarchive_1a3fab3f/hidden_test.diff)  ·  spec: [`spec.md`](../cases/internetarchive_1a3fab3f/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| FnToCLI.parse_args accepts an explicit list of CLI tokens ['1', '2', '3'] instead of reading from sys.argv. | [The `parse_args` method of `FnToCLI` should accept an optional argument `args` of type `Sequence[str] \| None` and should parse these when provided.](../cases/internetarchive_1a3fab3f/spec.md#L25) | [def parse_args(self, args: typing.Sequence[str] \| None = None):](../cases/internetarchive_1a3fab3f/gold.diff#L17) |
+| A required parameter annotated as list[int] accepts positional CLI values ['1', '2', '3']. | [Required list parameters without default values should be accepted positionally such that providing values like `['1', '2', '3']` populates a parameter annotated as `list[int]` when that parameter is required.](../cases/internetarchive_1a3fab3f/spec.md#L31) | [return {'nargs': '*', 'type': subtype}](../cases/internetarchive_1a3fab3f/gold.diff#L49) |
+| Multiple CLI tokens for list[int] are converted into Python ints, so nums becomes [1, 2, 3] and sum(nums) returns 6. | [The `FnToCLI` class should accept functions with parameters annotated as lists of supported simple types (`int`, `str`, `float`, `Path`) and parse multiple CLI values into Python lists of the correct element type.](../cases/internetarchive_1a3fab3f/spec.md#L19) | [return {'nargs': '*', 'type': subtype}](../cases/internetarchive_1a3fab3f/gold.diff#L49) |
+| FnToCLI.run returns the wrapped function result for a synchronous function, so cli.run() equals 6. | [The `run` method of `FnToCLI` should return the result of the wrapped function when invoked, including for asynchronous functions executed via an event loop.](../cases/internetarchive_1a3fab3f/spec.md#L27) | [return self.fn(**args_dicts)](../cases/internetarchive_1a3fab3f/gold.diff#L30) |
+| An optional list parameter named files is supplied via the derived --files option. | [Optional list parameters should be accepted via their derived `--<param>` option, and values following the option should be collected into the target list until another option or the end of the arguments is encountered.](../cases/internetarchive_1a3fab3f/spec.md#L16) | [return {'nargs': '*', 'type': subtype}](../cases/internetarchive_1a3fab3f/gold.diff#L49) |
+| For list[Path] \| None, values after --files, specifically 'path1' and 'path2', are collected into the files list until the end of arguments | [Optional list parameters should be accepted via their derived `--<param>` option, and values following the option should be collected into the target list until another option or the end of the arguments is encountered.](../cases/internetarchive_1a3fab3f/spec.md#L16) | [return {'nargs': '*', 'type': subtype}](../cases/internetarchive_1a3fab3f/gold.diff#L49) |
+| CLI string values 'path1' and 'path2' for list[Path] \| None are converted into pathlib.Path objects, so isinstance(f, Path) is True for bot | [The `FnToCLI` class should accept functions with parameters annotated as lists of supported simple types (`int`, `str`, `float`, `Path`) and parse multiple CLI values into Python lists of the correct element type.](../cases/internetarchive_1a3fab3f/spec.md#L19) | [simple_types = (int, str, float, Path)](../cases/internetarchive_1a3fab3f/gold.diff#L40) |
+| FnToCLI.run returns the wrapped function result for a synchronous function with Path list input, so cli.run() equals [True, True]. | [The `run` method of `FnToCLI` should return the result of the wrapped function when invoked, including for asynchronous functions executed via an event loop.](../cases/internetarchive_1a3fab3f/spec.md#L27) | [return self.fn(**args_dicts)](../cases/internetarchive_1a3fab3f/gold.diff#L30) |
+| FnToCLI.parse_args accepts an explicit empty argument list []. | [The `parse_args` method of `FnToCLI` should accept an optional argument `args` of type `Sequence[str] \| None` and should parse these when provided.](../cases/internetarchive_1a3fab3f/spec.md#L25) | [self.args = self.parser.parse_args(args)](../cases/internetarchive_1a3fab3f/gold.diff#L16) |
+| CLI option name --files maps to the function parameter files. |  | _(not in gold)_ |
+| When the optional list parameter files: list[Path] \| None = None is omitted, the function receives None and cli.run() is None. |  | _(not in gold)_ |
+
+## Receipts
+- [`spec.md`](../cases/internetarchive_1a3fab3f/spec.md)
+- [`gold.diff`](../cases/internetarchive_1a3fab3f/gold.diff)
+- [`hidden_test.diff`](../cases/internetarchive_1a3fab3f/hidden_test.diff)
+- judge JSON: [`internetarchive_1a3fab3f.json`](../judge/internetarchive_1a3fab3f.json)

@@ -1,0 +1,32 @@
+{
+ "case": "internetarchive_188a7677",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 3,
+ "n_covered": 1,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`luqum_replace_child` is importable from `openlibrary.solr.query_utils`.",
+   "covering_prose": "Name: `luqum_replace_child`\nLocation: `openlibrary/solr/query_utils.py`",
+   "gold_anchor": "def luqum_replace_child(parent: Item, old_child: Item, new_child: Item):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For query `title:foo OR id:1`, replacing the traversed node whose stripped string is `title:foo` with parsed `(title:foo OR bar:foo)` makes the full tree serialize to `(title:foo OR bar:foo)OR id:1`.",
+   "covering_prose": null,
+   "gold_anchor": "new_child if c == old_child else c for c in parent.children",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For query `title:foo OR (id:1 OR id:2)`, replacing the traversed node whose stripped string is `id:2` with parsed `(subject:horror)` makes the full tree serialize to `title:foo OR (id:1 OR(subject:horror))`.",
+   "covering_prose": null,
+   "gold_anchor": "new_child if c == old_child else c for c in parent.children",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

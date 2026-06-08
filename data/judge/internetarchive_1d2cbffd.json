@@ -1,0 +1,95 @@
+{
+ "case": "internetarchive_1d2cbffd",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 12,
+ "n_covered": 8,
+ "n_gap": 4,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Base autocomplete calls Solr with query string exactly `title:\"foo\"^2 OR title:(foo*) OR name:\"foo\"^2 OR name:(foo*)` for q=`foo`.",
+   "covering_prose": null,
+   "gold_anchor": "query = 'title:\"{q}\"^2 OR title:({q}*) OR name:\"{q}\"^2 OR name:({q}*)'",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Base autocomplete passes `fq` as `['-type:edition']`.",
+   "covering_prose": "All autocomplete endpoints must share a single base with consistent defaults: searches must consider both exact and \u201cstarts-with\u201d matches on title and name, and must exclude edition records; they should honor the requested result limit.",
+   "gold_anchor": "fq = ['-type:edition']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Base autocomplete passes `q_op` as `AND`.",
+   "covering_prose": null,
+   "gold_anchor": "'q_op': 'AND',",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Base autocomplete passes `rows` as the requested limit, 5 in the test.",
+   "covering_prose": "All autocomplete endpoints must share a single base with consistent defaults: searches must consider both exact and \u201cstarts-with\u201d matches on title and name, and must exclude edition records; they should honor the requested result limit.",
+   "gold_anchor": "'rows': i.limit,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Works autocomplete calls Solr with query string exactly `title:\"foo\"^2 OR title:(foo*)` for q=`foo`.",
+   "covering_prose": null,
+   "gold_anchor": "query = 'title:\"{q}\"^2 OR title:({q}*)'",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Works autocomplete passes `fq` as `['type:work', 'key:*W']`.",
+   "covering_prose": "The class \u2018works_autocomplete\u2019 must use \u2018autocomplete\u2019 as a base, target the \u2018\"/works/_autocomplete\"\u2019 route, filter by \u2018type:work\u2019 and \u2018key:*W\u2019, and display the fields \u2018key,title,subtitle,cover_i,first_publish_year,author_name,edition_count\u2019. Each result must include a \u2018name\u2019 field and a \u2018full_title\u2019 string composed of the \u2018title\u2019 and optional \u2018subtitle\u2019.",
+   "gold_anchor": "'key:*W',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Works autocomplete returns each Solr doc with `name` equal to the doc title.",
+   "covering_prose": "Each result must include a \u2018name\u2019 field and a \u2018full_title\u2019 string composed of the \u2018title\u2019 and optional \u2018subtitle\u2019.",
+   "gold_anchor": "doc['name'] = doc.get('title')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Works autocomplete returns `full_title` as `title: subtitle` when subtitle is present, e.g. `Foo Bar: Baz`.",
+   "covering_prose": "Each result must include a \u2018name\u2019 field and a \u2018full_title\u2019 string composed of the \u2018title\u2019 and optional \u2018subtitle\u2019.",
+   "gold_anchor": "doc['full_title'] += \": \" + doc['subtitle']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Works autocomplete returns `full_title` as just `title` when subtitle is absent, e.g. `Foo Baz`.",
+   "covering_prose": "Each result must include a \u2018name\u2019 field and a \u2018full_title\u2019 string composed of the \u2018title\u2019 and optional \u2018subtitle\u2019.",
+   "gold_anchor": "doc['full_title'] = doc['title']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Works autocomplete preserves the original Solr document fields in the returned JSON while adding `name` and `full_title`.",
+   "covering_prose": null,
+   "gold_anchor": "self.doc_wrap(d)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Works autocomplete detects q=`OL123W` as a work OLID and queries Solr with `key:\"/works/OL123W\"`.",
+   "covering_prose": "If the input contains an OLID, the service must resolve it to the correct entity and must return a result even when the index has no hits by falling back to the primary data source.",
+   "gold_anchor": "solr_q = f'key:\"{olid_to_key(embedded_olid)}\"'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When q=`OL123W` is an OLID and Solr returns no docs, works autocomplete calls the patchable fallback hook `db_fetch` exactly once with `/works/OL123W`.",
+   "covering_prose": "The base class must use a patchable fallback hook when an OLID is found but Solr returns no docs.",
+   "gold_anchor": "fake_doc = self.db_fetch(olid_to_key(embedded_olid))",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

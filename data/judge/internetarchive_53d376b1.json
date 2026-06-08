@@ -1,0 +1,116 @@
+{
+ "case": "internetarchive_53d376b1",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 14,
+ "n_covered": 14,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "`remove_author_honorifics` is called with a `name` string keyword argument and returns a string, not an author dict.",
+   "covering_prose": "The function `remove_author_honorifics` in `openlibrary/catalog/add_book/load_book.py` must accept a `name` string as input and return a string.",
+   "gold_anchor": "def remove_author_honorifics(name: str) -> str:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`remove_author_honorifics(\"Mr Blobby\")` returns `\"Blobby\"`.",
+   "covering_prose": "Leading honorifics in the name must be removed if they match a supported set (including English, French, Spanish, and German forms), in a case-insensitive way.",
+   "gold_anchor": "return name[len(honorific) :].lstrip() or name",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`remove_author_honorifics(\"Mr. Blobby\")` returns `\"Blobby\"`.",
+   "covering_prose": "Leading honorifics in the name must be removed if they match a supported set (including English, French, Spanish, and German forms), in a case-insensitive way.",
+   "gold_anchor": "return name[len(honorific) :].lstrip() or name",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`remove_author_honorifics(\"monsieur Anicet-Bourgeois\")` returns `\"Anicet-Bourgeois\"`.",
+   "covering_prose": "Leading honorifics in the name must be removed if they match a supported set (including English, French, Spanish, and German forms), in a case-insensitive way.",
+   "gold_anchor": "return name[len(honorific) :].lstrip() or name",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`remove_author_honorifics(\"Anicet-Bourgeois M.\")` returns `\"Anicet-Bourgeois M.\"`, because honorifics are not stripped from the end of the name.",
+   "covering_prose": "Leading honorifics in the name must be removed if they match a supported set (including English, French, Spanish, and German forms), in a case-insensitive way.",
+   "gold_anchor": "if name.casefold().startswith(honorific)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`remove_author_honorifics('Doctor Ivo \"Eggman\" Robotnik')` returns `'Ivo \"Eggman\" Robotnik'`.",
+   "covering_prose": "Leading honorifics in the name must be removed if they match a supported set (including English, French, Spanish, and German forms), in a case-insensitive way.",
+   "gold_anchor": "return name[len(honorific) :].lstrip() or name",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`remove_author_honorifics(\"John M. Keynes\")` returns `\"John M. Keynes\"`.",
+   "covering_prose": "Leading honorifics in the name must be removed if they match a supported set (including English, French, Spanish, and German forms), in a case-insensitive way.",
+   "gold_anchor": "return name",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`remove_author_honorifics(\"Mr.\")` returns the original string `\"Mr.\"`.",
+   "covering_prose": "If the input consists only of an honorific, `remove_author_honorifics` must return the original name unchanged.",
+   "gold_anchor": "return name[len(honorific) :].lstrip() or name",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When importing an author whose exact name and extracted birth and death years match an existing author, `import_author` returns that existing author key.",
+   "covering_prose": "Author matching logic in `find_entity` and related code must first try an exact name match, and only succeed if the input and candidate author have matching extracted birth and death years (if present).",
+   "gold_anchor": "return pick_from_matches(author, match)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When importing an author whose name matches but death year differs (`1911` vs existing `1910`), `import_author` creates a new author dict rather than returning the existing author.",
+   "covering_prose": "Author matching logic in `find_entity` and related code must first try an exact name match, and only succeed if the input and candidate author have matching extracted birth and death years (if present).",
+   "gold_anchor": "return pick_from_matches(author, match)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When no author is matched because death years differ, the new author preserves the input `death_date` value `\"1911\"`.",
+   "covering_prose": "If no author is matched, a new author record must be created preserving all original input fields, and if the input name contained wildcards, the new author name must keep those wildcards exactly as provided.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When importing an author whose alternate name and extracted birth and death years match an existing author, `import_author` returns that existing author key.",
+   "covering_prose": "Alternate name matching must also require that input and candidate authors have matching extracted birth and death years (if present).",
+   "gold_anchor": "{\"type\": \"/type/author\", \"alternate_names~\": name}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Surname matching can return an existing author when only the last token of the input name matches and birth and death years match.",
+   "covering_prose": "Surname matching must use only the last token of the name and must match using only the extracted birth and death years.",
+   "gold_anchor": "\"name~\": f\"* {name.split()[-1]}\",",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Surname matching with candidate `birth_date` `\"September 14th, 1829\"` and `death_date` `\"11/2/1910\"` matches input `birth_date` `\"1829-09-14\"` and `death_date` `\"November 1910\"` by extracted four-digit years.",
+   "covering_prose": "Date comparison should focus on extracting and comparing year information rather than exact date strings.",
+   "gold_anchor": "\"birth_date~\": f\"*{extract_year(author.get('birth_date', '')) or -1}*\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Before importing `\"Mr. William H. brewer\"`, `build_query`/import flow removes the leading honorific so surname matching can use the last token `brewer`.",
+   "covering_prose": "In the `build_query` function, `remove_author_honorifics` must be applied to `author['name']` before any further processing or import.",
+   "gold_anchor": "author['name'] = remove_author_honorifics(author['name'])",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

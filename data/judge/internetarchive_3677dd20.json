@@ -1,0 +1,186 @@
+{
+ "case": "internetarchive_3677dd20",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 25,
+ "n_covered": 23,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "map_data returns identifiers.open_textbook_library as the stringified id value, e.g. 1238 -> \"1238\", 895 -> \"895\", 730 -> \"730\".",
+   "covering_prose": "The map_data function should transform raw Open Textbook Library dictionaries into Open Library import records by creating an identifiers field with open_textbook_library set to the stringified id value and a source_records field containing the open_textbook_library prefix followed by the id.",
+   "gold_anchor": "import_record[\"identifiers\"] = {'open_textbook_library': str(data['id'])}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data returns source_records as a one-element array containing \"open_textbook_library:<id>\", e.g. \"open_textbook_library:1238\".",
+   "covering_prose": "The map_data function should transform raw Open Textbook Library dictionaries into Open Library import records by creating an identifiers field with open_textbook_library set to the stringified id value and a source_records field containing the open_textbook_library prefix followed by the id.",
+   "gold_anchor": "import_record[\"source_records\"] = ['open_textbook_library:%s' % data['id']]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data copies a present title field unchanged into title.",
+   "covering_prose": "The map_data function should extract core bibliographic fields by mapping the title field directly, converting isbn_10 and isbn_13 fields when present, creating a languages array from the language field, and copying the description field unchanged.",
+   "gold_anchor": "import_record[\"title\"] = data[\"title\"]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data reads a present raw ISBN13 field and emits isbn_13 with the same string value, e.g. \"9781940771915\".",
+   "covering_prose": null,
+   "gold_anchor": "if data.get('ISBN13'):",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "map_data omits isbn_10 when raw ISBN10 is None or missing.",
+   "covering_prose": "The map_data function should extract core bibliographic fields by mapping the title field directly, converting isbn_10 and isbn_13 fields when present, creating a languages array from the language field, and copying the description field unchanged.",
+   "gold_anchor": "if data.get('ISBN10'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data omits isbn_13 when raw ISBN13 is None or missing.",
+   "covering_prose": "The map_data function should extract core bibliographic fields by mapping the title field directly, converting isbn_10 and isbn_13 fields when present, creating a languages array from the language field, and copying the description field unchanged.",
+   "gold_anchor": "if data.get('ISBN13'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data creates languages as a one-element array from a present language field, e.g. \"eng\" -> [\"eng\"].",
+   "covering_prose": "The map_data function should extract core bibliographic fields by mapping the title field directly, converting isbn_10 and isbn_13 fields when present, creating a languages array from the language field, and copying the description field unchanged.",
+   "gold_anchor": "import_record['languages'] = [data['language']]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data omits languages when language is None.",
+   "covering_prose": "The map_data function should tolerate None values for all optional fields and produce an empty name entry in authors when a contributor is marked as primary but lacks name components to satisfy data consistency requirements.",
+   "gold_anchor": "if data.get('language'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data copies a present description field unchanged into description.",
+   "covering_prose": "The map_data function should extract core bibliographic fields by mapping the title field directly, converting isbn_10 and isbn_13 fields when present, creating a languages array from the language field, and copying the description field unchanged.",
+   "gold_anchor": "import_record['description'] = data['description']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data omits description when the description field is missing.",
+   "covering_prose": "The map_data function should tolerate None values for all optional fields and produce an empty name entry in authors when a contributor is marked as primary but lacks name components to satisfy data consistency requirements.",
+   "gold_anchor": "if data.get('description'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data extracts subject name values into subjects, e.g. \"Medicine\" and \"Early Childhood\".",
+   "covering_prose": "The map_data function should handle subject classification by extracting subject names into a subjects array and LC call numbers into an lc_classifications array when available in the subjects data structure.",
+   "gold_anchor": "subject[\"name\"] for subject in data['subjects'] if subject.get(\"name\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data extracts subject call_number values into lc_classifications, e.g. \"RA440\" and \"LB1139.2\".",
+   "covering_prose": "The map_data function should handle subject classification by extracting subject names into a subjects array and LC call numbers into an lc_classifications array when available in the subjects data structure.",
+   "gold_anchor": "subject[\"call_number\"]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data omits subjects and lc_classifications when subjects is missing.",
+   "covering_prose": "The map_data function should tolerate None values for all optional fields and produce an empty name entry in authors when a contributor is marked as primary but lacks name components to satisfy data consistency requirements.",
+   "gold_anchor": "if data.get('subjects'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data creates publishers as an array of publisher name values, e.g. [\"University of North Georgia Press\"] and [\"Open SUNY\"].",
+   "covering_prose": "The map_data function should extract publisher information by creating a publishers array from publisher names and convert copyright_year to a stringified publish_date when the copyright year value is present.",
+   "gold_anchor": "publisher[\"name\"] for publisher in data[\"publishers\"]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data converts present copyright_year to string publish_date, e.g. 2022 -> \"2022\".",
+   "covering_prose": "The map_data function should extract publisher information by creating a publishers array from publisher names and convert copyright_year to a stringified publish_date when the copyright year value is present.",
+   "gold_anchor": "import_record['publish_date'] = str(data[\"copyright_year\"])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data omits publish_date when copyright_year is missing.",
+   "covering_prose": "The map_data function should extract publisher information by creating a publishers array from publisher names and convert copyright_year to a stringified publish_date when the copyright year value is present.",
+   "gold_anchor": "if data.get(\"copyright_year\"):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data classifies contributors with contribution equal to \"Author\" as authors even when primary is False.",
+   "covering_prose": "The map_data function should process contributor information by creating an authors field containing dictionaries with name keys for contributors marked as primary or explicitly designated as Authors, and a contributions field containing contributor names for all other roles, where names should be constructed by concatenating non-empty first_name, middle_name, and last_name values.",
+   "gold_anchor": "or contributor.get(\"contribution\") == 'Author'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data classifies a contributor with primary True as an author even when contribution is None.",
+   "covering_prose": "The map_data function should process contributor information by creating an authors field containing dictionaries with name keys for contributors marked as primary or explicitly designated as Authors, and a contributions field containing contributor names for all other roles, where names should be constructed by concatenating non-empty first_name, middle_name, and last_name values.",
+   "gold_anchor": "contributor.get(\"primary\") is True",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data represents authors as dictionaries with a name key, e.g. {\"name\": \"Deanna L. Howe\"}.",
+   "covering_prose": "The map_data function should process contributor information by creating an authors field containing dictionaries with name keys for contributors marked as primary or explicitly designated as Authors, and a contributions field containing contributor names for all other roles, where names should be constructed by concatenating non-empty first_name, middle_name, and last_name values.",
+   "gold_anchor": "authors.append({\"name\": name})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data constructs contributor names by concatenating non-empty first_name, middle_name, and last_name values with spaces, skipping None middle_name, e.g. \"Heather Bridge\" and \"Eve Johnson\".",
+   "covering_prose": "The map_data function should process contributor information by creating an authors field containing dictionaries with name keys for contributors marked as primary or explicitly designated as Authors, and a contributions field containing contributor names for all other roles, where names should be constructed by concatenating non-empty first_name, middle_name, and last_name values.",
+   "gold_anchor": "filter(\n                    None,\n                    [\n                        contributor.get(\"first_name\"),\n                        contributor.get(\"middle_name\"),\n                        contributor.get(\"last_name\"),\n                    ],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data preserves contributor input order in the authors list, e.g. Howe, Dozier, Dickenson.",
+   "covering_prose": null,
+   "gold_anchor": "for contributor in data[\"contributors\"]:",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "map_data puts contributors that are neither primary nor contribution == \"Author\" into contributions as plain name strings, e.g. [\"Eve Johnson\"].",
+   "covering_prose": "The map_data function should process contributor information by creating an authors field containing dictionaries with name keys for contributors marked as primary or explicitly designated as Authors, and a contributions field containing contributor names for all other roles, where names should be constructed by concatenating non-empty first_name, middle_name, and last_name values.",
+   "gold_anchor": "contributions.append(name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data emits an empty author name string for a primary contributor whose first_name, middle_name, and last_name are missing or None.",
+   "covering_prose": "The map_data function should tolerate None values for all optional fields and produce an empty name entry in authors when a contributor is marked as primary but lacks name components to satisfy data consistency requirements.",
+   "gold_anchor": "authors.append({\"name\": name})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data omits contributions when every contributor is an author.",
+   "covering_prose": "The map_data function should process contributor information by creating an authors field containing dictionaries with name keys for contributors marked as primary or explicitly designated as Authors, and a contributions field containing contributor names for all other roles, where names should be constructed by concatenating non-empty first_name, middle_name, and last_name values.",
+   "gold_anchor": "if contributions:\n            import_record[\"contributions\"] = contributions",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "map_data omits publishers when publishers is missing.",
+   "covering_prose": "The map_data function should tolerate None values for all optional fields and produce an empty name entry in authors when a contributor is marked as primary but lacks name components to satisfy data consistency requirements.",
+   "gold_anchor": "if data.get('publishers'):",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

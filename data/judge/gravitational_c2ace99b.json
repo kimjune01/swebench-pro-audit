@@ -1,0 +1,81 @@
+{
+ "case": "gravitational_c2ace99b",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 7,
+ "rows": [
+  {
+   "test": "The fake native Touch ID implementation exposes Diag() returning a *touchid.DiagResult and no longer relies on IsAvailable().",
+   "covering_prose": "Name: `Diag`\nType: function\nPath: `lib/auth/touchid/api.go`\nInputs: none\nOutputs: `(*DiagResult, error)`\nDescription: Runs Touch ID diagnostics and returns detailed results, including individual check flags and the computed availability status.",
+   "gold_anchor": "Diag() (*DiagResult, error)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When diagnostics report Touch ID as available, Register proceeds instead of returning an availability error.",
+   "covering_prose": "When availability indicates Touch ID is usable, `Register` and `Login` must proceed without returning an availability error.",
+   "gold_anchor": "if !IsAvailable() {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When diagnostics report Touch ID as available, Login proceeds instead of returning an availability error.",
+   "covering_prose": "When availability indicates Touch ID is usable, `Register` and `Login` must proceed without returning an availability error.",
+   "gold_anchor": "if !IsAvailable() {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Register returns a credential-creation response that can be JSON-marshaled and parsed with protocol.ParseCredentialCreationResponseBody without error.",
+   "covering_prose": "The public function `Register(origin string, cc *wanlib.CredentialCreation) (*wanlib.CredentialCreationResponse, error)` must, when Touch ID is available, return a credential-creation response that JSON-marshals, parses with `protocol.ParseCredentialCreationResponseBody` without error, and can be used with the original WebAuthn `sessionData` in `webauthn.CreateCredential` to produce a valid credential.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Register returns a credential-creation response usable with the original WebAuthn sessionData in webauthn.CreateCredential to produce a valid credential.",
+   "covering_prose": "The public function `Register(origin string, cc *wanlib.CredentialCreation) (*wanlib.CredentialCreationResponse, error)` must, when Touch ID is available, return a credential-creation response that JSON-marshals, parses with `protocol.ParseCredentialCreationResponseBody` without error, and can be used with the original WebAuthn `sessionData` in `webauthn.CreateCredential` to produce a valid credential.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The credential created from Register can be used for a subsequent login with the same origin and RPID.",
+   "covering_prose": "The response from `Register` must be usable to create a credential that can then be used for a subsequent login under the same relying party configuration (origin and RPID).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Login returns an assertion response that can be JSON-marshaled and parsed with protocol.ParseCredentialRequestResponseBody without error.",
+   "covering_prose": "The public function `Login(origin, user string, a *wanlib.CredentialAssertion) (*wanlib.CredentialAssertionResponse, string, error)` must, when Touch ID is available, return an assertion response that JSON-marshals, parses with `protocol.ParseCredentialRequestResponseBody` without error, and validates successfully with `webauthn.ValidateLogin` against the corresponding `sessionData`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Login returns an assertion response that validates successfully with webauthn.ValidateLogin against the corresponding sessionData.",
+   "covering_prose": "The public function `Login(origin, user string, a *wanlib.CredentialAssertion) (*wanlib.CredentialAssertionResponse, string, error)` must, when Touch ID is available, return an assertion response that JSON-marshals, parses with `protocol.ParseCredentialRequestResponseBody` without error, and validates successfully with `webauthn.ValidateLogin` against the corresponding `sessionData`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Login succeeds in the passwordless case when a.Response.AllowedCredentials is nil.",
+   "covering_prose": "`Login` must support the passwordless scenario: when `a.Response.AllowedCredentials` is `nil`, the login must still succeed.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Login's second return value equals the username of the registered credential owner.",
+   "covering_prose": "The second return value from `Login` must equal the username of the registered credential\u2019s owner.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

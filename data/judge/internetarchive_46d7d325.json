@@ -1,0 +1,25 @@
+{
+ "case": "internetarchive_46d7d325",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`autocomplete.direct_get()` forwards `fq` to Solr as the tuple `(\"-type:edition\",)` rather than a list.",
+   "covering_prose": "At runtime, each handler exposes fixed, immutable default filters: autocomplete.fq = (\"-type:edition\",), works_autocomplete.fq = (\"type:work\",), authors_autocomplete.fq = (\"type:author\",), subjects_autocomplete.fq = (\"type:subject\",).",
+   "gold_anchor": "fq = ('-type:edition',)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`works_autocomplete.direct_get()` forwards `fq` to Solr as the tuple `(\"type:work\",)` rather than a list.",
+   "covering_prose": "At runtime, each handler exposes fixed, immutable default filters: autocomplete.fq = (\"-type:edition\",), works_autocomplete.fq = (\"type:work\",), authors_autocomplete.fq = (\"type:author\",), subjects_autocomplete.fq = (\"type:subject\",).",
+   "gold_anchor": "fq = ('type:work',)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

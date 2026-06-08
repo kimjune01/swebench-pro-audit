@@ -1,0 +1,144 @@
+{
+ "case": "internetarchive_0d5acead",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 11,
+ "n_covered": 11,
+ "n_gap": 0,
+ "n_out_of_scope": 8,
+ "rows": [
+  {
+   "test": "AuthorSolrUpdater.update_key on a normal author with empty Solr facets returns no deletes.",
+   "covering_prose": "Author updates should include derived fields such as `work_count` and `top_subjects`. These values should be computed using Solr facet queries based on the author\u2019s key. When no facet values are available, the fields should still be present with default empty list values.",
+   "gold_anchor": "return SolrUpdateState(adds=[d])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AuthorSolrUpdater.update_key on a normal author with empty Solr facets returns exactly one add document.",
+   "covering_prose": "Author updates should include derived fields such as `work_count` and `top_subjects`. These values should be computed using Solr facet queries based on the author\u2019s key. When no facet values are available, the fields should still be present with default empty list values.",
+   "gold_anchor": "return SolrUpdateState(adds=[d])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AuthorSolrUpdater.update_key preserves the author key /authors/OL25A in the added Solr document.",
+   "covering_prose": "Updates author documents and adds computed fields (`work_count`, `top_subjects`) via Solr facet queries.",
+   "gold_anchor": "return SolrUpdateState(adds=[d])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "update_keys on /type/delete work, author, and edition documents returns deletes containing /works/OL23W, /authors/OL23A, and /books/OL23M.",
+   "covering_prose": "When a document is of type `/type/delete` or `/type/redirect`, its key *should be added to the `deletes` list in the resulting update state.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "update_keys on /type/delete work, author, and edition documents returns no adds.",
+   "covering_prose": "When a document is of type `/type/delete` or `/type/redirect`, its key *should be added to the `deletes` list in the resulting update state.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "update_keys on a redirect edition /books/OL23M pointing to /books/OL24M, where the target is /type/delete, returns deletes ordered as ['/books/OL23M', '/books/OL24M'].",
+   "covering_prose": "When a document is of type `/type/delete` or `/type/redirect`, its key *should be added to the `deletes` list in the resulting update state. If a redirect points to another key, the redirected target should also be processed.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "update_keys on a redirect edition /books/OL23M pointing to deleted /books/OL24M returns no adds.",
+   "covering_prose": "When a document is of type `/type/delete` or `/type/redirect`, its key *should be added to the `deletes` list in the resulting update state. If a redirect points to another key, the redirected target should also be processed.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "WorkSolrUpdater.update_key on an edition /books/OL1M with no works field and no title returns no deletes.",
+   "covering_prose": "If an edition of type `/type/edition` does not contain a `works` field, a synthetic work document should be created.",
+   "gold_anchor": "return await self.update_key(fake_work)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "WorkSolrUpdater.update_key on an edition /books/OL1M with no works field and no title returns exactly one add document.",
+   "covering_prose": "If an edition of type `/type/edition` does not contain a `works` field, a synthetic work document should be created.",
+   "gold_anchor": "update.adds.append(solr_doc)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "WorkSolrUpdater.update_key on an edition /books/OL1M with no works field and no title serializes the added document title as \"__None__\".",
+   "covering_prose": "If the title is missing, the synthetic work and work updates should serialize the `title` field as `\"__None__\"`.",
+   "gold_anchor": "'title': work.get('title')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "WorkSolrUpdater.update_key on a work /works/OL23W with no title returns no deletes.",
+   "covering_prose": "If the title is missing, the synthetic work and work updates should serialize the `title` field as `\"__None__\"`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "WorkSolrUpdater.update_key on a work /works/OL23W with no title returns exactly one add document.",
+   "covering_prose": "Processes work documents (including synthetic ones derived from editions) and handles IA-based key cleanup.",
+   "gold_anchor": "update.adds.append(solr_doc)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "WorkSolrUpdater.update_key on a work /works/OL23W with no title serializes the added document title as \"__None__\".",
+   "covering_prose": "If the title is missing, the synthetic work and work updates should serialize the `title` field as `\"__None__\"`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "WorkSolrUpdater.update_key on a work with no title but an edition titled 'Some Title!' returns no deletes.",
+   "covering_prose": "Processes work documents (including synthetic ones derived from editions) and handles IA-based key cleanup.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "WorkSolrUpdater.update_key on a work with no title but an edition titled 'Some Title!' returns exactly one add document.",
+   "covering_prose": "Processes work documents (including synthetic ones derived from editions) and handles IA-based key cleanup.",
+   "gold_anchor": "update.adds.append(solr_doc)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "WorkSolrUpdater.update_key on a work with no title but an edition titled 'Some Title!' sets the added document title to \"Some Title!\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "solr_update accepts SolrUpdateState(commit=True) as its request argument.",
+   "covering_prose": "The function `solr_update()` should accept a `SolrUpdateState` instance as input and should serialize its contents using `to_solr_requests_json()` when performing Solr updates.",
+   "gold_anchor": "update_request: 'SolrUpdateState'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "solr_update serializes SolrUpdateState(commit=True) using to_solr_requests_json().",
+   "covering_prose": "Description Sends the Solr update using `update_request.to_solr_requests_json(...)`.",
+   "gold_anchor": "content = update_request.to_solr_requests_json()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SolrUpdateState(commit=True).to_solr_requests_json() emits a commit command that solr_update can post.",
+   "covering_prose": "`commit: bool` \u2014 whether to send a commit command",
+   "gold_anchor": "result += '\"commit\": {}' + sep",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,123 @@
+{
+ "case": "gravitational_f958e034",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 16,
+ "n_covered": 12,
+ "n_gap": 4,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "A table made with headers renders the header row, separator row, and body rows in the existing ASCII table format for Name/Motto/Age without truncation.",
+   "covering_prose": null,
+   "gold_anchor": "colh = append(colh, col.Title)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "A headless table with 2 columns omits the header and separator rows.",
+   "covering_prose": "The method `IsHeadless()` should be updated to return `false` if any column has a non-empty `Title` and `true` otherwise.",
+   "gold_anchor": "return true",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Adding a row with 3 cells to a 2-column headless table drops the 3rd cell from output.",
+   "covering_prose": "The function `MakeHeadlessTable` should initialize a `Table` with the specified number of columns, an empty row list, and an empty footnotes collection.",
+   "gold_anchor": "t.rows = append(t.rows, row[:limit])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AddColumn appends a new column after the existing MakeTable columns, so the output columns are Name, Motto, Age in that order.",
+   "covering_prose": "A new method `AddColumn` should be added to the `Table` type to append a column to the `columns` slice and set its `width` field based on the length of its `Title`.",
+   "gold_anchor": "t.columns = append(t.columns, c)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AddColumn initializes each added column width to len(Title), so Motto and Age participate in header/separator widths before rows are added.",
+   "covering_prose": "Description: Sets column width based on Title length and appends to table's columns slice.",
+   "gold_anchor": "c.width = len(c.Title)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A Motto cell longer than MaxCellLength 25 is truncated before rendering.",
+   "covering_prose": "`truncateCell` method should be introduced for the `Table` type that limits cell content length based on the column's `MaxCellLength` and optionally appends a `FootnoteLabel` when applicable, otherwise, the original cell content should remain unchanged.",
+   "gold_anchor": "if maxCellLength == 0 || len(cell) <= maxCellLength {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The truncated Motto value keeps the first 25 bytes and appends literal `...`, producing `Trains are much better th...`.",
+   "covering_prose": null,
+   "gold_anchor": "truncatedCell := fmt.Sprintf(\"%v...\", cell[:maxCellLength])",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "A truncated Motto cell with FootnoteLabel `[*]` appends that label to the rendered cell.",
+   "covering_prose": "`truncateCell` method should be introduced for the `Table` type that limits cell content length based on the column's `MaxCellLength` and optionally appends a `FootnoteLabel` when applicable, otherwise, the original cell content should remain unchanged.",
+   "gold_anchor": "return fmt.Sprintf(\"%v %v\", truncatedCell, footnoteLabel), true",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A cell equal to or shorter than its MaxCellLength remains unchanged, so `Read the bible` is not truncated.",
+   "covering_prose": "`truncateCell` method should be introduced for the `Table` type that limits cell content length based on the column's `MaxCellLength` and optionally appends a `FootnoteLabel` when applicable, otherwise, the original cell content should remain unchanged.",
+   "gold_anchor": "return cell, false",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An Age cell longer than MaxCellLength 2 is truncated even without a footnote label, rendering `fo...`.",
+   "covering_prose": "`truncateCell` method should be introduced for the `Table` type that limits cell content length based on the column's `MaxCellLength` and optionally appends a `FootnoteLabel` when applicable, otherwise, the original cell content should remain unchanged.",
+   "gold_anchor": "return truncatedCell, false",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A 26-character Motto with MaxCellLength 25 is truncated and annotated with `[*]`.",
+   "covering_prose": "`truncateCell` method should be introduced for the `Table` type that limits cell content length based on the column's `MaxCellLength` and optionally appends a `FootnoteLabel` when applicable, otherwise, the original cell content should remain unchanged.",
+   "gold_anchor": "footnoteLabel := t.columns[colIndex].FootnoteLabel",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AddRow updates column width using the truncated cell length rather than the original unbounded cell length.",
+   "covering_prose": "The method `AddRow` should be updated to call `truncateCell` for each cell and update the corresponding column's `width` based on the length of the truncated content.",
+   "gold_anchor": "t.columns[i].width = max(len(cell), t.columns[i].width)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Only footnotes for labels referenced by truncated cells are printed after the table body.",
+   "covering_prose": "The method `AsBuffer()` should be updated to call a helper that determines whether a cell requires truncation, collect all referenced `FootnoteLabel` values from truncated cells, and append each corresponding note from the table's `footnotes` map to the output after printing the table body.",
+   "gold_anchor": "footnoteLabels[t.columns[i].FootnoteLabel] = struct{}{}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The footnote text associated with label `[*]` is printed after the table as `[*] Full motto was truncated, use the \"tctl motto get\" subcommand to view full motto.`",
+   "covering_prose": "A new method `AddFootnote` should be added to the `Table` type to associate a note with a given footnote label in the `footnotes` field.",
+   "gold_anchor": "fmt.Fprintln(writer, label, t.footnotes[label])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A blank line is printed between the table body and the footnote block.",
+   "covering_prose": null,
+   "gold_anchor": "fmt.Fprintln(writer)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The rendered table has exact space padding and separator widths matching the maximum rendered cell/header width per column.",
+   "covering_prose": null,
+   "gold_anchor": "strings.Repeat(\"-\", col.width)",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

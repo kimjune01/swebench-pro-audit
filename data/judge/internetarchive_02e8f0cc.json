@@ -1,0 +1,95 @@
+{
+ "case": "internetarchive_02e8f0cc",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 12,
+ "n_covered": 12,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "A book with title containing case-variant \"notebook\" but no excluded author and no independently-published/year fields returns False.",
+   "covering_prose": "It must return \u2018True\u2019 if the book's title contains any of the following lowercase words: \u2018\"annotated\"\u2019, \u2018\"annot\u00e9\"\u2019, \u2018\"illustrated\"\u2019, \u2018\"illustr\u00e9e\"\u2019, or \u2018\"notebook\"\u2019; and the lowercase set of publishers includes \u2018\"independently published\"\u2019; and the publication year extracted from the first four digits of \u2018book_item[\"publish_date\"]\u2019 is greater than or equal to 2018.",
+   "gold_anchor": "\"independently published\" in publishers",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An author name matching excluded author \"hOlO\" after lowercasing returns True.",
+   "covering_prose": "\u2018is_low_quality_book(book_item)\u2019 must return 'True' if any author name in \u2018book_item[\"authors\"]\u2019, after lowercasing, appears in a predefined case-insensitive exclusion list consisting of exactly: \u2018\"1570 publishing\"\u2019, \u2018 \"bahija\"\u2019, \u2018 \"bruna murino\"\u2019,  \u2018 \"creative elegant edition\"\u2019,\u2018 \"delsee notebooks\"\u2019,\u2018\"grace garcia\"\u2019,\u2018\"holo\"\u2019, \u2018\"jeryx publishing\"\u2019, \u2018\"mado\"\u2019,\u2019\"mazzo\"\u2019, \u2018\"mikemix\"\u2019, \u2018\"mitch allison\"\u2019, \u2018\"pickleball publishing\"\u2019, \u2018\"pizzelle passion\"\u2019, \u2018\"punny cuaderno\"\u2019, \u2018\"razal koraya\"\u2019, \u2018\"t. d. publishing\"\u2019, \u2018\"tobias publishing\"\u2019.",
+   "gold_anchor": "\"holo\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With an excluded author already present, changing the title to \"A NoTe-BoOk Z\" still returns True.",
+   "covering_prose": "\u2018is_low_quality_book(book_item)\u2019 must return 'True' if any author name in \u2018book_item[\"authors\"]\u2019, after lowercasing, appears in a predefined case-insensitive exclusion list consisting of exactly: \u2018\"1570 publishing\"\u2019, \u2018 \"bahija\"\u2019, \u2018 \"bruna murino\"\u2019,  \u2018 \"creative elegant edition\"\u2019,\u2018 \"delsee notebooks\"\u2019,\u2018\"grace garcia\"\u2019,\u2018\"holo\"\u2019, \u2018\"jeryx publishing\"\u2019, \u2018\"mado\"\u2019,\u2019\"mazzo\"\u2019, \u2018\"mikemix\"\u2019, \u2018\"mitch allison\"\u2019, \u2018\"pickleball publishing\"\u2019, \u2018\"pizzelle passion\"\u2019, \u2018\"punny cuaderno\"\u2019, \u2018\"razal koraya\"\u2019, \u2018\"t. d. publishing\"\u2019, \u2018\"tobias publishing\"\u2019.",
+   "gold_anchor": "if authors & EXCLUDED_AUTHORS:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An author name exactly matching \"pickleball publishing\" returns True.",
+   "covering_prose": "\u2018is_low_quality_book(book_item)\u2019 must return 'True' if any author name in \u2018book_item[\"authors\"]\u2019, after lowercasing, appears in a predefined case-insensitive exclusion list consisting of exactly: \u2018\"1570 publishing\"\u2019, \u2018 \"bahija\"\u2019, \u2018 \"bruna murino\"\u2019,  \u2018 \"creative elegant edition\"\u2019,\u2018 \"delsee notebooks\"\u2019,\u2018\"grace garcia\"\u2019,\u2018\"holo\"\u2019, \u2018\"jeryx publishing\"\u2019, \u2018\"mado\"\u2019,\u2019\"mazzo\"\u2019, \u2018\"mikemix\"\u2019, \u2018\"mitch allison\"\u2019, \u2018\"pickleball publishing\"\u2019, \u2018\"pizzelle passion\"\u2019, \u2018\"punny cuaderno\"\u2019, \u2018\"razal koraya\"\u2019, \u2018\"t. d. publishing\"\u2019, \u2018\"tobias publishing\"\u2019.",
+   "gold_anchor": "\"pickleball publishing\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Near-miss author names \"hol\", \"mad\", \"mazz\", \"mikemi\", and \"tobias publishers\" do not match the exclusion list and return False.",
+   "covering_prose": "\u2018is_low_quality_book(book_item)\u2019 must return 'True' if any author name in \u2018book_item[\"authors\"]\u2019, after lowercasing, appears in a predefined case-insensitive exclusion list consisting of exactly: \u2018\"1570 publishing\"\u2019, \u2018 \"bahija\"\u2019, \u2018 \"bruna murino\"\u2019,  \u2018 \"creative elegant edition\"\u2019,\u2018 \"delsee notebooks\"\u2019,\u2018\"grace garcia\"\u2019,\u2018\"holo\"\u2019, \u2018\"jeryx publishing\"\u2019, \u2018\"mado\"\u2019,\u2019\"mazzo\"\u2019, \u2018\"mikemix\"\u2019, \u2018\"mitch allison\"\u2019, \u2018\"pickleball publishing\"\u2019, \u2018\"pizzelle passion\"\u2019, \u2018\"punny cuaderno\"\u2019, \u2018\"razal koraya\"\u2019, \u2018\"t. d. publishing\"\u2019, \u2018\"tobias publishing\"\u2019.",
+   "gold_anchor": "authors & EXCLUDED_AUTHORS",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Among multiple authors, one exact excluded author \"tobias publishing\" makes the book return True.",
+   "covering_prose": "\u2018is_low_quality_book(book_item)\u2019 must return 'True' if any author name in \u2018book_item[\"authors\"]\u2019, after lowercasing, appears in a predefined case-insensitive exclusion list consisting of exactly: \u2018\"1570 publishing\"\u2019, \u2018 \"bahija\"\u2019, \u2018 \"bruna murino\"\u2019,  \u2018 \"creative elegant edition\"\u2019,\u2018 \"delsee notebooks\"\u2019,\u2018\"grace garcia\"\u2019,\u2018\"holo\"\u2019, \u2018\"jeryx publishing\"\u2019, \u2018\"mado\"\u2019,\u2019\"mazzo\"\u2019, \u2018\"mikemix\"\u2019, \u2018\"mitch allison\"\u2019, \u2018\"pickleball publishing\"\u2019, \u2018\"pizzelle passion\"\u2019, \u2018\"punny cuaderno\"\u2019, \u2018\"razal koraya\"\u2019, \u2018\"t. d. publishing\"\u2019, \u2018\"tobias publishing\"\u2019.",
+   "gold_anchor": "\"tobias publishing\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A title containing case-variant \"annotated\" with publisher \"Independently Published\" and publish date beginning 2017 returns False.",
+   "covering_prose": "It must return \u2018True\u2019 if the book's title contains any of the following lowercase words: \u2018\"annotated\"\u2019, \u2018\"annot\u00e9\"\u2019, \u2018\"illustrated\"\u2019, \u2018\"illustr\u00e9e\"\u2019, or \u2018\"notebook\"\u2019; and the lowercase set of publishers includes \u2018\"independently published\"\u2019; and the publication year extracted from the first four digits of \u2018book_item[\"publish_date\"]\u2019 is greater than or equal to 2018.",
+   "gold_anchor": "and publish_year >= 2018",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A title containing case-variant \"annotated\" with publisher \"Independently Published\" and publish date \"2018\" returns True.",
+   "covering_prose": "It must return \u2018True\u2019 if the book's title contains any of the following lowercase words: \u2018\"annotated\"\u2019, \u2018\"annot\u00e9\"\u2019, \u2018\"illustrated\"\u2019, \u2018\"illustr\u00e9e\"\u2019, or \u2018\"notebook\"\u2019; and the lowercase set of publishers includes \u2018\"independently published\"\u2019; and the publication year extracted from the first four digits of \u2018book_item[\"publish_date\"]\u2019 is greater than or equal to 2018.",
+   "gold_anchor": "and title_words & EXCLUDED_INDEPENDENTLY_PUBLISHED_TITLES",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Publisher \"Independently Publish\" without exact \"Independently Published\" returns False.",
+   "covering_prose": "It must return \u2018True\u2019 if the book's title contains any of the following lowercase words: \u2018\"annotated\"\u2019, \u2018\"annot\u00e9\"\u2019, \u2018\"illustrated\"\u2019, \u2018\"illustr\u00e9e\"\u2019, or \u2018\"notebook\"\u2019; and the lowercase set of publishers includes \u2018\"independently published\"\u2019; and the publication year extracted from the first four digits of \u2018book_item[\"publish_date\"]\u2019 is greater than or equal to 2018.",
+   "gold_anchor": "\"independently published\" in publishers",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Adding \"Independently Published\" as one publisher among multiple publishers returns True when title and year also qualify.",
+   "covering_prose": "It must return \u2018True\u2019 if the book's title contains any of the following lowercase words: \u2018\"annotated\"\u2019, \u2018\"annot\u00e9\"\u2019, \u2018\"illustrated\"\u2019, \u2018\"illustr\u00e9e\"\u2019, or \u2018\"notebook\"\u2019; and the lowercase set of publishers includes \u2018\"independently published\"\u2019; and the publication year extracted from the first four digits of \u2018book_item[\"publish_date\"]\u2019 is greater than or equal to 2018.",
+   "gold_anchor": "publishers = {p.casefold() for p in book_item.get('publishers') or []}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A near-miss title word \"aNNotaTE\" does not match excluded title words and returns False.",
+   "covering_prose": "It must return \u2018True\u2019 if the book's title contains any of the following lowercase words: \u2018\"annotated\"\u2019, \u2018\"annot\u00e9\"\u2019, \u2018\"illustrated\"\u2019, \u2018\"illustr\u00e9e\"\u2019, or \u2018\"notebook\"\u2019; and the lowercase set of publishers includes \u2018\"independently published\"\u2019; and the publication year extracted from the first four digits of \u2018book_item[\"publish_date\"]\u2019 is greater than or equal to 2018.",
+   "gold_anchor": "title_words & EXCLUDED_INDEPENDENTLY_PUBLISHED_TITLES",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A title containing \"annotated\" inside parentheses, with publish date \"2020\" and publisher \"Independently Published\", returns True.",
+   "covering_prose": "It must return \u2018True\u2019 if the book's title contains any of the following lowercase words: \u2018\"annotated\"\u2019, \u2018\"annot\u00e9\"\u2019, \u2018\"illustrated\"\u2019, \u2018\"illustr\u00e9e\"\u2019, or \u2018\"notebook\"\u2019; and the lowercase set of publishers includes \u2018\"independently published\"\u2019; and the publication year extracted from the first four digits of \u2018book_item[\"publish_date\"]\u2019 is greater than or equal to 2018.",
+   "gold_anchor": "title_words = set(re.split(r'\\W+', book_item[\"title\"].casefold()))",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

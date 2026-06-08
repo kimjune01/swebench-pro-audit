@@ -1,0 +1,10 @@
+{
+ "case": "gravitational_e7683826",
+ "ok": false,
+ "verdict": "ERROR",
+ "in_gold_total": 0,
+ "n_covered": 0,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": []
+}

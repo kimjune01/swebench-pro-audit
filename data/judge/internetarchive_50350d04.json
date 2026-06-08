@@ -1,0 +1,67 @@
+{
+ "case": "internetarchive_50350d04",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "TableOfContents.from_db preserves complex metadata fields from DB dictionaries: authors, subtitle, and description appear on the resulting TocEntry and participate in equality.",
+   "covering_prose": "Extra TOC metadata can be lost when serializing/editing/saving.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "TocEntry.from_markdown parses a fourth pipe-delimited column as JSON and passes authors=[{\"name\": \"Author 1\"}] into the TocEntry constructor.",
+   "covering_prose": "The fourth column, when present, should be parsed as JSON and passed into the `TocEntry` constructor as keyword arguments so those attributes are set on the instance.",
+   "gold_anchor": "**json.loads(extra_fields or '{}'),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TocEntry.from_markdown accepts a line beginning with \" | \" as level 0 with empty label and parses title \"Just title\" with an empty page field.",
+   "covering_prose": "When the label is empty and `level == 0`, the first field is the empty string, so the         line begins with `\" | \"`.",
+   "gold_anchor": "label=label.strip() or None,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TocEntry.to_markdown for level=0, title=\"Chapter 1\", pagenum=\"1\" returns exactly \" | Chapter 1 | 1\" with one leading space before the first pipe.",
+   "covering_prose": "When the label is empty and `level == 0`, the first field is the empty string, so the         line begins with `\" | \"`.",
+   "gold_anchor": "' | '.join(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TocEntry.to_markdown for level=2, no label, title=\"Chapter 1\", pagenum=\"1\" returns exactly \"** | Chapter 1 | 1\" with no extra space after the asterisks inside the first field.",
+   "covering_prose": "If `label` is nonempty, it should be appended immediately after the asterisks with exactly one space between the asterisks and label; if `label` is empty, nothing should be appended to the asterisks. No other spaces should appear inside this first field.",
+   "gold_anchor": "'*' * self.level",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TocEntry.to_markdown for level=0, title=\"Just title\", no page number returns exactly \" | Just title | \", preserving delimiter spaces around an empty page field.",
+   "covering_prose": "When the title or page number is empty, the spaces surrounding the pipe should still be present, yielding outputs like `\" | Just title | \"` and `\"** | Chapter 1 | 1\"`.",
+   "gold_anchor": "self.pagenum or '',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TocEntry.to_markdown with authors extra metadata appends a fourth column after another \" | \" containing JSON exactly like {\"authors\": [{\"name\": \"Author 1\"}]}.",
+   "covering_prose": "When extra fields are present on a `TocEntry` instance, `TocEntry.to_markdown()` should append a fourth column after another `\" | \"`, containing a JSON object that serializes only the extra fields.",
+   "gold_anchor": "result += ' | ' + json.dumps(self.extra_fields, cls=InfogamiThingEncoder)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TocEntry.to_markdown serializes only non-base extra fields into the JSON column, excluding level, label, title, and pagenum.",
+   "covering_prose": "The `TocEntry.extra_fields` property should return a dictionary of all non-base fields set on the instance (i.e., fields other than `level`, `label`, `title`, `pagenum`), excluding fields whose values are `None`, so that only meaningful metadata is serialized to JSON.",
+   "gold_anchor": "required_fields = ('level', 'label', 'title', 'pagenum')",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

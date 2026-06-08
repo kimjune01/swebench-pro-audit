@@ -90,10 +90,12 @@ test-only; recency/ownership) **and** (b) ≥2 independent codebase-aware raters
 pending that apparatus + sampling. Honest status: a preregistered instrument, not yet a proven result.
 
 **Current contents:** after the gold-anchored pass, `qutebrowser`/`protonmail`/`element` →
-DETERMINED (positive coverage) → OUR_CAPABILITY_GAPS; `tutao` is the lone candidate (6 GAP behaviors),
-pending exhaustive re-labeling through the seven-label grid above. Nothing is "proven," and the headline
-denominator language ("complement of admissible") does **not** apply, until each fixed test case carries
-a positive-evidence label.
+DETERMINED (positive coverage) → OUR_CAPABILITY_GAPS. **`tutao` is PROVEN KNOWN_AMBIGUOUS** by one
+argument witness ([`data/cases/tutao/AMBIGUITY_WITNESS.md`](../data/cases/tutao/AMBIGUITY_WITNESS.md)):
+on HTTP 404 the test demands a *reject* with message `"404"`, while the prose explicitly describes a
+*return-a-`DownloadNativeResult`-with-the-status-code* contract — two prose-faithful readings, the test
+pins one. One example suffices (existence proof); the other 5 GAP rows are not pursued. The headline
+*rate* still needs sampling; this is a proven per-case existence claim, not a population estimate.
 
 ## Panel protocol ("world's best engineers, from the prose" proxy)
 

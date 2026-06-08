@@ -74,12 +74,14 @@ def main():
           "Gold passes its verifier, but the hidden test checks behavior no requirement determines "
           "(a specification lottery). The blank cells in each attribution are the evidence. "
           "Screen = codex coverage table; confirm with the decontaminated panel (see docs/ADMISSIBILITY-SPEC.md).", "",
-          "| case | instance_id | coverage | gaps | example gap behaviors | attribution |",
-          "|---|---|---|---|---|---|"]
+          "| case | instance_id | coverage | gaps | status | witness | attribution |",
+          "|---|---|---|---|---|---|---|"]
     for c, r in sorted(judged.items()):
         if classify_of(c, r) != "AMBIGUOUS": continue
+        w = REPO / "data" / "cases" / c / "AMBIGUITY_WITNESS.md"
+        status, witness = ("**PROVEN**", f"[witness](data/cases/{c}/AMBIGUITY_WITNESS.md)") if w.exists() else ("screen-flagged", "(pending)")
         ka.append(f"| {c} | `{iid(c)}` | {r['n_covered']}/{r.get('in_gold_total', r.get('n_rows'))} | {r.get('n_gap',0)} | "
-                  f"{gap_behaviors(r)} | [table](data/attribution/{c}.md) |")
+                  f"{status} | {witness} | [table](data/attribution/{c}.md) |")
     (REPO / "KNOWN_AMBIGUOUS.md").write_text("\n".join(ka) + "\n")
 
     # OUR_CAPABILITY_GAPS.md

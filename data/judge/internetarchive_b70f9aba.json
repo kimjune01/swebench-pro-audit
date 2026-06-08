@@ -1,0 +1,18 @@
+{
+ "case": "internetarchive_b70f9aba",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`get_doc()` returns work metadata containing `id_project_runeberg` with value `[]` when the Solr document has no Runeberg identifiers.",
+   "covering_prose": "When no identifiers are available, the field must still be included with an empty list (`[]`) to maintain predictable structure for consumers and compatibility with existing provider fields.",
+   "gold_anchor": "id_project_runeberg=doc.get('id_project_runeberg', []),",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

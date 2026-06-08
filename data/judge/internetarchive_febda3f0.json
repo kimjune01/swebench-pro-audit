@@ -1,0 +1,39 @@
+{
+ "case": "internetarchive_febda3f0",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 4,
+ "n_covered": 1,
+ "n_gap": 3,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For `title:(Holidays are Hell) authors:(Kim Harrison) OR authors:(Lynsay Sands)`, `process_user_query` returns exactly `alternative_title:(Holidays are Hell) author_name:(Kim Harrison) OR author_name:(Lynsay Sands)`, including mapping `title` to `alternative_title`, mapping `authors` to `author_name`, preserving `OR`, and preserving parenthesized terms.",
+   "covering_prose": null,
+   "gold_anchor": "WorkSearchScheme",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For `title:\"food rules\" author:pollan`, `process_user_query` returns exactly `alternative_title:\"food rules\" author_name:pollan`, including preserving the quoted phrase and mapping `author` to `author_name`.",
+   "covering_prose": null,
+   "gold_anchor": "WorkSearchScheme",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For `authors:Kim Harrison OR authors:Lynsay Sands`, `process_user_query` returns exactly `author_name:(Kim Harrison) OR author_name:(Lynsay Sands)`, including grouping the two-word author names and preserving `OR`.",
+   "covering_prose": null,
+   "gold_anchor": "WorkSearchScheme",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For bare ISBN-like input `978-0-06-093546-7`, `process_user_query` returns exactly `isbn:(9780060935467)`, normalizing away dashes and rewriting the bare query as an ISBN field query.",
+   "covering_prose": "Processes and transforms a raw user query string into a safe, escaped, and normalized Solr query string, applying scheme-specific field mappings and transformations.",
+   "gold_anchor": "WorkSearchScheme",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

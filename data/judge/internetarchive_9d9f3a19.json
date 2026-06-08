@@ -1,0 +1,67 @@
+{
+ "case": "internetarchive_9d9f3a19",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 6,
+ "rows": [
+  {
+   "test": "scripts.monitoring.utils exposes OlAsyncIOScheduler for import instead of OlBlockingScheduler.",
+   "covering_prose": "The monitoring scheduler must be exposed as OlAsyncIOScheduler and must inherit from an asyncio-based scheduler, allowing jobs to be registered via .scheduled_job(...).",
+   "gold_anchor": "class OlAsyncIOScheduler(AsyncIOScheduler):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OlAsyncIOScheduler is used to create a scheduler that accepts @scheduler.scheduled_job(\"interval\", seconds=60).",
+   "covering_prose": "The monitoring scheduler must be exposed as OlAsyncIOScheduler and must inherit from an asyncio-based scheduler, allowing jobs to be registered via .scheduled_job(...).",
+   "gold_anchor": "class OlAsyncIOScheduler(AsyncIOScheduler):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "limit_server reads the current hostname through os.environ.get, allowing the test to patch os.environ.get to return \"allowed-server\".",
+   "covering_prose": "The host name used by the limiter must be read via os.environ.get(...), not via socket-based lookups, so it can be controlled by the environment when evaluating whether to register a job.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When os.environ.get returns \"allowed-server\" and allowed_hosts is [\"allowed-server\"], the decorated job remains registered.",
+   "covering_prose": "- The decorator limit_server(allowed_hosts, scheduler) must conditionally register a scheduled job based on the current host name from the environment; when the host matches any allowed pattern the job is registered, otherwise it is not registered.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When os.environ.get returns \"other-server\" and allowed_hosts is [\"allowed-server\"], the decorated job is not registered.",
+   "covering_prose": "- The decorator limit_server(allowed_hosts, scheduler) must conditionally register a scheduled job based on the current host name from the environment; when the host matches any allowed pattern the job is registered, otherwise it is not registered.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When os.environ.get returns \"allowed-server0\" and allowed_hosts is [\"allowed-server*\"], the decorated job remains registered by trailing-asterisk prefix wildcard matching.",
+   "covering_prose": "- Hostname matching must support exact names (e.g., \"allowed-server\"), prefix wildcards with a trailing asterisk (e.g., \"allowed-server*\"), and match a short host against a fully qualified domain name (e.g., \"ol-web0\" matches \"ol-web0.us.archive.org\").",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When os.environ.get returns \"ol-web0.us.archive.org\" and allowed_hosts is [\"ol-web0\"], the decorated job remains registered by short-host to fully-qualified-domain-name matching.",
+   "covering_prose": "- Hostname matching must support exact names (e.g., \"allowed-server\"), prefix wildcards with a trailing asterisk (e.g., \"allowed-server*\"), and match a short host against a fully qualified domain name (e.g., \"ol-web0\" matches \"ol-web0.us.archive.org\").",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "A job registered through @scheduler.scheduled_job with function name sample_job is retrievable by scheduler.get_job(\"sample_job\").",
+   "covering_prose": "- When a job is registered through the scheduler decorator, its id must default to the wrapped function\u2019s name so it can be retrieved with scheduler.get_job(\"<function name>\").",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

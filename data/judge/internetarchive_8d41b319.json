@@ -1,0 +1,18 @@
+{
+ "case": "internetarchive_8d41b319",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For the ithaca_two_856u MARC fixture, the output JSON has \"[s.n.]\" as the value in the \"publishers\" list instead of \"s.n.\".",
+   "covering_prose": "When the MARC record\u2019s publisher is \"s.n.\", the output must include exactly \"[s.n.]\" inside the \"publishers\" list.",
+   "gold_anchor": "name = '[s.n.]'",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

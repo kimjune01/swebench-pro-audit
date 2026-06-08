@@ -1,0 +1,46 @@
+{
+ "case": "internetarchive_facafbe7",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "When Booknotes.update_work_id(\"1\", \"2\") hits an existing target booknote, it returns {'rows_changed': 0, 'rows_deleted': 0, 'failed_deletes': 1}.",
+   "covering_prose": "- In a conflict scenario, these values must reflect that no rows were changed or deleted, and that one failure was recorded in \"failed_deletes\".",
+   "gold_anchor": "failed_deletes += 1",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Booknotes.update_work_id returns a dictionary with keys \"rows_changed\", \"rows_deleted\", and \"failed_deletes\", not a tuple/list.",
+   "covering_prose": "- The function `update_work_id` must return a dictionary with the keys `\"rows_changed\"`, `\"rows_deleted\"`, and `\"failed_deletes\"`.",
+   "gold_anchor": "return {\n            'rows_changed': rows_changed,\n            'rows_deleted': rows_deleted,\n            'failed_deletes': failed_deletes,\n        }",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In a booknotes work_id collision, both original booknotes remain in the booknotes table with the same username, work_id, edition_id, and notes values.",
+   "covering_prose": "In case of a conflict, booknotes should remain completely unchanged. The contents of the `booknotes` table must stay intact, preserving all original records.",
+   "gold_anchor": "ALLOW_DELETE_ON_CONFLICT = False",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In a booknotes work_id collision, the attempted delete is rolled back instead of committed.",
+   "covering_prose": "- The function `update_work_id` must, when attempting to update a `work_id` that already exists in the `booknotes` table, preserve all records without deleting any entries.",
+   "gold_anchor": "if _test or not cls.ALLOW_DELETE_ON_CONFLICT:\n                    t_delete.rollback()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The hidden test compares the selected booknotes list to the inserted rows in insertion order.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

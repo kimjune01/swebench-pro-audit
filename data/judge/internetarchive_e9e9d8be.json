@@ -1,0 +1,165 @@
+{
+ "case": "internetarchive_e9e9d8be",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 22,
+ "n_covered": 17,
+ "n_gap": 5,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "process_google_book is available to import from scripts.affiliate_server.",
+   "covering_prose": "Function: process_google_book\nLocation: scripts/affiliate_server.py",
+   "gold_anchor": "def process_google_book(google_book_data: dict[str, Any]) -> dict[str, Any] | None:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a Google Books response with one item and ISBN_10 5699350136, output includes \"isbn_10\": [\"5699350136\"].",
+   "covering_prose": "The metadata fields parsed and staged from a Google Books response must include at minimum: `isbn_10`, `isbn_13`, `title`, `subtitle`, `authors`, `source_records`, `publishers`, `publish_date`, `number_of_pages`, and `description`, and must match the data structure expected by Open Library\u2019s import system.",
+   "gold_anchor": "if identifier.get(\"type\") == \"ISBN_10\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a Google Books response with one item and ISBN_13 9785699350131, output includes \"isbn_13\": [\"9785699350131\"].",
+   "covering_prose": "BookWorm is able to fetch and stage metadata from Google Books using ISBN-13.",
+   "gold_anchor": "elif identifier.get(\"type\") == \"ISBN_13\":",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a Google Books response with title \u0411\u0430\u043b \u043c\u043e\u0435\u0439 \u043c\u0435\u0447\u0442\u044b, output includes \"title\": \"\u0411\u0430\u043b \u043c\u043e\u0435\u0439 \u043c\u0435\u0447\u0442\u044b\".",
+   "covering_prose": "Correct mapping of available fields (title, subtitle, authors, publisher, page count, description, publish date).",
+   "gold_anchor": "result[\"title\"] = book.get(\"title\", \"\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a Google Books response with subtitle [\u0434\u043b\u044f \u0441\u0440\u0435\u0434. \u0448\u043a. \u0432\u043e\u0437\u0440\u0430\u0441\u0442\u0430], output includes \"subtitle\": \"[\u0434\u043b\u044f \u0441\u0440\u0435\u0434. \u0448\u043a. \u0432\u043e\u0437\u0440\u0430\u0441\u0442\u0430]\".",
+   "covering_prose": "Correct mapping of available fields (title, subtitle, authors, publisher, page count, description, publish date).",
+   "gold_anchor": "result[\"subtitle\"] = book.get(\"subtitle\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a Google Books response with authors [\"\u0421\u0432\u0435\u0442\u043b\u0430\u043d\u0430 \u041b\u0443\u0431\u0435\u043d\u0435\u0446\"], output includes \"authors\": [{\"name\": \"\u0421\u0432\u0435\u0442\u043b\u0430\u043d\u0430 \u041b\u0443\u0431\u0435\u043d\u0435\u0446\"}].",
+   "covering_prose": "Correct mapping of available fields (title, subtitle, authors, publisher, page count, description, publish date).",
+   "gold_anchor": "[{\"name\": author} for author in book.get(\"authors\", [])]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When ISBN_13 is present, source_records uses the ISBN-13 and outputs [\"google_books:9785699350131\"].",
+   "covering_prose": "The metadata fields parsed and staged from a Google Books response must include at minimum: `isbn_10`, `isbn_13`, `title`, `subtitle`, `authors`, `source_records`, `publishers`, `publish_date`, `number_of_pages`, and `description`, and must match the data structure expected by Open Library\u2019s import system.",
+   "gold_anchor": "google_books_identifier = isbn_13[0] if isbn_13 else isbn_10[0]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a Google Books response with publisher Some Publisher, output includes \"publishers\": [\"Some Publisher\"].",
+   "covering_prose": "Correct mapping of available fields (title, subtitle, authors, publisher, page count, description, publish date).",
+   "gold_anchor": "result[\"publishers\"] = [book.get(\"publisher\")] if book.get(\"publisher\") else []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a Google Books response with publishedDate 2009, output includes \"publish_date\": \"2009\".",
+   "covering_prose": "Correct mapping of available fields (title, subtitle, authors, publisher, page count, description, publish date).",
+   "gold_anchor": "result[\"publish_date\"] = book.get(\"publishedDate\", \"\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a Google Books response with pageCount 153, output includes \"number_of_pages\": 153.",
+   "covering_prose": "Correct mapping of available fields (title, subtitle, authors, publisher, page count, description, publish date).",
+   "gold_anchor": "result[\"number_of_pages\"] = book.get(\"pageCount\", None)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a Google Books response with description A cool book, output includes \"description\": \"A cool book\".",
+   "covering_prose": "Correct mapping of available fields (title, subtitle, authors, publisher, page count, description, publish date).",
+   "gold_anchor": "result[\"description\"] = book.get(\"description\", None)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When ISBN_13 is missing but ISBN_10 is present, output includes \"isbn_13\": [].",
+   "covering_prose": "Proper handling of missing or incomplete fields (e.g., no authors, no ISBN-13).",
+   "gold_anchor": "result[\"isbn_13\"] = isbn_13 if isbn_13 else []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When ISBN_13 is missing but ISBN_10 is present, source_records falls back to the ISBN-10 and outputs [\"google_books:5699350136\"].",
+   "covering_prose": "Proper handling of missing or incomplete fields (e.g., no authors, no ISBN-13).",
+   "gold_anchor": "google_books_identifier = isbn_13[0] if isbn_13 else isbn_10[0]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When subtitle is missing, output includes \"subtitle\": None.",
+   "covering_prose": null,
+   "gold_anchor": "result[\"subtitle\"] = book.get(\"subtitle\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When description is missing, output includes \"description\": None.",
+   "covering_prose": null,
+   "gold_anchor": "result[\"description\"] = book.get(\"description\", None)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When authors are missing, output includes \"authors\": [].",
+   "covering_prose": "Proper handling of missing or incomplete fields (e.g., no authors, no ISBN-13).",
+   "gold_anchor": "else []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When ISBN_10 is missing but ISBN_13 is present, output includes \"isbn_10\": [].",
+   "covering_prose": "Proper handling of missing or incomplete fields (e.g., no authors, no ISBN-13).",
+   "gold_anchor": "result[\"isbn_10\"] = isbn_10 if isbn_10 else []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When publisher is missing, output includes \"publishers\": [].",
+   "covering_prose": null,
+   "gold_anchor": "result[\"publishers\"] = [book.get(\"publisher\")] if book.get(\"publisher\") else []",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When publishedDate is missing, output includes \"publish_date\": \"\".",
+   "covering_prose": null,
+   "gold_anchor": "result[\"publish_date\"] = book.get(\"publishedDate\", \"\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When pageCount is missing, output includes \"number_of_pages\": None.",
+   "covering_prose": null,
+   "gold_anchor": "result[\"number_of_pages\"] = book.get(\"pageCount\", None)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When Google Books returns zero items, process_google_book returns None.",
+   "covering_prose": "Returning no result when Google Books returns zero or multiple matches.",
+   "gold_anchor": "if not (data := google_book_data.get(\"items\", [])):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When Google Books returns multiple items, process_google_book returns None.",
+   "covering_prose": "Returning no result when Google Books returns zero or multiple matches.",
+   "gold_anchor": "if len(data) != 1:",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

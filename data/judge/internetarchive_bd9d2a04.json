@@ -1,0 +1,67 @@
+{
+ "case": "internetarchive_bd9d2a04",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For 880_Nihon_no_chasho.mrc, the first author includes alternate_names as an array containing exactly \"\u6797\u5c4b \u8fb0\u4e09\u90ce\".",
+   "covering_prose": "When subfield `6` is present, it must be used to resolve a linkage to the corresponding `880` field. This also means adjusting `read_author_person` to receive the tag to do it (the default tag should be '100'). The linked `880` field must be read using the same name construction rules, and the resulting string(s) must be added to an `alternate_names` array on the author entry.",
+   "gold_anchor": "author['alternate_names'] = [name_from_list(alt_name)]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For 880_Nihon_no_chasho.mrc, the first author retains birth_date \"1914\", death_date \"1998\", name \"Hayashiya, Tatsusabur\u014d\", entity_type \"person\", and personal_name \"Hayashiya, Tatsusabur\u014d\" alongside alternate_names.",
+   "covering_prose": "The output author entry must retain the primary fields (`name`, `personal_name`, `birth_date`, `death_date`, `entity_type`) alongside the `alternate_names` array when alternate-script data is found.",
+   "gold_anchor": "author['entity_type'] = 'person'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For 880_Nihon_no_chasho.mrc, the second author includes alternate_names as an array containing exactly \"\u6a2a\u4e95 \u6e05.\".",
+   "covering_prose": "When subfield `6` is present, it must be used to resolve a linkage to the corresponding `880` field. This also means adjusting `read_author_person` to receive the tag to do it (the default tag should be '100'). The linked `880` field must be read using the same name construction rules, and the resulting string(s) must be added to an `alternate_names` array on the author entry.",
+   "gold_anchor": "author['alternate_names'] = [name_from_list(alt_name)]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For 880_Nihon_no_chasho.mrc, the second author retains name \"Yokoi, Kiyoshi\", entity_type \"person\", and personal_name \"Yokoi, Kiyoshi\" alongside alternate_names.",
+   "covering_prose": "The output author entry must retain the primary fields (`name`, `personal_name`, `birth_date`, `death_date`, `entity_type`) alongside the `alternate_names` array when alternate-script data is found.",
+   "gold_anchor": "author['entity_type'] = 'person'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For 880_Nihon_no_chasho.mrc, the third author includes alternate_names as an array containing exactly \"\u6962\u6797 \u5fe0\u7537\".",
+   "covering_prose": "When subfield `6` is present, it must be used to resolve a linkage to the corresponding `880` field. This also means adjusting `read_author_person` to receive the tag to do it (the default tag should be '100'). The linked `880` field must be read using the same name construction rules, and the resulting string(s) must be added to an `alternate_names` array on the author entry.",
+   "gold_anchor": "author['alternate_names'] = [name_from_list(alt_name)]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For 880_Nihon_no_chasho.mrc, the third author retains birth_date \"1940\", death_date \"1960\", name \"Narabayashi, Tadao\", entity_type \"person\", and personal_name \"Narabayashi, Tadao\" alongside alternate_names.",
+   "covering_prose": "The output author entry must retain the primary fields (`name`, `personal_name`, `birth_date`, `death_date`, `entity_type`) alongside the `alternate_names` array when alternate-script data is found.",
+   "gold_anchor": "author['entity_type'] = 'person'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For 880_arabic_french_many_linkages.mrc, the author includes alternate_names as an array containing exactly \"\u0645\u0648\u062f\u0646\u060c \u0639\u0628\u062f \u0627\u0644\u0631\u062d\u064a\u0645\".",
+   "covering_prose": "When subfield `6` is present, it must be used to resolve a linkage to the corresponding `880` field. This also means adjusting `read_author_person` to receive the tag to do it (the default tag should be '100'). The linked `880` field must be read using the same name construction rules, and the resulting string(s) must be added to an `alternate_names` array on the author entry.",
+   "gold_anchor": "author['alternate_names'] = [name_from_list(alt_name)]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For 880_arabic_french_many_linkages.mrc, the author retains name \"El Moudden, Abderrahmane\", entity_type \"person\", and personal_name \"El Moudden, Abderrahmane\" alongside alternate_names.",
+   "covering_prose": "The output author entry must retain the primary fields (`name`, `personal_name`, `birth_date`, `death_date`, `entity_type`) alongside the `alternate_names` array when alternate-script data is found.",
+   "gold_anchor": "author['entity_type'] = 'person'",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

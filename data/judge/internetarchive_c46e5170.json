@@ -1,0 +1,74 @@
+{
+ "case": "internetarchive_c46e5170",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 9,
+ "n_covered": 8,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "get_line(line0 bytes) returns the parsed JSON dictionary for the first sample line, preserving all keys and values including Unicode text and integer date_published 2015.",
+   "covering_prose": "Output: Dictionary or `None`: Parsed JSON object from the line, or `None` if parsing fails.",
+   "gold_anchor": "json_object = json.loads(line)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "get_line(line1 bytes) returns the parsed JSON dictionary for the second sample line, including records with missing optional fields such as binding, subjects, pages, and date_published.",
+   "covering_prose": "Output: Dictionary or `None`: Parsed JSON object from the line, or `None` if parsing fails.",
+   "gold_anchor": "json_object = json.loads(line)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "get_line(line2 bytes) returns the parsed JSON dictionary for the third sample line, preserving pages as integer 8 and date_published as string \"2002\".",
+   "covering_prose": "Output: Dictionary or `None`: Parsed JSON object from the line, or `None` if parsing fails.",
+   "gold_anchor": "json_object = json.loads(line)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "is_nonbook(\"DVD\", NONBOOK) returns True, matching a non-book binding case-insensitively.",
+   "covering_prose": "Description: it checks if the item's format matches any known non-book types (like DVD or audio) by comparing words in the binding string against a predefined list.",
+   "gold_anchor": "return any(word.casefold() in nonbooks for word in words)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "is_nonbook(\"dvd\", NONBOOK) returns True.",
+   "covering_prose": "Description: it checks if the item's format matches any known non-book types (like DVD or audio) by comparing words in the binding string against a predefined list.",
+   "gold_anchor": "NONBOOK: Final = ['dvd', 'dvd-rom', 'cd', 'cd-rom', 'cassette', 'sheet music', 'audio']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "is_nonbook(\"audio cassette\", NONBOOK) returns True because at least one space-separated word in the binding matches a non-book keyword.",
+   "covering_prose": "Description: it checks if the item's format matches any known non-book types (like DVD or audio) by comparing words in the binding string against a predefined list.",
+   "gold_anchor": "words = binding.split(\" \")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "is_nonbook(\"audio\", NONBOOK) returns True.",
+   "covering_prose": "Description: it checks if the item's format matches any known non-book types (like DVD or audio) by comparing words in the binding string against a predefined list.",
+   "gold_anchor": "NONBOOK: Final = ['dvd', 'dvd-rom', 'cd', 'cd-rom', 'cassette', 'sheet music', 'audio']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "is_nonbook(\"cassette\", NONBOOK) returns True.",
+   "covering_prose": null,
+   "gold_anchor": "NONBOOK: Final = ['dvd', 'dvd-rom', 'cd', 'cd-rom', 'cassette', 'sheet music', 'audio']",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "is_nonbook(\"paperback\", NONBOOK) returns False.",
+   "covering_prose": "Output: Boolean: `True` if the binding indicates a non-book format; `False` otherwise.",
+   "gold_anchor": "return any(word.casefold() in nonbooks for word in words)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,46 @@
+{
+ "case": "internetarchive_86d9b8a2",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "AuthorRemoteIdConflictError is importable from openlibrary.core.models.",
+   "covering_prose": "Name: AuthorRemoteIdConflictError",
+   "gold_anchor": "class AuthorRemoteIdConflictError(ValueError):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When an incoming author has key /authors/OL4A, import_author returns the existing author with key /authors/OL4A even though another existing author has the same name.",
+   "covering_prose": "The author matching process should follow a priority-based approach starting with Open Library key matching, then external identifier matching, then traditional name and date matching.",
+   "gold_anchor": "if (key := author.get(\"key\")) and (record := web.ctx.site.get(key)):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When an incoming author matched by Open Library key has remote_ids.viaf=12345678 but the matched existing author has remote_ids.viaf=87654321, import_author raises AuthorRemoteIdConflictError.",
+   "covering_prose": "The system should handle identifier conflicts appropriately by raising clear errors when conflicting external identifiers are detected for the same identifier type.",
+   "gold_anchor": "raise AuthorRemoteIdConflictError(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When an incoming author has remote_ids.viaf=12345678 and no key, import_author returns the existing author with remote_ids.viaf=12345678 even though the incoming name is William Brewer and another existing author has that name.",
+   "covering_prose": "The author matching process should follow a priority-based approach starting with Open Library key matching, then external identifier matching, then traditional name and date matching.",
+   "gold_anchor": "queries.append({\"type\": \"/type/author\", f\"remote_ids.{identifier}\": val})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When no Open Library key or external identifier match is used, author matching falls back to name, birth date, and death date matching.",
+   "covering_prose": "The author matching process should follow a priority-based approach starting with Open Library key matching, then external identifier matching, then traditional name and date matching.",
+   "gold_anchor": "# Fall back to name/date matching, which we did before introducing identifiers.",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

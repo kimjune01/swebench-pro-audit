@@ -1,0 +1,67 @@
+{
+ "case": "internetarchive_daf93507",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Constructing `Seed(lst, \"subject/Politics and government\")` stores the provided list object on `seed._list`.",
+   "covering_prose": "The `Seed` class must be capable of converting from JSON representations of both `ThingReferenceDict` and `AnnotatedSeedDict`, and provide a `to_db` method to produce a database-compatible representation.",
+   "gold_anchor": "self._list = list",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a subject string seed, `seed.value` is exactly the original string `\"subject/Politics and government\"`.",
+   "covering_prose": "The `List` class must continue to support seeds of type `Thing`, `SeedSubjectString`, and must now also support seeds of type `AnnotatedSeedThing`, storing them in its internal `seeds` field.",
+   "gold_anchor": "self.value = value",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a subject string seed, `seed.key` is exactly the original string `\"subject/Politics and government\"`.",
+   "covering_prose": "The `List` class must continue to support seeds of type `Thing`, `SeedSubjectString`, and must now also support seeds of type `AnnotatedSeedThing`, storing them in its internal `seeds` field.",
+   "gold_anchor": "self.key = value",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a subject string seed, `seed.type` is exactly `\"subject\"`.",
+   "covering_prose": "The `List` class must continue to support seeds of type `Thing`, `SeedSubjectString`, and must now also support seeds of type `AnnotatedSeedThing`, storing them in its internal `seeds` field.",
+   "gold_anchor": "self._type = \"subject\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `Seed.from_json(lst, {\"key\": \"not_a_string.key\"})` returns a seed whose `_list` is the provided `lst`.",
+   "covering_prose": "It parses a JSON-compatible seed representation and constructs a `Seed` instance, supporting legacy and annotated formats.",
+   "gold_anchor": "return Seed(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `Seed.from_json` with a `ThingReferenceDict` whose key is `\"not_a_string.key\"` produces a seed whose `key` is `\"not_a_string.key\"`.",
+   "covering_prose": "The `Seed` class must be capable of converting from JSON representations of both `ThingReferenceDict` and `AnnotatedSeedDict`, and provide a `to_db` method to produce a database-compatible representation.",
+   "gold_anchor": "'thing': Thing(list._site, thing_ref['key'], None),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A seed created from an unannotated `ThingReferenceDict` is given empty notes internally.",
+   "covering_prose": "Any seed with a missing or empty `notes` field must be treated identically to a seed of type `ThingReferenceDict`, ensuring performance and compatibility with existing data structures and logic.",
+   "gold_anchor": "'notes': '',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a seed created from `Seed.from_json(lst, {\"key\": \"not_a_string.key\"})`, `hasattr(seed, \"type\")` is `False`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

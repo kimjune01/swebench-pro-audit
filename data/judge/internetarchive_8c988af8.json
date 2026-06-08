@@ -1,0 +1,88 @@
+{
+ "case": "internetarchive_8c988af8",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 10,
+ "n_covered": 10,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "process_user_query maps `title:Compilation Group for the \"History of Modern China` to `title\\:Compilation Group for the \\\"History of Modern China`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For query `edition_key:OL123M`, q_to_solr_params exposes `userWorkQuery` with value exactly `edition_key:OL123M`.",
+   "covering_prose": "`q_to_solr_params` should include a parameter named `userWorkQuery` (replacing `workQuery`) whose value is exactly the user\u2019s original query string.",
+   "gold_anchor": "new_params.append(('userWorkQuery', str(final_work_query)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For query `edition_key:OL123M`, q_to_solr_params exposes `userEdQuery` with value exactly `+key:\"/books/OL123M\"`.",
+   "covering_prose": "Parsing of `edition_key` should accept bare IDs, quoted IDs, full paths, a single parenthesized ID, or a parenthesized OR list, and normalize them to a canonical filter that targets the `key` field using the book-path form, uses standard double quotes with no backslash-escaped quotes, and preserves grouping/OR semantics.",
+   "gold_anchor": "new_params.append(('userEdQuery', ed_q or '*:*'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For query `edition_key:\"OL123M\"`, q_to_solr_params exposes `userWorkQuery` with value exactly `edition_key:\"OL123M\"`.",
+   "covering_prose": "`q_to_solr_params` should include a parameter named `userWorkQuery` (replacing `workQuery`) whose value is exactly the user\u2019s original query string.",
+   "gold_anchor": "new_params.append(('userWorkQuery', str(final_work_query)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For query `edition_key:\"OL123M\"`, q_to_solr_params exposes `userEdQuery` with value exactly `+key:\"/books/OL123M\"`.",
+   "covering_prose": "Parsing of `edition_key` should accept bare IDs, quoted IDs, full paths, a single parenthesized ID, or a parenthesized OR list, and normalize them to a canonical filter that targets the `key` field using the book-path form, uses standard double quotes with no backslash-escaped quotes, and preserves grouping/OR semantics.",
+   "gold_anchor": "new_params.append(('userEdQuery', ed_q or '*:*'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For query `edition_key:\"/books/OL123M\"`, q_to_solr_params exposes `userWorkQuery` with value exactly `edition_key:\"/books/OL123M\"`.",
+   "covering_prose": "`q_to_solr_params` should include a parameter named `userWorkQuery` (replacing `workQuery`) whose value is exactly the user\u2019s original query string.",
+   "gold_anchor": "new_params.append(('userWorkQuery', str(final_work_query)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For query `edition_key:\"/books/OL123M\"`, q_to_solr_params exposes `userEdQuery` with value exactly `+key:\"/books/OL123M\"`.",
+   "covering_prose": "Parsing of `edition_key` should accept bare IDs, quoted IDs, full paths, a single parenthesized ID, or a parenthesized OR list, and normalize them to a canonical filter that targets the `key` field using the book-path form, uses standard double quotes with no backslash-escaped quotes, and preserves grouping/OR semantics.",
+   "gold_anchor": "new_params.append(('userEdQuery', ed_q or '*:*'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For query `edition_key:(OL123M)`, q_to_solr_params exposes `userWorkQuery` with value exactly `edition_key:(OL123M)`.",
+   "covering_prose": "`q_to_solr_params` should include a parameter named `userWorkQuery` (replacing `workQuery`) whose value is exactly the user\u2019s original query string.",
+   "gold_anchor": "new_params.append(('userWorkQuery', str(final_work_query)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For query `edition_key:(OL123M)`, q_to_solr_params exposes `userEdQuery` with value exactly `+key:(\"/books/OL123M\")`.",
+   "covering_prose": "Parsing of `edition_key` should accept bare IDs, quoted IDs, full paths, a single parenthesized ID, or a parenthesized OR list, and normalize them to a canonical filter that targets the `key` field using the book-path form, uses standard double quotes with no backslash-escaped quotes, and preserves grouping/OR semantics.",
+   "gold_anchor": "new_params.append(('userEdQuery', ed_q or '*:*'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For query `edition_key:(OL123M OR OL456M)`, q_to_solr_params exposes `userWorkQuery` with value exactly `edition_key:(OL123M OR OL456M)`.",
+   "covering_prose": "`q_to_solr_params` should include a parameter named `userWorkQuery` (replacing `workQuery`) whose value is exactly the user\u2019s original query string.",
+   "gold_anchor": "new_params.append(('userWorkQuery', str(final_work_query)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For query `edition_key:(OL123M OR OL456M)`, q_to_solr_params exposes `userEdQuery` with value exactly `+key:(\"/books/OL123M\" OR \"/books/OL456M\")`.",
+   "covering_prose": "Parsing of `edition_key` should accept bare IDs, quoted IDs, full paths, a single parenthesized ID, or a parenthesized OR list, and normalize them to a canonical filter that targets the `key` field using the book-path form, uses standard double quotes with no backslash-escaped quotes, and preserves grouping/OR semantics.",
+   "gold_anchor": "new_params.append(('userEdQuery', ed_q or '*:*'))",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

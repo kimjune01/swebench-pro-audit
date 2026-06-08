@@ -1,0 +1,130 @@
+{
+ "case": "internetarchive_ab62fa4d",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 17,
+ "n_covered": 17,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "within_date_range returns True for the start date of a single-year range, e.g. Jan 2 in Jan 2-May 20.",
+   "covering_prose": "Checks if the current date (or a provided date) falls within a specified month and day range, regardless of year.",
+   "gold_anchor": "current_day < start_day",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns True for a date inside a single-year range, e.g. Feb 1 in Jan 2-May 20.",
+   "covering_prose": "Supports single-month, single-year, and multi-year ranges.",
+   "gold_anchor": "if start_month < end_month",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns True for the end date of a single-year range, e.g. May 20 in Jan 2-May 20.",
+   "covering_prose": "Checks if the current date (or a provided date) falls within a specified month and day range, regardless of year.",
+   "gold_anchor": "current_day > end_day",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns False for a date before the start day in the start month of a single-year range, e.g. Jan 1 before Jan 2-May 20.",
+   "covering_prose": "Checks if the current date (or a provided date) falls within a specified month and day range, regardless of year.",
+   "gold_anchor": "(current_month == start_month and current_day < start_day)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns False for a date after the end day in the end month of a single-year range, e.g. May 25 after Jan 2-May 20.",
+   "covering_prose": "Checks if the current date (or a provided date) falls within a specified month and day range, regardless of year.",
+   "gold_anchor": "(current_month == end_month and current_day > end_day)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns False for a month outside a single-year range, e.g. Oct 13 outside Jan 2-May 20.",
+   "covering_prose": "Supports single-month, single-year, and multi-year ranges.",
+   "gold_anchor": "current_month < start_month or current_month > end_month",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns True for the start date of a cross-year range, e.g. Dec 1 in Dec 1-Feb 1.",
+   "covering_prose": "Supports single-month, single-year, and multi-year ranges.",
+   "gold_anchor": "if start_month > end_month",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns True for an interior date across the year boundary, e.g. Jan 11 in Dec 1-Feb 1.",
+   "covering_prose": "Supports single-month, single-year, and multi-year ranges.",
+   "gold_anchor": "if start_month > end_month",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns True for the end date of a cross-year range, e.g. Feb 1 in Dec 1-Feb 1.",
+   "covering_prose": "Supports single-month, single-year, and multi-year ranges.",
+   "gold_anchor": "(current_month == end_month and current_day > end_day)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns False for a date before the start month of a cross-year range, e.g. Nov 15 outside Dec 1-Feb 1.",
+   "covering_prose": "Supports single-month, single-year, and multi-year ranges.",
+   "gold_anchor": "current_month > end_month and current_month < start_month",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns False for a date after the end day in the end month of a cross-year range, e.g. Feb 2 outside Dec 1-Feb 1.",
+   "covering_prose": "Supports single-month, single-year, and multi-year ranges.",
+   "gold_anchor": "(current_month == end_month and current_day > end_day)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns True for the start date of a single-month range, e.g. Jun 3 in Jun 3-Jun 10.",
+   "covering_prose": "Supports single-month, single-year, and multi-year ranges.",
+   "gold_anchor": "else:  # Duration is within a single month",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns True for an interior day of a single-month range, e.g. Jun 8 in Jun 3-Jun 10.",
+   "covering_prose": "Supports single-month, single-year, and multi-year ranges.",
+   "gold_anchor": "else:  # Duration is within a single month",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns True for the end date of a single-month range, e.g. Jun 10 in Jun 3-Jun 10.",
+   "covering_prose": "Supports single-month, single-year, and multi-year ranges.",
+   "gold_anchor": "current_day > end_day",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range returns False for a different month than the single-month range, e.g. May 8 outside Jun 3-Jun 10.",
+   "covering_prose": "Supports single-month, single-year, and multi-year ranges.",
+   "gold_anchor": "current_month != start_month",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range ignores year when evaluating a single-month range, so Jun 2, 2031 is before Jun 3-Jun 10 and returns False.",
+   "covering_prose": "Checks if the current date (or a provided date) falls within a specified month and day range, regardless of year.",
+   "gold_anchor": "current_day < start_day or current_day > end_day",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "within_date_range ignores year when evaluating a single-month range, so Jun 20, 2031 is after Jun 3-Jun 10 and returns False.",
+   "covering_prose": "Checks if the current date (or a provided date) falls within a specified month and day range, regardless of year.",
+   "gold_anchor": "current_day < start_day or current_day > end_day",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

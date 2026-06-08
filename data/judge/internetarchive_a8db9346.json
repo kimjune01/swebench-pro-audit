@@ -1,0 +1,53 @@
+{
+ "case": "internetarchive_a8db9346",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Calling list_model.register_models() registers /type/list to resolve saved /type/list documents as openlibrary.core.lists.model.List rather than another List implementation.",
+   "covering_prose": "The `List` class must serve as the registered implementation for the `/type/list` thing, ensuring no alternative implementations are used.",
+   "gold_anchor": "client.register_thing_class('/type/list', List)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A list with key /people/anand/lists/OL1L resolves to a non-null owner whose key is /people/anand.",
+   "covering_prose": "Any code resolving a list\u2019s owner should work via the `List` model for person keys using letters, hyphens, or underscores, yielding the correct owner for each.",
+   "gold_anchor": "web.re_compile(r\"(/people/[^/]+)/lists/OL\\d+L\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A list with key /people/anand-test/lists/OL1L resolves to a non-null owner whose key is /people/anand-test.",
+   "covering_prose": "Any code resolving a list\u2019s owner should work via the `List` model for person keys using letters, hyphens, or underscores, yielding the correct owner for each.",
+   "gold_anchor": "web.re_compile(r\"(/people/[^/]+)/lists/OL\\d+L\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A list with key /people/anand_test/lists/OL1L resolves to a non-null owner whose key is /people/anand_test.",
+   "covering_prose": "Any code resolving a list\u2019s owner should work via the `List` model for person keys using letters, hyphens, or underscores, yielding the correct owner for each.",
+   "gold_anchor": "web.re_compile(r\"(/people/[^/]+)/lists/OL\\d+L\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The upstream model setup expectation for /type/list points to openlibrary.core.lists.model.List.",
+   "covering_prose": "At application startup, the `/type/list` thing and the `lists` changeset must be registered from the core lists model module without requiring additional manual registration.",
+   "gold_anchor": "import openlibrary.core.lists.model as list_models",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The upstream model setup expectation for the lists changeset points to openlibrary.core.lists.model.ListChangeset.",
+   "covering_prose": "At application startup, the `/type/list` thing and the `lists` changeset must be registered from the core lists model module without requiring additional manual registration.",
+   "gold_anchor": "client.register_changeset_class('lists', ListChangeset)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

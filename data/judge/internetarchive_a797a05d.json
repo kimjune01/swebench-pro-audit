@@ -1,0 +1,32 @@
+{
+ "case": "internetarchive_a797a05d",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For histoirereligieu05cr_meta.mrc, org count for \"Jesuits\" is 2, not 4.",
+   "covering_prose": "For tag `610`, the relevant organization name must be derived from subfields `a`, `b`, `c`, and `d` and included under `org`. No additional subfield values from this tag should appear under other categories.",
+   "gold_anchor": "if v := tidy_subject(' '.join(field.get_subfield_values('abcd'))):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For wrapped_lines.mrc, org does not include the standalone value \"United States\"; it includes only \"United States. Congress. House. Committee on Foreign Affairs\" under org.",
+   "covering_prose": "For tag `610`, the relevant organization name must be derived from subfields `a`, `b`, `c`, and `d` and included under `org`. No additional subfield values from this tag should appear under other categories.",
+   "gold_anchor": "subjects['org'][v] += 1",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For wrapped_lines.mrc parse output, \"United States\" is omitted from the top-level subjects list while remaining in subject_places.",
+   "covering_prose": "Additional MARC subfields must be handled as follows: subfields `v` and `x` must produce values in the `subject` category; subfield `y` must be included in the `time` category; subfield `z` must be mapped to `place`.",
+   "gold_anchor": "subjects['place'][flip_place(v)] += 1",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

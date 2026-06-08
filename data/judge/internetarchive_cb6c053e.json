@@ -1,0 +1,81 @@
+{
+ "case": "internetarchive_cb6c053e",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 8,
+ "n_covered": 6,
+ "n_gap": 2,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "`openlibrary.core.lists.model.register_models()` is callable with no arguments from `openlibrary/core/lists/model.py`.",
+   "covering_prose": "Name: `register_models`\nType: function\nLocation: `openlibrary/core/lists/model.py`\nInputs: none\nOutputs: none",
+   "gold_anchor": "def register_models():",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `openlibrary.core.lists.model.register_models()` registers `/type/list` so a saved `/type/list` document is returned as an instance of `openlibrary.core.lists.model.List`.",
+   "covering_prose": "The `register_models` function must register the `List` class under the type `/type/list`.",
+   "gold_anchor": "client.register_thing_class('/type/list', List)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `openlibrary.core.lists.model.register_models()` registers the `lists` changeset type as `openlibrary.core.lists.model.ListChangeset`.",
+   "covering_prose": "The `register_models` function must register the `ListChangeset` class under the changeset type `'lists'`.",
+   "gold_anchor": "client.register_changeset_class('lists', ListChangeset)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`models.setup()` registers `/type/list` as `openlibrary.core.lists.model.List`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`models.setup()` registers the `lists` changeset type as `openlibrary.core.lists.model.ListChangeset`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "A `List` object has a `get_owner()` method.",
+   "covering_prose": "The `List` class must include a method that returns the owner of a list.",
+   "gold_anchor": "def get_owner(self):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For list key `/people/anand/lists/OL1L`, `get_owner()` returns a non-None user object whose `.key` is `/people/anand`.",
+   "covering_prose": "The method must correctly parse list keys of the form `/people/{username}/lists/{list_id}`.",
+   "gold_anchor": "if match := web.re_compile(r\"(/people/[^/]+)/lists/OL\\d+L\").match(self.key):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For list key `/people/anand-test/lists/OL1L`, `get_owner()` returns a non-None user object whose `.key` is `/people/anand-test`.",
+   "covering_prose": null,
+   "gold_anchor": "if match := web.re_compile(r\"(/people/[^/]+)/lists/OL\\d+L\").match(self.key):",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For list key `/people/anand_test/lists/OL1L`, `get_owner()` returns a non-None user object whose `.key` is `/people/anand_test`.",
+   "covering_prose": null,
+   "gold_anchor": "if match := web.re_compile(r\"(/people/[^/]+)/lists/OL\\d+L\").match(self.key):",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When the parsed owner user exists in the site, `get_owner()` returns that corresponding user object.",
+   "covering_prose": "The method must return the corresponding user object when the user exists.",
+   "gold_anchor": "return self._site.get(key)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

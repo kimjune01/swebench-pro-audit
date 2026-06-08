@@ -1,0 +1,214 @@
+{
+ "case": "internetarchive_8b933806",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 26,
+ "n_covered": 24,
+ "n_gap": 2,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "editions_match accepts the raw import record returned from load input and returns True for the matching existing edition without caller-side expand_record preprocessing.",
+   "covering_prose": "The function `editions_match` must accept the raw import record (`rec`) together with an existing edition and determine whether they represent the same edition without requiring the input record to be pre-expanded.",
+   "gold_anchor": "return threshold_match(rec, rec2, threshold)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "add_db_name sets an author with only name to db_name equal to that name.",
+   "covering_prose": "Adds a db_name field to each author by combining their name with available date fields.",
+   "gold_anchor": "a['db_name'] = ' '.join([a['name'], date]) if date else a['name']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "add_db_name sets an author with date '1950' to db_name 'Smith, John 1950'.",
+   "covering_prose": "It uses the 'date' field if present, otherwise combines 'birth_date' and 'death_date'.",
+   "gold_anchor": "date = a['date']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "add_db_name sets an author with birth_date '1895' and death_date '1964' to db_name 'Smith, John 1895-1964'.",
+   "covering_prose": "It uses the 'date' field if present, otherwise combines 'birth_date' and 'death_date'.",
+   "gold_anchor": "date = a.get('birth_date', '') + '-' + a.get('death_date', '')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "add_db_name leaves a record with no authors key as {} and does not error.",
+   "covering_prose": null,
+   "gold_anchor": "if 'authors' not in rec:",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "add_db_name leaves {'authors': None} unchanged and does not error.",
+   "covering_prose": "It must also handle cases where `authors` is empty or set to `None` without errors.",
+   "gold_anchor": "for a in rec['authors'] or []:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record returns a dictionary whose titles field is a list.",
+   "covering_prose": "The function `expand_record` must generate derived fields for edition records, including `full_title`, `titles` (with normalized and short variants), `normalized_title`, and `short_title`.",
+   "gold_anchor": "expanded_rec = build_titles(rec['full_title'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record does not include the plain title 'A test full title' in titles when subtitle is present; titles are based on generated full_title.",
+   "covering_prose": null,
+   "gold_anchor": "expanded_rec = build_titles(rec['full_title'])",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "expand_record mutates the input edition to set full_title to 'A test full title subtitle (parens).' from title plus subtitle.",
+   "covering_prose": "Constructs a new dictionary that merges full title, aggregates all ISBNs, retains selected metadata, and enriches authors with db_name values using add_db_name.",
+   "gold_anchor": "rec['full_title'] += ' ' + subtitle",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record includes 'a test full title subtitle (parens)' in titles for title 'A test full title' and subtitle 'subtitle (parens).'.",
+   "covering_prose": "The function `expand_record` must generate derived fields for edition records, including `full_title`, `titles` (with normalized and short variants), `normalized_title`, and `short_title`.",
+   "gold_anchor": "expanded_rec = build_titles(rec['full_title'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record includes 'test full title subtitle (parens)' in titles for title 'A test full title' and subtitle 'subtitle (parens).'.",
+   "covering_prose": "The function `expand_record` must generate derived fields for edition records, including `full_title`, `titles` (with normalized and short variants), `normalized_title`, and `short_title`.",
+   "gold_anchor": "expanded_rec = build_titles(rec['full_title'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record includes 'a test full title subtitle' in titles for title 'A test full title' and subtitle 'subtitle (parens).'.",
+   "covering_prose": "The function `expand_record` must generate derived fields for edition records, including `full_title`, `titles` (with normalized and short variants), `normalized_title`, and `short_title`.",
+   "gold_anchor": "expanded_rec = build_titles(rec['full_title'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record includes 'test full title subtitle' in titles for title 'A test full title' and subtitle 'subtitle (parens).'.",
+   "covering_prose": "The function `expand_record` must generate derived fields for edition records, including `full_title`, `titles` (with normalized and short variants), `normalized_title`, and `short_title`.",
+   "gold_anchor": "expanded_rec = build_titles(rec['full_title'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record titles contains no duplicate variants beyond the expected unique title variants.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "expand_record sets normalized_title to 'a test full title subtitle (parens)'.",
+   "covering_prose": "The function `expand_record` must generate derived fields for edition records, including `full_title`, `titles` (with normalized and short variants), `normalized_title`, and `short_title`.",
+   "gold_anchor": "expanded_rec = build_titles(rec['full_title'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record sets short_title to 'a test full title subtitl'.",
+   "covering_prose": "The function `expand_record` must generate derived fields for edition records, including `full_title`, `titles` (with normalized and short variants), `normalized_title`, and `short_title`.",
+   "gold_anchor": "expanded_rec = build_titles(rec['full_title'])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record omits publish_country when the input record has no publish_country.",
+   "covering_prose": "It must consolidate values from `isbn`, `isbn_10`, and `isbn_13` into a single `isbn` list, and only include `publish_country` when it is valid (i.e., not equal to `\"   \"` or `\"|||\"`).",
+   "gold_anchor": "if 'publish_country' in rec and rec['publish_country'] not in (",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record omits publish_country when publish_country is '   '.",
+   "covering_prose": "It must consolidate values from `isbn`, `isbn_10`, and `isbn_13` into a single `isbn` list, and only include `publish_country` when it is valid (i.e., not equal to `\"   \"` or `\"|||\"`).",
+   "gold_anchor": "'   ',",
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "expand_record omits publish_country when publish_country is '|||'.",
+   "covering_prose": "It must consolidate values from `isbn`, `isbn_10`, and `isbn_13` into a single `isbn` list, and only include `publish_country` when it is valid (i.e., not equal to `\"   \"` or `\"|||\"`).",
+   "gold_anchor": "'|||',",
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "expand_record preserves valid publish_country 'USA'.",
+   "covering_prose": "It must consolidate values from `isbn`, `isbn_10`, and `isbn_13` into a single `isbn` list, and only include `publish_country` when it is valid (i.e., not equal to `\"   \"` or `\"|||\"`).",
+   "gold_anchor": "expanded_rec['publish_country'] = rec['publish_country']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record preserves valid publish_country 'usa'.",
+   "covering_prose": "It must consolidate values from `isbn`, `isbn_10`, and `isbn_13` into a single `isbn` list, and only include `publish_country` when it is valid (i.e., not equal to `\"   \"` or `\"|||\"`).",
+   "gold_anchor": "expanded_rec['publish_country'] = rec['publish_country']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record omits lccn, publishers, publish_date, number_of_pages, authors, and contribs when those fields are absent from the input.",
+   "covering_prose": "Constructs a new dictionary that merges full title, aggregates all ISBNs, retains selected metadata, and enriches authors with db_name values using add_db_name.",
+   "gold_anchor": "if f in rec:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record transfers lccn, publishers, publish_date, number_of_pages, authors, and contribs when those fields are present in the input.",
+   "covering_prose": "Constructs a new dictionary that merges full title, aggregates all ISBNs, retains selected metadata, and enriches authors with db_name values using add_db_name.",
+   "gold_anchor": "expanded_rec[f] = rec[f]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record sets isbn to [] when isbn, isbn_10, and isbn_13 are absent.",
+   "covering_prose": "It must consolidate values from `isbn`, `isbn_10`, and `isbn_13` into a single `isbn` list, and only include `publish_country` when it is valid (i.e., not equal to `\"   \"` or `\"|||\"`).",
+   "gold_anchor": "expanded_rec['isbn'] = []",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "expand_record consolidates isbn, isbn_10, and isbn_13 into isbn in order as ['1234567890', '123', '321', '1234567890123'].",
+   "covering_prose": "It must consolidate values from `isbn`, `isbn_10`, and `isbn_13` into a single `isbn` list, and only include `publish_country` when it is valid (i.e., not equal to `\"   \"` or `\"|||\"`).",
+   "gold_anchor": "for f in 'isbn', 'isbn_10', 'isbn_13':",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "compare_authors on expanded records detects an exact author/contributor role match and returns ('authors', 'exact match', 125).",
+   "covering_prose": "Author and contributor comparisons must correctly detect exact matches when `db_name` values are present or generated through `expand_record`, ensuring equivalence is recognized across both roles.",
+   "gold_anchor": "add_db_name(expanded_rec)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "threshold_match returns True at threshold 875 for matching records where one record's author matches the other record's contributor after expansion.",
+   "covering_prose": "The function `threshold_match` must compare two edition records by expanding their fields and computing a similarity score. It must return `True` or `False` consistently according to threshold values, including the specific thresholds 875 and 515.",
+   "gold_anchor": "e1 = expand_record(e1)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "threshold_match expands both input records before comparing them.",
+   "covering_prose": "Normalizes and expands both edition records using expand_record, compares them field by field with level1_merge, sums the similarity scores, and checks if the result meets or exceeds the given threshold.",
+   "gold_anchor": "e2 = expand_record(e2)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "threshold_match returns a boolean by comparing the summed level1_merge score to the threshold.",
+   "covering_prose": "Returns a boolean indicating whether the two editions have sufficient fields in common to be considered the same.",
+   "gold_anchor": "return total >= threshold",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

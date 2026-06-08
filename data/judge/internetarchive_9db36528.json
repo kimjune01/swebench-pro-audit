@@ -1,0 +1,137 @@
+{
+ "case": "internetarchive_9db36528",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 18,
+ "n_covered": 18,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "ISBNdb can be imported from scripts.providers.isbndb.",
+   "covering_prose": "Name: ISBNdb",
+   "gold_anchor": "class ISBNdb:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "is_nonbook('DVD', NONBOOK) returns True.",
+   "covering_prose": "Provide a helper to classify non-book bindings (e.g., is_nonbook(binding, NONBOOK)), where NONBOOK includes at least dvd, dvd-rom, cd, cd-rom, cassette, sheet music, audio; the check must be case-insensitive and match whole words split on common delimiters.",
+   "gold_anchor": "NONBOOK: Final = ['dvd', 'dvd-rom', 'cd', 'cd-rom', 'cassette', 'sheet music', 'audio']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "is_nonbook('dvd', NONBOOK) returns True.",
+   "covering_prose": "Provide a helper to classify non-book bindings (e.g., is_nonbook(binding, NONBOOK)), where NONBOOK includes at least dvd, dvd-rom, cd, cd-rom, cassette, sheet music, audio; the check must be case-insensitive and match whole words split on common delimiters.",
+   "gold_anchor": "NONBOOK: Final = ['dvd', 'dvd-rom', 'cd', 'cd-rom', 'cassette', 'sheet music', 'audio']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "is_nonbook('audio', NONBOOK) returns True.",
+   "covering_prose": "Provide a helper to classify non-book bindings (e.g., is_nonbook(binding, NONBOOK)), where NONBOOK includes at least dvd, dvd-rom, cd, cd-rom, cassette, sheet music, audio; the check must be case-insensitive and match whole words split on common delimiters.",
+   "gold_anchor": "NONBOOK: Final = ['dvd', 'dvd-rom', 'cd', 'cd-rom', 'cassette', 'sheet music', 'audio']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "is_nonbook('cassette', NONBOOK) returns True.",
+   "covering_prose": "Provide a helper to classify non-book bindings (e.g., is_nonbook(binding, NONBOOK)), where NONBOOK includes at least dvd, dvd-rom, cd, cd-rom, cassette, sheet music, audio; the check must be case-insensitive and match whole words split on common delimiters.",
+   "gold_anchor": "NONBOOK: Final = ['dvd', 'dvd-rom', 'cd', 'cd-rom', 'cassette', 'sheet music', 'audio']",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "is_nonbook('paperback', NONBOOK) returns False.",
+   "covering_prose": "Provide a helper to classify non-book bindings (e.g., is_nonbook(binding, NONBOOK)), where NONBOOK includes at least dvd, dvd-rom, cd, cd-rom, cassette, sheet music, audio; the check must be case-insensitive and match whole words split on common delimiters.",
+   "gold_anchor": "return any(word.casefold() in nonbooks for word in words)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ISBNdb._get_languages returns ['eng'] for language 'en_US'.",
+   "covering_prose": "Map the free-form language string to MARC 21 codes by splitting on commas, spaces, or semicolons; case-fold each token; translate via a mapping (must include at least en_US\u2192eng, eng\u2192eng, es\u2192spa, afrikaans/afr/af\u2192afr); dedupe while preserving order; if no valid codes remain, return None.",
+   "gold_anchor": "'en_us': 'eng',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ISBNdb._get_languages returns ['spa', 'eng'] for language 'es,Eng'.",
+   "covering_prose": "Map the free-form language string to MARC 21 codes by splitting on commas, spaces, or semicolons; case-fold each token; translate via a mapping (must include at least en_US\u2192eng, eng\u2192eng, es\u2192spa, afrikaans/afr/af\u2192afr); dedupe while preserving order; if no valid codes remain, return None.",
+   "gold_anchor": "possible_languages = re.split(',| |;', language_line)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ISBNdb._get_languages returns ['afr', 'eng'] for language 'afrikaans afr af en'.",
+   "covering_prose": "Map the free-form language string to MARC 21 codes by splitting on commas, spaces, or semicolons; case-fold each token; translate via a mapping (must include at least en_US\u2192eng, eng\u2192eng, es\u2192spa, afrikaans/afr/af\u2192afr); dedupe while preserving order; if no valid codes remain, return None.",
+   "gold_anchor": "marc21_language not in unique_languages",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ISBNdb._get_languages returns None for language 'not a language'.",
+   "covering_prose": "Map the free-form language string to MARC 21 codes by splitting on commas, spaces, or semicolons; case-fold each token; translate via a mapping (must include at least en_US\u2192eng, eng\u2192eng, es\u2192spa, afrikaans/afr/af\u2192afr); dedupe while preserving order; if no valid codes remain, return None.",
+   "gold_anchor": "return unique_languages or None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ISBNdb._get_languages returns None for empty string language ''.",
+   "covering_prose": "Map the free-form language string to MARC 21 codes by splitting on commas, spaces, or semicolons; case-fold each token; translate via a mapping (must include at least en_US\u2192eng, eng\u2192eng, es\u2192spa, afrikaans/afr/af\u2192afr); dedupe while preserving order; if no valid codes remain, return None.",
+   "gold_anchor": "if not language_line:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ISBNdb._get_languages returns None for language None.",
+   "covering_prose": "Map the free-form language string to MARC 21 codes by splitting on commas, spaces, or semicolons; case-fold each token; translate via a mapping (must include at least en_US\u2192eng, eng\u2192eng, es\u2192spa, afrikaans/afr/af\u2192afr); dedupe while preserving order; if no valid codes remain, return None.",
+   "gold_anchor": "if not language_line:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ISBNdb._get_year returns \"2000\" for integer date_published 2000.",
+   "covering_prose": "Extract a 4-digit year from date_published whether it\u2019s an int or string; return \"YYYY\" if found, otherwise None (e.g., \"-\", \"123\", or None \u21d2 None).",
+   "gold_anchor": "result = str(publish_date)[:4]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ISBNdb._get_year returns \"2000\" for string date_published \"2000\".",
+   "covering_prose": "Extract a 4-digit year from date_published whether it\u2019s an int or string; return \"YYYY\" if found, otherwise None (e.g., \"-\", \"123\", or None \u21d2 None).",
+   "gold_anchor": "RE_YEAR = re.compile(r'(\\d{4})')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ISBNdb._get_year returns \"2000\" for string date_published \"December 2000\".",
+   "covering_prose": "Extract a 4-digit year from date_published whether it\u2019s an int or string; return \"YYYY\" if found, otherwise None (e.g., \"-\", \"123\", or None \u21d2 None).",
+   "gold_anchor": "m = RE_YEAR.search(publish_date)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ISBNdb._get_year returns None for string date_published \"-\".",
+   "covering_prose": "Extract a 4-digit year from date_published whether it\u2019s an int or string; return \"YYYY\" if found, otherwise None (e.g., \"-\", \"123\", or None \u21d2 None).",
+   "gold_anchor": "return result or None",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ISBNdb._get_year returns None for string date_published \"123\".",
+   "covering_prose": "Extract a 4-digit year from date_published whether it\u2019s an int or string; return \"YYYY\" if found, otherwise None (e.g., \"-\", \"123\", or None \u21d2 None).",
+   "gold_anchor": "m = RE_YEAR.search(publish_date)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ISBNdb._get_year returns None for date_published None.",
+   "covering_prose": "Extract a 4-digit year from date_published whether it\u2019s an int or string; return \"YYYY\" if found, otherwise None (e.g., \"-\", \"123\", or None \u21d2 None).",
+   "gold_anchor": "return result or None",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

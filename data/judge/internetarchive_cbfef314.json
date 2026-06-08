@@ -1,0 +1,186 @@
+{
+ "case": "internetarchive_cbfef314",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 25,
+ "n_covered": 25,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "check_cover_url_host(None) returns False.",
+   "covering_prose": "Disallowed or missing URLs should not trigger any upload.",
+   "gold_anchor": "if not cover_url:\n        return False",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "check_cover_url_host('https://not-supported.org/image/123.jpg') returns False.",
+   "covering_prose": "Disallowed or missing URLs should not trigger any upload.",
+   "gold_anchor": "return parsed_url.netloc.casefold() in (",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "check_cover_url_host('https://m.media-amazon.com/image/123.jpg') returns True.",
+   "covering_prose": "Cover URLs must be accepted only when their host matches an allowed list in a case-insensitive way (e.g., common Amazon media hosts).",
+   "gold_anchor": "return parsed_url.netloc.casefold() in (",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "check_cover_url_host('http://m.media-amazon.com/image/123.jpg') returns True; scheme does not affect host allow-listing.",
+   "covering_prose": "The `check_cover_url_host(cover_url, allowed_cover_hosts)` function should return a boolean indicating whether the URL host is in the allow-list using a case-insensitive comparison.",
+   "gold_anchor": "parsed_url = urlparse(url=cover_url)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "check_cover_url_host('https://m.MEDIA-amazon.com/image/123.jpg') returns True using case-insensitive host comparison.",
+   "covering_prose": "The `check_cover_url_host(cover_url, allowed_cover_hosts)` function should return a boolean indicating whether the URL host is in the allow-list using a case-insensitive comparison.",
+   "gold_anchor": "parsed_url.netloc.casefold()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The public import function is named author_import_record_to_author, not import_author.",
+   "covering_prose": "The function previously named `import_author` should be replaced by `author_import_record_to_author`.",
+   "gold_anchor": "def author_import_record_to_author(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The public edition builder is named import_record_to_edition, not build_query.",
+   "covering_prose": "The function previously named `build_query` should be replaced by `import_record_to_edition(rec)`.",
+   "gold_anchor": "import_record_to_edition,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "author_import_record_to_author flips import names like 'Surname, Forename' to 'Forename Surname' when not eastern and not an organization.",
+   "covering_prose": "Normalize author names (drop honorifics, flip \u201cSurname, Forename\u201d to natural order unless `eastern=True` or `entity_type=='org'`).",
+   "gold_anchor": "do_flip(author_import_record)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "author_import_record_to_author leaves names unchanged when eastern=True or entity_type=='org' applies.",
+   "covering_prose": "Normalize author names (drop honorifics, flip \u201cSurname, Forename\u201d to natural order unless `eastern=True` or `entity_type=='org'`).",
+   "gold_anchor": "if author_import_record.get('entity_type') != 'org' and not eastern:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "import_record_to_edition returns q['title'] == 'magic' for an input record with title 'magic'.",
+   "covering_prose": "Produce a valid Open Library Edition dict (e.g., map `description` to typed text).",
+   "gold_anchor": "rec_as_edition = import_record_to_edition(rec)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "import_record_to_edition processes authors through author_import_record_to_author so 'Surname, Forename' becomes 'Forename Surname'.",
+   "covering_prose": "Process all author entries via `author_import_record_to_author`.",
+   "gold_anchor": "rec_as_edition = import_record_to_edition(rec)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "import_record_to_edition maps description 'test' to {'type': '/type/text', 'value': 'test'}.",
+   "covering_prose": "Produce a valid Open Library Edition dict (e.g., map `description` to typed text).",
+   "gold_anchor": "rec_as_edition = import_record_to_edition(rec)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "import_record_to_edition maps languages ['eng', 'fre'] to [{'key': '/languages/eng'}, {'key': '/languages/fre'}].",
+   "covering_prose": "Map language fields (`languages`, `translated_from`) to expected key objects.",
+   "gold_anchor": "rec_as_edition = import_record_to_edition(rec)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "import_record_to_edition maps translated_from ['yid'] to [{'key': '/languages/yid'}].",
+   "covering_prose": "Map language fields (`languages`, `translated_from`) to expected key objects.",
+   "gold_anchor": "rec_as_edition = import_record_to_edition(rec)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "import_record_to_edition raises InvalidLanguage for {'languages': ['wtf']}.",
+   "covering_prose": "Raise `InvalidLanguage` for unknown language values.",
+   "gold_anchor": "rec_as_edition = import_record_to_edition(rec)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "author_import_record_to_author preserves wildcard input such as {'name': 'Mr. Blobby*'} when no match exists and returns a candidate dict with the same name.",
+   "covering_prose": "Preserve wildcard input (e.g., `*`) when no match exists and return a candidate dict.",
+   "gold_anchor": "author_import_record_to_author(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "author_import_record_to_author prefers an explicit Open Library key match when present.",
+   "covering_prose": "Resolve conflicts deterministically: prefer an explicit Open Library key if present; otherwise match by remote identifiers; otherwise by exact name + birth/death years; otherwise by alternate names + years; otherwise by surname + years.",
+   "gold_anchor": "if existing := find_entity(author_import_record):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "author_import_record_to_author raises AuthorRemoteIdConflictError when conflicting remote IDs are detected.",
+   "covering_prose": "Raise `AuthorRemoteIdConflictError` when conflicting remote IDs are detected.",
+   "gold_anchor": "author_import_record_to_author(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "author_import_record_to_author matches by remote identifier when no explicit Open Library key match is used.",
+   "covering_prose": "Resolve conflicts deterministically: prefer an explicit Open Library key if present; otherwise match by remote identifiers; otherwise by exact name + birth/death years; otherwise by alternate names + years; otherwise by surname + years.",
+   "gold_anchor": "if existing := find_entity(author_import_record):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "author_import_record_to_author matches by exact name plus birth/death years.",
+   "covering_prose": "Resolve conflicts deterministically: prefer an explicit Open Library key if present; otherwise match by remote identifiers; otherwise by exact name + birth/death years; otherwise by alternate names + years; otherwise by surname + years.",
+   "gold_anchor": "if existing := find_entity(author_import_record):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "author_import_record_to_author returns a new candidate dict when birth/death dates do not exactly match an existing author.",
+   "covering_prose": "If dates don\u2019t exactly match, return a new candidate.",
+   "gold_anchor": "a = {'type': {'key': '/type/author'}}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "author_import_record_to_author matches by alternate names plus birth/death years.",
+   "covering_prose": "Resolve conflicts deterministically: prefer an explicit Open Library key if present; otherwise match by remote identifiers; otherwise by exact name + birth/death years; otherwise by alternate names + years; otherwise by surname + years.",
+   "gold_anchor": "if existing := find_entity(author_import_record):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "author_import_record_to_author matches by surname plus birth/death years.",
+   "covering_prose": "Resolve conflicts deterministically: prefer an explicit Open Library key if present; otherwise match by remote identifiers; otherwise by exact name + birth/death years; otherwise by alternate names + years; otherwise by surname + years.",
+   "gold_anchor": "if existing := find_entity(author_import_record):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "author_import_record_to_author does not match by surname alone when dates are absent; it returns a new candidate preserving name 'Mr. William J. Brewer'.",
+   "covering_prose": "Resolve conflicts deterministically: prefer an explicit Open Library key if present; otherwise match by remote identifiers; otherwise by exact name + birth/death years; otherwise by alternate names + years; otherwise by surname + years.",
+   "gold_anchor": "a = {'type': {'key': '/type/author'}}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "author_import_record_to_author compares birth_date '1829-09-14' and death_date 'November 1910' by year and matches an author with years 1829 and 1910.",
+   "covering_prose": "Compare birth/death by year semantics (strings containing years are treated by year).",
+   "gold_anchor": "if existing := find_entity(author_import_record):",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

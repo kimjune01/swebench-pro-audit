@@ -1,0 +1,1 @@
+{"rows":[{"test":"For the ithaca_two_856u MARC fixture, the output JSON has \"[s.n.]\" as the value in the \"publishers\" list instead of \"s.n.\".","covering_prose":"When the MARC record’s publisher is \"s.n.\", the output must include exactly \"[s.n.]\" inside the \"publishers\" list.","gold_anchor":"name = '[s.n.]'"}]}

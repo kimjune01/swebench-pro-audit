@@ -1,0 +1,123 @@
+{
+ "case": "internetarchive_7b1ec94b",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 16,
+ "n_covered": 15,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "map_data accepts a dictionary feed entry and reads fields using key notation rather than attribute access.",
+   "covering_prose": "- The `map_data` function should accept a dictionary parameter instead of an object with attributes, and access its data using key notation.",
+   "gold_anchor": "def map_data(entry: dict) -> dict[str, Any]:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Returned record has title \"Seven Pillars of Wisdom\" from the feed entry title.",
+   "covering_prose": "- The resulting dictionary must include the fields `\"title\"`, `\"source_records\"`, `\"publishers\"`, `\"publish_date\"`, `\"authors\"`, `\"description\"`, `\"subjects\"`, `\"identifiers\"`, `\"languages\"`, and `\"cover\"`, only when a valid cover URL is available. ",
+   "gold_anchor": "\"title\": entry['title'],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Normalized Standard Ebooks ID removes the prefix \"https://standardebooks.org/ebooks/\" from entry['id'], producing \"t-e-lawrence/seven-pillars-of-wisdom\".",
+   "covering_prose": "- The identifier fields must reflect a normalized Standard Ebooks ID derived from entry['id'], \"source_records\" should contain exactly one value in the form \"standard_ebooks:{ID}\", and \"identifiers\" must include the same {ID} under the \"standard_ebooks\" key. ",
+   "gold_anchor": "std_ebooks_id = entry['id'].replace('https://standardebooks.org/ebooks/', '')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "source_records is exactly [\"standard_ebooks:t-e-lawrence/seven-pillars-of-wisdom\"].",
+   "covering_prose": "- The identifier fields must reflect a normalized Standard Ebooks ID derived from entry['id'], \"source_records\" should contain exactly one value in the form \"standard_ebooks:{ID}\", and \"identifiers\" must include the same {ID} under the \"standard_ebooks\" key. ",
+   "gold_anchor": "\"source_records\": [f\"standard_ebooks:{std_ebooks_id}\"],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "publishers is exactly [\"Standard Ebooks\"].",
+   "covering_prose": "- The `\"publishers\"` field in the returned import record should contain the list `[\"Standard Ebooks\"]`, and the `\"languages\"` field must always be `[\"eng\"]`, rejecting entries that do not use a language code starting with `\"en-\"`.",
+   "gold_anchor": "\"publishers\": ['Standard Ebooks'],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "publish_date is the first four characters of the published timestamp, yielding \"2022\".",
+   "covering_prose": "- The \"publish_date\" field must be a four-character year string derived from the feed entry\u2019s published timestamp.",
+   "gold_anchor": "\"publish_date\": entry['published'][0:4],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "authors is a list of objects with name keys, yielding [{\"name\": \"T. E. Lawrence\"}].",
+   "covering_prose": "- The \"authors\" field must be a list of objects where each object has a \"name\" key taken from the corresponding author entry in the feed.",
+   "gold_anchor": "\"authors\": [{\"name\": author['name']} for author in entry['authors']],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "description equals the value of the first content element in the feed entry.",
+   "covering_prose": "- The description must reflect the textual value of the first content element provided by the feed. ",
+   "gold_anchor": "\"description\": entry['content'][0]['value'],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "subjects preserves the subject terms from the feed entry in feed order.",
+   "covering_prose": "- The subjects must list the subject terms present in the feed entry.",
+   "gold_anchor": "\"subjects\": [tag['term'] for tag in entry['tags']],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "identifiers is {\"standard_ebooks\": [\"t-e-lawrence/seven-pillars-of-wisdom\"]}.",
+   "covering_prose": "- The identifier fields must reflect a normalized Standard Ebooks ID derived from entry['id'], \"source_records\" should contain exactly one value in the form \"standard_ebooks:{ID}\", and \"identifiers\" must include the same {ID} under the \"standard_ebooks\" key. ",
+   "gold_anchor": "\"identifiers\": {\"standard_ebooks\": [std_ebooks_id]},",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "dcterms_language \"en-GB\" is accepted because it starts with \"en-\".",
+   "covering_prose": "- The `\"publishers\"` field in the returned import record should contain the list `[\"Standard Ebooks\"]`, and the `\"languages\"` field must always be `[\"eng\"]`, rejecting entries that do not use a language code starting with `\"en-\"`.",
+   "gold_anchor": "if not lang or not lang.startswith('en-'):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "languages is exactly [\"eng\"].",
+   "covering_prose": "- The `\"publishers\"` field in the returned import record should contain the list `[\"Standard Ebooks\"]`, and the `\"languages\"` field must always be `[\"eng\"]`, rejecting entries that do not use a language code starting with `\"en-\"`.",
+   "gold_anchor": "\"languages\": ['eng'],",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cover is chosen from the first link whose rel equals IMAGE_REL.",
+   "covering_prose": "- When a cover exists, the `\"cover\"` field must be set with the first URL found in the `links` list whose `rel` is equal to `IMAGE_REL`, and this URL must start with `\"https://\"` to be considered valid.",
+   "gold_anchor": "(link['href'] for link in entry['links'] if link['rel'] == IMAGE_REL)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cover is the absolute HTTPS URL \"https://standardebooks.org/ebooks/t-e-lawrence/seven-pillars-of-wisdom/downloads/cover.jpg\" and is not synthesized from a base URL plus relative path.",
+   "covering_prose": "- If no absolute HTTPS cover image is present under the image relation in the links, the \"cover\" field should be omitted, and no URL should be synthesized. When present, the chosen cover URL must be absolute and start with \"https://\".",
+   "gold_anchor": "assert cover_url.startswith('https://')",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "cover field is included when a valid HTTPS image-relation URL is available.",
+   "covering_prose": "- The resulting dictionary must include the fields `\"title\"`, `\"source_records\"`, `\"publishers\"`, `\"publish_date\"`, `\"authors\"`, `\"description\"`, `\"subjects\"`, `\"identifiers\"`, `\"languages\"`, and `\"cover\"`, only when a valid cover URL is available. ",
+   "gold_anchor": "import_record['cover'] = cover_url",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The returned dictionary contains no extra fields beyond title, source_records, publishers, publish_date, authors, description, subjects, identifiers, languages, and cover for this input.",
+   "covering_prose": null,
+   "gold_anchor": "import_record = {",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

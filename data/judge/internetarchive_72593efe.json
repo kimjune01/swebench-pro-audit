@@ -1,0 +1,53 @@
+{
+ "case": "internetarchive_72593efe",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`luqum_replace_field` is importable from `openlibrary/solr/query_utils.py`.",
+   "covering_prose": "A public function named `luqum_replace_field` must exist in `openlibrary/solr/query_utils.py`.",
+   "gold_anchor": "def luqum_replace_field(query, replacer: Callable[[str], str]) -> str:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`luqum_replace_field(luqum_parser('work.title:Bob'), replace_work_prefix)` returns the string `title:Bob`.",
+   "covering_prose": "Queries containing fields starting with `work.` must be normalized by removing the `work.` prefix from the field name.",
+   "gold_anchor": "sf.name = replacer(sf.name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`luqum_replace_field(luqum_parser('title:Joe'), replace_work_prefix)` returns the string `title:Joe`.",
+   "covering_prose": "Queries without a `work.` prefix must remain unchanged.",
+   "gold_anchor": "sf.name = replacer(sf.name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`luqum_replace_field(luqum_parser('work.title:Bob work.title:OL5M'), replace_work_prefix)` returns the string `title:Bob title:OL5M`, rewriting both `work.`-prefixed fields.",
+   "covering_prose": "Queries with multiple `work.`-prefixed fields in the same input must rewrite all of them.",
+   "gold_anchor": "sf.name = replacer(sf.name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`luqum_replace_field(luqum_parser('edition_key:Joe OR work.title:Bob'), replace_work_prefix)` returns the string `edition_key:Joe OR title:Bob`, leaving `edition_key` unchanged while rewriting `work.title`.",
+   "covering_prose": "Queries that mix prefixed and unprefixed fields must correctly rewrite only the prefixed fields.",
+   "gold_anchor": "sf.name = replacer(sf.name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`luqum_replace_field` returns the modified query tree serialized as text, enabling direct string equality assertions.",
+   "covering_prose": "The function must return the modified query tree as a string.",
+   "gold_anchor": "return str(query)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

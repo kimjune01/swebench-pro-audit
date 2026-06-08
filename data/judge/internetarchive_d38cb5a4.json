@@ -1,0 +1,32 @@
+{
+ "case": "internetarchive_d38cb5a4",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 3,
+ "n_covered": 1,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For bin expectation `equalsign_title.mrc`, `languages` is exactly `[\"eng\", \"wel\"]` in that order instead of only `[\"eng\"]`.",
+   "covering_prose": "For example, `equalsign_title.mrc` should produce `[\"eng\", \"wel\"]`.",
+   "gold_anchor": "found.append(i[k:k+3].lower())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For bin expectation `zweibchersatir01horauoft_meta.mrc`, `languages` is exactly `[\"ger\", \"lat\"]` in that order instead of only `[\"ger\"]`.",
+   "covering_prose": null,
+   "gold_anchor": "edition['languages'].append(saved_language)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For xml expectation `zweibchersatir01horauoft_marc.xml`, `languages` is exactly `[\"ger\", \"lat\"]` in that order instead of only `[\"ger\"]`.",
+   "covering_prose": null,
+   "gold_anchor": "edition['languages'].append(saved_language)",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

@@ -1,0 +1,32 @@
+{
+ "case": "internetarchive_afb819f8",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "The mocked Internet Archive data fetch returns a Response-like object with `.content` bytes, so MARC XML retrieval in `get_marc_record_from_ia` must access `.content` rather than `.read()`.",
+   "covering_prose": "All data retrieval operations must distinguish between binary and text content by using `.content` attribute for binary data (MARC records, XML parsing) and `.text` attribute for text data (XML parsing when expecting string input), replacing all previous `.read()` method calls.",
+   "gold_anchor": "data = urlopen_keep_trying(item_base + marc_xml_filename).content",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The mocked Internet Archive data fetch returns a Response-like object with `.content` bytes, so MARC binary retrieval in `get_marc_record_from_ia` must access `.content` rather than `.read()`.",
+   "covering_prose": "All data retrieval operations must distinguish between binary and text content by using `.content` attribute for binary data (MARC records, XML parsing) and `.text` attribute for text data (XML parsing when expecting string input), replacing all previous `.read()` method calls.",
+   "gold_anchor": "data = urlopen_keep_trying(item_base + marc_bin_filename).content",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The replacement object supplied by tests has `.content` and `.text` attributes and no file-like `.read()` method, matching the required return shape of `urlopen_keep_trying`.",
+   "covering_prose": "The `urlopen_keep_trying` function must accept additional parameters, including a `headers` dictionary and arbitrary keyword arguments via `**kwargs`, while maintaining its existing URL parameter, and must return a Response object with `.content` attribute instead of a file-like object with `.read()` method.",
+   "gold_anchor": "def urlopen_keep_trying(url, headers=None, **kwargs):",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

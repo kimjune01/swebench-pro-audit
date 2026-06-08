@@ -1,0 +1,193 @@
+{
+ "case": "internetarchive_b2086f9b",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 24,
+ "n_covered": 14,
+ "n_gap": 10,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "process_user_query('query here') returns the unchanged unfielded query string 'query here'.",
+   "covering_prose": "The process_user_query function should parse user queries and return normalized query strings with proper field mappings.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "process_user_query('food rules author:pollan') maps author:pollan to author_name:pollan while leaving leading unfielded text as 'food rules'.",
+   "covering_prose": "Field aliases should be mapped case-insensitively: \"title\" to \"alternative_title\" and \"author\"/\"authors\"/\"by\" to \"author_name\".",
+   "gold_anchor": "node.name = FIELD_NAME_MAP[node.name.lower()]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('title:food rules by:pollan') maps title to alternative_title and by to author_name.",
+   "covering_prose": "Field aliases should be mapped case-insensitively: \"title\" to \"alternative_title\" and \"author\"/\"authors\"/\"by\" to \"author_name\".",
+   "gold_anchor": "node.name = FIELD_NAME_MAP[node.name.lower()]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('title:food rules by:pollan') greedily binds the bare word 'rules' into the title field, producing alternative_title:(food rules).",
+   "covering_prose": "Field binding should be greedy, where a field applies to all subsequent terms until another field is encountered.",
+   "gold_anchor": "last_sf.expr = Group(type(node)(last_sf.expr, word))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('food rules By:pollan') treats uppercase alias By as the author_name field, producing 'food rules author_name:pollan'.",
+   "covering_prose": "Field aliases should be mapped case-insensitively: \"title\" to \"alternative_title\" and \"author\"/\"authors\"/\"by\" to \"author_name\".",
+   "gold_anchor": "lower=True",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('title:\"food rules\" author:pollan') maps title to alternative_title and author to author_name while preserving the quoted phrase value.",
+   "covering_prose": "Field aliases should be mapped case-insensitively: \"title\" to \"alternative_title\" and \"author\"/\"authors\"/\"by\" to \"author_name\".",
+   "gold_anchor": "node.name = FIELD_NAME_MAP[node.name.lower()]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('query here title:food rules author:pollan') leaves leading unfielded text first, then maps title to alternative_title and author to author_name.",
+   "covering_prose": "The process_user_query function should parse user queries and return normalized query strings with proper field mappings.",
+   "gold_anchor": "node.name = FIELD_NAME_MAP[node.name.lower()]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('query here title:food rules author:pollan') greedily binds 'rules' into the title field until author is encountered, producing alternative_title:(food rules).",
+   "covering_prose": "Field binding should be greedy, where a field applies to all subsequent terms until another field is encountered.",
+   "gold_anchor": "last_sf.expr = Group(type(node)(last_sf.expr, word))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('flatland:a romance of many dimensions') escapes the unknown field-looking colon and returns 'flatland\\\\:a romance of many dimensions'.",
+   "covering_prose": null,
+   "gold_anchor": "field = sf.name + r'\\:'",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "process_user_query('title:flatland:a romance of many dimensions') maps title to alternative_title and escapes the inner colon in the field value.",
+   "covering_prose": "Field aliases should be mapped case-insensitively: \"title\" to \"alternative_title\" and \"author\"/\"authors\"/\"by\" to \"author_name\".",
+   "gold_anchor": "node.name = FIELD_NAME_MAP[node.name.lower()]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('title:flatland:a romance of many dimensions') greedily groups the multi-word title value as alternative_title:(flatland\\\\:a romance of many dimensions).",
+   "covering_prose": "Multi-word field values should be properly grouped to maintain search intent.",
+   "gold_anchor": "last_sf.expr = Group(type(node)(last_sf.expr, word))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('authors:Kim Harrison OR authors:Lynsay Sands') maps both authors fields to author_name.",
+   "covering_prose": "Field aliases should be mapped case-insensitively: \"title\" to \"alternative_title\" and \"author\"/\"authors\"/\"by\" to \"author_name\".",
+   "gold_anchor": "node.name = FIELD_NAME_MAP[node.name.lower()]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('authors:Kim Harrison OR authors:Lynsay Sands') preserves OR between the two author_name clauses.",
+   "covering_prose": "Boolean operators like \"OR\" should be preserved between fielded clauses.",
+   "gold_anchor": "node.op = parent_op.op",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('authors:Kim Harrison OR authors:Lynsay Sands') greedily groups each two-word author value, producing author_name:(Kim Harrison) and author_name:(Lynsay Sands).",
+   "covering_prose": "Multi-word field values should be properly grouped to maintain search intent.",
+   "gold_anchor": "last_sf.expr = Group(type(node)(last_sf.expr, word))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('lcc:NC760 .B2813 2004') normalizes the LCC to exactly lcc:\"NC-0760.00000000.B2813 2004\" with quotes because the normalized value contains a space.",
+   "covering_prose": null,
+   "gold_anchor": "sf.expr = luqum.tree.Phrase(f'\"{normed}\"')",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "process_user_query('lcc:NC760 .B2813') normalizes the grouped LCC to exactly lcc:NC-0760.00000000.B2813* with a trailing star because the normalized value has no space.",
+   "covering_prose": null,
+   "gold_anchor": "sf.expr = luqum.tree.Word(f'{normed}*')",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "process_user_query('lcc:good evening') leaves unnormalizable LCC text grouped as lcc:(good evening).",
+   "covering_prose": null,
+   "gold_anchor": "if normed:",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "process_user_query('lcc:[NC1 TO NC1000]') normalizes the LCC range bounds to exactly lcc:[NC-0001.00000000 TO NC-1000.00000000].",
+   "covering_prose": null,
+   "gold_anchor": "val.low.value, val.high.value = normed",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "process_user_query('lcc:NC76.B2813*') normalizes an LCC prefix query to exactly lcc:NC-0076.00000000.B2813*.",
+   "covering_prose": null,
+   "gold_anchor": "return normalize_lcc_prefix(val.value[:-1]) + '*'",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "process_user_query('lcc:*B2813') leaves a leading-star LCC suffix query unchanged as lcc:*B2813.",
+   "covering_prose": null,
+   "gold_anchor": "if '*' in val.value and not val.value.startswith('*'):",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "process_user_query('lcc:*B2813*') leaves a leading-star multi-star LCC query unchanged as lcc:*B2813*.",
+   "covering_prose": null,
+   "gold_anchor": "if '*' in val.value and not val.value.startswith('*'):",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "process_user_query('lcc:NC76*B2813*') normalizes the LCC prefix portion to exactly lcc:NC-0076*B2813*.",
+   "covering_prose": null,
+   "gold_anchor": "return normalize_lcc_prefix(val.value[:-1]) + '*'",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "process_user_query('lcc:\"NC760 .B2813\"') preserves quotes while normalizing the LCC phrase to exactly lcc:\"NC-0760.00000000.B2813\".",
+   "covering_prose": null,
+   "gold_anchor": "val.value = f'\"{normed}\"'",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "process_user_query('test') returns the unchanged unfielded query string 'test'.",
+   "covering_prose": "The process_user_query function should parse user queries and return normalized query strings with proper field mappings.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "process_user_query('title:(Holidays are Hell) authors:(Kim Harrison) OR authors:(Lynsay Sands)') maps title to alternative_title and both authors fields to author_name without adding doubled parentheses.",
+   "covering_prose": "Field aliases should be mapped case-insensitively: \"title\" to \"alternative_title\" and \"author\"/\"authors\"/\"by\" to \"author_name\".",
+   "gold_anchor": "node.name = FIELD_NAME_MAP[node.name.lower()]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "process_user_query('title:(Holidays are Hell) authors:(Kim Harrison) OR authors:(Lynsay Sands)') preserves OR between the fielded author clauses.",
+   "covering_prose": "Boolean operators like \"OR\" should be preserved between fielded clauses.",
+   "gold_anchor": "node.op = parent_op.op",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,67 @@
+{
+ "case": "internetarchive_ba3abfb6",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "validate_record({'title': 'a book', 'source_records': ['ia:ocaid'], 'publish_date': '1499'}) raises PublicationYearTooOld",
+   "covering_prose": "The system should validate the publication year extracted from the record\u2019s `publish_date`, and should raise a `PublicationYearTooOld` exception if the year is earlier than 1500 or a `PublishedInFutureYear` exception if the year is in the future relative to the current year.",
+   "gold_anchor": "raise PublicationYearTooOld(publication_year)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "validate_record({'title': 'a book', 'source_records': ['ia:ocaid'], 'publish_date': '1500'}) returns None without raising PublicationYearTooOld",
+   "covering_prose": "The system should validate the publication year extracted from the record\u2019s `publish_date`, and should raise a `PublicationYearTooOld` exception if the year is earlier than 1500 or a `PublishedInFutureYear` exception if the year is in the future relative to the current year.",
+   "gold_anchor": "return publish_year < EARLIEST_PUBLISH_YEAR",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "validate_record({'title': 'a book', 'source_records': ['ia:ocaid'], 'publish_date': '3000'}) raises PublishedInFutureYear",
+   "covering_prose": "The system should validate the publication year extracted from the record\u2019s `publish_date`, and should raise a `PublicationYearTooOld` exception if the year is earlier than 1500 or a `PublishedInFutureYear` exception if the year is in the future relative to the current year.",
+   "gold_anchor": "raise PublishedInFutureYear(publication_year)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "validate_record with publishers ['Independently Published'] raises IndependentlyPublished",
+   "covering_prose": "The system should detect and reject records that list publishers identified as \"independently published\" by raising an `IndependentlyPublished` exception.",
+   "gold_anchor": "raise IndependentlyPublished",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "validate_record({'title': 'a book', 'source_records': ['amazon:amazon_id'], 'isbn_10': []}) raises SourceNeedsISBN",
+   "covering_prose": "The system should check that records requiring an ISBN include one, and should raise a `SourceNeedsISBN` exception otherwise.",
+   "gold_anchor": "raise SourceNeedsISBN",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "get_missing_fields({'title': 'A Great Book', 'source_records': ['ia:123']}) returns []",
+   "covering_prose": "Description: Returns missing required field names from [\"title\", \"source_records\"]. A field is missing if absent from the record or its value is None.",
+   "gold_anchor": "return [field for field in required_fields if rec.get(field, None) is None]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "get_missing_fields({'source_records': ['ia:123']}) returns ['title']",
+   "covering_prose": "Description: Returns missing required field names from [\"title\", \"source_records\"]. A field is missing if absent from the record or its value is None.",
+   "gold_anchor": "return [field for field in required_fields if rec.get(field, None) is None]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "get_missing_fields({'publish_date': '1999'}) returns the missing field names 'source_records' and 'title'",
+   "covering_prose": "Description: Returns missing required field names from [\"title\", \"source_records\"]. A field is missing if absent from the record or its value is None.",
+   "gold_anchor": "return [field for field in required_fields if rec.get(field, None) is None]",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

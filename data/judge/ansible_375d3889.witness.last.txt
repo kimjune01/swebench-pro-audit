@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Galaxy server JSON settings must serialize so the setting value is available at index `1` of each option entry.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "When dumping values, each option must include both the `value` and its `origin` such as `default`, `config file path`, or `REQUIRED`.",
+  "gold_anchor": "server_config[setting] = Setting(setting, v, o, None)",
+  "test_assertion": "- gs[item[0]][item[1]] == galaxy_server_dump_base[item[0]][item[1]][1]\n          - gs[item[0]][item[1]] == galaxy_server_dump_all[item[0]][item[1]][1]",
+  "R1": "Each Galaxy server option in JSON is serialized as a positional Setting-like entry where index 1 contains the option value.",
+  "R2": "Each Galaxy server option in JSON is serialized as a dictionary with explicit `value` and `origin` fields.",
+  "why_R2_fails": "R2 fails because the hidden test indexes each option entry with `[1]` instead of reading a `value` field."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "matchesNumber with operator \"isnotoneof\", JSON number list [5, 3.14159, 4], and numeric value \"3.14159\" returns true.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "With `isnotoneof`, the comparison should return `true` if the context value is absent from the list and `false` if it is present.",
+  "gold_anchor": "return slices.Contains(values, n), nil",
+  "test_assertion": "value:     \"3.14159\",\n\t\t\twantMatch: true,",
+  "R1": "For numeric isnotoneof, return true when the input number is present in the JSON list.",
+  "R2": "For numeric isnotoneof, return false when the input number is present in the JSON list.",
+  "why_R2_fails": "Because the hidden test sets wantMatch true for value \"3.14159\" even though 3.14159 is present in [5, 3.14159, 4]."
+}

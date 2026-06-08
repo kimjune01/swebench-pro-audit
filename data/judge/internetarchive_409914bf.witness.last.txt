@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When web.data() returns b'', ListRecord.from_input() uses web.input() values and returns key=None, name='foo', description='bar', seeds=[].",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "else:\n            # Otherwise read from the query string\n            i = utils.unflatten(web.input(**DEFAULTS))",
+  "test_assertion": "mock_web_data.return_value = b''\n            mock_web_input.return_value = {\n                'key': None,\n                'name': 'foo',\n                'description': 'bar',\n                'seeds': [],\n            }\n            assert ListRecord.from_input() == ListRecord(\n                key=None,\n                name='foo',\n                description='bar',\n                seeds=[],\n            )",
+  "R1": "When there is no request body, ListRecord.from_input() should fall back to web.input() and preserve query/default input behavior.",
+  "R2": "When there is no request body, ListRecord.from_input() could construct a record only from defaults or otherwise avoid query-string-derived values because the prose only specifies precedence when body data is present.",
+  "why_R2_fails": "R2 would not return the mocked web.input() values name='foo' and description='bar' required by the assertion."
+}

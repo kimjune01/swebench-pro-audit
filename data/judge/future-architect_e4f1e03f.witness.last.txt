@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Cvss3Scores assigns a severity-derived numeric score of 8.9 for HIGH severity.",
+  "klass": "airtight",
+  "constant": "8.9",
+  "r2_prose_clause": null,
+  "gold_anchor": "case \"IMPORTANT\", \"HIGH\":\n\t\treturn 8.9",
+  "test_assertion": "Value: Cvss{\n\t\t\t\t\t\tType:                 CVSS3,\n\t\t\t\t\t\tScore:                8.9,\n\t\t\t\t\t\tCalculatedBySeverity: true,\n\t\t\t\t\t\tSeverity:             \"HIGH\",\n\t\t\t\t\t},",
+  "R1": "A HIGH severity-only CVE is converted into a CVSS3 score of exactly 8.9.",
+  "R2": "A HIGH severity-only CVE is converted into any score within the HIGH range, such as 7.0, 8.0, or another representative value.",
+  "why_R2_fails": "The hidden test compares the full Cvss struct and requires Score to equal exactly 8.9."
+}

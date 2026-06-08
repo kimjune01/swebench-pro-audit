@@ -1,0 +1,11 @@
+{
+  "test_behavior": "ForAuth cache emits the ClusterName update with resource kind `types.KindClusterName`.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "{Kind: types.KindClusterName},",
+  "test_assertion": "c.Assert(event.Event.Resource.GetKind(), check.Equals, types.KindClusterName)",
+  "R1": "The ForAuth cache watches ClusterName and reports a processed event whose resource kind is exactly `types.KindClusterName`.",
+  "R2": "A from-prose engineer could leave ClusterName event behavior unspecified while still supporting legacy ClusterID population and the required split configuration resources.",
+  "why_R2_fails": "The hidden test waits for a ClusterName update and rejects any processed event whose resource kind is not `types.KindClusterName`."
+}

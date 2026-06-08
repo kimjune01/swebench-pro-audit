@@ -1,0 +1,11 @@
+{
+  "test_behavior": "extra_fields JSON in TocEntry.to_markdown() must use Python json.dumps default whitespace, producing spaces after ':' and ','",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "result += ' | ' + json.dumps(self.extra_fields, cls=InfogamiThingEncoder)",
+  "test_assertion": "assert entry.to_markdown() == ' |  |  | {\"authors\": [{\"name\": \"Author 1\"}]}'",
+  "R1": "The appended extra_fields segment is serialized with Python json.dumps default separators, including spaces after ':' and ','.",
+  "R2": "The appended extra_fields segment may be any valid JSON serialization of the same object, such as compact JSON without insignificant whitespace.",
+  "why_R2_fails": "A compact or otherwise valid JSON serialization has different literal whitespace, so it does not equal the exact expected markdown string."
+}

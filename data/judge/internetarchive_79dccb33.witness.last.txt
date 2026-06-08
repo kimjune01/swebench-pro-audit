@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For query \"edition.title: foo bar bar author: blah\", removing the edition-prefixed field also removes its associated unfielded terms and leaves exactly \"author:blah\".",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "Traverses a parsed Luqum query tree and removes any field nodes for which the predicate returns True. The removal is performed in-place by detaching matched fields from their parent nodes.",
+  "gold_anchor": "luqum_remove_child(sf, parents)",
+  "test_assertion": "assert fn('edition.title: foo bar bar author: blah') == 'author:blah'",
+  "R1": "Removing an edition-prefixed field removes the whole fielded clause, including its associated unfielded terms, until the next explicit field.",
+  "R2": "A prose-faithful implementation could detach only the matched edition-prefixed SearchField node while preserving the remaining unfielded terms in the query.",
+  "why_R2_fails": "R2 would leave some or all of \"foo bar bar\" in the serialized query, so the output would not equal exactly \"author:blah\"."
+}

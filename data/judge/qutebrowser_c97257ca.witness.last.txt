@@ -1,0 +1,11 @@
+{
+  "test_behavior": "utils.parse_point('1x1') raises ValueError whose string is exactly \"String 1x1 does not match X,Y\".",
+  "klass": "airtight",
+  "constant": "\"String 1x1 does not match X,Y\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "raise ValueError(f\"String {s} does not match X,Y\")",
+  "test_assertion": "('1x1', \"String 1x1 does not match X,Y\"),",
+  "R1": "Invalid point strings raise ValueError with the exact message format \"String {input} does not match X,Y\".",
+  "R2": "Invalid point strings raise ValueError with any descriptive, user-friendly message that clearly indicates the expected coordinate format.",
+  "why_R2_fails": "A prose-faithful alternative message would not equal the exact string asserted by the test."
+}

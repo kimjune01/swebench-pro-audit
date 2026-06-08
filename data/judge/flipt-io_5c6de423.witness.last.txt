@@ -1,0 +1,11 @@
+{
+  "test_behavior": "A policy using flipt.is_auth_method(input, \"none\") with input.authentication.method authrpc.Method_METHOD_OIDC evaluates to not allowed and Engine.IsAllowed returns no error.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "Handle unsupported string arguments by returning an error with the message `\"unsupported auth method\"` and including the provided value.",
+  "gold_anchor": "return nil, fmt.Errorf(\"unsupported auth method %s\", authMethod)",
+  "test_assertion": "{name: \"none\", input: authrpc.Method_METHOD_OIDC, expected: false},",
+  "R1": "Unsupported auth method labels such as \"none\" make the rule evaluate false without surfacing an Engine.IsAllowed error.",
+  "R2": "Unsupported auth method labels such as \"none\" return an error message beginning \"unsupported auth method\" and including the provided value.",
+  "why_R2_fails": "R2 fails because the hidden test includes \"none\" in the normal false-result table and asserts require.NoError(t, err)."
+}

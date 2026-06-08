@@ -1,0 +1,11 @@
+{
+  "test_behavior": "With no tracked components, processState.getState() returns stateStarting.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "state := stateStarting\n\tnumNotOK := len(f.states)",
+  "test_assertion": "desc:   \"no components\",\n\t\t\tstates: map[string]*componentState{},\n\t\t\twant:   stateStarting,",
+  "R1": "If no components have been tracked yet, the overall readiness state is starting.",
+  "R2": "If no components have been tracked yet, the overall readiness state could be ok because no tracked component is degraded, recovering, or starting.",
+  "why_R2_fails": "R2 fails because the hidden test expects an empty component map to produce stateStarting."
+}

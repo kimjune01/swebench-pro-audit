@@ -1,0 +1,11 @@
+{
+  "test_behavior": "the artifact manifest file listing is emitted in the order returned by distlib's sorted(wantdirs=True), with top-level files before directories and nested paths following parent directories",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "for abs_path in m.sorted(wantdirs=True):",
+  "test_assertion": "+MANIFEST.json\n+FILES.json\n+README.rst\n+changelogs/\n+docs/\n+playbooks/\n+plugins/\n+roles/\n+tests/\n+changelogs/fragments/",
+  "R1": "Manifest entries must be emitted in distlib manifest sorted order with directories included via wantdirs=True.",
+  "R2": "A from-prose engineer could emit the same valid manifest entries in another deterministic order, such as lexical path order or traversal order.",
+  "why_R2_fails": "The expected file list is order-sensitive, so a manifest containing the same paths in a different order would not match the hidden test fixture."
+}

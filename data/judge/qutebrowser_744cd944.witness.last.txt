@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Other en-* locales map to en-GB, e.g. en_AU.UTF-8 returns en-GB.",
+  "klass": "airtight",
+  "constant": "en-GB",
+  "r2_prose_clause": null,
+  "gold_anchor": "elif locale_name.startswith('en-'):\n        pak_name = 'en-GB'",
+  "test_assertion": "(\"en_AU.UTF-8\", \"en-GB\"),",
+  "R1": "When a missing locale starts with en- but is not en, en-PH, or en-LR, the workaround maps it to en-GB.",
+  "R2": "A from-prose engineer could fall back from en_AU to the base language en, then ultimately to en-US if no en.pak exists.",
+  "why_R2_fails": "The hidden test asserts en_AU.UTF-8 must produce the arbitrary string en-GB, so returning en or en-US fails."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "AuthenticationSessionCSRF includes a Secure field and the tested loaded configuration has Secure set to true.",
+  "klass": "airtight",
+  "constant": "true",
+  "r2_prose_clause": null,
+  "gold_anchor": "secure?:        bool",
+  "test_assertion": "Secure: true,",
+  "R1": "The CSRF session configuration includes a Secure boolean and the loaded test configuration sets it to true.",
+  "R2": "A from-prose engineer could implement only snapshot cache deletion and remote ref listing behavior, leaving CSRF configuration unchanged.",
+  "why_R2_fails": "R2 fails because the hidden test expects the AuthenticationSessionCSRF struct literal to contain Secure: true."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "After calling `start()` on a broadcast with no chunk playing yet, `playback.getLiveness()` returns `\"grey\"`.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "this.setLiveness(\"grey\");",
+  "test_assertion": "After calling `start()` on a broadcast with no chunk playing yet, `playback.getLiveness()` returns `\"grey\"`.",
+  "R1": "A started playback with no currently playing chunk is considered grey rather than live.",
+  "R2": "A from-prose engineer could treat a started broadcast with no chunk playing yet as live because it is not paused or stopped.",
+  "why_R2_fails": "R2 returns `\"live\"`, but the test-pinned behavior expects `\"grey\"` before any chunk is playing."
+}

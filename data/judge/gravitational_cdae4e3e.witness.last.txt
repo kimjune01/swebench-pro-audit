@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When truncatedColumn is column2, the data row has length exactly 80.",
+  "klass": "airtight",
+  "constant": "80",
+  "r2_prose_clause": null,
+  "gold_anchor": "width = 80",
+  "test_assertion": "require.Len(t, rows[2], testCase.expectedWidth)",
+  "R1": "If terminal size cannot be determined, MakeTableWithTruncatedColumn uses exactly 80 columns for matching truncated-column cases.",
+  "R2": "If terminal size cannot be determined, MakeTableWithTruncatedColumn uses some reasonable default terminal width other than exactly 80.",
+  "why_R2_fails": "R2 produces a rendered data row length different from the test case's expectedWidth of 80."
+}

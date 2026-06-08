@@ -1,0 +1,11 @@
+{
+  "test_behavior": "the add_languages fixture clears cached get_languages data before seeding mock languages",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "get_languages().get(input_lang, {}).get('code')",
+  "test_assertion": "# A lot of these are cached in the utils module with functools.cache,\n    # so wipe that cache out first.\n    get_languages.cache_clear()",
+  "R1": "Language resolution uses the cached get_languages helper, so tests must clear that helper's cache before seeding mock language records.",
+  "R2": "A prose-faithful implementation could resolve valid languages through another available local utility path or uncached catalog data without depending on get_languages cache state.",
+  "why_R2_fails": "R2 would not require or exercise get_languages.cache_clear(), while the hidden fixture is specifically written around that cached helper behavior."
+}

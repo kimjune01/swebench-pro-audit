@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Extracts the address or prefix from the second whitespace-delimited field of each local route line.",
+  "klass": "airtight",
+  "constant": "1",
+  "r2_prose_clause": null,
+  "gold_anchor": "address = words[1]",
+  "test_assertion": "self.assertDictEqual(res, IP_ROUTE_SHOW_LOCAL_EXPECTED)",
+  "R1": "For every route line whose first token is local, the returned address is exactly the token at index 1.",
+  "R2": "A prose-faithful implementation could parse locally reachable routes by semantic fields, such as requiring an explicit scope host marker or normalizing addresses from route attributes.",
+  "why_R2_fails": "It would not necessarily return exactly the second whitespace-delimited token for every local line, so the expected dictionary comparison would fail."
+}

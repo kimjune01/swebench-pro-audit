@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Each parsed vulnerability has a Confidence entry with Score exactly 100.",
+  "klass": "airtight",
+  "constant": "100",
+  "r2_prose_clause": null,
+  "gold_anchor": "Confidences: models.Confidences{\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tScore:           100,\n\t\t\t\t\t\t\tDetectionMethod: models.TrivyMatchStr,\n\t\t\t\t\t\t},\n\t\t\t\t\t},",
+  "test_assertion": "Confidences: models.Confidences{\n\t\t\t\t\t\t\tmodels.Confidence{Score: 100,\n\t\t\t\t\t\t\t\tDetectionMethod: \"TrivyMatch\",\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t},",
+  "R1": "Every vulnerability converted from Trivy includes one confidence record scored at exactly 100.",
+  "R2": "A prose-faithful implementation could omit confidence records or leave confidence at the model default while still mapping the required Trivy vulnerability metadata.",
+  "why_R2_fails": "The expected ScanResult contains a Confidences entry with Score 100, so an omitted or default confidence differs from the test fixture."
+}

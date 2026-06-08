@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When explicit bitrate 160 is requested and no explicit format is requested, with active transcoding configuration target \"oga\", selectTranscodingOptions returns format \"oga\".",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "cFormat = trc.TargetFormat",
+  "test_assertion": "Expect(format).To(Equal(\"oga\"))",
+  "R1": "When an explicit bitrate is requested but no format is requested, the active transcoding configuration's TargetFormat is used.",
+  "R2": "When only an explicit bitrate is requested, a from-prose engineer could apply the bitrate without selecting the active transcoding configuration's format unless the prose explicitly says to do so.",
+  "why_R2_fails": "R2 can return a non-\"oga\" format, so it fails the assertion that format equals \"oga\"."
+}

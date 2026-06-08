@@ -1,0 +1,11 @@
+{
+  "test_behavior": "With \"auto\", Qt 6.6.0 and IS_QT6 true must omit \"--disable-accelerated-2d-canvas\".",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "With \"auto\", the flag should be added only when running on Qt 6 with a Chromium major version lower than 111, and omitted otherwise.",
+  "gold_anchor": "        'auto': lambda versions, namespace, special_flags: 'always'\n        if machinery.IS_QT6\n        and versions.chromium_major\n        and versions.chromium_major < 111\n        else 'never',",
+  "test_assertion": "            ('6.6.0', True, 'auto', False),",
+  "R1": "The test pins that auto mode omits the flag for Qt version 6.6.0 when IS_QT6 is true.",
+  "R2": "A prose-faithful implementation could decide auto mode from the Chromium major version only, adding the flag on Qt 6 whenever Chromium major is lower than 111.",
+  "why_R2_fails": "If Qt 6.6.0 were paired with Chromium major lower than 111, R2 would include the flag while the test expects it absent."
+}

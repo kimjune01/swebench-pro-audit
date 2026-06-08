@@ -1,0 +1,11 @@
+{
+  "test_behavior": "A collection can be installed from a local git repository URL prefixed with `git+file://.../.git`, and `ansible-galaxy collection list` includes `amazon.aws`.",
+  "klass": "airtight",
+  "constant": "git+",
+  "r2_prose_clause": null,
+  "gold_anchor": "collection_input.startswith(('git+', 'git@')):",
+  "test_assertion": "command: 'ansible-galaxy collection install git+file://{{galaxy_dir }}/development/amazon.aws/.git'",
+  "R1": "Local git repositories using a `git+file://.../.git` URL are recognized as collection SCM inputs.",
+  "R2": "Only SSH and HTTPS git repository URLs are supported for collection SCM inputs.",
+  "why_R2_fails": "R2 would not treat the `git+file://{{galaxy_dir }}/development/amazon.aws/.git` command input as a supported git collection source."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "If GitHub /user returns 400 Bad Request during callback, the system returns an internal error with message github /user info response status: \"400 Bad Request\".",
+  "klass": "airtight",
+  "constant": "\"/user\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "return fmt.Errorf(\"github %s info response status: %q\", userReq.URL.Path, resp.Status)",
+  "test_assertion": "require.ErrorIs(t, err, status.Error(codes.Internal, `github /user info response status: \"400 Bad Request\"`))",
+  "R1": "A non-200 response from the GitHub /user endpoint during callback must become an internal error whose message names /user and includes the exact HTTP status.",
+  "R2": "A from-prose implementation could apply the specified non-success HTTP status handling only to organization and team membership verification calls.",
+  "why_R2_fails": "R2 would not produce the asserted internal error for the /user route, so the exact ErrorIs assertion would fail."
+}

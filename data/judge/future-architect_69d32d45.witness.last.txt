@@ -1,0 +1,11 @@
+{
+  "test_behavior": "RedHat release \"6\" is found; on 2021-01-06 standard support is ended and extended support is not ended.",
+  "klass": "airtight",
+  "constant": "2024",
+  "r2_prose_clause": null,
+  "gold_anchor": "\"6\": {\n\t\t\t\tStandardSupportUntil: time.Date(2020, 11, 30, 23, 59, 59, 0, time.UTC),\n\t\t\t\tExtendedSupportUntil: time.Date(2024, 6, 30, 23, 59, 59, 0, time.UTC),\n\t\t\t}",
+  "test_assertion": "{\n\t\t\tname:     \"RHEL6 eol\",\n\t\t\tfields:   fields{family: RedHat, release: \"6\"},\n\t\t\tnow:      time.Date(2021, 1, 6, 23, 59, 59, 0, time.UTC),\n\t\t\tstdEnded: true,\n\t\t\textEnded: false,\n\t\t\tfound:    true,\n\t\t}",
+  "R1": "RHEL 6 has standard support ending on 2020-11-30 and extended support lasting until 2024-06-30, so on 2021-01-06 standard support is ended but extended support is not.",
+  "R2": "A from-prose engineer could include RHEL 6 in the EOL mapping with no extended support date or with a different extended support date, because the prose requires deterministic lifecycle information but does not state RedHat release-specific dates.",
+  "why_R2_fails": "If RHEL 6 lacks the 2024 extended-support endpoint or uses an earlier endpoint, IsExtendedSuppportEnded(time.Date(2021, 1, 6, 23, 59, 59, 0, time.UTC)) returns true instead of the asserted false."
+}

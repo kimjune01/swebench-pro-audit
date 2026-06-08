@@ -1,0 +1,11 @@
+{
+  "test_behavior": "str(SelectionInfo(wrapper=\"PyQt6\", reason=env)) returns exactly \"Qt wrapper: PyQt6 (via QUTE_QT_WRAPPER)\"",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "return f\"Qt wrapper: {self.wrapper} (via {self.reason.value})\"",
+  "test_assertion": "\"Qt wrapper: PyQt6 (via QUTE_QT_WRAPPER)\"",
+  "R1": "The short SelectionInfo string for an env-selected PyQt6 wrapper uses the SelectionReason.env value text QUTE_QT_WRAPPER.",
+  "R2": "A prose-faithful implementation could render the reason generically as env or environment because the prose only specifies <reason>.",
+  "why_R2_fails": "The test compares str(info) to the exact string containing QUTE_QT_WRAPPER, so any other env reason spelling fails."
+}

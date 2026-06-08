@@ -1,0 +1,11 @@
+{
+  "test_behavior": "_build_summary maps each entry point to entry_spec.get('short_description', '') rather than the full specification object.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "summary['entry_points'][ep] = entry_spec.get('short_description', '')",
+  "test_assertion": "'main': argspec['main']['short_description'],",
+  "R1": "_build_summary returns entry_points values as the short_description string for each argspec entry.",
+  "R2": "A from-prose engineer could implement only the requested _build_doc extraction and leave summary behavior untested or unrelated to the new method contract.",
+  "why_R2_fails": "The hidden test directly asserts that _build_summary returns argspec['main']['short_description'] for the main entry point."
+}

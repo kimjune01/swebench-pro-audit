@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For attribute addition from \"<a>hi</a>\" to \"<a href=\\\"#/room/!123\\\">hi</a>\", the snapshot expects added attributes to render as href=\"undefined\" and target=\"undefined\".",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "The diff renderer `editBodyDiffToHtml` should always return a valid React element and produce a consistent DOM structure for identical inputs (no null/undefined, and no unnecessary wrappers or attributes).",
+  "gold_anchor": "updatedNode.setAttribute(diff.name!, diff.newValue as string);",
+  "test_assertion": "<a\n              href=\"undefined\"\n              rel=\"noreferrer noopener\"\n            >",
+  "R1": "Attribute additions are applied through diff.newValue, producing literal undefined attribute values in the rendered diff snapshot.",
+  "R2": "Attribute additions should render the actual added attribute value or omit invalid undefined attributes, yielding valid DOM without unnecessary attributes.",
+  "why_R2_fails": "R2 would not produce the literal href=\"undefined\" markup required by the snapshot assertion."
+}

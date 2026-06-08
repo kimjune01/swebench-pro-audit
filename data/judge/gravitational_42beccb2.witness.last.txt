@@ -1,0 +1,11 @@
+{
+  "test_behavior": "The reverse-tunnel ServerID used for dialing is formatted as <HostID>.<clusterName>.",
+  "klass": "airtight",
+  "constant": "\"%v.%v\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "ServerID: fmt.Sprintf(\"%v.%v\", server.GetHostID(), proxyContext.cluster.GetName()),",
+  "test_assertion": "fmt.Sprintf(\"%v.%v\", offlineHostID, testCtx.clusterName): {},",
+  "R1": "The proxy constructs the tunnel ServerID by joining the database server HostID and cluster name with a dot.",
+  "R2": "A from-prose engineer could key OfflineTunnels by just HostID, cluster name plus HostID in another order, or another existing ServerID convention.",
+  "why_R2_fails": "The hidden test only marks the dot-joined HostID.clusterName string offline, so any other ServerID format would not trigger the simulated connection problem."
+}

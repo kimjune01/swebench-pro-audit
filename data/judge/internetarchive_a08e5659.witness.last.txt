@@ -1,0 +1,11 @@
+{
+  "test_behavior": "`lending_edition_s` equals `'OL2M'`, the public edition rather than the borrowable edition.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "add('lending_edition_s', re_edition_key.match(best_ed['key']).group(1))",
+  "test_assertion": "assert d['lending_edition_s'] == 'OL2M'",
+  "R1": "`lending_edition_s` must be the edition id of the best-sorted public IA edition.",
+  "R2": "`lending_edition_s` must be a lending-eligible edition id while public availability is reflected by `has_fulltext` and `public_scan_b`.",
+  "why_R2_fails": "R2 would keep or choose the borrowable edition, such as `OL3M`, so the equality assertion requiring `OL2M` fails."
+}

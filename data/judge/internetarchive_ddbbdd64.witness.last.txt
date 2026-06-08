@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For an author with `birth_date` and `death_date`, `add_db_name` mutates the author to include `db_name` as name, a space, birth date, hyphen, death date, e.g. `Smith, John 1895-1964`.",
+  "klass": "airtight",
+  "constant": "-",
+  "r2_prose_clause": null,
+  "gold_anchor": "date = a.get('birth_date', '') + '-' + a.get('death_date', '')",
+  "test_assertion": "orig[2]['db_name'] = orig[2]['name'] + ' 1895-1964'",
+  "R1": "Birth and death dates are joined with a hyphen after the author name.",
+  "R2": "Birth and death dates could be combined with the author name using another prose-faithful separator or formatting convention.",
+  "why_R2_fails": "The test requires the exact `Smith, John 1895-1964` string, so any non-hyphen date formatting fails the equality assertion."
+}

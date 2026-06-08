@@ -1,0 +1,11 @@
+{
+  "test_behavior": "get_isbn_10_and_13 preserves the input-relative order within isbn_10 and isbn_13 lists for mixed ISBN input.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "The implementation must be robust to whitespace-containing inputs and empty lists, sorting only values ​​that have a usable format and returning empty lists when there are no matches.",
+  "gold_anchor": "isbn_10.append(isbn)",
+  "test_assertion": "result = utils.get_isbn_10_and_13(\n        [\"9781576079454\", \"1576079457\", \"1576079392 \", \"9781280711190\"]\n    )\n    assert result == ([\"1576079457\", \"1576079392\"], [\"9781576079454\", \"9781280711190\"])",
+  "R1": "The utility classifies ISBNs by length and preserves each matching ISBN's original relative input order after trimming whitespace.",
+  "R2": "The utility classifies ISBNs by length, trims whitespace, and sorts the usable ISBN values within each output list.",
+  "why_R2_fails": "R2 would order the ISBN-10 values as [\"1576079392\", \"1576079457\"], but the test expects [\"1576079457\", \"1576079392\"]."
+}

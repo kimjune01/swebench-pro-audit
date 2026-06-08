@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Input with leading ordinary spaces before a number (`          12`) must raise `ValueError` matching `can't interpret following string`.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "Whitespace handling must be robust, preventing acceptance of malformed inputs while continuing to support standard spacing around numbers and units.",
+  "gold_anchor": "+    m = re.search(r'^([0-9]*\\.?[0-9]+)(?:\\s*([A-Za-z]+))?\\s*$', str(number))",
+  "test_assertion": "+        '          12',",
+  "R1": "Leading whitespace before an otherwise valid numeric input is malformed and must be rejected with \"can't interpret following string\".",
+  "R2": "Standard ASCII whitespace around the number may be tolerated, so an input like `          12` can be parsed the same as `12`.",
+  "why_R2_fails": "R2 accepts or proceeds to convert `          12`, but the test requires that exact input to raise a ValueError matching \"can't interpret following string\"."
+}

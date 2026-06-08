@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Subsonic Router.New must accept an eleventh constructor argument for the Share service.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "playlists core.Playlists, scrobbler scrobbler.PlayTracker, share core.Share) *Router {",
+  "test_assertion": "router = New(ds, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil)",
+  "R1": "The Router.New constructor signature is extended to take a final core.Share argument.",
+  "R2": "A from-prose engineer could add share endpoints by constructing or obtaining the share service inside the router without changing Router.New's public signature.",
+  "why_R2_fails": "R2 fails because the hidden tests compile against and call New with eleven arguments, including a final share value."
+}

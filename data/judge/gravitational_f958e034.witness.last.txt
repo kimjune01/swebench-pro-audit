@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Truncated cell content preserves the first MaxCellLength bytes and appends the literal ellipsis string `...` before any footnote label.",
+  "klass": "airtight",
+  "constant": "...",
+  "r2_prose_clause": null,
+  "gold_anchor": "truncatedCell := fmt.Sprintf(\"%v...\", cell[:maxCellLength])",
+  "test_assertion": "Joe Forrester Trains are much better th... [*] 40    ",
+  "R1": "When a cell exceeds MaxCellLength, render exactly the first MaxCellLength bytes followed by `...`, then append the footnote label if present.",
+  "R2": "When a cell exceeds MaxCellLength, truncate it to the maximum length and append the footnote label without adding an extra ellipsis marker.",
+  "why_R2_fails": "The expected table string contains `Trains are much better th... [*]`, so an implementation without `...` would not equal `truncatedTable`."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "CSV file size validation throws an error if the file is greater than 10MB.",
+  "klass": "airtight",
+  "constant": "10",
+  "r2_prose_clause": null,
+  "gold_anchor": "export const MAX_IMPORT_FILE_SIZE = 10 * BASE_SIZE ** 2;",
+  "test_assertion": "containers/members/multipleUserCreation/csv.test.ts | errors throws error if file is > 10MB",
+  "R1": "CSV import file size validation rejects files larger than exactly 10 * BASE_SIZE ** 2 bytes.",
+  "R2": "A from-prose engineer could centralize BASE_SIZE imports while choosing a different CSV import size limit or not preserving the exact prior limit.",
+  "why_R2_fails": "R2 fails because the test expects the CSV file-size error boundary to be exactly greater than 10MB."
+}

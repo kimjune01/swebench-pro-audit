@@ -1,0 +1,11 @@
+{
+  "test_behavior": "`hsv(10%,10%,10%)` parses the hue component to 35 rather than 36",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "return int(float(val) * mult)",
+  "test_assertion": "('hsv(10%,10%,10%)', QColor.fromHsv(35, 25, 25)),",
+  "R1": "Hue percentages are multiplied by 359 and then truncated to an integer.",
+  "R2": "Hue percentages are scaled to the 0-359 range using ordinary rounding, so 10% becomes 36.",
+  "why_R2_fails": "The hidden test expects `QColor.fromHsv(35, 25, 25)`, so a rounded hue value of 36 would not match."
+}

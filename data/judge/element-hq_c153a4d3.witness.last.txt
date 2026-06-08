@@ -1,0 +1,11 @@
+{
+  "test_behavior": "CallView participant avatar buttons have accessible name \"Profile picture\".",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "ariaLabel={_t(\"Profile picture\")}",
+  "test_assertion": "const avatars = screen.queryAllByRole(\"button\", { name: \"Profile picture\" });",
+  "R1": "MemberAvatar-sourced participant avatar buttons in CallView expose the accessible button name \"Profile picture\".",
+  "R2": "A from-prose engineer could update the named components and labels without realizing CallView participant controls are covered through MemberAvatar usage.",
+  "why_R2_fails": "The CallView test queries participant avatar buttons specifically by the accessible name \"Profile picture\", so buttons still named \"Avatar\" are not counted."
+}

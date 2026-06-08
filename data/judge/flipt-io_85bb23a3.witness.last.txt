@@ -1,0 +1,11 @@
+{
+  "test_behavior": "GitHub integration-test matrix includes the suite name \"api/cachetls\".",
+  "klass": "airtight",
+  "constant": "\"api/cachetls\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "\"api/cachetls\":  cacheWithTLS,",
+  "test_assertion": "\"api/cachetls\",",
+  "R1": "The TLS Redis integration suite is registered and selected using the exact matrix/suite name \"api/cachetls\".",
+  "R2": "A from-prose engineer could implement Redis TLS support and tests without adding a GitHub integration-test matrix entry named \"api/cachetls\".",
+  "why_R2_fails": "The hidden test discriminates by requiring the exact matrix string \"api/cachetls\", so any other suite name or no matrix entry fails."
+}

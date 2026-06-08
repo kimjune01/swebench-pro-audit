@@ -1,0 +1,11 @@
+{
+  "test_behavior": "buildKeyLabel(\".data/secret/graviton-leaf\") returns \".data/secret/graviton-leaf\", not masking even though the second segment is secret because the key does not start with /.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "if the second segment belongs to `sensitiveBackendPrefixes`, apply `backend.MaskKeyName` to the third before forming the label.",
+  "gold_anchor": "if len(parts) == 3 && len(parts[0]) == 0 && apiutils.SliceContainsStr(sensitivePrefixes, parts[1]) {",
+  "test_assertion": "{\".data/secret/graviton-leaf\", \".data/secret/graviton-leaf\"},",
+  "R1": "Only mask the third segment when the key has exactly three segments and the first segment is empty, meaning the key starts with `/`.",
+  "R2": "Mask the third segment whenever the second segment belongs to `sensitiveBackendPrefixes`, including `.data/secret/graviton-leaf`.",
+  "why_R2_fails": "R2 would return `.data/secret/*********leaf`, but the test expects `.data/secret/graviton-leaf`."
+}

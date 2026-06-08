@@ -1,0 +1,11 @@
+{
+  "test_behavior": "get_ia_record returns lccn as [\"2013003200\"].",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "The get_ia-record function must return a dictionary with title, authors, publisher, publish date, description, isbn, languages, subjects, and number of pages as keys.",
+  "gold_anchor": "d['lccn'] = [lccn]",
+  "test_assertion": "\"lccn\": [\"2013003200\"],",
+  "R1": "get_ia_record includes an lccn key and stores the IA lccn metadata as a one-element list.",
+  "R2": "get_ia_record returns only the prose-listed fields and omits lccn because lccn is not among the required keys.",
+  "why_R2_fails": "The hidden test compares the full result to expected_result, which includes \"lccn\": [\"2013003200\"]."
+}

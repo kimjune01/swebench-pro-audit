@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For input `test path-search` with `open_base_url=True`, `_get_search_url()` uses `test` as the search engine and treats `path-search` as the query term, producing host `www.qutebrowser.org` rather than opening the `path-search` engine as a base URL.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "if split[0] in config.val.url.searchengines:",
+  "test_assertion": "('test path-search', 'www.qutebrowser.org', 'q=path-search'),",
+  "R1": "When the first token is a configured search engine and a second token exists, the first token is the engine and the second token is the search term, even if the second token is also a configured engine name.",
+  "R2": "A from-prose engineer could preserve the existing `open_base_url` behavior and open `path-search` as a base URL when it appears as the term and matches a configured search engine.",
+  "why_R2_fails": "R2 would produce the `path-search` engine's base host instead of `www.qutebrowser.org` with query `q=path-search`."
+}

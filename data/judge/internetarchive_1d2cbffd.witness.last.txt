@@ -1,0 +1,11 @@
+{
+  "test_behavior": "works_autocomplete sends the Solr query exactly `title:\"foo\"^2 OR title:(foo*)` for q=`foo`, without name exact/prefix terms.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "All autocomplete endpoints must share a single base with consistent defaults: searches must consider both exact and “starts-with” matches on title and name, and must exclude edition records; they should honor the requested result limit.",
+  "gold_anchor": "query = 'title:\"{q}\"^2 OR title:({q}*)'",
+  "test_assertion": "assert mock_solr_select.call_args[0][0] == 'title:\"foo\"^2 OR title:(foo*)'",
+  "R1": "Works autocomplete queries only title exact and title prefix forms.",
+  "R2": "Works autocomplete, as one of all autocomplete endpoints, also queries name exact and name prefix forms using the shared base defaults.",
+  "why_R2_fails": "R2 would produce a Solr query containing name terms, so it would not equal the exact title-only string asserted by the hidden test."
+}

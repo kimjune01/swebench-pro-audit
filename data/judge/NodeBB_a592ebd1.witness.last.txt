@@ -1,0 +1,11 @@
+{
+  "test_behavior": "User.getUserFields(testUid, ['username', 'picture']) returns icon fields only when picture is explicitly requested, including a valid icon:bgColor.",
+  "klass": "airtight",
+  "constant": "'picture'",
+  "r2_prose_clause": null,
+  "gold_anchor": "if (requestedFields.includes('picture') && user.username && parseInt(user.uid, 10) && !meta.config.defaultAvatar) {",
+  "test_assertion": "const payload = await User.getUserFields(testUid, ['username', 'picture']);",
+  "R1": "Requesting the literal field 'picture' from User.getUserFields triggers avatar icon metadata generation.",
+  "R2": "A from-prose implementation could expose User.getIconBackgrounds without changing User.getUserFields behavior for the 'picture' field.",
+  "why_R2_fails": "The hidden test requests ['username', 'picture'] and then asserts icon metadata exists on that payload."
+}

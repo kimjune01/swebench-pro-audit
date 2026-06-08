@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For QtWebEngine 6.6.1 with colors.webpage.darkmode.policy.images=always, dark-mode-settings is exactly [('ImagePolicy', '0')].",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "'always': None,",
+  "test_assertion": "('6.6.1', 'policy.images', 'always', [('ImagePolicy', '0')]),",
+  "R1": "On QtWebEngine 6.6.1, always emits only ImagePolicy=0 and suppresses ImageClassifierPolicy.",
+  "R2": "On QtWebEngine 6.6.1, always could preserve the existing ImagePolicy=0 behavior while also emitting a classifier policy default because classifier plumbing exists for the image policy setting.",
+  "why_R2_fails": "R2 fails because the test expects the dark-mode-settings list to equal exactly [('ImagePolicy', '0')], with no ImageClassifierPolicy tuple."
+}

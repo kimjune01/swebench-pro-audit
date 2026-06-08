@@ -1,0 +1,11 @@
+{
+  "test_behavior": "the record Title is copied from the payload title",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "Title:         vulnerability.Title,",
+  "test_assertion": "Title:         \"WordPress <= 4.9.4 - Application Denial of Service (DoS) (unpatched)\",",
+  "R1": "The produced record's Title field must be set to the WPScan payload's title value.",
+  "R2": "A from-prose engineer could leave Title empty because the prose requires identifiers, references, timestamps, classification, fix information, summary, PoC, introduced version, and severity metrics, but never requires preserving title.",
+  "why_R2_fails": "Leaving Title empty makes reflect.DeepEqual differ from the expected VulnInfo containing the copied title string."
+}

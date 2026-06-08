@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For a minus CVE, the returned Packages entry for its affected package is copied from the previous scan result.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "p = previous.Packages[affected.Name]",
+  "test_assertion": "if !reflect.DeepEqual(tt.out.Packages[j], actual.Packages[j]) {\n\t\t\t\t\th := pp.Sprint(tt.out.Packages[j])\n\t\t\t\t\tx := pp.Sprint(actual.Packages[j])\n\t\t\t\t\tt.Errorf(\"[%d] packages actual: \\n %s \\n expected: \\n %s\", i, x, h)\n\t\t\t\t}",
+  "R1": "Resolved CVEs with DiffStatus \"-\" must carry package metadata copied from the previous scan result.",
+  "R2": "A prose-faithful implementation could return resolved CVEs with \"-\" status while leaving package metadata empty or deriving packages only from the current result.",
+  "why_R2_fails": "The hidden test compares the returned package map against expected previous-scan package entries, so empty or current-only package metadata does not match."
+}

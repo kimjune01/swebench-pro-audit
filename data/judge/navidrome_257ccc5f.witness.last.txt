@@ -1,0 +1,11 @@
+{
+  "test_behavior": "On a successful walkDirTree run, errC does not receive nil or any other error value.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "if err != nil {\n\t\t\tlog.Error(ctx, \"There were errors reading directories from filesystem\", \"path\", rootFolder, err)\n\t\t\terrC <- err\n\t\t}",
+  "test_assertion": "Consistently(errC).ShouldNot(Receive())",
+  "R1": "On success, walkDirTree closes the error channel without sending any value.",
+  "R2": "On success, walkDirTree returns an error channel that sends nil to report successful completion.",
+  "why_R2_fails": "R2 fails because the test asserts the error channel should not receive any value at all during the consistency window."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "parseApkInstalledList parses `apk list --installed` package lines while ignoring preceding WARNING lines that do not match the package-list format.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "for _, match := range re.FindAllStringSubmatch(stdout, -1) {",
+  "test_assertion": "stdout: `WARNING: opening from cache https://dl-cdn.alpinelinux.org/alpine/v3.20/main: No such file or directory\nWARNING: opening from cache https://dl-cdn.alpinelinux.org/alpine/v3.20/community: No such file or directory\nalpine-baselayout-3.6.5-r0 x86_64 {alpine-baselayout} (GPL-2.0-only) [installed]\nalpine-baselayout-data-3.6.5-r0 x86_64 {alpine-baselayout} (GPL-2.0-only) [installed]\nca-certificates-bundle-20240226-r0 x86_64 {ca-certificates} (MPL-2.0 AND MIT) [installed]\n`,",
+  "R1": "The parser scans for valid apk-list package records and ignores nonmatching warning lines before them.",
+  "R2": "A prose-faithful parser could treat any non-package line in `apk list --installed` output as malformed output and return an error.",
+  "why_R2_fails": "R2 fails because the test input begins with WARNING lines but still expects successful parsed packages and source mappings."
+}

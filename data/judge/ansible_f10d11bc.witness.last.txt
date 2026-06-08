@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For inserting a missing rule, the module performs exactly 2 system calls and does not execute a chain presence check between the rule presence check and the insert command.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "Chain creation should only occur as a side-effect if required for rule management, never redundantly.",
+  "gold_anchor": "if should_be_present:\n                    if insert:\n                        insert_rule(iptables_path, module, module.params)\n                    else:\n                        append_rule(iptables_path, module, module.params)",
+  "test_assertion": "self.assertEqual(run_command.call_count, 2)",
+  "R1": "When inserting a missing rule, the module checks only rule presence and then runs the insert command, without checking chain presence.",
+  "R2": "When inserting a missing rule, the module may check whether the chain exists so chain creation can occur as a required side-effect for rule management.",
+  "why_R2_fails": "R2 adds a chain presence check, so the mocked command count would exceed the test-pinned value of 2."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "validate_record(rec, False) raises SourceNeedsISBN when source_records is ['amazon:amazon_id'] and isbn_10 is empty.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "if needs_isbn_and_lacks_one(rec) and not override_validation:\n        raise SourceNeedsISBN",
+  "test_assertion": "with pytest.raises(error):\n            validate_record(rec, web_input)",
+  "R1": "A record with source_records ['amazon:amazon_id'] and an empty isbn_10 list requires an ISBN and raises SourceNeedsISBN when override_validation is False.",
+  "R2": "A from-prose engineer could preserve missing-ISBN validation generally without knowing that the specific source token amazon:amazon_id is one of the ISBN-requiring sources.",
+  "why_R2_fails": "The hidden parametrized case sets error to SourceNeedsISBN for amazon:amazon_id, so an implementation that does not classify that source as ISBN-requiring will not raise."
+}

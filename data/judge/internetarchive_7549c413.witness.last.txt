@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Google Scholar identifiers are read from Wikidata property P1960.",
+  "klass": "airtight",
+  "constant": "\"P1960\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "\"wikidata_property\": \"P1960\",",
+  "test_assertion": "entity.statements = {\n        'P1960': [{'value': {'content': 'scholar123'}}]  # Google Scholar ID\n    }",
+  "R1": "Google Scholar profiles are sourced specifically from Wikidata property P1960.",
+  "R2": "A from-prose engineer could support Google Scholar identifiers through a different configured property mapping or service abstraction while still producing Google Scholar profile entries.",
+  "why_R2_fails": "The hidden test only populates P1960, so any implementation that does not read exactly that property produces no Google Scholar profile."
+}

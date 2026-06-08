@@ -1,0 +1,11 @@
+{
+  "test_behavior": "The unused GCP KMS key version name in newTestPack is built from config.GCPKMS.KeyRing rather than a local environment variable value.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "KeyRing:         gcpKeyring,",
+  "test_assertion": "keyVersionName: config.GCPKMS.KeyRing + \"/cryptoKeys/FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF\" + keyVersionSuffix,",
+  "R1": "newTestPack should construct the unused GCP KMS key version name from the centralized config returned by gcpKMSTestConfig.",
+  "R2": "newTestPack could construct the unused GCP KMS key version name from the same validated GCP KMS environment variable value used to populate the config.",
+  "why_R2_fails": "R2 fails because the hidden test expects the expression to use config.GCPKMS.KeyRing directly, not a local environment-derived variable."
+}

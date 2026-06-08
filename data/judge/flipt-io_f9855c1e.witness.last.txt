@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Missing extended-schema field errors are located at the nearest existing YAML ancestor selected from the CUE error path, so flags.1.description reports line 30, the start of the boolean flag object.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "When validation errors occur, the system must report accurate line numbers that correspond to the actual location of the problematic field or value in the source YAML file.",
+  "gold_anchor": "if pos := val.Pos(); pos.IsValid() {\n\t\t\t\trerr.Location.Line = pos.Line() + offset\n\t\t\t\terrs = append(errs, rerr)\n\t\t\t\tcontinue OUTER\n\t\t\t}",
+  "test_assertion": "// location of the start of the boolean flag\n\t// which lacks a description\n\tassert.Equal(t, 30, ferr.Location.Line)",
+  "R1": "For a missing field required by an extended schema, report the position of the nearest existing YAML ancestor found by walking back the CUE error path.",
+  "R2": "For a missing field required by an extended schema, report the best position corresponding to the problematic missing field or value rather than the containing object start.",
+  "why_R2_fails": "R2 would not necessarily return line 30 for flags.1.description, but the test requires the containing boolean flag object's start line exactly."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "After proc.start(*py_proc(\"\")) begins, proc.pid is present as a key in guiprocess.all_processes before cleanup fires.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "all_processes[self.pid] = self",
+  "test_assertion": "assert proc.pid in guiprocess.all_processes",
+  "R1": "A started GUIProcess is registered in all_processes immediately with its pid mapped to the live process object before cleanup later changes it to None.",
+  "R2": "A from-prose implementation could focus on representing cleaned-up successful processes as None without guaranteeing the pid is present in all_processes immediately after start and before cleanup.",
+  "why_R2_fails": "The hidden test checks membership immediately after proc.start(*py_proc(\"\")), so an implementation that does not register the pid at that point fails the assertion."
+}

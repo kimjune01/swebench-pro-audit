@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Running invalid command `:message-i \"Hello World\"` shows exactly `message-i: no such command (did you mean :message-info?)`.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "self._commandrunner = runners.CommandRunner(\n            self.win_id, partial_match=True, find_similar=True)",
+  "test_assertion": "Then the error \"message-i: no such command (did you mean :message-info?)\" should be shown",
+  "R1": "The main window command runner enables similar-command suggestions, so an invalid startup command suggests `:message-info`.",
+  "R2": "A from-prose engineer could add suggestion support to `CommandParser` but leave this particular runner path without suggestions unless explicitly configured.",
+  "why_R2_fails": "The hidden end-to-end test expects the startup command path to include the `:message-info` suggestion."
+}

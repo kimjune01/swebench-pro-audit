@@ -1,0 +1,11 @@
+{
+  "test_behavior": "A direct kube_service session increments f.clientCredentials.Len() to 1.",
+  "klass": "airtight",
+  "constant": "1",
+  "r2_prose_clause": null,
+  "gold_anchor": "tlsConfig, err := f.getOrRequestClientCreds(ctx)",
+  "test_assertion": "require.Equal(t, 1, f.clientCredentials.Len())",
+  "R1": "A direct kube_service session must request exactly one new client certificate, increasing f.clientCredentials.Len() to 1.",
+  "R2": "A direct kube_service session may create a valid session without making the client credential cache length exactly 1.",
+  "why_R2_fails": "R2 fails because the hidden test asserts the exact cache length is 1 after creating the direct kube_service session."
+}

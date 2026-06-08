@@ -1,0 +1,11 @@
+{
+  "test_behavior": "DefaultConfig() sets database URL to \"file:/var/opt/flipt/flipt.db\".",
+  "klass": "airtight",
+  "constant": "\"file:/var/opt/flipt/flipt.db\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "URL:                       \"file:/var/opt/flipt/flipt.db\",",
+  "test_assertion": "err = v.LookupDef(\"#FliptSpec\").Unify(dflt).Validate(\n\t\tcue.Concrete(true),\n\t)",
+  "R1": "The default configuration includes the database URL \"file:/var/opt/flipt/flipt.db\".",
+  "R2": "A prose-faithful implementation could return a complete default Config with a different valid database URL string.",
+  "why_R2_fails": "The CUE validation path is anchored to the schema and gold defaults that use \"file:/var/opt/flipt/flipt.db\", so a different default URL would not match the test-pinned default configuration."
+}

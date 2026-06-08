@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For zweibchersatir01horauoft_meta.mrc, languages is exactly [\"ger\", \"lat\"] in that order.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "edition['languages'].append(saved_language)",
+  "test_assertion": "\"languages\": [\"ger\", \"lat\"],",
+  "R1": "The importer preserves the originally saved first language and includes the 041-derived language so the final list is exactly [\"ger\", \"lat\"].",
+  "R2": "A from-prose engineer could include both the 041-derived languages and the originally saved first language but choose a different ordering.",
+  "why_R2_fails": "The hidden expectation compares the serialized languages list order, so a result like [\"lat\", \"ger\"] would not match [\"ger\", \"lat\"]."
+}

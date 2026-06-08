@@ -1,0 +1,11 @@
+{
+  "test_behavior": "880 table of contents entries are returned as objects with title and type fields, where type is exactly \"/type/toc_item\".",
+  "klass": "airtight",
+  "constant": "\"/type/toc_item\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "return [{'title': s, 'type': '/type/toc_item'} for s in toc]",
+  "test_assertion": "\"table_of_contents\": [\n    {\n      \"title\": \"Rasskazy\",\n      \"type\": \"/type/toc_item\"\n    },\n    {\n      \"title\": \"Vremi︠a︡ nochʹ : roman\",\n      \"type\": \"/type/toc_item\"\n    }\n  ]",
+  "R1": "The test pins table_of_contents as a list of objects, each with a title and the exact type value \"/type/toc_item\".",
+  "R2": "A from-prose engineer could return the extracted table of contents titles as plain strings or differently shaped structured items.",
+  "why_R2_fails": "R2 fails because the expected JSON requires each item to include the exact \"type\": \"/type/toc_item\" key-value pair."
+}

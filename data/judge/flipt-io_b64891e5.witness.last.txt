@@ -1,0 +1,11 @@
+{
+  "test_behavior": "FileInfo exposes an unexported field named etag that tests can set and read directly.",
+  "klass": "airtight",
+  "constant": "etag",
+  "r2_prose_clause": null,
+  "gold_anchor": "etag    string",
+  "test_assertion": "require.Equal(t, \"etag1\", fi.etag)",
+  "R1": "FileInfo has an internal field with the exact identifier etag that stores the ETag value.",
+  "R2": "FileInfo stores the ETag value using any internal representation as long as Etag() returns the set or computed value.",
+  "why_R2_fails": "R2 fails because the hidden test directly accesses fi.etag, so an equivalent implementation without that exact field name will not compile or pass."
+}

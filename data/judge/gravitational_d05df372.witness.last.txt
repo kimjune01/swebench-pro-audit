@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For the unsupported user type authenticate case, authenticate must return an error where trace.IsAccessDenied(err) is true.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "if trace.IsAccessDenied(err) {\n\t\t\treturn nil, trace.AccessDenied(accessDeniedMsg)\n\t\t}\n\t\treturn nil, trace.Wrap(err)",
+  "test_assertion": "wantErr:     true,\n\t\t\twantAuthErr: true,",
+  "R1": "An unsupported user type is treated as an authorization/access failure and is returned as AccessDenied.",
+  "R2": "An unsupported user type is treated as an unexpected setup/internal error and is returned as a non-AccessDenied wrapped error.",
+  "why_R2_fails": "R2 makes trace.IsAccessDenied(err) false, but the test sets wantAuthErr to true for the unsupported user type case."
+}

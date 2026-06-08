@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When all four app metadata fields for Sample are missing-key plutil errors, parseInstalledPackages returns package Sample with only Name: Sample, derived from the .app path.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "The application metadata handling should preserve bundle identifiers and names exactly as returned, trimming only whitespace and avoiding localization, aliasing, or case changes.",
+  "gold_anchor": "name = filepath.Base(strings.TrimSuffix(file, \".app/Contents/Info.plist\"))",
+  "test_assertion": "\"Sample\": {\n\t\t\t\t\tName: \"Sample\",\n\t\t\t\t},",
+  "R1": "If display name and bundle name are missing, derive the package name from the application bundle path.",
+  "R2": "If display name and bundle name are missing, preserve the missing metadata as empty rather than inventing a name from the path.",
+  "why_R2_fails": "R2 would not produce a package keyed by \"Sample\" with Name set to \"Sample\", so the expected packages map would not match."
+}

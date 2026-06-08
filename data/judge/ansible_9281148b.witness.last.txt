@@ -1,0 +1,11 @@
+{
+  "test_behavior": "isidentifier(\"no-dashed-names-for-you\") returns False",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "if not ident.isidentifier():\n        return False",
+  "test_assertion": "\"pass\", \"foo \", \" foo\", \"1234\", \"1234abc\", \"\", \"   \", \"foo bar\", \"no-dashed-names-for-you\",",
+  "R1": "A dashed name such as \"no-dashed-names-for-you\" is not a valid identifier and must return False.",
+  "R2": "A from-prose engineer could implement only the explicitly listed invalid categories and examples, without adding a specific dashed-name case.",
+  "why_R2_fails": "The hidden test includes \"no-dashed-names-for-you\" in the invalid parameter list and asserts not isidentifier(identifier)."
+}

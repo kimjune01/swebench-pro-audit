@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Selecting two devices makes the header show the text \"2 sessions selected\".",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "selectedDeviceCount={selectedDeviceIds.length}",
+  "test_assertion": "expect(getByText('2 sessions selected')).toBeTruthy();",
+  "R1": "The header renders the selected count using the exact visible text \"2 sessions selected\" when two devices are selected.",
+  "R2": "The header shows the total number of selected sessions in another clear prose-faithful format, such as \"Selected sessions: 2\".",
+  "why_R2_fails": "R2 fails because the test searches specifically for the exact text '2 sessions selected'."
+}

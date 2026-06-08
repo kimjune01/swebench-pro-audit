@@ -1,0 +1,11 @@
+{
+  "test_behavior": "With Workers(2), Capacity(4), InputBuf(1), OutputBuf(1), and no popping, exactly 6 sends must complete and the 7th must block.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "When the number of items in flight reaches the configured capacity, attempts to send new items via the input channel provided by `Push()` must block until capacity becomes available, applying backpressure to producers.",
+  "gold_anchor": "input:  make(chan interface{}, cfg.inputBuf),\n\t\toutput: make(chan interface{}, cfg.outputBuf),",
+  "test_assertion": "workers:  2,\n\t\t\tcapacity: 4,\n\t\t\tinBuf:    1,\n\t\t\toutBuf:   1,\n\t\t\texpect:   6,",
+  "R1": "Input and output channel buffers add extra send capacity beyond configured in-flight capacity, so this scenario permits 6 sends before backpressure.",
+  "R2": "Capacity is the maximum number of in-flight items, so this scenario should apply backpressure once 4 items are in flight.",
+  "why_R2_fails": "R2 blocks the 5th send, but the test requires sends 1 through 6 to complete within 200ms."
+}

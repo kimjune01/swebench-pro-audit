@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When multipart_encoding is '7or8bit' for an ASCII text file, the generated multipart part uses the header Content-Transfer-Encoding: 7bit.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "\"7or8bit\": email.encoders.encode_7or8bit",
+  "test_assertion": "Content-Transfer-Encoding: 7bit",
+  "R1": "The '7or8bit' option must use Python email.encoders.encode_7or8bit, which emits Content-Transfer-Encoding: 7bit for this ASCII payload.",
+  "R2": "A prose-faithful implementation could accept '7or8bit' as the user-facing encoding option while emitting a different valid multipart transfer encoding behavior for the file.",
+  "why_R2_fails": "The fixture comparison requires the exact generated multipart bytes to include Content-Transfer-Encoding: 7bit for file7."
+}

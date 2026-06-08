@@ -1,0 +1,11 @@
+{
+  "test_behavior": "On http.StateClosed, accepted connections remains cumulative at 1.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "defer r.ConnectionClosed(service, conn)",
+  "test_assertion": "require.Equal(t, 1, getAcceptedConnections(PathDirect, Web))",
+  "R1": "The accepted connections metric is cumulative and remains 1 after the tracked TLS connection closes.",
+  "R2": "A from-prose engineer could treat close removal as updating all connection counts, making accepted connections return to 0 after the connection closes.",
+  "why_R2_fails": "R2 fails because the hidden test asserts getAcceptedConnections(PathDirect, Web) is still 1 after http.StateClosed."
+}

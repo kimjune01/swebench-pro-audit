@@ -1,0 +1,11 @@
+{
+  "test_behavior": "TocEntry.to_markdown renders TocEntry(level=0, title=\"Chapter 1\", pagenum=\"1\") as exactly \"  | Chapter 1 | 1\" with two leading spaces.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "level=0, title=\"Chapter 1\", pagenum=\"1\" ⇒ \" | Chapter 1 | 1\"",
+  "gold_anchor": "return f\"{'*' * self.level} {self.label or ''} | {self.title or ''} | {self.pagenum or ''}\"",
+  "test_assertion": "assert entry.to_markdown() == \"  | Chapter 1 | 1\"",
+  "R1": "When label is absent, to_markdown still emits both the post-level separator space and the empty-label separator space, producing two leading spaces before the pipe at level 0.",
+  "R2": "When label is absent at level 0, to_markdown emits the prose example exactly, with one leading space before the pipe.",
+  "why_R2_fails": "R2 returns \" | Chapter 1 | 1\", which does not equal the hidden test's expected \"  | Chapter 1 | 1\"."
+}

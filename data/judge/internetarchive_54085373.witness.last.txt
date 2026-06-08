@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Batch.get_relpath(\"0008\", \"80\", size=\"s\") returns \"s_covers_0008/s_covers_0008_80\".",
+  "klass": "airtight",
+  "constant": "\"s\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "prefix = f\"{size.lower()}_\" if size else \"\"",
+  "test_assertion": "assert (\n        archive.Batch.get_relpath(\"0008\", \"80\", size=\"s\") == \"s_covers_0008/s_covers_0008_80\"\n    )",
+  "R1": "The size variant is encoded by a one-letter lowercase prefix followed by an underscore, so size=\"s\" produces s_covers-prefixed paths.",
+  "R2": "A from-prose engineer could encode the documented small size as size=\"small\" or small_covers-prefixed paths instead of the one-letter token.",
+  "why_R2_fails": "The hidden test calls size=\"s\" and requires the exact path string \"s_covers_0008/s_covers_0008_80\"."
+}

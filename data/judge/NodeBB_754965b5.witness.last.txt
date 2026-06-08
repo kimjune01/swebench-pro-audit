@@ -1,0 +1,11 @@
+{
+  "test_behavior": "db.getObjectsFields(['testObject8', 'testObject9', 'doesnotexist'], []) with an empty fields array returns full stored objects: first result has name 'baris' and age 99; second result has name 'ginger' and age 3.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "if (!fields.length) {\n\t\t\treturn await module.getObjects(keys);\n\t\t}",
+  "test_assertion": "const objects = await db.getObjectsFields(['testObject8', 'testObject9', 'doesnotexist'], []);\n\t\t\tassert(Array.isArray(objects));\n\t\t\tassert.strict(objects.length, 3);\n\t\t\tassert.strictEqual(objects[0].name, 'baris');\n\t\t\tassert.strictEqual(Number(objects[0].age), 99);\n\t\t\tassert.strictEqual(objects[1].name, 'ginger');\n\t\t\tassert.strictEqual(Number(objects[1].age), 3);\n\t\t\tassert.strictEqual(!!objects[2], false);",
+  "R1": "Calling getObjectsFields(keys, []) must behave like getObjects(keys), returning full stored objects and preserving missing-key slots.",
+  "R2": "A from-prose engineer could implement empty-fields full-object behavior only for db.getObject and db.getObjects, leaving getObjectsFields semantics unchanged because it is not part of the stated interface change.",
+  "why_R2_fails": "R2 fails because the hidden test directly calls getObjectsFields(keys, []) and asserts full object fields and a three-slot result."
+}

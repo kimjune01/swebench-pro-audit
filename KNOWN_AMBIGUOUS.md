@@ -1,7 +1,43 @@
 # KNOWN_AMBIGUOUS — gold passes, prose underdetermines
 
-Gold passes its verifier, but the hidden test checks behavior no requirement determines (a specification lottery). The blank cells in each attribution are the evidence. Screen = codex coverage table; confirm with the decontaminated panel (see docs/ADMISSIBILITY-SPEC.md).
+Gold passes its verifier, but the hidden test checks behavior no requirement determines (a specification lottery). **Two tiers.** The PROVEN tier (below) is the mechanical spine — each carries a verified argument witness and needs no rater. The HYPOTHESIS tier is screen-flagged and raters-pending; it is counted separately and NOT claimed.
 
-| case | instance_id | coverage | gaps | status | witness | attribution |
-|---|---|---|---|---|---|---|
-| tutao | `instance_tutao__tutanota-51818218c6ae33de00cbea3a4d30daac8c34142e-vc4e41fd0029957297843cb9dec4a25c7c756f029` | 13/19 | 6 | **PROVEN** | [witness](data/cases/tutao/AMBIGUITY_WITNESS.md) | [table](data/attribution/tutao.md) |
+## PROVEN (mechanical spine): 31
+
+| case | class | instance_id | coverage | gaps | witness |
+|---|---|---|---|---|---|
+| ansible_20ef733e | airtight | `instance_ansible__ansible-1bd7dcf339dd8b6c50bc16670be2448a206f4fdb-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5` | 2/8 | 6 | [witness](data/cases/ansible_20ef733e/AMBIGUITY_WITNESS.md) |
+| ansible_341a6be7 | airtight | `instance_ansible__ansible-ea04e0048dbb3b63f876aad7020e1de8eee9f362-v1055803c3a812189a1133297f7f5468579283f86` | 10/13 | 3 | [witness](data/cases/ansible_341a6be7/AMBIGUITY_WITNESS.md) |
+| ansible_6d34eb88 | airtight | `instance_ansible__ansible-bec27fb4c0a40c5f8bbcf26a475704227d65ee73-v30a923fb5c164d6cd18280c02422f75e611e8fb2` | 23/32 | 9 | [witness](data/cases/ansible_6d34eb88/AMBIGUITY_WITNESS.md) |
+| ansible_b6360dc5 | airtight | `instance_ansible__ansible-83909bfa22573777e3db5688773bda59721962ad-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5` | 1/2 | 1 | [witness](data/cases/ansible_b6360dc5/AMBIGUITY_WITNESS.md) |
+| ansible_dcc5dac1 | airtight | `instance_ansible__ansible-d33bedc48fdd933b5abd65a77c081876298e2f07-v0f01c69f1e2528b935359cfe578530722bca2c59` | 16/40 | 24 | [witness](data/cases/ansible_dcc5dac1/AMBIGUITY_WITNESS.md) |
+| element-hq_1a0dbbf1 | airtight | `instance_element-hq__element-web-e15ef9f3de36df7f318c083e485f44e1de8aad17` | 5/9 | 4 | [witness](data/cases/element-hq_1a0dbbf1/AMBIGUITY_WITNESS.md) |
+| flipt-io_1bd9924b | airtight | `instance_flipt-io__flipt-b6cef5cdc0daff3ee99e5974ed60a1dc6b4b0d67` | 13/14 | 1 | [witness](data/cases/flipt-io_1bd9924b/AMBIGUITY_WITNESS.md) |
+| flipt-io_2d0ff0c9 | airtight | `instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55` | 11/18 | 7 | [witness](data/cases/flipt-io_2d0ff0c9/AMBIGUITY_WITNESS.md) |
+| flipt-io_32864671 | airtight | `instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b` | 13/14 | 1 | [witness](data/cases/flipt-io_32864671/AMBIGUITY_WITNESS.md) |
+| flipt-io_3ddd2d16 | airtight | `instance_flipt-io__flipt-0fd09def402258834b9d6c0eaa6d3b4ab93b4446` | 9/12 | 3 | [witness](data/cases/flipt-io_3ddd2d16/AMBIGUITY_WITNESS.md) |
+| flipt-io_563a8c45 | airtight | `instance_flipt-io__flipt-6fd0f9e2587f14ac1fdd1c229f0bcae0468c8daa` | 13/17 | 4 | [witness](data/cases/flipt-io_563a8c45/AMBIGUITY_WITNESS.md) |
+| flipt-io_85bb23a3 | airtight | `instance_flipt-io__flipt-02e21636c58e86c51119b63e0fb5ca7b813b07b1` | 10/11 | 1 | [witness](data/cases/flipt-io_85bb23a3/AMBIGUITY_WITNESS.md) |
+| flipt-io_866ba43d | airtight | `instance_flipt-io__flipt-ea9a2663b176da329b3f574da2ce2a664fc5b4a1` | 15/19 | 4 | [witness](data/cases/flipt-io_866ba43d/AMBIGUITY_WITNESS.md) |
+| flipt-io_9c3cab43 | airtight | `instance_flipt-io__flipt-ebb3f84c74d61eee4d8c6875140b990eee62e146` | 5/7 | 2 | [witness](data/cases/flipt-io_9c3cab43/AMBIGUITY_WITNESS.md) |
+| flipt-io_b22f5f02 | airtight | `instance_flipt-io__flipt-84806a178447e766380cc66b14dee9c6eeb534f4` | 8/9 | 1 | [witness](data/cases/flipt-io_b22f5f02/AMBIGUITY_WITNESS.md) |
+| flipt-io_ee02b164 | airtight | `instance_flipt-io__flipt-a42d38a1bb1df267c53d9d4a706cf34825ae3da9` | 3/6 | 3 | [witness](data/cases/flipt-io_ee02b164/AMBIGUITY_WITNESS.md) |
+| flipt-io_f3421c14 | airtight | `instance_flipt-io__flipt-2ce8a0331e8a8f63f2c1b555db8277ffe5aa2e63` | 5/7 | 2 | [witness](data/cases/flipt-io_f3421c14/AMBIGUITY_WITNESS.md) |
+| future-architect_2c51bcf4 | airtight | `instance_future-architect__vuls-030b2e03525d68d74cb749959aac2d7f3fc0effa` | 0/5 | 5 | [witness](data/cases/future-architect_2c51bcf4/AMBIGUITY_WITNESS.md) |
+| future-architect_83d1f809 | airtight | `instance_future-architect__vuls-aaea15e516ece43978cf98e09e52080478b1d39f` | 4/5 | 1 | [witness](data/cases/future-architect_83d1f809/AMBIGUITY_WITNESS.md) |
+| gravitational_07e2ca13 | airtight | `instance_gravitational__teleport-4e1c39639edf1ab494dd7562844c8b277b5cfa18-vee9b09fb20c43af7e520f57e9239bbcf46b7113d` | 15/16 | 1 | [witness](data/cases/gravitational_07e2ca13/AMBIGUITY_WITNESS.md) |
+| gravitational_0a61c9e8 | airtight | `instance_gravitational__teleport-4f771403dc4177dc26ee0370f7332f3fe54bee0f-vee9b09fb20c43af7e520f57e9239bbcf46b7113d` | 33/34 | 1 | [witness](data/cases/gravitational_0a61c9e8/AMBIGUITY_WITNESS.md) |
+| gravitational_2308160e | airtight | `instance_gravitational__teleport-3587cca7840f636489449113969a5066025dd5bf` | 3/4 | 1 | [witness](data/cases/gravitational_2308160e/AMBIGUITY_WITNESS.md) |
+| gravitational_b37b02cd | airtight | `instance_gravitational__teleport-c1b1c6a1541c478d7777a48fca993cc8206c73b9` | 6/10 | 4 | [witness](data/cases/gravitational_b37b02cd/AMBIGUITY_WITNESS.md) |
+| internetarchive_7549c413 | airtight | `instance_internetarchive__openlibrary-5fb312632097be7e9ac6ab657964af115224d15d-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4` | 11/22 | 11 | [witness](data/cases/internetarchive_7549c413/AMBIGUITY_WITNESS.md) |
+| internetarchive_c46e5170 | airtight | `instance_internetarchive__openlibrary-3f7db6bbbcc7c418b3db72d157c6aed1d45b2ccf-v430f20c722405e462d9ef44dee7d34c41e76fe7a` | 8/9 | 1 | [witness](data/cases/internetarchive_c46e5170/AMBIGUITY_WITNESS.md) |
+| navidrome_d0ce0303 | airtight | `instance_navidrome__navidrome-3972616585e82305eaf26aa25697b3f5f3082288` | 20/22 | 2 | [witness](data/cases/navidrome_d0ce0303/AMBIGUITY_WITNESS.md) |
+| navidrome_db11b6b8 | airtight | `instance_navidrome__navidrome-b3980532237e57ab15b2b93c49d5cd5b2d050013` | 4/5 | 1 | [witness](data/cases/navidrome_db11b6b8/AMBIGUITY_WITNESS.md) |
+| qutebrowser_6d9c28ce | airtight | `instance_qutebrowser__qutebrowser-3d01c201b8aa54dd71d4f801b1dd12feb4c0a08a-v5fc38aaf22415ab0b70567368332beee7955b367` | 10/16 | 6 | [witness](data/cases/qutebrowser_6d9c28ce/AMBIGUITY_WITNESS.md) |
+| qutebrowser_74671c16 | airtight | `instance_qutebrowser__qutebrowser-fcfa069a06ade76d91bac38127f3235c13d78eb1-v5fc38aaf22415ab0b70567368332beee7955b367` | 9/12 | 3 | [witness](data/cases/qutebrowser_74671c16/AMBIGUITY_WITNESS.md) |
+| qutebrowser_d1164925 | airtight | `instance_qutebrowser__qutebrowser-394bfaed6544c952c6b3463751abab3176ad4997-vafb3e8e01b31319c66c4e666b8a3b1d8ba55db24` | 9/17 | 8 | [witness](data/cases/qutebrowser_d1164925/AMBIGUITY_WITNESS.md) |
+| tutao | prose-affirmative | `instance_tutao__tutanota-51818218c6ae33de00cbea3a4d30daac8c34142e-vc4e41fd0029957297843cb9dec4a25c7c756f029` | 13/19 | 6 | [witness](data/cases/tutao/AMBIGUITY_WITNESS.md) |
+
+## HYPOTHESIS (codebase / borderline): 219 — raters-pending, NOT claimed
+
+A snapshot shows plurality, not binding force; `DETERMINED-codebase` vs `AMBIGUOUS-codebase` is interpretive and needs ≥2 independent codebase-aware raters + κ (see ADMISSIBILITY-SPEC). Each carries an `AMBIGUITY_HYPOTHESIS.md`. Listed in [`COVERAGE.md`](COVERAGE.md).

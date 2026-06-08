@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When no `retries` parameter is supplied and the wait condition never succeeds, `run_commands` is called exactly 10 times.",
+  "klass": "airtight",
+  "constant": "10",
+  "r2_prose_clause": null,
+  "gold_anchor": "default: 10",
+  "test_assertion": "self.assertEqual(self.run_commands.call_count, 10)",
+  "R1": "The module defaults to exactly 10 retry attempts when `retries` is omitted.",
+  "R2": "The module supports retry logic with a configurable retry count, using any reasonable default when `retries` is omitted.",
+  "why_R2_fails": "A prose-faithful implementation with any default other than 10 would call `run_commands` a different number of times and fail the assertion."
+}

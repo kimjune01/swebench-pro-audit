@@ -1,0 +1,11 @@
+{
+  "test_behavior": "The account-wide master notifications control has the exact caption text `Turn off to disable notifications on all your devices and sessions`.",
+  "klass": "airtight",
+  "constant": "\"Turn off to disable notifications on all your devices and sessions\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "caption={_t(\"Turn off to disable notifications on all your devices and sessions\")}",
+  "test_assertion": "caption=\"Turn off to disable notifications on all your devices and sessions\"",
+  "R1": "The account-wide master notifications control must use the exact caption text `Turn off to disable notifications on all your devices and sessions`.",
+  "R2": "The account-wide master notifications control can use any clear caption text indicating that it affects all devices and sessions.",
+  "why_R2_fails": "A different clear caption would satisfy the prose but fail the snapshot assertion expecting this exact string."
+}

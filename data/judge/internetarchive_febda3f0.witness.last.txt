@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For `authors:Kim Harrison OR authors:Lynsay Sands`, `process_user_query` returns exactly `author_name:(Kim Harrison) OR author_name:(Lynsay Sands)`, including grouping the two-word author names and preserving `OR`.",
+  "klass": "airtight",
+  "constant": "author_name",
+  "r2_prose_clause": null,
+  "gold_anchor": "'authors': 'author_name',",
+  "test_assertion": "'Operators': (\n        'authors:Kim Harrison OR authors:Lynsay Sands',\n        'author_name:(Kim Harrison) OR author_name:(Lynsay Sands)',\n    ),",
+  "R1": "The `authors` field alias must be rewritten to the exact Solr field `author_name` while preserving `OR` and grouping multi-word author values.",
+  "R2": "A prose-faithful implementation could safely escape and preserve the user-entered `authors` field or map it to a different valid work-search author field.",
+  "why_R2_fails": "The hidden test asserts the exact output string containing `author_name:(Kim Harrison) OR author_name:(Lynsay Sands)`."
+}

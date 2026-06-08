@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Loading the provided OCI storage config preserves `BundleDirectory` as `/tmp/bundles`.",
+  "klass": "airtight",
+  "constant": "/tmp/bundles",
+  "r2_prose_clause": null,
+  "gold_anchor": "    bundles_directory: /tmp/bundles",
+  "test_assertion": "                        BundleDirectory: \"/tmp/bundles\",",
+  "R1": "The provided OCI config fixture must map `bundles_directory` into `OCI.BundleDirectory` with the exact value `/tmp/bundles`.",
+  "R2": "A from-prose engineer could implement OCI bundle fetching and default bundle directory behavior without adding or preserving a `bundles_directory: /tmp/bundles` fixture field.",
+  "why_R2_fails": "The hidden config load expectation compares `BundleDirectory` against the exact `/tmp/bundles` value."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "CollectChunks over an empty input sequence with chunk size 1 yields no chunks, leaving the collected result nil.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "if len(s) > 0 {\n\t\t\tyield(s)\n\t\t}",
+  "test_assertion": "Entry(\"returns empty slice (nil) for an empty input\", []int{}, 1, nil),",
+  "R1": "CollectChunks yields nothing for an empty input sequence, so the caller's collected result remains nil.",
+  "R2": "CollectChunks could explicitly represent an empty chunk collection as an empty non-nil slice-equivalent result while still producing no elements from empty input.",
+  "why_R2_fails": "The test compares against nil exactly, so an implementation or caller path producing an empty non-nil [][]int would fail Equal(expected)."
+}

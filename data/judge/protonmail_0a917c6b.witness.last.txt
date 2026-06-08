@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Rendering <PhoneInput value=\"\" /> with no defaultCountry shows no selected country: getCountry(button) is null.",
+  "klass": "airtight",
+  "constant": "''",
+  "r2_prose_clause": null,
+  "gold_anchor": "{ value: actualValue = '', defaultCountry = '', embedded, onChange, onValue, ...rest }: Props,",
+  "test_assertion": "expect(getCountry(button)).toBe(null);",
+  "R1": "When defaultCountry is omitted, PhoneInput starts with an empty internal country and displays no selected country.",
+  "R2": "When defaultCountry is omitted, PhoneInput could keep the previous implicit fallback country while still accepting an explicit empty string.",
+  "why_R2_fails": "R2 displays a country for the initial render, so getCountry(button) would not be null."
+}

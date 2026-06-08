@@ -1,0 +1,11 @@
+{
+  "test_behavior": "The displayed error message text is exactly \"Reading adblock filter data failed (corrupted data?). Please run :adblock-update.\"",
+  "klass": "airtight",
+  "constant": "\"Reading adblock filter data failed (corrupted data?). Please run :adblock-update.\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "message.error(\"Reading adblock filter data failed (corrupted data?). \"\n                              \"Please run :adblock-update.\")",
+  "test_assertion": "assert msg.text == (\n        \"Reading adblock filter data failed (corrupted data?). \"\n        \"Please run :adblock-update.\")",
+  "R1": "The user-facing error message must be exactly \"Reading adblock filter data failed (corrupted data?). Please run :adblock-update.\"",
+  "R2": "A from-prose engineer could display any error-level message that says the filter data could not be loaded and guides the user to update adblock filters.",
+  "why_R2_fails": "R2 fails because the hidden test compares msg.text for exact equality to the gold patch's chosen string."
+}

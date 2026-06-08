@@ -2,24 +2,46 @@
 """build_ledgers.py -- regenerate the human-viewable markdown ledgers from per-case data.
 
 GitHub renders markdown tables natively, so the repo is its own viewer (no frontend). Sources:
-  - data/judge/<case>.json         (coverage-table results from judge_pool.py / reverify.py)
-  - data/cases/gold_fails_grader.defects.jsonl  (the pre-run gold-fails-grader defects)
-  - CLASSIFY below                 (which judged cases are KNOWN_AMBIGUOUS vs OUR_CAPABILITY_GAP)
+  - data/judge/<case>.json                       (coverage-table results from judge_pool.py)
+  - data/cases/<case>/AMBIGUITY_WITNESS.md        (PROVEN witness; class = airtight | prose-affirmative)
+  - data/cases/<case>/AMBIGUITY_HYPOTHESIS.md     (disciplined hypothesis; codebase | borderline)
+  - data/cases/gold_fails_grader.defects.jsonl    (the pre-run gold-fails-grader defects = KNOWN_BAD)
 
-Emits: SUMMARY.md, KNOWN_BAD.md, KNOWN_AMBIGUOUS.md, OUR_CAPABILITY_GAPS.md (repo root).
-Re-run after any judge/reverify pass.
+Emits at repo root: SUMMARY.md, COVERAGE.md (full 728-row index), KNOWN_BAD.md, KNOWN_AMBIGUOUS.md,
+OUR_CAPABILITY_GAPS.md.
+
+The headline discipline (codex sniff v2): only the MECHANICAL SPINE is claimable without raters --
+KNOWN_BAD, DETERMINED-prose, AMBIGUOUS-airtight (constant absent from prose AND codebase), and
+prose-affirmative cases. Codebase/borderline ambiguity is a disciplined HYPOTHESIS, raters-pending, and
+is reported separately, never folded into a claimed rate.
 """
-import json, pathlib
+import json, re, pathlib
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
 JUDGE = REPO / "data" / "judge"
+CASES = REPO / "data" / "cases"
 
 # cases we ran through recon+craft and lost (so an ENTAILED verdict = our capability gap)
 OUR_LOSSES = {"qutebrowser", "protonmail", "tutao", "element"}
+SPINE = {"airtight", "prose-affirmative"}  # the claimable witness classes
+
+
+def iid(c):
+    p = CASES / c / "instance_id.txt"
+    return p.read_text().strip() if p.exists() else c
+
+
+def witness_class(c):
+    """returns (klass, proven_bool, filename) for an AMBIGUOUS case, else (None, False, None)."""
+    for fn, proven in (("AMBIGUITY_WITNESS.md", True), ("AMBIGUITY_HYPOTHESIS.md", False)):
+        p = CASES / c / fn
+        if p.exists():
+            m = re.search(r"class:\s*\*\*([\w-]+)\*\*", p.read_text())
+            return (m.group(1) if m else "unknown"), proven, fn
+    return None, False, None
 
 
 def classify_of(case, rec):
-    """Mechanical: AMBIGUOUS verdict (>=1 GAP) -> KNOWN_AMBIGUOUS; ENTAILED + we-lost -> OUR_GAP."""
     if rec.get("verdict") == "AMBIGUOUS":
         return "AMBIGUOUS"
     if rec.get("verdict") == "ENTAILED" and case in OUR_LOSSES:
@@ -30,72 +52,144 @@ def classify_of(case, rec):
 def load_judged():
     out = {}
     for f in sorted(JUDGE.glob("*.json")):
-        try: out[f.stem] = json.loads(f.read_text())
-        except Exception: pass
+        try:
+            out[f.stem] = json.loads(f.read_text())
+        except Exception:
+            pass
     return out
-
-
-def gap_behaviors(rec, n=4):
-    g = [r.get("test", "") for r in rec.get("rows", []) if r.get("status") == "GAP"]
-    return "; ".join(x[:70] for x in g[:n]) + (" …" if len(g) > n else "")
 
 
 def main():
     judged = load_judged()
-    iid = lambda c: ((REPO / "data" / "cases" / c / "instance_id.txt").read_text().strip()
-                     if (REPO / "data" / "cases" / c / "instance_id.txt").exists() else c)
+    n = len(judged)
+    ent = [c for c, r in judged.items() if r.get("verdict") == "ENTAILED"]
+    amb = [c for c, r in judged.items() if r.get("verdict") == "AMBIGUOUS"]
+    err = [c for c, r in judged.items() if r.get("verdict") not in ("ENTAILED", "AMBIGUOUS")]
 
-    # SUMMARY.md
-    s = ["# SWE-bench Pro audit — summary", "",
-         "Public-set audit. Each row links to its coverage-table attribution. "
-         "Verdict is mechanical: a blank cell (GAP) is a test behavior with no covering requirement.", "",
-         "| case | verdict | coverage | gaps | list | attribution |", "|---|---|---|---|---|---|"]
-    for c, r in sorted(judged.items()):
-        den = r.get('in_gold_total', r.get('n_rows'))
-        s.append(f"| {c} | {r.get('verdict')} | {r.get('n_covered')}/{den} | "
-                 f"{r.get('n_gap',0)} | {classify_of(c,r)} | [table](data/attribution/{c}.md) |")
+    # witness accounting over the AMBIGUOUS screen. PROVEN (spine) = a case carrying a verified
+    # AMBIGUITY_WITNESS.md: the 30 grep-certified airtight cases + the hand-verified tutao.
+    klass = {c: witness_class(c) for c in amb}
+    proven = [c for c in amb if klass[c][1]]
+    airtight = [c for c in proven if klass[c][0] == "airtight"]
+    proseaff = [c for c in proven if klass[c][0] != "airtight"]          # hand-verified (tutao)
+    hypo = [c for c in amb if not klass[c][1]]
+    auto_pa = [c for c in hypo if klass[c][0] == "prose-affirmative"]    # raters-pending tier
+    cb_border = [c for c in hypo if klass[c][0] != "prose-affirmative"]  # codebase/borderline/skip
+    spine = sorted(proven)
+
+    df = REPO / "data" / "cases" / "gold_fails_grader.defects.jsonl"
+    kb = [json.loads(l) for l in df.read_text().splitlines() if l.strip()] if df.exists() else []
+
+    # ---- SUMMARY.md (aggregate + honest spine accounting) ----
+    s = [
+        "# SWE-bench Pro audit — summary", "",
+        f"Public-set determinacy audit. **All {n} public tasks** (canonical solver-prose from the "
+        "companion harness's `pro_repl_fields`, joined to gold+test from `ScaleAI/SWE-bench_Pro`) are "
+        "labeled by the coverage-table screen (`tools/judge_pool.py`): a GAP = a behavior the gold "
+        "implements and the hidden test checks, but no requirement states.", "",
+        "Verdicts are mechanical and re-derivable from committed receipts. The **screen** flags "
+        "AMBIGUOUS candidates; only the **mechanical spine** (below) is claimable without independent "
+        "raters. Codebase/borderline ambiguity is a disciplined hypothesis, raters-pending.", "",
+        "## Coverage over the public set", "",
+        "| label | count | of N | claimable without raters? |", "|---|---:|---:|---|",
+        f"| ENTAILED (every graded behavior has a covering requirement) | {len(ent)} | "
+        f"{len(ent)/n:.0%} | n/a (not a defect) |",
+        f"| AMBIGUOUS — screen (≥1 GAP) | {len(amb)} | {len(amb)/n:.0%} | screen only |",
+        f"| &nbsp;&nbsp;├─ **airtight** (constant absent from prose **and** codebase, grep-certified) | "
+        f"{len(airtight)} | {len(airtight)/n:.0%} | **YES — mechanical spine** |",
+        f"| &nbsp;&nbsp;├─ **prose-affirmative, hand-verified** (tutao) | "
+        f"{len(proseaff)} | {len(proseaff)/n:.0%} | **YES — mechanical spine** |",
+        f"| &nbsp;&nbsp;├─ prose-affirmative, codex-proposed (clause-verified, R2-entailment unproven) | "
+        f"{len(auto_pa)} | {len(auto_pa)/n:.0%} | NO — raters / graded-patch pending |",
+        f"| &nbsp;&nbsp;└─ codebase / borderline | {len(cb_border)} | {len(cb_border)/n:.0%} | "
+        f"NO — raters-pending |",
+    ]
+    if err:
+        s.append(f"| ERROR (judge did not parse) | {len(err)} | {len(err)/n:.0%} | — |")
+    s += [
+        "", "## Claimable now (mechanical spine)", "",
+        f"- **KNOWN_AMBIGUOUS (PROVEN): {len(spine)}** of {n} — {len(airtight)} airtight + "
+        f"{len(proseaff)} prose-affirmative, each with a verified argument witness "
+        "([`KNOWN_AMBIGUOUS.md`](KNOWN_AMBIGUOUS.md)).",
+        f"- **KNOWN_BAD: {len(kb)}** gold-fails-grader defects, frozen pre-run "
+        "([`KNOWN_BAD.md`](KNOWN_BAD.md); separately audited, outside the prose-set denominator).",
+        "",
+        f"So on the {n}-task public set, the claimable determinacy-failing floor is **{len(spine)} "
+        f"PROVEN-ambiguous ({len(spine)/n:.1%})**, with a further **{len(hypo)} screen-flagged "
+        f"hypotheses ({len(hypo)/n:.0%})** that an independent codebase-aware rater panel + κ must "
+        "adjudicate before any of them counts. The codebase-class *rate* is therefore reported as "
+        "raters-pending, not as a result. This is a preregistered instrument with a proven spine, not "
+        "yet a population rate.", "",
+        "Full per-case table: [`COVERAGE.md`](COVERAGE.md). Method: "
+        "[`docs/ADMISSIBILITY-SPEC.md`](docs/ADMISSIBILITY-SPEC.md).", "",
+        "## Hand-audited worked cases", "",
+        "| case | verdict | coverage | gaps | list | attribution |", "|---|---|---|---|---|---|",
+    ]
+    for c in ("element", "protonmail", "qutebrowser", "tutao"):
+        if c in judged:
+            r = judged[c]
+            s.append(f"| {c} | {r.get('verdict')} | {r.get('n_covered')}/{r.get('in_gold_total')} | "
+                     f"{r.get('n_gap',0)} | {classify_of(c,r)} | [table](data/attribution/{c}.md) |")
     (REPO / "SUMMARY.md").write_text("\n".join(s) + "\n")
 
-    # KNOWN_BAD.md (from the gold-fails-grader defects)
-    kb = ["# KNOWN_BAD — gold fails its own grader", "",
-          "Mechanical defects (binary): the reference solution does not pass the official verifier at the "
-          "pinned commit. Frozen pre-run, results-independent. Receipt: `data/cases/gold_fails_grader.defects.jsonl`.", "",
-          "| instance_id | grader verdict |", "|---|---|"]
-    df = REPO / "data" / "cases" / "gold_fails_grader.defects.jsonl"
-    if df.exists():
-        for line in df.read_text().splitlines():
-            if not line.strip(): continue
-            d = json.loads(line)
-            kb.append(f"| `{d['instance_id']}` | {d.get('detail','')} |")
-    (REPO / "KNOWN_BAD.md").write_text("\n".join(kb) + "\n")
-
-    # KNOWN_AMBIGUOUS.md
-    ka = ["# KNOWN_AMBIGUOUS — gold passes, prose underdetermines", "",
-          "Gold passes its verifier, but the hidden test checks behavior no requirement determines "
-          "(a specification lottery). The blank cells in each attribution are the evidence. "
-          "Screen = codex coverage table; confirm with the decontaminated panel (see docs/ADMISSIBILITY-SPEC.md).", "",
-          "| case | instance_id | coverage | gaps | status | witness | attribution |",
-          "|---|---|---|---|---|---|---|"]
+    # ---- COVERAGE.md (full 728-row index) ----
+    cov = ["# Full coverage index (all public tasks)", "",
+           "Every public task, its screen verdict, and — for AMBIGUOUS cases — the witness class. "
+           "`airtight`/`prose-affirmative` are PROVEN (mechanical spine); `hypothesis` is raters-pending.",
+           "", "| case | verdict | cov | GAP | witness class | attribution |", "|---|---|---|---|---|---|"]
     for c, r in sorted(judged.items()):
-        if classify_of(c, r) != "AMBIGUOUS": continue
-        w = REPO / "data" / "cases" / c / "AMBIGUITY_WITNESS.md"
-        status, witness = ("**PROVEN**", f"[witness](data/cases/{c}/AMBIGUITY_WITNESS.md)") if w.exists() else ("screen-flagged", "(pending)")
-        ka.append(f"| {c} | `{iid(c)}` | {r['n_covered']}/{r.get('in_gold_total', r.get('n_rows'))} | {r.get('n_gap',0)} | "
-                  f"{status} | {witness} | [table](data/attribution/{c}.md) |")
+        kl = klass.get(c, (None, False, None))[0] if c in amb else ""
+        kl = kl or ("" if r.get("verdict") != "AMBIGUOUS" else "(pending)")
+        cov.append(f"| {c} | {r.get('verdict')} | {r.get('n_covered')}/{r.get('in_gold_total')} | "
+                   f"{r.get('n_gap',0)} | {kl} | [t](data/attribution/{c}.md) |")
+    (REPO / "COVERAGE.md").write_text("\n".join(cov) + "\n")
+
+    # ---- KNOWN_BAD.md ----
+    kbm = ["# KNOWN_BAD — gold fails its own grader", "",
+           "Mechanical defects (binary): the reference solution does not pass the official verifier at "
+           "the pinned commit. Frozen pre-run, results-independent. Receipt: "
+           "`data/cases/gold_fails_grader.defects.jsonl`. (These three are public Pro tasks audited "
+           "pre-run; they sit outside the 728-task prose-set denominator.) The full gold-passes-verifier "
+           "sweep across the public set — to find any beyond these three — needs the official grader and "
+           "is pending (EC2-gated).", "",
+           "| instance_id | grader verdict |", "|---|---|"]
+    for d in kb:
+        kbm.append(f"| `{d['instance_id']}` | {d.get('detail','')} |")
+    (REPO / "KNOWN_BAD.md").write_text("\n".join(kbm) + "\n")
+
+    # ---- KNOWN_AMBIGUOUS.md (PROVEN spine + hypothesis count) ----
+    ka = ["# KNOWN_AMBIGUOUS — gold passes, prose underdetermines", "",
+          "Gold passes its verifier, but the hidden test checks behavior no requirement determines (a "
+          "specification lottery). **Two tiers.** The PROVEN tier (below) is the mechanical spine — each "
+          "carries a verified argument witness and needs no rater. The HYPOTHESIS tier is screen-flagged "
+          "and raters-pending; it is counted separately and NOT claimed.", "",
+          f"## PROVEN (mechanical spine): {len(spine)}", "",
+          "| case | class | instance_id | coverage | gaps | witness |", "|---|---|---|---|---|---|"]
+    for c in spine:
+        r = judged[c]
+        ka.append(f"| {c} | {klass[c][0]} | `{iid(c)}` | {r['n_covered']}/{r.get('in_gold_total')} | "
+                  f"{r.get('n_gap',0)} | [witness](data/cases/{c}/AMBIGUITY_WITNESS.md) |")
+    ka += ["", f"## HYPOTHESIS (codebase / borderline): {len(hypo)} — raters-pending, NOT claimed", "",
+           "A snapshot shows plurality, not binding force; `DETERMINED-codebase` vs `AMBIGUOUS-codebase` "
+           "is interpretive and needs ≥2 independent codebase-aware raters + κ (see ADMISSIBILITY-SPEC). "
+           "Each carries an `AMBIGUITY_HYPOTHESIS.md`. Listed in [`COVERAGE.md`](COVERAGE.md)."]
     (REPO / "KNOWN_AMBIGUOUS.md").write_text("\n".join(ka) + "\n")
 
-    # OUR_CAPABILITY_GAPS.md
+    # ---- OUR_CAPABILITY_GAPS.md ----
     og = ["# OUR_CAPABILITY_GAPS — we lost, but the prose determines the behavior", "",
           "recon+craft lost these oracle-free, yet the coverage table shows the substantive behavior is "
-          "fully specified (any blank is incidental: test scaffolding or export style). NOT bench defects; "
-          "reported as ours. Integrity: the blind judge put these back on us.", "",
+          "fully specified (any blank is incidental: test scaffolding or export style). NOT bench "
+          "defects; reported as ours. Integrity: the blind judge put these back on us.", "",
           "| case | instance_id | coverage | gaps | attribution |", "|---|---|---|---|---|"]
     for c, r in sorted(judged.items()):
-        if classify_of(c, r) != "OUR_GAP": continue
-        og.append(f"| {c} | `{iid(c)}` | {r['n_covered']}/{r.get('in_gold_total', r.get('n_rows'))} | {r.get('n_gap',0)} | "
-                  f"[table](data/attribution/{c}.md) |")
+        if classify_of(c, r) == "OUR_GAP":
+            og.append(f"| {c} | `{iid(c)}` | {r['n_covered']}/{r.get('in_gold_total')} | "
+                      f"{r.get('n_gap',0)} | [table](data/attribution/{c}.md) |")
     (REPO / "OUR_CAPABILITY_GAPS.md").write_text("\n".join(og) + "\n")
-    print("wrote SUMMARY.md, KNOWN_BAD.md, KNOWN_AMBIGUOUS.md, OUR_CAPABILITY_GAPS.md")
+
+    print(f"wrote ledgers. N={n} ENTAILED={len(ent)} AMBIGUOUS={len(amb)} | spine={len(spine)} "
+          f"(airtight={len(airtight)} + hand-pa={len(proseaff)}) | hypothesis={len(hypo)} "
+          f"(auto-pa={len(auto_pa)} codebase/borderline={len(cb_border)}) KNOWN_BAD={len(kb)} ERR={len(err)}")
 
 
 if __name__ == "__main__":

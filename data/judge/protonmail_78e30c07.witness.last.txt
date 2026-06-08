@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When the forged-URL image load fails via an error event, the next rerender shows a .proton-image-placeholder containing the cross-circle icon.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "The fallback mechanism must be triggered by an `onError` event on the image element, which dispatches a `loadRemoteProxyFromURL` action containing the message's `localID` and the specific image that failed.",
+  "gold_anchor": "await dispatch(loadRemoteProxy({ ID: localID, imageToLoad: image, api }));",
+  "test_assertion": "// Make the loading through URL fail\n        const imageInBody = await findByTestId(iframeRerendered, 'image');\n        fireEvent.error(imageInBody, { Code: 2902, Error: 'TEST error message' });\n\n        // Rerender again the message view to check that images have been loaded through normal api call\n        await rerender(<MessageView {...defaultProps} />);\n        const iframeRerendered2 = await getIframeRootDiv(container);\n\n        const placeholder = iframeRerendered2.querySelector('.proton-image-placeholder') as HTMLImageElement;\n\n        expect(placeholder).not.toBe(null);\n        assertIcon(placeholder.querySelector('svg'), 'cross-circle');",
+  "R1": "On an image element error after forged-URL loading, dispatch the older `loadRemoteProxy` path so the normal API proxy failure produces an error placeholder with a cross-circle.",
+  "R2": "On an image element error, dispatch `loadRemoteProxyFromURL` with the message localID and failed image, as the prose explicitly specifies.",
+  "why_R2_fails": "R2 would retry through `loadRemoteProxyFromURL` rather than the normal API call path that the test expects to fail into a cross-circle placeholder."
+}

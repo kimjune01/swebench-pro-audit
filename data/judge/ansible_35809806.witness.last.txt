@@ -1,0 +1,11 @@
+{
+  "test_behavior": "get_sysctl ignores blank lines in sysctl output without warning and excludes them from parsed fact counts.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "If a line in the sysctl output cannot be parsed into a key and value (i.e., does not match the expected delimiter format), a warning must be logged using the module's warning mechanism, but fact collection should continue for any remaining valid lines.",
+  "gold_anchor": "if not line.strip():\n                continue",
+  "test_assertion": "lines = [l for l in BAD_SYSCTL.splitlines() if l]\n        for call in module.warn.call_args_list:\n            self.assertIn('Unable to split sysctl line', call[0][0])\n        self.assertEqual(module.warn.call_count, len(lines))",
+  "R1": "Blank sysctl output lines are silently skipped and do not count as unparsable lines.",
+  "R2": "Blank sysctl output lines do not match the expected delimiter format, so they are unparsable lines that should trigger the required warning.",
+  "why_R2_fails": "R2 would call module.warn for blank lines, making module.warn.call_count greater than len([l for l in BAD_SYSCTL.splitlines() if l])."
+}

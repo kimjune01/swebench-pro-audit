@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Loading the advanced test config sets `Meta.TelemetryEnabled` to `false`.",
+  "klass": "airtight",
+  "constant": "false",
+  "r2_prose_clause": null,
+  "gold_anchor": "  telemetry_enabled: false",
+  "test_assertion": "TelemetryEnabled: false,",
+  "R1": "The advanced config fixture must explicitly disable telemetry.",
+  "R2": "A from-prose engineer could add the telemetry config field and leave the advanced fixture unset, inheriting the default telemetry setting.",
+  "why_R2_fails": "The hidden test expects the loaded advanced config to have `TelemetryEnabled` equal to `false`."
+}

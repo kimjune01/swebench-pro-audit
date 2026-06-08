@@ -1,0 +1,11 @@
+{
+  "test_behavior": "TestValidate_Failure requires the first unwrapped validation Error.Message to equal the exact CUE-generated rollout bounds message.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "Message: e.Error(),",
+  "test_assertion": "assert.Equal(t, \"flags.0.rules.1.distributions.0.rollout: invalid value 110 (out of bound <=100)\", ferr.Message)",
+  "R1": "Generic CUE validation failures preserve e.Error() verbatim as the individual error Message.",
+  "R2": "A prose-faithful implementation could return any descriptive message for the invalid rollout value while still including file, line, and column metadata.",
+  "why_R2_fails": "R2 fails because the test asserts the exact Message string rather than only requiring a descriptive validation error."
+}

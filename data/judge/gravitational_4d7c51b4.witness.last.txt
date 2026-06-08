@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When an update key changes, the Delete event appears before the Put event.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "The parser must support the \"U\" action by generating a `Put` event with the new key and value, and a `Delete` event with the old key only if the key has changed.",
+  "gold_anchor": "Type: types.OpDelete,",
+  "test_assertion": "require.Empty(t, cmp.Diff(evs[0], backend.Event{\n\t\tType: types.OpDelete,\n\t\tItem: backend.Item{\n\t\t\tKey: []byte(\"foo\"),\n\t\t},\n\t}))\n\trequire.Empty(t, cmp.Diff(evs[1], backend.Event{\n\t\tType: types.OpPut,\n\t\tItem: backend.Item{\n\t\t\tKey:     []byte(\"foo2\"),\n\t\t\tValue:   []byte(\"foo2\"),\n\t\t\tExpires: time.Date(2023, 9, 5, 15, 57, 1, 340426000, time.UTC),\n\t\t},\n\t}))",
+  "R1": "For a key-changing update, Events returns the Delete event first and the Put event second.",
+  "R2": "For a key-changing update, Events returns the Put event first and the Delete event second, matching the prose order.",
+  "why_R2_fails": "R2 fails because the test asserts evs[0] is OpDelete and evs[1] is OpPut."
+}

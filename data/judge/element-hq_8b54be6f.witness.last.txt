@@ -1,0 +1,11 @@
+{
+  "test_behavior": "The kebab trigger renders as an AccessibleButton role=\"button\" element with tabindex=\"0\".",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "<ContextMenuButton\n            {...props}\n            onClick={openMenu}\n            title={title}\n            isExpanded={menuDisplayed}\n            inputRef={button}\n        >",
+  "test_assertion": "role=\"button\"\n        tabindex=\"0\"",
+  "R1": "The kebab trigger is rendered through the codebase's ContextMenuButton/AccessibleButton path, producing a non-native role=\"button\" element with tabindex=\"0\".",
+  "R2": "A prose-faithful implementation could render the kebab trigger as a native button while still supporting accessibility, disabled state, aria-haspopup, aria-expanded, Enter/Space, and Escape behavior.",
+  "why_R2_fails": "A native button implementation would not match the snapshot assertion expecting role=\"button\" and tabindex=\"0\" on the trigger element."
+}

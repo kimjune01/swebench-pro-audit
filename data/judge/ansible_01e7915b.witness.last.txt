@@ -1,0 +1,11 @@
+{
+  "test_behavior": "_require_one_of_collections_requirements returns a mapping keyed by 'collections' for directly supplied collection requirements.",
+  "klass": "airtight",
+  "constant": "'collections'",
+  "r2_prose_clause": null,
+  "gold_anchor": "requirements['collections'].append((name, requirement or '*', None))",
+  "test_assertion": "requirements = cli._require_one_of_collections_requirements(collections, '')['collections']",
+  "R1": "Directly supplied collection requirements are returned inside a dictionary under the 'collections' key.",
+  "R2": "Directly supplied collection requirements could be returned as the normalized list of collection tuples, preserving the prior helper shape while still installing collections correctly.",
+  "why_R2_fails": "R2 fails because the test indexes the helper result with ['collections'], which only works if the return value is a mapping with that exact key."
+}

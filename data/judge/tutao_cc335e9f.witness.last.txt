@@ -1,0 +1,11 @@
+{
+  "test_behavior": "allMailsAllowedInsideFolder returns true for draft mails in the Trash folder",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "Draft emails should be allowed in Drafts folders and any of their subfolders while maintaining existing restrictions for other folder types.",
+  "gold_anchor": "folder.folderType === MailFolderType.TRASH",
+  "test_assertion": "o(allMailsAllowedInsideFolder(draftMail, trashFolder, system)).equals(true)",
+  "R1": "Draft mails are allowed in the Trash folder.",
+  "R2": "Draft mails are allowed only in Drafts folders and Drafts subfolders, while other folder types remain restricted.",
+  "why_R2_fails": "R2 would return false for a draft mail moved to Trash, but the test requires true."
+}

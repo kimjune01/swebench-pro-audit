@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For full_title 'A test full title : subtitle (parens).', expand_record(... )['titles'] must equal exactly ['A test full title : subtitle (parens).', 'a test full title subtitle (parens)', 'test full title : subtitle (parens).', 'test full title subtitle (parens)'] in that order.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "expanded_rec = build_titles(rec['full_title'])",
+  "test_assertion": "assert expanded_record['titles'] == [\n        'A test full title : subtitle (parens).',\n        'a test full title subtitle (parens)',\n        'test full title : subtitle (parens).',\n        'test full title subtitle (parens)',\n    ]",
+  "R1": "expand_record delegates title expansion to the existing build_titles behavior, preserving its exact title variants and order.",
+  "R2": "expand_record could generate a prose-faithful list of lowercased normalized title alternatives with and without punctuation in a different order or without retaining the original full_title string.",
+  "why_R2_fails": "R2 fails because the hidden test asserts exact list equality, including the original punctuated title and the specific ordering produced by build_titles."
+}

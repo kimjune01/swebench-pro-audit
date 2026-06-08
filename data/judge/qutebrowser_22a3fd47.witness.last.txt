@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Calling WebEngineVersions.from_qt('5.12.10') returns chromium='69.0.3497.128'.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "chromium=cls._infer_chromium_version(qt_version),",
+  "test_assertion": "('Qt', '5.12.10', '69.0.3497.128'),",
+  "R1": "from_qt infers the Chromium version from the provided Qt version using the existing WebEngine version inference mapping.",
+  "R2": "from_qt constructs a WebEngineVersions instance from the Qt version and source label only, leaving Chromium unset or otherwise not inferred because the prose does not state Chromium inference.",
+  "why_R2_fails": "R2 fails because the parametrized expected object requires chromium='69.0.3497.128' for method 'Qt' and qt_version '5.12.10'."
+}

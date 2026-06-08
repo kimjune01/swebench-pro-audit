@@ -1,0 +1,11 @@
+{
+  "test_behavior": "XML parsing of nybc200247_marc.xml returns title equal to \"צום הונדערטסטן געבוירנטאג פון שמעון דובנאוו\" rather than \"Tsum hundertsṭn geboyrnṭog fun Shimon Dubnoṿ\".",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "including alternate titles and names in different alphabets or scripts",
+  "gold_anchor": "target = link.replace('880', original)\n        for tag, f in linkages:\n            if f.get_subfield_values(['6'])[0].startswith(target):\n                return f",
+  "test_assertion": "-  \"title\": \"Tsum hundertsṭn geboyrnṭog fun Shimon Dubnoṿ\",\n+  \"title\": \"צום הונדערטסטן געבוירנטאג פון שמעון דובנאוו\",",
+  "R1": "The linked 880 alternate-script title is promoted to the edition title.",
+  "R2": "The original 245 romanized title remains the edition title while the linked 880 script title is returned as an alternate title.",
+  "why_R2_fails": "R2 leaves title as \"Tsum hundertsṭn geboyrnṭog fun Shimon Dubnoṿ\", but the test expects title to equal \"צום הונדערטסטן געבוירנטאג פון שמעון דובנאוו\"."
+}

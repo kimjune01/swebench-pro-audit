@@ -1,0 +1,11 @@
+{
+  "test_behavior": "FilterIgnorePkgs keeps a CVE with affected packages kernel and vim when the only ignore package regex is ^kernel.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "for _, p := range v.AffectedPackages {\n\t\t\tmatch := false\n\t\t\tfor _, re := range regexps {\n\t\t\t\tif re.MatchString(p.Name) {\n\t\t\t\t\tmatch = true\n\t\t\t\t}\n\t\t\t}\n\t\t\tif !match {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t\treturn false",
+  "test_assertion": "in: in{\n\t\t\t\tignorePkgsRegexp: []string{\"^kernel\"},\n\t\t\t\trs: ScanResult{\n\t\t\t\t\tServerName: \"name\",\n\t\t\t\t\tScannedCves: VulnInfos{\n\t\t\t\t\t\t\"CVE-2017-0001\": {\n\t\t\t\t\t\t\tCveID: \"CVE-2017-0001\",\n\t\t\t\t\t\t\tAffectedPackages: PackageFixStatuses{\n\t\t\t\t\t\t\t\t{Name: \"kernel\"},\n\t\t\t\t\t\t\t\t{Name: \"vim\"},\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t\tout: ScanResult{\n\t\t\t\tServerName: \"name\",\n\t\t\t\tScannedCves: VulnInfos{\n\t\t\t\t\t\"CVE-2017-0001\": {\n\t\t\t\t\t\tCveID: \"CVE-2017-0001\",\n\t\t\t\t\t\tAffectedPackages: PackageFixStatuses{\n\t\t\t\t\t\t\t{Name: \"kernel\"},\n\t\t\t\t\t\t\t{Name: \"vim\"},\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t}",
+  "R1": "A CVE is excluded by package regex only when every affected package name matches at least one ignore regex.",
+  "R2": "A CVE is excluded by package regex when any affected package name matches an ignore regex.",
+  "why_R2_fails": "R2 would remove the kernel/vim CVE because kernel matches ^kernel, but the test expects that CVE to remain."
+}

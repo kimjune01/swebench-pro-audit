@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For move-out cases, `onBack` is called synchronously during the direct `useShouldMoveOut(...)` call, before the immediate Jest assertion runs.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "onBack();",
+  "test_assertion": "expect(onBack).toHaveBeenCalled();",
+  "R1": "The hook calls `onBack` synchronously during the `useShouldMoveOut(...)` invocation when the active element is invalid.",
+  "R2": "A prose-faithful implementation could perform the move-out decision in a React effect after render while still calling `onBack` whenever the invalid-element condition is met.",
+  "why_R2_fails": "The immediate assertion runs before an effect-based callback would fire, so `onBack` has not yet been called."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "db.mget(false) returns [] instead of throwing or rejecting invalid input.",
+  "klass": "airtight",
+  "constant": "[]",
+  "r2_prose_clause": null,
+  "gold_anchor": "if (!keys || !Array.isArray(keys) || !keys.length) {\n\t\t\treturn [];\n\t\t}",
+  "test_assertion": "assert.deepStrictEqual(await db.mget(false), []);",
+  "R1": "db.mget treats a falsy non-array argument as an empty request and returns an empty array.",
+  "R2": "A from-prose engineer could implement db.mget only for keys: string[] and throw or fail on false as an invalid argument.",
+  "why_R2_fails": "The hidden test calls db.mget(false) and requires the exact empty-array result instead of an error."
+}

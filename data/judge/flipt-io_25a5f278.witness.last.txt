@@ -1,0 +1,11 @@
+{
+  "test_behavior": "NewWebhookClient stores an empty signing secret as empty on the webhookClient.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "signingSecret: signingSecret,",
+  "test_assertion": "client := NewWebhookClient(zap.NewNop(), \"https://flipt-webhook.io/webhook\", \"\", 8*time.Second)\n\n\trequire.NotNil(t, client)\n\n\twhClient, ok := client.(*webhookClient)\n\trequire.True(t, ok)\n\n\tassert.Equal(t, \"https://flipt-webhook.io/webhook\", whClient.url)\n\tassert.Empty(t, whClient.signingSecret)",
+  "R1": "The constructor must pass the signingSecret argument through unchanged, including the empty string.",
+  "R2": "A from-prose engineer could change the constructor while preserving webhook retry and logging behavior, and could initialize signingSecret by some existing signing-secret convention instead of asserting empty passthrough.",
+  "why_R2_fails": "The test directly inspects whClient.signingSecret and requires it to be empty after construction with an empty string."
+}

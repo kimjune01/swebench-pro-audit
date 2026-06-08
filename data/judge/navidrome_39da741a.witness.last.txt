@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Album `103` / `Radioactivity` is expected to have `Genres: model.Genres{genreElectronic, genreRock}` in that order.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "genres = append(genres, model.Genre{ID: id})",
+  "test_assertion": "albumRadioactivity = model.Album{ID: \"103\", Name: \"Radioactivity\", Artist: \"Kraftwerk\", OrderAlbumName: \"radioactivity\", AlbumArtistID: \"2\", Genre: \"Electronic\", Genres: model.Genres{genreElectronic, genreRock}, CoverArtId: \"3\", CoverArtPath: P(\"/kraft/radio/radio.mp3\"), SongCount: 2, FullText: \" kraftwerk radioactivity\"}",
+  "R1": "Album genres preserve the relation/input order so Radioactivity hydrates as Electronic followed by Rock.",
+  "R2": "Album genres are any consistently ordered unique set derived from tracks, such as sorting by genre name, ID, or another stable repository convention.",
+  "why_R2_fails": "A stable ordering that returns Rock before Electronic would not equal the test fixture's exact `model.Genres{genreElectronic, genreRock}` slice."
+}

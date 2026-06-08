@@ -1,0 +1,11 @@
+{
+  "test_behavior": "UserPropsRepository includes DefaultGet, and DefaultGet returns the supplied defaultValue with nil error when Get fails.",
+  "klass": "airtight",
+  "constant": "DefaultGet",
+  "r2_prose_clause": null,
+  "gold_anchor": "func (r userPropsRepository) DefaultGet(key string, defaultValue string) (string, error) {\n\tvalue, err := r.Get(key)\n\tif err == model.ErrNotFound {\n\t\treturn defaultValue, nil\n\t}\n\tif err != nil {\n\t\treturn defaultValue, err\n\t}\n\treturn value, nil\n}",
+  "test_assertion": "func (p *MockedUserPropsRepo) DefaultGet(key string, defaultValue string) (string, error) {\n\tif p.err != nil {\n\t\treturn \"\", p.err\n\t}\n\tp.init()\n\tv, err := p.Get(p.UserID + \"_\" + key)\n\tif err != nil {\n\t\treturn defaultValue, nil\n\t}\n\treturn v, nil\n}",
+  "R1": "The user-scoped repository interface must include a method named DefaultGet that returns the supplied default value with nil error when lookup fails.",
+  "R2": "A prose-faithful implementation could expose only Put, Get, and Delete on UserPropsRepository.",
+  "why_R2_fails": "R2 lacks the exact DefaultGet method and behavior required by the hidden mock implementation."
+}

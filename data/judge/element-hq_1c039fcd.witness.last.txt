@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For a cache set with a then b, values() returns [\"a value\", \"b value\"] in that order.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "for (const item of this.map.values()) {",
+  "test_assertion": "expect(Array.from(cache.values())).toEqual([\"a value\", \"b value\"]);",
+  "R1": "values() yields cache contents in insertion order for entries set as a then b.",
+  "R2": "values() yields cache contents in a different stable internal order, such as most-recent to least-recent.",
+  "why_R2_fails": "The assertion requires the yielded array to be exactly [\"a value\", \"b value\"], so any other stable internal order fails."
+}

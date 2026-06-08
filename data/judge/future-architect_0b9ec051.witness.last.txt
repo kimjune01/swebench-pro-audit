@@ -1,0 +1,11 @@
+{
+  "test_behavior": "SortByConfident given [CpeVersionMatch, OvalMatch] returns exactly [OvalMatch, CpeVersionMatch].",
+  "klass": "airtight",
+  "constant": "1",
+  "r2_prose_clause": null,
+  "gold_anchor": "CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}",
+  "test_assertion": "in: Confidences{\n\t\t\t\tCpeVersionMatch,\n\t\t\t\tOvalMatch,\n\t\t\t},\n\t\t\tout: Confidences{\n\t\t\t\tOvalMatch,\n\t\t\t\tCpeVersionMatch,\n\t\t\t},",
+  "R1": "CpeVersionMatch has a tie-break ordering that places it after OvalMatch when both have the same numeric confidence score.",
+  "R2": "A from-prose engineer could sort only by numeric confidence score and preserve input order for equal-score confidences.",
+  "why_R2_fails": "With stable score-only sorting, [CpeVersionMatch, OvalMatch] would remain [CpeVersionMatch, OvalMatch], contradicting the asserted output order."
+}

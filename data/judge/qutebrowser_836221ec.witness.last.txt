@@ -1,0 +1,11 @@
+{
+  "test_behavior": "dump_userconfig(include_hidden=True) returns lines ordered as content.headers.custom, content.plugins, then content.webgl.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "for values in sorted(self, key=lambda v: v.opt.name):\n            lines += values.dump(include_hidden=include_hidden)",
+  "test_assertion": "assert conf.dump_userconfig(include_hidden=include_hidden).splitlines() == lines",
+  "R1": "The config dump orders all emitted settings by option name, including hidden settings when include_hidden=True.",
+  "R2": "The config dump may include hidden settings in any stable or grouped order while still showing both user-customized and hidden settings.",
+  "why_R2_fails": "R2 fails because the test compares splitlines() to an exact list whose order pins content.webgl after the two visible settings."
+}

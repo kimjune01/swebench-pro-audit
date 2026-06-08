@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Storage evaluation responses include the evaluated `FlagKey`.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "return an `EvaluationResponse` that includes `Match`, `Value`, `SegmentKey`, `RequestContext`, `Timestamp`, and `RequestId`",
+  "gold_anchor": "FlagKey:        r.FlagKey,",
+  "test_assertion": "assert.Equal(t, flag.Key, resp.FlagKey)",
+  "R1": "The storage evaluator must populate `EvaluationResponse.FlagKey` with the evaluated flag key.",
+  "R2": "The storage evaluator may return only the response fields explicitly listed in prose, leaving `FlagKey` unset.",
+  "why_R2_fails": "R2 leaves `resp.FlagKey` empty, so `assert.Equal(t, flag.Key, resp.FlagKey)` fails."
+}

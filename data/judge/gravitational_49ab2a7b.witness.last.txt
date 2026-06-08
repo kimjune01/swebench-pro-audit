@@ -1,0 +1,11 @@
+{
+  "test_behavior": "SQLServerPinger.Ping must complete successfully before the caller's 10*time.Second context timeout expires.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "err = db.PingContext(ctx)",
+  "test_assertion": "ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)\ndefer cancel()\n\nrequire.NoError(t, pinger.Ping(ctx, PingParams{\n\tHost:         \"localhost\",\n\tPort:         port,\n\tUsername:     \"alice\",\n\tDatabaseName: \"master\",\n}))",
+  "R1": "Ping uses the caller-provided context for the SQL Server connection attempt, so the valid connection must finish within the caller's 10*time.Second deadline.",
+  "R2": "Ping accepts a context.Context parameter but performs the SQL Server connection check without binding the operation to that context deadline.",
+  "why_R2_fails": "R2 can exceed or ignore the 10*time.Second deadline, causing the test's require.NoError call to fail when Ping does not complete successfully before the context expires."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Bundle Engine Namespaces with roles [\"devs\", \"ops\"] returns [\"local\", \"production\", \"staging\"] in that order.",
+  "klass": "airtight",
+  "constant": "\"production\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "\"ops\": [\"staging\", \"production\"]",
+  "test_assertion": "{\"devsops\", []string{\"devs\", \"ops\"}, []string{\"local\", \"production\", \"staging\"}},",
+  "R1": "When evaluating roles devs and ops against the supplied viewable_namespaces policy data, the returned namespace slice is exactly local, production, staging in that order.",
+  "R2": "A from-prose engineer could support role-based namespace access with different example role names, namespace names, or ordering while still returning each accessible namespace.",
+  "why_R2_fails": "The hidden test compares the returned slice to the exact literals and order []string{\"local\", \"production\", \"staging\"}, so any different namespace token or order fails."
+}

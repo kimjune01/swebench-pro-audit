@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Invalid durations must raise ValueError with a message matching the regex 'Invalid duration'.",
+  "klass": "airtight",
+  "constant": "Invalid duration",
+  "r2_prose_clause": null,
+  "gold_anchor": "f\"Invalid duration: {duration} - \"",
+  "test_assertion": "with pytest.raises(ValueError, match='Invalid duration'):",
+  "R1": "Invalid inputs raise ValueError whose message contains the exact text 'Invalid duration'.",
+  "R2": "Invalid inputs raise ValueError with any clear error message, or no message, because the prose only requires raising ValueError.",
+  "why_R2_fails": "R2 fails because pytest requires the exception message to match the literal regex 'Invalid duration'."
+}

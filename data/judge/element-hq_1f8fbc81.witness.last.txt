@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When starting a recording with noise suppression disabled, getUserMedia is called with audio.noiseSuppression shaped as { ideal: false }.",
+  "klass": "airtight",
+  "constant": "ideal",
+  "r2_prose_clause": null,
+  "gold_anchor": "noiseSuppression: { ideal: MediaDeviceHandler.getAudioNoiseSuppression() },",
+  "test_assertion": "expect(navigator.mediaDevices.getUserMedia).toHaveBeenCalledWith(expect.objectContaining({\n                audio: expect.objectContaining({ noiseSuppression: { ideal: false } }),\n            }));",
+  "R1": "The recording constraints pass the user's disabled noise suppression preference using a ConstrainBooleanParameters object with the key ideal.",
+  "R2": "The recording constraints pass the user's disabled noise suppression preference directly as noiseSuppression: false.",
+  "why_R2_fails": "R2 respects the prose requirement but fails because the assertion discriminates the exact object shape { ideal: false }."
+}

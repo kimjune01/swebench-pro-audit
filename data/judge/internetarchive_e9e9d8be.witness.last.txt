@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When publishedDate is missing, process_google_book outputs \"publish_date\": \"\".",
+  "klass": "airtight",
+  "constant": "\"\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "result[\"publish_date\"] = book.get(\"publishedDate\", \"\")",
+  "test_assertion": "\"publish_date\": \"\",",
+  "R1": "Missing Google Books publishedDate is normalized as an empty string in publish_date.",
+  "R2": "Missing Google Books publishedDate could be normalized as None or omitted while still handling missing fields.",
+  "why_R2_fails": "The hidden test compares the full expected dict and requires publish_date to be exactly \"\"."
+}

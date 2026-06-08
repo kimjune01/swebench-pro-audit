@@ -1,0 +1,11 @@
+{
+  "test_behavior": "the generator still processes the file chunk hasher during file block generation, with thumbnail handling before file chunks, after removing the environment argument",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "Hash and signature generation should occur only after an encrypted block has passed its verification check.",
+  "gold_anchor": "hashInstance.process(chunk);",
+  "test_assertion": "expect(blocks.length).toBe(3);",
+  "R1": "The generator preserves the existing flow where thumbnails are yielded first and file chunks are hashed before each encrypted block is produced.",
+  "R2": "A from-prose engineer could delay all hash generation for a block until after that encrypted block has passed verification.",
+  "why_R2_fails": "Delaying or restructuring hash generation around verification can change the generator side effects and ordering that the test exercises while still satisfying the prose clause."
+}

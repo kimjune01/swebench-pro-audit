@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When square is false and the original selected cover is JPEG, aw.Get(..., 200, false) returns image width 200 and height 200.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "When `square` is `false`, it should maintain the original image shape and format.",
+  "gold_anchor": "resized = imaging.Fit(original, size, size, imaging.Lanczos)",
+  "test_assertion": "Expect(img.Bounds().Size().X).To(Equal(200))\n\t\t\t\tExpect(img.Bounds().Size().Y).To(Equal(200))",
+  "R1": "With square false, a JPEG requested at size 200 is resized to 200 by 200 for this cover.",
+  "R2": "With square false, the implementation preserves the original image shape and format rather than forcing equal width and height.",
+  "why_R2_fails": "R2 can return a non-square image for non-square source art, but the assertion requires both decoded dimensions to equal 200."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "createFFmpegCommand replaces %b with the integer bitrate inside a command token, producing 123k from %bk.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "s = strings.ReplaceAll(s, \"%b\", strconv.Itoa(maxBitRate))",
+  "test_assertion": "Expect(args).To(Equal([]string{\"ffmpeg\", \"-i\", \"/music library/file.mp3\", \"-b:a\", \"123k\", \"mp3\", \"-\"}))",
+  "R1": "createFFmpegCommand must continue interpolating %b as the numeric bitrate even when it appears inside a larger token such as %bk.",
+  "R2": "A from-prose engineer could implement only the requested timeOffset handling and leave bitrate placeholder behavior outside the new stated contract.",
+  "why_R2_fails": "R2 fails because the test requires the %bk token to become 123k in the generated argv."
+}

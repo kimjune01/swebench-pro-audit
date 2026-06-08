@@ -1,0 +1,11 @@
+{
+  "test_behavior": "the imported flag preserves the concrete flag key \"test\" from the input",
+  "klass": "airtight",
+  "constant": "\"test\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "+    key: test",
+  "test_assertion": "+						Key:          \"test\",",
+  "R1": "The import preserves the input flag key exactly as \"test\".",
+  "R2": "A prose-faithful implementation could focus on importing metadata without guaranteeing this specific flag key value.",
+  "why_R2_fails": "The hidden test asserts that the created flag request has Key exactly equal to \"test\"."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "RFD24 migration sets each raw event's CreatedAtDate to time.Unix(event.CreatedAt, 0).Format(iso8601DateFormat).",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "item[keyDate] = dateAttribute",
+  "test_assertion": "c.Assert(dateString, check.Equals, event.CreatedAtDate)",
+  "R1": "The migration must populate CreatedAtDate from CreatedAt using iso8601DateFormat.",
+  "R2": "A from-prose engineer could implement only the Fields to FieldsMap migration and leave unrelated RFD24 CreatedAtDate migration behavior unchanged or absent.",
+  "why_R2_fails": "R2 fails because the hidden test inserts legacy events and asserts every returned raw event has CreatedAtDate equal to the formatted CreatedAt timestamp."
+}

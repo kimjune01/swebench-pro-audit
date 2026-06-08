@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Track metadata in #EXTINF lines is formatted as artist, space-hyphen-space, title after the duration comma.",
+  "klass": "airtight",
+  "constant": " - ",
+  "r2_prose_clause": null,
+  "gold_anchor": "buf.WriteString(fmt.Sprintf(\"#EXTINF:%.f,%s - %s\\n\", t.Duration, t.Artist, t.Title))",
+  "test_assertion": "#EXTINF:378,Morcheeba feat. Kurt Wagner - What New York Couples Fight About",
+  "R1": "Each #EXTINF metadata field must render artist, then a space-hyphen-space separator, then title.",
+  "R2": "Each #EXTINF metadata field could render artist and title information using another standard or readable separator.",
+  "why_R2_fails": "Any separator other than the exact space-hyphen-space string makes the generated line differ from the expected string."
+}

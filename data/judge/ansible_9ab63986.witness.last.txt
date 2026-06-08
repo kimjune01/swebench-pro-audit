@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Listing the same mount source twice with include_aggregate_mounts true returns the same aggregate count as listing it once.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "if source in seen or (real_source := os.path.realpath(source)) in seen:",
+  "test_assertion": "- (mount_repeated.ansible_facts.aggregate_mounts | length) == (dynamic_mount.ansible_facts.aggregate_mounts | length)",
+  "R1": "Repeated source entries are deduplicated, so listing the same source twice produces the same aggregate mounts as listing it once.",
+  "R2": "The sources list is processed as provided, so listing the same source twice may collect and return duplicate aggregate entries.",
+  "why_R2_fails": "R2 makes mount_repeated.ansible_facts.aggregate_mounts longer than dynamic_mount.ansible_facts.aggregate_mounts, violating the equality assertion."
+}

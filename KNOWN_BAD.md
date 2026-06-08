@@ -1,6 +1,6 @@
 # KNOWN_BAD — gold fails its own grader
 
-Mechanical defects (binary): the reference solution does not pass the official verifier at the pinned commit. Frozen pre-run, results-independent. Receipt: `data/cases/gold_fails_grader.defects.jsonl`.
+Mechanical defects (binary): the reference solution does not pass the official verifier at the pinned commit. Frozen pre-run, results-independent. Receipt: `data/cases/gold_fails_grader.defects.jsonl`. (These three are public Pro tasks audited pre-run; they sit outside the 728-task prose-set denominator.) The full gold-passes-verifier sweep across the public set — to find any beyond these three — needs the official grader and is pending (EC2-gated).
 
 | instance_id | grader verdict |
 |---|---|

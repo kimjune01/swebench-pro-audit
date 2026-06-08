@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When no placeholder prop is passed, the textbox does not have class mx_WysiwygComposer_Editor_content_placeholder.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "\"mx_WysiwygComposer_Editor_content_placeholder\": Boolean(placeholder),",
+  "test_assertion": "expect(screen.getByRole('textbox')).not.toHaveClass(\"mx_WysiwygComposer_Editor_content_placeholder\");",
+  "R1": "The placeholder CSS class is present only when a non-empty placeholder prop is supplied.",
+  "R2": "The placeholder CSS class is toggled based on whether the editor is empty, regardless of whether a placeholder prop was supplied.",
+  "why_R2_fails": "R2 would add the class to an empty composer with no placeholder prop, but the test asserts that the class is absent."
+}

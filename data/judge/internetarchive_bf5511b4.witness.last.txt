@@ -1,0 +1,11 @@
+{
+  "test_behavior": "DataField construction accepts None as the record context in DataField(None, etree.fromstring(xml_author)) without raising before read_author_person runs.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "The `DataField` constructor should explicitly require both the parent record (rec) and the XML field element (element: etree._Element) to ensure record-aware processing and structural validation.",
+  "gold_anchor": "def __init__(self, rec, element: etree._Element) -> None:",
+  "test_assertion": "test_field = DataField(None, etree.fromstring(xml_author))",
+  "R1": "The DataField constructor accepts any rec value, including None, and only requires the XML element to be valid.",
+  "R2": "The DataField constructor requires a real parent record context and rejects None to enforce record-aware processing and structural validation.",
+  "why_R2_fails": "Rejecting None would make DataField(None, etree.fromstring(xml_author)) raise before read_author_person runs."
+}

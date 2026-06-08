@@ -1,0 +1,11 @@
+{
+  "test_behavior": "arraySmoothingResample([2,0], 5) returns exactly [2,2,2,0,0].",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "return arrayFastResample(input, points);",
+  "test_assertion": "{input: [2, 0], output: [2, 2, 2, 0, 0]}, // Even -> Odd",
+  "R1": "Upsampling delegates to the existing arrayFastResample behavior, which repeats bucketed source values and returns [2,2,2,0,0] for [2,0] to length 5.",
+  "R2": "A prose-faithful engineer could implement another deterministic direct upsample, such as uniform linear interpolation from 2 to 0 over five points.",
+  "why_R2_fails": "That alternative would not equal the exact repeated-value output asserted by the hidden test."
+}

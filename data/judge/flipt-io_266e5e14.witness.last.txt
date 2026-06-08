@@ -1,0 +1,11 @@
+{
+  "test_behavior": "When ui.enabled is explicitly present in YAML with false, loaded Result.Config.UI.Enabled is false.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "the presence of the ui.enabled option is inconsistent with the expectation that the UI is always available",
+  "gold_anchor": "// run any defaulters\n\tfor _, defaulter := range defaulters {\n\t\tdefaulter.setDefaults(v)\n\t}\n\n\tif err := v.Unmarshal(cfg, viper.DecodeHook(decodeHooks)); err != nil {\n\t\treturn nil, err\n\t}",
+  "test_assertion": "cfg.UI.Enabled = false",
+  "R1": "A deprecated explicit ui.enabled: false key still unmarshals into Result.Config.UI.Enabled as false.",
+  "R2": "Because the UI is always available, a loader could ignore or override ui.enabled and keep Result.Config.UI.Enabled true while still emitting the deprecation warning.",
+  "why_R2_fails": "R2 fails because the hidden test constructs expected config with cfg.UI.Enabled = false and compares it to res.Config."
+}

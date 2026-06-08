@@ -1,0 +1,11 @@
+{
+  "test_behavior": "get_identifier_forms(isbn=\"1111111111\", asin=\"\") returns [\"1111111111\", \"9781111111113\"]",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "isbn_13 = to_isbn_13(isbn)\n        isbn_10 = isbn_13_to_isbn_10(isbn_13) if isbn_13 else None\n        return [id_ for id_ in [isbn_10, isbn_13, asin] if id_]",
+  "test_assertion": "(\"1111111111\", \"\", [\"1111111111\", \"9781111111113\"]),",
+  "R1": "For an ISBN-10 input, get_identifier_forms converts it to ISBN-13 and returns both the ISBN-10 and derived ISBN-13.",
+  "R2": "A from-prose engineer could preserve the given ISBN-10 as the only available form unless the codebase conversion helper is known to provide a canonical ISBN-13.",
+  "why_R2_fails": "R2 omits the derived \"9781111111113\" entry, so it does not equal the asserted expected list."
+}

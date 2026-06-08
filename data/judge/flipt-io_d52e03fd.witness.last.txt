@@ -1,0 +1,11 @@
+{
+  "test_behavior": "ping is the internal method used by tests in place of the previous report helper and accepts context plus file without an info argument.",
+  "klass": "codebase",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "func (r *Reporter) ping(_ context.Context, f file) error {",
+  "test_assertion": "err := reporter.ping(context.Background(), mockFile)",
+  "R1": "The internal helper is named ping and takes only a context and file, with reporter metadata stored on the Reporter.",
+  "R2": "A from-prose engineer could keep an internal report helper or any other private method shape while implementing the public Run and Shutdown behavior.",
+  "why_R2_fails": "R2 fails because the hidden test directly calls reporter.ping(context.Background(), mockFile), so any different private helper name or signature will not compile."
+}

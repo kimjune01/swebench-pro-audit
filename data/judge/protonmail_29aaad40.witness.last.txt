@@ -1,0 +1,11 @@
+{
+  "test_behavior": "During successful recovery, getCachedTrashed is called exactly 3 times.",
+  "klass": "airtight",
+  "constant": "3",
+  "r2_prose_clause": null,
+  "gold_anchor": "const { isDecrypting: isTrashDecrypting } = getCachedTrashed(abortSignal, share.volumeId);\nconst trashLinks = getCachedTrashed(abortSignal, share.volumeId).links.filter(\nconst trashLinks = getCachedTrashed(abortSignal, share.volumeId).links.filter(",
+  "test_assertion": "expect(mockedGetCachedTrashed).toHaveBeenCalledTimes(3);",
+  "R1": "A successful recovery must query cached trashed links exactly three times.",
+  "R2": "A prose-faithful implementation could include trashed items, wait for trashed decryption, and verify no trashed photos remain while querying cached trashed links a different number of times.",
+  "why_R2_fails": "R2 fails because the hidden test asserts the exact mock call count is 3."
+}

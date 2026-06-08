@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Batch.get_relpath(\"0008\", \"80\") returns \"covers_0008/covers_0008_80\" with no leading items/ segment and no extension when ext is omitted.",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "Batch needs class-level methods `get_relpath(item_id, batch_id, size='', ext='zip')` and `get_abspath(item_id, batch_id, size='', ext='zip')` that construct the relative and absolute paths for the batch zip files under `data_root`. Paths must follow the pattern `items/<size_prefix>covers_<item_id>/<size_prefix>covers_<item_id>_<batch_id>.zip` where `size_prefix` is `<size>_` if provided.",
+  "gold_anchor": "def get_relpath(item_id, batch_id, ext=\"\", size=\"\"):\n        \"\"\"e.g. s_covers_0008/s_covers_0008_82.zip or covers_0008/covers_0008_82.zip\"\"\"\n        ext = f\".{ext}\" if ext else \"\"\n        prefix = f\"{size.lower()}_\" if size else \"\"\n        folder = f\"{prefix}covers_{item_id}\"\n        filename = f\"{prefix}covers_{item_id}_{batch_id}{ext}\"\n        return os.path.join(folder, filename)",
+  "test_assertion": "assert archive.Batch.get_relpath(\"0008\", \"80\") == \"covers_0008/covers_0008_80\"",
+  "R1": "When ext is omitted, get_relpath defaults to no extension and returns only the item directory plus filename, without an items/ prefix.",
+  "R2": "A prose-faithful implementation would default ext to zip and return a path matching items/<size_prefix>covers_<item_id>/<size_prefix>covers_<item_id>_<batch_id>.zip.",
+  "why_R2_fails": "R2 would return an items/-prefixed .zip path instead of the exact extensionless string asserted by the test."
+}

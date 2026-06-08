@@ -1,0 +1,11 @@
+{
+  "test_behavior": "removeInactives returns nil, not an empty WordPressPackages slice, when all input packages have Status \"inactive\".",
+  "klass": "airtight",
+  "constant": "nil",
+  "r2_prose_clause": null,
+  "gold_anchor": "func removeInactives(pkgs models.WordPressPackages) (removed models.WordPressPackages) {\n\tfor _, p := range pkgs {\n\t\tif p.Status == \"inactive\" {\n\t\t\tcontinue\n\t\t}\n\t\tremoved = append(removed, p)\n\t}\n\treturn removed\n}",
+  "test_assertion": "expected: nil,",
+  "R1": "When filtering removes every package, removeInactives returns a nil WordPressPackages slice.",
+  "R2": "When filtering removes every package, removeInactives returns an empty non-nil WordPressPackages slice because it is still a filtered list excluding inactive packages.",
+  "why_R2_fails": "reflect.DeepEqual distinguishes an empty non-nil slice from nil, so the test's expected nil rejects R2."
+}

@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Calling posts.uploads.cleanOrphans() with meta.config.orphanExpiryDays = 7 removes files with mtimes 30 days old so a subsequent posts.uploads.getOrphans() call returns length 0 immediately after awaiting cleanOrphans().",
+  "klass": "prose-affirmative",
+  "constant": null,
+  "r2_prose_clause": "- The method must return the list of files selected for deletion immediately, before deletion operations complete.",
+  "gold_anchor": "file.delete(_getFullPath(relPath));",
+  "test_assertion": "await posts.uploads.cleanOrphans();\n\t\t\t\tconst orphans = await posts.uploads.getOrphans();\n\n\t\t\t\tassert.strictEqual(orphans.length, 0);",
+  "R1": "Awaiting cleanOrphans leaves no matching orphan files visible to an immediately subsequent getOrphans call.",
+  "R2": "cleanOrphans may return before deletion operations complete, so an immediately subsequent getOrphans call may still observe the selected orphan files.",
+  "why_R2_fails": "R2 fails because the hidden test asserts that getOrphans returns length 0 immediately after awaiting cleanOrphans."
+}

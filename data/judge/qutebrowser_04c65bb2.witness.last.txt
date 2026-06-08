@@ -1,0 +1,11 @@
+{
+  "test_behavior": "For template '{{ conf.aliases[\"a\"].propname }}', returns frozenset(['aliases']), stopping the configuration key before the dictionary lookup/property access.",
+  "klass": "borderline",
+  "constant": null,
+  "r2_prose_clause": null,
+  "gold_anchor": "else:\n            unvisted_nodes.append(node)",
+  "test_assertion": "assert jinja.template_config_variables(template) == frozenset(expected)",
+  "R1": "The configuration key for `conf.aliases[\"a\"].propname` is only `aliases`, because traversal stops when the chain reaches the dictionary lookup.",
+  "R2": "A from-prose engineer could treat the nested access as part of the referenced configuration path and attempt to report a longer key derived from `conf.aliases[\"a\"].propname`.",
+  "why_R2_fails": "The parametrized expected value is `['aliases']`, so any longer extracted key makes the frozenset equality assertion fail."
+}

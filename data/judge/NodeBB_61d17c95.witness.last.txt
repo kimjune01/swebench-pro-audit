@@ -1,0 +1,11 @@
+{
+  "test_behavior": "Uploading a regular file to a non-existent folder returns HTTP status code 500 with [[error:invalid-path]].",
+  "klass": "airtight",
+  "constant": "500",
+  "r2_prose_clause": null,
+  "gold_anchor": "return next(new Error('[[error:invalid-path]]'));",
+  "test_assertion": "assert.equal(response.statusCode, 500);",
+  "R1": "Invalid upload folder paths are rejected by passing a generic Error to next(), producing HTTP 500.",
+  "R2": "Invalid upload folder paths are rejected immediately with [[error:invalid-path]] using a client-error status such as 400.",
+  "why_R2_fails": "R2 fails because the hidden test requires response.statusCode to equal 500."
+}

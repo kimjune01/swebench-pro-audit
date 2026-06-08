@@ -1,0 +1,11 @@
+{
+  "test_behavior": "bcrypt hashing with secret='123', salt='1234567890123456789012', ident='2' returns exactly '$2$12$123456789012345678901ufd3hZRrev.WXCbemqGIV/gmWaTGLImm'.",
+  "klass": "airtight",
+  "constant": "\"$2$12$123456789012345678901ufd3hZRrev.WXCbemqGIV/gmWaTGLImm\"",
+  "r2_prose_clause": null,
+  "gold_anchor": "settings['ident'] = ident",
+  "test_assertion": "assert_hash(\"$2$12$123456789012345678901ufd3hZRrev.WXCbemqGIV/gmWaTGLImm\",\n                secret=\"123\", algorithm=\"bcrypt\", salt='1234567890123456789012', ident='2')",
+  "R1": "For this fixed bcrypt input tuple with ident='2', the implementation must return the exact full hash string '$2$12$123456789012345678901ufd3hZRrev.WXCbemqGIV/gmWaTGLImm'.",
+  "R2": "A prose-faithful implementation could honor ident='2' by producing a bcrypt hash visibly beginning with '$2$' while not matching this exact full digest.",
+  "why_R2_fails": "R2 fails because the test asserts equality with the entire literal hash, not merely the requested bcrypt ident prefix."
+}

@@ -1,81 +1,62 @@
 #!/usr/bin/env python3
-"""judge_pool.py -- fan out the determinacy second-reader (codex/gpt-5.5) over task bundles, locally.
+"""judge_pool.py -- coverage-table determinacy auditor, fanned out over codex locally.
 
-Each worker reads ONE case bundle (spec.md + gold.diff + hidden_test.diff) and asks codex whether the
-PROSE ALONE determines the behavior the hidden test checks. Read-only, no container, no grading -- so it
-parallelizes freely. This is the cheap KNOWN_AMBIGUOUS screen; the full from-prose panel (decontaminated,
-multi-family, with grading) confirms. Codex is contaminated (caveat written into the prompt + recorded).
+Per case, codex builds a COVERAGE TABLE: every behavior the hidden test checks (left), mapped to the
+VERBATIM requirement/prose clause that determines it (right), or null. We then VERIFY each cited clause
+is a real substring of the prose (codex cannot fake coverage). The uncovered rows ARE the attribution.
+No probabilities: a case is AMBIGUOUS iff >=1 test behavior has no covering prose (a GAP).
 
-  tools/judge_pool.py <case_dir> [<case_dir> ...] [--workers 12]
-
-Writes data/judge/<case>.json per task; prints a tally.
+  tools/judge_pool.py [<case_dir> ...] [--workers 12]
+Writes data/attribution/<case>.md (the table) + data/judge/<case>.json. Default: the recon+craft losses.
 """
-import sys, json, subprocess, pathlib, concurrent.futures as cf
+import sys, json, re, subprocess, pathlib, concurrent.futures as cf
 
 REPO = pathlib.Path(__file__).resolve().parent.parent
 OUT = REPO / "data" / "judge"; OUT.mkdir(parents=True, exist_ok=True)
 ATTR = REPO / "data" / "attribution"; ATTR.mkdir(parents=True, exist_ok=True)
-# default batch: the cases our recon+craft failed (the loss set)
 DEFAULT = ["qutebrowser", "protonmail", "tutao", "element"]
 
+PROMPT = """You are a benchmark determinacy auditor. Build a COVERAGE TABLE mapping what the HIDDEN TEST
+checks to the prose that determines it.
 
-def write_attribution(d, rec):
-    """One attribution file per AMBIGUOUS case, in data/attribution/. Skip entailed (not ambiguous)."""
-    if rec.get("verdict") == "entailed" or not rec.get("ok"):
-        return None
-    short = rec["case"]; iid = (d / "instance_id.txt").read_text().strip() if (d / "instance_id.txt").exists() else short
-    recpts = [f"- {n}: `data/cases/{short}/{n}`" for n in ("spec.md", "gold.diff", "hidden_test.diff", "our_failed.diff") if (d / n).exists()]
-    md = (f"# Ambiguity attribution: {short}\n\n"
-          f"- instance_id: `{iid}`\n- verdict: **{rec.get('verdict')}**  (prose_determines_graded_behavior="
-          f"{rec.get('prose_determines_graded_behavior')}, confidence={rec.get('confidence')})\n"
-          f"- judge: codex/gpt-5.5 (contaminated; instructed to reason from prose only, recognized="
-          f"{rec.get('recognized')})\n\n"
-          f"## The unstated behavior the hidden test pins\n{rec.get('splitting_assertion') or '(none cited)'}\n\n"
-          f"## A defensible reading the prose allows but the test rejects\n{rec.get('alternative_reading') or '(none cited)'}\n\n"
-          f"## Justification\n{rec.get('justification') or rec.get('one_line') or ''}\n\n"
-          f"## Receipts\n" + "\n".join(recpts) + f"\n- judge JSON: `data/judge/{short}.json`\n")
-    (ATTR / f"{short}.md").write_text(md)
-    return str(ATTR / f"{short}.md")
+You are given a task's PROBLEM + REQUIREMENTS + INTERFACE (the prose a solver receives), the HIDDEN TEST
+that grades solutions, and the FAIL_TO_PASS list. For EACH distinct behavior the hidden test asserts
+(one row per behavior -- a specific value, timing, ordering, exception, shape, or when-to-act decision),
+output the VERBATIM clause from the prose that determines it, copied EXACTLY so it can be found in the
+text, or null if no prose determines it.
 
-PROMPT = """You are a benchmark DETERMINACY auditor. You are given a coding task's PROBLEM statement
-(the prose a solver receives), its GOLD patch (the maintainer's accepted solution), and the HIDDEN TEST
-that grades solutions. Decide ONE thing: does the PROBLEM PROSE ALONE determine the behavior the HIDDEN
-TEST checks -- such that a competent engineer reading only the prose (and the codebase) would produce a
-solution the test accepts?
+Rules:
+- covering_prose MUST be an exact quote from the provided PROBLEM/REQUIREMENTS/INTERFACE. It will be
+  checked against the text; paraphrase or invention will be rejected.
+- A behavior is covered only if a competent engineer could derive it from the quoted prose ALONE.
+- Do NOT use anything you recall about this repository. Judge from the prose only.
+- Enumerate the behaviors the test actually checks, including specific constants (delays, counts),
+  exception types, and decision points.
 
-Reason ONLY from prose -> behavior. Do NOT use anything you may recall about this repository; if you
-recognize it, set "recognized": true and judge as if you did not. The failure you are hunting for: the
-hidden test pins a specific behavior (an exception type, an ordering, a when-to-call decision, one of
-several defensible readings) that the prose never states -- a "specification lottery."
+Output your FINAL message as ONLY this JSON, nothing else:
+{"rows": [{"test": "<the behavior the test asserts, concrete>", "covering_prose": "<verbatim prose clause>" | null}, ...]}
 
-Output your FINAL message as ONLY a JSON object, no prose around it:
-{"verdict": "entailed|underdetermined|contradicted",
- "prose_determines_graded_behavior": true/false,
- "splitting_assertion": "the test assertion that checks an unstated behavior, or empty",
- "alternative_reading": "a defensible solution the prose allows but the test would reject, or empty",
- "justification": "2-4 sentences: cite the exact prose gap and the exact test behavior it fails to pin",
- "recognized": true/false,
- "confidence": 0.0,
- "one_line": "one sentence"}
-
-=== PROBLEM (prose) ===
+=== PROBLEM + REQUIREMENTS + INTERFACE (prose) ===
 {spec}
 
-=== GOLD PATCH (accepted solution) ===
-{gold}
+=== FAIL_TO_PASS ===
+{f2p}
 
 === HIDDEN TEST (grader) ===
 {test}
 """
 
 
+def norm(s):
+    return re.sub(r"\s+", " ", (s or "").lower()).strip()
+
+
 def judge(case_dir):
-    d = pathlib.Path(case_dir)
-    short = d.name
-    spec = (d / "spec.md").read_text()[:8000] if (d / "spec.md").exists() else ""
-    gold = (d / "gold.diff").read_text()[:12000] if (d / "gold.diff").exists() else ""
-    test = (d / "hidden_test.diff").read_text()[:10000] if (d / "hidden_test.diff").exists() else ""
-    prompt = PROMPT.replace("{spec}", spec).replace("{gold}", gold).replace("{test}", test)
+    d = pathlib.Path(case_dir); short = d.name
+    spec = (d / "spec.md").read_text() if (d / "spec.md").exists() else ""
+    test = (d / "hidden_test.diff").read_text()[:12000] if (d / "hidden_test.diff").exists() else ""
+    f2p = (d / "fail_to_pass.txt").read_text()[:2000] if (d / "fail_to_pass.txt").exists() else ""
+    prompt = (PROMPT.replace("{spec}", spec[:9000]).replace("{f2p}", f2p).replace("{test}", test))
     last = OUT / f"{short}.last.txt"
     cmd = ["codex", "exec", "--skip-git-repo-check", "--dangerously-bypass-approvals-and-sandbox",
            "-c", "model=gpt-5.5", "-o", str(last), prompt]
@@ -84,33 +65,60 @@ def judge(case_dir):
         raw = last.read_text() if last.exists() else ""
     except Exception as e:
         raw = f"__ERROR__ {e}"
-    # extract the JSON object from the last message
-    obj = None
+    rows, ok = [], False
     if "{" in raw and "}" in raw:
-        frag = raw[raw.index("{"): raw.rindex("}") + 1]
-        try: obj = json.loads(frag)
-        except Exception: obj = None
-    rec = {"case": short, "ok": obj is not None, **(obj or {"raw_tail": raw[-300:]})}
+        try:
+            obj = json.loads(raw[raw.index("{"): raw.rindex("}") + 1]); rows = obj.get("rows", []); ok = True
+        except Exception:
+            ok = False
+    nspec = norm(spec)
+    # verify each citation is a real substring of the prose
+    for r in rows:
+        cp = r.get("covering_prose")
+        if not cp:
+            r["status"] = "GAP"
+        elif norm(cp) in nspec:
+            r["status"] = "COVERED"
+        else:
+            r["status"] = "UNVERIFIED"   # cited prose not found verbatim -> not trusted as coverage
+    # binary: a cell is filled only if the citation verifies; null or unverified -> blank (uncovered)
+    n_cov = sum(r["status"] == "COVERED" for r in rows)
+    n_blank = len(rows) - n_cov
+    verdict = "ERROR" if not ok else ("ENTAILED" if n_blank == 0 else "AMBIGUOUS")
+    rec = {"case": short, "ok": ok, "verdict": verdict, "n_rows": len(rows),
+           "n_covered": n_cov, "n_blank": n_blank, "rows": rows}
     (OUT / f"{short}.json").write_text(json.dumps(rec, indent=1))
-    rec["attribution"] = write_attribution(d, rec)
+    write_table(d, rec)
     return rec
+
+
+def write_table(d, rec):
+    short = rec["case"]
+    iid = (d / "instance_id.txt").read_text().strip() if (d / "instance_id.txt").exists() else short
+    lines = [f"# Coverage attribution: {short}", "",
+             f"- instance_id: `{iid}`",
+             f"- verdict: **{rec['verdict']}**  ({rec['n_covered']}/{rec['n_rows']} covered; "
+             f"{rec['n_blank']} blank = the gap)",
+             f"- judge: codex/gpt-5.5; a cell is filled only if the quote verifies verbatim in the prose", "",
+             "| test behavior | covering requirement |",
+             "|---|---|"]
+    for r in rec["rows"]:
+        t = (r.get("test") or "").replace("|", "\\|")[:160]
+        cp = (r.get("covering_prose") or "").replace("|", "\\|")[:300] if r["status"] == "COVERED" else ""
+        lines.append(f"| {t} | {cp} |")
+    recpts = [f"- `data/cases/{short}/{n}`" for n in ("spec.md", "gold.diff", "hidden_test.diff", "our_failed.diff") if (d / n).exists()]
+    lines += ["", "## Receipts", *recpts, f"- judge JSON: `data/judge/{short}.json`"]
+    (ATTR / f"{short}.md").write_text("\n".join(lines) + "\n")
 
 
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    workers = 12
-    if "--workers" in sys.argv: workers = int(sys.argv[sys.argv.index("--workers") + 1])
+    workers = int(sys.argv[sys.argv.index("--workers") + 1]) if "--workers" in sys.argv else 12
     cases = args or [str(REPO / "data" / "cases" / c) for c in DEFAULT]
-    print(f"judging {len(cases)} cases, {workers} workers")
-    results = []
+    print(f"coverage-judging {len(cases)} cases, {workers} workers")
     with cf.ThreadPoolExecutor(max_workers=workers) as ex:
         for r in ex.map(judge, cases):
-            results.append(r)
-            v = r.get("verdict", "ERR")
-            print(f"  {r['case']:24s} {v:15s} det={r.get('prose_determines_graded_behavior')} conf={r.get('confidence')}")
-    tally = {}
-    for r in results: tally[r.get("verdict", "ERR")] = tally.get(r.get("verdict", "ERR"), 0) + 1
-    print("TALLY:", tally)
+            print(f"  {r['case']:24s} {r['verdict']:10s} covered={r['n_covered']}/{r['n_rows']} blank={r['n_blank']}")
 
 
 if __name__ == "__main__":

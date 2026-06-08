@@ -70,6 +70,7 @@ determine 39 regions, not because the inquiry is narrow.
 
 ## Layout
 
+- `docs/AUDIT-CHECKLIST.md` — preregistration-shaped rigor checklist (bar: meet/exceed OpenAI's Verified audit), with an honest current-status column. **This pilot is not yet audit-grade; the checklist is the path.**
 - `docs/PRIOR-ART.md` — verified citations, the Verified-vs-Pro split, and the novelty verdict.
 - `docs/FINDINGS.md` — the bands, the oracle-free nulls, the craft autopsy, the recall table.
 - `data/` — committed receipts: per-instance driver logs, recon handoffs, the craft patch + grade.

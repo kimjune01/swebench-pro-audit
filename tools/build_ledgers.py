@@ -14,9 +14,17 @@ import json, pathlib
 REPO = pathlib.Path(__file__).resolve().parent.parent
 JUDGE = REPO / "data" / "judge"
 
-# classification of judged cases (until rule-(b) gold-coverage makes this mechanical)
-CLASSIFY = {"qutebrowser": "AMBIGUOUS", "tutao": "AMBIGUOUS",
-            "protonmail": "OUR_GAP", "element": "OUR_GAP"}
+# cases we ran through recon+craft and lost (so an ENTAILED verdict = our capability gap)
+OUR_LOSSES = {"qutebrowser", "protonmail", "tutao", "element"}
+
+
+def classify_of(case, rec):
+    """Mechanical: AMBIGUOUS verdict (>=1 GAP) -> KNOWN_AMBIGUOUS; ENTAILED + we-lost -> OUR_GAP."""
+    if rec.get("verdict") == "AMBIGUOUS":
+        return "AMBIGUOUS"
+    if rec.get("verdict") == "ENTAILED" and case in OUR_LOSSES:
+        return "OUR_GAP"
+    return "—"
 
 
 def load_judged():
@@ -43,9 +51,9 @@ def main():
          "Verdict is mechanical: a blank cell (GAP) is a test behavior with no covering requirement.", "",
          "| case | verdict | coverage | gaps | list | attribution |", "|---|---|---|---|---|---|"]
     for c, r in sorted(judged.items()):
-        lst = CLASSIFY.get(c, "—")
-        s.append(f"| {c} | {r.get('verdict')} | {r.get('n_covered')}/{r.get('n_rows')} | "
-                 f"{r.get('n_gap', r.get('n_blank',0))} | {lst} | [table](data/attribution/{c}.md) |")
+        den = r.get('in_gold_total', r.get('n_rows'))
+        s.append(f"| {c} | {r.get('verdict')} | {r.get('n_covered')}/{den} | "
+                 f"{r.get('n_gap',0)} | {classify_of(c,r)} | [table](data/attribution/{c}.md) |")
     (REPO / "SUMMARY.md").write_text("\n".join(s) + "\n")
 
     # KNOWN_BAD.md (from the gold-fails-grader defects)
@@ -68,10 +76,9 @@ def main():
           "Screen = codex coverage table; confirm with the decontaminated panel (see docs/ADMISSIBILITY-SPEC.md).", "",
           "| case | instance_id | coverage | gaps | example gap behaviors | attribution |",
           "|---|---|---|---|---|---|"]
-    for c, lst in CLASSIFY.items():
-        if lst != "AMBIGUOUS" or c not in judged: continue
-        r = judged[c]
-        ka.append(f"| {c} | `{iid(c)}` | {r['n_covered']}/{r['n_rows']} | {r.get('n_gap',0)} | "
+    for c, r in sorted(judged.items()):
+        if classify_of(c, r) != "AMBIGUOUS": continue
+        ka.append(f"| {c} | `{iid(c)}` | {r['n_covered']}/{r.get('in_gold_total', r.get('n_rows'))} | {r.get('n_gap',0)} | "
                   f"{gap_behaviors(r)} | [table](data/attribution/{c}.md) |")
     (REPO / "KNOWN_AMBIGUOUS.md").write_text("\n".join(ka) + "\n")
 
@@ -81,10 +88,9 @@ def main():
           "fully specified (any blank is incidental: test scaffolding or export style). NOT bench defects; "
           "reported as ours. Integrity: the blind judge put these back on us.", "",
           "| case | instance_id | coverage | gaps | attribution |", "|---|---|---|---|---|"]
-    for c, lst in CLASSIFY.items():
-        if lst != "OUR_GAP" or c not in judged: continue
-        r = judged[c]
-        og.append(f"| {c} | `{iid(c)}` | {r['n_covered']}/{r['n_rows']} | {r.get('n_gap',0)} (incidental) | "
+    for c, r in sorted(judged.items()):
+        if classify_of(c, r) != "OUR_GAP": continue
+        og.append(f"| {c} | `{iid(c)}` | {r['n_covered']}/{r.get('in_gold_total', r.get('n_rows'))} | {r.get('n_gap',0)} | "
                   f"[table](data/attribution/{c}.md) |")
     (REPO / "OUR_CAPABILITY_GAPS.md").write_text("\n".join(og) + "\n")
     print("wrote SUMMARY.md, KNOWN_BAD.md, KNOWN_AMBIGUOUS.md, OUR_CAPABILITY_GAPS.md")

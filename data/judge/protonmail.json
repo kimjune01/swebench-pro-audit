@@ -1,87 +1,158 @@
 {
  "case": "protonmail",
  "ok": true,
- "verdict": "AMBIGUOUS",
- "n_rows": 15,
- "n_covered": 14,
- "n_blank": 1,
+ "verdict": "ENTAILED",
+ "in_gold_total": 20,
+ "n_covered": 20,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
  "rows": [
   {
-   "test": "When the first conversations API call throws an error, the list remains in a loading/placeholder state immediately after setup.",
+   "test": "When the first conversations API call throws an error, the stale/failed result is not committed and the list remains in a loading/placeholder state immediately after setup.",
    "covering_prose": "If a fetch fails, the system should attempt to retry in a controlled manner until valid data is obtained.",
+   "gold_anchor": "throw error;",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "When the first conversations API call throws an error, the retry occurs after a 2-second delay.",
    "covering_prose": "The `load` async thunk should catch errors from `queryElements` and, if an error occurs, dispatch the retry action with the relevant query parameters and error after a 2-second delay.",
+   "gold_anchor": "}, 2000);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the failed API call retry is dispatched, it uses the original query parameters and the caught error.",
+   "covering_prose": "The `load` async thunk should catch errors from `queryElements` and, if an error occurs, dispatch the retry action with the relevant query parameters and error after a 2-second delay.",
+   "gold_anchor": "dispatch(retry({ queryParameters, error }));",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "After the failed API call retry succeeds, the conversations API has been called exactly twice.",
    "covering_prose": "If a fetch fails, the system should attempt to retry in a controlled manner until valid data is obtained.",
+   "gold_anchor": "dispatch(retry({ queryParameters, error }));",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "After the failed API call retry succeeds, the list displays the returned 3 conversations and is no longer placeholder/loading.",
    "covering_prose": "If a fetch fails, the system should attempt to retry in a controlled manner until valid data is obtained.",
+   "gold_anchor": "return result;",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "When the first conversations API response has Stale: 1, the stale response is not committed and the list remains in a loading/placeholder state.",
    "covering_prose": "When the server marks a response as stale, the UI should avoid committing that data and should instead seek a fresh, valid result before updating the list.",
+   "gold_anchor": "if (result.Stale === 1) {",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "When the first conversations API response has Stale: 1, the retry occurs after a 1-second delay.",
    "covering_prose": "If Stale is 1, it should dispatch the retryStale action with the original query parameters after a 1-second delay, and then throw a new error to terminate the thunk.",
+   "gold_anchor": "}, 1000);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the first conversations API response has Stale: 1, retryStale is dispatched with the original query parameters.",
+   "covering_prose": "If Stale is 1, it should dispatch the retryStale action with the original query parameters after a 1-second delay, and then throw a new error to terminate the thunk.",
+   "gold_anchor": "dispatch(retryStale({ queryParameters }));",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the first conversations API response has Stale: 1, the thunk throws a new error instead of fulfilling with stale data.",
+   "covering_prose": "If Stale is 1, it should dispatch the retryStale action with the original query parameters after a 1-second delay, and then throw a new error to terminate the thunk.",
+   "gold_anchor": "const error = new Error('Elements result is stale');",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "After the stale-response retry succeeds with Stale: 0, the conversations API has been called exactly twice.",
    "covering_prose": "When the server marks a response as stale, the UI should avoid committing that data and should instead seek a fresh, valid result before updating the list.",
+   "gold_anchor": "dispatch(retryStale({ queryParameters }));",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "After the stale-response retry succeeds with Stale: 0, the list displays the returned 3 conversations and is no longer placeholder/loading.",
    "covering_prose": "When the server marks a response as stale, the UI should avoid committing that data and should instead seek a fresh, valid result before updating the list.",
+   "gold_anchor": "return result;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The queryElements result exposes the backend Stale flag so the load thunk can branch on Stale: 1 versus Stale: 0.",
+   "covering_prose": "The `elementQuery.ts` file should update the `queryElements` function to include a \"Stale\" field in its return object, derived from the API response.",
+   "gold_anchor": "Stale: result.Stale,",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "After two backend item-modifying operations are started and unresolved, the mailbox conversations API is not called again beyond the initial load.",
    "covering_prose": "The list reload logic should be guarded by a check ensuring that no backend actions are currently pending; `pendingActions` should equal zero.",
+   "gold_anchor": "if (shouldSendRequest && pendingActions === 0 && !isSearch(search)) {",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "While two backend item-modifying operations are unresolved, the list remains in a loading/placeholder state.",
    "covering_prose": "The mailbox list should reload and display data only after all backend item-modifying operations have fully completed.",
+   "gold_anchor": "(beforeFirstLoad || pendingRequest || shouldSendRequest) && !invalidated",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Each backend item-modifying operation start increments pendingActions.",
+   "covering_prose": "A new reducer case for the backendActionStarted action should increment the pendingActions counter in the state.",
+   "gold_anchor": "state.pendingActions++;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Each backend item-modifying operation finish decrements pendingActions.",
+   "covering_prose": "A new reducer case for the backendActionFinished action should decrement the pendingActions counter in the state.",
+   "gold_anchor": "state.pendingActions--;",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "After only the first of two backend item-modifying operations resolves, the mailbox conversations API is still not called again.",
    "covering_prose": "The mailbox list should reload and display data only after all backend item-modifying operations have fully completed.",
+   "gold_anchor": "if (shouldSendRequest && pendingActions === 0 && !isSearch(search)) {",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "After only the first of two backend item-modifying operations resolves, the list still remains in a loading/placeholder state.",
    "covering_prose": "The mailbox list should reload and display data only after all backend item-modifying operations have fully completed.",
+   "gold_anchor": "(beforeFirstLoad || pendingRequest || shouldSendRequest) && !invalidated",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "After the second backend item-modifying operation resolves, the mailbox conversations API is called a second time.",
    "covering_prose": "The mailbox list should reload and display data only after all backend item-modifying operations have fully completed.",
+   "gold_anchor": "}, [shouldResetCache, shouldSendRequest, shouldUpdatePage, shouldLoadMoreES, pendingActions, search]);",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "After all backend item-modifying operations resolve, the list displays PAGE_SIZE non-placeholder elements.",
    "covering_prose": "The mailbox list should reload and display data only after all backend item-modifying operations have fully completed.",
+   "gold_anchor": "if (shouldSendRequest && pendingActions === 0 && !isSearch(search)) {",
+   "in_gold": true,
    "status": "COVERED"
   },
   {
    "test": "The loading/placeholder list contains exactly PAGE_SIZE items while retrying or waiting for backend actions.",
    "covering_prose": null,
-   "status": "GAP"
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
   }
- ],
- "n_gap": 1,
- "n_check": 0
+ ]
 }

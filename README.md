@@ -72,11 +72,16 @@ determine 39 regions, not because the inquiry is narrow.
 
 We authored a Pro harness and paper ([swebench-pro](https://github.com/kimjune01/swebench-pro),
 [the methodeutic harness](https://june.kim/the-methodeutic-harness-on-swebench-pro)) whose oracle-free
-arms produced the null this audit explains. Auditing the bench that hosts our own null is a conflict we
-state plainly; the mitigation is committed receipts and an independent adversarial pass, not silence.
-Methodologically this audit reuses our [DeepSWE audit](https://june.kim/auditing-deepswe) — the
-gold-passes-verifier check, denominator hygiene, the second-reader cold read, and the
-"specification lottery" pattern that is the precedent for finding B.
+arms produced the null this audit explains. We disclose this as **provenance, not penance**: the stake is
+*why* the audit is this deep — a disinterested party never reads a task's requirements against its hidden
+test line by line. Motivation is also bias risk, so no verdict is asked to be trusted. Each blank is
+mechanical and re-derivable from committed receipts: the behavior is in [`hidden_test.diff`], its anchor
+verifies verbatim in [`gold.diff`], and no clause verifies in [`spec.md`]. A reader who thinks we are
+motivated reasoners can ignore every word we wrote and reproduce the table from the gold, the test, and
+the prose. **Disclosure explains why the work exists; verifiability is why its conclusions need no trust.**
+The one place our stake could still tilt the result is *sampling* — handled by judging a seeded/whole
+sample, not our losses. Methodology reuses our [DeepSWE audit](https://june.kim/auditing-deepswe)
+(gold-passes-verifier, denominator hygiene, the second-reader cold read, the specification-lottery pattern).
 
 ## Layout
 

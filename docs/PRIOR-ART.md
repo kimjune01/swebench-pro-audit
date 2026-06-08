@@ -39,8 +39,14 @@ load-bearing citations **independently re-verified** by web search. Confidence i
   Tasks?* arXiv:2509.16941, Sept 2025. **Verified** (authors confirmed). The benchmark itself + its
   rationale; long-horizon, multi-file, human-augmented. **Not an external audit.**
 - Datacurve. *DeepSWE* blog, 2026. The only Pro-specific external critique found (verifier false
-  pos/neg via an LLM analyzer). **Non-peer-reviewed; the author sells a competing benchmark.** (Note:
-  this is the bench [we have separately audited](https://github.com/kimjune01/swebench-pro).)
+  pos/neg via an LLM analyzer). **Non-peer-reviewed; the author sells a competing benchmark.**
+- **Our own DeepSWE audit** — [june.kim/auditing-deepswe](https://june.kim/auditing-deepswe),
+  receipts at [kimjune01/deepswe-run](https://github.com/kimjune01/deepswe-run) (`audit-v1`), May 2026.
+  Establishes, on a *different* bench, the checks this audit reuses: gold-passes-own-verifier (4 broken
+  golds), denominator hygiene (÷111 vs announced 113), verdict falsifiability, and — most relevant —
+  the **"specification lottery"**: `adaptix-name-mapping-aliases`, where the gold passes but the verifier
+  scores an `overlay-mergeable...first-wins` reading the instruction never determines. **This is the same
+  class as finding B.**
 
 ## The split that matters
 
@@ -58,8 +64,10 @@ OpenAI debunked **Verified**, not Pro — and recommends Pro as the cure. So:
   the oracle gate, not reasoning): **appears novel.** Prior art shows tests *misgrade*; none shows the
   *success mechanism is search-against-the-oracle, not understanding.*
 - **B — losses are downstream of solved localization** (recall 1.0 → still loses; residual is a
-  test-hidden behavioral detail): **precise form appears novel**; the broader underdetermined-prose /
-  over-determined-test *framing* is already known (for Verified).
+  test-hidden behavioral detail): the **"specification lottery"** mechanism is **our own prior finding**
+  (DeepSWE `adaptix`, May 2026) and adjacent to OpenAI/Wang-Pradel-Liu; **not novel as a pattern.** The
+  Pro-specific contribution is (i) showing it on the bench OpenAI now *trusts*, and (ii) the
+  *localization-already-solved* precision (recall 1.0 → loss), which we did not state for DeepSWE.
 - **Defensible frame:** not "Pro is flawed," but **"on the bench OpenAI now trusts, oracle-gated
   iteration — not diagnosis/localization — explains the above-baseline lift, on an axis no prior audit
   examined."** Needs no contamination claim to stand.

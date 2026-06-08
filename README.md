@@ -68,6 +68,16 @@ determine 39 regions, not because the inquiry is narrow.
 - The ~50% floor is measured on a contaminated model, so the *clean* prose-determined floor is likely
   lower and is unmeasured (needs oracle-free + post-cutoff).
 
+## Position / conflict of interest
+
+We authored a Pro harness and paper ([swebench-pro](https://github.com/kimjune01/swebench-pro),
+[the methodeutic harness](https://june.kim/the-methodeutic-harness-on-swebench-pro)) whose oracle-free
+arms produced the null this audit explains. Auditing the bench that hosts our own null is a conflict we
+state plainly; the mitigation is committed receipts and an independent adversarial pass, not silence.
+Methodologically this audit reuses our [DeepSWE audit](https://june.kim/auditing-deepswe) — the
+gold-passes-verifier check, denominator hygiene, the second-reader cold read, and the
+"specification lottery" pattern that is the precedent for finding B.
+
 ## Layout
 
 - `docs/AUDIT-CHECKLIST.md` — preregistration-shaped rigor checklist (bar: meet/exceed OpenAI's Verified audit), with an honest current-status column. **This pilot is not yet audit-grade; the checklist is the path.**

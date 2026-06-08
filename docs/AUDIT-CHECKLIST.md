@@ -76,6 +76,46 @@ Status legend: `[x]` done · `[~]` partial / pilot only · `[ ]` not started. Th
       (audit Pro not Verified; causal decomposition is the novel part).
 - [ ] One-line disclaimer where the regime is contaminated or the n is a pilot; no badges, receipts available.
 
+## 10. Carried over from the DeepSWE audit ([june.kim/auditing-deepswe](https://june.kim/auditing-deepswe))
+
+These are the checks/principles that audit already established; they apply directly to Pro.
+
+- [ ] **Three trust axes, stated separately:** tasks are real / grader is fair / **the answer key works**.
+      Report each; don't let one stand in for another.
+- [~] **Gold-passes-own-verifier, with isolation protocol.** Apply each gold through the official grader;
+      **pass 1 parallel, pass 2 re-run every non-passing task sequentially and alone**, so a resource
+      hiccup is never reported as a defect. Flag only golds that fail in isolation. *(We have a KNOWN_BAD
+      set; formalize the two-pass isolation and run it across Pro.)*
+- [ ] **Audit yourself first.** Uniform failure is never N independent defects — it's one fault in the
+      shared harness (the `docker compose` plugin lesson). Suspect our setup before the bench; add a
+      loud assertion at the shared failure point. *(We already hit the analogous `git checkout` hang;
+      treat infra suspicion as the default.)*
+- [ ] **Verdict falsifiability.** Publish **retrievable** per-instance receipts that let a skeptic
+      re-grade: the model patch, trajectory, and grader output — not a `has_model_patch: true` promise.
+      *(craft_autopsy does this for one case; extend to every audited instance.)*
+- [ ] **Denominator hygiene.** Announced denominator == actual divisor. Report exclusions **per arm**;
+      flag uneven exclusion across arms (it shifts the comparison even under a defensible error policy).
+- [ ] **Second-reader cold read** (the construct-validity instrument): a model reads each task cold —
+      instruction beside the reference solution and the hidden test — and flags where the test scores a
+      behavior the prose does not determine ("specification lottery"). One codex/gemini pass; this is how
+      `adaptix` (DeepSWE) and `qutebrowser` (here) were caught. Pair it with the human-rater codebook (§2).
+- [ ] **Clustered statistics, not naive.** With k rollouts/task, **macro-average over tasks** and account
+      for task-level correlation; do **not** treat rollouts as independent (the Wilson-as-independent
+      error). This is the right form of the §3 reps fix.
+- [ ] **Config normalization.** Hold reasoning_effort and harness constant across arms; disclose them.
+      A column that looks like a model ranking must not secretly rank model-and-config pairs.
+- [ ] **Pin + preregister + reproduce-block + freeze at a tag.** Pin the Pro dataset commit (tasks can
+      change post-publication and break comparability); commit the procedure before running; ship a
+      copy-paste reproduce loop; freeze receipts at a release tag (the DeepSWE audit froze at `audit-v1`).
+
+## 11. Conflict-of-interest / position disclosure (we have one)
+
+- [ ] **Disclose our stake up front.** We authored a Pro harness and paper
+      ([swebench-pro](https://github.com/kimjune01/swebench-pro), [the methodeutic harness](https://june.kim/the-methodeutic-harness-on-swebench-pro))
+      whose oracle-free arms produced the null this audit explains. Auditing the bench that hosts our own
+      null is exactly the COI the DeepSWE dossier would flag. State it; let the receipts carry the rest;
+      the anti-self-serving review (§8) is the mitigation, not silence.
+
 ---
 
 ### Current pilot vs the bar (one-line gap read)

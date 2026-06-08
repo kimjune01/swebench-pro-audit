@@ -1,0 +1,116 @@
+{
+ "case": "flipt-io_bdf53a4e",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 15,
+ "n_covered": 15,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Exporter.Export returns no error for a store containing one flag, variants, rules, segments, constraints, and distributions.",
+   "covering_prose": "Ensure that `exporter.Export` executes without returning an error when exporting flags, variants, segments, rules, and distributions from the store into a YAML-formatted document.",
+   "gold_anchor": "func (e *Exporter) Export(ctx context.Context, w io.Writer) error {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Exporter.Export writes YAML that is YAML-equivalent to internal/ext/testdata/export.yml.",
+   "covering_prose": "Ensure the `Export` method accepts a writable stream and produces human-readable YAML output matching `internal/ext/testdata/export.yml`.",
+   "gold_anchor": "enc       = yaml.NewEncoder(w)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Exported variant attachments are represented as native YAML objects rather than JSON strings, including nested objects, arrays, mixed primitive values, and null values.",
+   "covering_prose": "Handle variant attachments in the export output by converting JSON strings in the store into native objects (`interface{}`), maintaining all nested and mixed-type values.",
+   "gold_anchor": "Attachment  interface{} `yaml:\"attachment,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Export includes flags, variants, segments, rules, and distributions from the store in the document hierarchy.",
+   "covering_prose": "Implement the `Exporter` class, in `internal/ext/exporter.go`, to export all flags, variants, segments, rules, and distributions from the store into a YAML-formatted document, preserving nested structures, arrays, and null values in variant attachments.",
+   "gold_anchor": "type Exporter struct {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Export maps rule distribution VariantId values back to variant keys in YAML.",
+   "covering_prose": "Struct: `Distribution`. Represents the distribution of traffic or users to a variant within a rule.\nFields: `VariantKey` <string> (key of the variant), `Rollout` <float32> (percentage of traffic/users assigned)",
+   "gold_anchor": "VariantKey string  `yaml:\"variant,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Export serializes segment constraints with type, property, operator, and value fields.",
+   "covering_prose": "Struct: `Constraint`. Represents a single condition in a segment.\nFields: `Type` <string> (type of comparison), `Property` <string> (property to compare), `Operator` <string> (operator for comparison (e.g., eq, neq)), and `Value` <string> (value to compare against)",
+   "gold_anchor": "type Constraint struct {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Importer.Import returns no error for testdata/import.yml and testdata/import_no_attachment.yml.",
+   "covering_prose": "Handle import workflows for files like `internal/ext/testdata/import.yml` and `import_no_attachment.yml`, creating all corresponding flags, variants, segments, rules, and distributions.",
+   "gold_anchor": "func runImport(args []string) error {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Importer.Import creates exactly one flag from each fixture, with key flag1, name flag1, description description, and enabled true.",
+   "covering_prose": "Handle import workflows for files like `internal/ext/testdata/import.yml` and `import_no_attachment.yml`, creating all corresponding flags, variants, segments, rules, and distributions.",
+   "gold_anchor": "type Flag struct {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Importer.Import creates exactly one variant from each fixture, with key variant1 and name variant1.",
+   "covering_prose": "Handle import workflows for files like `internal/ext/testdata/import.yml` and `import_no_attachment.yml`, creating all corresponding flags, variants, segments, rules, and distributions.",
+   "gold_anchor": "type Variant struct {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When importing testdata/import.yml, the variant attachment is JSON-encoded and JSON-equivalent to the expected object containing pi, happy, name, answer, list, and object fields.",
+   "covering_prose": "Ensure the `Import` method accepts a readable stream, handles cases with or without variant attachments, and produces JSON-encoded strings for attachments when creating variants.",
+   "gold_anchor": "Attachment  interface{} `yaml:\"attachment,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When importing testdata/import_no_attachment.yml, the created variant attachment is empty.",
+   "covering_prose": "Handle empty or missing variant attachments by skipping them or substituting default values, ensuring the rest of the data structure remains intact.",
+   "gold_anchor": "Attachment  interface{} `yaml:\"attachment,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Importer.Import creates exactly one segment from each fixture, with key segment1, name segment1, description description, and MatchType ALL_MATCH_TYPE.",
+   "covering_prose": "Handle import workflows for files like `internal/ext/testdata/import.yml` and `import_no_attachment.yml`, creating all corresponding flags, variants, segments, rules, and distributions.",
+   "gold_anchor": "type Segment struct {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Importer.Import creates exactly one constraint from each fixture, with type STRING_COMPARISON_TYPE, property fizz, operator neq, and value buzz.",
+   "covering_prose": "Handle import workflows for files like `internal/ext/testdata/import.yml` and `import_no_attachment.yml`, creating all corresponding flags, variants, segments, rules, and distributions.",
+   "gold_anchor": "type Constraint struct {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Importer.Import creates exactly one rule from each fixture, with segment key segment1 and rank 1.",
+   "covering_prose": "Handle import workflows for files like `internal/ext/testdata/import.yml` and `import_no_attachment.yml`, creating all corresponding flags, variants, segments, rules, and distributions.",
+   "gold_anchor": "type Rule struct {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Importer.Import creates exactly one distribution from each fixture, with flag key flag1, non-empty VariantId, non-empty RuleId, and rollout 100.",
+   "covering_prose": "Handle import workflows for files like `internal/ext/testdata/import.yml` and `import_no_attachment.yml`, creating all corresponding flags, variants, segments, rules, and distributions.",
+   "gold_anchor": "type Distribution struct {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

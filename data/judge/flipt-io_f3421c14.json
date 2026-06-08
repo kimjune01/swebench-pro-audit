@@ -1,0 +1,60 @@
+{
+ "case": "flipt-io_f3421c14",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 7,
+ "n_covered": 5,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For every table case, `FliptAcceptServerVersionUnaryInterceptor(logger)` invokes the unary handler exactly once.",
+   "covering_prose": "Type: Function\nName: `FliptAcceptServerVersionUnaryInterceptor`\nPath: `internal/server/middleware/grpc/middleware.go`\nInput: `logger *zap.Logger`\nOutput: `grpc.UnaryServerInterceptor`\nDescription: A gRPC interceptor that reads the `x-flipt-accept-server-version` header from request metadata, parses it as a semantic version, and stores it in the request context using `WithFliptAcceptServerVersion`.",
+   "gold_anchor": "return handler(ctx, req)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When incoming metadata does not contain `x-flipt-accept-server-version`, `FliptAcceptServerVersionFromContext` on the handler context returns `preFliptAcceptServerVersion`.",
+   "covering_prose": null,
+   "gold_anchor": "return preFliptAcceptServerVersion",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When incoming metadata contains `x-flipt-accept-server-version: v1.0.0`, the interceptor stores semver `1.0.0` in the handler context and `FliptAcceptServerVersionFromContext` retrieves it.",
+   "covering_prose": "- The interceptor should handle version strings with or without the `\"v\"` prefix, accepting both `\"v1.0.0\"` and `\"1.0.0\"` formats.",
+   "gold_anchor": "cv, err := semver.ParseTolerant(version)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When incoming metadata contains `x-flipt-accept-server-version: 1.0.0`, the interceptor stores semver `1.0.0` in the handler context and `FliptAcceptServerVersionFromContext` retrieves it.",
+   "covering_prose": "- The interceptor should handle version strings with or without the `\"v\"` prefix, accepting both `\"v1.0.0\"` and `\"1.0.0\"` formats.",
+   "gold_anchor": "ctx = WithFliptAcceptServerVersion(ctx, cv)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When incoming metadata contains `x-flipt-accept-server-version: invalid`, `FliptAcceptServerVersionFromContext` on the handler context returns `preFliptAcceptServerVersion`.",
+   "covering_prose": null,
+   "gold_anchor": "return handler(ctx, req)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The interceptor reads the exact metadata key `x-flipt-accept-server-version`.",
+   "covering_prose": "- The interceptor should read the `x-flipt-accept-server-version` header from gRPC metadata and store the parsed version in the request context.",
+   "gold_anchor": "const fliptAcceptServerVersionHeaderKey = \"x-flipt-accept-server-version\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`FliptAcceptServerVersionFromContext` retrieves the version stored in context by `WithFliptAcceptServerVersion`.",
+   "covering_prose": "- The interceptor should provide a way to retrieve the stored version from context using `FliptAcceptServerVersionFromContext`.",
+   "gold_anchor": "v, ok := ctx.Value(fliptServerVersionContextKey{}).(semver.Version)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

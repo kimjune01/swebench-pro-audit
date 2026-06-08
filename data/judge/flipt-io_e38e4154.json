@@ -1,0 +1,123 @@
+{
+ "case": "flipt-io_e38e4154",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 16,
+ "n_covered": 16,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "check(context.Background(), rc, \"0.17.1\") returns no error when the mocked latest release tag is \"0.17.1\".",
+   "covering_prose": "Checks for the latest release using the default release checker and returns release information.",
+   "gold_anchor": "return i, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the current version is \"0.17.1\" and the latest release tag is \"0.17.1\", check returns Info.CurrentVersion == \"0.17.1\".",
+   "covering_prose": "Holds release information including current version, latest version, update availability, and latest version URL.",
+   "gold_anchor": "CurrentVersion: version,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the current version is \"0.17.1\" and the latest release tag is \"0.17.1\", check returns Info.LatestVersion == \"0.17.1\".",
+   "covering_prose": "Holds release information including current version, latest version, update availability, and latest version URL.",
+   "gold_anchor": "i.LatestVersion = lv.String()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the current version is equal to the latest release tag, check returns Info.UpdateAvailable == false.",
+   "covering_prose": "Update determination must rely on 'release.Info.UpdateAvailable' together with 'release.Info.CurrentVersion' and 'release.Info.LatestVersion'; no separate semantic-version comparison is reimplemented locally.",
+   "gold_anchor": "if cv.Compare(lv) < 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the current version is equal to the latest release tag, check returns Info.LatestVersionURL == \"\".",
+   "covering_prose": "At startup, version and update information 'current_version', 'latest_version', 'update_available', and a URL to the latest version when applicable, must be available for logging/UX, and telemetry must be disabled when the build is not a proper release.",
+   "gold_anchor": "LatestVersionURL string",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "check(context.Background(), rc, \"0.17.1\") returns no error when the mocked latest release tag is \"0.17.2\".",
+   "covering_prose": "Checks for the latest release using the default release checker and returns release information.",
+   "gold_anchor": "return i, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the current version is \"0.17.1\" and the latest release tag is \"0.17.2\", check returns Info.CurrentVersion == \"0.17.1\".",
+   "covering_prose": "Holds release information including current version, latest version, update availability, and latest version URL.",
+   "gold_anchor": "CurrentVersion: version,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the current version is \"0.17.1\" and the latest release tag is \"0.17.2\", check returns Info.LatestVersion == \"0.17.2\".",
+   "covering_prose": "Holds release information including current version, latest version, update availability, and latest version URL.",
+   "gold_anchor": "i.LatestVersion = lv.String()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the current version is lower than the latest release tag, check returns Info.UpdateAvailable == true.",
+   "covering_prose": "Update determination must rely on 'release.Info.UpdateAvailable' together with 'release.Info.CurrentVersion' and 'release.Info.LatestVersion'; no separate semantic-version comparison is reimplemented locally.",
+   "gold_anchor": "i.UpdateAvailable = true",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When an update is available, check returns Info.LatestVersionURL == \"https://github.com/flipt-io/flipt/releases/tag/0.17.2\" from the mocked release HTMLURL.",
+   "covering_prose": "After an update check, output must show either \u201crunning latest\u201d with 'release.Info.CurrentVersion' when no update is available, or \u201cnewer version available\u201d with 'release.Info.LatestVersion' and 'release.Info.LatestVersionURL' when an update exists.",
+   "gold_anchor": "i.LatestVersionURL = release.GetHTMLURL()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Is(\"0.17.1\") returns true.",
+   "covering_prose": "Determines if a version is a release (not a dev, snapshot, or release candidate).",
+   "gold_anchor": "func Is(version string) bool {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Is(\"1.0.0\") returns true.",
+   "covering_prose": "Determines if a version is a release (not a dev, snapshot, or release candidate).",
+   "gold_anchor": "func Is(version string) bool {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Is(\"dev\") returns false.",
+   "covering_prose": "Startup must determine release status via 'release.Is(version)', treating versions with '-snapshot', '-rc', or 'dev' suffixes as non-release.",
+   "gold_anchor": "devVersionRegex              = regexp.MustCompile(`dev$`)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Is(\"1.0.0-snapshot\") returns false.",
+   "covering_prose": "Startup must determine release status via 'release.Is(version)', treating versions with '-snapshot', '-rc', or 'dev' suffixes as non-release.",
+   "gold_anchor": "snapshotVersionRegex         = regexp.MustCompile(`snapshot$`)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Is(\"1.0.0-rc1\") returns false.",
+   "covering_prose": "Startup must determine release status via 'release.Is(version)', treating versions with '-snapshot', '-rc', or 'dev' suffixes as non-release.",
+   "gold_anchor": "releaseCandidateVersionRegex = regexp.MustCompile(`rc.*$`)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Is(\"1.0.0-rc.1\") returns false.",
+   "covering_prose": "Startup must determine release status via 'release.Is(version)', treating versions with '-snapshot', '-rc', or 'dev' suffixes as non-release.",
+   "gold_anchor": "releaseCandidateVersionRegex = regexp.MustCompile(`rc.*$`)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

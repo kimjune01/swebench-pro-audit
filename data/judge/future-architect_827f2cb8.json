@@ -1,0 +1,74 @@
+{
+ "case": "future-architect_827f2cb8",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 0,
+ "n_covered": 0,
+ "n_gap": 0,
+ "n_out_of_scope": 9,
+ "rows": [
+  {
+   "test": "The Gost RedHat package-state test suite is removed, leaving gost/gost_test.go with only the build tag and package declaration.",
+   "covering_prose": "The Gost client must no longer return a RedHat type; instead, CVE detection for Red\u00a0Hat and derived distributions must rely solely on OVAL definition processing. Additionally, the exported DetectCVEs method on the RedHat type must be removed.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "isOvalDefAffected returns four result values before error: affected, notFixedYet, fixState, and fixedIn.",
+   "covering_prose": "The isOvalDefAffected function must return four values: whether the package is affected, whether it is not fixed yet, the fix-state (fixState) and the fixed-in version.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For a Red Hat 8 kernel package with NotFixedYet true and no AffectedResolution, isOvalDefAffected returns affected=true, notFixedYet=true, fixState=\"\", fixedIn=\"\".",
+   "covering_prose": "When NotFixedYet is true, the state is determined from AffectedResolution: \u201cWill not fix\u201d and \u201cUnder investigation\u201d are considered unaffected but unfixed; other states (\u201cFix deferred,\u201d \u201cAffected\u201d or \u201cOut of support scope\u201d) mark the package as affected. If no resolution is associated, fixState is an empty string.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For AffectedResolution state \"Affected\" matching component \"kernel\", isOvalDefAffected returns affected=true, notFixedYet=true, fixState=\"Affected\", fixedIn=\"\".",
+   "covering_prose": "When NotFixedYet is true, the state is determined from AffectedResolution: \u201cWill not fix\u201d and \u201cUnder investigation\u201d are considered unaffected but unfixed; other states (\u201cFix deferred,\u201d \u201cAffected\u201d or \u201cOut of support scope\u201d) mark the package as affected.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For AffectedResolution state \"Fix deferred\" matching component \"kernel\", isOvalDefAffected returns affected=true, notFixedYet=true, fixState=\"Fix deferred\", fixedIn=\"\".",
+   "covering_prose": "When NotFixedYet is true, the state is determined from AffectedResolution: \u201cWill not fix\u201d and \u201cUnder investigation\u201d are considered unaffected but unfixed; other states (\u201cFix deferred,\u201d \u201cAffected\u201d or \u201cOut of support scope\u201d) mark the package as affected.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For AffectedResolution state \"Out of support scope\" matching component \"kernel\", isOvalDefAffected returns affected=true, notFixedYet=true, fixState=\"Out of support scope\", fixedIn=\"\".",
+   "covering_prose": "When NotFixedYet is true, the state is determined from AffectedResolution: \u201cWill not fix\u201d and \u201cUnder investigation\u201d are considered unaffected but unfixed; other states (\u201cFix deferred,\u201d \u201cAffected\u201d or \u201cOut of support scope\u201d) mark the package as affected.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For AffectedResolution state \"Will not fix\" matching component \"kernel\", isOvalDefAffected returns affected=false, notFixedYet=true, fixState=\"Will not fix\", fixedIn=\"\".",
+   "covering_prose": "When NotFixedYet is true, the state is determined from AffectedResolution: \u201cWill not fix\u201d and \u201cUnder investigation\u201d are considered unaffected but unfixed; other states (\u201cFix deferred,\u201d \u201cAffected\u201d or \u201cOut of support scope\u201d) mark the package as affected.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For AffectedResolution state \"Under investigation\" matching component \"kernel\", isOvalDefAffected returns affected=false, notFixedYet=true, fixState=\"Under investigation\", fixedIn=\"\".",
+   "covering_prose": "When NotFixedYet is true, the state is determined from AffectedResolution: \u201cWill not fix\u201d and \u201cUnder investigation\u201d are considered unaffected but unfixed; other states (\u201cFix deferred,\u201d \u201cAffected\u201d or \u201cOut of support scope\u201d) mark the package as affected.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For modular package nodejs with ModularityLabel \"nodejs:20\" and AffectedResolution component \"nodejs:20/nodejs\", isOvalDefAffected returns affected=true, notFixedYet=true, fixState=\"Affected\", fixedIn=\"\".",
+   "covering_prose": "It must evaluate definitions by checking the correct repository (on Amazon), the package modularity and the installed version.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

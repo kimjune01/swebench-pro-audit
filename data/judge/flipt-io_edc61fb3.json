@@ -1,0 +1,60 @@
+{
+ "case": "flipt-io_edc61fb3",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "A request with metadata key \"Authorization\" containing \"Bearer \"+clientToken succeeds and resolves the stored authentication.",
+   "covering_prose": "The middleware must extract client tokens from the `authorization` metadata header. It **should only accept** the exact format `\"Bearer <token>\"`, with a capital B and a single space. Any other format **must be rejected** as invalid.",
+   "gold_anchor": "return clientTokenFromAuthorization(authenticationHeader[0])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A request with metadata key \"grpcgateway-cookie\" containing \"flipt_client_token=\"+clientToken succeeds and resolves the stored authentication.",
+   "covering_prose": "If the `authorization` header is not present or invalid, the middleware should extract the client token from the `grpcgateway-cookie` metadata header by parsing the cookies and specifically retrieving the `flipt_client_token` value.",
+   "gold_anchor": "tokenCookieKey = \"flipt_client_token\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When configured with WithServerSkipsAuthentication(&fakeserver), a request whose grpc.UnaryServerInfo.Server is &fakeserver succeeds with empty metadata and no authentication check.",
+   "covering_prose": "Before performing any metadata extraction or token validation, the middleware must check whether the current server (`info.Server`) is in the skip list. If it is, the middleware should log a debug message and immediately proceed to the handler without attempting authentication.",
+   "gold_anchor": "if opts.skipped(info.Server) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "WithServerSkipsAuthentication(&fakeserver) is accepted as a containers.Option[InterceptorOptions] passed to UnaryInterceptor.",
+   "covering_prose": "The utility function `WithServerSkipsAuthentication(server any)` should append the provided server to the `skippedServers` list in the options.",
+   "gold_anchor": "func WithServerSkipsAuthentication(server any) containers.Option[InterceptorOptions] {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UnaryInterceptor accepts variadic containers.Option[InterceptorOptions] options.",
+   "covering_prose": "The function `UnaryInterceptor(logger, authenticator, ...containers.Option[InterceptorOptions])` must apply any provided options at construction time and enforce the full authentication flow described above for every incoming request.",
+   "gold_anchor": "func UnaryInterceptor(logger *zap.Logger, authenticator Authenticator, o ...containers.Option[InterceptorOptions]) grpc.UnaryServerInterceptor {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A cookie metadata entry that does not provide a valid flipt_client_token returns errUnauthenticated.",
+   "covering_prose": "If no valid token can be extracted\u2014due to missing or malformed headers or cookies\u2014the middleware must return `errUnauthenticated` and should log a clear failure reason for debugging.",
+   "gold_anchor": "return (&http.Request{",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A token whose expiry time is before time.Now() returns errUnauthenticated.",
+   "covering_prose": "After extracting a token, the middleware must validate it by looking up the corresponding authentication record. If the token is expired (i.e., the expiry time is earlier than `time.Now()`), it must reject the request with `errUnauthenticated`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

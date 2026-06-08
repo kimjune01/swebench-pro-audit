@@ -1,0 +1,389 @@
+{
+ "case": "flipt-io_56d261e7",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 54,
+ "n_covered": 49,
+ "n_gap": 5,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`storage.Evaluator` is an interface implemented by the server test mock and `EvaluatorStorage`, with an `Evaluate(ctx context.Context, *flipt.EvaluationRequest) (*flipt.EvaluationResponse, error)` method.",
+   "covering_prose": "A new interface named `Evaluator` should be defined within a `storage/evaluator.go` file.",
+   "gold_anchor": "type Evaluator interface {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`Server` has an `Evaluator` dependency and `Server.Evaluate` delegates successful requests to `s.Evaluator.Evaluate(ctx, req)`, not `RuleStore.Evaluate`.",
+   "covering_prose": "The `Server` struct in `server/server.go` should be updated to include a new field of type `Evaluator` and delegate calls to `Server.Evaluate` to the `Evaluator` interface.",
+   "gold_anchor": "resp, err := s.Evaluator.Evaluate(ctx, req)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`Server.Evaluate` returns `emptyFieldError(\"flagKey\")` and does not produce a response when `EvaluationRequest.FlagKey` is empty.",
+   "covering_prose": "If `EvaluationRequest.FlagKey` or `EvaluationRequest.EntityId` is empty, `EvaluationResponse` should return a structured error from `emptyFieldError`.",
+   "gold_anchor": "return nil, emptyFieldError(\"flagKey\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`Server.Evaluate` returns `emptyFieldError(\"entityId\")` and does not produce a response when `EvaluationRequest.EntityId` is empty.",
+   "covering_prose": "If `EvaluationRequest.FlagKey` or `EvaluationRequest.EntityId` is empty, `EvaluationResponse` should return a structured error from `emptyFieldError`.",
+   "gold_anchor": "return nil, emptyFieldError(\"entityId\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the delegated evaluator returns an error, `Server.Evaluate` returns that error and a nil response.",
+   "covering_prose": "The `Server` should accept an `Evaluator` dependency and delegate evaluation calls to it.",
+   "gold_anchor": "return nil, err",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When delegated evaluation returns a non-nil response, `Server.Evaluate` sets `RequestDurationMillis` to a nonzero elapsed millisecond value.",
+   "covering_prose": "Description: Evaluates a feature flag for a given entity and returns the evaluation response, setting a request ID if missing and recording request duration.",
+   "gold_anchor": "resp.RequestDurationMillis = float64(time.Since(startTime)) / float64(time.Millisecond)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`New` initializes the storage-level evaluator test dependency as `NewEvaluatorStorage(logger, builder)`.",
+   "covering_prose": "The `New` function in `server/server.go` must be updated to initialize the new `EvaluatorStorage` with appropriate logger and SQL builder dependencies; errors for missing or disabled flags should use consistent, structured messages (e.g., not found via `ErrNotFoundf(\"flag %q\", key)` and disabled via `ErrInvalidf(\"flag %q is disabled\", key)`), the `EvaluationResponse` should echo the incoming `RequestContext`, set the `Timestamp` in UTC, and set `SegmentKey` only when a rule matches.",
+   "gold_anchor": "evaluator    = storage.NewEvaluatorStorage(logger, builder)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Evaluating missing flag key `foo` returns error text `flag \"foo\" not found`.",
+   "covering_prose": "The `New` function in `server/server.go` must be updated to initialize the new `EvaluatorStorage` with appropriate logger and SQL builder dependencies; errors for missing or disabled flags should use consistent, structured messages (e.g., not found via `ErrNotFoundf(\"flag %q\", key)` and disabled via `ErrInvalidf(\"flag %q is disabled\", key)`), the `EvaluationResponse` should echo the incoming `RequestContext`, set the `Timestamp` in UTC, and set `SegmentKey` only when a rule matches.",
+   "gold_anchor": "return resp, ErrNotFoundf(\"flag %q\", r.FlagKey)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Evaluating disabled flag `TestEvaluate_FlagDisabled` returns error text `flag \"TestEvaluate_FlagDisabled\" is disabled`.",
+   "covering_prose": "The `New` function in `server/server.go` must be updated to initialize the new `EvaluatorStorage` with appropriate logger and SQL builder dependencies; errors for missing or disabled flags should use consistent, structured messages (e.g., not found via `ErrNotFoundf(\"flag %q\", key)` and disabled via `ErrInvalidf(\"flag %q is disabled\", key)`), the `EvaluationResponse` should echo the incoming `RequestContext`, set the `Timestamp` in UTC, and set `SegmentKey` only when a rule matches.",
+   "gold_anchor": "return resp, ErrInvalidf(\"flag %q is disabled\", r.FlagKey)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With an enabled flag that has no rules, evaluation succeeds with `Match == false`.",
+   "covering_prose": "when no rules match the response should set `Match = false` with empty `SegmentKey` and `Value`.",
+   "gold_anchor": "return resp, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Storage evaluation responses echo the request `Context` as `RequestContext`.",
+   "covering_prose": "the `EvaluationResponse` should echo the incoming `RequestContext`, set the `Timestamp` in UTC, and set `SegmentKey` only when a rule matches.",
+   "gold_anchor": "RequestContext: r.Context,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Storage evaluation responses include the evaluated `FlagKey`.",
+   "covering_prose": null,
+   "gold_anchor": "FlagKey:        r.FlagKey,",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "A matching rule with no distributions returns `Match == true`, the matched `SegmentKey`, and an empty `Value`.",
+   "covering_prose": "when a rule matches but has no distributions (or only 0% distributions) the response should set `Match = true`, include the matched `SegmentKey`, and leave `Value` empty, and when no rules match the response should set `Match = false` with empty `SegmentKey` and `Value`.",
+   "gold_anchor": "resp.Match = true",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A rule whose string constraint `bar eq baz` does not match request context `bar=boz` returns `Match == false` and an empty `SegmentKey`.",
+   "covering_prose": "evaluating each constraint against the provided `EvaluationRequest.Context` map using typed comparison",
+   "gold_anchor": "if matchCount != len(rule.Constraints) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a rule with both `bar eq baz` and `admin true`, both constraints must match before the 100% distribution returns the first variant key.",
+   "covering_prose": "evaluating each constraint against the provided `EvaluationRequest.Context` map using typed comparison",
+   "gold_anchor": "if matchCount != len(rule.Constraints) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A 100% rollout distribution returns the configured variant key when all constraints match.",
+   "covering_prose": "percentage rollouts should be mapped to cumulative cutoffs using `bucket = percentage * 10`",
+   "gold_anchor": "bucket := int(d.Rollout * percentMultiplier)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Two 50% distributions select the first variant for `FlagKey=t.Name()` and `EntityId=\"1\"`, and the second variant for `EntityId=\"10\"`.",
+   "covering_prose": "consistent hashing should use CRC32 (IEEE) over the concatenation of `FlagKey` followed by `EntityId` modulo a fixed bucket size of 1000, percentage rollouts should be mapped to cumulative cutoffs using `bucket = percentage * 10`, selection should pick the first cumulative cutoff greater than or equal to the computed bucket to ensure deterministic boundary behavior",
+   "gold_anchor": "return uint(crc32.ChecksumIEEE([]byte(salt+entityID))) % totalBucketNum",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A rule with no constraints still matches and selects a rollout variant based on hashing, even when request context is empty or unrelated.",
+   "covering_prose": "loading associated rules and constraints for the flag ordered by rank, and evaluating each constraint against the provided `EvaluationRequest.Context` map using typed comparison",
+   "gold_anchor": "if matchCount != len(rule.Constraints) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`validate` returns an error when `constraint.Property` is empty.",
+   "covering_prose": null,
+   "gold_anchor": "return errors.New(\"empty property\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "`validate` returns an error when `constraint.Operator` is empty.",
+   "covering_prose": null,
+   "gold_anchor": "return errors.New(\"empty operator\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "`validate` returns an error for unsupported operator `?`.",
+   "covering_prose": "constraint evaluation should support a well-defined, case-insensitive operator set (`eq`, `neq`, `lt`, `lte`, `gt`, `gte`, `empty`, `notempty`, `true`, `false`, `present`, `notpresent`, `prefix`, `suffix`)",
+   "gold_anchor": "return fmt.Errorf(\"unsupported operator: %q\", op)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`validate` accepts a constraint with property `foo`, operator `eq`, and value `bar`.",
+   "covering_prose": "constraint evaluation should support a well-defined, case-insensitive operator set (`eq`, `neq`, `lt`, `lte`, `gt`, `gte`, `empty`, `notempty`, `true`, `false`, `present`, `notpresent`, `prefix`, `suffix`)",
+   "gold_anchor": "opEQ:         {}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "String operator `eq` matches exactly equal strings and does not match unequal strings.",
+   "covering_prose": "constraint evaluation should support a well-defined, case-insensitive operator set (`eq`, `neq`, `lt`, `lte`, `gt`, `gte`, `empty`, `notempty`, `true`, `false`, `present`, `notpresent`, `prefix`, `suffix`)",
+   "gold_anchor": "return value == v",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "String operator `neq` matches unequal strings and does not match equal strings.",
+   "covering_prose": "constraint evaluation should support a well-defined, case-insensitive operator set (`eq`, `neq`, `lt`, `lte`, `gt`, `gte`, `empty`, `notempty`, `true`, `false`, `present`, `notpresent`, `prefix`, `suffix`)",
+   "gold_anchor": "return value != v",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "String operator `empty` treats a single-space value as empty and a nonempty string as not empty.",
+   "covering_prose": "string comparisons should trim surrounding whitespace (including for `prefix`/`suffix`)",
+   "gold_anchor": "return len(strings.TrimSpace(v)) == 0",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "String operator `notempty` matches `bar` and does not match an empty string.",
+   "covering_prose": "string comparisons should trim surrounding whitespace (including for `prefix`/`suffix`)",
+   "gold_anchor": "return len(strings.TrimSpace(v)) != 0",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "String operator `prefix` matches value `bar` with constraint value `ba` and does not match `nope` with constraint value `bar`.",
+   "covering_prose": "constraint evaluation should support a well-defined, case-insensitive operator set (`eq`, `neq`, `lt`, `lte`, `gt`, `gte`, `empty`, `notempty`, `true`, `false`, `present`, `notpresent`, `prefix`, `suffix`)",
+   "gold_anchor": "return strings.HasPrefix(strings.TrimSpace(v), value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "String operator `suffix` matches value `bar` with constraint value `ar` and does not match `nope` with constraint value `bar`.",
+   "covering_prose": "constraint evaluation should support a well-defined, case-insensitive operator set (`eq`, `neq`, `lt`, `lte`, `gt`, `gte`, `empty`, `notempty`, `true`, `false`, `present`, `notpresent`, `prefix`, `suffix`)",
+   "gold_anchor": "return strings.HasSuffix(strings.TrimSpace(v), value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`matchesString` returns `false` for unknown string operator `foo`.",
+   "covering_prose": "constraint evaluation should support a well-defined, case-insensitive operator set (`eq`, `neq`, `lt`, `lte`, `gt`, `gte`, `empty`, `notempty`, `true`, `false`, `present`, `notpresent`, `prefix`, `suffix`)",
+   "gold_anchor": "return false",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Number operator `present` matches nonempty value `1` and does not match an empty value.",
+   "covering_prose": "operators that don\u2019t require a value (`empty`, `notempty`, `present`, `notpresent`, `true`, `false`) should not require the constraint value to be set.",
+   "gold_anchor": "return len(strings.TrimSpace(v)) != 0, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Number operator `notpresent` matches an empty value and does not match value `1`.",
+   "covering_prose": "operators that don\u2019t require a value (`empty`, `notempty`, `present`, `notpresent`, `true`, `false`) should not require the constraint value to be set.",
+   "gold_anchor": "return len(strings.TrimSpace(v)) == 0, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Number comparison returns an error when the constraint value is nonnumeric, such as `bar`.",
+   "covering_prose": "number comparisons should parse decimal numbers and treat non-numeric inputs as errors",
+   "gold_anchor": "return false, fmt.Errorf(\"parsing number from %q\", c.Value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Number comparison returns an error when the context value is nonnumeric, such as `foo`.",
+   "covering_prose": "number comparisons should parse decimal numbers and treat non-numeric inputs as errors",
+   "gold_anchor": "return false, fmt.Errorf(\"parsing number from %q\", v)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Number operator `eq` matches `42.0` to `42.0` and does not match `50`.",
+   "covering_prose": "number comparisons should parse decimal numbers and treat non-numeric inputs as errors",
+   "gold_anchor": "return value == n, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Number operator `neq` matches `50` against `42.0` and does not match `42.0`.",
+   "covering_prose": "number comparisons should parse decimal numbers and treat non-numeric inputs as errors",
+   "gold_anchor": "return value != n, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Number operator `lt` matches `8 < 42.0` and does not match `50 < 42.0`.",
+   "covering_prose": "number comparisons should parse decimal numbers and treat non-numeric inputs as errors",
+   "gold_anchor": "return n < value, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Number operator `lte` matches `42.0 <= 42.0` and does not match `102.0 <= 42.0`.",
+   "covering_prose": "number comparisons should parse decimal numbers and treat non-numeric inputs as errors",
+   "gold_anchor": "return n <= value, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Number operator `gt` matches `10.12 > 10.11` and does not match `1 > 10.11`.",
+   "covering_prose": "number comparisons should parse decimal numbers and treat non-numeric inputs as errors",
+   "gold_anchor": "return n > value, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Number operator `gte` matches `10.11 >= 10.11` and does not match `0.11 >= 10.11`.",
+   "covering_prose": "number comparisons should parse decimal numbers and treat non-numeric inputs as errors",
+   "gold_anchor": "return n >= value, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`matchesNumber` returns `false` and no error for an empty context value on a value-requiring operator.",
+   "covering_prose": null,
+   "gold_anchor": "if v == \"\" {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "`matchesNumber` returns `false` and no error for unknown number operator `foo`.",
+   "covering_prose": "constraint evaluation should support a well-defined, case-insensitive operator set (`eq`, `neq`, `lt`, `lte`, `gt`, `gte`, `empty`, `notempty`, `true`, `false`, `present`, `notpresent`, `prefix`, `suffix`)",
+   "gold_anchor": "return false, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Boolean operator `present` matches nonempty value `true` and does not match an empty value.",
+   "covering_prose": "operators that don\u2019t require a value (`empty`, `notempty`, `present`, `notpresent`, `true`, `false`) should not require the constraint value to be set.",
+   "gold_anchor": "return len(strings.TrimSpace(v)) != 0, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Boolean operator `notpresent` matches an empty value and does not match value `true`.",
+   "covering_prose": "operators that don\u2019t require a value (`empty`, `notempty`, `present`, `notpresent`, `true`, `false`) should not require the constraint value to be set.",
+   "gold_anchor": "return len(strings.TrimSpace(v)) == 0, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Boolean comparison returns an error when the context value is non-boolean, such as `foo`.",
+   "covering_prose": "boolean comparisons should parse standard boolean strings and treat non-boolean inputs as errors",
+   "gold_anchor": "return false, fmt.Errorf(\"parsing boolean from %q\", v)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Boolean operator `true` matches parsed boolean `true` and does not match parsed boolean `false`.",
+   "covering_prose": "boolean comparisons should parse standard boolean strings and treat non-boolean inputs as errors",
+   "gold_anchor": "return value, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Boolean operator `false` matches parsed boolean `false` and does not match parsed boolean `true`.",
+   "covering_prose": "boolean comparisons should parse standard boolean strings and treat non-boolean inputs as errors",
+   "gold_anchor": "return !value, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`matchesBool` returns `false` and no error for an empty context value on a value-requiring operator.",
+   "covering_prose": null,
+   "gold_anchor": "if v == \"\" {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "`matchesBool` returns `false` and no error for unknown boolean operator `foo`.",
+   "covering_prose": "constraint evaluation should support a well-defined, case-insensitive operator set (`eq`, `neq`, `lt`, `lte`, `gt`, `gte`, `empty`, `notempty`, `true`, `false`, `present`, `notpresent`, `prefix`, `suffix`)",
+   "gold_anchor": "return false, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Helper `evaluate` selects variant `one` for `FlagKey=\"foo\"`, `EntityId=\"123\"`, buckets `[333,666,1000]`, and distributions `[one,two,three]`.",
+   "covering_prose": "consistent hashing should use CRC32 (IEEE) over the concatenation of `FlagKey` followed by `EntityId` modulo a fixed bucket size of 1000, percentage rollouts should be mapped to cumulative cutoffs using `bucket = percentage * 10`, selection should pick the first cumulative cutoff greater than or equal to the computed bucket to ensure deterministic boundary behavior",
+   "gold_anchor": "index = sort.SearchInts(buckets, int(bucket)+1)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Helper `evaluate` selects variant `one` for `FlagKey=\"foo\"`, `EntityId=\"123\"`, single bucket `[333]`, and one distribution `[one]`.",
+   "covering_prose": "consistent hashing should use CRC32 (IEEE) over the concatenation of `FlagKey` followed by `EntityId` modulo a fixed bucket size of 1000, percentage rollouts should be mapped to cumulative cutoffs using `bucket = percentage * 10`, selection should pick the first cumulative cutoff greater than or equal to the computed bucket to ensure deterministic boundary behavior",
+   "gold_anchor": "index = sort.SearchInts(buckets, int(bucket)+1)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Helper `evaluate` returns `ok == false` and an empty distribution for `FlagKey=\"foo\"`, `EntityId=\"4567\"`, bucket `[333]`, and one distribution `[one]`.",
+   "covering_prose": "consistent hashing should use CRC32 (IEEE) over the concatenation of `FlagKey` followed by `EntityId` modulo a fixed bucket size of 1000, percentage rollouts should be mapped to cumulative cutoffs using `bucket = percentage * 10`, selection should pick the first cumulative cutoff greater than or equal to the computed bucket to ensure deterministic boundary behavior",
+   "gold_anchor": "return false, distribution{}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Helper `evaluate` selects variant `two` for `FlagKey=\"foo\"`, `EntityId=\"4567\"`, buckets `[500,1000]`, and distributions `[one,two]`.",
+   "covering_prose": "consistent hashing should use CRC32 (IEEE) over the concatenation of `FlagKey` followed by `EntityId` modulo a fixed bucket size of 1000, percentage rollouts should be mapped to cumulative cutoffs using `bucket = percentage * 10`, selection should pick the first cumulative cutoff greater than or equal to the computed bucket to ensure deterministic boundary behavior",
+   "gold_anchor": "return true, distributions[index]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Helper `evaluate` selects variant `two` for `FlagKey=\"foo\"`, `EntityId=\"4567\"`, bucket `[1000]`, and one distribution `[two]`.",
+   "covering_prose": "consistent hashing should use CRC32 (IEEE) over the concatenation of `FlagKey` followed by `EntityId` modulo a fixed bucket size of 1000, percentage rollouts should be mapped to cumulative cutoffs using `bucket = percentage * 10`, selection should pick the first cumulative cutoff greater than or equal to the computed bucket to ensure deterministic boundary behavior",
+   "gold_anchor": "return true, distributions[index]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Helper `evaluate` returns `ok == false` and an empty distribution for empty distributions and empty buckets.",
+   "covering_prose": "when a rule matches but has no distributions (or only 0% distributions) the response should set `Match = true`, include the matched `SegmentKey`, and leave `Value` empty, and when no rules match the response should set `Match = false` with empty `SegmentKey` and `Value`.",
+   "gold_anchor": "if index == len(distributions) {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

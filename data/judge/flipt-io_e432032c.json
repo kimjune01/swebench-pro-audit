@@ -1,0 +1,32 @@
+{
+ "case": "flipt-io_e432032c",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "TestLoad expects the loaded configuration to include a Meta section on Config.",
+   "covering_prose": "- The configuration structure should include a metadata section that contains application-level configuration options including version checking preferences.",
+   "gold_anchor": "Meta     metaConfig     `json:\"meta,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TestLoad expects Meta.CheckForUpdates to be true when the loaded config does not explicitly provide metadata configuration.",
+   "covering_prose": "- The default configuration should enable version checking when no explicit metadata configuration is provided, ensuring backward compatibility.",
+   "gold_anchor": "CheckForUpdates: true,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "TestLoad expects the metadata option to be named CheckForUpdates.",
+   "covering_prose": "- The metadata section should provide a CheckForUpdates option that allows users to enable or disable version checking at application startup.",
+   "gold_anchor": "CheckForUpdates bool `json:\"checkForUpdates\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

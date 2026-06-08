@@ -1,0 +1,18 @@
+{
+ "case": "future-architect_426eb53a",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "getAmazonLinuxVersion returns \"2023\" when release is \"2023.3.20240312\".",
+   "covering_prose": "For the input `\"2023.3.20240312\"`, the expected output is `\"2023\"`.",
+   "gold_anchor": "switch s := strings.Fields(osRelease)[0]; major(s) {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,151 @@
+{
+ "case": "future-architect_2d075079",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 20,
+ "n_covered": 16,
+ "n_gap": 4,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "FilterByCvssOver is a public method on VulnInfos that returns a VulnInfos collection rather than a ScanResult.",
+   "covering_prose": "This is a new public methods added to the VulnInfos type. It returns filtered vulnerability lists based on CVSS score thresholds. It replace previous filtering logic tied to `ScanResult`",
+   "gold_anchor": "func (v VulnInfos) FilterByCvssOver(over float64) VulnInfos",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterByCvssOver with threshold 7.0 keeps CVE-2017-0001 because its maximum CVSS score is 7.1.",
+   "covering_prose": "CVSS threshold filtering: include only CVEs whose maximum score or severity meets or exceeds a given threshold.",
+   "gold_anchor": "if over <= v.MaxCvssScore().Value.Score",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterByCvssOver with threshold 7.0 excludes CVE-2017-0002 because its maximum CVSS score is 6.9.",
+   "covering_prose": "CVSS threshold filtering: include only CVEs whose maximum score or severity meets or exceeds a given threshold.",
+   "gold_anchor": "if over <= v.MaxCvssScore().Value.Score",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterByCvssOver with threshold 7.0 keeps CVE-2017-0003 because its maximum score across CVE contents is 7.2 even though another score is 6.9.",
+   "covering_prose": "CVSS threshold filtering: include only CVEs whose maximum score or severity meets or exceeds a given threshold.",
+   "gold_anchor": "if over <= v.MaxCvssScore().Value.Score",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterByCvssOver with threshold 7.0 keeps vulnerabilities whose severity is HIGH.",
+   "covering_prose": "CVSS threshold filtering: include only CVEs whose maximum score or severity meets or exceeds a given threshold.",
+   "gold_anchor": "if over <= v.MaxCvssScore().Value.Score",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterByCvssOver with threshold 7.0 keeps vulnerabilities whose severity is CRITICAL.",
+   "covering_prose": "CVSS threshold filtering: include only CVEs whose maximum score or severity meets or exceeds a given threshold.",
+   "gold_anchor": "if over <= v.MaxCvssScore().Value.Score",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterByCvssOver with threshold 7.0 keeps vulnerabilities whose severity is IMPORTANT.",
+   "covering_prose": "CVSS threshold filtering: include only CVEs whose maximum score or severity meets or exceeds a given threshold.",
+   "gold_anchor": "if over <= v.MaxCvssScore().Value.Score",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterIgnoreCves is a public method on VulnInfos that returns a VulnInfos collection rather than a ScanResult.",
+   "covering_prose": "This is a new public methods added to the VulnInfos type. It returns filtered vulnerability lists based on ignored CVE IDs. It replace previous filtering logic tied to `ScanResult`",
+   "gold_anchor": "func (v VulnInfos) FilterIgnoreCves(ignoreCveIDs []string) VulnInfos",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterIgnoreCves excludes CVE-2017-0002 when CVE-2017-0002 is in the ignored CVE ID list.",
+   "covering_prose": "Ignore by CVE ID: exclude any CVE whose ID is in a provided list.",
+   "gold_anchor": "if v.CveID == c",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterIgnoreCves keeps CVE-2017-0001 and CVE-2017-0003 when only CVE-2017-0002 is in the ignored CVE ID list.",
+   "covering_prose": "Ignore by CVE ID: exclude any CVE whose ID is in a provided list.",
+   "gold_anchor": "return true",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterUnfixed is a public method on VulnInfos that returns a VulnInfos collection rather than a ScanResult.",
+   "covering_prose": "This is a new public methods added to the VulnInfos type. It returns filtered vulnerability lists based on unfixed status. It replace previous filtering logic tied to `ScanResult`",
+   "gold_anchor": "func (v VulnInfos) FilterUnfixed(ignoreUnfixed bool) VulnInfos",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterUnfixed(true) excludes a CVE when all affected packages are marked NotFixedYet.",
+   "covering_prose": "Ignore unfixed: when enabled, exclude CVEs whose affected packages are all marked NotFixedYet; CVEs detected solely by CPE should remain included.",
+   "gold_anchor": "return !NotFixedAll",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterUnfixed(true) keeps a CVE when its affected package is not marked NotFixedYet.",
+   "covering_prose": "Ignore unfixed: when enabled, exclude CVEs whose affected packages are all marked NotFixedYet; CVEs detected solely by CPE should remain included.",
+   "gold_anchor": "NotFixedAll = NotFixedAll && p.NotFixedYet",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterUnfixed(true) keeps a CVE when affected packages include both NotFixedYet true and NotFixedYet false.",
+   "covering_prose": "Ignore unfixed: when enabled, exclude CVEs whose affected packages are all marked NotFixedYet; CVEs detected solely by CPE should remain included.",
+   "gold_anchor": "NotFixedAll = NotFixedAll && p.NotFixedYet",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterIgnorePkgs is a public method on VulnInfos that returns a VulnInfos collection rather than a ScanResult.",
+   "covering_prose": "This is a new public methods added to the VulnInfos type. It returns filtered vulnerability lists based on package name regex patterns. It replace previous filtering logic tied to `ScanResult`",
+   "gold_anchor": "func (v VulnInfos) FilterIgnorePkgs(ignorePkgsRegexps []string) VulnInfos",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterIgnorePkgs compiles ignore package strings as regular expressions and matches them against affected package names such as ^kernel matching kernel.",
+   "covering_prose": "Ignore by package name: apply regular expressions to affected package names; invalid expressions should not break the process and should be logged as warnings.",
+   "gold_anchor": "if re.MatchString(p.Name)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FilterIgnorePkgs removes a CVE whose only affected package name matches the ignore package regex ^kernel.",
+   "covering_prose": null,
+   "gold_anchor": "return false",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "FilterIgnorePkgs keeps a CVE that has no affected packages even when ignore package regexps are provided.",
+   "covering_prose": null,
+   "gold_anchor": "if len(v.AffectedPackages) == 0",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "FilterIgnorePkgs keeps a CVE with affected packages kernel and vim when the only ignore package regex is ^kernel.",
+   "covering_prose": null,
+   "gold_anchor": "if !match {\n\t\t\t\treturn true\n\t\t\t}",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "FilterIgnorePkgs removes a CVE with affected packages kernel and vim when ignore package regexps include ^kernel, ^vim, and ^bind.",
+   "covering_prose": null,
+   "gold_anchor": "return false",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

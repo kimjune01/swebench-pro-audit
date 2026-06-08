@@ -1,0 +1,46 @@
+{
+ "case": "future-architect_4253550c",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 5,
+ "n_covered": 4,
+ "n_gap": 1,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For subtest 10.0.19045.2129, Unapplied is exactly [\"5020953\",\"5019959\",\"5020030\",\"5021233\",\"5022282\",\"5019275\",\"5022834\",\"5022906\",\"5023696\",\"5023773\",\"5025221\",\"5025297\",\"5026361\",\"5026435\",\"5027215\",\"5027293\"] and Applied is nil.",
+   "covering_prose": "For Windows 10 22H2 (kernel 10.0.19045.2673), the scanner must report the Unapplied set as the previous baseline plus the following KBs: 5023696, 5023773, 5025221, 5025297, 5026361, 5026435, 5027215, 5027293. This applies to both of the first two subtests targeting 10.0.19045.\\*.",
+   "gold_anchor": "+\t\t\t\t\t{revision: \"2728\", kb: \"5023696\"},\n+\t\t\t\t\t{revision: \"2788\", kb: \"5023773\"},\n+\t\t\t\t\t{revision: \"2846\", kb: \"5025221\"},\n+\t\t\t\t\t{revision: \"2913\", kb: \"5025297\"},\n+\t\t\t\t\t{revision: \"2965\", kb: \"5026361\"},\n+\t\t\t\t\t{revision: \"3031\", kb: \"5026435\"},\n+\t\t\t\t\t{revision: \"3086\", kb: \"5027215\"},\n+\t\t\t\t\t{revision: \"3155\", kb: \"5027293\"},",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For subtest 10.0.19045.2130, Unapplied is exactly [\"5020953\",\"5019959\",\"5020030\",\"5021233\",\"5022282\",\"5019275\",\"5022834\",\"5022906\",\"5023696\",\"5023773\",\"5025221\",\"5025297\",\"5026361\",\"5026435\",\"5027215\",\"5027293\"] and Applied is nil.",
+   "covering_prose": "For Windows 10 22H2 (kernel 10.0.19045.2673), the scanner must report the Unapplied set as the previous baseline plus the following KBs: 5023696, 5023773, 5025221, 5025297, 5026361, 5026435, 5027215, 5027293. This applies to both of the first two subtests targeting 10.0.19045.\\*.",
+   "gold_anchor": "+\t\t\t\t\t{revision: \"2728\", kb: \"5023696\"},\n+\t\t\t\t\t{revision: \"2788\", kb: \"5023773\"},\n+\t\t\t\t\t{revision: \"2846\", kb: \"5025221\"},\n+\t\t\t\t\t{revision: \"2913\", kb: \"5025297\"},\n+\t\t\t\t\t{revision: \"2965\", kb: \"5026361\"},\n+\t\t\t\t\t{revision: \"3031\", kb: \"5026435\"},\n+\t\t\t\t\t{revision: \"3086\", kb: \"5027215\"},\n+\t\t\t\t\t{revision: \"3155\", kb: \"5027293\"},",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For subtest 10.0.22621.1105 where Applied already includes KB 5022303, Unapplied is exactly [\"5022360\",\"5022845\",\"5022913\",\"5023706\",\"5023778\",\"5025239\",\"5025305\",\"5026372\",\"5026446\",\"5027231\",\"5027303\"].",
+   "covering_prose": "For the Windows 11 22H2 kernel case used in the test where the Applied list already includes KB 5022303, the scanner must include these KBs in Unapplied (in addition to 5022360 and 5022845): 5022913, 5023706, 5023778, 5025239, 5025305, 5026372, 5026446, 5027231, 5027303.",
+   "gold_anchor": "+\t\t\t\t\t{revision: \"1344\", kb: \"5022913\"},\n+\t\t\t\t\t{revision: \"1413\", kb: \"5023706\"},\n+\t\t\t\t\t{revision: \"1485\", kb: \"5023778\"},\n+\t\t\t\t\t{revision: \"1555\", kb: \"5025239\"},\n+\t\t\t\t\t{revision: \"1635\", kb: \"5025305\"},\n+\t\t\t\t\t{revision: \"1702\", kb: \"5026372\"},\n+\t\t\t\t\t{revision: \"1778\", kb: \"5026446\"},\n+\t\t\t\t\t{revision: \"1848\", kb: \"5027231\"},\n+\t\t\t\t\t{revision: \"1928\", kb: \"5027303\"},",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For subtest 10.0.20348.1547, Unapplied is exactly [\"5023705\",\"5025230\",\"5026370\",\"5027225\"].",
+   "covering_prose": null,
+   "gold_anchor": "+\t\t\t\t\t{revision: \"1607\", kb: \"5023705\"},\n+\t\t\t\t\t{revision: \"1668\", kb: \"5025230\"},\n+\t\t\t\t\t{revision: \"1726\", kb: \"5026370\"},\n+\t\t\t\t\t{revision: \"1787\", kb: \"5027225\"},",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For subtest 10.0.20348.9999, Applied includes [\"5023705\",\"5025230\",\"5026370\",\"5027225\"] and Unapplied is nil.",
+   "covering_prose": "For Windows Server 2022 with kernel 10.0.20348.9999, the scanner must classify the following KBs as Applied (leaving Unapplied empty): 5023705, 5025230, 5026370, 5027225.",
+   "gold_anchor": "+\t\t\t\t\t{revision: \"1607\", kb: \"5023705\"},\n+\t\t\t\t\t{revision: \"1668\", kb: \"5025230\"},\n+\t\t\t\t\t{revision: \"1726\", kb: \"5026370\"},\n+\t\t\t\t\t{revision: \"1787\", kb: \"5027225\"},",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

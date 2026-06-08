@@ -1,0 +1,60 @@
+{
+ "case": "future-architect_70449296",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "NewCveContentType(\"redhat\") returns RedHat",
+   "covering_prose": "Mapping a single OS family name to exactly one CVE content type should still be supported. `\"redhat\"` and `\"centos\"` \u2192 RedHat, Unrecognized names \u2192 Unknown",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewCveContentType(\"centos\") returns RedHat",
+   "covering_prose": "Mapping a single OS family name to exactly one CVE content type should still be supported. `\"redhat\"` and `\"centos\"` \u2192 RedHat, Unrecognized names \u2192 Unknown",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewCveContentType(\"unknown\") returns Unknown",
+   "covering_prose": "Mapping a single OS family name to exactly one CVE content type should still be supported. `\"redhat\"` and `\"centos\"` \u2192 RedHat, Unrecognized names \u2192 Unknown",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "GetCveContentTypes(constant.RedHat) returns []CveContentType{RedHat, RedHatAPI} in that order",
+   "covering_prose": "The system should be able to map each OS family to one or more CVE content types. For example:  RedHat, CentOS, Alma, Rocky \u2192 [RedHat, RedHatAPI],  Debian, Raspbian \u2192 [Debian, DebianSecurityTracker], Ubuntu \u2192 [Ubuntu, UbuntuAPI], Unsupported families \u2192 nil",
+   "gold_anchor": "return []CveContentType{RedHat, RedHatAPI}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetCveContentTypes(constant.Debian) returns []CveContentType{Debian, DebianSecurityTracker} in that order",
+   "covering_prose": "The system should be able to map each OS family to one or more CVE content types. For example:  RedHat, CentOS, Alma, Rocky \u2192 [RedHat, RedHatAPI],  Debian, Raspbian \u2192 [Debian, DebianSecurityTracker], Ubuntu \u2192 [Ubuntu, UbuntuAPI], Unsupported families \u2192 nil",
+   "gold_anchor": "return []CveContentType{Debian, DebianSecurityTracker}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetCveContentTypes(constant.Ubuntu) returns []CveContentType{Ubuntu, UbuntuAPI} in that order",
+   "covering_prose": "The system should be able to map each OS family to one or more CVE content types. For example:  RedHat, CentOS, Alma, Rocky \u2192 [RedHat, RedHatAPI],  Debian, Raspbian \u2192 [Debian, DebianSecurityTracker], Ubuntu \u2192 [Ubuntu, UbuntuAPI], Unsupported families \u2192 nil",
+   "gold_anchor": "return []CveContentType{Ubuntu, UbuntuAPI}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetCveContentTypes(constant.FreeBSD) returns nil",
+   "covering_prose": "Unsupported families \u2192 nil",
+   "gold_anchor": "default:\n\t\treturn nil",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

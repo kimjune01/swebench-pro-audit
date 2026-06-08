@@ -1,0 +1,123 @@
+{
+ "case": "flipt-io_eafbf82d",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 10,
+ "rows": [
+  {
+   "test": "NewRule returns Rank equal to the input Rule Rank, including value 1 in the hidden cases.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewRule returns Id equal to the input Rule Id, including \"this-is-an-id\" in the hidden cases.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewRule returns FlagKey equal to the input Rule FlagKey, including \"flipt\" in the hidden cases.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewRule with a single segment copies SegmentKey \"flipt\" into the audit Rule SegmentKey.",
+   "covering_prose": "- The `NewRule` function must set the `SegmentKey` field by copying the key when a single segment is provided.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewRule with SegmentKeys []string{\"flipt\", \"io\"} returns SegmentKey exactly \"flipt,io\".",
+   "covering_prose": "If multiple segments are provided, it must join their keys into a single comma\u2011separated string and must set the `SegmentOperator` field to the operator name.",
+   "gold_anchor": "result.SegmentKey = strings.Join(r.SegmentKeys, \",\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewRule with SegmentOperator flipt.SegmentOperator_AND_SEGMENT_OPERATOR returns SegmentOperator exactly \"AND_SEGMENT_OPERATOR\".",
+   "covering_prose": "If multiple segments are provided, it must join their keys into a single comma\u2011separated string and must set the `SegmentOperator` field to the operator name.",
+   "gold_anchor": "result.SegmentOperator = r.SegmentOperator.String()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Rule exposes a public SegmentOperator string field serialized as JSON tag `segment_operator,omitempty`.",
+   "covering_prose": "- The public structures `Rule` and `RolloutSegment` must include string fields called `SegmentOperator` and `Operator`. These fields must be tagged in JSON as `segment_operator,omitempty` and `operator,omitempty` so that they are serialised only when they have a value.",
+   "gold_anchor": "SegmentOperator string          `json:\"segment_operator,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewRule preserves each Distribution's Id, RuleId, VariantId, and Rollout, including Rollout 20 in the hidden cases.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewRollout returns Rank equal to the input Rollout Rank, including value 1 in the hidden cases.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewRollout returns FlagKey equal to the input Rollout FlagKey, including \"flipt\" in the hidden cases.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewRollout with a single segment copies SegmentKey \"flipt\" into nr.Segment.Key.",
+   "covering_prose": "-The `NewRollout` function must populate the segment key and value when a rollout defines a single segment.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewRollout with a single segment copies Value true into nr.Segment.Value.",
+   "covering_prose": "-The `NewRollout` function must populate the segment key and value when a rollout defines a single segment.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewRollout with SegmentKeys []string{\"flipt\", \"io\"} returns nr.Segment.Key exactly \"flipt,io\".",
+   "covering_prose": "If a rollout uses multiple segments, it must join their keys into a single comma\u2011separated value and must populate the `Operator` field with the operator name.",
+   "gold_anchor": "s.Key = strings.Join(rout.Segment.SegmentKeys, \",\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewRollout with a multi-segment rollout preserves Value true in nr.Segment.Value.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewRollout with SegmentOperator flipt.SegmentOperator_AND_SEGMENT_OPERATOR returns nr.Segment.Operator exactly \"AND_SEGMENT_OPERATOR\".",
+   "covering_prose": "If a rollout uses multiple segments, it must join their keys into a single comma\u2011separated value and must populate the `Operator` field with the operator name.",
+   "gold_anchor": "s.Operator = rout.Segment.SegmentOperator.String()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "RolloutSegment exposes a public Operator string field serialized as JSON tag `operator,omitempty`.",
+   "covering_prose": "- The public structures `Rule` and `RolloutSegment` must include string fields called `SegmentOperator` and `Operator`. These fields must be tagged in JSON as `segment_operator,omitempty` and `operator,omitempty` so that they are serialised only when they have a value.",
+   "gold_anchor": "Operator string `json:\"operator,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

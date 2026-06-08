@@ -1,0 +1,39 @@
+{
+ "case": "future-architect_80b48fcb",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "A helper function named normalizeHomeDirPathForWindows exists in scanner.go and accepts the input string used by the test.",
+   "covering_prose": "A helper function named `normalizeHomeDirPathForWindows(userKnownHost string)` must exist in `scanner.go` to resolve user paths beginning with `~`.",
+   "gold_anchor": "func normalizeHomeDirPathForWindows(userKnownHost string) string {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When userprofile is set to C:\\Users\\test-user and input is ~/.ssh/known_hosts, the helper uses C:\\Users\\test-user as the home directory prefix.",
+   "covering_prose": "The helper must expand `~` using the value of the `userprofile` environment variable to determine the Windows user directory.",
+   "gold_anchor": "os.Getenv(\"userprofile\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When input is ~/.ssh/known_hosts, the helper preserves the subpath after the tilde as .ssh/known_hosts before joining it to the home directory.",
+   "covering_prose": "Resolved paths must use Windows-style separators (`\\`) while preserving the rest of the subpath after the tilde.",
+   "gold_anchor": "strings.TrimPrefix(userKnownHost, \"~\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For input ~/.ssh/known_hosts with userprofile C:\\Users\\test-user, the helper returns the exact Windows-style path C:\\Users\\test-user\\.ssh\\known_hosts.",
+   "covering_prose": "Resolved paths must use Windows-style separators (`\\`) while preserving the rest of the subpath after the tilde.",
+   "gold_anchor": "return strings.ReplaceAll(userKnownHostPath, \"/\", \"\\\\\")",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,46 @@
+{
+ "case": "future-architect_4a28722e",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "For manufacturer Fortinet with EntPhysicalTables[1].EntPhysicalName \"FS_108E\", Convert returns hardware CPE \"cpe:2.3:h:fortinet:fortiswitch-108e:-:*:*:*:*:*:*:*\" as the first entry.",
+   "covering_prose": "Upon detecting a valid prefix, extract the model from the physical name\u2019s suffix and produce a hardware CPE with the format cpe:2.3:h:fortinet:<product-name>-<model>:-:*:*:*:*:*:*:* (product name derived from the prefix, e.g. fortiswitch).",
+   "gold_anchor": "case strings.HasPrefix(t.EntPhysicalName, \"FS_\"):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For EntPhysicalSoftwareRev \"FortiSwitch-108E v6.4.6,build0000,000000 (GA)\", Convert extracts version \"6.4.6\" and returns OS CPE \"cpe:2.3:o:fortinet:fortiswitch:6.4.6:*:*:*:*:*:*:*\" as the second entry.",
+   "covering_prose": "If EntPhysicalSoftwareRev contains a \u201cForti\u2026\u201d product string with version (e.g. FortiSwitch-108E v6.4.6), extract product and version and append two more CPEs: an OS CPE cpe:2.3:o:fortinet:<product-name>:<version>:*:*:*:*:*:*:* and a firmware CPE cpe:2.3:o:fortinet:<product-name>_firmware:<version>:*:*:*:*:*:*:*.",
+   "gold_anchor": "strings.HasPrefix(s, \"FortiSwitch-\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For EntPhysicalSoftwareRev \"FortiSwitch-108E v6.4.6,build0000,000000 (GA)\", Convert returns firmware CPE \"cpe:2.3:o:fortinet:fortiswitch_firmware:6.4.6:*:*:*:*:*:*:*\" as the third entry.",
+   "covering_prose": "If EntPhysicalSoftwareRev contains a \u201cForti\u2026\u201d product string with version (e.g. FortiSwitch-108E v6.4.6), extract product and version and append two more CPEs: an OS CPE cpe:2.3:o:fortinet:<product-name>:<version>:*:*:*:*:*:*:* and a firmware CPE cpe:2.3:o:fortinet:<product-name>_firmware:<version>:*:*:*:*:*:*:*.",
+   "gold_anchor": "strings.HasPrefix(s, \"FortiSwitch-\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For the FortiSwitch FS_ case, Convert does not return any fortios OS CPE; the OS product is fortiswitch.",
+   "covering_prose": "-For FortiSwitch cases the OS CPE must not use fortios; the fortios label must be restricted to families like FortiGate/FortiWiFi and not applied when the prefix is FS_. ",
+   "gold_anchor": "case strings.HasPrefix(t.EntPhysicalName, \"FS_\"):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Convert returns the complete ordered list of three generated CPEs for FortiSwitch-108E: hardware first, OS second, firmware third, with no omitted or replaced entries.",
+   "covering_prose": "-The function must return the complete list of all generated CPEs (hardware, OS, firmware) without omitting or replacing entries.",
+   "gold_anchor": "cpes = append(cpes, fmt.Sprintf(\"cpe:2.3:h:fortinet:fortiswitch-%s:-:*:*:*:*:*:*:*\", strings.ToLower(strings.TrimPrefix(t.EntPhysicalName, \"FS_\"))))",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

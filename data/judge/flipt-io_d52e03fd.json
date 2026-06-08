@@ -1,0 +1,88 @@
+{
+ "case": "flipt-io_d52e03fd",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 11,
+ "n_covered": 4,
+ "n_gap": 7,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "NewReporter can be called with config, logger, analytics key \"foo\", and info.Flipt{}, and returns nil error plus a non-nil reporter.",
+   "covering_prose": null,
+   "gold_anchor": "func NewReporter(cfg config.Config, logger *zap.Logger, analyticsKey string, info info.Flipt) (*Reporter, error) {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Shutdown returns nil when the underlying analytics client Close succeeds.",
+   "covering_prose": "Returns an error if the underlying client fails to close.",
+   "gold_anchor": "return r.client.Close()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Shutdown closes the associated analytics client.",
+   "covering_prose": "Signals the telemetry reporter to stop by closing its shutdown channel and ensures proper cleanup by closing the associated client.",
+   "gold_anchor": "return r.client.Close()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ping uses the reporter's stored info.Flipt Version value, so an info version of \"1.0.0\" appears in the analytics track properties as version=\"1.0.0\".",
+   "covering_prose": null,
+   "gold_anchor": "info = r.info",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ping is the internal method used by tests in place of the previous report helper and accepts context plus file without an info argument.",
+   "covering_prose": null,
+   "gold_anchor": "func (r *Reporter) ping(_ context.Context, f file) error {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ping sends a telemetry analytics Track message whose Event is \"ping\".",
+   "covering_prose": null,
+   "gold_anchor": "func (r *Reporter) ping(_ context.Context, f file) error {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ping sends a telemetry analytics Track message with a non-empty AnonymousId.",
+   "covering_prose": null,
+   "gold_anchor": "func (r *Reporter) ping(_ context.Context, f file) error {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ping writes non-empty state data to the supplied file buffer after a successful ping.",
+   "covering_prose": null,
+   "gold_anchor": "return r.ping(ctx, f)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "ping succeeds when existing telemetry state JSON is present in the supplied file.",
+   "covering_prose": null,
+   "gold_anchor": "func (r *Reporter) ping(_ context.Context, f file) error {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "when telemetry is disabled, ping returns nil and does not enqueue an analytics message.",
+   "covering_prose": "Ensure configuration supports specifying a state directory path and explicitly enabling or disabling telemetry, with safe defaults for read-only, non-persistent deployments (e.g., common Kubernetes patterns).",
+   "gold_anchor": "func (r *Reporter) ping(_ context.Context, f file) error {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "report uses the configured Meta.StateDirectory path to open the telemetry state file, so specifying os.TempDir() as StateDirectory writes there and succeeds.",
+   "covering_prose": "Ensure configuration supports specifying a state directory path and explicitly enabling or disabling telemetry, with safe defaults for read-only, non-persistent deployments (e.g., common Kubernetes patterns).",
+   "gold_anchor": "f, err := os.OpenFile(filepath.Join(r.cfg.Meta.StateDirectory, filename), os.O_RDWR|os.O_CREATE, 0644)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,249 @@
+{
+ "case": "flipt-io_d26eba77",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 19,
+ "n_covered": 19,
+ "n_gap": 0,
+ "n_out_of_scope": 15,
+ "rows": [
+  {
+   "test": "Loading ./testdata/config/database.yml populates db.protocol as DatabaseMySQL from the string \"mysql\".",
+   "covering_prose": "The database configuration should be capable of accepting either a single URL or individual fields for protocol, host, port, user, password, and name.",
+   "gold_anchor": "Protocol        DatabaseProtocol `json:\"protocol,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading ./testdata/config/database.yml populates db.host as \"localhost\".",
+   "covering_prose": "The database configuration should be capable of accepting either a single URL or individual fields for protocol, host, port, user, password, and name.",
+   "gold_anchor": "Host            string           `json:\"host,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading ./testdata/config/database.yml populates db.port as 3306.",
+   "covering_prose": "The database configuration should be capable of accepting either a single URL or individual fields for protocol, host, port, user, password, and name.",
+   "gold_anchor": "Port            int              `json:\"port,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading ./testdata/config/database.yml populates db.user as \"flipt\".",
+   "covering_prose": "The database configuration should be capable of accepting either a single URL or individual fields for protocol, host, port, user, password, and name.",
+   "gold_anchor": "User            string           `json:\"user,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading ./testdata/config/database.yml populates db.password as \"s3cr3t!\".",
+   "covering_prose": "The database configuration should be capable of accepting either a single URL or individual fields for protocol, host, port, user, password, and name.",
+   "gold_anchor": "Password        string           `json:\"password,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Loading ./testdata/config/database.yml populates db.name as \"flipt\".",
+   "covering_prose": "The database configuration should be capable of accepting either a single URL or individual fields for protocol, host, port, user, password, and name.",
+   "gold_anchor": "Name            string           `json:\"name,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DatabaseProtocol is a public uint8-backed enum-like type.",
+   "covering_prose": "Output: uint8 (underlying type)",
+   "gold_anchor": "type DatabaseProtocol uint8",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DatabaseProtocol includes SQLite support.",
+   "covering_prose": "Declares a new public enum-like type to represent supported database protocols such as SQLite, Postgres, and MySQL.",
+   "gold_anchor": "DatabaseSQLite",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DatabaseProtocol includes Postgres support.",
+   "covering_prose": "Declares a new public enum-like type to represent supported database protocols such as SQLite, Postgres, and MySQL.",
+   "gold_anchor": "DatabasePostgres",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "DatabaseProtocol includes MySQL support.",
+   "covering_prose": "Declares a new public enum-like type to represent supported database protocols such as SQLite, Postgres, and MySQL.",
+   "gold_anchor": "DatabaseMySQL",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When db.url is absent and db.protocol is empty, validation returns exactly \"database.protocol cannot be empty\".",
+   "covering_prose": "Validation errors should be explicit and actionable by naming the specific setting that is missing or invalid and by referencing the fully qualified setting key in the message.",
+   "gold_anchor": "return fmt.Errorf(\"database.protocol cannot be empty\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When db.url is absent and db.host is empty, validation returns exactly \"database.host cannot be empty\".",
+   "covering_prose": "Validation errors should be explicit and actionable by naming the specific setting that is missing or invalid and by referencing the fully qualified setting key in the message.",
+   "gold_anchor": "return fmt.Errorf(\"database.host cannot be empty\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When db.url is absent and db.name is empty, validation returns exactly \"database.name cannot be empty\".",
+   "covering_prose": "Validation errors should be explicit and actionable by naming the specific setting that is missing or invalid and by referencing the fully qualified setting key in the message.",
+   "gold_anchor": "return fmt.Errorf(\"database.name cannot be empty\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When db.url is present, missing db.protocol, db.host, and db.name are not validated.",
+   "covering_prose": "Behavior should be backward-compatible by giving precedence to the URL when present, and only using the individual fields when the URL is absent. Do not silently merge URL and key/value inputs in a way that obscures precedence.",
+   "gold_anchor": "if c.Database.URL == \"\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "HTTPS validation returns exactly \"server.cert_file cannot be empty when using HTTPS\" when cert file is empty.",
+   "covering_prose": "TLS certificate checks should report errors using the same field-qualified phrasing already used elsewhere.",
+   "gold_anchor": "return errors.New(\"server.cert_file cannot be empty when using HTTPS\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "HTTPS validation returns exactly \"server.cert_key cannot be empty when using HTTPS\" when cert key is empty.",
+   "covering_prose": "TLS certificate checks should report errors using the same field-qualified phrasing already used elsewhere.",
+   "gold_anchor": "return errors.New(\"server.cert_key cannot be empty when using HTTPS\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "HTTPS validation returns exactly \"cannot find TLS server.cert_file at \\\"foo.pem\\\"\" when cert file is missing.",
+   "covering_prose": "TLS certificate checks should report errors using the same field-qualified phrasing already used elsewhere.",
+   "gold_anchor": "return fmt.Errorf(\"cannot find TLS server.cert_file at %q\", c.Server.CertFile)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "HTTPS validation returns exactly \"cannot find TLS server.cert_key at \\\"bar.pem\\\"\" when cert key is missing.",
+   "covering_prose": "TLS certificate checks should report errors using the same field-qualified phrasing already used elsewhere.",
+   "gold_anchor": "return fmt.Errorf(\"cannot find TLS server.cert_key at %q\", c.Server.CertKey)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Parsing sqlite URL \"file:flipt.db\" returns driver SQLite and DSN \"flipt.db?_fk=true&cache=shared\".",
+   "covering_prose": "If only the key\u2013value form is provided, the application should build a driver-appropriate connection string from those fields, applying sensible defaults such as standard ports when they are not specified, and formatting consistent with each supported protocol.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing key/value SQLite with protocol DatabaseSQLite and host \"flipt.db\" returns driver SQLite and DSN \"flipt.db?_fk=true&cache=shared\" without requiring db.name.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing Postgres URL \"postgres://postgres@localhost:5432/flipt?sslmode=disable\" returns driver Postgres and DSN \"dbname=flipt host=localhost port=5432 sslmode=disable user=postgres\".",
+   "covering_prose": "The overall behavior should preserve existing URL-based configurations while making it straightforward to configure the database from discrete secrets without requiring users to know the exact connection string format.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing key/value Postgres with no port omits the port from the DSN, returning \"dbname=flipt host=localhost user=postgres\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing key/value Postgres with port 5432 and no password returns \"dbname=flipt host=localhost port=5432 user=postgres\".",
+   "covering_prose": "If only the key\u2013value form is provided, the application should build a driver-appropriate connection string from those fields, applying sensible defaults such as standard ports when they are not specified, and formatting consistent with each supported protocol.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing key/value Postgres with password \"foo\" includes password and returns \"dbname=flipt host=localhost password=foo port=5432 user=postgres\".",
+   "covering_prose": "If only the key\u2013value form is provided, the application should build a driver-appropriate connection string from those fields, applying sensible defaults such as standard ports when they are not specified, and formatting consistent with each supported protocol.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing MySQL URL \"mysql://mysql@localhost:3306/flipt\" returns driver MySQL and DSN \"mysql@tcp(localhost:3306)/flipt?multiStatements=true&parseTime=true&sql_mode=ANSI\".",
+   "covering_prose": "The overall behavior should preserve existing URL-based configurations while making it straightforward to configure the database from discrete secrets without requiring users to know the exact connection string format.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing key/value MySQL with no port defaults to port 3306 and returns \"mysql:foo@tcp(localhost:3306)/flipt?multiStatements=true&parseTime=true&sql_mode=ANSI\".",
+   "covering_prose": "Defaulting behavior should be applied for optional fields, including sensible engine-specific defaults for ports where not provided.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing key/value MySQL with port 3306 and no password returns \"mysql@tcp(localhost:3306)/flipt?multiStatements=true&parseTime=true&sql_mode=ANSI\".",
+   "covering_prose": "If only the key\u2013value form is provided, the application should build a driver-appropriate connection string from those fields, applying sensible defaults such as standard ports when they are not specified, and formatting consistent with each supported protocol.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing key/value MySQL with password \"foo\" returns \"mysql:foo@tcp(localhost:3306)/flipt?multiStatements=true&parseTime=true&sql_mode=ANSI\".",
+   "covering_prose": "If only the key\u2013value form is provided, the application should build a driver-appropriate connection string from those fields, applying sensible defaults such as standard ports when they are not specified, and formatting consistent with each supported protocol.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing invalid URL \"http://a b\" returns an error.",
+   "covering_prose": "Error handling should clearly distinguish between parsing failures, validation failures, and runtime connection errors so that users can identify misconfiguration without trial and error.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Parsing unknown URL protocol \"mongo://127.0.0.1\" returns an error.",
+   "covering_prose": "Unsupported or unrecognized protocols should be rejected during validation with a clear error that indicates the invalid value and the expected set. If db.protocol is provided but is not recognized, do not coerce it to an empty/zero value\u2014explicitly report the invalid value and the accepted options.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Open with sqlite URL \"file:flipt.db\" returns driver SQLite without error.",
+   "covering_prose": "Connection establishment should operate correctly with either configuration mode and should not require callers to duplicate credentials or driver-specific parameters.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Open with Postgres URL \"postgres://postgres@localhost:5432/flipt?sslmode=disable\" returns driver Postgres without error.",
+   "covering_prose": "Connection establishment should operate correctly with either configuration mode and should not require callers to duplicate credentials or driver-specific parameters.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Open with MySQL URL \"mysql://mysql@localhost:3306/flipt\" returns driver MySQL without error.",
+   "covering_prose": "Connection establishment should operate correctly with either configuration mode and should not require callers to duplicate credentials or driver-specific parameters.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Migration callers pass the full application configuration by value to NewMigrator.",
+   "covering_prose": "Migration routines should accept the full application configuration by value and should honor the same precedence and validation rules used by the main connection flow.",
+   "gold_anchor": "db.NewMigrator(*cfg, l)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

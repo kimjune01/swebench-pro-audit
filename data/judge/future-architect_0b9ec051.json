@@ -1,0 +1,39 @@
+{
+ "case": "future-architect_0b9ec051",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 4,
+ "n_covered": 2,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "AppendIfMissing called with an existing CpeVersionMatch leaves Confidences as exactly [CpeVersionMatch], without adding a duplicate.",
+   "covering_prose": "Rename the confidence label CpeNameMatch to CpeVersionMatch across all definitions, usages, and string representations shown in logs, reports, and the TUI.",
+   "gold_anchor": "CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AppendIfMissing called on Confidences [CpeVersionMatch] with ChangelogExactMatch returns exactly [CpeVersionMatch, ChangelogExactMatch].",
+   "covering_prose": "Rename the confidence label CpeNameMatch to CpeVersionMatch across all definitions, usages, and string representations shown in logs, reports, and the TUI.",
+   "gold_anchor": "CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SortByConfident given [OvalMatch, CpeVersionMatch] returns exactly [OvalMatch, CpeVersionMatch].",
+   "covering_prose": null,
+   "gold_anchor": "CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "SortByConfident given [CpeVersionMatch, OvalMatch] returns exactly [OvalMatch, CpeVersionMatch].",
+   "covering_prose": null,
+   "gold_anchor": "CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "case": "future-architect_835dc080",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 4,
+ "n_covered": 2,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "removeInactives returns nil when the input contains only one WordPressPackage whose Status is \"inactive\".",
+   "covering_prose": null,
+   "gold_anchor": "func removeInactives(pkgs models.WordPressPackages) (removed models.WordPressPackages)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "removeInactives returns nil when the input contains multiple WordPressPackages and all have Status \"inactive\".",
+   "covering_prose": null,
+   "gold_anchor": "func removeInactives(pkgs models.WordPressPackages) (removed models.WordPressPackages)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "removeInactives excludes packages whose Status is exactly \"inactive\" from the returned WordPressPackages list.",
+   "covering_prose": "- The `removeInactives` function should return a filtered list of `WordPressPackages`, excluding any packages with a status of `\"inactive\"`.",
+   "gold_anchor": "if p.Status == \"inactive\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "removeInactives preserves a package whose Status is \"active\" in the returned WordPressPackages list, with its fields unchanged.",
+   "covering_prose": "- The `removeInactives` function should return a filtered list of `WordPressPackages`, excluding any packages with a status of `\"inactive\"`.",
+   "gold_anchor": "removed = append(removed, p)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

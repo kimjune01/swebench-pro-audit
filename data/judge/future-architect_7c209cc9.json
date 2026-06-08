@@ -1,0 +1,46 @@
+{
+ "case": "future-architect_7c209cc9",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 5,
+ "n_covered": 3,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "The test calls `rhelRebuildOSVersionToRHEL` rather than `rhelDownStreamOSVersionToRHEL` when checking each table case.",
+   "covering_prose": "Function renaming from `rhelDownStreamOSVersionToRHEL` to `rhelRebuildOSVersionToRHEL` should be reflected in all usage locations and test functions to maintain consistency.",
+   "gold_anchor": "func rhelRebuildOSVersionToRHEL(ver string) string {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`rhelRebuildOSVersionToRHEL` must normalize a CentOS rebuild version case in the table named `remove_centos.` to the expected RHEL-style string.",
+   "covering_prose": "A version-conversion utility `rhelRebuildOSVersionToRHEL` should normalize RHEL rebuild version strings and be used in version handling for downstreams; the version comparison logic in `lessThan()` should apply this normalization for CentOS, Alma, and Rocky.",
+   "gold_anchor": "var rhelRebuildOSVerPattern = regexp.MustCompile(`\\.[es]l(\\d+)(?:_\\d+)?(?:\\.(centos|rocky|alma))?`)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`rhelRebuildOSVersionToRHEL` must normalize a Rocky rebuild version case in the table named `remove_rocky.` to the expected RHEL-style string.",
+   "covering_prose": "A version-conversion utility `rhelRebuildOSVersionToRHEL` should normalize RHEL rebuild version strings and be used in version handling for downstreams; the version comparison logic in `lessThan()` should apply this normalization for CentOS, Alma, and Rocky.",
+   "gold_anchor": "var rhelRebuildOSVerPattern = regexp.MustCompile(`\\.[es]l(\\d+)(?:_\\d+)?(?:\\.(centos|rocky|alma))?`)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`rhelRebuildOSVersionToRHEL` must leave the table case named `noop` unchanged.",
+   "covering_prose": null,
+   "gold_anchor": "return rhelRebuildOSVerPattern.ReplaceAllString(ver, \".el$1\")",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "`rhelRebuildOSVersionToRHEL` must remove the minor rebuild suffix in the table case named `remove_minor`.",
+   "covering_prose": null,
+   "gold_anchor": "var rhelRebuildOSVerPattern = regexp.MustCompile(`\\.[es]l(\\d+)(?:_\\d+)?(?:\\.(centos|rocky|alma))?`)",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

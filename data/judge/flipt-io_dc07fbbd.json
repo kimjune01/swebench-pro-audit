@@ -1,0 +1,88 @@
+{
+ "case": "flipt-io_dc07fbbd",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 9,
+ "n_covered": 7,
+ "n_gap": 2,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "Readonly integration ListSegments call with NamespaceKey equal to the test namespace must return no error before asserting 50 segments.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "FuzzImport seeds the fuzzer with testdata/export.yml in addition to existing import fixtures.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "NewImporter can be called with only a Creator and no namespace/createNamespace positional arguments.",
+   "covering_prose": "- opts ... ImportOpt: A variadic list of configuration functions that modify the importer instance.",
+   "gold_anchor": "func NewImporter(store Creator, opts ...ImportOpt) *Importer {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Importing testdata/export.yml with no CLI namespace succeeds.",
+   "covering_prose": "If only one namespace is provided (CLI or YAML), that namespace should be used consistently.",
+   "gold_anchor": "var namespace = doc.Namespace",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When importing exported YAML with namespace default and no CLI namespace, created flag requests use NamespaceKey \"default\".",
+   "covering_prose": "If only one namespace is provided (CLI or YAML), that namespace should be used consistently.",
+   "gold_anchor": "NamespaceKey: namespace,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Importing a document with version 5.0 returns the exact error string \"unsupported version: 5.0\".",
+   "covering_prose": null,
+   "gold_anchor": "return fmt.Errorf(\"unsupported version: %s\", doc.Version)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Importing with document namespace namespace1 and CLI namespace namespace1 succeeds.",
+   "covering_prose": "If both the CLI namespace and the YAML namespace are provided, they must match. Otherwise, the process should fail with an explicit error.",
+   "gold_anchor": "if doc.Namespace != \"\" && i.namespace != \"\" && doc.Namespace != i.namespace {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Importing with no document namespace and CLI namespace namespace1 succeeds.",
+   "covering_prose": "If only one namespace is provided (CLI or YAML), that namespace should be used consistently.",
+   "gold_anchor": "namespace = i.namespace",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Importing with document namespace namespace1 and no CLI namespace succeeds.",
+   "covering_prose": "If only one namespace is provided (CLI or YAML), that namespace should be used consistently.",
+   "gold_anchor": "var namespace = doc.Namespace",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Importing with document namespace namespace1 and CLI namespace namespace2 returns the exact error string \"namespace mismatch: namespaces must match in file and args if both provided: namespace1 != namespace2\".",
+   "covering_prose": null,
+   "gold_anchor": "return fmt.Errorf(\"namespace mismatch: namespaces must match in file and args if both provided: %s != %s\", doc.Namespace, i.namespace)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "WithNamespace sets the importer CLI namespace used for namespace matching.",
+   "covering_prose": "When a namespace is explicitly provided, it should be included via `WithNamespace`, and enabling namespace creation should trigger `WithCreateNamespace`.",
+   "gold_anchor": "func WithNamespace(ns string) ImportOpt {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

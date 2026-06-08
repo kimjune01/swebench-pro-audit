@@ -1,0 +1,60 @@
+{
+ "case": "future-architect_4c598bb9",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "For line \"bar 1 9 123a ia64 1:bar-9-123a.src.rpm\", parseInstalledPackagesLine returns binary package Name \"bar\", Version \"1:9\", Release \"123a\", Arch \"ia64\".",
+   "covering_prose": "- Implement handling in `splitFileName` to correctly parse RPM filenames including epoch, producing a binary version with `epoch:version`(e.g, `wantbp: &models.Package{Name: \"bar\", Version: \"1:9\", Release: \"123a\", Arch: \"ia64\"}`), a source version with epoch:version-release (`wantsp: &models.SrcPackage{Name: \"bar\", Version: \"1:9-123a\", Arch: \"src\", BinaryNames: []string{\"bar\"}}`), setting the source architecture to `src`, and maintaining the link between the source and its corresponding binary package.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For source RPM filename \"1:bar-9-123a.src.rpm\", the source package name is \"bar\".",
+   "covering_prose": "- Implement handling in `splitFileName` to correctly parse RPM filenames including epoch, producing a binary version with `epoch:version`(e.g, `wantbp: &models.Package{Name: \"bar\", Version: \"1:9\", Release: \"123a\", Arch: \"ia64\"}`), a source version with epoch:version-release (`wantsp: &models.SrcPackage{Name: \"bar\", Version: \"1:9-123a\", Arch: \"src\", BinaryNames: []string{\"bar\"}}`), setting the source architecture to `src`, and maintaining the link between the source and its corresponding binary package.",
+   "gold_anchor": "name = basename[epochIndex+1 : verIndex]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For source RPM filename \"1:bar-9-123a.src.rpm\", the source package version is \"1:9-123a\".",
+   "covering_prose": "- Implement handling in `splitFileName` to correctly parse RPM filenames including epoch, producing a binary version with `epoch:version`(e.g, `wantbp: &models.Package{Name: \"bar\", Version: \"1:9\", Release: \"123a\", Arch: \"ia64\"}`), a source version with epoch:version-release (`wantsp: &models.SrcPackage{Name: \"bar\", Version: \"1:9-123a\", Arch: \"src\", BinaryNames: []string{\"bar\"}}`), setting the source architecture to `src`, and maintaining the link between the source and its corresponding binary package.",
+   "gold_anchor": "epoch = basename[:epochIndex]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For source RPM filename \"1:bar-9-123a.src.rpm\", the source package architecture is \"src\".",
+   "covering_prose": "- Implement handling in `splitFileName` to correctly parse RPM filenames including epoch, producing a binary version with `epoch:version`(e.g, `wantbp: &models.Package{Name: \"bar\", Version: \"1:9\", Release: \"123a\", Arch: \"ia64\"}`), a source version with epoch:version-release (`wantsp: &models.SrcPackage{Name: \"bar\", Version: \"1:9-123a\", Arch: \"src\", BinaryNames: []string{\"bar\"}}`), setting the source architecture to `src`, and maintaining the link between the source and its corresponding binary package.",
+   "gold_anchor": "arch = basename[archIndex+1:]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For line \"bar 1 9 123a ia64 1:bar-9-123a.src.rpm\", the source package BinaryNames is []string{\"bar\"}.",
+   "covering_prose": "- Implement handling in `splitFileName` to correctly parse RPM filenames including epoch, producing a binary version with `epoch:version`(e.g, `wantbp: &models.Package{Name: \"bar\", Version: \"1:9\", Release: \"123a\", Arch: \"ia64\"}`), a source version with epoch:version-release (`wantsp: &models.SrcPackage{Name: \"bar\", Version: \"1:9-123a\", Arch: \"src\", BinaryNames: []string{\"bar\"}}`), setting the source architecture to `src`, and maintaining the link between the source and its corresponding binary package.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For line \"elasticsearch 0 8.17.0 1 x86_64 elasticsearch-8.17.0-1-src.rpm (none)\", parseInstalledPackagesLine returns binary package Name \"elasticsearch\", Version \"8.17.0\", Release \"1\", Arch \"x86_64\".",
+   "covering_prose": "- Update `parseInstalledPackagesLine` to append warnings for unparseable source RPM filenames, continue processing, produce the binary package (e.g, `wantbp: &models.Package{Name: \"elasticsearch\", Version: \"8.17.0\", Release: \"1\", Arch: \"x86_64\"}`) and skip the source package (`wantsp: nil`).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For line \"elasticsearch 0 8.17.0 1 x86_64 elasticsearch-8.17.0-1-src.rpm (none)\", parseInstalledPackagesLine returns nil source package.",
+   "covering_prose": "- Update `parseInstalledPackagesLine` to append warnings for unparseable source RPM filenames, continue processing, produce the binary package (e.g, `wantbp: &models.Package{Name: \"elasticsearch\", Version: \"8.17.0\", Release: \"1\", Arch: \"x86_64\"}`) and skip the source package (`wantsp: nil`).",
+   "gold_anchor": "return nil, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

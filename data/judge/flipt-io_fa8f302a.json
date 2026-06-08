@@ -1,0 +1,165 @@
+{
+ "case": "flipt-io_fa8f302a",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 22,
+ "n_covered": 22,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "OFREPEvaluationBridge for a variant flag returns output.FlagKey equal to the evaluated flag key.",
+   "covering_prose": "Successful responses should always include: `key`, `reason`, `variant`, `value`, `metadata` (metadata present even if empty).",
+   "gold_anchor": "FlagKey: resp.FlagKey,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OFREPEvaluationBridge for a variant flag preserves the internal MATCH evaluation reason.",
+   "covering_prose": "Bridge propagation: internal evaluation outputs (`reason`, `variant`, `value`) should be preserved aside from normalization rules stated above.",
+   "gold_anchor": "Reason:  resp.Reason,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OFREPEvaluationBridge for a variant flag returns variant \"boz\" when the internal variant result selects variant key \"boz\".",
+   "covering_prose": "Variant flag evaluations should surface the chosen variant identifier coherently; boolean evaluations should present outcome values predictably.",
+   "gold_anchor": "Variant: resp.VariantKey,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OFREPEvaluationBridge for a variant flag returns value \"boz\", the same selected variant identifier as variant.",
+   "covering_prose": "Variant flag semantics: `variant` and `value` are both the selected variant identifier (string).",
+   "gold_anchor": "Value:   resp.VariantKey,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OFREPEvaluationBridge for a boolean flag returns output.FlagKey equal to the evaluated flag key.",
+   "covering_prose": "Successful responses should always include: `key`, `reason`, `variant`, `value`, `metadata` (metadata present even if empty).",
+   "gold_anchor": "FlagKey: resp.FlagKey,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OFREPEvaluationBridge for a boolean flag preserves the internal DEFAULT evaluation reason.",
+   "covering_prose": "Bridge propagation: internal evaluation outputs (`reason`, `variant`, `value`) should be preserved aside from normalization rules stated above.",
+   "gold_anchor": "Reason:  resp.Reason,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OFREPEvaluationBridge for a boolean flag with enabled outcome true returns variant \"true\".",
+   "covering_prose": "Boolean flag semantics: `variant` is `\"true\"` or `\"false\"`; `value` is the boolean outcome.",
+   "gold_anchor": "Variant: strconv.FormatBool(resp.Enabled),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "OFREPEvaluationBridge for a boolean flag with enabled outcome true returns value true.",
+   "covering_prose": "Boolean flag semantics: `variant` is `\"true\"` or `\"false\"`; `value` is the boolean outcome.",
+   "gold_anchor": "Value:   resp.Enabled,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag calls the bridge with namespace \"default\" when incoming metadata has no x-flipt-namespace value.",
+   "covering_prose": "The evaluation namespace should be derived from the first `x-flipt-namespace` inbound metadata value; if absent or empty, default to `default`.",
+   "gold_anchor": "return \"default\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag forwards the request context map unchanged to the bridge when context is present.",
+   "covering_prose": "The request may include an optional `context` map (`string` \u2192 `string`). All supplied key pairs should be forwarded intact to evaluation logic without silent mutation or omission.",
+   "gold_anchor": "Context:      r.Context,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag maps internal DEFAULT_EVALUATION_REASON to OFREP EvaluateReason_DEFAULT in the successful response.",
+   "covering_prose": "The `reason` field should use a stable enumeration including at least: `DEFAULT`, `DISABLED`, `TARGETING_MATCH`, `UNKNOWN`, with deterministic mapping from internal states.",
+   "gold_anchor": "return ofrep.EvaluateReason_DEFAULT",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag successful response includes key, reason, variant, value, and an empty metadata struct.",
+   "covering_prose": "Successful responses should always include: `key`, `reason`, `variant`, `value`, `metadata` (metadata present even if empty).",
+   "gold_anchor": "Metadata: &structpb.Struct{Fields: make(map[string]*structpb.Value)},",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag preserves boolean output false as a protobuf bool value false in the successful response.",
+   "covering_prose": "Boolean flag semantics: `variant` is `\"true\"` or `\"false\"`; `value` is the boolean outcome.",
+   "gold_anchor": "value, err := structpb.NewValue(output.Value)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag calls the bridge with the first x-flipt-namespace metadata value when provided.",
+   "covering_prose": "The evaluation namespace should be derived from the first `x-flipt-namespace` inbound metadata value; if absent or empty, default to `default`.",
+   "gold_anchor": "return namespace[0]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag maps internal FLAG_DISABLED_EVALUATION_REASON to OFREP EvaluateReason_DISABLED in the successful response.",
+   "covering_prose": "The `reason` field should use a stable enumeration including at least: `DEFAULT`, `DISABLED`, `TARGETING_MATCH`, `UNKNOWN`, with deterministic mapping from internal states.",
+   "gold_anchor": "return ofrep.EvaluateReason_DISABLED",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag with an empty request key returns InvalidArgument status using NewTargetingKeyMissing, with errorCode TARGETING_KEY_MISSING and errorDetails \"flag key was not provided\".",
+   "covering_prose": "Each request should target exactly one flag via a non-empty `key`. A missing or empty key should return an `InvalidArgument` style error with a structured JSON body.",
+   "gold_anchor": "return nil, NewTargetingKeyMissing()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag maps a bridge ErrInvalid error to NewBadRequestError with InvalidArgument status.",
+   "covering_prose": "Distinct structured JSON error responses should exist for: Missing or empty key `InvalidArgument`; Invalid or malformed input `InvalidArgument`; Nonexistent flag`NotFound`; Unsupported flag type`Internal` (or defined `Unsupported`); Unauthenticated `Unauthenticated`; Unauthorized or namespace scope violation `PermissionDenied`; Internal evaluation or bridge failure `Internal`.  ",
+   "gold_anchor": "case flipterrors.AsMatch[flipterrors.ErrInvalid](err):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag maps a bridge ErrValidation error to NewBadRequestError with InvalidArgument status.",
+   "covering_prose": "Distinct structured JSON error responses should exist for: Missing or empty key `InvalidArgument`; Invalid or malformed input `InvalidArgument`; Nonexistent flag`NotFound`; Unsupported flag type`Internal` (or defined `Unsupported`); Unauthenticated `Unauthenticated`; Unauthorized or namespace scope violation `PermissionDenied`; Internal evaluation or bridge failure `Internal`.  ",
+   "gold_anchor": "case flipterrors.AsMatch[flipterrors.ErrValidation](err):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag maps a bridge ErrNotFound error to NewFlagNotFoundError with NotFound status.",
+   "covering_prose": "Distinct structured JSON error responses should exist for: Missing or empty key `InvalidArgument`; Invalid or malformed input `InvalidArgument`; Nonexistent flag`NotFound`; Unsupported flag type`Internal` (or defined `Unsupported`); Unauthenticated `Unauthenticated`; Unauthorized or namespace scope violation `PermissionDenied`; Internal evaluation or bridge failure `Internal`.  ",
+   "gold_anchor": "case flipterrors.AsMatch[flipterrors.ErrNotFound](err):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag maps a bridge ErrUnauthenticated error to NewUnauthenticatedError with Unauthenticated status.",
+   "covering_prose": "Distinct structured JSON error responses should exist for: Missing or empty key `InvalidArgument`; Invalid or malformed input `InvalidArgument`; Nonexistent flag`NotFound`; Unsupported flag type`Internal` (or defined `Unsupported`); Unauthenticated `Unauthenticated`; Unauthorized or namespace scope violation `PermissionDenied`; Internal evaluation or bridge failure `Internal`.  ",
+   "gold_anchor": "case flipterrors.AsMatch[flipterrors.ErrUnauthenticated](err):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EvaluateFlag maps a bridge ErrUnauthorized error to NewUnauthorizedError with PermissionDenied status.",
+   "covering_prose": "Distinct structured JSON error responses should exist for: Missing or empty key `InvalidArgument`; Invalid or malformed input `InvalidArgument`; Nonexistent flag`NotFound`; Unsupported flag type`Internal` (or defined `Unsupported`); Unauthenticated `Unauthenticated`; Unauthorized or namespace scope violation `PermissionDenied`; Internal evaluation or bridge failure `Internal`.  ",
+   "gold_anchor": "case flipterrors.AsMatch[flipterrors.ErrUnauthorized](err):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The OFREP server constructor requires logger, cache config, and bridge arguments so tests can inject bridgeMock.",
+   "covering_prose": "Name: Bridge\n\nType: interface\n\nDescription: Defines the contract for an OFREP bridge to evaluate a single flag and return the corresponding output.",
+   "gold_anchor": "func New(logger *zap.Logger, cacheCfg config.CacheConfig, bridge Bridge) *Server {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

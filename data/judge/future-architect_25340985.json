@@ -1,0 +1,53 @@
+{
+ "case": "future-architect_25340985",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 3,
+ "n_covered": 1,
+ "n_gap": 2,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "Debian support helper is unexported and called as deb.supported(...) rather than deb.Supported(...) from the Debian package test.",
+   "covering_prose": "Unexport the Supported method on Debian so it becomes an internal helper and update all internal references accordingly.",
+   "gold_anchor": "func (deb Debian) supported(major string) bool {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Debian major release \"8\" is supported: deb.supported(\"8\") returns true.",
+   "covering_prose": null,
+   "gold_anchor": "\"8\":  \"jessie\",",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Debian major release \"9\" is supported: deb.supported(\"9\") returns true.",
+   "covering_prose": null,
+   "gold_anchor": "\"9\":  \"stretch\",",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Debian major release \"10\" is supported: deb.supported(\"10\") returns true.",
+   "covering_prose": null,
+   "gold_anchor": "\"10\": \"buster\",",
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Debian major release \"11\" is not supported yet: deb.supported(\"11\") returns false.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Empty Debian major release is not supported yet: deb.supported(\"\") returns false.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+{"rows":[{"test":"getAmazonLinuxVersion returns \"2023\" when release is \"2023.3.20240312\".","covering_prose":"For the input `\"2023.3.20240312\"`, the expected output is `\"2023\"`.","gold_anchor":"switch s := strings.Fields(osRelease)[0]; major(s) {"}]}

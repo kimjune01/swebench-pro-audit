@@ -1,0 +1,25 @@
+{
+ "case": "future-architect_514eb714",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "major(\"\") returns the empty string \"\" for zero-length input.",
+   "covering_prose": "When the input is exactly an empty string (\"\", length = 0), oval.major should  return an empty string (\"\").",
+   "gold_anchor": "if version == \"\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The empty-input case is included in Test_major as a table entry with in set to \"\" and expected set to \"\".",
+   "covering_prose": "When the input string is empty (\"\"), the function returns an empty string (\"\").",
+   "gold_anchor": "return \"\"",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

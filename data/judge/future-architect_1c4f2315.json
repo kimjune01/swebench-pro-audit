@@ -1,0 +1,81 @@
+{
+ "case": "future-architect_1c4f2315",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 10,
+ "n_covered": 8,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When a CVE is present in both current and previous scan results, diff(..., true, true) returns no CVE entry for it.",
+   "covering_prose": "The diff function must return only the requested types of changes based on the plus/minus parameters, filtering out unchanged CVEs and including only additions, removals, or both as specified.",
+   "gold_anchor": "current.ScannedCves = cves",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When plus and minus are both true, a CVE present only in the current scan is included in ScannedCves with DiffStatus \"+\".",
+   "covering_prose": "When both plus and minus parameters are true, the result must include both newly detected CVEs with \"+\" status and resolved CVEs with \"-\" status in a single result set.",
+   "gold_anchor": "v.DiffStatus = models.DiffPlus",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When plus and minus are both true, a CVE present only in the previous scan is included in ScannedCves with DiffStatus \"-\".",
+   "covering_prose": "When both plus and minus parameters are true, the result must include both newly detected CVEs with \"+\" status and resolved CVEs with \"-\" status in a single result set.",
+   "gold_anchor": "v.DiffStatus = models.DiffMinus",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When plus and minus are both true, plus and minus CVEs are returned together in the same ScannedCves result set.",
+   "covering_prose": "When both plus and minus parameters are true, the result must include both newly detected CVEs with \"+\" status and resolved CVEs with \"-\" status in a single result set.",
+   "gold_anchor": "cves[k] = v",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a plus CVE, the returned Packages entry for its affected package is copied from the current scan result.",
+   "covering_prose": null,
+   "gold_anchor": "p = current.Packages[affected.Name]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For a minus CVE, the returned Packages entry for its affected package is copied from the previous scan result.",
+   "covering_prose": null,
+   "gold_anchor": "p = previous.Packages[affected.Name]",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When only plus is requested, a CVE present only in the current scan is included in ScannedCves with DiffStatus \"+\".",
+   "covering_prose": "The diff function must return only the requested types of changes based on the plus/minus parameters, filtering out unchanged CVEs and including only additions, removals, or both as specified.",
+   "gold_anchor": "if isPlus {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When only plus is requested, a CVE present only in the previous scan is excluded from ScannedCves.",
+   "covering_prose": "The diff function must return only the requested types of changes based on the plus/minus parameters, filtering out unchanged CVEs and including only additions, removals, or both as specified.",
+   "gold_anchor": "if isMinus {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When only minus is requested, a CVE present only in the previous scan is included in ScannedCves with DiffStatus \"-\".",
+   "covering_prose": "The diff function must return only the requested types of changes based on the plus/minus parameters, filtering out unchanged CVEs and including only additions, removals, or both as specified.",
+   "gold_anchor": "minus := getMinusDiffCves(previous, current)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When only minus is requested, unchanged CVEs are excluded from ScannedCves.",
+   "covering_prose": "The diff function must return only the requested types of changes based on the plus/minus parameters, filtering out unchanged CVEs and including only additions, removals, or both as specified.",
+   "gold_anchor": "current.ScannedCves = cves",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

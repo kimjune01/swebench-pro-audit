@@ -1,0 +1,46 @@
+{
+ "case": "flipt-io_d38a357b",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 5,
+ "n_covered": 3,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Redis file-based config loads require_tls as true into cfg.Cache.Redis.RequireTLS.",
+   "covering_prose": "The Redis cache configuration supports TLS connection security through a configurable option that enables encrypted communication with Redis servers.",
+   "gold_anchor": "require_tls: true",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Redis file-based config loads pool_size as 50 into cfg.Cache.Redis.PoolSize.",
+   "covering_prose": null,
+   "gold_anchor": "pool_size: 50",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Redis file-based config loads min_idle_conn as 2 into cfg.Cache.Redis.MinIdleConn.",
+   "covering_prose": null,
+   "gold_anchor": "min_idle_conn: 2",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Redis file-based config parses conn_max_idle_time: 10m into 10 * time.Minute.",
+   "covering_prose": "Duration-based configuration options accept standard duration formats (such as minutes, seconds, milliseconds) and are properly parsed into appropriate time values.",
+   "gold_anchor": "conn_max_idle_time: 10m",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Redis file-based config parses net_timeout: 500ms into 500 * time.Millisecond.",
+   "covering_prose": "Duration-based configuration options accept standard duration formats (such as minutes, seconds, milliseconds) and are properly parsed into appropriate time values.",
+   "gold_anchor": "net_timeout: 500ms",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

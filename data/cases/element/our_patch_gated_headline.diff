@@ -1,0 +1,500 @@
+diff --git a/src/components/views/elements/Pill.tsx b/src/components/views/elements/Pill.tsx
+index 5a8de9777d..a908212ccb 100644
+--- a/src/components/views/elements/Pill.tsx
++++ b/src/components/views/elements/Pill.tsx
+@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+ 
+-import React from "react";
++import React, { useEffect, useState } from "react";
+ import classNames from "classnames";
+ import { Room } from "matrix-js-sdk/src/models/room";
+ import { RoomMember } from "matrix-js-sdk/src/models/room-member";
+@@ -30,82 +30,71 @@ import { Action } from "../../../dispatcher/actions";
+ import Tooltip, { Alignment } from "./Tooltip";
+ import RoomAvatar from "../avatars/RoomAvatar";
+ import MemberAvatar from "../avatars/MemberAvatar";
+-import { objectHasDiff } from "../../../utils/objects";
+ import { ButtonEvent } from "./AccessibleButton";
+ 
+ export enum PillType {
+     UserMention = "TYPE_USER_MENTION",
+     RoomMention = "TYPE_ROOM_MENTION",
+-    AtRoomMention = "TYPE_AT_ROOM_MENTION", // '@room' mention
++    AtRoomMention = "TYPE_AT_ROOM_MENTION",
+ }
+ 
+-interface IProps {
+-    // The Type of this Pill. If url is given, this is auto-detected.
++export interface PillProps {
+     type?: PillType;
+-    // The URL to pillify (no validation is done)
+     url?: string;
+-    // Whether the pill is in a message
+     inMessage?: boolean;
+-    // The room in which this pill is being rendered
+     room?: Room;
+-    // Whether to include an avatar in the pill
+     shouldShowPillAvatar?: boolean;
+ }
+ 
+-interface IState {
+-    // ID/alias of the room/user
++interface IPermalinkState {
+     resourceId: string;
+-    // Type of pill
+-    pillType: string;
+-    // The member related to the user pill
++    pillType: PillType;
+     member?: RoomMember;
+-    // The room related to the room pill
+     room?: Room;
+-    // Is the user hovering the pill
+-    hover: boolean;
+ }
+ 
+-export default class Pill extends React.Component<IProps, IState> {
+-    private unmounted = true;
+-    private matrixClient: MatrixClient;
++const EMPTY_PERMALINK_STATE: IPermalinkState = {
++    resourceId: null,
++    pillType: null,
++    member: null,
++    room: null,
++};
+ 
+-    public static roomNotifPos(text: string): number {
+-        return text.indexOf("@room");
+-    }
++export function roomNotifPos(text: string): number {
++    return text.indexOf("@room");
++}
++
++export function roomNotifLen(): number {
++    return "@room".length;
++}
+ 
+-    public static roomNotifLen(): number {
+-        return "@room".length;
++function getResource(url: string, inMessage: boolean): { resourceId?: string; prefix?: string } {
++    if (inMessage) {
++        const parts = parsePermalink(url);
++        const resourceId = parts?.primaryEntityId;
++        return { resourceId, prefix: parts?.sigil };
+     }
+ 
+-    public constructor(props: IProps) {
+-        super(props);
++    const resourceId = getPrimaryPermalinkEntity(url);
++    return { resourceId, prefix: resourceId?.[0] };
++}
+ 
+-        this.state = {
+-            resourceId: null,
+-            pillType: null,
+-            member: null,
+-            room: null,
+-            hover: false,
+-        };
+-    }
++export function usePermalink({ type, url, inMessage, room: contextRoom }: PillProps): IPermalinkState {
++    const [state, setState] = useState<IPermalinkState>(EMPTY_PERMALINK_STATE);
+ 
+-    private load(): void {
++    useEffect(() => {
++        let unmounted = false;
+         let resourceId: string;
+         let prefix: string;
+ 
+-        if (this.props.url) {
+-            if (this.props.inMessage) {
+-                const parts = parsePermalink(this.props.url);
+-                resourceId = parts.primaryEntityId; // The room/user ID
+-                prefix = parts.sigil; // The first character of prefix
+-            } else {
+-                resourceId = getPrimaryPermalinkEntity(this.props.url);
+-                prefix = resourceId ? resourceId[0] : undefined;
+-            }
++        if (url) {
++            const resource = getResource(url, !!inMessage);
++            resourceId = resource.resourceId;
++            prefix = resource.prefix;
+         }
+ 
+         const pillType =
+-            this.props.type ||
++            type ||
+             {
+                 "@": PillType.UserMention,
+                 "#": PillType.RoomMention,
+@@ -113,200 +102,160 @@ export default class Pill extends React.Component<IProps, IState> {
+             }[prefix];
+ 
+         let member: RoomMember;
+-        let room: Room;
++        let resolvedRoom: Room;
+         switch (pillType) {
+             case PillType.AtRoomMention:
+-                {
+-                    room = this.props.room;
+-                }
++                resolvedRoom = contextRoom;
+                 break;
+             case PillType.UserMention:
+                 {
+-                    const localMember = this.props.room?.getMember(resourceId);
++                    const localMember = contextRoom?.getMember(resourceId);
+                     member = localMember;
+                     if (!localMember) {
+                         member = new RoomMember(null, resourceId);
+-                        this.doProfileLookup(resourceId, member);
++                        MatrixClientPeg.get()
++                            .getProfileInfo(resourceId)
++                            .then((resp) => {
++                                if (unmounted) return;
++                                member.name = resp.displayname;
++                                member.rawDisplayName = resp.displayname;
++                                member.events.member = {
++                                    getContent: () => {
++                                        return { avatar_url: resp.avatar_url };
++                                    },
++                                    getDirectionalContent: function () {
++                                        return this.getContent();
++                                    },
++                                } as MatrixEvent;
++                                setState((current) => ({ ...current, member }));
++                            })
++                            .catch((err) => {
++                                logger.error("Could not retrieve profile data for " + resourceId + ":", err);
++                            });
+                     }
+                 }
+                 break;
+             case PillType.RoomMention:
+-                {
+-                    const localRoom =
+-                        resourceId[0] === "#"
+-                            ? MatrixClientPeg.get()
+-                                  .getRooms()
+-                                  .find((r) => {
+-                                      return (
+-                                          r.getCanonicalAlias() === resourceId || r.getAltAliases().includes(resourceId)
+-                                      );
+-                                  })
+-                            : MatrixClientPeg.get().getRoom(resourceId);
+-                    room = localRoom;
+-                    if (!localRoom) {
+-                        // TODO: This would require a new API to resolve a room alias to
+-                        // a room avatar and name.
+-                        // this.doRoomProfileLookup(resourceId, member);
+-                    }
+-                }
++                resolvedRoom =
++                    resourceId?.[0] === "#"
++                        ? MatrixClientPeg.get()
++                              .getRooms()
++                              .find((r) => {
++                                  return r.getCanonicalAlias() === resourceId || r.getAltAliases().includes(resourceId);
++                              })
++                        : MatrixClientPeg.get().getRoom(resourceId);
+                 break;
+         }
+-        this.setState({ resourceId, pillType, member, room });
+-    }
+ 
+-    public componentDidMount(): void {
+-        this.unmounted = false;
+-        this.matrixClient = MatrixClientPeg.get();
+-        this.load();
+-    }
+-
+-    public componentDidUpdate(prevProps: Readonly<IProps>): void {
+-        if (objectHasDiff(this.props, prevProps)) {
+-            this.load();
+-        }
+-    }
++        setState({ resourceId, pillType, member, room: resolvedRoom });
+ 
+-    public componentWillUnmount(): void {
+-        this.unmounted = true;
+-    }
++        return () => {
++            unmounted = true;
++        };
++    }, [contextRoom, inMessage, type, url]);
+ 
+-    private onMouseOver = (): void => {
+-        this.setState({
+-            hover: true,
+-        });
+-    };
++    return state;
++}
+ 
+-    private onMouseLeave = (): void => {
+-        this.setState({
+-            hover: false,
+-        });
+-    };
++export const Pill: React.FC<PillProps> = ({ type, url, inMessage, room, shouldShowPillAvatar }) => {
++    const matrixClient: MatrixClient = MatrixClientPeg.get();
++    const [hover, setHover] = useState(false);
++    const permalink = usePermalink({ type, url, inMessage, room, shouldShowPillAvatar });
++    const resource = permalink.resourceId;
+ 
+-    private doProfileLookup(userId: string, member: RoomMember): void {
+-        MatrixClientPeg.get()
+-            .getProfileInfo(userId)
+-            .then((resp) => {
+-                if (this.unmounted) {
+-                    return;
+-                }
+-                member.name = resp.displayname;
+-                member.rawDisplayName = resp.displayname;
+-                member.events.member = {
+-                    getContent: () => {
+-                        return { avatar_url: resp.avatar_url };
+-                    },
+-                    getDirectionalContent: function () {
+-                        return this.getContent();
+-                    },
+-                } as MatrixEvent;
+-                this.setState({ member });
+-            })
+-            .catch((err) => {
+-                logger.error("Could not retrieve profile data for " + userId + ":", err);
+-            });
+-    }
+-
+-    private onUserPillClicked = (e: ButtonEvent): void => {
++    const onUserPillClicked = (e: ButtonEvent): void => {
+         e.preventDefault();
+         dis.dispatch({
+             action: Action.ViewUser,
+-            member: this.state.member,
++            member: permalink.member,
+         });
+     };
+ 
+-    public render(): React.ReactNode {
+-        const resource = this.state.resourceId;
+-
+-        let avatar = null;
+-        let linkText = resource;
+-        let pillClass;
+-        let userId;
+-        let href = this.props.url;
+-        let onClick;
+-        switch (this.state.pillType) {
+-            case PillType.AtRoomMention:
+-                {
+-                    const room = this.props.room;
+-                    if (room) {
+-                        linkText = "@room";
+-                        if (this.props.shouldShowPillAvatar) {
+-                            avatar = <RoomAvatar room={room} width={16} height={16} aria-hidden="true" />;
+-                        }
+-                        pillClass = "mx_AtRoomPill";
+-                    }
++    let avatar = null;
++    let linkText = resource;
++    let pillClass;
++    let href = url;
++    let onClick;
++    switch (permalink.pillType) {
++        case PillType.AtRoomMention:
++            if (room) {
++                linkText = "@room";
++                if (shouldShowPillAvatar) {
++                    avatar = <RoomAvatar room={room} width={16} height={16} aria-hidden="true" />;
+                 }
+-                break;
+-            case PillType.UserMention:
+-                {
+-                    // If this user is not a member of this room, default to the empty member
+-                    const member = this.state.member;
+-                    if (member) {
+-                        userId = member.userId;
+-                        member.rawDisplayName = member.rawDisplayName || "";
+-                        linkText = member.rawDisplayName;
+-                        if (this.props.shouldShowPillAvatar) {
+-                            avatar = (
+-                                <MemberAvatar member={member} width={16} height={16} aria-hidden="true" hideTitle />
+-                            );
+-                        }
+-                        pillClass = "mx_UserPill";
+-                        href = null;
+-                        onClick = this.onUserPillClicked;
++                pillClass = "mx_AtRoomPill";
++            }
++            break;
++        case PillType.UserMention:
++            {
++                const member = permalink.member;
++                if (member) {
++                    member.rawDisplayName = member.rawDisplayName || "";
++                    linkText = member.rawDisplayName;
++                    if (shouldShowPillAvatar) {
++                        avatar = <MemberAvatar member={member} width={16} height={16} aria-hidden="true" hideTitle />;
+                     }
++                    pillClass = "mx_UserPill";
++                    onClick = onUserPillClicked;
+                 }
+-                break;
+-            case PillType.RoomMention:
+-                {
+-                    const room = this.state.room;
+-                    if (room) {
+-                        linkText = room.name || resource;
+-                        if (this.props.shouldShowPillAvatar) {
+-                            avatar = <RoomAvatar room={room} width={16} height={16} aria-hidden="true" />;
+-                        }
++            }
++            break;
++        case PillType.RoomMention:
++            {
++                const resolvedRoom = permalink.room;
++                if (resolvedRoom) {
++                    linkText = resolvedRoom.name || resource;
++                    if (shouldShowPillAvatar) {
++                        avatar = <RoomAvatar room={resolvedRoom} width={16} height={16} aria-hidden="true" />;
+                     }
+-                    pillClass = room?.isSpaceRoom() ? "mx_SpacePill" : "mx_RoomPill";
+                 }
+-                break;
+-        }
+-
+-        const classes = classNames("mx_Pill", pillClass, {
+-            mx_UserPill_me: userId === MatrixClientPeg.get().getUserId(),
+-        });
+-
+-        if (this.state.pillType) {
+-            let tip;
+-            if (this.state.hover && resource) {
+-                tip = <Tooltip label={resource} alignment={Alignment.Right} />;
++                pillClass = resolvedRoom?.isSpaceRoom() ? "mx_SpacePill" : "mx_RoomPill";
+             }
++            break;
++    }
++
++    const classes = classNames("mx_Pill", pillClass, {
++        mx_UserPill_me: resource === matrixClient.getUserId(),
++    });
+ 
+-            return (
+-                <bdi>
+-                    <MatrixClientContext.Provider value={this.matrixClient}>
+-                        {this.props.inMessage ? (
+-                            <a
+-                                className={classes}
+-                                href={href}
+-                                onClick={onClick}
+-                                onMouseOver={this.onMouseOver}
+-                                onMouseLeave={this.onMouseLeave}
+-                            >
+-                                {avatar}
+-                                <span className="mx_Pill_linkText">{linkText}</span>
+-                                {tip}
+-                            </a>
+-                        ) : (
+-                            <span className={classes} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave}>
+-                                {avatar}
+-                                <span className="mx_Pill_linkText">{linkText}</span>
+-                                {tip}
+-                            </span>
+-                        )}
+-                    </MatrixClientContext.Provider>
+-                </bdi>
+-            );
+-        } else {
+-            // Deliberately render nothing if the URL isn't recognised
+-            return null;
++    if (permalink.pillType) {
++        let tip;
++        if (hover && resource) {
++            tip = <Tooltip label={resource} alignment={Alignment.Right} />;
+         }
++
++        return (
++            <bdi>
++                <MatrixClientContext.Provider value={matrixClient}>
++                    {inMessage && permalink.pillType !== PillType.AtRoomMention ? (
++                        <a
++                            className={classes}
++                            href={href}
++                            onClick={onClick}
++                            onMouseOver={() => setHover(true)}
++                            onMouseLeave={() => setHover(false)}
++                        >
++                            {avatar}
++                            <span className="mx_Pill_linkText">{linkText}</span>
++                            {tip}
++                        </a>
++                    ) : (
++                        <span
++                            className={classes}
++                            onMouseOver={() => setHover(true)}
++                            onMouseLeave={() => setHover(false)}
++                        >
++                            {avatar}
++                            <span className="mx_Pill_linkText">{linkText}</span>
++                            {tip}
++                        </span>
++                    )}
++                </MatrixClientContext.Provider>
++            </bdi>
++        );
+     }
+-}
++
++    return null;
++};
++
++export default Pill;
+diff --git a/src/components/views/messages/TextualBody.tsx b/src/components/views/messages/TextualBody.tsx
+index dc7cc4dc23..0e2acc051b 100644
+--- a/src/components/views/messages/TextualBody.tsx
++++ b/src/components/views/messages/TextualBody.tsx
+@@ -92,7 +92,7 @@ export default class TextualBody extends React.Component<IBodyProps, IState> {
+         const showLineNumbers = SettingsStore.getValue("showCodeLineNumbers");
+         this.activateSpoilers([content]);
+ 
+-        HtmlUtils.linkifyElement(content);
++        HtmlUtils.linkifyElement(content, { ...linkifyOpts, ignoreTags: ["pre", "code"] });
+         pillifyLinks([content], this.props.mxEvent, this.pills);
+ 
+         this.calculateUrlPreview();
+diff --git a/src/utils/pillify.tsx b/src/utils/pillify.tsx
+index 8100b6c453..93930315f5 100644
+--- a/src/utils/pillify.tsx
++++ b/src/utils/pillify.tsx
+@@ -21,7 +21,7 @@ import { MatrixEvent } from "matrix-js-sdk/src/models/event";
+ 
+ import { MatrixClientPeg } from "../MatrixClientPeg";
+ import SettingsStore from "../settings/SettingsStore";
+-import Pill, { PillType } from "../components/views/elements/Pill";
++import Pill, { PillType, roomNotifLen, roomNotifPos } from "../components/views/elements/Pill";
+ import { parsePermalink } from "./permalinks/Permalinks";
+ 
+ /**
+@@ -82,14 +82,14 @@ export function pillifyLinks(nodes: ArrayLike<Element>, mxEvent: MatrixEvent, pi
+             // Take a textNode and break it up to make all the instances of @room their
+             // own textNode, adding those nodes to roomNotifTextNodes
+             while (currentTextNode !== null) {
+-                const roomNotifPos = Pill.roomNotifPos(currentTextNode.textContent);
++                const atRoomPos = roomNotifPos(currentTextNode.textContent);
+                 let nextTextNode = null;
+-                if (roomNotifPos > -1) {
++                if (atRoomPos > -1) {
+                     let roomTextNode = currentTextNode;
+ 
+-                    if (roomNotifPos > 0) roomTextNode = roomTextNode.splitText(roomNotifPos);
+-                    if (roomTextNode.textContent.length > Pill.roomNotifLen()) {
+-                        nextTextNode = roomTextNode.splitText(Pill.roomNotifLen());
++                    if (atRoomPos > 0) roomTextNode = roomTextNode.splitText(atRoomPos);
++                    if (roomTextNode.textContent.length > roomNotifLen()) {
++                        nextTextNode = roomTextNode.splitText(roomNotifLen());
+                     }
+                     roomNotifTextNodes.push(roomTextNode);
+                 }

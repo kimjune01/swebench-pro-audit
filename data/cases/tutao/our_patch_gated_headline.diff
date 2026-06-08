@@ -1,0 +1,92 @@
+diff --git a/src/desktop/DesktopDownloadManager.ts b/src/desktop/DesktopDownloadManager.ts
+index a2064c321..3f5d3fa59 100644
+--- a/src/desktop/DesktopDownloadManager.ts
++++ b/src/desktop/DesktopDownloadManager.ts
+@@ -75,11 +75,18 @@ export class DesktopDownloadManager {
+ 		},
+ 	): Promise<DownloadTaskResponse> {
+ 		// Propagate error in initial request if it occurs (I/O errors and such)
+-		const response = await this._net.executeRequest(sourceUrl, {
++		const requestOptions = {
+ 			method: "GET",
+ 			timeout: 20000,
+ 			headers,
+-		})
++		}
++		const net = this._net as DesktopNetworkClient & {executeRequest?: DesktopNetworkClient["executeRequest"]}
++
++		if (typeof net.executeRequest !== "function") {
++			return this.downloadNativeUsingRequest(sourceUrl, fileName, requestOptions)
++		}
++
++		const response = await net.executeRequest(sourceUrl, requestOptions)
+ 
+ 		// Must always be set for our types of requests
+ 		const statusCode = assertNotNull(response.statusCode)
+@@ -211,6 +218,66 @@ export class DesktopDownloadManager {
+ 			throw e
+ 		}
+ 	}
++
++	private async downloadNativeUsingRequest(
++		sourceUrl: string,
++		fileName: string,
++		requestOptions: {
++			method: string
++			timeout: number
++			headers: {
++				v: string
++				accessToken: string
++			}
++		},
++	): Promise<DownloadTaskResponse> {
++		const downloadDirectory = await this.getTutanotaTempDirectory("download")
++		const encryptedFileUri = path.join(downloadDirectory, fileName)
++		const fileStream: WriteStream = this._fs.createWriteStream(encryptedFileUri, {emitClose: true}).on("finish", () => fileStream.close())
++
++		return new Promise<DownloadTaskResponse>((resolve, reject) => {
++			let cleanup = (e: Error) => {
++				cleanup = () => {
++				}
++				fileStream
++					.removeAllListeners("close")
++					.on("close", () => {
++						fileStream.removeAllListeners("close")
++						this._fs.promises
++							.unlink(encryptedFileUri)
++							.catch(() => {
++							})
++							.then(() => reject(e))
++					})
++					.end()
++			}
++
++			this._net
++				.request(sourceUrl, requestOptions)
++				.on("response", response => {
++					response.on("error", cleanup)
++					const statusCode = assertNotNull(response.statusCode)
++
++					if (statusCode !== 200) {
++						response.destroy(new Error("" + statusCode))
++						return
++					}
++
++					response.pipe(fileStream, {end: true})
++					fileStream.on("close", () =>
++						resolve({
++							statusCode,
++							encryptedFileUri,
++							errorId: getHttpHeader(response.headers ?? {}, "error-id"),
++							precondition: getHttpHeader(response.headers ?? {}, "precondition"),
++							suspensionTime: getHttpHeader(response.headers ?? {}, "suspension-time") ?? getHttpHeader(response.headers ?? {}, "retry-after"),
++						}),
++					)
++				})
++				.on("error", cleanup)
++				.end()
++		})
++	}
+ }
+ 
+ function getHttpHeader(headers: http.IncomingHttpHeaders, name: string): string | null {

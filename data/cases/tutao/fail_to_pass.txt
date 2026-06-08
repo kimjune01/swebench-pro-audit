@@ -1,1 +1,1 @@
-['test/api/Suite.ts | api tests (3029 assertions)']
+test/api/Suite.ts | api tests (3029 assertions)

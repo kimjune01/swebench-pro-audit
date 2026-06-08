@@ -114,8 +114,28 @@ def judge(case_dir):
     return rec
 
 
+def find_line(text, quote):
+    """1-based line in `text` whose content contains the normalized quote; else None (for #L anchors)."""
+    q = aggr(quote)
+    if not q:
+        return None
+    head = " ".join(q.split()[:6])
+    for i, ln in enumerate(text.splitlines(), 1):
+        if head and head in aggr(ln):
+            return i
+    return None
+
+
+def link(label, relpath, line):
+    label = (label or "").replace("|", "\\|").replace("\n", " ")[:300]
+    anchor = f"#L{line}" if line else ""
+    return f"[{label}]({relpath}{anchor})"
+
+
 def write_table(d, rec):
     short = rec["case"]
+    spec_txt = (d / "spec.md").read_text() if (d / "spec.md").exists() else ""
+    gold_txt = (d / "gold.diff").read_text() if (d / "gold.diff").exists() else ""
     iid = (d / "instance_id.txt").read_text().strip() if (d / "instance_id.txt").exists() else short
     L = [f"# Coverage attribution: {short}", "",
          f"- instance_id: `{iid}`",
@@ -127,17 +147,16 @@ def write_table(d, rec):
          "- A **GAP** is a behavior the gold implements (right column) and the test checks, but no "
          "requirement states (blank middle): a solver could only get it by mindreading the author.", "",
          "| test behavior | covering requirement (prose) | implemented in gold (anchor) |", "|---|---|---|"]
+    rel = f"../cases/{short}"
     order = {"GAP": 0, "COVERED": 1, "OUT_OF_SCOPE": 2}
     for r in sorted(rec["rows"], key=lambda r: order.get(r["status"], 3)):
         t = (r.get("test") or "").replace("|", "\\|")[:140]
-        prose = (r.get("covering_prose") or "").replace("|", "\\|")[:240] if r["status"] == "COVERED" else ""
-        if r["status"] == "OUT_OF_SCOPE":
-            anchor = "_(not in gold)_"
-        else:
-            anchor = "`" + (r.get("gold_anchor") or "").replace("|", "\\|")[:120] + "`"
-        L.append(f"| {t} | {prose} | {anchor} |")
-    recpts = [f"- `data/cases/{short}/{n}`" for n in ("spec.md", "gold.diff", "hidden_test.diff", "our_failed.diff") if (d / n).exists()]
-    L += ["", "## Receipts", *recpts, f"- judge JSON: `data/judge/{short}.json`"]
+        cp, ga = r.get("covering_prose"), r.get("gold_anchor")
+        prose = link(cp, f"{rel}/spec.md", find_line(spec_txt, cp)) if r["status"] == "COVERED" else ""
+        gold = "_(not in gold)_" if r["status"] == "OUT_OF_SCOPE" else (link(ga, f"{rel}/gold.diff", find_line(gold_txt, ga)) if ga else "")
+        L.append(f"| {t} | {prose} | {gold} |")
+    recpts = [f"- [`{n}`]({rel}/{n})" for n in ("spec.md", "gold.diff", "hidden_test.diff", "our_failed.diff", "our_patch_gated_headline.diff") if (d / n).exists()]
+    L += ["", "## Receipts", *recpts, f"- judge JSON: [`{short}.json`](../judge/{short}.json)"]
     (ATTR / f"{short}.md").write_text("\n".join(L) + "\n")
 
 
@@ -145,6 +164,11 @@ def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     workers = int(sys.argv[sys.argv.index("--workers") + 1]) if "--workers" in sys.argv else 12
     cases = args or [str(REPO / "data" / "cases" / c) for c in DEFAULT]
+    if "--render" in sys.argv:  # re-render tables from saved JSON, no codex (apply hrefs/format)
+        for c in cases:
+            d = pathlib.Path(c); jf = OUT / f"{d.name}.json"
+            if jf.exists(): write_table(d, json.loads(jf.read_text())); print(f"  rendered {d.name}")
+        return
     print(f"coverage-judging {len(cases)} cases, {workers} workers (GAP = tested + in-gold + unspecified = mindreading)")
     with cf.ThreadPoolExecutor(max_workers=workers) as ex:
         for r in ex.map(judge, cases):

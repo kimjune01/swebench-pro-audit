@@ -7,25 +7,25 @@
 
 | test behavior | covering requirement (prose) | implemented in gold (anchor) |
 |---|---|---|
-| downloadNative calls request with exactly two arguments |  | `.request(sourceUrl, {` |
-| downloadNative creates the write stream with exactly two arguments |  | `.createWriteStream(encryptedFileUri, {` |
-| downloadNative rejection for HTTP 404 has message "404" |  | `response.destroy(new Error('' + response.statusCode))` |
-| downloadNative still creates one write stream for a 404 response |  | `.createWriteStream(encryptedFileUri, {` |
-| downloadNative registers exactly two write-stream event listeners for a 404 response |  | `.on("finish", () => fileStream.close())` |
-| downloadNative calls removeAllListeners exactly twice for a 404 response cleanup |  | `fileStream.removeAllListeners("close")` |
-| downloadNative uses the event-based request API rather than executeRequest | All usage of `executeRequest` must be removed, and file download logic must now be handled entirely via the event-based `.request` API of the `DesktopNetworkClient` class. | `.request(sourceUrl, {` |
-| downloadNative calls request exactly once for a successful 200 response | When a user attempts to open an attachment from an email using the desktop client, the system must issue an HTTP GET request to retrieve the file and save it to the Tutanota temporary download directory using the full `downloadNative` logic | `.request(sourceUrl, {` |
-| downloadNative issues the request to the provided URL some://url/file | When a user attempts to open an attachment from an email using the desktop client, the system must issue an HTTP GET request to retrieve the file and save it to the Tutanota temporary download directory using the full `downloadNative` logic | `.request(sourceUrl, {` |
-| downloadNative request options include method GET | When a user attempts to open an attachment from an email using the desktop client, the system must issue an HTTP GET request to retrieve the file and save it to the Tutanota temporary download directory using the full `downloadNative` logic | `method: "GET",` |
-| downloadNative request options include the provided headers v: foo and accessToken: bar | The HTTP request must be configured with a timeout of 20000 milliseconds and include any provided headers in the request options. | `headers,` |
-| downloadNative request options include timeout 20000 | The HTTP request must be configured with a timeout of 20000 milliseconds and include any provided headers in the request options. | `timeout: 20000,` |
-| downloadNative creates exactly one ClientRequest instance | All usage of `executeRequest` must be removed, and file download logic must now be handled entirely via the event-based `.request` API of the `DesktopNetworkClient` class. | `.request(sourceUrl, {` |
-| downloadNative creates exactly one file write stream on a successful 200 response | Upon successful download, the file must be written to the Tutanota-specific temp folder using the provided filename. | `.createWriteStream(encryptedFileUri, {` |
-| downloadNative creates a write stream at /tutanota/tmp/path/download/nativelyDownloadedFile | Upon successful download, the file must be written to the Tutanota-specific temp folder using the provided filename. | `const encryptedFileUri = path.join(downloadDirectory, fileName)` |
-| downloadNative creates the file write stream with { emitClose: true } | The file stream must be created with the option `{ emitClose: true }`. | `emitClose: true,` |
-| downloadNative pipes the HTTP response exactly once to the file write stream using pipe() | The HTTP response must be piped directly to the file write stream using the `pipe()` method. | `response.pipe(fileStream, {` |
-| downloadNative rejects with an Error when the HTTP response status code is 404 | The file download must complete successfully only if the HTTP response has a status code of `200`. | `response.destroy(new Error('' + response.statusCode))` |
-| downloadNative cleanup calls removeAllListeners("close") on the write stream | The system must clean up partial or failed downloads by calling `removeAllListeners("close")` on the write stream and deleting the file if any write errors occur during the streaming process. | `.removeAllListeners("close")` |
+| downloadNative calls request with exactly two arguments |  | [.request(sourceUrl, {](../cases/tutao/gold.diff#L65) |
+| downloadNative creates the write stream with exactly two arguments |  | [.createWriteStream(encryptedFileUri, {](../cases/tutao/gold.diff#L97) |
+| downloadNative rejection for HTTP 404 has message "404" |  | [response.destroy(new Error('' + response.statusCode))](../cases/tutao/gold.diff#L132) |
+| downloadNative still creates one write stream for a 404 response |  | [.createWriteStream(encryptedFileUri, {](../cases/tutao/gold.diff#L97) |
+| downloadNative registers exactly two write-stream event listeners for a 404 response |  | [.on("finish", () => fileStream.close())](../cases/tutao/gold.diff#L100) |
+| downloadNative calls removeAllListeners exactly twice for a 404 response cleanup |  | [fileStream.removeAllListeners("close")](../cases/tutao/gold.diff#L109) |
+| downloadNative uses the event-based request API rather than executeRequest | [All usage of `executeRequest` must be removed, and file download logic must now be handled entirely via the event-based `.request` API of the `DesktopNetworkClient` class.](../cases/tutao/spec.md#L7) | [.request(sourceUrl, {](../cases/tutao/gold.diff#L65) |
+| downloadNative calls request exactly once for a successful 200 response | [When a user attempts to open an attachment from an email using the desktop client, the system must issue an HTTP GET request to retrieve the file and save it to the Tutanota temporary download directory using the full `downloadNative` logic.](../cases/tutao/spec.md#L7) | [.request(sourceUrl, {](../cases/tutao/gold.diff#L65) |
+| downloadNative issues the request to the provided URL some://url/file | [When a user attempts to open an attachment from an email using the desktop client, the system must issue an HTTP GET request to retrieve the file and save it to the Tutanota temporary download directory using the full `downloadNative` logic.](../cases/tutao/spec.md#L7) | [.request(sourceUrl, {](../cases/tutao/gold.diff#L65) |
+| downloadNative request options include method GET | [When a user attempts to open an attachment from an email using the desktop client, the system must issue an HTTP GET request to retrieve the file and save it to the Tutanota temporary download directory using the full `downloadNative` logic.](../cases/tutao/spec.md#L7) | [method: "GET",](../cases/tutao/gold.diff#L66) |
+| downloadNative request options include the provided headers v: foo and accessToken: bar | [The HTTP request must be configured with a timeout of 20000 milliseconds and include any provided headers in the request options.](../cases/tutao/spec.md#L7) | [headers,](../cases/tutao/gold.diff#L68) |
+| downloadNative request options include timeout 20000 | [The HTTP request must be configured with a timeout of 20000 milliseconds and include any provided headers in the request options.](../cases/tutao/spec.md#L7) | [timeout: 20000,](../cases/tutao/gold.diff#L67) |
+| downloadNative creates exactly one ClientRequest instance | [All usage of `executeRequest` must be removed, and file download logic must now be handled entirely via the event-based `.request` API of the `DesktopNetworkClient` class.](../cases/tutao/spec.md#L7) | [.request(sourceUrl, {](../cases/tutao/gold.diff#L65) |
+| downloadNative creates exactly one file write stream on a successful 200 response | [Upon successful download, the file must be written to the Tutanota-specific temp folder using the provided filename.](../cases/tutao/spec.md#L7) | [.createWriteStream(encryptedFileUri, {](../cases/tutao/gold.diff#L97) |
+| downloadNative creates a write stream at /tutanota/tmp/path/download/nativelyDownloadedFile | [Upon successful download, the file must be written to the Tutanota-specific temp folder using the provided filename.](../cases/tutao/spec.md#L7) | [const encryptedFileUri = path.join(downloadDirectory, fileName)](../cases/tutao/gold.diff#L94) |
+| downloadNative creates the file write stream with { emitClose: true } | [The file stream must be created with the option `{ emitClose: true }`.](../cases/tutao/spec.md#L7) | [emitClose: true,](../cases/tutao/gold.diff#L98) |
+| downloadNative pipes the HTTP response exactly once to the file write stream using pipe() | [The HTTP response must be piped directly to the file write stream using the `pipe()` method.](../cases/tutao/spec.md#L7) | [response.pipe(fileStream, {](../cases/tutao/gold.diff#L136) |
+| downloadNative rejects with an Error when the HTTP response status code is 404 | [The file download must complete successfully only if the HTTP response has a status code of `200`.](../cases/tutao/spec.md#L7) | [response.destroy(new Error('' + response.statusCode))](../cases/tutao/gold.diff#L132) |
+| downloadNative cleanup calls removeAllListeners("close") on the write stream | [The system must clean up partial or failed downloads by calling `removeAllListeners("close")` on the write stream and deleting the file if any write errors occur during the streaming process.](../cases/tutao/spec.md#L7) | [.removeAllListeners("close")](../cases/tutao/gold.diff#L106) |
 | saveBlob with no default download path creates the selected parent directory with {recursive: true} and writes to parentDir/resultFilePath |  | _(not in gold)_ |
 | saveBlob with no default download path throws CancelledError when the save dialog is canceled |  | _(not in gold)_ |
 | saveBlob with a default download path creates /a/download/path with {recursive: true}, writes /a/download/path/blob, and opens /a/download/p |  | _(not in gold)_ |
@@ -38,7 +38,8 @@
 | on Windows, opening exec.exe does not call shell.openPath before confirmation |  | _(not in gold)_ |
 
 ## Receipts
-- `data/cases/tutao/spec.md`
-- `data/cases/tutao/gold.diff`
-- `data/cases/tutao/hidden_test.diff`
-- judge JSON: `data/judge/tutao.json`
+- [`spec.md`](../cases/tutao/spec.md)
+- [`gold.diff`](../cases/tutao/gold.diff)
+- [`hidden_test.diff`](../cases/tutao/hidden_test.diff)
+- [`our_patch_gated_headline.diff`](../cases/tutao/our_patch_gated_headline.diff)
+- judge JSON: [`tutao.json`](../judge/tutao.json)

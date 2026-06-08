@@ -32,21 +32,36 @@ Receipt: reward ledger + isolated rerun.
 Verdict receipt: `data/cases/gold_fails_grader.defects.jsonl`; bundles in `data/cases/*_golddefect/`.
 The full gold-passes-verifier sweep across the public set (to find any beyond these 3) is **pending**.
 
-## KNOWN_AMBIGUOUS — the specification lottery (graded, contestable)
+## KNOWN_AMBIGUOUS — the specification lottery, attributed to two real patches
 
-Gold passes its verifier, but the prose does not determine the graded behavior. A task qualifies when
-**both** signals fire (one alone is not enough):
+Gold passes its verifier, but the prose admits more than one defensible reading and the hidden test
+scores only the gold's. **Ambiguity is never a dangling pointer.** It is attributed to **two concrete
+implementations**:
 
-1. **Low from-prose convergence** — the panel, solving from prose + codebase but **not** the hidden
-   test, has a low official-test pass rate.
-2. **High solution dispersion** — panelists commit to *different, mutually-incompatible, individually
-   defensible* readings; only the gold's passes. (Dispersion separates "non-determinate" from
-   "determinate-but-hard": hard tasks fail with *similar* attempts, lottery tasks with *divergent* ones.)
+- `gold.diff` — the maintainer's reading; **passes** the test.
+- `our_failed.diff` — our recon+craft patch; **fails** the test.
 
-A blind second-reader judge (decontaminated; prose + gold-behavior + test) labels
-{entailed / underdetermined / contradicted}; `underdetermined` + the dispersion receipt qualifies.
-Receipt: panelists' divergent solutions side by side + the splitting test assertion + convergence rate
-+ judge rating.
+**Per failed test behavior, the label is three-way (no probability):**
+- **right (ENTAILED)** — the prose determines the behavior; our patch failed it ⇒ *our capability gap*,
+  not the bench's. (e.g. qutebrowser: the prose enumerates the `is_url` matrix, so our divergent patch
+  was simply wrong against the stated behavior.)
+- **ambiguous (COINFLIP)** — gold's reading **and** our reading both plausibly satisfy the prose, yet
+  only gold passes. The two diffs *are* the two readings; the test discriminates on a choice the prose
+  never stated. Attributed to `gold.diff` + `our_failed.diff`.
+- **wrong (DEFECTIVE)** — the test demands behavior the prose *contradicts*, or the gold is buggy ⇒
+  KNOWN_BAD-flavored.
+
+The test that decides ambiguous-vs-our-gap: **does `our_failed.diff` believably satisfy the prose
+requirements?** If yes (and it fails while gold passes) → COINFLIP. If no (our patch violates a stated
+requirement) → our capability gap. A skeptic checks it by reading both diffs against `spec.md`.
+
+Rows are pinned to the **actual test cases** (granular `FAIL_TO_PASS` IDs where they exist, e.g.
+qutebrowser's 11; else the `it()`/`def test_` declarations parsed from the test file) so the row set is
+deterministic and not a free codex enumeration. Per row: the gold reading (gold anchor), our reading
+(from our patch), and the covering prose (blank = the gap).
+
+**Data requirement:** this needs `our_failed.diff` per case. We have qutebrowser's (the autopsy); the
+others require a craft-capture run (per-assertion grade + captured patch), the `cap1` machinery.
 
 **Current contents (4, CANDIDATES — panel NOT yet run):** `qutebrowser-e34dfc68`, `protonmail`,
 `tutao`, `element`, flagged by the pilot (diag recall vs gold, gold-shape, and for qutebrowser the

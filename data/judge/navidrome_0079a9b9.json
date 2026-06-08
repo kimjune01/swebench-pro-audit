@@ -1,0 +1,53 @@
+{
+ "case": "navidrome_0079a9b9",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 6,
+ "n_covered": 4,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "FFmpeg metadata extraction sets `channels` to `[\"2\"]` for a stereo audio stream that includes a stream-level bitrate (`192 kb/s`).",
+   "covering_prose": "The FFmpeg\u2011based metadata parser must extract the number of channels from audio descriptions by interpreting terms such as \u201cmono\u201d, \u201cstereo\u201d and \u201c5.1\u201d and converting them to the integers 1, 2 and 6 respectively, and store it as an integer value in the metadata map.",
+   "gold_anchor": "tags[\"channels\"] = []string{e.parseChannels(match[4])}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FFmpeg metadata extraction sets `channels` to `[\"2\"]` for a stereo audio stream that has no stream-level bitrate.",
+   "covering_prose": "When metadata are extracted from an audio file, the parser should detect the channel description present in the decoder output (such as \u201cmono\u201d, \u201cstereo\u201d or \u201c5.1\u201d), convert it to the corresponding channel count and make this value available through the metadata APIs so that it can be queried and displayed.",
+   "gold_anchor": "audioStreamRx = regexp.MustCompile(`^\\s{2,4}Stream #\\d+:\\d+.*: (Audio): (.*), (.* Hz), (mono|stereo|5.1),*(.*.,)*(.(\\d+).kb/s)*`)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "FFmpeg metadata extraction sets `channels` to `[\"2\"]` for a stereo audio stream whose stream identifier includes a language suffix such as `Stream #0:0(eng)`.",
+   "covering_prose": null,
+   "gold_anchor": "audioStreamRx = regexp.MustCompile(`^\\s{2,4}Stream #\\d+:\\d+.*: (Audio): (.*), (.* Hz), (mono|stereo|5.1),*(.*.,)*(.(\\d+).kb/s)*`)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "FFmpeg metadata extraction sets `channels` to `[\"2\"]` for a stereo Vorbis audio stream whose stream identifier includes a language suffix such as `Stream #0:0(eng)`.",
+   "covering_prose": null,
+   "gold_anchor": "audioStreamRx = regexp.MustCompile(`^\\s{2,4}Stream #\\d+:\\d+.*: (Audio): (.*), (.* Hz), (mono|stereo|5.1),*(.*.,)*(.(\\d+).kb/s)*`)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "`Tags.Channels()` returns the integer `2` for metadata containing two channels.",
+   "covering_prose": "The Tags structure must provide a public method named Channels that returns the number of channels as an integer.",
+   "gold_anchor": "func (t *Tags) Channels() int               { return t.getInt(\"channels\") }",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The TagLib parser includes `channels` with value `[\"2\"]` in the returned metadata map for the test MP3 fixture.",
+   "covering_prose": "The TagLib wrapper must include the channel count in the metadata map it returns.",
+   "gold_anchor": "go_map_put_int(id, (char *)\"channels\", props->channels());",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

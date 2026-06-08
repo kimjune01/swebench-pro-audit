@@ -1,0 +1,32 @@
+{
+ "case": "navidrome_a0290587",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "server/subsonic/album_lists_test.go instantiates subsonic.New with an additional 12th argument for the playback server, passing nil after the existing share argument.",
+   "covering_prose": "The Subsonic API router constructor has been updated as part of a dependency injection refactoring to accept an additional playback server parameter.",
+   "gold_anchor": "playlists core.Playlists, scrobbler scrobbler.PlayTracker, share core.Share, playback playback.PlaybackServer,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "server/subsonic/media_annotation_test.go instantiates subsonic.New with the existing eventBroker and playTracker arguments preserved in their prior positions and adds nil as the final playback server argument.",
+   "covering_prose": "Test instantiation of the router should work with the updated constructor interface",
+   "gold_anchor": "playlists core.Playlists, scrobbler scrobbler.PlayTracker, share core.Share, playback playback.PlaybackServer,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "server/subsonic/media_retrieval_test.go instantiates subsonic.New with the existing artwork argument preserved in its prior position and adds nil as the final playback server argument.",
+   "covering_prose": "Test instantiation of the router should work with the updated constructor interface",
+   "gold_anchor": "playlists core.Playlists, scrobbler scrobbler.PlayTracker, share core.Share, playback playback.PlaybackServer,",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

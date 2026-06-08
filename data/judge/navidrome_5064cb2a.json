@@ -1,0 +1,53 @@
+{
+ "case": "navidrome_5064cb2a",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "A package-scope refreshAlbum type is available to tests and includes an AlbumArtistIds string field.",
+   "covering_prose": "Move the `refreshAlbum` struct definition to package scope outside of the `refresh` function, and add the `AlbumArtistIds` field to support logic inside `getAlbumArtist`.",
+   "gold_anchor": "AlbumArtistIds string",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "getAlbumArtist accepts a refreshAlbum and returns two values: id first, name second.",
+   "covering_prose": "Implement a function `getAlbumArtist(al refreshAlbum)` that determines the correct values for `AlbumArtist` and `AlbumArtistID`.",
+   "gold_anchor": "func getAlbumArtist(al refreshAlbum) (id, name string) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a non-compilation with ArtistID \"ar-123\" and Artist \"Sparks\" and no AlbumArtist, getAlbumArtist returns id \"ar-123\" and name \"Sparks\".",
+   "covering_prose": "If `Compilation` is false, return `AlbumArtist` and `AlbumArtistID` if present, otherwise return `Artist` and `ArtistID`.",
+   "gold_anchor": "return al.ArtistID, al.Artist",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a non-compilation with AlbumArtistID \"ar-345\" and AlbumArtist \"Sparks Brothers\", getAlbumArtist returns id \"ar-345\" and name \"Sparks Brothers\".",
+   "covering_prose": "If `Compilation` is false, return `AlbumArtist` and `AlbumArtistID` if present, otherwise return `Artist` and `ArtistID`.",
+   "gold_anchor": "return al.AlbumArtistID, al.AlbumArtist",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a compilation with AlbumArtistIds \"ar-123 ar-345\", getAlbumArtist returns consts.VariousArtistsID and consts.VariousArtists.",
+   "covering_prose": "If `Compilation` is true and all `album_artist_id`s are the same, return that value. If they differ, return `VariousArtists` and `VariousArtistsID`.",
+   "gold_anchor": "return consts.VariousArtistsID, consts.VariousArtists",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a compilation with AlbumArtistIds \"ar-000 ar-000\", AlbumArtistID \"ar-000\", and AlbumArtist \"The Beatles\", getAlbumArtist returns id \"ar-000\" and name \"The Beatles\".",
+   "covering_prose": "If `Compilation` is true and all `album_artist_id`s are the same, return that value. If they differ, return `VariousArtists` and `VariousArtistsID`.",
+   "gold_anchor": "return al.AlbumArtistID, al.AlbumArtist",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

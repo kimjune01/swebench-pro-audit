@@ -1,0 +1,81 @@
+{
+ "case": "navidrome_213ceeca",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 10,
+ "n_covered": 10,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Calling aw.get with album artwork ID \"al-NOT_FOUND-0\" and size 0 returns no error.",
+   "covering_prose": "After routing, `get` should return `(reader, path, nil)`; not-found conditions should be handled inside helpers (no error propagation).",
+   "gold_anchor": "return reader, path, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling aw.get with album artwork ID \"al-NOT_FOUND-0\" and size 0 returns path consts.PlaceholderAlbumArt.",
+   "covering_prose": "Both `extractAlbumImage` and `extractMediaFileImage` should return the album placeholder when the target entity is not found, and should not propagate errors.",
+   "gold_anchor": "return r, path",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling aw.get with media-file artwork ID \"mf-NOT_FOUND-0\" and size 0 returns no error.",
+   "covering_prose": "After routing, `get` should return `(reader, path, nil)`; not-found conditions should be handled inside helpers (no error propagation).",
+   "gold_anchor": "return reader, path, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling aw.get with media-file artwork ID \"mf-NOT_FOUND-0\" and size 0 returns path consts.PlaceholderAlbumArt.",
+   "covering_prose": "Both `extractAlbumImage` and `extractMediaFileImage` should return the album placeholder when the target entity is not found, and should not propagate errors.",
+   "gold_anchor": "return r, path",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a media file with HasCoverArt true and Path \"tests/fixtures/test.mp3\", calling aw.get with mfWithEmbed.CoverArtID().String() and size 0 returns no error.",
+   "covering_prose": "For media-file artwork, selection should prefer embedded artwork; if absent or unreadable, it should fall back to the album cover; if that cannot be resolved, it should return the placeholder, all without propagating errors.",
+   "gold_anchor": "return reader, path, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a media file with HasCoverArt true and Path \"tests/fixtures/test.mp3\", calling aw.get with mfWithEmbed.CoverArtID().String() and size 0 returns path \"tests/fixtures/test.mp3\".",
+   "covering_prose": "For media-file artwork, selection should prefer embedded artwork; if absent or unreadable, it should fall back to the album cover; if that cannot be resolved, it should return the placeholder, all without propagating errors.",
+   "gold_anchor": "fromTag(mf.Path)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a media file without embedded cover art, calling aw.get with mfWithoutEmbed.CoverArtID().String() and size 0 returns no error.",
+   "covering_prose": "For media-file artwork, selection should prefer embedded artwork; if absent or unreadable, it should fall back to the album cover; if that cannot be resolved, it should return the placeholder, all without propagating errors.",
+   "gold_anchor": "return reader, path, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a media file without embedded cover art whose album has ImageFiles \"tests/fixtures/front.png\", calling aw.get with mfWithoutEmbed.CoverArtID().String() and size 0 returns path \"tests/fixtures/front.png\".",
+   "covering_prose": "For media-file artwork, selection should prefer embedded artwork; if absent or unreadable, it should fall back to the album cover; if that cannot be resolved, it should return the placeholder, all without propagating errors.",
+   "gold_anchor": "a.fromAlbum(ctx, mf.AlbumCoverArtID())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a media file with unreadable embedded artwork, calling aw.get with mfCorruptedCover.CoverArtID().String() and size 0 returns no error.",
+   "covering_prose": "For media-file artwork, selection should prefer embedded artwork; if absent or unreadable, it should fall back to the album cover; if that cannot be resolved, it should return the placeholder, all without propagating errors.",
+   "gold_anchor": "return reader, path, nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a media file with unreadable embedded artwork whose album has ImageFiles \"tests/fixtures/front.png\", calling aw.get with mfCorruptedCover.CoverArtID().String() and size 0 returns path \"tests/fixtures/front.png\".",
+   "covering_prose": "For media-file artwork, selection should prefer embedded artwork; if absent or unreadable, it should fall back to the album cover; if that cannot be resolved, it should return the placeholder, all without propagating errors.",
+   "gold_anchor": "a.fromAlbum(ctx, mf.AlbumCoverArtID())",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

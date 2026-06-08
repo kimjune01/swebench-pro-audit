@@ -1,0 +1,53 @@
+{
+ "case": "navidrome_8f034543",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 6,
+ "n_covered": 4,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "InPlaylist.ToSql on InPlaylist{\"id\":\"deadbeef-dead-beef\"} returns SQL `media_file.id IN (SELECT media_file_id FROM playlist_tracks pl LEFT JOIN playlist on pl.playlist_id = playlist.id WHERE (pl.playlist_id = ? AND playlist.public = ?))`.",
+   "covering_prose": null,
+   "gold_anchor": "return \"media_file.id IN (\" + subQText + \")\", subQArgs, nil",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "InPlaylist.ToSql returns arguments in order `\"deadbeef-dead-beef\", 1`.",
+   "covering_prose": "It should return the SQL fragment with placeholders and the arguments in this order: `[playlist_id, 1]`.",
+   "gold_anchor": "squirrel.Eq{\"pl.playlist_id\": playlistid}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NotInPlaylist.ToSql on NotInPlaylist{\"id\":\"deadbeef-dead-beef\"} returns SQL `media_file.id NOT IN (SELECT media_file_id FROM playlist_tracks pl LEFT JOIN playlist on pl.playlist_id = playlist.id WHERE (pl.playlist_id = ? AND playlist.public = ?))`.",
+   "covering_prose": null,
+   "gold_anchor": "return \"media_file.id NOT IN (\" + subQText + \")\", subQArgs, nil",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "NotInPlaylist.ToSql returns arguments in order `\"deadbeef-dead-beef\", 1`.",
+   "covering_prose": "It should return the SQL fragment and arguments in the same order: `[playlist_id, 1]`.",
+   "gold_anchor": "squirrel.Eq{\"playlist.public\": 1}})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "InPlaylist.MarshalJSON on InPlaylist{\"id\":\"deadbeef-dead-beef\"} returns `{\"inPlaylist\":{\"id\":\"deadbeef-dead-beef\"}}`.",
+   "covering_prose": "`InPlaylist` and `NotInPlaylist` should serialize and deserialize using the operator keys `inPlaylist` and `notInPlaylist`, with a payload containing a single string field carrying the playlist identifier (e.g., `id`).",
+   "gold_anchor": "return marshalExpression(\"inPlaylist\", ipl)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NotInPlaylist.MarshalJSON on NotInPlaylist{\"id\":\"deadbeef-dead-beef\"} returns `{\"notInPlaylist\":{\"id\":\"deadbeef-dead-beef\"}}`.",
+   "covering_prose": "`InPlaylist` and `NotInPlaylist` should serialize and deserialize using the operator keys `inPlaylist` and `notInPlaylist`, with a payload containing a single string field carrying the playlist identifier (e.g., `id`).",
+   "gold_anchor": "return marshalExpression(\"notInPlaylist\", ipl)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

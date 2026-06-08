@@ -1,0 +1,81 @@
+{
+ "case": "navidrome_a1551074",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "LastFM agent tests can seed a LastFM session key for user `user-1` by calling `ds.UserProps(ctx).Put(\"user-1\", sessionKeyProperty, \"SK-1\")` without placing a user in the context.",
+   "covering_prose": "The system must require a `userId` for all reads and writes of user properties and must operate solely on the identified user\u2019s data.",
+   "gold_anchor": "Put(userId, key string, value string) error",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`MockedUserPropsRepo.Put` accepts `userId` explicitly as its first argument.",
+   "covering_prose": "`MockedUserPropsRepo` must accept `userId` explicitly for all operations and should store values with a stable composite key without relying on internal user state fields.",
+   "gold_anchor": "Put(userId, key string, value string) error",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`MockedUserPropsRepo.Get` accepts `userId` explicitly as its first argument.",
+   "covering_prose": "`MockedUserPropsRepo` must accept `userId` explicitly for all operations and should store values with a stable composite key without relying on internal user state fields.",
+   "gold_anchor": "Get(userId, key string) (string, error)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`MockedUserPropsRepo.Delete` accepts `userId` explicitly as its first argument.",
+   "covering_prose": "`MockedUserPropsRepo` must accept `userId` explicitly for all operations and should store values with a stable composite key without relying on internal user state fields.",
+   "gold_anchor": "Delete(userId, key string) error",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`MockedUserPropsRepo.DefaultGet` accepts `userId` explicitly as its first argument.",
+   "covering_prose": "`MockedUserPropsRepo` must accept `userId` explicitly for all operations and should store values with a stable composite key without relying on internal user state fields.",
+   "gold_anchor": "DefaultGet(userId, key string, defaultValue string) (string, error)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`MockedUserPropsRepo` no longer has or relies on an internal `UserID` field.",
+   "covering_prose": "`MockedUserPropsRepo` must accept `userId` explicitly for all operations and should store values with a stable composite key without relying on internal user state fields.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`MockedUserPropsRepo.Put` stores values under a composite key derived from the explicit `userId` and `key`.",
+   "covering_prose": "`MockedUserPropsRepo` must accept `userId` explicitly for all operations and should store values with a stable composite key without relying on internal user state fields.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`MockedUserPropsRepo.Get` looks up values using the explicit `userId` and `key`, and returns `model.ErrNotFound` when no matching value exists.",
+   "covering_prose": "`MockedUserPropsRepo` must accept `userId` explicitly for all operations and should store values with a stable composite key without relying on internal user state fields.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`MockedUserPropsRepo.Delete` deletes values using the explicit `userId` and `key`, and returns `model.ErrNotFound` when no matching value exists.",
+   "covering_prose": "`MockedUserPropsRepo` must accept `userId` explicitly for all operations and should store values with a stable composite key without relying on internal user state fields.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "`MockedUserPropsRepo.DefaultGet` performs its lookup by calling `Get(userId, key)`, using the explicit user ID rather than internal user state.",
+   "covering_prose": "`MockedUserPropsRepo` must accept `userId` explicitly for all operations and should store values with a stable composite key without relying on internal user state fields.",
+   "gold_anchor": "value, err := r.Get(userId, key)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

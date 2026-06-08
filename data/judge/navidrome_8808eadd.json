@@ -1,0 +1,88 @@
+{
+ "case": "navidrome_8808eadd",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 8,
+ "rows": [
+  {
+   "test": "A GET request to /getOpenSubsonicExtensions?f=json without any authentication returns HTTP 200 OK.",
+   "covering_prose": "This endpoint should be publicly accessible without requiring authentication.",
+   "gold_anchor": "h(r, \"getOpenSubsonicExtensions\", api.GetOpenSubsonicExtensions)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The unauthenticated /getOpenSubsonicExtensions?f=json response has Content-Type exactly application/json.",
+   "covering_prose": "Ensure that `getOpenSubsonicExtensions` continues to support the `?f=json` query parameter and respond with the appropriate JSON format, even though it is no longer wrapped in the protected middleware group.",
+   "gold_anchor": "h(r, \"getOpenSubsonicExtensions\", api.GetOpenSubsonicExtensions)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The response body is valid JSON unmarshallable into responses.JsonWrapper without error.",
+   "covering_prose": "Ensure that `getOpenSubsonicExtensions` continues to support the `?f=json` query parameter and respond with the appropriate JSON format, even though it is no longer wrapped in the protected middleware group.",
+   "gold_anchor": "h(r, \"getOpenSubsonicExtensions\", api.GetOpenSubsonicExtensions)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "response.Subsonic.OpenSubsonicExtensions is present and dereferenceable as the list of extensions.",
+   "covering_prose": "The `getOpenSubsonicExtensions` endpoint must return a JSON response containing a list of exactly three extensions: `transcodeOffset`, `formPost`, and `songLyrics`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The OpenSubsonic extensions list has length exactly 3.",
+   "covering_prose": "The `getOpenSubsonicExtensions` endpoint must return a JSON response containing a list of exactly three extensions: `transcodeOffset`, `formPost`, and `songLyrics`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The OpenSubsonic extensions list contains an extension with Name exactly transcodeOffset.",
+   "covering_prose": "The `getOpenSubsonicExtensions` endpoint must return a JSON response containing a list of exactly three extensions: `transcodeOffset`, `formPost`, and `songLyrics`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The transcodeOffset extension has Versions exactly []int32{1}.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The OpenSubsonic extensions list contains an extension with Name exactly formPost.",
+   "covering_prose": "The `getOpenSubsonicExtensions` endpoint must return a JSON response containing a list of exactly three extensions: `transcodeOffset`, `formPost`, and `songLyrics`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The formPost extension has Versions exactly []int32{1}.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The OpenSubsonic extensions list contains an extension with Name exactly songLyrics.",
+   "covering_prose": "The `getOpenSubsonicExtensions` endpoint must return a JSON response containing a list of exactly three extensions: `transcodeOffset`, `formPost`, and `songLyrics`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The songLyrics extension has Versions exactly []int32{1}.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

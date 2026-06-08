@@ -1,0 +1,1 @@
+{"rows":[{"test":"Calling repo.Update(\"id\", &model.Share{}) with a zero ExpiresAt updates only the \"description\" column and does not include \"expires_at\".","covering_prose":"the persistence logic must only update the `expires_at` field if a non-zero expiration time is provided.","gold_anchor":"cols := []string{\"description\"}"}]}

@@ -1,0 +1,88 @@
+{
+ "case": "navidrome_4044642a",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 11,
+ "n_covered": 11,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "NewSimpleCache[string]() constructs a value assignable to SimpleCache[string].",
+   "covering_prose": "A constructor function `NewSimpleCache[V]` must return an implementation of `SimpleCache[V]`.",
+   "gold_anchor": "func NewSimpleCache[V any]() SimpleCache[V]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SimpleCache[string] exposes Add(key string, value string) error and Get(key string) (string, error).",
+   "covering_prose": "A new generic interface `SimpleCache[V]` must exist in the `utils/cache` package and define methods for adding, retrieving, and listing cached values.",
+   "gold_anchor": "type SimpleCache[V any] interface",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Add(\"key\", \"value\") returns no error.",
+   "covering_prose": "The method `Add(key string, value V) (error)` must insert a value under the given key and allow retrieval of that value with `Get`.",
+   "gold_anchor": "func (c *simpleCache[V]) Add(key string, value V) error",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After Add(\"key\", \"value\"), Get(\"key\") returns no error and the string \"value\".",
+   "covering_prose": "The method `Add(key string, value V) (error)` must insert a value under the given key and allow retrieval of that value with `Get`.",
+   "gold_anchor": "return v.(V), nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AddWithTTL(\"key\", \"value\", 1*time.Second) returns no error.",
+   "covering_prose": "The method `AddWithTTL(key string, value V, ttl time.Duration) (error)` must insert a value with an expiration time.",
+   "gold_anchor": "func (c *simpleCache[V]) AddWithTTL(key string, value V, ttl time.Duration) error",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Before a 1 second TTL elapses, Get(\"key\") returns no error and the string \"value\".",
+   "covering_prose": "The method `AddWithTTL(key string, value V, ttl time.Duration) (error)` must insert a value with an expiration time. The value must be retrievable with `Get` before the TTL elapses and must no longer be retrievable once the TTL has expired.",
+   "gold_anchor": "return c.data.SetWithTTL(key, value, ttl)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After adding with a 10 millisecond TTL and sleeping 50 milliseconds, Get(\"key\") returns an error.",
+   "covering_prose": "The method `AddWithTTL(key string, value V, ttl time.Duration) (error)` must insert a value with an expiration time. The value must be retrievable with `Get` before the TTL elapses and must no longer be retrievable once the TTL has expired.",
+   "gold_anchor": "return c.data.SetWithTTL(key, value, ttl)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetWithLoader(\"key\", loader) on a missing key invokes the loader and returns the loaded string \"value\" with no error.",
+   "covering_prose": "The method `GetWithLoader(key string, loader func(key string) (V, time.Duration, error)) (V, error)` must return a cached value if present. If the key is missing, it must invoke the loader, store the returned value with the provided TTL, and return that value.",
+   "gold_anchor": "v, ttl, err := loader(key)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetWithLoader stores the loader value using the loader-provided TTL of 1*time.Second.",
+   "covering_prose": "If the key is missing, it must invoke the loader, store the returned value with the provided TTL, and return that value.",
+   "gold_anchor": "return v, ttl, err",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If the loader returns errors.New(\"some error\"), GetWithLoader returns an error matching \"some error\".",
+   "covering_prose": "If the loader returns an error, that error must be propagated directly without storing a value.",
+   "gold_anchor": "return zero, err",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After Add(\"key1\", \"value1\") and Add(\"key2\", \"value2\"), Keys() returns exactly key1 and key2, with order ignored.",
+   "covering_prose": "The method `Keys() []string` must return a list of all active keys currently stored in the cache. Keys corresponding to expired or missing entries must not be included.",
+   "gold_anchor": "return c.data.GetKeys()",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

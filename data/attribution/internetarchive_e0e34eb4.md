@@ -1,0 +1,24 @@
+# Coverage attribution: internetarchive_e0e34eb4
+
+- instance_id: `instance_internetarchive__openlibrary-62d2243131a9c7e6aee00d1e9c5660fd5b594e89-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4`
+- verdict: **ENTAILED**  (6/6 in-gold behaviors covered; **0 GAP** = mindreading; 3 out-of-scope)
+- gold patch: [`gold.diff`](../cases/internetarchive_e0e34eb4/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/internetarchive_e0e34eb4/hidden_test.diff)  ·  spec: [`spec.md`](../cases/internetarchive_e0e34eb4/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| AuthorSolrUpdater.update_key obtains the Solr aggregate response by calling the HTTP client's post(url, json=...) method; the mock provides  | [The `AuthorSolrUpdater.update_key` method must obtain aggregates by issuing an HTTP POST request to the `/query` endpoint, sending a JSON body whose `facet` section includes the sums of `ratings_count_1` through `ratings_count_5`, `readinglog_count`, `want_to_read_count`, `currently_reading_count`, ](../cases/internetarchive_e0e34eb4/spec.md#L7) | [response = await client.post(base_url, json=json)](../cases/internetarchive_e0e34eb4/gold.diff#L90) |
+| For a Solr response with zero ratings_count_1 through ratings_count_5, building the author document must not divide by zero; ratings_average | [The `work_ratings_summary_from_counts` function must return a dictionary containing the keys `ratings_average`, `ratings_sortable`, `ratings_count`, `ratings_count_1`, `ratings_count_2`, `ratings_count_3`, `ratings_count_4`, and `ratings_count_5`, setting `ratings_average` to 0 when the total vote c](../cases/internetarchive_e0e34eb4/spec.md#L7) | [else 0](../cases/internetarchive_e0e34eb4/gold.diff#L12) |
+| AuthorSolrBuilder.build_ratings reads ratings_count_1 through ratings_count_5 from the top-level facets key of the Solr response, where the  | [The `AuthorSolrBuilder.build_ratings` method must add to the author document the totals `ratings_count_1` through `ratings_count_5`, `ratings_count`, `ratings_average`, and `ratings_sortable`, pulling each number from the `facets` key of the Solr response and defaulting to 0 when data is missing.](../cases/internetarchive_e0e34eb4/spec.md#L7) | [self._solr_reply["facets"].get(f"ratings_count_{index}", 0)](../cases/internetarchive_e0e34eb4/gold.diff#L102) |
+| AuthorSolrBuilder.build_reading_log must tolerate absent want_to_read_count, currently_reading_count, already_read_count, and readinglog_cou | [The `AuthorSolrBuilder.build_reading_log` method must add the fields `want_to_read_count`, `currently_reading_count`, `already_read_count`, and `readinglog_count` to the author document, sourcing their values from `facets` and setting them to 0 when the counts are absent.](../cases/internetarchive_e0e34eb4/spec.md#L7) | ["readinglog_count": self._solr_reply["facets"].get("readinglog_count", 0.0)](../cases/internetarchive_e0e34eb4/gold.diff#L134) |
+| AuthorSolrBuilder.build merges the base author metadata with both ratings and reading-log outputs before the document is added, so build_rat | [The `AuthorSolrBuilder.build` method must merge the author’s basic metadata with the outputs of `build_ratings` and `build_reading_log`, so that the final document contains both author metadata and the aggregated popularity and reading‑log statistics.](../cases/internetarchive_e0e34eb4/spec.md#L7) | [doc \|= self.build_reading_log()](../cases/internetarchive_e0e34eb4/gold.diff#L112) |
+| AuthorSolrBuilder.top_subjects must read empty subject/place/time/person buckets from facets.<field>.buckets and produce an empty top-subjec | [The `AuthorSolrBuilder.top_subjects` property must return the ten most frequent subjects ordered by count using the `facets.<field>.buckets` structure and must return an empty list when no buckets exist.](../cases/internetarchive_e0e34eb4/spec.md#L7) | [if facet := self._solr_reply['facets'].get(field):](../cases/internetarchive_e0e34eb4/gold.diff#L102) |
+| When the mocked Solr response has response.numFound equal to 0 for an author with no works, update_key still returns a SolrUpdateRequest wit |  | _(not in gold)_ |
+| For the workless-author update, the returned SolrUpdateRequest has deletes equal to an empty list. |  | _(not in gold)_ |
+| The single added document preserves the author key exactly as "/authors/OL25A". |  | _(not in gold)_ |
+
+## Receipts
+- [`spec.md`](../cases/internetarchive_e0e34eb4/spec.md)
+- [`gold.diff`](../cases/internetarchive_e0e34eb4/gold.diff)
+- [`hidden_test.diff`](../cases/internetarchive_e0e34eb4/hidden_test.diff)
+- judge JSON: [`internetarchive_e0e34eb4.json`](../judge/internetarchive_e0e34eb4.json)

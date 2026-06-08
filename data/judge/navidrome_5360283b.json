@@ -1,0 +1,228 @@
+{
+ "case": "navidrome_5360283b",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 29,
+ "n_covered": 29,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "Registering a new player stores the authenticated user's stable user ID on the player, with value \"userid\", instead of storing the username.",
+   "covering_prose": "`Players.Register(ctx, id, client, userAgent, ip)` must associate players to the authenticated user by user ID, not by username.",
+   "gold_anchor": "UserId:          user.ID,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Registering a new player persists the updated user agent value \"chrome\".",
+   "covering_prose": "On successful register (create or match), the player record must persist updated `userAgent`, `ip`, and `lastSeen`.",
+   "gold_anchor": "plr.UserAgent = userAgent",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Registering a new player persists a lastSeen timestamp at or after the time registration started.",
+   "covering_prose": "On successful register (create or match), the player record must persist updated `userAgent`, `ip`, and `lastSeen`.",
+   "gold_anchor": "plr.LastSeen = time.Now()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Registering a new player saves the created player record through the repository.",
+   "covering_prose": "On successful register (create or match), the player record must persist updated `userAgent`, `ip`, and `lastSeen`.",
+   "gold_anchor": "err = p.ds.Player(ctx).Put(plr)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a non-empty player id is supplied but does not resolve to an existing valid player, registration follows the matching lookup path.",
+   "covering_prose": "When `id` refers to an existing player, the operation must update that player\u2019s metadata; otherwise it must follow the lookup path.",
+   "gold_anchor": "if err != nil || id == \"\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When no valid id is provided, registration looks up an existing player by the tuple (userId, client, userAgent) and returns that player when found.",
+   "covering_prose": "When no valid `id` is provided, registration must look up a player by `(userId, client, userAgent)`; if found it must return that player, otherwise it must create a new one for that tuple.",
+   "gold_anchor": "plr, err = p.ds.Player(ctx).FindMatch(user.ID, client, userAgent)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Registration with username casing \"Johndoe\" finds the existing player whose stable user ID is \"userid\".",
+   "covering_prose": "Registration must use a stable user identifier so that any casing of the same username creates or links to the correct player.",
+   "gold_anchor": "plr, err = p.ds.Player(ctx).FindMatch(user.ID, client, userAgent)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.FindMatch matches an existing player by user ID, client, and user agent.",
+   "covering_prose": "`PlayerRepository.FindMatch(userId, client, userAgent)` must return a matching player or an error indicating not found.",
+   "gold_anchor": "Eq{\"user_id\": userId},",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.FindMatch returns model.ErrNotFound when the user ID does not match even if client and user agent match.",
+   "covering_prose": "`PlayerRepository.FindMatch(userId, client, userAgent)` must return a matching player or an error indicating not found.",
+   "gold_anchor": "Eq{\"user_id\": userId},",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Get returns an existing player for the current user's player, including userId and username fields.",
+   "covering_prose": "`PlayerRepository.Get(id)` must return the stored player when present (including `userId` and `username`) or `model.ErrNotFound` when absent.",
+   "gold_anchor": "Columns(\"user.user_name username\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Get returns an existing player belonging to another user, including userId and username fields.",
+   "covering_prose": "`PlayerRepository.Get(id)` must return the stored player when present (including `userId` and `username`) or `model.ErrNotFound` when absent.",
+   "gold_anchor": "func (r *playerRepository) Get(id string) (*model.Player, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Get returns model.ErrNotFound for a nonexistent player ID.",
+   "covering_prose": "`PlayerRepository.Get(id)` must return the stored player when present (including `userId` and `username`) or `model.ErrNotFound` when absent.",
+   "gold_anchor": "err := r.queryOne(sel, &res)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Read returns the current user's player to a regular user.",
+   "covering_prose": "`PlayerRepository.Read(id)` must return the player for admins; for regular users it must return the player only when it belongs to the requesting user, otherwise `model.ErrNotFound`.",
+   "gold_anchor": "return append(s, Eq{\"user_id\": u.ID})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Read returns another user's player to an admin.",
+   "covering_prose": "`PlayerRepository.Read(id)` must return the player for admins; for regular users it must return the player only when it belongs to the requesting user, otherwise `model.ErrNotFound`.",
+   "gold_anchor": "if u.IsAdmin {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Read returns model.ErrNotFound to a regular user reading another user's player.",
+   "covering_prose": "`PlayerRepository.Read(id)` must return the player for admins; for regular users it must return the player only when it belongs to the requesting user, otherwise `model.ErrNotFound`.",
+   "gold_anchor": "return append(s, Eq{\"user_id\": u.ID})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Read returns model.ErrNotFound for a nonexistent player ID.",
+   "covering_prose": "`PlayerRepository.Read(id)` must return the player for admins; for regular users it must return the player only when it belongs to the requesting user, otherwise `model.ErrNotFound`.",
+   "gold_anchor": "err := r.queryOne(sel, &res)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.ReadAll returns all players for an admin.",
+   "covering_prose": "`PlayerRepository.ReadAll()` must return all players for admins and only the requesting user\u2019s players for regular users.",
+   "gold_anchor": "if u.IsAdmin {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.ReadAll returns only the requesting regular user's players for a regular user.",
+   "covering_prose": "`PlayerRepository.ReadAll()` must return all players for admins and only the requesting user\u2019s players for regular users.",
+   "gold_anchor": "return append(s, Eq{\"user_id\": u.ID})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Count returns the number of all players for an admin.",
+   "covering_prose": "`PlayerRepository.Count()` must reflect visibility in the current context (all players for admins, only own players for regular users).",
+   "gold_anchor": "return r.count(r.addRestriction(), options...)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Count returns only the requesting regular user's player count for a regular user.",
+   "covering_prose": "`PlayerRepository.Count()` must reflect visibility in the current context (all players for admins, only own players for regular users).",
+   "gold_anchor": "return append(s, Eq{\"user_id\": u.ID})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Save rejects a player with an empty userId with an error and does not add a stored player.",
+   "covering_prose": "`PlayerRepository.Save(player)` must require a non-empty `userId`; admins may save any player; regular users attempting to save a player for a different user must receive `rest.ErrPermissionDenied`.",
+   "gold_anchor": "return u.IsAdmin || p.UserId == u.ID",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Save lets an admin save a new player for the admin user and increases the visible count by one.",
+   "covering_prose": "`PlayerRepository.Save(player)` must require a non-empty `userId`; admins may save any player; regular users attempting to save a player for a different user must receive `rest.ErrPermissionDenied`.",
+   "gold_anchor": "return u.IsAdmin || p.UserId == u.ID",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Save lets an admin save a new player for a different regular user and increases the visible count by one.",
+   "covering_prose": "`PlayerRepository.Save(player)` must require a non-empty `userId`; admins may save any player; regular users attempting to save a player for a different user must receive `rest.ErrPermissionDenied`.",
+   "gold_anchor": "return u.IsAdmin || p.UserId == u.ID",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Save returns rest.ErrPermissionDenied when a regular user attempts to save a player for another user and does not add a stored player.",
+   "covering_prose": "`PlayerRepository.Save(player)` must require a non-empty `userId`; admins may save any player; regular users attempting to save a player for a different user must receive `rest.ErrPermissionDenied`.",
+   "gold_anchor": "return u.IsAdmin || p.UserId == u.ID",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Delete removes the current user's player when permitted and decreases visible count by one.",
+   "covering_prose": "`PlayerRepository.Delete(id)` must remove the player when permitted; when the player does not exist or the caller lacks permission, stored data must remain unchanged.",
+   "gold_anchor": "filter := r.addRestriction(And{Eq{\"player.id\": id}})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Delete removes another user's player when the caller is admin and decreases visible count by one.",
+   "covering_prose": "`PlayerRepository.Delete(id)` must remove the player when permitted; when the player does not exist or the caller lacks permission, stored data must remain unchanged.",
+   "gold_anchor": "if u.IsAdmin {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Delete leaves another user's player unchanged when the caller is a regular user.",
+   "covering_prose": "`PlayerRepository.Delete(id)` must remove the player when permitted; when the player does not exist or the caller lacks permission, stored data must remain unchanged.",
+   "gold_anchor": "filter := r.addRestriction(And{Eq{\"player.id\": id}})",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PlayerRepository.Delete leaves stored data unchanged when the target player does not exist.",
+   "covering_prose": "`PlayerRepository.Delete(id)` must remove the player when permitted; when the player does not exist or the caller lacks permission, stored data must remain unchanged.",
+   "gold_anchor": "if errors.Is(err, model.ErrNotFound) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Player reads expose both userId and display username after a transaction commits a player insert.",
+   "covering_prose": "Player reads must expose both the stable `userId` and a display `username`.",
+   "gold_anchor": "Username string `structs:\"-\" json:\"userName\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The REST entity name for PlayerRepository is \"player\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Persistence tests enable SQLite foreign key enforcement for the in-memory database.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

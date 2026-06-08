@@ -1,0 +1,18 @@
+{
+ "case": "navidrome_28f7ef43",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "The served app config contains key \"losslessFormats\" with value equal to strings.ToUpper(strings.Join(mime.LosslessFormats, \",\")).",
+   "covering_prose": "- The server must expose the UI configuration key for lossless formats using `mime.LosslessFormats`, rendered as a comma-separated, uppercase string.",
+   "gold_anchor": "\"losslessFormats\":           strings.ToUpper(strings.Join(mime.LosslessFormats, \",\")),",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

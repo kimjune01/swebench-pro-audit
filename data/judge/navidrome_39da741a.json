@@ -1,0 +1,60 @@
+{
+ "case": "navidrome_39da741a",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 7,
+ "n_covered": 4,
+ "n_gap": 3,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Albums returned by album repository tests include a `Genres` collection on `model.Album`.",
+   "covering_prose": "`model.Album` exposes a `Genres` collection (`[]model.Genre` or alias type) representing all unique genres aggregated from its tracks and persisted via the album\u2013genre relation table. The legacy `Genre` string remains for backward compatibility but is no longer the single source of truth.",
+   "gold_anchor": "Genres               Genres    `json:\"genres\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Album `101` / `Sgt Peppers` is expected to have `Genres: model.Genres{genreRock}`.",
+   "covering_prose": null,
+   "gold_anchor": "err := r.Put(&al.Album)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Album `102` / `Abbey Road` is expected to have `Genres: model.Genres{genreRock}`.",
+   "covering_prose": null,
+   "gold_anchor": "err := r.Put(&al.Album)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Album `103` / `Radioactivity` is expected to have `Genres: model.Genres{genreElectronic, genreRock}` in that order.",
+   "covering_prose": null,
+   "gold_anchor": "genres = append(genres, model.Genre{ID: id})",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Test database initialization saves albums through `AlbumRepository.Put(&a)` rather than the internal `put(a.ID, &a)`.",
+   "covering_prose": "`AlbumRepository` includes `Put(*Album) error` that persists the album and its genre relations with create/update semantics; repeated saves do not duplicate relations and reflect additions/removals.",
+   "gold_anchor": "func (r *albumRepository) Put(m *model.Album) error {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`GenreRepository.GetAll()` returns `model.Genre{ID: \"gn-1\", Name: \"Electronic\", AlbumCount: 1, SongCount: 2}`.",
+   "covering_prose": "`GenreRepository.GetAll()` computes `AlbumCount` as the count of **distinct albums** and `SongCount` as the count of **distinct media files** using the relation tables (no legacy shortcuts).",
+   "gold_anchor": "\"count(distinct a.album_id) as album_count\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`GenreRepository.GetAll()` returns `model.Genre{ID: \"gn-2\", Name: \"Rock\", AlbumCount: 3, SongCount: 3}`.",
+   "covering_prose": "`GenreRepository.GetAll()` computes `AlbumCount` as the count of **distinct albums** and `SongCount` as the count of **distinct media files** using the relation tables (no legacy shortcuts).",
+   "gold_anchor": "LeftJoin(\"album_genres a on a.genre_id = genre.id\")",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

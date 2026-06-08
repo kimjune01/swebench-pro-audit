@@ -1,0 +1,31 @@
+# Coverage attribution: navidrome_8a56584a
+
+- instance_id: `instance_navidrome__navidrome-8383527aaba1ae8fa9765e995a71a86c129ef626`
+- verdict: **AMBIGUOUS**  (13/14 in-gold behaviors covered; **1 GAP** = mindreading; 2 out-of-scope)
+- gold patch: [`gold.diff`](../cases/navidrome_8a56584a/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/navidrome_8a56584a/hidden_test.diff)  ·  spec: [`spec.md`](../cases/navidrome_8a56584a/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| RefreshResource.Data for album, artist, and song in the test returns the exact key order string {"album":["al-1","al-2","al-3"],"artist":["a |  | [data, _ := json.Marshal(r.resources)](../cases/navidrome_8a56584a/gold.diff#L40) |
+| RefreshResource.Data on an empty RefreshResource returns the exact string {"*":"*"}. | [when no resources are specified, it should serialize as {"*":"*"}](../cases/navidrome_8a56584a/spec.md#L36) | [return `{"*":"*"}`](../cases/navidrome_8a56584a/gold.diff#L32) |
+| RefreshResource.With returns the same receiver so calls can be chained. | [output: `*RefreshResource` (the same receiver, to allow method-chaining)](../cases/navidrome_8a56584a/spec.md#L58) | [return rr](../cases/navidrome_8a56584a/gold.diff#L32) |
+| RefreshResource.With accumulates ids for the same resource across multiple calls, preserving earlier ids before later ids. | [Ensure `With` accumulates ids across multiple calls and resources, preserving prior entries; the resulting payload should reflect all collected `(resource, ids)` pairs.](../cases/navidrome_8a56584a/spec.md#L38) | [rr.resources[resource] = append(rr.resources[resource], ids[i])](../cases/navidrome_8a56584a/gold.diff#L30) |
+| RefreshResource.Data serializes collected resources as a JSON object mapping each resource name to an array of ids. | [Ensure `RefreshResource.Data` serializes a JSON object mapping resource names to arrays of ids; when no resources are specified, it should serialize as {"*":"*"}; when `Any` is passed as an id, it should serialize that resource’s value as `["*"]`; tests and code should not rely on any key order.](../cases/navidrome_8a56584a/spec.md#L36) | [data, _ := json.Marshal(r.resources)](../cases/navidrome_8a56584a/gold.diff#L40) |
+| The wildcard constant Any has value "*". | [it should include a wildcard constant `Any` with value `"*"`.](../cases/navidrome_8a56584a/spec.md#L34) | [const Any = "*"](../cases/navidrome_8a56584a/gold.diff#L17) |
+| RefreshResource.Data after rr.With("album", Any) returns {"album":["*"]}. | [when `Any` is passed as an id, it should serialize that resource’s value as `["*"]`](../cases/navidrome_8a56584a/spec.md#L36) | [rr.resources[resource] = append(rr.resources[resource], ids[i])](../cases/navidrome_8a56584a/gold.diff#L30) |
+| useResourceRefresh records a newer incoming lastReceived timestamp by calling setState with that timestamp. | [it should update the local `lastTime` to the current `lastReceived` when processing.](../cases/navidrome_8a56584a/spec.md#L44) | [setLastTime(lastReceived)](../cases/navidrome_8a56584a/gold.diff#L129) |
+| useResourceRefresh does nothing, including not calling setState, when incoming lastReceived is equal to the local lastTime. | [returns early when the incoming `lastReceived` is not newer](../cases/navidrome_8a56584a/spec.md#L44) | [if (lastReceived <= lastTime) {](../cases/navidrome_8a56584a/gold.diff#L126) |
+| With no visible resources specified, resources { '*': '*' } triggers refresh exactly once and no dataProvider.getOne calls. | [when the payload indicates a full refresh (either `{"*":"*"}` or any resource mapped to `["*"]`), it should call `refresh()` exactly once and should not issue record-level fetches.](../cases/navidrome_8a56584a/spec.md#L46) | [refresh()](../cases/navidrome_8a56584a/gold.diff#L9) |
+| With no visible resources specified, resources { album: ['*'] } triggers refresh exactly once and no dataProvider.getOne calls. | [when the payload indicates a full refresh (either `{"*":"*"}` or any resource mapped to `["*"]`), it should call `refresh()` exactly once and should not issue record-level fetches.](../cases/navidrome_8a56584a/spec.md#L46) | [Object.values(resources).find((v) => v.find((v2) => v2 === '*'))](../cases/navidrome_8a56584a/gold.diff#L134) |
+| With no visible resources specified, targeted album and song ids trigger no full refresh and four getOne calls for album al-1, album al-2, s | [When a full refresh is not indicated, invoke `dataProvider.getOne(resource, { id })` once per `(resource, id)` present in the payload; when `visibleResources` are provided, refetches should be issued only for resources included in `visibleResources`.](../cases/navidrome_8a56584a/spec.md#L48) | [dataProvider.getOne(r, { id })](../cases/navidrome_8a56584a/gold.diff#L143) |
+| With visibleResources set to album, resources { '*': '*' } still triggers refresh exactly once and no dataProvider.getOne calls. | [when the payload indicates a full refresh (either `{"*":"*"}` or any resource mapped to `["*"]`), it should call `refresh()` exactly once and should not issue record-level fetches.](../cases/navidrome_8a56584a/spec.md#L46) | [resources['*'] === '*'](../cases/navidrome_8a56584a/gold.diff#L22) |
+| With visibleResources set to song, targeted album and song ids trigger no full refresh and only two getOne calls for song sg-1 and song sg-2 | [when `visibleResources` are provided, refetches should be issued only for resources included in `visibleResources`.](../cases/navidrome_8a56584a/spec.md#L48) | [visibleResources.length === 0 \|\| visibleResources?.includes(r)](../cases/navidrome_8a56584a/gold.diff#L141) |
+| TestEvent.Data(&testEvent) returns the exact JSON string {"Test":"some data"}. |  | _(not in gold)_ |
+| TestEvent.Name(&testEvent) returns "testEvent". |  | _(not in gold)_ |
+
+## Receipts
+- [`spec.md`](../cases/navidrome_8a56584a/spec.md)
+- [`gold.diff`](../cases/navidrome_8a56584a/gold.diff)
+- [`hidden_test.diff`](../cases/navidrome_8a56584a/hidden_test.diff)
+- judge JSON: [`navidrome_8a56584a.json`](../judge/navidrome_8a56584a.json)

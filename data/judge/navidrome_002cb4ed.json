@@ -1,0 +1,25 @@
+{
+ "case": "navidrome_002cb4ed",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 2,
+ "n_covered": 2,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "A `User` response's `Folder` field accepts a list of 32-bit integers, as shown by assigning `response.User.Folder = []int32{1}` in the single-user response fixture.",
+   "covering_prose": "User configurations must ensure that `maxBitRate` is a 32-bit integer and that `folder` is a list of 32-bit integers.",
+   "gold_anchor": "Folder              []int32 `xml:\"folder,omitempty\"            json:\"folder,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A `User` element inside a `Users` response accepts a list of 32-bit integers, as shown by assigning `u.Folder = []int32{1}` before `response.Users = &Users{User: []User{u}}`.",
+   "covering_prose": "User configurations must ensure that `maxBitRate` is a 32-bit integer and that `folder` is a list of 32-bit integers.",
+   "gold_anchor": "Folder              []int32 `xml:\"folder,omitempty\"            json:\"folder,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

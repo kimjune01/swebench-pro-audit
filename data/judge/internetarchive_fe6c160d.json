@@ -1,0 +1,95 @@
+{
+ "case": "internetarchive_fe6c160d",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 12,
+ "n_covered": 12,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "`remove_author_honorifics` is importable from `openlibrary/catalog/add_book/load_book.py`.",
+   "covering_prose": "A function named `remove_author_honorifics` must exist in `openlibrary/catalog/add_book/load_book.py`.",
+   "gold_anchor": "def remove_author_honorifics(author: dict[str, Any]) -> dict[str, Any]:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `remove_author_honorifics(author={'name': 'Dr. Seuss'})` returns `{'name': 'Dr. Seuss'}`.",
+   "covering_prose": "If the lowercased full `\"name\"` exactly matches an entry in the configured exceptions set, the value must remain unchanged; the exceptions set must include `dr. seuss` and `dr seuss` (covering inputs like `Dr. Seuss`, `dr. Seuss`, and `Dr Seuss`).",
+   "gold_anchor": "\"dr. seuss\": True,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `remove_author_honorifics(author={'name': 'dr. Seuss'})` returns `{'name': 'dr. Seuss'}`.",
+   "covering_prose": "If the lowercased full `\"name\"` exactly matches an entry in the configured exceptions set, the value must remain unchanged; the exceptions set must include `dr. seuss` and `dr seuss` (covering inputs like `Dr. Seuss`, `dr. Seuss`, and `Dr Seuss`).",
+   "gold_anchor": "if raw_name.casefold() in HONORIFC_NAME_EXECPTIONS:",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `remove_author_honorifics(author={'name': 'Dr Seuss'})` returns `{'name': 'Dr Seuss'}`.",
+   "covering_prose": "If the lowercased full `\"name\"` exactly matches an entry in the configured exceptions set, the value must remain unchanged; the exceptions set must include `dr. seuss` and `dr seuss` (covering inputs like `Dr. Seuss`, `dr. Seuss`, and `Dr Seuss`).",
+   "gold_anchor": "\"dr seuss\": True,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `remove_author_honorifics(author={'name': 'M. Anicet-Bourgeois'})` returns `{'name': 'Anicet-Bourgeois'}`.",
+   "covering_prose": "If the `\"name\"` begins (case-insensitively) with a configured honorific, that leading honorific must be removed and any immediately following whitespace must be stripped; the honorifics set must include at least `m.`, `mr`, `mr.`, `monsieur`, and `doctor` (covering inputs like `M. Anicet-Bourgeois` \u2192 `Anicet-Bourgeois`, `Mr Blobby` \u2192 `Blobby`, `Mr. Blobby` \u2192 `Blobby`, `monsieur Anicet-Bourgeois` \u2192 `Anicet-Bourgeois`, and `Doctor Ivo \"Eggman\" Robotnik` \u2192 `Ivo \"Eggman\" Robotnik`).",
+   "gold_anchor": "'m.',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `remove_author_honorifics(author={'name': 'Mr Blobby'})` returns `{'name': 'Blobby'}`.",
+   "covering_prose": "If the `\"name\"` begins (case-insensitively) with a configured honorific, that leading honorific must be removed and any immediately following whitespace must be stripped; the honorifics set must include at least `m.`, `mr`, `mr.`, `monsieur`, and `doctor` (covering inputs like `M. Anicet-Bourgeois` \u2192 `Anicet-Bourgeois`, `Mr Blobby` \u2192 `Blobby`, `Mr. Blobby` \u2192 `Blobby`, `monsieur Anicet-Bourgeois` \u2192 `Anicet-Bourgeois`, and `Doctor Ivo \"Eggman\" Robotnik` \u2192 `Ivo \"Eggman\" Robotnik`).",
+   "gold_anchor": "'mr',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `remove_author_honorifics(author={'name': 'Mr. Blobby'})` returns `{'name': 'Blobby'}`.",
+   "covering_prose": "If the `\"name\"` begins (case-insensitively) with a configured honorific, that leading honorific must be removed and any immediately following whitespace must be stripped; the honorifics set must include at least `m.`, `mr`, `mr.`, `monsieur`, and `doctor` (covering inputs like `M. Anicet-Bourgeois` \u2192 `Anicet-Bourgeois`, `Mr Blobby` \u2192 `Blobby`, `Mr. Blobby` \u2192 `Blobby`, `monsieur Anicet-Bourgeois` \u2192 `Anicet-Bourgeois`, and `Doctor Ivo \"Eggman\" Robotnik` \u2192 `Ivo \"Eggman\" Robotnik`).",
+   "gold_anchor": "'mr.',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `remove_author_honorifics(author={'name': 'monsieur Anicet-Bourgeois'})` returns `{'name': 'Anicet-Bourgeois'}`.",
+   "covering_prose": "If the `\"name\"` begins (case-insensitively) with a configured honorific, that leading honorific must be removed and any immediately following whitespace must be stripped; the honorifics set must include at least `m.`, `mr`, `mr.`, `monsieur`, and `doctor` (covering inputs like `M. Anicet-Bourgeois` \u2192 `Anicet-Bourgeois`, `Mr Blobby` \u2192 `Blobby`, `Mr. Blobby` \u2192 `Blobby`, `monsieur Anicet-Bourgeois` \u2192 `Anicet-Bourgeois`, and `Doctor Ivo \"Eggman\" Robotnik` \u2192 `Ivo \"Eggman\" Robotnik`).",
+   "gold_anchor": "'monsieur',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `remove_author_honorifics(author={'name': 'Anicet-Bourgeois M.'})` returns `{'name': 'Anicet-Bourgeois M.'}`.",
+   "covering_prose": "Honorific-like tokens must not be removed when they do not appear at the start of the `\"name\"` string (covering inputs like `Anicet-Bourgeois M.` and `John M. Keynes`, which must remain unchanged).",
+   "gold_anchor": "if raw_name.casefold().startswith(honorific)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `remove_author_honorifics(author={'name': 'Doctor Ivo \"Eggman\" Robotnik'})` returns `{'name': 'Ivo \"Eggman\" Robotnik'}`.",
+   "covering_prose": "If the `\"name\"` begins (case-insensitively) with a configured honorific, that leading honorific must be removed and any immediately following whitespace must be stripped; the honorifics set must include at least `m.`, `mr`, `mr.`, `monsieur`, and `doctor` (covering inputs like `M. Anicet-Bourgeois` \u2192 `Anicet-Bourgeois`, `Mr Blobby` \u2192 `Blobby`, `Mr. Blobby` \u2192 `Blobby`, `monsieur Anicet-Bourgeois` \u2192 `Anicet-Bourgeois`, and `Doctor Ivo \"Eggman\" Robotnik` \u2192 `Ivo \"Eggman\" Robotnik`).",
+   "gold_anchor": "'doctor',",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling `remove_author_honorifics(author={'name': 'John M. Keynes'})` returns `{'name': 'John M. Keynes'}`.",
+   "covering_prose": "Honorific-like tokens must not be removed when they do not appear at the start of the `\"name\"` string (covering inputs like `Anicet-Bourgeois M.` and `John M. Keynes`, which must remain unchanged).",
+   "gold_anchor": "if raw_name.casefold().startswith(honorific)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When a leading honorific is removed, immediately following whitespace is stripped from the returned `name`.",
+   "covering_prose": "If the `\"name\"` begins (case-insensitively) with a configured honorific, that leading honorific must be removed and any immediately following whitespace must be stripped; the honorifics set must include at least `m.`, `mr`, `mr.`, `monsieur`, and `doctor` (covering inputs like `M. Anicet-Bourgeois` \u2192 `Anicet-Bourgeois`, `Mr Blobby` \u2192 `Blobby`, `Mr. Blobby` \u2192 `Blobby`, `monsieur Anicet-Bourgeois` \u2192 `Anicet-Bourgeois`, and `Doctor Ivo \"Eggman\" Robotnik` \u2192 `Ivo \"Eggman\" Robotnik`).",
+   "gold_anchor": "author[\"name\"] = raw_name[len(honorific) :].lstrip()",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

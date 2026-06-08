@@ -1,0 +1,123 @@
+{
+ "case": "navidrome_70487a09",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 10,
+ "n_covered": 10,
+ "n_gap": 0,
+ "n_out_of_scope": 6,
+ "rows": [
+  {
+   "test": "Password authentication with correct username `admin` and password `wordpass` calls the protected handler and sets the request user to `admin`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Password authentication with invalid username `invalid` and password `wordpass` returns a Subsonic error response containing `code=\"40\"`.",
+   "covering_prose": "Failed authentication attempts return appropriate Subsonic error responses with code 40.",
+   "gold_anchor": "case errors.Is(err, model.ErrNotFound):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Password authentication with invalid username `invalid` and password `wordpass` does not call the protected handler.",
+   "covering_prose": "The authentication middleware consistently blocks unauthorized requests from proceeding to protected endpoints.",
+   "gold_anchor": "case errors.Is(err, model.ErrNotFound):",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Password authentication with username `admin` and invalid password `INVALID` returns a Subsonic error response containing `code=\"40\"`.",
+   "covering_prose": "Failed authentication attempts return appropriate Subsonic error responses with code 40.",
+   "gold_anchor": "err = validateCredentials(usr, pass, token, salt, jwt)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Password authentication with username `admin` and invalid password `INVALID` does not call the protected handler.",
+   "covering_prose": "The authentication middleware consistently blocks unauthorized requests from proceeding to protected endpoints.",
+   "gold_anchor": "err = validateCredentials(usr, pass, token, salt, jwt)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Token authentication using token `md5(\"wordpass\" + \"12345\")` for user `admin` calls the protected handler and sets the request user to `admin`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Token authentication with username `admin`, token `INVALID`, and salt `12345` returns a Subsonic error response containing `code=\"40\"`.",
+   "covering_prose": "Failed authentication attempts return appropriate Subsonic error responses with code 40.",
+   "gold_anchor": "err = validateCredentials(usr, pass, token, salt, jwt)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Token authentication with username `admin`, token `INVALID`, and salt `12345` does not call the protected handler.",
+   "covering_prose": "The authentication middleware consistently blocks unauthorized requests from proceeding to protected endpoints.",
+   "gold_anchor": "err = validateCredentials(usr, pass, token, salt, jwt)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Token authentication with username `NON_EXISTENT_USER`, token `md5(\"\" + \"12345\")`, and salt `12345` returns a Subsonic error response containing `code=\"40\"`.",
+   "covering_prose": "Failed authentication attempts return appropriate Subsonic error responses with code 40.",
+   "gold_anchor": "return nil, err",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Token authentication with username `NON_EXISTENT_USER`, token `md5(\"\" + \"12345\")`, and salt `12345` does not call the protected handler.",
+   "covering_prose": "The authentication middleware consistently blocks unauthorized requests from proceeding to protected endpoints.",
+   "gold_anchor": "return nil, err",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "JWT authentication with a valid token for user `admin` calls the protected handler and sets the request user to `admin`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "JWT authentication with username `admin` and JWT `INVALID_TOKEN` returns a Subsonic error response containing `code=\"40\"`.",
+   "covering_prose": "Failed authentication attempts return appropriate Subsonic error responses with code 40.",
+   "gold_anchor": "err = validateCredentials(usr, pass, token, salt, jwt)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "JWT authentication with username `admin` and JWT `INVALID_TOKEN` does not call the protected handler.",
+   "covering_prose": "The authentication middleware consistently blocks unauthorized requests from proceeding to protected endpoints.",
+   "gold_anchor": "err = validateCredentials(usr, pass, token, salt, jwt)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Reverse proxy authentication with whitelist `192.168.1.1/24`, header `Remote-User: admin`, and reverse proxy IP `192.168.1.1` calls the protected handler and sets the request user to `admin`.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Reverse proxy authentication with whitelist `192.168.1.1/24`, header `Remote-User: admin`, and reverse proxy IP `192.168.2.1` returns a Subsonic error response containing `code=\"40\"`.",
+   "covering_prose": "Failed authentication attempts return appropriate Subsonic error responses with code 40.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Reverse proxy authentication with whitelist `192.168.1.1/24`, header `Remote-User: admin`, and reverse proxy IP `192.168.2.1` does not call the protected handler.",
+   "covering_prose": "The authentication middleware consistently blocks unauthorized requests from proceeding to protected endpoints.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

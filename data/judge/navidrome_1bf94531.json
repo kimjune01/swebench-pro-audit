@@ -1,0 +1,81 @@
+{
+ "case": "navidrome_1bf94531",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 10,
+ "n_covered": 8,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "db.Prune(ctx) is a public package-level function used instead of the unexported prune(ctx), returns no error, returns the expected removal count, and deletes/keeps backup files according to configured retention.",
+   "covering_prose": "A public package-level function `Prune(ctx context.Context) (int, error)` must exist in the `db` package to delete old backup files according to the configured retention count and return the number of files removed.",
+   "gold_anchor": "func Prune(ctx context.Context) (int, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "db.Backup(ctx) is a public package-level function used instead of Db().Backup(ctx), returns no error, returns a filesystem path, and the resulting database backup has a non-empty schema when opened with Driver.",
+   "covering_prose": "A public package-level function `Backup(ctx context.Context) (string, error)` must exist in the `db` package to create a database backup file and return its file path.",
+   "gold_anchor": "func Backup(ctx context.Context) (string, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "db.Restore(ctx, path) is a public package-level function used instead of Db().Restore(ctx, path), returns no error, and restores a previously emptied database schema.",
+   "covering_prose": "A public package-level function `Restore(ctx context.Context, path string) error` must exist in the `db` package to restore the database from the specified backup file.",
+   "gold_anchor": "func Restore(ctx context.Context, path string) error {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "db.Db() returns a direct *sql.DB that supports ExecContext(ctx, query) without calling WriteDB().",
+   "covering_prose": "The function `db.Db()` must return this single `*sql.DB` instance directly, and the previous `db.DB` interface with `ReadDB()` and `WriteDB()` methods must be removed.",
+   "gold_anchor": "func Db() *sql.DB {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "db.Db() returns a direct *sql.DB that can be passed to isSchemaEmpty without calling WriteDB().",
+   "covering_prose": "The function `db.Db()` must return this single `*sql.DB` instance directly, and the previous `db.DB` interface with `ReadDB()` and `WriteDB()` methods must be removed.",
+   "gold_anchor": "func Db() *sql.DB {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ReadDB() is no longer used to obtain the connection for persistence collation tests; db.Db() itself is the connection.",
+   "covering_prose": "The database access layer must be simplified to use a single `*sql.DB` connection for all operations.",
+   "gold_anchor": "func Db() *sql.DB {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The persistence test DBX builder is created with dbx.NewFromDB(db.Db(), db.Driver) instead of NewDBXBuilder(db.Db()).",
+   "covering_prose": "The constructor for the persistence layer, `persistence.New`, must be updated to accept a standard `*sql.DB` connection instead of the removed `db.DB` abstraction, and all repository logic must use this connection.",
+   "gold_anchor": "return &SQLStore{db: dbx.NewFromDB(conn, db.Driver)}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "NewDBXBuilder is removed and repository tests can use a *dbx.DB returned by dbx.NewFromDB rather than a custom *dbxBuilder.",
+   "covering_prose": "This simplifies the API, removes the need for the custom `DB` interface, and allows consumers to work directly with the standard library's database connection type.",
+   "gold_anchor": "deleted file mode 100644",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A new Dialect identifier exists and can be used with sql.Open(Dialect, path) for the base sqlite3 dialect in db tests.",
+   "covering_prose": null,
+   "gold_anchor": "Dialect = \"sqlite3\"",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Driver is changed to the custom registered sqlite driver name used with dbx.NewFromDB and backup sql.Open calls.",
+   "covering_prose": null,
+   "gold_anchor": "Driver  = Dialect + \"_custom\"",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

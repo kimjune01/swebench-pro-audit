@@ -1,0 +1,88 @@
+{
+ "case": "navidrome_5d8318f7",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 11,
+ "n_covered": 9,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "model.IsValidPlaylist(filepath.Join(\"path\", \"to\", \"test.m3u\")) returns true.",
+   "covering_prose": "It takes a file path, examines the extension, and returns true when the extension is .m3u, .m3u8 or .nsp, otherwise false.",
+   "gold_anchor": "return extension == \".m3u\" || extension == \".m3u8\" || extension == \".nsp\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "model.IsValidPlaylist(filepath.Join(\"path\", \"to\", \"test.m3u8\")) returns true.",
+   "covering_prose": "It takes a file path, examines the extension, and returns true when the extension is .m3u, .m3u8 or .nsp, otherwise false.",
+   "gold_anchor": "return extension == \".m3u\" || extension == \".m3u8\" || extension == \".nsp\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "model.IsValidPlaylist(\"testm3u\") returns false.",
+   "covering_prose": "It takes a file path, examines the extension, and returns true when the extension is .m3u, .m3u8 or .nsp, otherwise false.",
+   "gold_anchor": "return extension == \".m3u\" || extension == \".m3u8\" || extension == \".nsp\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Playlist.ToM3U8() output starts with the #EXTM3U header followed by a newline.",
+   "covering_prose": "The method uses the playlist\u2019s metadata and track list to build and return a textual representation in extended M3U8 format that begins with #EXTM3U, includes a #PLAYLIST header and one #EXTINF line plus the track path for each track in the playlist.",
+   "gold_anchor": "buf.WriteString(\"#EXTM3U\\n\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Playlist.ToM3U8() outputs #PLAYLIST:Mellow sunset as the second line, using the playlist name.",
+   "covering_prose": "The method uses the playlist\u2019s metadata and track list to build and return a textual representation in extended M3U8 format that begins with #EXTM3U, includes a #PLAYLIST header and one #EXTINF line plus the track path for each track in the playlist.",
+   "gold_anchor": "buf.WriteString(fmt.Sprintf(\"#PLAYLIST:%s\\n\", pls.Name))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Each track emits an #EXTINF line before its file path line.",
+   "covering_prose": "The method uses the playlist\u2019s metadata and track list to build and return a textual representation in extended M3U8 format that begins with #EXTM3U, includes a #PLAYLIST header and one #EXTINF line plus the track path for each track in the playlist.",
+   "gold_anchor": "buf.WriteString(fmt.Sprintf(\"#EXTINF:%.f,%s - %s\\n\", t.Duration, t.Artist, t.Title))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Track durations are rounded to whole seconds: 377.84 to 378, 374.49 to 374, 253.1 to 253, and 163.89 to 164.",
+   "covering_prose": "Track entries in M3U8 format contain duration (rounded to nearest second), artist and title information, and file path references.",
+   "gold_anchor": "fmt.Sprintf(\"#EXTINF:%.f,%s - %s\\n\", t.Duration, t.Artist, t.Title)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Track metadata in #EXTINF lines is formatted as artist, space-hyphen-space, title after the duration comma.",
+   "covering_prose": null,
+   "gold_anchor": "fmt.Sprintf(\"#EXTINF:%.f,%s - %s\\n\", t.Duration, t.Artist, t.Title)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Each track path is written exactly as the line after its #EXTINF line, followed by a newline.",
+   "covering_prose": "Track entries in M3U8 format contain duration (rounded to nearest second), artist and title information, and file path references.",
+   "gold_anchor": "buf.WriteString(t.Path + \"\\n\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Tracks are emitted in the same order as the playlist track list.",
+   "covering_prose": "The method uses the playlist\u2019s metadata and track list to build and return a textual representation in extended M3U8 format that begins with #EXTM3U, includes a #PLAYLIST header and one #EXTINF line plus the track path for each track in the playlist.",
+   "gold_anchor": "for _, t := range pls.Tracks {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The generated M3U8 string ends with a trailing newline after the final track path.",
+   "covering_prose": null,
+   "gold_anchor": "buf.WriteString(t.Path + \"\\n\")",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

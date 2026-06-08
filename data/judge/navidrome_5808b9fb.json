@@ -1,0 +1,95 @@
+{
+ "case": "navidrome_5808b9fb",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 12,
+ "n_covered": 10,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "validatePasswordChange returns nil when both CurrentPassword and NewPassword are omitted.",
+   "covering_prose": "- Implement proper validation in the new function `validatePasswordChange` (located in `api/types/validators.go`) so that no error occurs when both `CurrentPassword ` and `NewPassword` are omitted.",
+   "gold_anchor": "return nil",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An administrator changing another user's password with only NewPassword set to \"new\" succeeds without requiring CurrentPassword.",
+   "covering_prose": "- Ensure that administrators can change another user\u2019s password by providing only `NewPassword`, without requiring `CurrentPassword `.",
+   "gold_anchor": "if logged.IsAdmin && newUser.ID != logged.ID {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An administrator changing their own password with NewPassword set but CurrentPassword omitted returns a validation error on currentPassword with value \"ra.validation.required\".",
+   "covering_prose": "- Ensure that administrators or regular users must provide their own `CurrentPassword ` when changing their own password. Omitting it or supplying an incorrect `CurrentPassword ` must produce a validation error (e.g, \"ra.validation.required\" or \"ra.validation.passwordDoesNotMatch\").",
+   "gold_anchor": "err.Errors[\"currentPassword\"] = \"ra.validation.required\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A regular user changing their own password with NewPassword set but CurrentPassword omitted returns a validation error on currentPassword with value \"ra.validation.required\".",
+   "covering_prose": "- Ensure that administrators or regular users must provide their own `CurrentPassword ` when changing their own password. Omitting it or supplying an incorrect `CurrentPassword ` must produce a validation error (e.g, \"ra.validation.required\" or \"ra.validation.passwordDoesNotMatch\").",
+   "gold_anchor": "err.Errors[\"currentPassword\"] = \"ra.validation.required\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An administrator changing their own password with CurrentPassword set correctly but NewPassword empty returns a validation error on password with value \"ra.validation.required\".",
+   "covering_prose": "- Ensure that administrators or regular users cannot set their own password to an empty string and can change it only when both a valid `CurrentPassword ` and a non-empty `NewPassword` are provided (e.g, `CurrentPassword `: \"abc123\", `NewPassword`: \"new\").",
+   "gold_anchor": "err.Errors[\"password\"] = \"ra.validation.required\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A regular user changing their own password with CurrentPassword set correctly but NewPassword empty returns a validation error on password with value \"ra.validation.required\".",
+   "covering_prose": "- Ensure that administrators or regular users cannot set their own password to an empty string and can change it only when both a valid `CurrentPassword ` and a non-empty `NewPassword` are provided (e.g, `CurrentPassword `: \"abc123\", `NewPassword`: \"new\").",
+   "gold_anchor": "err.Errors[\"password\"] = \"ra.validation.required\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An administrator changing their own password with incorrect CurrentPassword and non-empty NewPassword returns a validation error on currentPassword with value \"ra.validation.passwordDoesNotMatch\".",
+   "covering_prose": "- Ensure that administrators or regular users must provide their own `CurrentPassword ` when changing their own password. Omitting it or supplying an incorrect `CurrentPassword ` must produce a validation error (e.g, \"ra.validation.required\" or \"ra.validation.passwordDoesNotMatch\").",
+   "gold_anchor": "err.Errors[\"currentPassword\"] = \"ra.validation.passwordDoesNotMatch\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A regular user changing their own password with incorrect CurrentPassword and non-empty NewPassword returns a validation error on currentPassword with value \"ra.validation.passwordDoesNotMatch\".",
+   "covering_prose": "- Ensure that administrators or regular users must provide their own `CurrentPassword ` when changing their own password. Omitting it or supplying an incorrect `CurrentPassword ` must produce a validation error (e.g, \"ra.validation.required\" or \"ra.validation.passwordDoesNotMatch\").",
+   "gold_anchor": "err.Errors[\"currentPassword\"] = \"ra.validation.passwordDoesNotMatch\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An administrator changing their own password succeeds when CurrentPassword equals the logged user's existing Password \"abc123\" and NewPassword is \"new\".",
+   "covering_prose": "When a password change is requested, users should provide their current password along with the new one (a regular user with `Password` = \"abc123\" must submit `CurrentPassword` = \"abc123\" and `NewPassword` = \"new\" for the change to succeed). Administrators are required to confirm their own current password when updating their own account, but can reset passwords for other users without this step.",
+   "gold_anchor": "if newUser.CurrentPassword != logged.Password {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A regular user changing their own password succeeds when CurrentPassword equals the logged user's existing Password \"abc123\" and NewPassword is \"new\".",
+   "covering_prose": "When a password change is requested, users should provide their current password along with the new one (a regular user with `Password` = \"abc123\" must submit `CurrentPassword` = \"abc123\" and `NewPassword` = \"new\" for the change to succeed).",
+   "gold_anchor": "if newUser.CurrentPassword != logged.Password {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Validation failures are returned as *rest.ValidationError.",
+   "covering_prose": null,
+   "gold_anchor": "err := &rest.ValidationError{Errors: map[string]string{}}",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "Each single-field validation failure in the tested scenarios contains exactly one entry in Errors.",
+   "covering_prose": null,
+   "gold_anchor": "if len(err.Errors) > 0 {",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

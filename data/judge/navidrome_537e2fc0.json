@@ -1,0 +1,39 @@
+{
+ "case": "navidrome_537e2fc0",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "tokenFromHeader reads consts.UIAuthorizationHeader value \"Bearer testtoken\" and returns exactly \"testtoken\".",
+   "covering_prose": "The system must extract Bearer tokens from authorization headers using a new function `tokenFromHeader(r *http.Request) string` that processes `consts.UIAuthorizationHeader`, performs a case-insensitive check to determine if the header starts with \"Bearer\" (accepting both \"Bearer\" and \"BEARER\"), extracts the token portion after \"Bearer \", and returns an empty string for missing headers, non-Bearer types, or malformed tokens (including cases where only \"Bearer\" is present without a token).",
+   "gold_anchor": "return bearer[7:]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "tokenFromHeader returns an empty string when consts.UIAuthorizationHeader is not set.",
+   "covering_prose": "returns an empty string for missing headers, non-Bearer types, or malformed tokens (including cases where only \"Bearer\" is present without a token).",
+   "gold_anchor": "return \"\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "tokenFromHeader returns an empty string when consts.UIAuthorizationHeader is \"Basic testtoken\".",
+   "covering_prose": "returns an empty string for missing headers, non-Bearer types, or malformed tokens (including cases where only \"Bearer\" is present without a token).",
+   "gold_anchor": "return \"\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "tokenFromHeader returns an empty string when consts.UIAuthorizationHeader is exactly \"Bearer\" with no token.",
+   "covering_prose": "returns an empty string for missing headers, non-Bearer types, or malformed tokens (including cases where only \"Bearer\" is present without a token).",
+   "gold_anchor": "if len(bearer) > 7 && strings.ToUpper(bearer[0:6]) == \"BEARER\" {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

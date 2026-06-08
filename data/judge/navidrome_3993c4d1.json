@@ -1,0 +1,74 @@
+{
+ "case": "navidrome_3993c4d1",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "AddWithTTL stores a value with a 1 minute TTL and Get(\"key\") retrieves \"value\" without error before expiration.",
+   "covering_prose": "Ensure cache size and TTL limits are respected by handling the removal of the oldest items when adding beyond the size limit and ensuring items expire according to their TTL so they are no longer accessible through public access methods.",
+   "gold_anchor": "func (c *simpleCache[K, V]) AddWithTTL(key K, value V, ttl time.Duration) error {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "GetWithLoader returns the loader-produced value formatted as \"key=value\" for key \"key\".",
+   "covering_prose": "Ensure values returned from loaders follow expected patterns (e.g., \"key=value\") and only active entries are exposed.",
+   "gold_anchor": "func (c *simpleCache[K, V]) GetWithLoader(key K, loader func(key K) (V, time.Duration, error)) (V, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Keys returns all active keys \"key1\" and \"key2\" after adding two unexpired entries.",
+   "covering_prose": "Ensure that all cache operations such as `Add`, `AddWithTTL`, `Get`, `GetWithLoader`, and `Keys` operate only on non-expired entries and trigger eviction at the start of these operations.",
+   "gold_anchor": "func (c *simpleCache[K, V]) Keys() []K {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Values returns all active values \"value1\" and \"value2\" after adding two unexpired entries.",
+   "covering_prose": "Implement a `Values` method in the `SimpleCache` interface that returns all active (non-expired) values and ensure its behavior is consistent with the `Keys` method so that both identifiers and values reflect the current cache state.",
+   "gold_anchor": "func (c *simpleCache[K, V]) Values() []V {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After adding key0 without short TTL and key1, key2, key3 with 10 millisecond TTL, then sleeping 50 milliseconds, Keys returns only \"key0\".",
+   "covering_prose": "Handle short-lived items with a 10-millisecond TTL so that after 50 milliseconds they no longer appear in identifiers or values.",
+   "gold_anchor": "if !item.IsExpired() {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After adding value0 without short TTL and value1, value2, value3 with 10 millisecond TTL, then sleeping 50 milliseconds, Values returns only \"value0\".",
+   "covering_prose": "Handle short-lived items with a 10-millisecond TTL so that after 50 milliseconds they no longer appear in identifiers or values.",
+   "gold_anchor": "if !item.IsExpired() {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the cache size limit is reached after adding three items, the oldest item is dropped.",
+   "covering_prose": "Ensure cache size and TTL limits are respected by handling the removal of the oldest items when adding beyond the size limit and ensuring items expire according to their TTL so they are no longer accessible through public access methods.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Items added with the cache default TTL expire after 50 milliseconds and Get returns an error for key1, key2, and key3.",
+   "covering_prose": "Ensure cache size and TTL limits are respected by handling the removal of the oldest items when adding beyond the size limit and ensuring items expire according to their TTL so they are no longer accessible through public access methods.",
+   "gold_anchor": "func (c *simpleCache[K, V]) Get(key K) (V, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An item added with an explicit 1 minute TTL remains accessible after 50 milliseconds and Get(\"key0\") returns \"value0\".",
+   "covering_prose": "Ensure cache size and TTL limits are respected by handling the removal of the oldest items when adding beyond the size limit and ensuring items expire according to their TTL so they are no longer accessible through public access methods.",
+   "gold_anchor": "func (c *simpleCache[K, V]) AddWithTTL(key K, value V, ttl time.Duration) error {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

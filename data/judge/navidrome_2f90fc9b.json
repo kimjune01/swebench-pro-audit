@@ -1,0 +1,39 @@
+{
+ "case": "navidrome_2f90fc9b",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 3,
+ "rows": [
+  {
+   "test": "The collected stats for baseDir expose an Images field containing exactly cover.jpg, regardless of order.",
+   "covering_prose": "-The data structure that tracks statistics for each folder must maintain a list of image file names, and as each directory is read, the names of detected images must be appended to that list while other counters remain unchanged.",
+   "gold_anchor": "stats.Images = append(stats.Images, entry.Name())",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The collected stats for baseDir keep HasPlaylist false.",
+   "covering_prose": "-The data structure that tracks statistics for each folder must maintain a list of image file names, and as each directory is read, the names of detected images must be appended to that list while other counters remain unchanged.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The collected stats for baseDir keep AudioFilesCount equal to 5.",
+   "covering_prose": "-The data structure that tracks statistics for each folder must maintain a list of image file names, and as each directory is read, the names of detected images must be appended to that list while other counters remain unchanged.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "The walk_dir_tree error channel receives nil.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

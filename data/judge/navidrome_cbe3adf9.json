@@ -1,0 +1,18 @@
+{
+ "case": "navidrome_cbe3adf9",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Artwork tests construct an Artwork by calling NewArtwork with nil as the explicit ExternalMetadata argument: NewArtwork(ds, cache, ffmpeg, nil).",
+   "covering_prose": "The `NewArtwork` constructor must accept a non\u2011nil `ExternalMetadata` instance in production code. For testing or cases where external metadata is not required, a `nil` value may be passed, and the struct must handle this safely without panics.",
+   "gold_anchor": "func NewArtwork(ds model.DataStore, cache cache.FileCache, ffmpeg ffmpeg.FFmpeg, em core.ExternalMetadata) Artwork {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

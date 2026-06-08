@@ -1,0 +1,67 @@
+{
+ "case": "navidrome_68f03d01",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "`db.Db()` must return a value accepted by `persistence.NewDBXBuilder(db.Db())` in persistence tests.",
+   "covering_prose": "Create an interface `DB` in the `db` package. This interface provides methods to access separate database connections for read and write operations. It has three public methods: `ReadDB() *sql.DB` which returns a database connection optimized for read operations, `WriteDB() *sql.DB` which returns a database connection optimized for write operations, and `Close()` which closes read and write connections.",
+   "gold_anchor": "func Db() DB",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The `persistence` package must expose `NewDBXBuilder(d db.DB) *dbxBuilder` so tests in package `persistence` can call `NewDBXBuilder(db.Db())`.",
+   "covering_prose": "Create a function `NewDBXBuilder(d db.DB) *dbxBuilder` in the `persistence` package.",
+   "gold_anchor": "func NewDBXBuilder(d db.DB) *dbxBuilder",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "External package tests must be able to call the exported function `persistence.NewDBXBuilder(db.Db())`.",
+   "covering_prose": "Create a function `NewDBXBuilder(d db.DB) *dbxBuilder` in the `persistence` package.",
+   "gold_anchor": "func NewDBXBuilder(d db.DB) *dbxBuilder",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`NewDBXBuilder(db.Db())` must return a builder usable by repository constructors such as `NewAlbumRepository`, `NewArtistRepository`, `NewGenreRepository`, `NewMediaFileRepository`, `NewPlaylistRepository`, `NewPlayQueueRepository`, `NewPropertyRepository`, `NewRadioRepository`, and `NewUserRepository`.",
+   "covering_prose": "The returned builder implements all methods of the `dbx.Builder` interface, routing read operations (like `Select()`, `NewQuery()`, `Quote()`) to the read connection and write operations to the write connection.",
+   "gold_anchor": "type dbxBuilder struct",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The builder returned by `NewDBXBuilder(db.Db())` must support read/query builder methods used by repository tests, including `NewQuery()` and `Select()`.",
+   "covering_prose": "The returned builder implements all methods of the `dbx.Builder` interface, routing read operations (like `Select()`, `NewQuery()`, `Quote()`) to the read connection and write operations to the write connection.",
+   "gold_anchor": "func (d *dbxBuilder) NewQuery(s string) *dbx.Query",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The builder returned by `NewDBXBuilder(db.Db())` must route `Select()` through the read builder.",
+   "covering_prose": "The returned builder implements all methods of the `dbx.Builder` interface, routing read operations (like `Select()`, `NewQuery()`, `Quote()`) to the read connection and write operations to the write connection.",
+   "gold_anchor": "return d.rdb.Select(s...)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The builder returned by `NewDBXBuilder(db.Db())` must support write operations used during test-suite setup inserts.",
+   "covering_prose": "The returned builder implements all methods of the `dbx.Builder` interface, routing read operations (like `Select()`, `NewQuery()`, `Quote()`) to the read connection and write operations to the write connection.",
+   "gold_anchor": "b.Builder = dbx.NewFromDB(d.WriteDB(), db.Driver)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The old test helper `getDBXBuilder()` returning `dbx.NewFromDB(db.Db(), db.Driver)` must no longer be required by persistence tests.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

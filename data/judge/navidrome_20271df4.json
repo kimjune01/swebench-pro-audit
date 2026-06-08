@@ -1,0 +1,18 @@
+{
+ "case": "navidrome_20271df4",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Calling repo.Update(\"id\", &model.Share{}) with a zero ExpiresAt updates only the \"description\" column and does not include \"expires_at\".",
+   "covering_prose": "the persistence logic must only update the `expires_at` field if a non-zero expiration time is provided.",
+   "gold_anchor": "cols := []string{\"description\"}",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

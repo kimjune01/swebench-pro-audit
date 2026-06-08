@@ -1,0 +1,123 @@
+{
+ "case": "navidrome_8a56584a",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 14,
+ "n_covered": 13,
+ "n_gap": 1,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "TestEvent.Data(&testEvent) returns the exact JSON string {\"Test\":\"some data\"}.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "TestEvent.Name(&testEvent) returns \"testEvent\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "RefreshResource.Data on an empty RefreshResource returns the exact string {\"*\":\"*\"}.",
+   "covering_prose": "when no resources are specified, it should serialize as {\"*\":\"*\"}",
+   "gold_anchor": "return `{\"*\":\"*\"}`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "RefreshResource.With returns the same receiver so calls can be chained.",
+   "covering_prose": "output: `*RefreshResource` (the same receiver, to allow method-chaining)",
+   "gold_anchor": "return rr",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "RefreshResource.With accumulates ids for the same resource across multiple calls, preserving earlier ids before later ids.",
+   "covering_prose": "Ensure `With` accumulates ids across multiple calls and resources, preserving prior entries; the resulting payload should reflect all collected `(resource, ids)` pairs.",
+   "gold_anchor": "rr.resources[resource] = append(rr.resources[resource], ids[i])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "RefreshResource.Data serializes collected resources as a JSON object mapping each resource name to an array of ids.",
+   "covering_prose": "Ensure `RefreshResource.Data` serializes a JSON object mapping resource names to arrays of ids; when no resources are specified, it should serialize as {\"*\":\"*\"}; when `Any` is passed as an id, it should serialize that resource\u2019s value as `[\"*\"]`; tests and code should not rely on any key order.",
+   "gold_anchor": "data, _ := json.Marshal(r.resources)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "RefreshResource.Data for album, artist, and song in the test returns the exact key order string {\"album\":[\"al-1\",\"al-2\",\"al-3\"],\"artist\":[\"ar-1\",\"ar-2\"],\"song\":[\"sg-1\",\"sg-2\"]}.",
+   "covering_prose": null,
+   "gold_anchor": "data, _ := json.Marshal(r.resources)",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The wildcard constant Any has value \"*\".",
+   "covering_prose": "it should include a wildcard constant `Any` with value `\"*\"`.",
+   "gold_anchor": "const Any = \"*\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "RefreshResource.Data after rr.With(\"album\", Any) returns {\"album\":[\"*\"]}.",
+   "covering_prose": "when `Any` is passed as an id, it should serialize that resource\u2019s value as `[\"*\"]`",
+   "gold_anchor": "rr.resources[resource] = append(rr.resources[resource], ids[i])",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "useResourceRefresh records a newer incoming lastReceived timestamp by calling setState with that timestamp.",
+   "covering_prose": "it should update the local `lastTime` to the current `lastReceived` when processing.",
+   "gold_anchor": "setLastTime(lastReceived)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "useResourceRefresh does nothing, including not calling setState, when incoming lastReceived is equal to the local lastTime.",
+   "covering_prose": "returns early when the incoming `lastReceived` is not newer",
+   "gold_anchor": "if (lastReceived <= lastTime) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With no visible resources specified, resources { '*': '*' } triggers refresh exactly once and no dataProvider.getOne calls.",
+   "covering_prose": "when the payload indicates a full refresh (either `{\"*\":\"*\"}` or any resource mapped to `[\"*\"]`), it should call `refresh()` exactly once and should not issue record-level fetches.",
+   "gold_anchor": "refresh()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With no visible resources specified, resources { album: ['*'] } triggers refresh exactly once and no dataProvider.getOne calls.",
+   "covering_prose": "when the payload indicates a full refresh (either `{\"*\":\"*\"}` or any resource mapped to `[\"*\"]`), it should call `refresh()` exactly once and should not issue record-level fetches.",
+   "gold_anchor": "Object.values(resources).find((v) => v.find((v2) => v2 === '*'))",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With no visible resources specified, targeted album and song ids trigger no full refresh and four getOne calls for album al-1, album al-2, song sg-1, and song sg-2.",
+   "covering_prose": "When a full refresh is not indicated, invoke `dataProvider.getOne(resource, { id })` once per `(resource, id)` present in the payload; when `visibleResources` are provided, refetches should be issued only for resources included in `visibleResources`.",
+   "gold_anchor": "dataProvider.getOne(r, { id })",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With visibleResources set to album, resources { '*': '*' } still triggers refresh exactly once and no dataProvider.getOne calls.",
+   "covering_prose": "when the payload indicates a full refresh (either `{\"*\":\"*\"}` or any resource mapped to `[\"*\"]`), it should call `refresh()` exactly once and should not issue record-level fetches.",
+   "gold_anchor": "resources['*'] === '*'",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With visibleResources set to song, targeted album and song ids trigger no full refresh and only two getOne calls for song sg-1 and song sg-2.",
+   "covering_prose": "when `visibleResources` are provided, refetches should be issued only for resources included in `visibleResources`.",
+   "gold_anchor": "visibleResources.length === 0 || visibleResources?.includes(r)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "case": "navidrome_1a6a284b",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 6,
+ "n_covered": 6,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When DevLogSourceLine is enabled and Error is called, the emitted entry's source field contains the caller file and line, specifically a substring like \"/log/log_test.go:92\".",
+   "covering_prose": "The logger must include the source file and line number in the log entry if the corresponding flag (`DevLogSourceLine`) is enabled.",
+   "gold_anchor": "_, file, line, ok := runtime.Caller(3)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When DevLogSourceLine is enabled and Error is called, the emitted entry message remains exactly \"A crash happened\".",
+   "covering_prose": "Implement a `log` function that receives a level and a set of arguments, checks whether the message should be logged, and, if so, generates and emits the corresponding log entry.",
+   "gold_anchor": "logger.Log(logrus.Level(level), msg)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With the logger level set to LevelTrace, calling Trace(\"msg\") emits an entry at logrus.TraceLevel.",
+   "covering_prose": "The init function should set the default logger level to the lowest severity level defined by the logrus logging framework, which enables all log messages.",
+   "gold_anchor": "log(LevelTrace, args...)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With the global level set to LevelError and no per-path override, calling Debug(\"message 1\") emits no log entry.",
+   "covering_prose": "All log messages are filtered solely based on the global log level.",
+   "gold_anchor": "if len(logLevels) == 0 {\n\t\treturn false\n\t}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling SetLogLevels with map entry \"log/log_test\": \"debug\" configures a per-component debug level for that source path.",
+   "covering_prose": "Input: `levels` <map[string]string>: a mapping of component paths (as strings) to their corresponding log level values (also as strings).",
+   "gold_anchor": "func SetLogLevels(levels map[string]string)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With global level LevelError and per-path level \"debug\" for \"log/log_test\", calling Debug(\"message 2\") from log/log_test logs the message \"message 2\".",
+   "covering_prose": "When a log message originates from a defined path, it should respect the configured level for that path, overriding the global log level.",
+   "gold_anchor": "if strings.HasPrefix(file, lp.path) {\n\t\t\treturn lp.level >= requiredLevel\n\t\t}",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

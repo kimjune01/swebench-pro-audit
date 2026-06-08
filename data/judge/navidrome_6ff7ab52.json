@@ -1,0 +1,46 @@
+{
+ "case": "navidrome_6ff7ab52",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 5,
+ "n_covered": 3,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When the requested format is \"raw\", selectTranscodingOptions returns bitrate 0.",
+   "covering_prose": "The `selectTranscodingOptions` function should return format `\"raw\"` with bitrate `0` when the requested format is `\"raw\"`.",
+   "gold_anchor": "return format, 0",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When no explicit bitrate is requested and a player with MaxBitRate 192 is present in context, selectTranscodingOptions returns bitrate 192 instead of the transcoding default 96.",
+   "covering_prose": "The `selectTranscodingOptions` function should use the player\u2019s `MaxBitRate` when no explicit bitrate is requested and a player with `MaxBitRate` is present in the context.",
+   "gold_anchor": "cBitRate = p.MaxBitRate",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When no explicit bitrate is requested and a player with MaxBitRate is present, selectTranscodingOptions returns the active transcoding configuration format \"oga\".",
+   "covering_prose": null,
+   "gold_anchor": "cFormat = trc.TargetFormat",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "When explicit bitrate 160 is requested with a player MaxBitRate and a transcoding default present, selectTranscodingOptions returns bitrate 160.",
+   "covering_prose": "The `selectTranscodingOptions` function should use the explicitly requested bitrate value when provided, even if a player `MaxBitRate` or a transcoding default exists.",
+   "gold_anchor": "cBitRate = reqBitRate",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When explicit bitrate 160 is requested and no explicit format is requested, with active transcoding configuration target \"oga\", selectTranscodingOptions returns format \"oga\".",
+   "covering_prose": null,
+   "gold_anchor": "cFormat = trc.TargetFormat",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

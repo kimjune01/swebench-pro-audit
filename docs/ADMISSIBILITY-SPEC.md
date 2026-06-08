@@ -80,11 +80,25 @@ deterministic and not a free codex enumeration. Per row: the gold reading (gold 
 **Data requirement:** this needs `our_failed.diff` per case. We have qutebrowser's (the autopsy); the
 others require a craft-capture run (per-assertion grade + captured patch), the `cap1` machinery.
 
-**Current contents (4, CANDIDATES — panel NOT yet run):** `qutebrowser-e34dfc68`, `protonmail`,
-`tutao`, `element`, flagged by the pilot (diag recall vs gold, gold-shape, and for qutebrowser the
-`assert fake_dns.used` splitting assertion). These are **not confirmed**: the from-prose panel has not
-run. The pilot is suggestive (qutebrowser: recall 1.0, craft 233/248, lost on an unspecified DNS-consult
-detail; protonmail: a 39-region/11-file feature). Confirmation requires the panel protocol below.
+**Current contents (1 candidate; 3 reclassified):** after the gold-anchored coverage pass,
+`qutebrowser`, `protonmail`, `element` came back **DETERMINED** (positive coverage) → OUR_CAPABILITY_GAPS,
+**not** ambiguous. Only `tutao` remains a KNOWN_AMBIGUOUS **candidate** (6 GAP behaviors). Nothing is
+confirmed: the panel + independent adjudication below have not run.
+
+## Two holes a codex sniff (2026-06-08) found — both must close before any ambiguity claim is audit-grade
+
+1. **Determinacy is judged against PROSE ONLY; a real solver also has the codebase, conventions, issue
+   context, and API semantics.** A blank (no prose clause) therefore does **not** establish
+   underdetermination — the behavior may be inferable from the repo. The coverage check must be extended
+   to "not determined by prose **and** not inferable from the codebase/conventions a from-prose solver
+   has," or the ambiguity claim collapses to "our solver missed a repo-inferable behavior."
+2. **R2 is auditor-constructed, not independently validated.** "Argument witness, chosen by obviousness"
+   lets the interested auditor pick R2, judge it defensible, and decide no patch is needed — not
+   audit-grade. R2 must be validated by an independent panel/raters (decontaminated, codebase-aware,
+   prose-only-for-the-test), not by us predicting the skeptic.
+
+Until both close, KNOWN_AMBIGUOUS entries are **candidates/screen-flagged**, never "proven," and the
+headline denominator language ("complement of admissible") does **not** apply.
 
 ## Panel protocol ("world's best engineers, from the prose" proxy)
 

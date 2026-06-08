@@ -1,0 +1,144 @@
+{
+ "case": "flipt-io_08213a50",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 10,
+ "rows": [
+  {
+   "test": "Store.Copy succeeds for source \"flipt://local/source:latest\" to destination \"flipt://local/target:latest\".",
+   "covering_prose": "The application must support copying bundles between two local OCI references. Both the source and destination references must include a tag, otherwise the operation must fail.",
+   "gold_anchor": "func (s *Store) Copy(ctx context.Context, src, dst Reference) (Bundle, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Store.Copy returns a bundle whose Repository is \"target\" for destination \"flipt://local/target:latest\".",
+   "covering_prose": "A successful copy operation must result in a new bundle at the destination reference with the following populated fields: `Repository`, `Tag`, `Digest`, and `CreatedAt`. All fields must be non-empty and reflect the copied content accurately.",
+   "gold_anchor": "Repository: dst.Repository,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Store.Copy returns a bundle whose Tag is \"latest\" for destination \"flipt://local/target:latest\".",
+   "covering_prose": "A successful copy operation must result in a new bundle at the destination reference with the following populated fields: `Repository`, `Tag`, `Digest`, and `CreatedAt`. All fields must be non-empty and reflect the copied content accurately.",
+   "gold_anchor": "Tag:        dst.Reference.Reference,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Store.Copy returns a bundle with a non-empty Digest after a valid copy.",
+   "covering_prose": "A successful copy operation must result in a new bundle at the destination reference with the following populated fields: `Repository`, `Tag`, `Digest`, and `CreatedAt`. All fields must be non-empty and reflect the copied content accurately.",
+   "gold_anchor": "Digest:     desc.Digest,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Store.Copy returns a bundle with a non-empty CreatedAt after a valid copy.",
+   "covering_prose": "A successful copy operation must result in a new bundle at the destination reference with the following populated fields: `Repository`, `Tag`, `Digest`, and `CreatedAt`. All fields must be non-empty and reflect the copied content accurately.",
+   "gold_anchor": "bundle.CreatedAt, err = parseCreated(man.Annotations)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a valid copy, store.Fetch on the destination succeeds.",
+   "covering_prose": "After a successful copy, the destination bundle must be retrievable via fetch, and its contents must include at least two files.",
+   "gold_anchor": "dstTarget.Fetch(ctx, desc)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a valid copy, store.Fetch on the destination returns Matched false.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After a valid copy, store.Fetch on the destination returns exactly 2 files.",
+   "covering_prose": "After a successful copy, the destination bundle must be retrievable via fetch, and its contents must include at least two files.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Store.Copy called with source \"flipt://local/source\" and destination \"flipt://local/target:latest\" returns fmt.Errorf(\"source bundle: %w\", ErrReferenceRequired).",
+   "covering_prose": "If the source reference lacks a tag, an `ErrReferenceRequired` error must be raised and clearly state: `source bundle: reference required`.",
+   "gold_anchor": "return Bundle{}, fmt.Errorf(\"source bundle: %w\", ErrReferenceRequired)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Store.Copy called with source \"flipt://local/source:latest\" and destination \"flipt://local/target\" returns fmt.Errorf(\"destination bundle: %w\", ErrReferenceRequired).",
+   "covering_prose": "If the destination reference lacks a tag, an `ErrReferenceRequired` error must be raised and clearly state: `destination bundle: reference required`.",
+   "gold_anchor": "return Bundle{}, fmt.Errorf(\"destination bundle: %w\", ErrReferenceRequired)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ErrReferenceRequired has the error text \"reference required\".",
+   "covering_prose": "If the source reference lacks a tag, an `ErrReferenceRequired` error must be raised and clearly state: `source bundle: reference required`.",
+   "gold_anchor": "ErrReferenceRequired = errors.New(\"reference required\")",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "File.Stat returns name \"d1b2a59fbea7e20077af9f91b27e95e865061b270be03ff539ab3b73587882e8.json\" for a descriptor digest of contents and encoding \"json\".",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "File.Stat returns fs.ModePerm as the file mode.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "File.Stat returns the stored modification time 2023-11-09 12:00:00 UTC.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "File.Stat returns IsDir false.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "File.Stat returns Sys nil.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "File.Seek(3, io.SeekStart) on a File whose underlying ReadCloser is also an io.ReadSeeker succeeds with nil error and returns offset 3.",
+   "covering_prose": "The `File` abstraction used to represent bundle files must support seeking if the underlying stream is seekable, and must return an appropriate error (`seeker cannot seek`) when seeking is unsupported.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "After File.Seek(3, io.SeekStart), reading the file returns \"tents\" from original contents \"contents\".",
+   "covering_prose": "The `File` abstraction used to represent bundle files must support seeking if the underlying stream is seekable, and must return an appropriate error (`seeker cannot seek`) when seeking is unsupported.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "File.Seek(3, io.SeekStart) on a File whose underlying ReadCloser is not seekable returns error text \"seeker cannot seek\".",
+   "covering_prose": "The `File` abstraction used to represent bundle files must support seeking if the underlying stream is seekable, and must return an appropriate error (`seeker cannot seek`) when seeking is unsupported.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

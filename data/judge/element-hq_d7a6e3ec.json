@@ -1,0 +1,67 @@
+{
+ "case": "element-hq_d7a6e3ec",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 8,
+ "n_covered": 8,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "ExternalLink renders an <a> element and forwards native anchor attributes including href, data-test-id, target, and rel.",
+   "covering_prose": "This component must accept native anchor attributes and custom class names without overriding default styling.",
+   "gold_anchor": "{...rest}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ExternalLink combines its default styling class with a supplied custom className, producing \"mx_ExternalLink myCustomClass\".",
+   "covering_prose": "This component must accept native anchor attributes and custom class names without overriding default styling.",
+   "gold_anchor": "className={classNames('mx_ExternalLink', className)}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ExternalLink allows explicit target and rel props to override the secure defaults, producing target=\"_self\" and rel=\"noopener\" when passed.",
+   "covering_prose": "forwarding standard anchor props and applying secure defaults for external navigation.",
+   "gold_anchor": "{...rest}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ExternalLink defaults rel to \"noreferrer noopener\" when rel is not provided.",
+   "covering_prose": "External links must open in a new browser tab by default, using \u2018target=\"_blank\"\u2019 and \u2018rel=\"noreferrer noopener\"\u2019 for security and privacy compliance.",
+   "gold_anchor": "rel=\"noreferrer noopener\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ExternalLink defaults target to \"_blank\" when target is not provided.",
+   "covering_prose": "External links must open in a new browser tab by default, using \u2018target=\"_blank\"\u2019 and \u2018rel=\"noreferrer noopener\"\u2019 for security and privacy compliance.",
+   "gold_anchor": "target=\"_blank\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ExternalLink renders React element children unchanged before the external-link icon.",
+   "covering_prose": "Provides a reusable external-link UI primitive. Exposes a single default export (ExternalLink) which renders an anchor with consistent styling and an inline external-link icon, forwarding standard anchor props and applying secure defaults for external navigation.",
+   "gold_anchor": "{ children }",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ExternalLink renders plain text children unchanged before the external-link icon.",
+   "covering_prose": "Provides a reusable external-link UI primitive. Exposes a single default export (ExternalLink) which renders an anchor with consistent styling and an inline external-link icon, forwarding standard anchor props and applying secure defaults for external navigation.",
+   "gold_anchor": "{ children }",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ExternalLink appends an inline icon element with class \"mx_ExternalLink_icon\" after its children.",
+   "covering_prose": "Provides a reusable external-link UI primitive. Exposes a single default export (ExternalLink) which renders an anchor with consistent styling and an inline external-link icon, forwarding standard anchor props and applying secure defaults for external navigation.",
+   "gold_anchor": "<i className='mx_ExternalLink_icon' />",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

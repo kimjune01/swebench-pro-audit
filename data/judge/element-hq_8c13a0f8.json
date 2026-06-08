@@ -1,0 +1,32 @@
+{
+ "case": "element-hq_8c13a0f8",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "When the room is tombstoned, MessageComposer renders zero SendMessageComposer components.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When the room is tombstoned, MessageComposer renders zero MessageComposerButtons components.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When the room is tombstoned, the replacement notice is rendered in a paragraph element whose text contains \"room has been replaced\".",
+   "covering_prose": "The composer should display room replacement notices using semantic HTML markup (such as paragraph elements) with clear, readable text that explicitly communicates to users that the room has been replaced.",
+   "gold_anchor": "p {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

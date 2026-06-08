@@ -1,0 +1,46 @@
+{
+ "case": "flipt-io_11775ea8",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Calling Load with path == \"\" returns the default configuration when no relevant environment variables are set.",
+   "covering_prose": "When \u2018path == \"\"\u2019, it must start from default values and then apply environment variable overrides with precedence over those defaults.",
+   "gold_anchor": "cfg = Default()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling Load with path == \"\" and FLIPT_LOG_LEVEL=DEBUG sets Config.Log.Level to \"DEBUG\".",
+   "covering_prose": "\u2018Log.Level\u2019 must equal the value provided via \u2018FLIPT_LOG_LEVEL\u2019 when present",
+   "gold_anchor": "cfg = Default()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling Load with path == \"\" and FLIPT_SERVER_HTTP_PORT=8081 sets Config.Server.HTTPPort to integer 8081.",
+   "covering_prose": "\u2018Server.HTTPPort\u2019 must equal the integer value of \u2018FLIPT_SERVER_HTTP_PORT\u2019 when present.",
+   "gold_anchor": "cfg = Default()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Environment override name for log.level is FLIPT_LOG_LEVEL.",
+   "covering_prose": "for example, \u2018log.level\u2019 must map to \u2018FLIPT_LOG_LEVEL\u2019",
+   "gold_anchor": "v.SetEnvPrefix(\"flipt\")",
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Environment override name for server.http.port is FLIPT_SERVER_HTTP_PORT.",
+   "covering_prose": "\u2018server.http.port\u2019 must map to \u2018FLIPT_SERVER_HTTP_PORT\u2019",
+   "gold_anchor": "v.SetEnvKeyReplacer(strings.NewReplacer(\".\", \"_\"))",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

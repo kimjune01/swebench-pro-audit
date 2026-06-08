@@ -1,0 +1,28 @@
+# Coverage attribution: element-hq_c9d9c421
+
+- instance_id: `instance_element-hq__element-web-aeabf3b18896ac1eb7ae9757e66ce886120f8309-vnan`
+- verdict: **AMBIGUOUS**  (10/12 in-gold behaviors covered; **2 GAP** = mindreading; 1 out-of-scope)
+- gold patch: [`gold.diff`](../cases/element-hq_c9d9c421/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/element-hq_c9d9c421/hidden_test.diff)  ·  spec: [`spec.md`](../cases/element-hq_c9d9c421/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| PinnedMessageBanner tests render inside MatrixClient context so EventPreview/useEventPreview can access a client context. |  | [const cli = useContext(MatrixClientContext);](../cases/element-hq_c9d9c421/gold.diff#L151) |
+| Plain pinned message preview span includes title equal to the preview text, e.g. title="First pinned message". |  | [title={preview}](../cases/element-hq_c9d9c421/gold.diff#L123) |
+| Pinned banner plain text preview is resolved asynchronously, so tests wait with findByText for "First pinned message" / "Second pinned messa | [Use `useAsyncMemo` inside `useEventPreview` to defer expensive operations like decryption and preview generation.](../cases/element-hq_c9d9c421/spec.md#L7) | [return useAsyncMemo(](../cases/element-hq_c9d9c421/gold.diff#L162) |
+| Pinned banner uses the new EventPreview component for its message preview and passes mxEvent plus styling props. | [Replace preview rendering in `src/components/views/rooms/PinnedMessageBanner.tsx` with the new `EventPreview` component using the `mxEvent` and styling props.](../cases/element-hq_c9d9c421/spec.md#L7) | [mxEvent={pinnedEvent}](../cases/element-hq_c9d9c421/gold.diff#L267) |
+| Pinned banner message span has both shared preview class and pinned banner class: "mx_EventPreview mx_PinnedMessageBanner_message". | [Apply consistent visual styling for the preview and prefix via shared class names like `mx_EventPreview` and `mx_EventPreview_prefix`.](../cases/element-hq_c9d9c421/spec.md#L7) | [classNames("mx_EventPreview", className)](../cases/element-hq_c9d9c421/gold.diff#L120) |
+| Plain text pinned messages render without a type prefix. | [Plain text remains unprefixed; stickers keep their existing name rendering.](../cases/element-hq_c9d9c421/spec.md#L4) | [if (!prefix)](../cases/element-hq_c9d9c421/gold.diff#L121) |
+| m.file pinned event renders text content "File: Message with m.file type". | [Support recognition of message types such as `m.image`, `m.video`, `m.audio`, `m.file`, and `m.poll.start`, and provide localized prefixes accordingly. (Do not prefix plain text; stickers continue to show their sticker name via the existing preview.)](../cases/element-hq_c9d9c421/spec.md#L7) | [return _t("event_preview\|prefix\|file");](../cases/element-hq_c9d9c421/gold.diff#L196) |
+| m.audio pinned event renders text content "Audio: Message with m.audio type". | [Support recognition of message types such as `m.image`, `m.video`, `m.audio`, `m.file`, and `m.poll.start`, and provide localized prefixes accordingly. (Do not prefix plain text; stickers continue to show their sticker name via the existing preview.)](../cases/element-hq_c9d9c421/spec.md#L7) | [return _t("event_preview\|prefix\|audio");](../cases/element-hq_c9d9c421/gold.diff#L190) |
+| m.video pinned event renders text content "Video: Message with m.video type". | [Support recognition of message types such as `m.image`, `m.video`, `m.audio`, `m.file`, and `m.poll.start`, and provide localized prefixes accordingly. (Do not prefix plain text; stickers continue to show their sticker name via the existing preview.)](../cases/element-hq_c9d9c421/spec.md#L7) | [return _t("event_preview\|prefix\|video");](../cases/element-hq_c9d9c421/gold.diff#L194) |
+| m.image pinned event renders text content "Image: Message with m.image type". | [Support recognition of message types such as `m.image`, `m.video`, `m.audio`, `m.file`, and `m.poll.start`, and provide localized prefixes accordingly. (Do not prefix plain text; stickers continue to show their sticker name via the existing preview.)](../cases/element-hq_c9d9c421/spec.md#L7) | [return _t("event_preview\|prefix\|image");](../cases/element-hq_c9d9c421/gold.diff#L192) |
+| m.poll.start pinned event renders text content "Poll: Alice?". | [Support recognition of message types such as `m.image`, `m.video`, `m.audio`, `m.file`, and `m.poll.start`, and provide localized prefixes accordingly. (Do not prefix plain text; stickers continue to show their sticker name via the existing preview.)](../cases/element-hq_c9d9c421/spec.md#L7) | [return _t("event_preview\|prefix\|poll");](../cases/element-hq_c9d9c421/gold.diff#L184) |
+| Prefixed pinned message snapshots use prefix span class "mx_EventPreview_prefix" rather than "mx_PinnedMessageBanner_prefix". | [Apply consistent visual styling for the preview and prefix via shared class names like `mx_EventPreview` and `mx_EventPreview_prefix`.](../cases/element-hq_c9d9c421/spec.md#L7) | [<span className="mx_EventPreview_prefix">{sub}</span>](../cases/element-hq_c9d9c421/gold.diff#L137) |
+| Thread test utility stores thread latest_event as the raw event payload object rather than the MatrixEvent wrapper. |  | _(not in gold)_ |
+
+## Receipts
+- [`spec.md`](../cases/element-hq_c9d9c421/spec.md)
+- [`gold.diff`](../cases/element-hq_c9d9c421/gold.diff)
+- [`hidden_test.diff`](../cases/element-hq_c9d9c421/hidden_test.diff)
+- judge JSON: [`element-hq_c9d9c421.json`](../judge/element-hq_c9d9c421.json)

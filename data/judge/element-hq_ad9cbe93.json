@@ -1,0 +1,186 @@
+{
+ "case": "element-hq_ad9cbe93",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 25,
+ "n_covered": 19,
+ "n_gap": 6,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "A VoiceBroadcastRecording created for a Started Voice Broadcast info event with no stopped relations has state VoiceBroadcastInfoState.Started.",
+   "covering_prose": "The `VoiceBroadcastRecording` class must initialize its state by inspecting related events in the room state, using the Matrix SDK API (such as `getUnfilteredTimelineSet` and event relations).",
+   "gold_anchor": "? VoiceBroadcastInfoState.Started : VoiceBroadcastInfoState.Stopped;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastRecording.stop() sends a VoiceBroadcastInfoState.Stopped state event to the room.",
+   "covering_prose": "The class must expose a `stop()` method that sends a `VoiceBroadcastInfoState.Stopped` state event to the room, referencing the original info event, and must emit a typed event (`VoiceBroadcastRecordingEvent.StateChanged`) whenever its state changes.",
+   "gold_anchor": "state: VoiceBroadcastInfoState.Stopped,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastRecording.stop() sends the stopped state event with an m.relates_to reference to the original info event id.",
+   "covering_prose": "The class must expose a `stop()` method that sends a `VoiceBroadcastInfoState.Stopped` state event to the room, referencing the original info event, and must emit a typed event (`VoiceBroadcastRecordingEvent.StateChanged`) whenever its state changes.",
+   "gold_anchor": "event_id: this.infoEvent.getId(),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After VoiceBroadcastRecording.stop() is called, recording.state is VoiceBroadcastInfoState.Stopped.",
+   "covering_prose": "Description: Sends a stop event to the room, referencing the original info event, and updates the state to stopped.",
+   "gold_anchor": "this.setState(VoiceBroadcastInfoState.Stopped);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastRecording.stop() emits VoiceBroadcastRecordingEvent.StateChanged with VoiceBroadcastInfoState.Stopped.",
+   "covering_prose": "The class must expose a `stop()` method that sends a `VoiceBroadcastInfoState.Stopped` state event to the room, referencing the original info event, and must emit a typed event (`VoiceBroadcastRecordingEvent.StateChanged`) whenever its state changes.",
+   "gold_anchor": "this.emit(VoiceBroadcastRecordingEvent.StateChanged, this.state);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A VoiceBroadcastRecording created for a Voice Broadcast info event with a related stopped event has state VoiceBroadcastInfoState.Stopped.",
+   "covering_prose": "The `VoiceBroadcastRecording` class must initialize its state by inspecting related events in the room state, using the Matrix SDK API (such as `getUnfilteredTimelineSet` and event relations).",
+   "gold_anchor": "event.getContent()?.state === VoiceBroadcastInfoState.Stopped;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastRecording initializes by reading child events for the info event through getUnfilteredTimelineSet relations using RelationType.Reference and VoiceBroadcastInfoEventType.",
+   "covering_prose": "The `VoiceBroadcastRecording` class must initialize its state by inspecting related events in the room state, using the Matrix SDK API (such as `getUnfilteredTimelineSet` and event relations).",
+   "gold_anchor": "room?.getUnfilteredTimelineSet()?.relations?.getChildEventsForEvent(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "startNewVoiceBroadcastRecording creates a new voice broadcast by sending an initial VoiceBroadcastInfoState.Started state event.",
+   "covering_prose": "The `startNewVoiceBroadcastRecording` function must send the initial `VoiceBroadcastInfoState.Started` state event to the room using the Matrix client, including `chunk_length` in the event content.",
+   "gold_anchor": "startNewVoiceBroadcastRecording(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The initial voice broadcast state event content includes chunk_length.",
+   "covering_prose": "The `startNewVoiceBroadcastRecording` function must send the initial `VoiceBroadcastInfoState.Started` state event to the room using the Matrix client, including `chunk_length` in the event content.",
+   "gold_anchor": "chunk_length?: number;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After creating a new voice broadcast, startNewVoiceBroadcastRecording sets the new recording as the current recording in VoiceBroadcastRecordingsStore.instance.",
+   "covering_prose": "It must wait until the state event appears in the room state, then instantiate a `VoiceBroadcastRecording` using the client, info event, and initial state, set it as the current recording in `VoiceBroadcastRecordingsStore.instance`, and return the new recording.",
+   "gold_anchor": "VoiceBroadcastRecordingsStore.instance()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When VoiceBroadcastRecordingsStore.setCurrent is called with a recording, current returns that recording.",
+   "covering_prose": "Description: Sets the current recording in the store and emits a CurrentChanged event.",
+   "gold_anchor": "this._current = current;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When VoiceBroadcastRecordingsStore.setCurrent is called with a recording, getByInfoEvent can return it by the info event id.",
+   "covering_prose": "The `VoiceBroadcastRecordingsStore` must internally cache recordings by info event ID using a Map, with keys from `infoEvent.getId()`.",
+   "gold_anchor": "this.recordings.set(current.infoEvent.getId(), current);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastRecordingsStore.setCurrent emits VoiceBroadcastRecordingsStoreEvent.CurrentChanged with the new recording.",
+   "covering_prose": "It must expose a read-only `current` property (e.g. `get current()`), update this property whenever a new broadcast is started via `setCurrent`, and emit a `CurrentChanged` event with the new recording.",
+   "gold_anchor": "this.emit(VoiceBroadcastRecordingsStoreEvent.CurrentChanged, current);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastRecordingsStore.setCurrent does not emit CurrentChanged when setting the same recording again.",
+   "covering_prose": null,
+   "gold_anchor": "if (this._current === current) return;",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VoiceBroadcastRecordingsStore.getByInfoEvent returns a cached known recording for the given info event.",
+   "covering_prose": "Description: Returns the cached recording for the given info event, or null if none exists.",
+   "gold_anchor": "return this.recordings.get(infoEventId);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastRecordingsStore.getByInfoEvent creates and returns a recording for an unknown info event instead of returning null.",
+   "covering_prose": null,
+   "gold_anchor": "this.recordings.set(infoEventId, new VoiceBroadcastRecording(infoEvent, client));",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VoiceBroadcastBody obtains the recording through VoiceBroadcastRecordingsStore.instance().getByInfoEvent(infoEvent, client).",
+   "covering_prose": "The `VoiceBroadcastBody` component must obtain the broadcast instance via `VoiceBroadcastRecordingsStore.getByInfoEvent` (accessed as a static property: `VoiceBroadcastRecordingsStore.instance.getByInfoEvent(...)`).",
+   "gold_anchor": "VoiceBroadcastRecordingsStore.instance().getByInfoEvent(mxEvent, client);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastBody subscribes to VoiceBroadcastRecordingEvent.StateChanged and updates rendered live state when the recording state changes.",
+   "covering_prose": "It must subscribe to `VoiceBroadcastRecordingEvent.StateChanged` and update its `live` UI state to reflect the broadcast's state in real time.",
+   "gold_anchor": "VoiceBroadcastRecordingEvent.StateChanged,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastBody renders VoiceBroadcastRecordingBody with live true when recording state is VoiceBroadcastInfoState.Started.",
+   "covering_prose": "The UI must show when the broadcast is live (Started) or not live (Stopped).",
+   "gold_anchor": "live={recordingState === VoiceBroadcastInfoState.Started}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastBody renders VoiceBroadcastRecordingBody with live false after the tile is clicked and the recording transitions to Stopped.",
+   "covering_prose": "The UI must show when the broadcast is live (Started) or not live (Stopped).",
+   "gold_anchor": "if (recordingState !== VoiceBroadcastInfoState.Started) return;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Clicking a live VoiceBroadcastBody calls stop on the recording, causing recording.state to become VoiceBroadcastInfoState.Stopped.",
+   "covering_prose": "Type: New Public Method\n\nName: stop\n\nClass: VoiceBroadcastRecording\n\nPath: src/voice-broadcast/models/VoiceBroadcastRecording.ts\n\nInput: ()\n\nOutput: Promise<void>\n\nDescription: Sends a stop event to the room, referencing the original info event, and updates the state to stopped.",
+   "gold_anchor": "recording.stop();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastBody passes the info event sender object as member to VoiceBroadcastRecordingBody.",
+   "covering_prose": null,
+   "gold_anchor": "member={sender}",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VoiceBroadcastBody passes the info event sender id as userId to VoiceBroadcastRecordingBody.",
+   "covering_prose": null,
+   "gold_anchor": "userId={senderId}",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VoiceBroadcastBody title is formatted as `${sender?.name ?? senderId} \u2022 ${room.name}`.",
+   "covering_prose": null,
+   "gold_anchor": "title={`${sender?.name ?? senderId} \u2022 ${room.name}`}",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VoiceBroadcastBody passes an onClick function to VoiceBroadcastRecordingBody.",
+   "covering_prose": null,
+   "gold_anchor": "onClick={stopVoiceBroadcast}",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

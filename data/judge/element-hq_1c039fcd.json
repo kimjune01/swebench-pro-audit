@@ -1,0 +1,221 @@
+{
+ "case": "element-hq_1c039fcd",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 29,
+ "n_covered": 25,
+ "n_gap": 4,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "SdkContextClass.instance returns the same singleton object on repeated access.",
+   "covering_prose": "- Provide a singleton SDK context (SdkContextClass.instance) whose instance accessor always returns the same object.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Accessing sdkContext.userProfilesStore without a client throws an error with message \"Unable to create UserProfilesStore without a client\".",
+   "covering_prose": "- The SDK context must expose a single `UserProfilesStore` instance, only if a client is available, and must throw an error with the message \"Unable to create UserProfilesStore without a client\" if accessed prematurely. \\n\\n- On logout, the `UserProfilesStore` instance held by the SDK context must be cleared or reset, removing all cached data.",
+   "gold_anchor": "throw new Error(\"Unable to create UserProfilesStore without a client\");",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With a client, sdkContext.userProfilesStore returns a UserProfilesStore instance.",
+   "covering_prose": "- The SDK context must expose a single `UserProfilesStore` instance, only if a client is available, and must throw an error with the message \"Unable to create UserProfilesStore without a client\" if accessed prematurely. \\n\\n- On logout, the `UserProfilesStore` instance held by the SDK context must be cleared or reset, removing all cached data.",
+   "gold_anchor": "this._UserProfilesStore = new UserProfilesStore(this.client);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "With a client, repeated sdkContext.userProfilesStore access returns the same store object.",
+   "covering_prose": "- The SDK context must expose a single `UserProfilesStore` instance, only if a client is available, and must throw an error with the message \"Unable to create UserProfilesStore without a client\" if accessed prematurely. \\n\\n- On logout, the `UserProfilesStore` instance held by the SDK context must be cleared or reset, removing all cached data.",
+   "gold_anchor": "return this._UserProfilesStore;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After sdkContext.onLoggedOut(), the next sdkContext.userProfilesStore access returns a different store object.",
+   "covering_prose": "Path file: src/contexts/SDKContext.ts\\nName: onLoggedOut\\ntype of interface: method\\ninput: none\\nOutput: void\\ndescription: Reset stored user profile store instance.",
+   "gold_anchor": "this._UserProfilesStore = undefined;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "A known user not in the target room but sharing another room renders as a user pill for @user2:example.com with text \"User 2\" after profile lookup.",
+   "covering_prose": null,
+   "gold_anchor": "const fetchedProfile = await SdkContextClass.instance.userProfilesStore.fetchOnlyKnownProfile(userId);",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "An unknown user not sharing any room renders as a user pill for @user3:example.com with fallback text \"@user3:example.com\".",
+   "covering_prose": null,
+   "gold_anchor": "if (!this.knownProfiles.has(userId) && !this.isUserIdKnown(userId)) return undefined;",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "UserProfilesStore.getProfile(userId) returns undefined before the profile has been fetched.",
+   "covering_prose": "Path file: src/stores/UserProfilesStore.ts\\nName: getProfile\\ntype of interface: method\\ninput: userId: string\\nOutput: IMatrixProfile | null | undefined\\ndescription: Return cached profile or null/undefined if not found.",
+   "gold_anchor": "return this.profiles.get(userId);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserProfilesStore.fetchProfile(user1Id) returns the exact API profile object and caches it so getProfile(user1Id) returns that object.",
+   "covering_prose": "Path file: src/stores/UserProfilesStore.ts\\nName: fetchProfile\\ntype of interface: method\\ninput: userId: string\\nOutput: Promise<IMatrixProfile | null>\\ndescription: Fetch profile via API and update cache.",
+   "gold_anchor": "this.profiles.set(userId, profile);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserProfilesStore.fetchProfile for a nonexistent user returns null and caches null so getProfile returns null.",
+   "covering_prose": "- Cache null results for non-existent users to avoid repeat lookups; subsequent get* calls return null.",
+   "gold_anchor": "return null;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserProfilesStore.getOnlyKnownProfile(userId) returns undefined before the profile has been fetched.",
+   "covering_prose": "Path file: src/stores/UserProfilesStore.ts\\nName: getOnlyKnownProfile\\ntype of interface: method\\ninput: userId: string\\nOutput: IMatrixProfile | null | undefined\\ndescription: Return cached profile only for shared-room users.",
+   "gold_anchor": "return this.knownProfiles.get(userId);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserProfilesStore.fetchOnlyKnownProfile(user1Id) returns undefined and leaves getOnlyKnownProfile(user1Id) undefined when no room is shared with the user.",
+   "covering_prose": "- Profile retrieval should support both synchronous access from the cache and asynchronous fetch from the API, returning cached data when available, `undefined` when not present, or `null` if a user profile does not exist. - When requesting a known user's profile, the system should avoid an API call and return `undefined` if no shared room is present.",
+   "gold_anchor": "if (!this.knownProfiles.has(userId) && !this.isUserIdKnown(userId)) return undefined;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserProfilesStore.fetchOnlyKnownProfile for a known user returns the exact API profile object and caches it so getOnlyKnownProfile returns that object.",
+   "covering_prose": "Path file: src/stores/UserProfilesStore.ts\\nName: fetchOnlyKnownProfile\\ntype of interface: method\\ninput: userId: string\\nOutput: Promise<IMatrixProfile | null | undefined>\\ndescription: Fetch and cache profile if user is known.",
+   "gold_anchor": "this.knownProfiles.set(userId, profile);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserProfilesStore.fetchOnlyKnownProfile for a known nonexistent user returns null and caches null so getOnlyKnownProfile returns null.",
+   "covering_prose": "- Cache null results for non-existent users to avoid repeat lookups; subsequent get* calls return null.",
+   "gold_anchor": "this.knownProfiles.set(userId, profile);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Membership events with the same display name and avatar URL do not invalidate cached profiles.",
+   "covering_prose": "- The caching system must update or invalidate profile data whenever a user's display name or avatar URL changes as indicated by a room membership event.",
+   "gold_anchor": "profile.displayname !== member.rawDisplayName || profile.avatar_url !== member.getMxcAvatarUrl()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "new LruCache(-23) throws exactly \"Cache capacity must be at least 1\".",
+   "covering_prose": "- Constructing with a capacity < 1 must throw exactly: \"Cache capacity must be at least 1\". delete and repeated delete calls must never throw.",
+   "gold_anchor": "throw new Error(\"Cache capacity must be at least 1\");",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "new LruCache(0) throws exactly \"Cache capacity must be at least 1\".",
+   "covering_prose": "- Constructing with a capacity < 1 must throw exactly: \"Cache capacity must be at least 1\". delete and repeated delete calls must never throw.",
+   "gold_anchor": "throw new Error(\"Cache capacity must be at least 1\");",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On an empty LruCache with capacity 3, has(\"a\") returns false.",
+   "covering_prose": "Path file: src/utils/LruCache.ts\\nName: has\\ntype of interface: method\\ninput: key: K\\nOutput: boolean\\ndescription: Check presence and mark as recently used.",
+   "gold_anchor": "return this.getItem(key) !== undefined;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On an empty LruCache with capacity 3, get(\"a\") returns undefined.",
+   "covering_prose": "Path file: src/utils/LruCache.ts\\nName: get\\ntype of interface: method\\ninput: key: K\\nOutput: V | undefined\\ndescription: Retrieve value and promote usage order.",
+   "gold_anchor": "return this.getItem(key)?.value;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "On an empty LruCache with capacity 3, values() returns an empty array.",
+   "covering_prose": "Path file: src/utils/LruCache.ts\\nName: values\\ntype of interface: method\\ninput: none\\nOutput: IterableIterator<V>\\ndescription: Iterate over stored values in order.",
+   "gold_anchor": "public *values(): IterableIterator<V> {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "delete(\"a\") on an empty LruCache does not throw.",
+   "covering_prose": "- Constructing with a capacity < 1 must throw exactly: \"Cache capacity must be at least 1\". delete and repeated delete calls must never throw.",
+   "gold_anchor": "if (!item) return;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a cache containing keys a and b, has(\"c\") returns false and get(\"c\") returns undefined.",
+   "covering_prose": "- Implement LruCache<K, V> supporting: constructor(capacity: number, has(key: K): boolean, get(key: K): V | undefined (promotes key to most-recent on hit), set(key: K, value: V): void (updates value if key exists; otherwise inserts and evicts a single least-recently-used entry when at capacity), delete(key: K): void (no-op if key missing), clear(): void, values(): IterableIterator<V> (iterates current contents in the cache\u2019s internal order; stable across iteration)",
+   "gold_anchor": "if (!item) return undefined;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a cache set with a then b, values() returns [\"a value\", \"b value\"] in that order.",
+   "covering_prose": null,
+   "gold_anchor": "for (const item of this.map.values()) {",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "clear() removes all entries so has(\"a\") and has(\"b\") are false and values() is empty.",
+   "covering_prose": "Path file: src/utils/LruCache.ts\\nName: clear\\ntype of interface: method\\ninput: none\\nOutput: void\\ndescription: Empty all items from the cache.",
+   "gold_anchor": "this.map = new Map();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If safeSet throws during set, set clears all entries and calls logger.warn(\"LruCache error\", err).",
+   "covering_prose": "- Provide an internal safeSet path invoked by set; if any unexpected error occurs during mutation: Emit a single warning using the SDK logger with signature logger.warn(\"LruCache error\", err).",
+   "gold_anchor": "logger.warn(\"LruCache error\", e);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Deleting an unknown key from a populated LruCache does not throw.",
+   "covering_prose": "- Constructing with a capacity < 1 must throw exactly: \"Cache capacity must be at least 1\". delete and repeated delete calls must never throw.",
+   "gold_anchor": "if (!item) return;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Deleting first, middle, last, and all entries removes the selected keys while allowing later set calls to work.",
+   "covering_prose": "Path file: src/utils/LruCache.ts\\nName: delete\\ntype of interface: method\\ninput: key: K\\nOutput: void\\ndescription: Remove entry without error if missing.",
+   "gold_anchor": "this.map.delete(key);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After setting a,b,c, then get(\"a\"), then set(\"d\") in a capacity-3 cache, key b is evicted while keys a, c, and d remain.",
+   "covering_prose": "- Implement LruCache<K, V> supporting: constructor(capacity: number, has(key: K): boolean, get(key: K): V | undefined (promotes key to most-recent on hit), set(key: K, value: V): void (updates value if key exists; otherwise inserts and evicts a single least-recently-used entry when at capacity), delete(key: K): void (no-op if key missing), clear(): void, values(): IterableIterator<V> (iterates current contents in the cache\u2019s internal order; stable across iteration)",
+   "gold_anchor": "this.delete(this.tail.key);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After setting a,b,c,d,e in a capacity-3 cache, keys a and b are expired and keys c, d, and e remain with their values.",
+   "covering_prose": "- Implement LruCache<K, V> supporting: constructor(capacity: number, has(key: K): boolean, get(key: K): V | undefined (promotes key to most-recent on hit), set(key: K, value: V): void (updates value if key exists; otherwise inserts and evicts a single least-recently-used entry when at capacity), delete(key: K): void (no-op if key missing), clear(): void, values(): IterableIterator<V> (iterates current contents in the cache\u2019s internal order; stable across iteration)",
+   "gold_anchor": "if (this.tail && this.map.size > this.capacity) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After setting a,b,c, then replacing a with \"a value 2\", then setting d in a capacity-3 cache, a remains with the new value, b is evicted, and c and d remain.",
+   "covering_prose": null,
+   "gold_anchor": "item.value = value;",
+   "in_gold": true,
+   "status": "GAP"
+  }
+ ]
+}

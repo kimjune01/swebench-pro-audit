@@ -1,0 +1,109 @@
+{
+ "case": "element-hq_e6fe7b7e",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 10,
+ "n_covered": 10,
+ "n_gap": 0,
+ "n_out_of_scope": 4,
+ "rows": [
+  {
+   "test": "Rendering the toast shows the title text \"New login. Was this you?\".",
+   "covering_prose": "Toast behavior/content: title \u201cNew login. Was this you?\u201d; buttons \u201cYes, it was me\u201d (only dismiss the notice) and \u201cNo\u201d (dismiss and open device settings). Toast detail embeds DeviceMetaData.",
+   "gold_anchor": "\"New login. Was this you?\": \"New login. Was this you?\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Rendering the toast detail embeds device metadata rather than the old device-id/from-ip string.",
+   "covering_prose": "Toast behavior/content: title \u201cNew login. Was this you?\u201d; buttons \u201cYes, it was me\u201d (only dismiss the notice) and \u201cNo\u201d (dismiss and open device settings). Toast detail embeds DeviceMetaData.",
+   "gold_anchor": "<DeviceMetaData device={device} />",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a non-inactive device with verified trust, the metadata includes a datum with data-testid=\"device-metadata-isVerified\" and text \"Verified\".",
+   "covering_prose": "Otherwise show verification, last activity (omit if no timestamp), IP, and device id.",
+   "gold_anchor": "{ id: \"isVerified\", value: verificationStatus }",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Each metadata datum uses the data-testid shape device-metadata-<id>.",
+   "covering_prose": "Provide stable hooks for automation/a11y: each datum renders with data-testid=\"device-metadata-<id>\" where <id> \u2208 inactive | isVerified | lastActivity | lastSeenIp | deviceId.",
+   "gold_anchor": "<span data-testid={`device-metadata-${id}`}>{value}</span>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The verified metadata text is \"Verified\" when device.isVerified is true.",
+   "covering_prose": "Otherwise show verification, last activity (omit if no timestamp), IP, and device id.",
+   "gold_anchor": "const verificationStatus = device.isVerified ? _t(\"Verified\") : _t(\"Unverified\");",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a non-inactive device with no last_seen_ts, the metadata omits last activity.",
+   "covering_prose": "Otherwise show verification, last activity (omit if no timestamp), IP, and device id.",
+   "gold_anchor": "const lastActivity = device.last_seen_ts && `${_t(\"Last activity\")} ${formatLastActivity(device.last_seen_ts)}`;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a non-inactive device with no last_seen_ip, the metadata omits IP.",
+   "covering_prose": "Handle missing info gracefully and avoid throwing.",
+   "gold_anchor": "{ id: \"lastSeenIp\", value: device.last_seen_ip }",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a non-inactive device, the metadata includes a datum with data-testid=\"device-metadata-deviceId\" and text equal to the device id \"ABC123\".",
+   "covering_prose": "Otherwise show verification, last activity (omit if no timestamp), IP, and device id.",
+   "gold_anchor": "{ id: \"deviceId\", value: device.device_id }",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Visible metadata items are separated by the literal separator \" \u00b7 \".",
+   "covering_prose": "Build DeviceMetaData (src/components/views/settings/devices/DeviceMetaData.tsx) that renders device metadata (verification, last activity, inactivity badge/IP, device id) for both persistent views (settings) and ephemeral UIs (toasts), preserving separators (\" \u00b7 \") and existing CSS hooks.",
+   "gold_anchor": "{!!index && \" \u00b7 \"}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Rendering the toast includes a \"No\" button.",
+   "covering_prose": "Toast behavior/content: title \u201cNew login. Was this you?\u201d; buttons \u201cYes, it was me\u201d (only dismiss the notice) and \u201cNo\u201d (dismiss and open device settings). Toast detail embeds DeviceMetaData.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Rendering the toast includes a \"Yes, it was me\" button.",
+   "covering_prose": "Toast behavior/content: title \u201cNew login. Was this you?\u201d; buttons \u201cYes, it was me\u201d (only dismiss the notice) and \u201cNo\u201d (dismiss and open device settings). Toast detail embeds DeviceMetaData.",
+   "gold_anchor": "\"Yes, it was me\": \"Yes, it was me\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Clicking \"Yes, it was me\" dismisses the unverified-session notice for device id \"ABC123\".",
+   "covering_prose": "Toast behavior/content: title \u201cNew login. Was this you?\u201d; buttons \u201cYes, it was me\u201d (only dismiss the notice) and \u201cNo\u201d (dismiss and open device settings). Toast detail embeds DeviceMetaData.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Clicking \"No\" dismisses the unverified-session notice for device id \"ABC123\".",
+   "covering_prose": "Toast behavior/content: title \u201cNew login. Was this you?\u201d; buttons \u201cYes, it was me\u201d (only dismiss the notice) and \u201cNo\u201d (dismiss and open device settings). Toast detail embeds DeviceMetaData.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Clicking \"No\" opens device settings by dispatching Action.ViewUserDeviceSettings.",
+   "covering_prose": "Toast behavior/content: title \u201cNew login. Was this you?\u201d; buttons \u201cYes, it was me\u201d (only dismiss the notice) and \u201cNo\u201d (dismiss and open device settings). Toast detail embeds DeviceMetaData.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

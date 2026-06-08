@@ -1,0 +1,74 @@
+{
+ "case": "element-hq_90801eb3",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "ChangeRecoveryKey change-recovery-key flow snapshot renders the action button container with class \"mx_EncryptionCard_buttons\" instead of \"mx_ChangeRecoveryKey_footer\".",
+   "covering_prose": "Ensure that in ChangeRecoveryKey, every flow and state (information step, showing the generated recovery key, entering or confirming a recovery key, error states, and the change recovery key flow) renders its action buttons inside this container.",
+   "gold_anchor": "<EncryptionCardButtons>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ChangeRecoveryKey set-up-recovery-key flow, entering a recovery key, renders the action button container with class \"mx_EncryptionCard_buttons\" instead of \"mx_ChangeRecoveryKey_footer\".",
+   "covering_prose": "Ensure that in ChangeRecoveryKey, every flow and state (information step, showing the generated recovery key, entering or confirming a recovery key, error states, and the change recovery key flow) renders its action buttons inside this container.",
+   "gold_anchor": "<EncryptionCardButtons>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ChangeRecoveryKey set-up-recovery-key flow, confirming a recovery key, renders the action button container with class \"mx_EncryptionCard_buttons\" instead of \"mx_ChangeRecoveryKey_footer\".",
+   "covering_prose": "Ensure that in ChangeRecoveryKey, every flow and state (information step, showing the generated recovery key, entering or confirming a recovery key, error states, and the change recovery key flow) renders its action buttons inside this container.",
+   "gold_anchor": "<EncryptionCardButtons>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ChangeRecoveryKey set-up-recovery-key information step renders the action button container with class \"mx_EncryptionCard_buttons\" instead of \"mx_ChangeRecoveryKey_footer\".",
+   "covering_prose": "Ensure that in ChangeRecoveryKey, every flow and state (information step, showing the generated recovery key, entering or confirming a recovery key, error states, and the change recovery key flow) renders its action buttons inside this container.",
+   "gold_anchor": "<EncryptionCardButtons>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ChangeRecoveryKey set-up-recovery-key generated recovery key step renders the action button container with class \"mx_EncryptionCard_buttons\" instead of \"mx_ChangeRecoveryKey_footer\".",
+   "covering_prose": "Ensure that in ChangeRecoveryKey, every flow and state (information step, showing the generated recovery key, entering or confirming a recovery key, error states, and the change recovery key flow) renders its action buttons inside this container.",
+   "gold_anchor": "<EncryptionCardButtons>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ResetIdentityPanel forgot-recovery-key variant renders the action button container with class \"mx_EncryptionCard_buttons\" instead of \"mx_ResetIdentityPanel_footer\".",
+   "covering_prose": "Ensure that in ResetIdentityPanel, all variants (including the normal reset flow, the compromised identity flow, and the \u201cforgot recovery key\u201d flow) render their action buttons inside this container.",
+   "gold_anchor": "<EncryptionCardButtons>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "ResetIdentityPanel normal reset flow renders the action button container with class \"mx_EncryptionCard_buttons\" instead of \"mx_ResetIdentityPanel_footer\".",
+   "covering_prose": "Ensure that in ResetIdentityPanel, all variants (including the normal reset flow, the compromised identity flow, and the \u201cforgot recovery key\u201d flow) render their action buttons inside this container.",
+   "gold_anchor": "<EncryptionCardButtons>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "EncryptionUserSettingsTab reset identity flow mounts a ResetIdentityPanel whose action button container has class \"mx_EncryptionCard_buttons\" instead of \"mx_ResetIdentityPanel_footer\".",
+   "covering_prose": "Ensure that when these panels are rendered through EncryptionUserSettingsTab (for example by selecting change recovery key, set up recovery key, or entering the reset identity flow), the mounted panels consistently expose the mx_EncryptionCard_buttons container for their action buttons.",
+   "gold_anchor": "<EncryptionCardButtons>",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The shared button wrapper renders its children inside a div with class \"mx_EncryptionCard_buttons\".",
+   "covering_prose": "Output: JSX.Element that wraps the children in a div with the CSS class `mx_EncryptionCard_buttons`.",
+   "gold_anchor": "return <div className=\"mx_EncryptionCard_buttons\">{children}</div>;",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

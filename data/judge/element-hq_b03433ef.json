@@ -1,0 +1,116 @@
+{
+ "case": "element-hq_b03433ef",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 15,
+ "n_covered": 15,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When SettingsStore.getValue returns false for feature_ask_to_join, the Knock option label \"Ask to join\" is not rendered.",
+   "covering_prose": "In JoinRuleSettings.tsx, the \u201cAsk to join\u201d (Knock) option should only be presented when the feature flag feature_ask_to_join is enabled via SettingsStore; if the flag is disabled, the option should not appear at all.",
+   "gold_anchor": "const askToJoinEnabled = SettingsStore.getValue(\"feature_ask_to_join\");",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a room version that does not support Knock, when promptUpgrade is false, the Knock option label \"Ask to join\" is not rendered.",
+   "covering_prose": "Support for Knock should be determined by whether the current room version supports the capability (e.g., via a room-version check); when the room version does not support Knock and promptUpgrade is false, the Knock option should not be shown.",
+   "gold_anchor": "if (askToJoinEnabled && (roomSupportsKnock || preferredKnockVersion)) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a room version that does not support Knock, when promptUpgrade is true, the Knock option label \"Ask to join\" is rendered.",
+   "covering_prose": "In JoinRuleSettings.tsx, when the room version does not support Knock and promptUpgrade is true, the Knock option should be shown with an \u201cUpgrade required\u201d pill next to its label, indicating that an upgrade is needed before the setting can take effect.",
+   "gold_anchor": "{_t(\"Ask to join\")}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For unsupported Knock with promptUpgrade true, \"Upgrade required\" is rendered next to the \"Ask to join\" label.",
+   "covering_prose": "In JoinRuleSettings.tsx, when the room version does not support Knock and promptUpgrade is true, the Knock option should be shown with an \u201cUpgrade required\u201d pill next to its label, indicating that an upgrade is needed before the setting can take effect.",
+   "gold_anchor": "{preferredKnockVersion && upgradeRequiredPill}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Selecting unsupported Knock opens the room upgrade dialog instead of immediately changing the rule.",
+   "covering_prose": "Selecting either Knock or Restricted on a room version that does not support the chosen rule should open the centralized room-upgrade dialog flow (not change the rule immediately), allowing the user to proceed with an upgrade before the rule can be applied.",
+   "gold_anchor": "upgradeRequiredDialog(preferredKnockVersion);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After selecting unsupported Knock and clicking \"Upgrade\", client.upgradeRoom is called with PreferredRoomVersions.KnockRooms.",
+   "covering_prose": "Support for Knock should be determined by whether the current room version supports the capability (e.g., via a room-version check); when the room version does not support Knock and promptUpgrade is false, the Knock option should not be shown.",
+   "gold_anchor": "const preferredKnockVersion = !roomSupportsKnock && promptUpgrade ? PreferredRoomVersions.KnockRooms : undefined;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a room version that does not support Restricted, when promptUpgrade is false, the Restricted option label \"Space members\" is not rendered.",
+   "covering_prose": "In JoinRuleSettings.tsx, Restricted should continue to follow the existing capability check; when the room version does not support Restricted and promptUpgrade is true, the Restricted option should be shown with an \u201cUpgrade required\u201d pill, and selecting it should invoke the centralized upgrade dialog flow.",
+   "gold_anchor": "if (roomSupportsRestricted || preferredRestrictionVersion || joinRule === JoinRule.Restricted) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a room version that does not support Restricted, when promptUpgrade is true, the Restricted option label \"Space members\" is rendered.",
+   "covering_prose": "In JoinRuleSettings.tsx, Restricted should continue to follow the existing capability check; when the room version does not support Restricted and promptUpgrade is true, the Restricted option should be shown with an \u201cUpgrade required\u201d pill, and selecting it should invoke the centralized upgrade dialog flow.",
+   "gold_anchor": "{_t(\"Space members\")}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For unsupported Restricted with promptUpgrade true, \"Upgrade required\" is rendered next to the \"Space members\" label.",
+   "covering_prose": "In JoinRuleSettings.tsx, Restricted should continue to follow the existing capability check; when the room version does not support Restricted and promptUpgrade is true, the Restricted option should be shown with an \u201cUpgrade required\u201d pill, and selecting it should invoke the centralized upgrade dialog flow.",
+   "gold_anchor": "{preferredRestrictionVersion && upgradeRequiredPill}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Selecting unsupported Restricted opens the centralized room upgrade dialog instead of immediately changing the rule.",
+   "covering_prose": "Selecting either Knock or Restricted on a room version that does not support the chosen rule should open the centralized room-upgrade dialog flow (not change the rule immediately), allowing the user to proceed with an upgrade before the rule can be applied.",
+   "gold_anchor": "upgradeRequiredDialog(",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After selecting unsupported Restricted and clicking \"Upgrade\", client.upgradeRoom is called with PreferredRoomVersions.RestrictedRooms.",
+   "covering_prose": "In JoinRuleSettings.tsx, Restricted should continue to follow the existing capability check; when the room version does not support Restricted and promptUpgrade is true, the Restricted option should be shown with an \u201cUpgrade required\u201d pill, and selecting it should invoke the centralized upgrade dialog flow.",
+   "gold_anchor": "!roomSupportsRestricted && promptUpgrade ? PreferredRoomVersions.RestrictedRooms : undefined",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "During the upgrade flow, the dialog displays the progress message \"Upgrading room\" before roomUpgraded is true.",
+   "covering_prose": "The upgrade flow should emit user-facing progress messages for the key stages (\u201cUpgrading room\u201d, \u201cLoading new room\u201d, \u201cSending invites\u2026\u201d, \u201cUpdating spaces\u2026\u201d) so users receive clear feedback while the upgrade proceeds.",
+   "gold_anchor": "fn(_t(\"Upgrading room\"), 0, total);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After the upgrade promise resolves and the replacement room is available, the upgrade dialog closes.",
+   "covering_prose": "The upgrade workflow should be invoked through a centralized helper or equivalent mechanism rather than ad-hoc dialog creation, so that the same path handles both Knock and Restricted upgrades consistently and maintains the UI state transitions after upgrade.",
+   "gold_anchor": "closeSettingsFn();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The unsupported Knock upgrade flow still calls upgradeRoom when there are no parent spaces or joined/invited members.",
+   "covering_prose": "Selecting either Knock or Restricted on a room version that does not support the chosen rule should open the centralized room-upgrade dialog flow (not change the rule immediately), allowing the user to proceed with an upgrade before the rule can be applied.",
+   "gold_anchor": "const roomId = await upgradeRoom(room, targetVersion, opts.invite, true, true, true, (progress) => {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The unsupported Restricted upgrade flow still calls upgradeRoom when there are no parent spaces or joined/invited members.",
+   "covering_prose": "In JoinRuleSettings.tsx, Restricted should continue to follow the existing capability check; when the room version does not support Restricted and promptUpgrade is true, the Restricted option should be shown with an \u201cUpgrade required\u201d pill, and selecting it should invoke the centralized upgrade dialog flow.",
+   "gold_anchor": "const roomId = await upgradeRoom(room, targetVersion, opts.invite, true, true, true, (progress) => {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

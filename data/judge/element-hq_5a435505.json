@@ -1,0 +1,46 @@
+{
+ "case": "element-hq_5a435505",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 5,
+ "n_covered": 5,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "When rendered without a MatrixClientContext, the user-facing output contains \"Can't load this message\".",
+   "covering_prose": "If the client context is missing when rendering the component, the user-facing output must show the message \"Can't load this message\".",
+   "gold_anchor": "throw new Error(\"Attempting to render verification request without a client context!\");",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the event has no sender, the user-facing output contains \"Can't load this message\".",
+   "covering_prose": "If the event has no sender or no room ID, the component must display the message \"Can't load this message\" instead of rendering a verification tile.",
+   "gold_anchor": "throw new Error(\"Verification request did not include a sender!\");",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the event has a sender but no room ID, the user-facing output contains \"Can't load this message\".",
+   "covering_prose": "If the event has no sender or no room ID, the component must display the message \"Can't load this message\" instead of rendering a verification tile.",
+   "gold_anchor": "throw new Error(\"Verification request did not include a room ID!\");",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the current user is the sender, the rendered output contains \"You sent a verification request\".",
+   "covering_prose": "If the current user is the sender of the request, the component must render a title with the text \"You sent a verification request\".",
+   "gold_anchor": "title = _t(\"timeline|m.key.verification.request|you_started\");",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When another user with sender \"@other:s.uk\" sends the request in room \"!x:y.co\", the rendered output contains \"other:s.uk wants to verify\".",
+   "covering_prose": "If the request was sent by another user, the component must render a title with the text \"<displayName> wants to verify\", where the display name is resolved from `getNameForEventRoom` using the sender and room ID.",
+   "gold_anchor": "const name = getNameForEventRoom(client, sender, roomId);",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

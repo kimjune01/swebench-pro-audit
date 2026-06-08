@@ -1,0 +1,81 @@
+{
+ "case": "element-hq_8b8d24c2",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 8,
+ "n_covered": 6,
+ "n_gap": 2,
+ "n_out_of_scope": 2,
+ "rows": [
+  {
+   "test": "When rendered with disabled=false, the textbox becomes contentEditable=\"true\" for rich-text composer.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When rendered with disabled=false, the textbox becomes contentEditable=\"true\" for plain-text composer.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For rich-text composer, when no placeholder prop is passed, the textbox does not have class mx_WysiwygComposer_Editor_content_placeholder.",
+   "covering_prose": null,
+   "gold_anchor": "\"mx_WysiwygComposer_Editor_content_placeholder\": Boolean(placeholder),",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For plain-text composer, when no placeholder prop is passed, the textbox does not have class mx_WysiwygComposer_Editor_content_placeholder.",
+   "covering_prose": null,
+   "gold_anchor": "\"mx_WysiwygComposer_Editor_content_placeholder\": Boolean(placeholder),",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For rich-text composer, when placeholder is 'my placeholder' and content is empty, the textbox has class mx_WysiwygComposer_Editor_content_placeholder.",
+   "covering_prose": "The `Editor` must toggle the CSS class `mx_WysiwygComposer_Editor_content_placeholder` to represent the placeholder-visible state.",
+   "gold_anchor": "const computedPlaceholder = !content && placeholder || undefined;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For plain-text composer, when placeholder is 'my placeholder' and content is empty, the textbox has class mx_WysiwygComposer_Editor_content_placeholder.",
+   "covering_prose": "The `Editor` must toggle the CSS class `mx_WysiwygComposer_Editor_content_placeholder` to represent the placeholder-visible state.",
+   "gold_anchor": "const computedPlaceholder = !content && placeholder || undefined;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For rich-text composer, after editor innerHTML changes to 'f' and an input event fires, the textbox no longer has class mx_WysiwygComposer_Editor_content_placeholder.",
+   "covering_prose": "The placeholder must hide as soon as content is entered and must show again if all content is cleared.",
+   "gold_anchor": "const computedPlaceholder = !content && placeholder || undefined;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For plain-text composer, after editor innerHTML changes to 'f' and an input event fires, the textbox no longer has class mx_WysiwygComposer_Editor_content_placeholder.",
+   "covering_prose": "The placeholder must hide as soon as content is entered and must show again if all content is cleared.",
+   "gold_anchor": "setContent(event.target.innerHTML);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For rich-text composer, after editor innerHTML changes back to '' and an input event fires, the textbox has class mx_WysiwygComposer_Editor_content_placeholder again.",
+   "covering_prose": "The placeholder must hide as soon as content is entered and must show again if all content is cleared.",
+   "gold_anchor": "const computedPlaceholder = !content && placeholder || undefined;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For plain-text composer, after editor innerHTML changes back to '' and an input event fires, the textbox has class mx_WysiwygComposer_Editor_content_placeholder again.",
+   "covering_prose": "The placeholder must hide as soon as content is entered and must show again if all content is cleared.",
+   "gold_anchor": "setContent(event.target.innerHTML);",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

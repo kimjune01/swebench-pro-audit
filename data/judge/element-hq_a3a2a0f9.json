@@ -1,0 +1,95 @@
+{
+ "case": "element-hq_a3a2a0f9",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 12,
+ "n_covered": 12,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "LoginWithQRSection renders nothing when the feature flag is enabled but homeserver MSC3882 and MSC3886 support are absent.",
+   "covering_prose": "The `LoginWithQRSection` component must only display QR sign-in functionality when the `feature_qr_signin_reciprocate_show` setting in `SettingsStore` is enabled and the homeserver supports MSC3882 and MSC3886 protocols, ensuring QR sign-in availability is controlled by application-level feature flags rather than solely by server capabilities.",
+   "gold_anchor": "SettingsStore.getValue(\"feature_qr_signin_reciprocate_show\") && msc3882Supported && msc3886Supported",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "LoginWithQRSection renders nothing when the feature flag and MSC3882 are enabled but MSC3886 support is absent.",
+   "covering_prose": "The `LoginWithQRSection` component must only display QR sign-in functionality when the `feature_qr_signin_reciprocate_show` setting in `SettingsStore` is enabled and the homeserver supports MSC3882 and MSC3886 protocols, ensuring QR sign-in availability is controlled by application-level feature flags rather than solely by server capabilities.",
+   "gold_anchor": "SettingsStore.getValue(\"feature_qr_signin_reciprocate_show\") && msc3882Supported && msc3886Supported",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "LoginWithQRSection renders the QR sign-in panel when the feature flag is enabled and both MSC3882 and MSC3886 are supported.",
+   "covering_prose": "When `feature_qr_signin_reciprocate_show` is enabled and the homeserver supports MSC3882 and MSC3886, display the \u201cSign in with QR code\u201d section with a \u201cShow QR code\u201d action.",
+   "gold_anchor": "SettingsStore.getValue(\"feature_qr_signin_reciprocate_show\") && msc3882Supported && msc3886Supported",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The feature_qr_signin_reciprocate_show setting can be set through SettingsStore at a feature-supported level for tests to enable QR sign-in visibility.",
+   "covering_prose": "The application must provide a `feature_qr_signin_reciprocate_show` experimental feature setting that allows users to control QR sign-in functionality visibility, with the setting defaulting to the disabled state and including an appropriate user-facing description about homeserver compatibility requirements.",
+   "gold_anchor": "\"feature_qr_signin_reciprocate_show\": {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SecurityUserSettingsTab reads SettingsStore.getValue with exactly \"feature_qr_signin_reciprocate_show\" to decide whether QR sign-in is enabled.",
+   "covering_prose": "The `SecurityUserSettingsTab` and `SessionManagerTab` components must conditionally present QR sign-in options based on the `feature_qr_signin_reciprocate_show` setting state, ensuring users can only access QR sign-in functionality when the feature is explicitly enabled through application settings rather than appearing automatically when server support is detected.",
+   "gold_anchor": "const showQrCodeEnabled = SettingsStore.getValue(\"feature_qr_signin_reciprocate_show\");",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SecurityUserSettingsTab does not render the \"Sign in with QR code\" section when feature_qr_signin_reciprocate_show is disabled.",
+   "covering_prose": "When the feature flag is disabled, the QR sign-in sections should not appear.",
+   "gold_anchor": "{showQrCodeEnabled ? (",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SecurityUserSettingsTab renders the \"Sign in with QR code\" section when feature_qr_signin_reciprocate_show is enabled and server versions support the QR MSCs.",
+   "covering_prose": "When `feature_qr_signin_reciprocate_show` is enabled and the homeserver supports MSC3882 and MSC3886, display the \u201cSign in with QR code\u201d section with a \u201cShow QR code\u201d action.",
+   "gold_anchor": "<LoginWithQRSection onShowQr={this.onShowQRClicked} versions={this.state.versions} />",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SecurityUserSettingsTab renders the QR login view exposed via data-testid=\"login-with-qr\" after clicking \"Show QR code\" while the feature is enabled.",
+   "covering_prose": "Clicking \u201cShow QR code\u201d should enter the QR flow by rendering the QR login view (LoginWithQR), exposed via data-testid=\"login-with-qr\", until the flow is closed.",
+   "gold_anchor": "if (showQrCodeEnabled && this.state.showLoginWithQR) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SessionManagerTab reads SettingsStore.getValue with exactly \"feature_qr_signin_reciprocate_show\" to decide whether QR sign-in is enabled.",
+   "covering_prose": "The `LoginWithQRSection` and `SessionManagerTab` components must have access to `SettingsStore` functionality to evaluate the `feature_qr_signin_reciprocate_show` setting, ensuring proper dependency resolution for feature flag checking capabilities.",
+   "gold_anchor": "const showQrCodeEnabled = SettingsStore.getValue(\"feature_qr_signin_reciprocate_show\");",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SessionManagerTab does not render the \"Sign in with QR code\" section when feature_qr_signin_reciprocate_show is disabled.",
+   "covering_prose": "When the feature flag is disabled, the QR sign-in sections should not appear.",
+   "gold_anchor": "{showQrCodeEnabled ? <LoginWithQRSection onShowQr={onShowQrClicked} versions={clientVersions} /> : null}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SessionManagerTab renders the \"Sign in with QR code\" section when feature_qr_signin_reciprocate_show is enabled and server versions support the QR MSCs.",
+   "covering_prose": "When `feature_qr_signin_reciprocate_show` is enabled and the homeserver supports MSC3882 and MSC3886, display the \u201cSign in with QR code\u201d section with a \u201cShow QR code\u201d action.",
+   "gold_anchor": "{showQrCodeEnabled ? <LoginWithQRSection onShowQr={onShowQrClicked} versions={clientVersions} /> : null}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "SessionManagerTab renders the QR login view exposed via data-testid=\"login-with-qr\" after clicking \"Show QR code\" while the feature is enabled.",
+   "covering_prose": "Clicking \u201cShow QR code\u201d should enter the QR flow by rendering the QR login view (LoginWithQR), exposed via data-testid=\"login-with-qr\", until the flow is closed.",
+   "gold_anchor": "if (showQrCodeEnabled && signInWithQrMode) {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

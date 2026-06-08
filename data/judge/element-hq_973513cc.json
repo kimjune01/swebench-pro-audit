@@ -1,0 +1,165 @@
+{
+ "case": "element-hq_973513cc",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 22,
+ "n_covered": 20,
+ "n_gap": 2,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "LiveBadge rendered with default props uses the standard live badge styling, without the grey modifier class.",
+   "covering_prose": "Applies grey styling when `grey` is set; otherwise renders the standard (red) live style as driven by callers.",
+   "gold_anchor": "grey = false,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "LiveBadge rendered with `grey={true}` includes the grey visual style class `mx_LiveBadge--grey`.",
+   "covering_prose": "`grey?: boolean` - optional; when `true`, renders the grey/paused visual.",
+   "gold_anchor": "\"mx_LiveBadge--grey\": grey,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The grey LiveBadge CSS class sets the badge background to `$quaternary-content`.",
+   "covering_prose": "Ensure `LiveBadge` renders the correct visual style depending on `grey` and `live` values.",
+   "gold_anchor": "background-color: $quaternary-content;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`VoiceBroadcastLiveness` is exported from `src/voice-broadcast/index.ts` as the union of `\"live\"`, `\"not-live\"`, and `\"grey\"`.",
+   "covering_prose": "Union type: `\"live\" | \"grey\" | \"not-live\"`.",
+   "gold_anchor": "export type VoiceBroadcastLiveness = \"live\" | \"not-live\" | \"grey\";",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastHeader's `live` prop accepts `VoiceBroadcastLiveness` rather than boolean.",
+   "covering_prose": "Update `VoiceBroadcastHeader` to accept a new `live` prop of type `VoiceBroadcastLiveness` and render the correct badge based on its value.",
+   "gold_anchor": "live?: VoiceBroadcastLiveness;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastHeader rendered with `live=\"live\"` shows a red live badge, not the grey class.",
+   "covering_prose": "Update `VoiceBroadcastHeader` to accept a new `live` prop of type `VoiceBroadcastLiveness` and render the correct badge based on its value.",
+   "gold_anchor": "<LiveBadge grey={live === \"grey\"} />",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastHeader rendered with `live=\"grey\"` shows a live badge with the grey modifier class.",
+   "covering_prose": "Update `VoiceBroadcastHeader` to accept a new `live` prop of type `VoiceBroadcastLiveness` and render the correct badge based on its value.",
+   "gold_anchor": "<LiveBadge grey={live === \"grey\"} />",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastHeader rendered with `live=\"not-live\"` renders no live badge.",
+   "covering_prose": "Update `VoiceBroadcastHeader` to accept a new `live` prop of type `VoiceBroadcastLiveness` and render the correct badge based on its value.",
+   "gold_anchor": "const liveBadge = live === \"not-live\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastPlaybackBody uses the playback hook's `liveness` value when passing `live` to VoiceBroadcastHeader.",
+   "covering_prose": "Expose `liveness` in the `useVoiceBroadcastPlayback` hook, initializing from `getLiveness()` and updating via `LivenessChanged` events.",
+   "gold_anchor": "live={liveness}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastPlaybackBody renders no live badge when playback state is paused but mocked playback liveness is `\"not-live\"`.",
+   "covering_prose": "Consumers (e.g., hooks/UI) use this to decide which badge to show.",
+   "gold_anchor": "live={liveness}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastPlaybackBody renders no live badge when playback state is stopped and mocked playback liveness is `\"not-live\"`.",
+   "covering_prose": "Consumers (e.g., hooks/UI) use this to decide which badge to show.",
+   "gold_anchor": "live={liveness}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastRecordingBody maps an active recording's boolean `live` value to `\"live\"`, producing a red live badge.",
+   "covering_prose": "Update `VoiceBroadcastRecordingBody` and `VoiceBroadcastRecordingPip` to map their boolean `live` props into `VoiceBroadcastLiveness` before passing them to\n`VoiceBroadcastHeader`.",
+   "gold_anchor": "live={live ? \"live\" : \"grey\"}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastRecordingBody maps a paused recording to `\"grey\"`, producing a grey live badge instead of hiding the badge.",
+   "covering_prose": "The liveness icon consistently communicates whether a broadcast is live, paused (grey), or not live.",
+   "gold_anchor": "live={live ? \"live\" : \"grey\"}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastRecordingPip renders a paused recording with class `mx_LiveBadge mx_LiveBadge--grey`.",
+   "covering_prose": "Update `VoiceBroadcastRecordingBody` and `VoiceBroadcastRecordingPip` to map their boolean `live` props into `VoiceBroadcastLiveness` before passing them to\n`VoiceBroadcastHeader`.",
+   "gold_anchor": "live={live ? \"live\" : \"grey\"}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`useVoiceBroadcastRecording` treats `VoiceBroadcastInfoState.Paused` as not live so paused recordings map to grey.",
+   "covering_prose": "The liveness icon consistently communicates whether a broadcast is live, paused (grey), or not live.",
+   "gold_anchor": "VoiceBroadcastInfoState.Paused,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastPlayback exposes `getLiveness()` returning the current liveness value.",
+   "covering_prose": "Implement liveness state management inside `VoiceBroadcastPlayback`, exposing it via `getLiveness()`.",
+   "gold_anchor": "public getLiveness(): VoiceBroadcastLiveness {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "VoiceBroadcastPlayback emits `LivenessChanged` only when the liveness value changes.",
+   "covering_prose": "Emit `LivenessChanged`, `LengthChanged`, and similar events only when their values actually change inside `VoiceBroadcastPlayback`.",
+   "gold_anchor": "if (this.liveness === liveness) return;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`useVoiceBroadcastPlayback` initializes hook state from `playback.getLiveness()`.",
+   "covering_prose": "Expose `liveness` in the `useVoiceBroadcastPlayback` hook, initializing from `getLiveness()` and updating via `LivenessChanged` events.",
+   "gold_anchor": "const [liveness, setLiveness] = useState(playback.getLiveness());",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "`useVoiceBroadcastPlayback` updates hook liveness from `VoiceBroadcastPlaybackEvent.LivenessChanged`.",
+   "covering_prose": "Expose `liveness` in the `useVoiceBroadcastPlayback` hook, initializing from `getLiveness()` and updating via `LivenessChanged` events.",
+   "gold_anchor": "VoiceBroadcastPlaybackEvent.LivenessChanged,",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After calling `start()` on a broadcast with no chunk playing yet, `playback.getLiveness()` returns `\"grey\"`.",
+   "covering_prose": null,
+   "gold_anchor": "this.setLiveness(\"grey\");",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "After receiving and playing the first chunk, `playback.getLiveness()` returns `\"live\"`.",
+   "covering_prose": null,
+   "gold_anchor": "this.setLiveness(\"live\");",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "VoiceBroadcastChunkEvents exposes `isLast(event: MatrixEvent): boolean`.",
+   "covering_prose": "Add `isLast(event: MatrixEvent): boolean` in `VoiceBroadcastChunkEvents` to detect the last event in a broadcast sequence.",
+   "gold_anchor": "public isLast(event: MatrixEvent): boolean {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

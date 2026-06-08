@@ -1,0 +1,18 @@
+{
+ "case": "element-hq_8ebdcab7",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 1,
+ "n_covered": 1,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Rendering RoomHeaderButtons with no room prop while Feature.ThreadUnreadNotifications is ServerSupport.Unsupported does not throw an exception.",
+   "covering_prose": "It should also safely handle a missing `room` prop. In both situations, rendering should complete without exceptions.",
+   "gold_anchor": "return <></>;",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

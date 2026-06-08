@@ -1,0 +1,60 @@
+{
+ "case": "element-hq_6bc4523c",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "determineVoiceBroadcastLiveness(VoiceBroadcastInfoState.Started) returns \"live\".",
+   "covering_prose": "Ensure the exact mapping of info state to liveness as follows: Started \u2192 \"live\", Resumed \u2192 \"live\", Paused \u2192 \"grey\", Stopped \u2192 \"not-live\", any unknown or undefined state \u2192 \"not-live\".",
+   "gold_anchor": "[\"started\", \"live\"]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "determineVoiceBroadcastLiveness(VoiceBroadcastInfoState.Resumed) returns \"live\".",
+   "covering_prose": "Ensure the exact mapping of info state to liveness as follows: Started \u2192 \"live\", Resumed \u2192 \"live\", Paused \u2192 \"grey\", Stopped \u2192 \"not-live\", any unknown or undefined state \u2192 \"not-live\".",
+   "gold_anchor": "[\"resumed\", \"live\"]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "determineVoiceBroadcastLiveness(VoiceBroadcastInfoState.Paused) returns \"grey\".",
+   "covering_prose": "Ensure the exact mapping of info state to liveness as follows: Started \u2192 \"live\", Resumed \u2192 \"live\", Paused \u2192 \"grey\", Stopped \u2192 \"not-live\", any unknown or undefined state \u2192 \"not-live\".",
+   "gold_anchor": "[\"paused\", \"grey\"]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "determineVoiceBroadcastLiveness(VoiceBroadcastInfoState.Stopped) returns \"not-live\".",
+   "covering_prose": "Ensure the exact mapping of info state to liveness as follows: Started \u2192 \"live\", Resumed \u2192 \"live\", Paused \u2192 \"grey\", Stopped \u2192 \"not-live\", any unknown or undefined state \u2192 \"not-live\".",
+   "gold_anchor": "[\"stopped\", \"not-live\"]",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "determineVoiceBroadcastLiveness(undefined) returns \"not-live\".",
+   "covering_prose": "Ensure the exact mapping of info state to liveness as follows: Started \u2192 \"live\", Resumed \u2192 \"live\", Paused \u2192 \"grey\", Stopped \u2192 \"not-live\", any unknown or undefined state \u2192 \"not-live\".",
+   "gold_anchor": "return stateLivenessMap.get(infoState) ?? \"not-live\";",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "determineVoiceBroadcastLiveness(\"unknown test state\") returns \"not-live\".",
+   "covering_prose": "Ensure the exact mapping of info state to liveness as follows: Started \u2192 \"live\", Resumed \u2192 \"live\", Paused \u2192 \"grey\", Stopped \u2192 \"not-live\", any unknown or undefined state \u2192 \"not-live\".",
+   "gold_anchor": "return stateLivenessMap.get(infoState) ?? \"not-live\";",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Calling VoiceBroadcastPlayback.start() while infoState is Started or Resumed leaves the resulting liveness as \"live\".",
+   "covering_prose": "Ensure that when `start()` is invoked while `infoState` is Started or Resumed, the resulting liveness is \"live\".",
+   "gold_anchor": "this.setLiveness(determineVoiceBroadcastLiveness(this.infoState));",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+{"rows":[{"test":"Rendering RoomHeaderButtons with no room prop while Feature.ThreadUnreadNotifications is ServerSupport.Unsupported does not throw an exception.","covering_prose":"It should also safely handle a missing `room` prop. In both situations, rendering should complete without exceptions.","gold_anchor":"return <></>;"}]}

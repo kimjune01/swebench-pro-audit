@@ -1,0 +1,130 @@
+{
+ "case": "flipt-io_01f583bb",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 8,
+ "rows": [
+  {
+   "test": "The enqueued telemetry message is a segment.Track, and telemetry/client test references use segment.* rather than analytics.*.",
+   "covering_prose": "All references to 'analytics.Client', 'analytics.Track', and so on must be changed to 'segment.*'.",
+   "gold_anchor": "segment.Track",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Telemetry emits event \"flipt.ping\".",
+   "covering_prose": "Telemetry must emit event 'flipt.ping' and include 'properties.version = \"1.5\"' for this payload revision.",
+   "gold_anchor": "event    = \"flipt.ping\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Telemetry properties include version \"1.5\".",
+   "covering_prose": "Telemetry must emit event 'flipt.ping' and include 'properties.version = \"1.5\"' for this payload revision.",
+   "gold_anchor": "version  = \"1.5\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Telemetry AnonymousId is non-empty when no existing UUID is present.",
+   "covering_prose": "Telemetry must include 'properties.uuid' equal to the event 'AnonymousId', and the identifier must persist across runs by honoring the configured telemetry state directory (reuse when present, generate when absent).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Telemetry properties.uuid equals the event AnonymousId.",
+   "covering_prose": "Telemetry must include 'properties.uuid' equal to the event 'AnonymousId', and the identifier must persist across runs by honoring the configured telemetry state directory (reuse when present, generate when absent).",
+   "gold_anchor": "UUID:    s.UUID",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Telemetry reuses an existing UUID value, specifically \"1545d8a8-7a66-4d8d-a158-0a1c576c68a6\", as AnonymousId and properties.uuid when present in state.",
+   "covering_prose": "Telemetry must include 'properties.uuid' equal to the event 'AnonymousId', and the identifier must persist across runs by honoring the configured telemetry state directory (reuse when present, generate when absent).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "Telemetry honors the configured telemetry state directory when generating or reusing the UUID.",
+   "covering_prose": "Telemetry must include 'properties.uuid' equal to the event 'AnonymousId', and the identifier must persist across runs by honoring the configured telemetry state directory (reuse when present, generate when absent).",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "properties.flipt.version is the running Flipt version, asserted as \"1.0.0\" in the test setup.",
+   "covering_prose": "The 'properties.flipt' object must include 'version' (running Flipt version), 'os', 'arch', an 'experimental' object (it may be empty), and 'storage.database' reflecting the configured database.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "properties.flipt.os is included, asserted as \"linux\" in the test setup.",
+   "covering_prose": "The 'properties.flipt' object must include 'version' (running Flipt version), 'os', 'arch', an 'experimental' object (it may be empty), and 'storage.database' reflecting the configured database.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "properties.flipt.arch is included, asserted as \"amd64\" in the test setup.",
+   "covering_prose": "The 'properties.flipt' object must include 'version' (running Flipt version), 'os', 'arch', an 'experimental' object (it may be empty), and 'storage.database' reflecting the configured database.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "properties.flipt.storage.database reflects the configured sqlite database as \"sqlite\".",
+   "covering_prose": "The 'properties.flipt' object must include 'version' (running Flipt version), 'os', 'arch', an 'experimental' object (it may be empty), and 'storage.database' reflecting the configured database.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "properties.flipt.experimental is present and may be an empty object.",
+   "covering_prose": "The 'properties.flipt' object must include 'version' (running Flipt version), 'os', 'arch', an 'experimental' object (it may be empty), and 'storage.database' reflecting the configured database.",
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "When analytics storage is configured but ClickHouse analytics is not enabled, properties.flipt.analytics is absent.",
+   "covering_prose": "Analytics exposure must be configuration gated: when enabled, 'properties.flipt.analytics' must be present with a non-empty 'storage' string identifying the configured backend; when disabled or not configured, 'properties.flipt.analytics' must be absent.",
+   "gold_anchor": "if r.cfg.Analytics.Enabled() {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When analytics is enabled with ClickHouse configured, properties.flipt.analytics is present.",
+   "covering_prose": "Analytics exposure must be configuration gated: when enabled, 'properties.flipt.analytics' must be present with a non-empty 'storage' string identifying the configured backend; when disabled or not configured, 'properties.flipt.analytics' must be absent.",
+   "gold_anchor": "flipt.Analytics = &analytics{",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When analytics is enabled with ClickHouse configured, properties.flipt.analytics.storage is \"clickhouse\".",
+   "covering_prose": "When ClickHouse is the configured backend and analytics is enabled, 'properties.flipt.analytics.storage' must be '\"clickhouse\"'.",
+   "gold_anchor": "return \"clickhouse\"",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AnalyticsStorageConfig.String returns \"clickhouse\" when Clickhouse storage is enabled.",
+   "covering_prose": "It returns \"clickhouse\" if Clickhouse storage is enabled, and an empty string otherwise.",
+   "gold_anchor": "func (a *AnalyticsStorageConfig) String() string {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "AnalyticsStorageConfig.String returns an empty string when Clickhouse storage is not enabled.",
+   "covering_prose": "It returns \"clickhouse\" if Clickhouse storage is enabled, and an empty string otherwise.",
+   "gold_anchor": "return \"\"",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

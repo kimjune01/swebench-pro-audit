@@ -1,0 +1,32 @@
+{
+ "case": "flipt-io_16e240cc",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Load accepts a context.Context as its first argument when loading a config path, allowing calls like Load(context.Background(), path).",
+   "covering_prose": "The configuration loader must receive a `context.Context` and use that context when accessing configuration sources, including file retrieval via `getConfigFile. getConfigFile` must not use `context.Background()` for configuration retrieval.",
+   "gold_anchor": "func Load(ctx context.Context, path string) (*Result, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Load accepts a context.Context as its first argument when loading the default config file path \"./testdata/default.yml\".",
+   "covering_prose": "Configuration loading must handle default values, environment overrides, and existing file paths while using the provided context, ensuring consistent behavior across different input scenarios.",
+   "gold_anchor": "func Load(ctx context.Context, path string) (*Result, error) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Load passes the provided context through to getConfigFile instead of using context.Background() for file retrieval.",
+   "covering_prose": "The configuration loader must receive a `context.Context` and use that context when accessing configuration sources, including file retrieval via `getConfigFile. getConfigFile` must not use `context.Background()` for configuration retrieval.",
+   "gold_anchor": "file, err := getConfigFile(ctx, path)",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

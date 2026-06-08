@@ -1,0 +1,81 @@
+{
+ "case": "element-hq_c153a4d3",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 9,
+ "n_covered": 8,
+ "n_gap": 1,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "EncryptionEvent encrypted room subtitle says \"Messages in this room are end-to-end encrypted. When people join, you can verify them in their profile, just tap on their profile picture.\"",
+   "covering_prose": "The `EncryptionEvent` component should update its instructional text to use \u201cprofile picture\u201d instead of \u201cavatar\u201d when guiding users on how to verify others in their profile.",
+   "gold_anchor": "When people join, you can verify them in their profile, just tap on their profile picture.",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "UserInfo BasicUserInfo renders the member avatar button with aria-label=\"Profile picture\" instead of \"Avatar\".",
+   "covering_prose": "The `MemberAvatar` component should provide the localized string \u201cProfile picture\u201d as the value for both `altText` and `ariaLabel` when rendering `BaseAvatar`.",
+   "gold_anchor": "ariaLabel={_t(\"Profile picture\")}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PreferencesUserSettingsTab renders the showAvatarChanges visible label as \"Show profile picture changes\".",
+   "covering_prose": "The `useOnlyCurrentProfiles` and `showAvatarChanges` settings should update their display labels to use the phrase \u201cprofile picture\u201d instead of \u201cavatar\u201d.",
+   "gold_anchor": "displayName: _td(\"Show profile picture changes\"),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PreferencesUserSettingsTab renders the showAvatarChanges switch aria-label as \"Show profile picture changes\".",
+   "covering_prose": "The `useOnlyCurrentProfiles` and `showAvatarChanges` settings should update their display labels to use the phrase \u201cprofile picture\u201d instead of \u201cavatar\u201d.",
+   "gold_anchor": "displayName: _td(\"Show profile picture changes\"),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PreferencesUserSettingsTab renders the useOnlyCurrentProfiles visible label as \"Show current profile picture and name for users in message history\".",
+   "covering_prose": "The `useOnlyCurrentProfiles` and `showAvatarChanges` settings should update their display labels to use the phrase \u201cprofile picture\u201d instead of \u201cavatar\u201d.",
+   "gold_anchor": "displayName: _td(\"Show current profile picture and name for users in message history\"),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "PreferencesUserSettingsTab renders the useOnlyCurrentProfiles switch aria-label as \"Show current profile picture and name for users in message history\".",
+   "covering_prose": "The `useOnlyCurrentProfiles` and `showAvatarChanges` settings should update their display labels to use the phrase \u201cprofile picture\u201d instead of \u201cavatar\u201d.",
+   "gold_anchor": "displayName: _td(\"Show current profile picture and name for users in message history\"),",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CallView participant avatar buttons are queried by role button with accessible name \"Profile picture\", and their count matches the expected userIds length.",
+   "covering_prose": "The `MemberAvatar` component should provide the localized string \u201cProfile picture\u201d as the value for both `altText` and `ariaLabel` when rendering `BaseAvatar`.",
+   "gold_anchor": "ariaLabel={_t(\"Profile picture\")}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "CallView participant avatar buttons with accessible name \"Profile picture\" preserve the order matching the expected userIds.",
+   "covering_prose": null,
+   "gold_anchor": "ariaLabel={_t(\"Profile picture\")}",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "HTMLExport exported event avatars render aria-label=\"Profile picture\" instead of \"Avatar\".",
+   "covering_prose": "The `MemberAvatar` component should provide the localized string \u201cProfile picture\u201d as the value for both `altText` and `ariaLabel` when rendering `BaseAvatar`.",
+   "gold_anchor": "ariaLabel={_t(\"Profile picture\")}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "HTMLExport exported event avatar img elements keep alt=\"\" while the surrounding avatar button aria-label changes.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  }
+ ]
+}

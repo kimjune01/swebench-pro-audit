@@ -1,0 +1,22 @@
+# Coverage attribution: element-hq_d5d1ec77
+
+- instance_id: `instance_element-hq__element-web-41dfec20bfe9b62cddbbbf621bef2e9aa9685157-vnan`
+- verdict: **ENTAILED**  (7/7 in-gold behaviors covered; **0 GAP** = mindreading; 0 out-of-scope)
+- gold patch: [`gold.diff`](../cases/element-hq_d5d1ec77/gold.diff)  ·  hidden test: [`hidden_test.diff`](../cases/element-hq_d5d1ec77/hidden_test.diff)  ·  spec: [`spec.md`](../cases/element-hq_d5d1ec77/spec.md)
+- A **GAP** is a behavior the gold implements (right column) and the test checks, but no requirement states (blank middle): a solver could only get it by mindreading the author.
+
+| test behavior | covering requirement (prose) | implemented in gold (anchor) |
+|---|---|---|
+| When discoveryResult contains m.authentication with state AutoDiscoveryAction.FAIL_ERROR, buildValidatedConfigFromDiscovery returns delegate | [When the discovery result does not include m.authentication or its state is not successful, delegatedAuthentication must be undefined.](../cases/element-hq_d5d1ec77/spec.md#L22) | [if (discoveryResult[M_AUTHENTICATION.stable!]?.state === AutoDiscovery.SUCCESS)](../cases/element-hq_d5d1ec77/gold.diff#L21) |
+| When discoveryResult contains m.authentication with state AutoDiscoveryAction.SUCCESS, buildValidatedConfigFromDiscovery returns a delegated | [If discovery includes m.authentication with a successful state, the validated configuration should expose an optional object containing the delegated‑authentication fields exactly as reported (authorizationEndpoint, registrationEndpoint, tokenEndpoint, issuer, account).](../cases/element-hq_d5d1ec77/spec.md#L12) | [delegatedAuthentication = {](../cases/element-hq_d5d1ec77/gold.diff#L20) |
+| The successful delegatedAuthentication object includes issuer exactly as received: "https://test.com/". | [When building the validated configuration from a discovery result that contains a successful m.authentication block, an optional delegatedAuthentication object must be preserved and exposed with the fields authorizationEndpoint, registrationEndpoint, tokenEndpoint, issuer, and account exactly as rec](../cases/element-hq_d5d1ec77/spec.md#L21) | [issuer,](../cases/element-hq_d5d1ec77/gold.diff#L12) |
+| The successful delegatedAuthentication object includes authorizationEndpoint exactly as received: "https://test.com/auth". | [When building the validated configuration from a discovery result that contains a successful m.authentication block, an optional delegatedAuthentication object must be preserved and exposed with the fields authorizationEndpoint, registrationEndpoint, tokenEndpoint, issuer, and account exactly as rec](../cases/element-hq_d5d1ec77/spec.md#L21) | [authorizationEndpoint,](../cases/element-hq_d5d1ec77/gold.diff#L22) |
+| The successful delegatedAuthentication object includes registrationEndpoint exactly as received: "https://test.com/registration". | [When building the validated configuration from a discovery result that contains a successful m.authentication block, an optional delegatedAuthentication object must be preserved and exposed with the fields authorizationEndpoint, registrationEndpoint, tokenEndpoint, issuer, and account exactly as rec](../cases/element-hq_d5d1ec77/spec.md#L21) | [registrationEndpoint,](../cases/element-hq_d5d1ec77/gold.diff#L22) |
+| The successful delegatedAuthentication object includes tokenEndpoint exactly as received: "https://test.com/token". | [When building the validated configuration from a discovery result that contains a successful m.authentication block, an optional delegatedAuthentication object must be preserved and exposed with the fields authorizationEndpoint, registrationEndpoint, tokenEndpoint, issuer, and account exactly as rec](../cases/element-hq_d5d1ec77/spec.md#L21) | [tokenEndpoint,](../cases/element-hq_d5d1ec77/gold.diff#L22) |
+| Adding delegatedAuthentication leaves warning unaffected; in these valid syntaxOnly discovery cases the returned warning remains undefined. | [Adding delegatedAuthentication must not modify any other field of the validated configuration object, including leaving warning unaffected.](../cases/element-hq_d5d1ec77/spec.md#L23) | [warning: hsResult.error,](../cases/element-hq_d5d1ec77/gold.diff#L39) |
+
+## Receipts
+- [`spec.md`](../cases/element-hq_d5d1ec77/spec.md)
+- [`gold.diff`](../cases/element-hq_d5d1ec77/gold.diff)
+- [`hidden_test.diff`](../cases/element-hq_d5d1ec77/hidden_test.diff)
+- judge JSON: [`element-hq_d5d1ec77.json`](../judge/element-hq_d5d1ec77.json)

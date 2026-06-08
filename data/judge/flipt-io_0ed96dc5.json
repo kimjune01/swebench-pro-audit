@@ -1,0 +1,39 @@
+{
+ "case": "flipt-io_0ed96dc5",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 3,
+ "n_covered": 3,
+ "n_gap": 0,
+ "n_out_of_scope": 1,
+ "rows": [
+  {
+   "test": "Loading the advanced config sets cfg.Cors.AllowedHeaders to exactly [\"X-Some-Header\", \"X-Some-Other-Header\"].",
+   "covering_prose": "The server should accept `X-Fern-Language`, `X-Fern-SDK-Name`, and `X-Fern-SDK-Version` headers, and the users should have the ability to customize allowed headers as per their requirements.",
+   "gold_anchor": "AllowedHeaders: []string{\"X-Some-Header\", \"X-Some-Other-Header\"}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The CORS config struct exposes AllowedHeaders as []string with json, mapstructure, and yaml tags for configuration binding.",
+   "covering_prose": "Add AllowedHeaders []string to the runtime config struct in internal/config/cors.go and internal/config/config.go, with tags:\njson:\"allowedHeaders,omitempty\" mapstructure:\"allowed_headers\" yaml:\"allowed_headers,omitempty\".",
+   "gold_anchor": "AllowedHeaders []string `json:\"allowedHeaders,omitempty\" mapstructure:\"allowed_headers\" yaml:\"allowed_headers,omitempty\"`",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Environment-variable test scaffolding serializes YAML array values as a single space-separated string before loading config.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "CORS middleware uses the configured AllowedHeaders list instead of the previous hardcoded list.",
+   "covering_prose": "In internal/cmd/http.go, ensure the CORS middleware uses AllowedHeaders instead of a hardcoded list.",
+   "gold_anchor": "AllowedHeaders:   cfg.Cors.AllowedHeaders",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

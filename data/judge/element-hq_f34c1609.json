@@ -1,0 +1,60 @@
+{
+ "case": "element-hq_f34c1609",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 7,
+ "n_covered": 7,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "SearchResultTile initializes legacy call event groupers from the provided timeline containing m.call invite and answer events, with the matched room message at index 1.",
+   "covering_prose": "SearchResultTile must initialize legacy call event groupers from the provided merged timeline and treat only events at ourEventsIndexes as query matches; all others are contextual.",
+   "gold_anchor": "this.buildLegacyCallEventGroupers(this.props.timeline);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "RoomSearchView merges two adjacent search results when the last event in one timeline has the same event_id as the first event in the next timeline.",
+   "covering_prose": "Search results must be merged into a single timeline when two consecutive SearchResult objects, on Friday, September 05, 2025, at 11:10 PM -03, meet both conditions: (1) the last event in the first result\u2019s timeline equals the first event in the next result\u2019s timeline (same event_id), and (2) each result contains a direct query match.",
+   "gold_anchor": "currentTimeline[currentTimeline.length - 1].getId() == nextTimeline[0].getId()",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The merged result renders the contextual event \"Before\" from events_before.",
+   "covering_prose": "Each result\u2019s SearchResult.context timeline is events_before + result + events_after. During merging, use the overlapping event as the pivot and append the next timeline starting at index 1 (skip the duplicate pivot).",
+   "gold_anchor": "mergedTimeline.push(currentTimeline[j]);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The merged result renders both direct result events \"Foo\" and \"Foo2\" in the same combined timeline.",
+   "covering_prose": "The search results are expected to group or combine consecutive messages containing the search term, making it easier to read related content in context.",
+   "gold_anchor": "timeline={mergedTimeline}",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The overlapping contextual event \"Between\" is rendered exactly once, not duplicated at the overlap boundary.",
+   "covering_prose": "The merged timeline must not contain duplicate event_ids at the overlap boundary.",
+   "gold_anchor": "for (let j = 1; j < nextTimeline.length; j++)",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The merged events render chronologically as Before, Foo, Between, Foo2, After.",
+   "covering_prose": "Render all merged events chronologically; for each matched event, permalinks and interactions must target the correct original event_id.",
+   "gold_anchor": "mergedTimeline.push(nextTimeline[j]);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "An intermediate SearchResult that is consumed into an ongoing merge is not rendered separately.",
+   "covering_prose": "In RoomSearchView.tsx, do not render any intermediate result that is part of an ongoing merge chain; any consumed SearchResult entries must not be rendered separately.",
+   "gold_anchor": "continue;",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

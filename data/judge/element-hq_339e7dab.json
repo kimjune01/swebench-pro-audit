@@ -1,0 +1,74 @@
+{
+ "case": "element-hq_339e7dab",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 9,
+ "n_covered": 9,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "Device IDs are read from the cryptography user-device API as a Map keyed by userId, then by deviceId, rather than from stored client devices.",
+   "covering_prose": "Ensure that device identifiers are derived from the cryptography user-device API return value shaped as `Map<userId, Map<deviceId, Device>>` by taking the `deviceId` keys for `userId` and constructing a `Set<string>` for comparisons.",
+   "gold_anchor": "return new Set(devices.get(userId)?.keys() ?? []);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The current user's id is obtained through the safe accessor before querying user-device information.",
+   "covering_prose": "Ensure `userId: string` is obtained via the client\u2019s safe accessor (e.g., `getSafeUserId()`), and `currentDeviceId: string | undefined` is read from the running client session for exclusion logic.",
+   "gold_anchor": "const userId = cli.getSafeUserId();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "If the user-device API has no entry for the current user, the effective device set is empty and evaluation does not throw.",
+   "covering_prose": "When cryptography features are unavailable (`getCrypto()` returns `undefined`) or the user-device API returns no entry for `userId`, set the effective device set to empty and skip notification logic without throwing.",
+   "gold_anchor": "return new Set(devices.get(userId)?.keys() ?? []);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The startup device snapshot is populated asynchronously from current crypto device info before classification uses it.",
+   "covering_prose": "Maintain `ourDeviceIdsAtStart: Set<string> | null` initialized as `null` and populate it with the current user\u2019s device identifiers obtained from the cryptography user-device API before any device classification occurs.",
+   "gold_anchor": "this.ourDeviceIdsAtStart = await this.getDeviceIds();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After startup with only previously known unverified devices, the unverified-sessions toast is hidden.",
+   "covering_prose": "If only previously known unverified sessions exist, no toast should be shown.",
+   "gold_anchor": "if (this.ourDeviceIdsAtStart?.has(deviceId)) {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "After a new unverified device appears during the running session and a DevicesUpdated event for the current user with initialFetch false is emitted, the device is classified as new unverified.",
+   "covering_prose": "If a new unverified session is detected after startup, a toast should be displayed to alert the user.",
+   "gold_anchor": "newUnverifiedDeviceIds.add(deviceId);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Device update handling only snapshots devices for the current user when the update users list includes that user and initialFetch is not true.",
+   "covering_prose": "On handling a device update event identified as `CryptoEvent.DevicesUpdated`, process only when `users: string[]` includes `userId` and `initialFetch !== true`, otherwise return without changing notification state.",
+   "gold_anchor": "if (users.includes(myUserId)) await this.ensureDeviceIdsAtStartPopulated();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "The current running device is excluded from unverified-device classification even when present in the user-device API result.",
+   "covering_prose": "Ensure that `currentDeviceId` is always excluded from both `oldUnverifiedDeviceIds` and `newUnverifiedDeviceIds` regardless of its verification status.",
+   "gold_anchor": "if (deviceId === cli.deviceId) continue;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Verification status is fetched per candidate device id, and a device with missing or non-true crossSigningVerified is treated as unverified.",
+   "covering_prose": "For each `deviceId` in `candidateIds`, obtain its verification status via the cryptography verification API (e.g., `getDeviceVerificationStatus(userId, deviceId)`); treat the device as unverified when the returned status is falsy or `crossSigningVerified !== true`.",
+   "gold_anchor": "if (!deviceTrust?.crossSigningVerified && !this.dismissed.has(deviceId)) {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

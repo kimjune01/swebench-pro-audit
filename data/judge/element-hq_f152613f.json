@@ -1,0 +1,39 @@
+{
+ "case": "element-hq_f152613f",
+ "ok": true,
+ "verdict": "ENTAILED",
+ "in_gold_total": 4,
+ "n_covered": 4,
+ "n_gap": 0,
+ "n_out_of_scope": 0,
+ "rows": [
+  {
+   "test": "During assign, the client's store closed event is wired so that emitting \"closed\" after assign invokes the shutdown handler.",
+   "covering_prose": "`MatrixClientPegClass` should attach a listener to the client\u2019s store \u201cclosed\u201d event as part of client assignment, ensuring the listener is active as soon as assignment completes and before any subsequent operations rely on the store.",
+   "gold_anchor": "this.matrixClient.store.on?.(\"closed\", this.onUnexpectedStoreClose);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the store emits \"closed\" and the active client is a guest, the platform reload method is called.",
+   "covering_prose": "Guest sessions (including registration flows) should not show a dialog and should move directly to reloading to minimize interruption.",
+   "gold_anchor": "PlatformPeg.get()?.reload();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "Reload is performed through PlatformPeg rather than a direct browser API.",
+   "covering_prose": "All reloads should be performed through the platform abstraction (PlatformPeg) rather than direct browser APIs, preserving cross-platform behavior and testability.",
+   "gold_anchor": "PlatformPeg.get()?.reload();",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When the store emits \"closed\" and the active client is not a guest, an error modal is created.",
+   "covering_prose": "Non-guest sessions should display an error dialog using the project\u2019s standard modal system, with a localized title \u201cDatabase unexpectedly closed\u201d, a localized description explaining likely causes (multiple tabs or cleared browser data), and a single localized action labeled \u201cReload\u201d.",
+   "gold_anchor": "Modal.createDialog(ErrorDialog, {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

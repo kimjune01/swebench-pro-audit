@@ -1,0 +1,144 @@
+{
+ "case": "element-hq_97f6431d",
+ "ok": true,
+ "verdict": "AMBIGUOUS",
+ "in_gold_total": 10,
+ "n_covered": 7,
+ "n_gap": 3,
+ "n_out_of_scope": 9,
+ "rows": [
+  {
+   "test": "editBodyDiffToHtml returns a renderable React element for every tested diff case, allowing @testing-library/react render(...) to receive the result without null or undefined.",
+   "covering_prose": "The diff renderer `editBodyDiffToHtml` should always return a valid React element and produce a consistent DOM structure for identical inputs (no null/undefined, and no unnecessary wrappers or attributes).",
+   "gold_anchor": "export function editBodyDiffToHtml(originalContent: IContent, editContent: IContent): JSX.Element {",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For a simple text replacement from \"hello\" to \"world\", the snapshot contains mx_EditHistoryMessage_deletion and mx_EditHistoryMessage_insertion spans around the changed text fragments in the exact serialized DOM shape.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For a central word change from \"beginning middle end\" to \"beginning :smile: end\", the snapshot preserves unchanged surrounding text and wraps only computed inserted/deleted text fragments in insertion/deletion spans.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For text deletion from \"<b>hello</b> world\" to \"<b>hello</b>\", the snapshot wraps the removed text in a span with class mx_EditHistoryMessage_deletion.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For text addition from \"<b>hello</b>\" to \"<b>hello</b> world\", the snapshot wraps the added text in a span with class mx_EditHistoryMessage_insertion.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For block element addition from \"hello\" to \"hello <p>world</p>\", the snapshot represents the added block with a div carrying class mx_EditHistoryMessage_insertion.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For inline element addition from \"hello\" to \"hello <q>world</q>\", the snapshot represents the added inline content inside a span carrying class mx_EditHistoryMessage_insertion.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For block element deletion from \"hi <blockquote>there</blockquote>\" to \"hi\", the snapshot represents the removed block with a div carrying class mx_EditHistoryMessage_deletion.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For inline element deletion from \"hi <em>there</em>\" to \"hi\", the snapshot represents the removed inline content inside a span carrying class mx_EditHistoryMessage_deletion.",
+   "covering_prose": null,
+   "gold_anchor": null,
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For element replacement from \"hi <i>there</i>\" to \"hi <em>there</em>\", the snapshot renders the old i element in a deletion span followed by the new em element in an insertion span.",
+   "covering_prose": null,
+   "gold_anchor": "const delNode = wrapDeletion(diffTreeToDOM(diff.oldValue as HTMLElement));",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For href modification from \"#hi\" to \"#bye\", the snapshot renders the original anchor in a deletion span and the updated anchor in an insertion span.",
+   "covering_prose": null,
+   "gold_anchor": "updatedNode.setAttribute(diff.name!, diff.newValue as string);",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "For attribute deletion from \"<a href=\\\"#hi\\\">hi</a>\" to \"<a>hi</a>\", the snapshot renders nested deletion/insertion markup showing the anchor before and after removing href.",
+   "covering_prose": null,
+   "gold_anchor": "updatedNode.removeAttribute(diff.name!);",
+   "in_gold": false,
+   "status": "OUT_OF_SCOPE"
+  },
+  {
+   "test": "For attribute addition from \"<a>hi</a>\" to \"<a href=\\\"#/room/!123\\\">hi</a>\", the snapshot renders nested deletion/insertion markup showing the anchor before and after adding href, including href=\"undefined\" and target=\"undefined\" in the expected output.",
+   "covering_prose": null,
+   "gold_anchor": "updatedNode.setAttribute(diff.name!, diff.newValue as string);",
+   "in_gold": true,
+   "status": "GAP"
+  },
+  {
+   "test": "The \"deduplicates diff steps\" case from \"<div><em>foo</em> bar baz</div>\" to \"<div><em>foo</em> bar bay</div>\" snapshots a single text-level z-to-y deletion/insertion instead of filtering out canceling diff actions with the legacy workaround.",
+   "covering_prose": "The `editBodyDiffToHtml` function should eliminate legacy workarounds for canceled-out diffs previously required by older versions of `diffDOM`.",
+   "gold_anchor": "const diffActions = dd.diff(originalBody, editBody);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When format is \"org.exotic.encoding\" but formatted_body is present, editBodyDiffToHtml still uses that formatted_body input and renders escaped literal <strong> tags in the snapshot rather than ignoring formatted_body because the format is non-HTML.",
+   "covering_prose": "The `editBodyDiffToHtml` function should treat all formatted messages as HTML and apply diffs without assuming consistent structure or the presence of any tag.",
+   "gold_anchor": "const originalBody = `<div>${getSanitizedHtmlBody(originalContent)}</div>`;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When formatted_body is present on both contents, editBodyDiffToHtml prefers it over body when constructing the diff input.",
+   "covering_prose": "The diff renderer `editBodyDiffToHtml` should prefer `formatted_body` when present; if it is absent, it should fall back to `body`.",
+   "gold_anchor": "const originalBody = `<div>${getSanitizedHtmlBody(originalContent)}</div>`;",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For complex transformations involving a span with data-mx-maths and emoji inside code, editBodyDiffToHtml does not throw during render and produces a snapshot containing deletion/insertion wrappers for the transformed span.",
+   "covering_prose": "The component should robustly handle all valid message edit inputs, including those with edge-case HTML structures. The diff logic should not assume the presence of nodes that may be absent due to transformation, and the dialog should remain stable regardless of input complexity.",
+   "gold_anchor": "refNode = refNode?.childNodes[route[i]!];",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "For complex transformations involving data-mx-maths, diffTreeToDOM copies descriptor attributes using each attribute descriptor's value field when reconstructing DOM nodes.",
+   "covering_prose": "The `diffTreeToDOM` function should cast and clone `HTMLElement` descriptors safely to create valid DOM subtrees.",
+   "gold_anchor": "node.setAttribute(key, value.value);",
+   "in_gold": true,
+   "status": "COVERED"
+  },
+  {
+   "test": "When applying an addElement diff whose route points to insertion at the end of a parent, insertBefore accepts an undefined nextSibling and appends the child instead of requiring a present reference node.",
+   "covering_prose": "The `insertBefore` function should allow `undefined` as the `nextSibling` argument to avoid assuming its presence in the parent.",
+   "gold_anchor": "function insertBefore(parent: Node, nextSibling: Node | undefined, child: Node): void {",
+   "in_gold": true,
+   "status": "COVERED"
+  }
+ ]
+}

@@ -148,7 +148,8 @@ def main():
         f"A further {len(hypo)} "
         f"screen-flagged hypotheses ({len(hypo)/n:.0%}) remain raters-pending and are NOT counted. "
         "A preregistered instrument with a proven spine, not a population rate.", "",
-        "Full per-case table: [`COVERAGE.md`](COVERAGE.md). Method: "
+        "Inspect every claim: [`CLAIMS.md`](CLAIMS.md) (one row per claimable case + the 12 refuted "
+        "negative controls). Full per-case table: [`COVERAGE.md`](COVERAGE.md). Method: "
         "[`docs/ADMISSIBILITY-SPEC.md`](docs/ADMISSIBILITY-SPEC.md).", "",
         "## Hand-audited worked cases", "",
         "| case | verdict | coverage | gaps | list | attribution |", "|---|---|---|---|---|---|",

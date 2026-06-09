@@ -1,0 +1,21 @@
+{
+ "slug": "ansible_225ae65b",
+ "iid": "instance_ansible__ansible-e40889e7112ae00a21a2c74312b330e67a766cc0-v1055803c3a812189a1133297f7f5468579283f86",
+ "choice": "Whether a collection SCM input should recognize a `git+file://.../.git` local git URL as a git repository source, rather than only SSH/HTTPS URLs or existing collection artifact inputs.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "lib/ansible/playbook/role/requirement.py",
+   "snippet": "            if '+' in src:\n                (scm, src) = src.split('+', 1)\n\n            return dict(name=name, src=src, scm=scm, version=version)",
+   "way": "role requirements accept an SCM prefix like `git+...` and strip it from the source, so `git+file://...` is a supported SCM-style input shape",
+   "verified_path": "lib/ansible/playbook/role/requirement.py"
+  },
+  {
+   "path": "lib/ansible/cli/galaxy.py",
+   "snippet": "                if os.path.isfile(to_bytes(collection_input, errors='surrogate_or_strict')) or \\\n                        urlparse(collection_input).scheme.lower() in ['http', 'https']:\n                    # Arg is a file path or URL to a collection\n                    name = collection_input\n                else:\n                    name, dummy, requirement = collection_input.partition(':')",
+   "way": "collection CLI positional inputs only classify local files or `http`/`https` URLs as collection inputs; other strings are parsed as name/version, so `git+file://...` is not recognized here",
+   "verified_path": "lib/ansible/cli/galaxy.py"
+  }
+ ],
+ "ok": true
+}

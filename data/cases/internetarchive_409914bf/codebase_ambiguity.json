@@ -1,0 +1,33 @@
+{
+ "slug": "internetarchive_409914bf",
+ "iid": "instance_internetarchive__openlibrary-dbbd9d539c6d4fd45d5be9662aa19b6d664b5137-v08d8e8889ec945ab821fb156c04c7d2e2810debb",
+ "choice": "For a POST handler with no usable request body, whether to read query/default form parameters via web.input()/GET fallback or restrict processing to POST body parameters only.",
+ "n_verified": 4,
+ "verified": [
+  {
+   "path": "openlibrary/plugins/upstream/addbook.py",
+   "snippet": "    def POST(self, key):\n        i = web.input(v=None, work_key=None, _method=\"GET\")",
+   "way": "POST handler explicitly reads query-string parameters rather than POST body parameters",
+   "verified_path": "openlibrary/plugins/upstream/addtag.py"
+  },
+  {
+   "path": "openlibrary/plugins/openlibrary/api.py",
+   "snippet": "    def POST(self, work_id):\n        \"\"\"\n        Add a note to a work (or a work and an edition)\n        GET params:\n        - edition_id str (optional)\n        - redir bool: if patron not logged in, redirect back to page after login\n\n        :param str work_id: e.g. OL123W\n        :rtype: json\n        :return: the note\n        \"\"\"\n        user = accounts.get_current_user()\n        i = web.input(notes=None, edition_id=None, redir=None)",
+   "way": "POST handler uses default web.input(), allowing merged query/form inputs and defaults",
+   "verified_path": "openlibrary/plugins/upstream/checkins.py"
+  },
+  {
+   "path": "openlibrary/plugins/upstream/adapter.py",
+   "snippet": "class save_many(proxy):\n    def before_request(self):\n        i = web.input(_method=\"POST\")\n        if 'query' in i:",
+   "way": "POST processing explicitly restricts parsed parameters to the POST body",
+   "verified_path": "openlibrary/plugins/upstream/adapter.py"
+  },
+  {
+   "path": "openlibrary/plugins/upstream/adapter.py",
+   "snippet": "class reindex(proxy):\n    def before_request(self):\n        i = web.input(_method=\"POST\")\n        if 'keys' in i:",
+   "way": "POST processing explicitly restricts parsed parameters to the POST body",
+   "verified_path": "openlibrary/plugins/upstream/adapter.py"
+  }
+ ],
+ "ok": true
+}

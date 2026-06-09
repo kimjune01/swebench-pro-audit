@@ -1,0 +1,21 @@
+{
+ "slug": "navidrome_257ccc5f",
+ "iid": "instance_navidrome__navidrome-3853c3318f67b41a9e4cb768618315ff77846fdb",
+ "choice": "On successful asynchronous completion, whether the error channel receives a nil sentinel or receives nothing and is closed/left silent, sending only non-nil errors.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "scanner/tag_scanner.go",
+   "snippet": "func (s *TagScanner) getRootFolderWalker(ctx context.Context) (walkResults, chan error) {\n\tstart := time.Now()\n\tlog.Trace(ctx, \"Loading directory tree from music folder\", \"folder\", s.rootFolder)\n\tresults := make(chan dirStats, 5000)\n\twalkerError := make(chan error)\n\tgo func() {\n\t\terr := walkDirTree(ctx, s.rootFolder, results)\n\t\tif err != nil {\n\t\t\tlog.Error(\"There were errors reading directories from filesystem\", err)\n\t\t}\n\t\twalkerError <- err\n\t\tlog.Debug(\"Finished reading directories from filesystem\", \"elapsed\", time.Since(start))\n\t}()\n\treturn results, walkerError\n}",
+   "way": "sends the returned error value on completion, including nil on success",
+   "verified_path": "scanner/tag_scanner.go"
+  },
+  {
+   "path": "utils/pl/pipelines.go",
+   "snippet": "go func() {\n\t\tdefer close(outputChannel)\n\t\tdefer close(errorChannel)\n\n\t\tfor s := range ReadOrDone(ctx, inputChannel) {\n\t\t\tif err := sem1.Acquire(ctx, 1); err != nil {\n\t\t\t\tif !errors.Is(err, context.Canceled) {\n\t\t\t\t\tlog.Error(ctx, \"Failed to acquire semaphore\", err)\n\t\t\t\t}\n\t\t\t\tbreak\n\t\t\t}\n\n\t\t\tgo func(s In) {\n\t\t\t\tdefer sem1.Release(1)\n\n\t\t\t\tresult, err := fn(ctx, s)\n\t\t\t\tif err != nil {\n\t\t\t\t\tif !errors.Is(err, context.Canceled) {\n\t\t\t\t\t\terrorChannel <- err\n\t\t\t\t\t}\n\t\t\t\t} else {",
+   "way": "sends only non-nil errors and closes the error channel on completion, with no nil success sentinel",
+   "verified_path": "scanner/tag_scanner.go"
+  }
+ ],
+ "ok": false
+}

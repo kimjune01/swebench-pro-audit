@@ -1,0 +1,1 @@
+{"discriminating_choice":"For CUE validation failures, the per-error Message field preserves the raw CUE error string from e.Error() rather than normalizing or rewriting it.", "consistent": true, "precedents":[]}

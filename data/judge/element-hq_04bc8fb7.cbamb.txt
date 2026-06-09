@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether the voice broadcast playback UI should use the existing audio_messages SeekBar component, whose rendered DOM is an input with class mx_SeekBar, for the playback seekbar.","consistent":true,"precedents":[]}

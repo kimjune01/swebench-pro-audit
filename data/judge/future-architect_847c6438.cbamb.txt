@@ -1,0 +1,1 @@
+{"discriminating_choice":"For a valid RPM query output line with fields NAME EPOCH VERSION RELEASE ARCH, parse it using the installed-package parser and fold a nonzero epoch into Package.Version as \"epoch:version\" while keeping Release and Arch separate.","consistent":true,"precedents":[]}

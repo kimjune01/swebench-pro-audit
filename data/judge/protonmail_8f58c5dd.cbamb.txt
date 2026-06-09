@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether a minimal persisted session read from storage is normalized so the returned full session object includes blob: '' when blob is absent","consistent":true,"precedents":[]}

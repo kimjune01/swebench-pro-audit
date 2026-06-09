@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether newTestPack should build the unused GCP KMS key version name from config.GCPKMS.KeyRing after obtaining centralized backend config, or from the local environment variable value originally used to populate that config.","consistent":true,"precedents":[]}

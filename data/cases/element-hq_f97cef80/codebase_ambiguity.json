@@ -1,0 +1,15 @@
+{
+ "slug": "element-hq_f97cef80",
+ "iid": "instance_element-hq__element-web-5dfde12c1c1c0b6e48f17e3405468593e39d9492-vnan",
+ "choice": "What value a voice broadcast info-state event's last_chunk_sequence carries before any chunks have been emitted: 0 as the count of emitted chunks, or 1 as the initialized/next chunk sequence.",
+ "n_verified": 1,
+ "verified": [
+  {
+   "path": "src/voice-broadcast/models/VoiceBroadcastRecording.ts",
+   "snippet": "    private sequence = 1;\n...\n                last_chunk_sequence: this.sequence,",
+   "way": "producer-side convention: the recording counter starts at 1, so an info event sent before any chunk uses 1",
+   "verified_path": "src/voice-broadcast/models/VoiceBroadcastRecording.ts"
+  }
+ ],
+ "ok": false
+}

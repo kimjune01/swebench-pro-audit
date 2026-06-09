@@ -1,0 +1,27 @@
+{
+ "slug": "NodeBB_88e891fc",
+ "iid": "instance_NodeBB__NodeBB-bd80d36e0dcf78cd4360791a82966078b3a07712-v4fbcfae8b15e4ce5d132c408bca69ebb9cf146ed",
+ "choice": "Whether the server-side redirect to the registration/email-completion flow uses NodeBB's helper redirect, which sends HTTP 307, or a bare Express res.redirect call, which uses Express's default redirect status.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "src/middleware/user.js",
+   "snippet": "\t\tif (!allowed.includes(path)) {\n\t\t\t// Append user data if present\n\t\t\treq.session.registration.uid = req.session.registration.uid || req.uid;\n\n\t\t\tcontrollers.helpers.redirect(res, '/register/complete');\n\t\t} else {",
+   "way": "helper-based registration-completion redirect, yielding 307 via controllers.helpers.redirect",
+   "verified_path": "src/middleware/user.js"
+  },
+  {
+   "path": "src/controllers/authentication.js",
+   "snippet": "\t\t\tif (req.body.noscript === 'true') {\n\t\t\t\tres.redirect(`${nconf.get('relative_path')}/register/complete`);\n\t\t\t\treturn;\n\t\t\t}",
+   "way": "bare Express redirect to registration completion, using Express default status",
+   "verified_path": "src/controllers/authentication.js"
+  },
+  {
+   "path": "src/controllers/authentication.js",
+   "snippet": "\t\tif (errors.length) {\n\t\t\treq.flash('errors', errors);\n\t\t\treturn req.session.save(() => {\n\t\t\t\tres.redirect(`${nconf.get('relative_path')}/register/complete`);\n\t\t\t});\n\t\t}",
+   "way": "bare Express redirect back to registration completion, using Express default status",
+   "verified_path": "src/controllers/authentication.js"
+  }
+ ],
+ "ok": true
+}

@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether a CVE whose CVSS3 numeric score is exactly 7.0 is included in the High severity bucket","consistent":true,"precedents":[]}

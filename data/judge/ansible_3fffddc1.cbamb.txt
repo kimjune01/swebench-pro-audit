@@ -1,0 +1,1 @@
+{"discriminating_choice":"Map multipart_encoding value \"7or8bit\" to Python email.encoders.encode_7or8bit, which emits Content-Transfer-Encoding: 7bit for ASCII file content.","consistent":true,"precedents":[]}

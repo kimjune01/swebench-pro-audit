@@ -1,0 +1,1 @@
+{"discriminating_choice":"For a Trivy OS report with no vulnerabilities, whether Parse still populates ScanResult.ServerName from the report Target value.","consistent":true,"precedents":[]}

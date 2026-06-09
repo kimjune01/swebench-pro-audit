@@ -1,1 +1,1 @@
-{"discriminating_choice":"Whether adding a new global privilege also creates/exposes the corresponding group privilege key by prefixing it with `groups:` in global privilege/category-admin privilege payloads.","consistent":true,"precedents":[]}
+{"discriminating_choice":"Whether adding a new global privilege `chat:privileged` should also expose a corresponding group privilege key `groups:chat:privileged` in global privilege/category privilege payloads, defaulting false when not granted.","consistent":true,"precedents":[]}

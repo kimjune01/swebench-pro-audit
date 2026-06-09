@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether process_user_query treats an unrecognized field-looking token such as flatland:a as literal free text by escaping the colon, instead of preserving it as field syntax","consistent":true,"precedents":[]}

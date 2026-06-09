@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether a GUIProcess is registered in all_processes immediately after start, so proc.pid is present as a key before any later cleanup timer fires.","consistent":true,"precedents":[]}

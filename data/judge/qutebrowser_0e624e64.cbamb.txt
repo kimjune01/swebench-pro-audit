@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether qtutils.interpolate_color validates an invalid start QColor with qtutils.ensure_valid and raises qtutils.QtValueError","consistent":true,"precedents":[]}

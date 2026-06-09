@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether serialized extra_fields JSON in TocEntry.to_markdown() must use Python json.dumps default separators with spaces after ':' and ',' rather than another valid JSON serialization such as compact separators.","consistent":true,"precedents":[]}

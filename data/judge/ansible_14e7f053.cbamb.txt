@@ -1,0 +1,1 @@
+{"discriminating_choice":"When a lookup term contains only a free-form primary argument and no key=value options, preserve the entire term as that primary argument/filename rather than treating it as absent or parsing it away.","consistent":true,"precedents":[]}

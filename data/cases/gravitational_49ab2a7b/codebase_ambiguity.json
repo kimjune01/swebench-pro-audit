@@ -1,0 +1,21 @@
+{
+ "slug": "gravitational_49ab2a7b",
+ "iid": "instance_gravitational__teleport-87a593518b6ce94624f6c28516ce38cc30cbea5a",
+ "choice": "whether a DatabasePinger.Ping implementation must bind the actual connection validation/ping operation to the caller-provided context deadline, versus using a non-context ping after setup",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "lib/client/conntest/database/postgres.go",
+   "snippet": "conn, err := pgconn.ConnectConfig(ctx, pgconnConfig)\n\tif err != nil {\n\t\treturn trace.Wrap(err)\n\t}\n\n\tdefer func() {\n\t\tif err := conn.Close(ctx); err != nil {\n\t\t\tlogrus.WithError(err).Info(\"failed to close connection in PostgresPinger.Ping\")\n\t\t}\n\t}()\n\n\tresult, err := conn.Exec(ctx, selectOneQuery).ReadAll()",
+   "way": "context is propagated through connection setup, close, and the validation query",
+   "verified_path": "lib/client/conntest/database/postgres.go"
+  },
+  {
+   "path": "lib/client/conntest/database/mysql.go",
+   "snippet": "conn, err := client.ConnectWithDialer(ctx, \"tcp\", addr,\n\t\tparams.Username,\n\t\t\"\", // no password, we're dialing into a tunnel.\n\t\tparams.DatabaseName,\n\t\tnd.DialContext,\n\t)\n\tif err != nil {\n\t\t// convert the error from MySQL client since it can be wrapped in a \"Causer\".\n\t\t// The MySQL engine in the agent already does this, but we need it here because\n\t\t// the error is from the MySQL client.\n\t\treturn trace.Wrap(common.ConvertError(err))\n\t}\n\n\tdefer func() {\n\t\tif err := conn.Close(); err != nil {\n\t\t\tlogrus.WithError(err).Info(\"Failed to close connection in MySQLPinger.Ping\")\n\t\t}\n\t}()\n\n\tif err := conn.Ping(); err != nil {",
+   "way": "context is used for dialing, but the actual ping/validation call is non-context-aware",
+   "verified_path": "lib/client/conntest/database/mysql.go"
+  }
+ ],
+ "ok": true
+}

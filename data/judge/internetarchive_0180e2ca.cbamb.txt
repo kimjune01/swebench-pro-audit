@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether code that seeds or changes language catalog data must explicitly clear functools.cache-backed language utility caches before using get_languages/convert_iso_to_marc","consistent":true,"precedents":[]}

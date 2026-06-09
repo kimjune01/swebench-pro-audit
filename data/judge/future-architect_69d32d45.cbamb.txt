@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether RedHat release \"7\" has modeled EOL data and is treated as supported/not EOL on 2021-01-06.","consistent":true,"precedents":[]}

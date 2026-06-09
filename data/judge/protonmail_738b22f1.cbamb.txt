@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether getLabelID treats the built-in mailbox label ID string \"0\" as a system mailbox ID to preserve rather than normalizing it to \"custom\"","consistent":true,"precedents":[]}

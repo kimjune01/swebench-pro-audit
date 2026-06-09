@@ -1,0 +1,1 @@
+{"discriminating_choice":"Azure pipeline job names replace '@' in job.test with '_' when constructing the job id.","consistent":true,"precedents":[]}

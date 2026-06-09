@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether adding the FieldsMap DynamoDB migration must preserve and still run the existing RFD24 migration/retry path before the new migration","consistent":true,"precedents":[]}

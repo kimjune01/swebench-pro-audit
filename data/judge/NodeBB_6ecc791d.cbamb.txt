@@ -1,1 +1,1 @@
-{"discriminating_choice":"Whether explicit score bounds '-inf' and '+inf' are treated as unbounded sentinels equivalent to no lower/upper bound when counting/filtering sorted sets.","consistent":true,"precedents":[]}
+{"discriminating_choice":"Calling sortedSetsCardSum with explicit min '-inf' and max '+inf' treats those bounds as unbounded and returns the total count across all requested sorted sets.","consistent":true,"precedents":[]}

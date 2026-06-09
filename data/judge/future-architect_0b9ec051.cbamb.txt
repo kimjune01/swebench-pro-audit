@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether a CPE version/name confidence with score 100 should sort after OvalMatch when both have equal numeric score, preserving the existing explicit SortOrder convention rather than treating equal scores as unordered or stable-input ordered.","consistent":true,"precedents":[]}

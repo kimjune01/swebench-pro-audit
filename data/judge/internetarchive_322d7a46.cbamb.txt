@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether a successful 200 Solr update response should be treated as success without retrying, producing exactly one httpx.post call.", "consistent": true, "precedents":[]}

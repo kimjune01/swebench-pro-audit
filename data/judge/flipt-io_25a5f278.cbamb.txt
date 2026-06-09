@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether NewWebhookClient preserves an empty signingSecret as the empty string instead of normalizing/defaulting it to another value.","consistent":true,"precedents":[]}

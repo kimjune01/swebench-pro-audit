@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether static extraction of a config reference like conf.aliases[\"a\"].propname should stop at the valid config option before the dictionary lookup (aliases) rather than include the item/property traversal as part of the config key.","consistent":true,"precedents":[]}

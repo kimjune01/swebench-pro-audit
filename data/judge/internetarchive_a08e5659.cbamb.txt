@@ -1,0 +1,1 @@
+{"discriminating_choice":"How print-disabled IA editions are serialized into the Solr work document's printdisabled_s field: bare OL edition ids joined with semicolons.","consistent":true,"precedents":[]}

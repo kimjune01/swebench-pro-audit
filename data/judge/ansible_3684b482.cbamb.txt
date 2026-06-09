@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether adding ConnectionKwargs/removing new_stdin support from ConnectionBase must also make lib/ansible/plugins/connection/__init__.py clean enough to remove its pylint:ansible-deprecated-version sanity ignore","consistent":true,"precedents":[]}

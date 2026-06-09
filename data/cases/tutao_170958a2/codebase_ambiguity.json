@@ -1,0 +1,21 @@
+{
+ "slug": "tutao_170958a2",
+ "iid": "instance_tutao__tutanota-12a6cbaa4f8b43c2f85caca0787ab55501539955-vc4e41fd0029957297843cb9dec4a25c7c756f029",
+ "choice": "Whether structured vCard/calendar BEGIN/END-style import markers are accepted case-insensitively by normalizing lowercase spellings, including lowercase begin:vcard/end:vcard delimiters.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "src/contacts/VCardImporter.ts",
+   "snippet": "\tvCardFileData = vCardFileData.replace(/begin:vcard/g, \"BEGIN:VCARD\")\n\tvCardFileData = vCardFileData.replace(/end:vcard/g, \"END:VCARD\")\n\tvCardFileData = vCardFileData.replace(/version:2.1/g, \"VERSION:2.1\")",
+   "way": "vCard import normalizes exact lowercase structural lines before parsing, so lowercase begin:vcard/end:vcard are accepted.",
+   "verified_path": "src/contacts/VCardImporter.ts"
+  },
+  {
+   "path": "src/calendar/export/CalendarParser.ts",
+   "snippet": "\tif (firstLine.value !== \"BEGIN:VCALENDAR\") {\n\t\tthrow new ParserError(\"Not a VCALENDAR: \" + String(firstLine.value))\n\t}",
+   "way": "Calendar import requires the BEGIN marker in exact uppercase form and rejects other casing.",
+   "verified_path": "src/calendar/export/CalendarParser.ts"
+  }
+ ],
+ "ok": true
+}

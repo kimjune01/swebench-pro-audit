@@ -1,0 +1,33 @@
+{
+ "slug": "element-hq_ad9cbe93",
+ "iid": "instance_element-hq__element-web-fe14847bb9bb07cab1b9c6c54335ff22ca5e516a-vnan",
+ "choice": "Whether a store setter that emits a change event should suppress the event when called with the already-current/same value.",
+ "n_verified": 4,
+ "verified": [
+  {
+   "path": "src/stores/spaces/SpaceStore.ts",
+   "snippet": "    public setActiveSpace(space: SpaceKey, contextSwitch = true) {\n        if (!space || !this.matrixClient || space === this.activeSpace) return;",
+   "way": "guards same active value and does not emit/update for a no-op selection",
+   "verified_path": "src/stores/spaces/SpaceStore.ts"
+  },
+  {
+   "path": "src/stores/RoomViewStore.tsx",
+   "snippet": "        if (!stateChanged) {\n            return;\n        }\n\n        const lastRoomId = this.state.roomId;\n        this.state = Object.assign(this.state, newState);",
+   "way": "guards unchanged store state and suppresses the update event",
+   "verified_path": "src/stores/RoomViewStore.tsx"
+  },
+  {
+   "path": "src/stores/ActiveWidgetStore.ts",
+   "snippet": "    public setWidgetPersistence(widgetId: string, roomId: string, val: boolean): void {\n        const isPersisted = this.getWidgetPersistence(widgetId, roomId);\n\n        if (isPersisted && !val) {\n            this.persistentWidgetId = null;\n            this.persistentRoomId = null;\n        } else if (!isPersisted && val) {\n            this.persistentWidgetId = widgetId;\n            this.persistentRoomId = roomId;\n        }\n        this.emit(ActiveWidgetStoreEvent.Persistence);\n    }",
+   "way": "emits the persistence change event even when the requested persistence value is already current",
+   "verified_path": "src/stores/ActiveWidgetStore.ts"
+  },
+  {
+   "path": "src/MediaDeviceHandler.ts",
+   "snippet": "    public setAudioOutput(deviceId: string): void {\n        SettingsStore.setValue(\"webrtc_audiooutput\", null, SettingLevel.DEVICE, deviceId);\n        this.emit(MediaDeviceHandlerEvent.AudioOutputChanged, deviceId);\n    }",
+   "way": "setter emits the changed event unconditionally after setting the value",
+   "verified_path": "src/MediaDeviceHandler.ts"
+  }
+ ],
+ "ok": true
+}

@@ -1,0 +1,1 @@
+{"discriminating_choice":"How detectScanDest handles a listening port whose address is \"*\": whether to expand it to each ServerInfo.IPv4Addrs entry with the same port.","consistent":true,"precedents":[]}

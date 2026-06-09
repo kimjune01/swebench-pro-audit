@@ -1,0 +1,21 @@
+{
+ "slug": "protonmail_24c785b2",
+ "iid": "instance_protonmail__webclients-01ea5214d11e0df8b7170d91bafd34f23cb0f2b1",
+ "choice": "Whether the single custom hook module should expose the hook as a default export/import or as a named export/import.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "applications/mail/src/app/hooks/useDelaySendSeconds.tsx",
+   "snippet": "const useDelaySendSeconds = () => {\n    const [mailSettings] = useMailSettings();\n    const { DelaySendSeconds = 0 } = mailSettings || {};\n    return DelaySendSeconds;\n};\n\nexport default useDelaySendSeconds;",
+   "way": "single hook module uses a default export",
+   "verified_path": "applications/mail/src/app/hooks/useDelaySendSeconds.tsx"
+  },
+  {
+   "path": "applications/mail/src/app/hooks/useResizeMessageView.ts",
+   "snippet": "export const useResizeMessageView = (\n    containerRef: RefObject<HTMLDivElement>,\n    resizeAreaRef: RefObject<HTMLButtonElement>,\n    listRef: RefObject<HTMLDivElement>\n) => {",
+   "way": "single hook module uses a named export",
+   "verified_path": "applications/mail/src/app/hooks/useResizeMessageView.ts"
+  }
+ ],
+ "ok": true
+}

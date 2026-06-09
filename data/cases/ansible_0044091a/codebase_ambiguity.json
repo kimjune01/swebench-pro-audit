@@ -1,0 +1,27 @@
+{
+ "slug": "ansible_0044091a",
+ "iid": "instance_ansible__ansible-83fb24b923064d3576d473747ebbe62e4535c9e3-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+ "choice": "Where to place newly inferred iptables match-extension tokens such as `-m multiport --dports ...` relative to `-j` and `-i` in `construct_rule`.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "lib/ansible/modules/iptables.py",
+   "snippet": "    append_param(rule, params['destination'], '-d', False)\n    append_param(rule, params['match'], '-m', True)\n    append_tcp_flags(rule, params['tcp_flags'], '--tcp-flags')\n    append_param(rule, params['jump'], '-j', False)",
+   "way": "explicit match modules are emitted before the jump and before interface arguments",
+   "verified_path": "lib/ansible/modules/iptables.py"
+  },
+  {
+   "path": "lib/ansible/modules/iptables.py",
+   "snippet": "    append_param(rule, params['in_interface'], '-i', False)\n    append_param(rule, params['out_interface'], '-o', False)\n    append_param(rule, params['fragment'], '-f', False)\n    append_param(rule, params['set_counters'], '-c', False)\n    append_param(rule, params['source_port'], '--source-port', False)\n    append_param(rule, params['destination_port'], '--destination-port', False)",
+   "way": "port/interface-related rule arguments are emitted after the jump, with interface arguments before port arguments",
+   "verified_path": "lib/ansible/modules/iptables.py"
+  },
+  {
+   "path": "lib/ansible/modules/iptables.py",
+   "snippet": "    elif params['ctstate']:\n        append_match(rule, params['ctstate'], 'conntrack')\n        append_csv(rule, params['ctstate'], '--ctstate')\n    if 'iprange' in params['match']:",
+   "way": "inferred match modules are emitted later, after jump and after interface arguments",
+   "verified_path": "lib/ansible/modules/iptables.py"
+  }
+ ],
+ "ok": false
+}

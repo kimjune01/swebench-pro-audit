@@ -1,0 +1,27 @@
+{
+ "slug": "internetarchive_8b933806",
+ "iid": "instance_internetarchive__openlibrary-1be7de788a444f6255e89c10ef6aa608550604a8-v29f82c9cf21d57b242f8d8b0e541525d259e2d63",
+ "choice": "When enriching or consuming an import/record dict's optional authors list, should a missing 'authors' key be treated as a no-op that leaves the dict unchanged, or should it be materialized as an empty authors list?",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "openlibrary/catalog/add_book/load_book.py",
+   "snippet": "    if 'authors' not in rec:\n        return False",
+   "way": "missing authors is handled as an absent optional field; no key is added",
+   "verified_path": "openlibrary/catalog/add_book/load_book.py"
+  },
+  {
+   "path": "openlibrary/catalog/add_book/__init__.py",
+   "snippet": "        authors = [import_author(a) for a in rec.get('authors', [])]",
+   "way": "missing authors is handled via a default empty list without mutating the input record",
+   "verified_path": "openlibrary/catalog/add_book/__init__.py"
+  },
+  {
+   "path": "openlibrary/catalog/add_book/__init__.py",
+   "snippet": "    # deduplicate authors\n    rec['authors'] = uniq(rec.get('authors', []), dicthash)",
+   "way": "missing authors is normalized by creating an explicit empty authors list",
+   "verified_path": "openlibrary/catalog/add_book/__init__.py"
+  }
+ ],
+ "ok": true
+}

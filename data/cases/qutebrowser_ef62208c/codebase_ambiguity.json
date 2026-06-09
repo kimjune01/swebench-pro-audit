@@ -1,0 +1,27 @@
+{
+ "slug": "qutebrowser_ef62208c",
+ "iid": "instance_qutebrowser__qutebrowser-99029144b5109bb1b2a53964a7c129e009980cd9-va0fd88aac89cde702ec1ba84877234da33adce8a",
+ "choice": "Whether a helper that removes/transforms a setting by name should raise ValueError when the named setting is absent, versus silently returning/no-oping; specifically the hidden test pins copy_remove_setting('not-found') to raise ValueError with message 'Setting not-found not found in ...'.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "qutebrowser/browser/webengine/darkmode.py",
+   "snippet": "        for setting in new._settings:  # pylint: disable=protected-access\n            if setting.option == option:\n                setting.chromium_key = chromium_key\n                return new\n\n        raise ValueError(f\"Setting {option} not found in {self}\")",
+   "way": "missing setting in a _Definition copy/replace helper is an error with a ValueError message naming the setting",
+   "verified_path": "qutebrowser/browser/webengine/darkmode.py"
+  },
+  {
+   "path": "qutebrowser/config/configfiles.py",
+   "snippet": "    def _migrate_to_multiple(self, old_name: str, new_names: Iterable[str]) -> None:\n        if old_name not in self._settings:\n            return\n\n        for new_name in new_names:",
+   "way": "missing setting in a settings transformation helper is silently ignored/no-op",
+   "verified_path": "qutebrowser/config/configfiles.py"
+  },
+  {
+   "path": "qutebrowser/config/configfiles.py",
+   "snippet": "    def _migrate_renamed_bool(self, old_name: str,\n                              new_name: str,\n                              true_value: str,\n                              false_value: str,\n                              ask_value: str = None) -> None:\n        if old_name not in self._settings:\n            return",
+   "way": "missing setting in a settings rename/migration helper is silently ignored/no-op",
+   "verified_path": "qutebrowser/config/configfiles.py"
+  }
+ ],
+ "ok": true
+}

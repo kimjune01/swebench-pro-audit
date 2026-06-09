@@ -1,0 +1,1 @@
+{"discriminating_choice":"Importing a document with unsupported version 5.0 returns the exact error string \"unsupported version: 5.0\".","consistent":true,"precedents":[]}

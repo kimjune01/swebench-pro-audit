@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether ErrorNetworkReply queues the initial errorOccurred emission before finished, making strict errorOccurred-then-finished ordering observable.","consistent":true,"precedents":[]}

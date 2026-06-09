@@ -1,0 +1,21 @@
+{
+ "slug": "NodeBB_aad0c5fd",
+ "iid": "instance_NodeBB__NodeBB-84dfda59e6a0e8a77240f939a7cb8757e6eaf945-v2c59007b1005cd5cd14cbb523ca5229db1fd2dd8",
+ "choice": "Exact error message used when rejecting a non-string/non-array file path argument: the hidden test requires [[error:wrong-parameter-type, filePaths, object, array]], but live code has comparable validators using both generic invalid-data and detailed wrong-parameter-type forms.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "src/topics/thumbs.js",
+   "snippet": "if (typeof relativePaths === 'string') {\n\t\trelativePaths = [relativePaths];\n\t} else if (!Array.isArray(relativePaths)) {\n\t\tthrow new Error('[[error:invalid-data]]');\n\t}",
+   "way": "string-or-array path input rejects other types with generic [[error:invalid-data]]",
+   "verified_path": "src/topics/thumbs.js"
+  },
+  {
+   "path": "src/api/chats.js",
+   "snippet": "if (!data.uids || !Array.isArray(data.uids)) {\n\t\tthrow new Error(`[[error:wrong-parameter-type, uids, ${typeof data.uids}, Array]]`);\n\t}",
+   "way": "array parameter validation rejects other types with detailed [[error:wrong-parameter-type, ..., typeof, Array]] message",
+   "verified_path": "src/api/chats.js"
+  }
+ ],
+ "ok": true
+}

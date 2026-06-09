@@ -1,0 +1,21 @@
+{
+ "slug": "gravitational_e7683826",
+ "iid": "instance_gravitational__teleport-dd3977957a67bedaf604ad6ca255ba8c7b6704e9",
+ "choice": "Where to insert fixed local/loopback Kubernetes principals relative to configured public addresses in getAdditionalPrincipals, specifically pinning proxy loopbacks after Proxy.PublicAddrs and before reversetunnel.LocalKubernetes.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "lib/service/service.go",
+   "snippet": "\tcase teleport.RoleProxy:\n\t\taddrs = append(process.Config.Proxy.PublicAddrs, utils.NetAddr{Addr: reversetunnel.LocalKubernetes})\n\t\taddrs = append(addrs, process.Config.Proxy.SSHPublicAddrs...)\n\t\taddrs = append(addrs, process.Config.Proxy.TunnelPublicAddrs...)\n\t\taddrs = append(addrs, process.Config.Proxy.Kube.PublicAddrs...)",
+   "way": "configured proxy public addresses first, then fixed LocalKubernetes, then other configured proxy addresses",
+   "verified_path": "lib/auth/permissions.go"
+  },
+  {
+   "path": "lib/service/service.go",
+   "snippet": "\tcase teleport.RoleKube:\n\t\taddrs = append(addrs,\n\t\t\tutils.NetAddr{Addr: string(teleport.PrincipalLocalhost)},\n\t\t\tutils.NetAddr{Addr: string(teleport.PrincipalLoopbackV4)},\n\t\t\tutils.NetAddr{Addr: string(teleport.PrincipalLoopbackV6)},\n\t\t\tutils.NetAddr{Addr: reversetunnel.LocalKubernetes},\n\t\t)\n\t\taddrs = append(addrs, process.Config.Kube.PublicAddrs...)",
+   "way": "fixed localhost/loopback/LocalKubernetes principals first, then configured kube public addresses",
+   "verified_path": "lib/reversetunnel/srv.go"
+  }
+ ],
+ "ok": true
+}

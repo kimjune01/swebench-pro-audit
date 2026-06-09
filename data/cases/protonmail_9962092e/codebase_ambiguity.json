@@ -1,0 +1,27 @@
+{
+ "slug": "protonmail_9962092e",
+ "iid": "instance_protonmail__webclients-7e54526774e577c0ebb58ced7ba8bef349a69fec",
+ "choice": "Whether a max file-size/upload-size boundary rejects only values greater than the limit (`> MAX`) or also rejects values exactly equal to the limit (`>= MAX`).",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "packages/components/containers/calendar/importModal/ImportModal.tsx",
+   "snippet": "        if (fileAttached.size > MAX_IMPORT_FILE_SIZE) {\n            throw new ImportFileError(IMPORT_ERROR_TYPE.FILE_TOO_BIG, filename);\n        }",
+   "way": "strictly greater than max is rejected; exactly max is allowed",
+   "verified_path": "packages/components/containers/calendar/importModal/ImportModal.tsx"
+  },
+  {
+   "path": "packages/components/containers/contacts/import/steps/ContactImportAttaching.tsx",
+   "snippet": "        if (fileAttached.size > MAX_IMPORT_FILE_SIZE) {\n            throw new ImportFileError(IMPORT_ERROR_TYPE.FILE_TOO_BIG, filename);\n        }",
+   "way": "strictly greater than max is rejected; exactly max is allowed",
+   "verified_path": "packages/components/containers/contacts/import/steps/ContactImportAttaching.tsx"
+  },
+  {
+   "path": "applications/drive/src/app/store/_uploads/UploadProvider/useUpload.tsx",
+   "snippet": "        if (total >= MAX_SAFE_UPLOADING_FILE_SIZE) {\n            fileThresholdModalType = 'fileSizeTotal';\n        }",
+   "way": "greater than or equal to max is flagged; exactly max is not allowed",
+   "verified_path": "applications/drive/src/app/store/_uploads/UploadProvider/useUpload.tsx"
+  }
+ ],
+ "ok": true
+}

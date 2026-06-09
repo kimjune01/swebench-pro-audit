@@ -1,0 +1,1 @@
+{"discriminating_choice":"On invalid constructor size/input, whether the pointer result is nil when returning a non-nil error.", "consistent": true, "precedents":[]}

@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether accepted connection metrics are cumulative and remain incremented after http.StateClosed, while only active connection metrics are decremented","consistent":true,"precedents":[]}

@@ -1,0 +1,21 @@
+{
+ "slug": "element-hq_7a33818b",
+ "iid": "instance_element-hq__element-web-772df3021201d9c73835a626df8dcb6334ad9a3e-vnan",
+ "choice": "Whether a multi-selection list must surface the selected item count in the list header text, e.g. \"2 sessions selected\", rather than keeping the header/action label static or putting the count elsewhere.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "src/components/views/settings/DevicesPanel.tsx",
+   "snippet": "<AccessibleButton\n                className=\"mx_DevicesPanel_deleteButton\"\n                onClick={this.onDeleteClick}\n                kind=\"danger_outline\"\n                disabled={this.state.selectedDevices.length === 0}\n                data-testid='sign-out-devices-btn'\n            >\n                { _t(\"Sign out %(count)s selected devices\", { count: this.state.selectedDevices.length }) }\n            </AccessibleButton>",
+   "way": "Multi-selected device count is shown in the bulk action button label, not in the section/header label.",
+   "verified_path": "src/toasts/IncomingLegacyCallToast.tsx"
+  },
+  {
+   "path": "src/components/views/dialogs/AddExistingToSpaceDialog.tsx",
+   "snippet": "button = <AccessibleButton kind=\"primary\" disabled={selectedToAdd.size < 1} onClick={addRooms}>\n                { _t(\"Add\") }\n            </AccessibleButton>;",
+   "way": "Multi-selection count is used only to enable/disable the bulk action; the visible idle action label stays static and does not show the selected count.",
+   "verified_path": "src/components/views/dialogs/AddExistingToSpaceDialog.tsx"
+  }
+ ],
+ "ok": true
+}

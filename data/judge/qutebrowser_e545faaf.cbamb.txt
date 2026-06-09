@@ -1,0 +1,1 @@
+{"discriminating_choice":"String regex validation uses full-string matching for the entire setting value rather than accepting a prefix or substring match.","consistent":true,"precedents":[]}

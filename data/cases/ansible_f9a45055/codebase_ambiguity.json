@@ -1,0 +1,15 @@
+{
+ "slug": "ansible_f9a45055",
+ "iid": "instance_ansible__ansible-d2f80991180337e2be23d6883064a67dcbaeb662-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+ "choice": "Ordering used when emitting collection artifact file manifest/listing entries: distlib manifest sorted order versus another current production ordering/traversal convention.",
+ "n_verified": 1,
+ "verified": [
+  {
+   "path": "lib/ansible/galaxy/collection/__init__.py",
+   "snippet": "def _walk(b_path, b_top_level_dir):\n        for b_item in os.listdir(b_path):",
+   "way": "build_ignore collection file manifest entries use raw filesystem traversal order from os.listdir rather than distlib/global sorted order",
+   "verified_path": "lib/ansible/galaxy/collection/__init__.py"
+  }
+ ],
+ "ok": false
+}

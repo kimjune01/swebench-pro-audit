@@ -1,0 +1,33 @@
+{
+ "slug": "element-hq_53415bfd",
+ "iid": "instance_element-hq__element-web-53b42e321777a598aaf2bb3eab22d710569f83a8-vnan",
+ "choice": "Whether an omitted optional boolean visibility prop counts as enabled by default, versus requiring the prop to be explicitly true before rendering the gated UI element.",
+ "n_verified": 4,
+ "verified": [
+  {
+   "path": "src/components/views/elements/AppTile.tsx",
+   "snippet": "    public static defaultProps: Partial<IProps> = {\n        waitForIframeLoad: true,\n        showMenubar: true,\n        showTitle: true,\n        showPopout: true,\n        handleMinimisePointerEvents: false,\n        userWidget: false,\n        miniMode: false,\n        threadId: null,\n        showLayoutButtons: true,\n    };",
+   "way": "omitted visibility props default to enabled",
+   "verified_path": "src/NodeAnimator.tsx"
+  },
+  {
+   "path": "src/components/views/elements/DialogButtons.tsx",
+   "snippet": "    public static defaultProps: Partial<IProps> = {\n        hasCancel: true,\n        disabled: false,\n    };",
+   "way": "omitted visibility prop defaults to enabled",
+   "verified_path": "src/NodeAnimator.tsx"
+  },
+  {
+   "path": "src/components/views/location/ShareDialogButtons.tsx",
+   "snippet": "interface Props {\n    onCancel: () => void;\n    onBack: () => void;\n    displayBack?: boolean;\n}\n\nconst ShareDialogButtons: React.FC<Props> = ({ onBack, onCancel, displayBack }) => {\n    return (\n        <div className=\"mx_ShareDialogButtons\">\n            {displayBack && (",
+   "way": "omitted visibility prop is disabled unless explicitly true",
+   "verified_path": "scripts/make-react-component.js"
+  },
+  {
+   "path": "src/components/views/polls/PollOption.tsx",
+   "snippet": "type PollOptionContentProps = {\n    answer: PollAnswerSubevent;\n    voteCount: number;\n    displayVoteCount?: boolean;\n    isWinner?: boolean;\n};\nconst PollOptionContent: React.FC<PollOptionContentProps> = ({ isWinner, answer, voteCount, displayVoteCount }) => {\n    const votesText = displayVoteCount ? _t(\"%(count)s votes\", { count: voteCount }) : \"\";",
+   "way": "omitted visibility prop is disabled unless explicitly true",
+   "verified_path": "src/components/views/polls/PollOption.tsx"
+  }
+ ],
+ "ok": true
+}

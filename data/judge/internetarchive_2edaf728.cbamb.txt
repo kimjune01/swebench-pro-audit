@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether passing explicit False as override_validation to validate_record preserves existing publication-year validation and raises PublicationYearTooOld for publish_date '1499'.","consistent":true,"precedents":[]}

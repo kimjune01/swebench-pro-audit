@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether the kebab/context-menu trigger is rendered through AccessibleButton/ContextMenuButton, producing a non-native role=\"button\" element with tabindex=\"0\", rather than as a native <button>.","consistent":true,"precedents":[]}

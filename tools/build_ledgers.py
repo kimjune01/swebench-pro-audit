@@ -74,8 +74,11 @@ def main():
         return g.exists() and json.loads(g.read_text()).get("clean_fail")
     proven = [c for c in amb if klass[c][1]]
     airtight = [c for c in proven if klass[c][0] == "airtight"]
-    gradedpatch = [c for c in proven if klass[c][0] != "airtight" and graded(c)]  # R2 graded-patch
-    proseaff = [c for c in proven if klass[c][0] != "airtight" and not graded(c)]  # hand-verified (tutao)
+    cbplural = [c for c in proven if klass[c][0] == "codebase-plural"]            # two-precedent rule
+    gradedpatch = [c for c in proven if klass[c][0] == "prose-affirmative" and graded(c)]
+    proseaff = [c for c in proven if klass[c][0] == "prose-affirmative" and not graded(c)]  # tutao
+    # mechanical spine = assumption-free tiers; codebase-plural rests on the two-precedent rule
+    mech_spine = airtight + gradedpatch + proseaff
     hypo = [c for c in amb if not klass[c][1]]
     auto_pa = [c for c in hypo if klass[c][0] == "prose-affirmative"]    # raters-pending tier
     cb_border = [c for c in hypo if klass[c][0] != "prose-affirmative"]  # codebase/borderline/skip
@@ -105,27 +108,33 @@ def main():
         f"{len(gradedpatch)} | {len(gradedpatch)/n:.0%} | **YES — mechanical spine** |",
         f"| &nbsp;&nbsp;├─ **prose-affirmative, hand-verified** (tutao) | "
         f"{len(proseaff)} | {len(proseaff)/n:.0%} | **YES — mechanical spine** |",
+        f"| &nbsp;&nbsp;├─ **codebase-plural** (≥2 live coexisting conventions, prose silent) | "
+        f"{len(cbplural)} | {len(cbplural)/n:.0%} | **YES — under the two-precedent rule** |",
         f"| &nbsp;&nbsp;├─ prose-affirmative, codex-proposed (gate/graded-patch pending or not-clean) | "
         f"{len(auto_pa)} | {len(auto_pa)/n:.0%} | NO — raters / graded-patch pending |",
-        f"| &nbsp;&nbsp;└─ codebase / borderline | {len(cb_border)} | {len(cb_border)/n:.0%} | "
-        f"NO — raters-pending |",
+        f"| &nbsp;&nbsp;└─ codebase / borderline (no 2 comparable live precedents found) | {len(cb_border)} | "
+        f"{len(cb_border)/n:.0%} | NO — raters-pending |",
     ]
     if err:
         s.append(f"| ERROR (judge did not parse) | {len(err)} | {len(err)/n:.0%} | — |")
     s += [
-        "", "## Claimable now (mechanical spine)", "",
-        f"- **KNOWN_AMBIGUOUS (PROVEN): {len(spine)}** of {n} — {len(airtight)} airtight (grep) + "
-        f"{len(gradedpatch)} graded-patch (R2 both-rater-faithful + bench-failed) + {len(proseaff)} "
-        f"hand-verified, each with a witness ([`KNOWN_AMBIGUOUS.md`](KNOWN_AMBIGUOUS.md)).",
-        f"- **KNOWN_BAD: {len(kb)}** gold-fails-grader defects, frozen pre-run "
-        "([`KNOWN_BAD.md`](KNOWN_BAD.md); separately audited, outside the prose-set denominator).",
+        "", "## Claimable now — two bars", "",
+        f"- **Mechanical spine (no methodological buy-in): {len(mech_spine)} of {n} "
+        f"({len(mech_spine)/n:.1%})** — {len(airtight)} airtight (grep) + {len(gradedpatch)} "
+        f"graded-patch (R2 both-rater-faithful + bench-failed) + {len(proseaff)} hand-verified. A "
+        "hostile reader reproduces each from the committed gold+test+prose and has nothing to argue.",
+        f"- **Plus codebase-plural under the two-precedent rule: {len(cbplural)}**, giving "
+        f"**{len(spine)} total ({len(spine)/n:.1%})**. These cite ≥2 live, comparable, prose-silent "
+        "coexisting conventions in the repo at base_commit (grep-verified, test/example/vendor/"
+        "deprecated excluded). Defensible, but rests on the stance that two live conventions + silent "
+        "prose = underdetermined — a reader can contest it ('a solver would infer which binds').",
+        f"- **KNOWN_BAD: {len(kb)}** gold-fails-grader defects, frozen pre-run; the full 731 sweep "
+        "re-confirmed exactly these and found no new genuine defect ([`KNOWN_BAD.md`](KNOWN_BAD.md)).",
         "",
-        f"So on the {n}-task public set, the claimable determinacy-failing floor is **{len(spine)} "
-        f"PROVEN-ambiguous ({len(spine)/n:.1%})**, with a further **{len(hypo)} screen-flagged "
-        f"hypotheses ({len(hypo)/n:.0%})** that an independent codebase-aware rater panel + κ must "
-        "adjudicate before any of them counts. The codebase-class *rate* is therefore reported as "
-        "raters-pending, not as a result. This is a preregistered instrument with a proven spine, not "
-        "yet a population rate.", "",
+        f"Headline, honestly two-tier: **{len(mech_spine)/n:.1%} provably underdetermined with no "
+        f"assumptions; {len(spine)/n:.1%} under a reasonable solver model.** A further {len(hypo)} "
+        f"screen-flagged hypotheses ({len(hypo)/n:.0%}) remain raters-pending and are NOT counted. "
+        "A preregistered instrument with a proven spine, not a population rate.", "",
         "Full per-case table: [`COVERAGE.md`](COVERAGE.md). Method: "
         "[`docs/ADMISSIBILITY-SPEC.md`](docs/ADMISSIBILITY-SPEC.md).", "",
         "## Hand-audited worked cases", "",
@@ -195,10 +204,10 @@ def main():
                       f"{r.get('n_gap',0)} | [table](data/attribution/{c}.md) |")
     (REPO / "OUR_CAPABILITY_GAPS.md").write_text("\n".join(og) + "\n")
 
-    print(f"wrote ledgers. N={n} ENTAILED={len(ent)} AMBIGUOUS={len(amb)} | spine={len(spine)} "
-          f"(airtight={len(airtight)} + graded-patch={len(gradedpatch)} + hand={len(proseaff)}) | "
-          f"hypothesis={len(hypo)} (auto-pa={len(auto_pa)} codebase/borderline={len(cb_border)}) "
-          f"KNOWN_BAD={len(kb)} ERR={len(err)}")
+    print(f"wrote ledgers. N={n} ENTAILED={len(ent)} AMBIGUOUS={len(amb)} | PROVEN={len(spine)} "
+          f"[mech_spine={len(mech_spine)} (airtight={len(airtight)} graded-patch={len(gradedpatch)} "
+          f"hand={len(proseaff)}) + codebase-plural={len(cbplural)}] | hypothesis={len(hypo)} "
+          f"(auto-pa={len(auto_pa)} codebase/borderline={len(cb_border)}) KNOWN_BAD={len(kb)} ERR={len(err)}")
 
 
 if __name__ == "__main__":

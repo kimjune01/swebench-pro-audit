@@ -1,0 +1,27 @@
+{
+ "slug": "flipt-io_b64891e5",
+ "iid": "instance_flipt-io__flipt-05d7234fa582df632f70a7cd10194d61bd7043b9",
+ "choice": "Whether FileInfo must store ETag/version metadata as a dedicated internal scalar field rather than deriving file metadata from an existing backing descriptor/object.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "internal/storage/fs/object/fileinfo.go",
+   "snippet": "type FileInfo struct {\n\tname    string\n\tsize    int64\n\tmodTime time.Time\n\tisDir   bool\n}",
+   "way": "direct unexported scalar fields on FileInfo",
+   "verified_path": "internal/gitfs/gitfs.go"
+  },
+  {
+   "path": "internal/gitfs/gitfs.go",
+   "snippet": "type FileInfo struct {\n\tname string\n\tsize int64\n\tmode fs.FileMode\n\tmod  time.Time\n}",
+   "way": "direct unexported scalar fields on FileInfo",
+   "verified_path": "internal/gitfs/gitfs.go"
+  },
+  {
+   "path": "internal/oci/file.go",
+   "snippet": "type FileInfo struct {\n\tdesc     v1.Descriptor\n\tencoding string\n\tmod      time.Time\n}",
+   "way": "stores backing descriptor metadata instead of separate scalar fields",
+   "verified_path": "internal/gitfs/gitfs.go"
+  }
+ ],
+ "ok": false
+}

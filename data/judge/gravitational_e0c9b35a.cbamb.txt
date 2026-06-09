@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether expired overflow/backlog entries are cleaned up only when a subsequent Append/emit operation runs, rather than automatically when the configured clock passes the grace-period deadline.","consistent":true,"precedents":[]}

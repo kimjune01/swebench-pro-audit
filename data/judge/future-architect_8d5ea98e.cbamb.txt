@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether a parser/converter that is passed an existing *models.ScanResult fills that object while preserving caller-provided metadata fields such as JSONVersion and ServerUUID, rather than replacing/reinitializing the result and losing those fields.","consistent":true,"precedents":[]}

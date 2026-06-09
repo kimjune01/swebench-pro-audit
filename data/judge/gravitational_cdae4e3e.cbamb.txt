@@ -1,0 +1,1 @@
+{"discriminating_choice":"When terminal size cannot be determined while rendering a dynamic table with a matching truncated column, use a default table width of 80 characters.","consistent":true,"precedents":[]}

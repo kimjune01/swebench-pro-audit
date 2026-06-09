@@ -1,0 +1,1 @@
+{"discriminating_choice":"serialization spelling for a failed auditd ResultType in the audit payload res field","consistent":true,"precedents":[]}

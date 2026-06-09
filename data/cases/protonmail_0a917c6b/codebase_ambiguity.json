@@ -1,0 +1,27 @@
+{
+ "slug": "protonmail_0a917c6b",
+ "iid": "instance_protonmail__webclients-b387b24147e4b5ec3b482b8719ea72bee001462a",
+ "choice": "When an optional default value for a form/contact input is omitted, whether local state should start from a concrete built-in default (such as a country code) or from the empty value/no selection.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "packages/components/components/v2/phone/PhoneInput.tsx",
+   "snippet": "const PhoneInputBase = (\n    { value: actualValue = '', defaultCountry = 'US', embedded, onChange, onValue, ...rest }: Props,\n    ref: Ref<HTMLInputElement>\n) => {\n    const inputRef = useRef<HTMLInputElement>(null);\n    const selectionRef = useRef<number | null>(null);\n    const oldSpecificCountryLengthRef = useRef<number>(0);\n    const [isCountryCallingCodeMode, setIsCountryCallingCodeMode] = useState(false);\n    const [oldCountry, setOldCountry] = useState(defaultCountry);",
+   "way": "omitted optional defaultCountry initializes state from built-in 'US'",
+   "verified_path": "packages/components/components/v2/phone/PhoneInput.tsx"
+  },
+  {
+   "path": "packages/components/containers/api/humanVerification/PhoneMethodForm.tsx",
+   "snippet": "const PhoneMethodForm = ({ onSubmit, defaultPhone = '', defaultCountry, isEmbedded }: Props) => {\n    const [phone, setPhone] = useState(defaultPhone);\n    const [loading, withLoading] = useLoading();",
+   "way": "omitted optional defaultPhone initializes state from empty string",
+   "verified_path": "packages/components/containers/api/humanVerification/PhoneMethodForm.tsx"
+  },
+  {
+   "path": "packages/components/containers/api/humanVerification/EmailMethodForm.tsx",
+   "snippet": "const EmailMethodForm = ({ onSubmit, defaultEmail = '' }: Props) => {\n    const [email, setEmail] = useState(defaultEmail);\n    const [loading, withLoading] = useLoading();",
+   "way": "omitted optional defaultEmail initializes state from empty string",
+   "verified_path": "packages/components/containers/api/humanVerification/EmailMethodForm.tsx"
+  }
+ ],
+ "ok": true
+}

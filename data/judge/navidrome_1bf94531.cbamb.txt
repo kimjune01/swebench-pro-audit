@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether the db package must expose a separate `Dialect` identifier for the base sqlite3 dialect name, instead of reusing `Driver` or the literal `sqlite3` when opening/migrating SQLite connections.","consistent":true,"precedents":[]}

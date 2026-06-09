@@ -1,0 +1,33 @@
+{
+ "slug": "gravitational_d05df372",
+ "iid": "instance_gravitational__teleport-96019ce0be7a2c8e36363f359eb7c943b41dde70",
+ "choice": "Whether an unsupported request auth context user type is classified as AccessDenied or as a non-AccessDenied bad-parameter/setup error.",
+ "n_verified": 4,
+ "verified": [
+  {
+   "path": "lib/kube/proxy/forwarder.go",
+   "snippet": "\tuserTypeI := req.Context().Value(auth.ContextUser)\n\tswitch userTypeI.(type) {\n\tcase auth.LocalUser:\n\n\tcase auth.RemoteUser:\n\t\tisRemoteUser = true\n\tcase auth.BuiltinRole:\n\t\tf.log.Warningf(\"Denying proxy access to unauthenticated user of type %T - this can sometimes be caused by inadvertently using an HTTP load balancer instead of a TCP load balancer on the Kubernetes port.\", userTypeI)\n\t\treturn nil, trace.AccessDenied(accessDeniedMsg)\n\tdefault:\n\t\tf.log.Warningf(\"Denying proxy access to unsupported user type: %T.\", userTypeI)\n\t\treturn nil, trace.AccessDenied(accessDeniedMsg)\n\t}",
+   "way": "unsupported/unauthenticated auth context user types are denied as AccessDenied",
+   "verified_path": "lib/kube/proxy/forwarder.go"
+  },
+  {
+   "path": "lib/auth/permissions.go",
+   "snippet": "func (a *authorizer) fromUser(userI interface{}) (*Context, error) {\n\tswitch user := userI.(type) {\n\tcase LocalUser:\n\t\treturn a.authorizeLocalUser(user)\n\tcase RemoteUser:\n\t\treturn a.authorizeRemoteUser(user)\n\tcase BuiltinRole:\n\t\treturn a.authorizeBuiltinRole(user)\n\tcase RemoteBuiltinRole:\n\t\treturn a.authorizeRemoteBuiltinRole(user)\n\tdefault:\n\t\treturn nil, trace.AccessDenied(\"unsupported context type %T\", userI)\n\t}\n}",
+   "way": "unsupported auth context user types are denied as AccessDenied",
+   "verified_path": "lib/auth/permissions.go"
+  },
+  {
+   "path": "lib/srv/app/server.go",
+   "snippet": "func (s *Server) authorize(ctx context.Context, r *http.Request) (*tlsca.Identity, *services.App, error) {\n\t// Only allow local and remote identities to proxy to an application.\n\tuserType := r.Context().Value(auth.ContextUser)\n\tswitch userType.(type) {\n\tcase auth.LocalUser, auth.RemoteUser:\n\tdefault:\n\t\treturn nil, nil, trace.BadParameter(\"invalid identity: %T\", userType)\n\t}",
+   "way": "invalid auth context identity type is treated as BadParameter, not AccessDenied",
+   "verified_path": "lib/srv/app/server.go"
+  },
+  {
+   "path": "lib/auth/apiserver.go",
+   "snippet": "func (s *APIServer) getServerID(r *http.Request) (string, error) {\n\trole, ok := r.Context().Value(ContextUser).(BuiltinRole)\n\tif !ok {\n\t\treturn \"\", trace.BadParameter(\"invalid role %T\", r.Context().Value(ContextUser))\n\t}",
+   "way": "wrong auth context role type is treated as BadParameter, not AccessDenied",
+   "verified_path": "lib/auth/apiserver.go"
+  }
+ ],
+ "ok": true
+}

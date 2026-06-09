@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether the _configure_module migration from find_plugin to find_plugin_with_context preserves task collection resolution by passing collection_list=self._task.collections.","consistent":true,"precedents":[]}

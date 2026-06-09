@@ -1,0 +1,27 @@
+{
+ "slug": "future-architect_472df0e1",
+ "iid": "instance_future-architect__vuls-50580f6e98eeb36f53f27222f7f4fdfea0b21e8d",
+ "choice": "Whether a produced models.CveContent Title is populated from the source vulnerability title, populated from another source text field, or left unset when ingesting vulnerability feeds.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "detector/wordpress.go",
+   "snippet": "Title:        vulnerability.Title,",
+   "way": "copies the WPScan payload title into CveContent.Title",
+   "verified_path": "detector/wordpress.go"
+  },
+  {
+   "path": "detector/github.go",
+   "snippet": "Title:         v.Node.SecurityAdvisory.Summary,\n\t\t\t\t\tSummary:       v.Node.SecurityAdvisory.Description,",
+   "way": "uses the source advisory summary as CveContent.Title while storing description separately as Summary",
+   "verified_path": "detector/github.go"
+  },
+  {
+   "path": "gost/debian.go",
+   "snippet": "return &models.CveContent{\n\t\tType:          models.DebianSecurityTracker,\n\t\tCveID:         cve.CveID,\n\t\tSummary:       cve.Description,",
+   "way": "leaves CveContent.Title unset and records the source description only as Summary",
+   "verified_path": "gost/redhat.go"
+  }
+ ],
+ "ok": true
+}

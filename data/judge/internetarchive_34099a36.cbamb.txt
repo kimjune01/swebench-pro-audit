@@ -1,0 +1,1 @@
+{"discriminating_choice":"Exact titles list contents and order for expanded edition records: delegate to build_titles(rec['full_title']), preserving original full_title first, normalized title second, then article-stripped variants in build_titles order.","consistent":true,"precedents":[]}

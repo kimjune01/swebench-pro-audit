@@ -1,0 +1,21 @@
+{
+ "slug": "internetarchive_188a7677",
+ "iid": "instance_internetarchive__openlibrary-431442c92887a3aece3f8aa771dd029738a80eb1-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c",
+ "choice": "When rebuilding a Luqum parent.children tuple for a targeted child rewrite, whether the target child is matched by value equality or by object identity.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "openlibrary/solr/query_utils.py",
+   "snippet": "        new_children = tuple(c for c in parent.children if c != child)",
+   "way": "matches/removes children by value equality, so all children equal to the target are affected",
+   "verified_path": "openlibrary/solr/query_utils.py"
+  },
+  {
+   "path": "openlibrary/solr/query_utils.py",
+   "snippet": "                    parents[-1].children = tuple(\n                        child if child is not node else last_sf\n                        for child in parents[-1].children\n                    )",
+   "way": "matches/replaces only the identical child object using identity",
+   "verified_path": "openlibrary/solr/query_utils.py"
+  }
+ ],
+ "ok": false
+}

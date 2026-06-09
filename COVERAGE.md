@@ -8,7 +8,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | NodeBB_09f3ac65 | ENTAILED | 12/12 | 0 |  | [t](data/attribution/NodeBB_09f3ac65.md) |
 | NodeBB_140f9d24 | ENTAILED | 8/8 | 0 |  | [t](data/attribution/NodeBB_140f9d24.md) |
 | NodeBB_163c977d | ENTAILED | 6/6 | 0 |  | [t](data/attribution/NodeBB_163c977d.md) |
-| NodeBB_1e137b07 | AMBIGUOUS | 3/5 | 2 | hypothesis | [t](data/attribution/NodeBB_1e137b07.md) |
+| NodeBB_1e137b07 | AMBIGUOUS | 3/5 | 2 | codebase-plural | [t](data/attribution/NodeBB_1e137b07.md) |
 | NodeBB_34d99c15 | ENTAILED | 10/10 | 0 |  | [t](data/attribution/NodeBB_34d99c15.md) |
 | NodeBB_3ecbb624 | ENTAILED | 6/6 | 0 |  | [t](data/attribution/NodeBB_3ecbb624.md) |
 | NodeBB_47910d70 | AMBIGUOUS | 2/3 | 1 | hypothesis | [t](data/attribution/NodeBB_47910d70.md) |
@@ -16,22 +16,22 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | NodeBB_50e1a1a7 | ENTAILED | 6/6 | 0 |  | [t](data/attribution/NodeBB_50e1a1a7.md) |
 | NodeBB_565ca3cc | ENTAILED | 10/10 | 0 |  | [t](data/attribution/NodeBB_565ca3cc.md) |
 | NodeBB_60680876 | ENTAILED | 9/9 | 0 |  | [t](data/attribution/NodeBB_60680876.md) |
-| NodeBB_61d17c95 | AMBIGUOUS | 2/3 | 1 | hypothesis | [t](data/attribution/NodeBB_61d17c95.md) |
+| NodeBB_61d17c95 | AMBIGUOUS | 2/3 | 1 | codebase-plural | [t](data/attribution/NodeBB_61d17c95.md) |
 | NodeBB_6bbe3d1c | ENTAILED | 3/3 | 0 |  | [t](data/attribution/NodeBB_6bbe3d1c.md) |
 | NodeBB_6ecc791d | AMBIGUOUS | 2/3 | 1 | hypothesis | [t](data/attribution/NodeBB_6ecc791d.md) |
-| NodeBB_754965b5 | AMBIGUOUS | 5/8 | 3 | hypothesis | [t](data/attribution/NodeBB_754965b5.md) |
+| NodeBB_754965b5 | AMBIGUOUS | 5/8 | 3 | codebase-plural | [t](data/attribution/NodeBB_754965b5.md) |
 | NodeBB_779c73ea | ENTAILED | 2/2 | 0 |  | [t](data/attribution/NodeBB_779c73ea.md) |
 | NodeBB_7800016f | ENTAILED | 4/4 | 0 |  | [t](data/attribution/NodeBB_7800016f.md) |
 | NodeBB_7f48edc0 | ENTAILED | 5/5 | 0 |  | [t](data/attribution/NodeBB_7f48edc0.md) |
 | NodeBB_81611ae1 | ENTAILED | 3/3 | 0 |  | [t](data/attribution/NodeBB_81611ae1.md) |
 | NodeBB_84dfda59 | ENTAILED | 14/14 | 0 |  | [t](data/attribution/NodeBB_84dfda59.md) |
 | NodeBB_88aee439 | AMBIGUOUS | 2/3 | 1 | prose-affirmative | [t](data/attribution/NodeBB_88aee439.md) |
-| NodeBB_88e891fc | AMBIGUOUS | 1/2 | 1 | hypothesis | [t](data/attribution/NodeBB_88e891fc.md) |
+| NodeBB_88e891fc | AMBIGUOUS | 1/2 | 1 | codebase-plural | [t](data/attribution/NodeBB_88e891fc.md) |
 | NodeBB_8fd8079a | ENTAILED | 1/1 | 0 |  | [t](data/attribution/NodeBB_8fd8079a.md) |
 | NodeBB_a2ebf53b | ENTAILED | 7/7 | 0 |  | [t](data/attribution/NodeBB_a2ebf53b.md) |
 | NodeBB_a3e1a666 | ENTAILED | 2/2 | 0 |  | [t](data/attribution/NodeBB_a3e1a666.md) |
 | NodeBB_a592ebd1 | AMBIGUOUS | 1/4 | 3 | hypothesis | [t](data/attribution/NodeBB_a592ebd1.md) |
-| NodeBB_aad0c5fd | AMBIGUOUS | 12/13 | 1 | hypothesis | [t](data/attribution/NodeBB_aad0c5fd.md) |
+| NodeBB_aad0c5fd | AMBIGUOUS | 12/13 | 1 | codebase-plural | [t](data/attribution/NodeBB_aad0c5fd.md) |
 | NodeBB_ab5e2a41 | ENTAILED | 10/10 | 0 |  | [t](data/attribution/NodeBB_ab5e2a41.md) |
 | NodeBB_b94bb1bf | ENTAILED | 1/1 | 0 |  | [t](data/attribution/NodeBB_b94bb1bf.md) |
 | NodeBB_bbaaead0 | AMBIGUOUS | 2/3 | 1 | prose-affirmative | [t](data/attribution/NodeBB_bbaaead0.md) |
@@ -61,7 +61,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | ansible_1f59bbf4 | ENTAILED | 10/10 | 0 |  | [t](data/attribution/ansible_1f59bbf4.md) |
 | ansible_20ec9272 | ENTAILED | 15/15 | 0 |  | [t](data/attribution/ansible_20ec9272.md) |
 | ansible_20ef733e | AMBIGUOUS | 2/8 | 6 | airtight | [t](data/attribution/ansible_20ef733e.md) |
-| ansible_225ae65b | AMBIGUOUS | 3/4 | 1 | hypothesis | [t](data/attribution/ansible_225ae65b.md) |
+| ansible_225ae65b | AMBIGUOUS | 3/4 | 1 | codebase-plural | [t](data/attribution/ansible_225ae65b.md) |
 | ansible_25268509 | ENTAILED | 5/5 | 0 |  | [t](data/attribution/ansible_25268509.md) |
 | ansible_254de2a4 | ENTAILED | 18/18 | 0 |  | [t](data/attribution/ansible_254de2a4.md) |
 | ansible_270f109b | ENTAILED | 10/10 | 0 |  | [t](data/attribution/ansible_270f109b.md) |
@@ -98,8 +98,8 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | ansible_92df6648 | ENTAILED | 7/7 | 0 |  | [t](data/attribution/ansible_92df6648.md) |
 | ansible_96c19724 | ENTAILED | 4/4 | 0 |  | [t](data/attribution/ansible_96c19724.md) |
 | ansible_98726ad8 | ENTAILED | 8/8 | 0 |  | [t](data/attribution/ansible_98726ad8.md) |
-| ansible_9ab63986 | AMBIGUOUS | 29/42 | 13 | hypothesis | [t](data/attribution/ansible_9ab63986.md) |
-| ansible_9b0d2dec | AMBIGUOUS | 13/14 | 1 | hypothesis | [t](data/attribution/ansible_9b0d2dec.md) |
+| ansible_9ab63986 | AMBIGUOUS | 29/42 | 13 | codebase-plural | [t](data/attribution/ansible_9ab63986.md) |
+| ansible_9b0d2dec | AMBIGUOUS | 13/14 | 1 | codebase-plural | [t](data/attribution/ansible_9b0d2dec.md) |
 | ansible_a0aad179 | AMBIGUOUS | 3/5 | 2 | prose-affirmative | [t](data/attribution/ansible_a0aad179.md) |
 | ansible_a58fcde3 | ENTAILED | 20/20 | 0 |  | [t](data/attribution/ansible_a58fcde3.md) |
 | ansible_a5a13246 | ENTAILED | 12/12 | 0 |  | [t](data/attribution/ansible_a5a13246.md) |
@@ -110,7 +110,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | ansible_ac1ca40f | ENTAILED | 4/4 | 0 |  | [t](data/attribution/ansible_ac1ca40f.md) |
 | ansible_b479addd | ENTAILED | 3/3 | 0 |  | [t](data/attribution/ansible_b479addd.md) |
 | ansible_b6360dc5 | AMBIGUOUS | 1/2 | 1 | airtight | [t](data/attribution/ansible_b6360dc5.md) |
-| ansible_b6e71c5f | AMBIGUOUS | 12/14 | 2 | hypothesis | [t](data/attribution/ansible_b6e71c5f.md) |
+| ansible_b6e71c5f | AMBIGUOUS | 12/14 | 2 | codebase-plural | [t](data/attribution/ansible_b6e71c5f.md) |
 | ansible_bc6cd138 | ENTAILED | 2/2 | 0 |  | [t](data/attribution/ansible_bc6cd138.md) |
 | ansible_bddb9a74 | ENTAILED | 16/16 | 0 |  | [t](data/attribution/ansible_bddb9a74.md) |
 | ansible_bf98f031 | AMBIGUOUS | 3/5 | 2 | prose-affirmative | [t](data/attribution/ansible_bf98f031.md) |
@@ -149,7 +149,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | element-hq_19f9f985 | ENTAILED | 7/7 | 0 |  | [t](data/attribution/element-hq_19f9f985.md) |
 | element-hq_1a0dbbf1 | AMBIGUOUS | 5/9 | 4 | airtight | [t](data/attribution/element-hq_1a0dbbf1.md) |
 | element-hq_1b39dbdb | ENTAILED | 9/9 | 0 |  | [t](data/attribution/element-hq_1b39dbdb.md) |
-| element-hq_1c039fcd | AMBIGUOUS | 25/29 | 4 | hypothesis | [t](data/attribution/element-hq_1c039fcd.md) |
+| element-hq_1c039fcd | AMBIGUOUS | 25/29 | 4 | codebase-plural | [t](data/attribution/element-hq_1c039fcd.md) |
 | element-hq_1f8fbc81 | AMBIGUOUS | 4/6 | 2 | hypothesis | [t](data/attribution/element-hq_1f8fbc81.md) |
 | element-hq_212233cb | ENTAILED | 6/6 | 0 |  | [t](data/attribution/element-hq_212233cb.md) |
 | element-hq_28f7aac9 | ENTAILED | 4/4 | 0 |  | [t](data/attribution/element-hq_28f7aac9.md) |
@@ -161,18 +161,18 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | element-hq_372720ec | ENTAILED | 5/5 | 0 |  | [t](data/attribution/element-hq_372720ec.md) |
 | element-hq_4f327278 | ENTAILED | 5/5 | 0 |  | [t](data/attribution/element-hq_4f327278.md) |
 | element-hq_526645c7 | ENTAILED | 8/8 | 0 |  | [t](data/attribution/element-hq_526645c7.md) |
-| element-hq_53415bfd | AMBIGUOUS | 10/11 | 1 | hypothesis | [t](data/attribution/element-hq_53415bfd.md) |
+| element-hq_53415bfd | AMBIGUOUS | 10/11 | 1 | codebase-plural | [t](data/attribution/element-hq_53415bfd.md) |
 | element-hq_5583d07f | ENTAILED | 3/3 | 0 |  | [t](data/attribution/element-hq_5583d07f.md) |
 | element-hq_5a435505 | ENTAILED | 5/5 | 0 |  | [t](data/attribution/element-hq_5a435505.md) |
 | element-hq_64733e59 | ENTAILED | 3/3 | 0 |  | [t](data/attribution/element-hq_64733e59.md) |
 | element-hq_650b9cb0 | ENTAILED | 3/3 | 0 |  | [t](data/attribution/element-hq_650b9cb0.md) |
 | element-hq_6bc4523c | ENTAILED | 7/7 | 0 |  | [t](data/attribution/element-hq_6bc4523c.md) |
 | element-hq_6da3cc8c | ENTAILED | 13/13 | 0 |  | [t](data/attribution/element-hq_6da3cc8c.md) |
-| element-hq_7a33818b | AMBIGUOUS | 10/11 | 1 | hypothesis | [t](data/attribution/element-hq_7a33818b.md) |
+| element-hq_7a33818b | AMBIGUOUS | 10/11 | 1 | codebase-plural | [t](data/attribution/element-hq_7a33818b.md) |
 | element-hq_8166306e | ENTAILED | 6/6 | 0 |  | [t](data/attribution/element-hq_8166306e.md) |
 | element-hq_83612dd4 | ENTAILED | 20/20 | 0 |  | [t](data/attribution/element-hq_83612dd4.md) |
 | element-hq_8b54be6f | AMBIGUOUS | 18/20 | 2 | hypothesis | [t](data/attribution/element-hq_8b54be6f.md) |
-| element-hq_8b8d24c2 | AMBIGUOUS | 6/8 | 2 | hypothesis | [t](data/attribution/element-hq_8b8d24c2.md) |
+| element-hq_8b8d24c2 | AMBIGUOUS | 6/8 | 2 | codebase-plural | [t](data/attribution/element-hq_8b8d24c2.md) |
 | element-hq_8c13a0f8 | ENTAILED | 1/1 | 0 |  | [t](data/attribution/element-hq_8c13a0f8.md) |
 | element-hq_8ebdcab7 | ENTAILED | 1/1 | 0 |  | [t](data/attribution/element-hq_8ebdcab7.md) |
 | element-hq_90801eb3 | ENTAILED | 9/9 | 0 |  | [t](data/attribution/element-hq_90801eb3.md) |
@@ -181,13 +181,13 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | element-hq_9d8eface | ENTAILED | 13/13 | 0 |  | [t](data/attribution/element-hq_9d8eface.md) |
 | element-hq_9d9c55d9 | ENTAILED | 21/21 | 0 |  | [t](data/attribution/element-hq_9d9c55d9.md) |
 | element-hq_a3a2a0f9 | ENTAILED | 12/12 | 0 |  | [t](data/attribution/element-hq_a3a2a0f9.md) |
-| element-hq_ad9cbe93 | AMBIGUOUS | 19/25 | 6 | hypothesis | [t](data/attribution/element-hq_ad9cbe93.md) |
+| element-hq_ad9cbe93 | AMBIGUOUS | 19/25 | 6 | codebase-plural | [t](data/attribution/element-hq_ad9cbe93.md) |
 | element-hq_b0317e67 | ENTAILED | 12/12 | 0 |  | [t](data/attribution/element-hq_b0317e67.md) |
 | element-hq_b03433ef | ENTAILED | 15/15 | 0 |  | [t](data/attribution/element-hq_b03433ef.md) |
 | element-hq_b8bb8f16 | AMBIGUOUS | 19/32 | 13 | prose-affirmative | [t](data/attribution/element-hq_b8bb8f16.md) |
 | element-hq_ba171f1f | ENTAILED | 16/16 | 0 |  | [t](data/attribution/element-hq_ba171f1f.md) |
-| element-hq_c153a4d3 | AMBIGUOUS | 8/9 | 1 | hypothesis | [t](data/attribution/element-hq_c153a4d3.md) |
-| element-hq_c2ae6c27 | AMBIGUOUS | 5/11 | 6 | hypothesis | [t](data/attribution/element-hq_c2ae6c27.md) |
+| element-hq_c153a4d3 | AMBIGUOUS | 8/9 | 1 | codebase-plural | [t](data/attribution/element-hq_c153a4d3.md) |
+| element-hq_c2ae6c27 | AMBIGUOUS | 5/11 | 6 | codebase-plural | [t](data/attribution/element-hq_c2ae6c27.md) |
 | element-hq_c9d9c421 | AMBIGUOUS | 10/12 | 2 | hypothesis | [t](data/attribution/element-hq_c9d9c421.md) |
 | element-hq_cdffd1ca | ENTAILED | 3/3 | 0 |  | [t](data/attribution/element-hq_cdffd1ca.md) |
 | element-hq_d5d1ec77 | ENTAILED | 7/7 | 0 |  | [t](data/attribution/element-hq_d5d1ec77.md) |
@@ -223,7 +223,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | flipt-io_2d0ff0c9 | AMBIGUOUS | 11/18 | 7 | airtight | [t](data/attribution/flipt-io_2d0ff0c9.md) |
 | flipt-io_324b9ed5 | ENTAILED | 27/27 | 0 |  | [t](data/attribution/flipt-io_324b9ed5.md) |
 | flipt-io_32864671 | AMBIGUOUS | 13/14 | 1 | airtight | [t](data/attribution/flipt-io_32864671.md) |
-| flipt-io_358e13bf | AMBIGUOUS | 0/2 | 2 | hypothesis | [t](data/attribution/flipt-io_358e13bf.md) |
+| flipt-io_358e13bf | AMBIGUOUS | 0/2 | 2 | codebase-plural | [t](data/attribution/flipt-io_358e13bf.md) |
 | flipt-io_3bf3255a | ENTAILED | 2/2 | 0 |  | [t](data/attribution/flipt-io_3bf3255a.md) |
 | flipt-io_3c6bd204 | ENTAILED | 12/12 | 0 |  | [t](data/attribution/flipt-io_3c6bd204.md) |
 | flipt-io_3ddd2d16 | AMBIGUOUS | 9/12 | 3 | airtight | [t](data/attribution/flipt-io_3ddd2d16.md) |
@@ -262,13 +262,13 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | flipt-io_a91a0258 | AMBIGUOUS | 21/23 | 2 | prose-affirmative | [t](data/attribution/flipt-io_a91a0258.md) |
 | flipt-io_b22f5f02 | AMBIGUOUS | 8/9 | 1 | airtight | [t](data/attribution/flipt-io_b22f5f02.md) |
 | flipt-io_b64891e5 | AMBIGUOUS | 6/7 | 1 | hypothesis | [t](data/attribution/flipt-io_b64891e5.md) |
-| flipt-io_b6edc5e4 | AMBIGUOUS | 14/18 | 4 | hypothesis | [t](data/attribution/flipt-io_b6edc5e4.md) |
-| flipt-io_bbf0a917 | AMBIGUOUS | 11/12 | 1 | hypothesis | [t](data/attribution/flipt-io_bbf0a917.md) |
+| flipt-io_b6edc5e4 | AMBIGUOUS | 14/18 | 4 | codebase-plural | [t](data/attribution/flipt-io_b6edc5e4.md) |
+| flipt-io_bbf0a917 | AMBIGUOUS | 11/12 | 1 | codebase-plural | [t](data/attribution/flipt-io_bbf0a917.md) |
 | flipt-io_bdf53a4e | ENTAILED | 15/15 | 0 |  | [t](data/attribution/flipt-io_bdf53a4e.md) |
 | flipt-io_c2c0f776 | ENTAILED | 3/3 | 0 |  | [t](data/attribution/flipt-io_c2c0f776.md) |
 | flipt-io_d26eba77 | ENTAILED | 19/19 | 0 |  | [t](data/attribution/flipt-io_d26eba77.md) |
-| flipt-io_d38a357b | AMBIGUOUS | 3/5 | 2 | hypothesis | [t](data/attribution/flipt-io_d38a357b.md) |
-| flipt-io_d52e03fd | AMBIGUOUS | 4/11 | 7 | hypothesis | [t](data/attribution/flipt-io_d52e03fd.md) |
+| flipt-io_d38a357b | AMBIGUOUS | 3/5 | 2 | codebase-plural | [t](data/attribution/flipt-io_d38a357b.md) |
+| flipt-io_d52e03fd | AMBIGUOUS | 4/11 | 7 | codebase-plural | [t](data/attribution/flipt-io_d52e03fd.md) |
 | flipt-io_d94448d3 | ENTAILED | 6/6 | 0 |  | [t](data/attribution/flipt-io_d94448d3.md) |
 | flipt-io_dbe26396 | ENTAILED | 0/0 | 0 |  | [t](data/attribution/flipt-io_dbe26396.md) |
 | flipt-io_dc07fbbd | AMBIGUOUS | 7/9 | 2 | hypothesis | [t](data/attribution/flipt-io_dc07fbbd.md) |
@@ -297,7 +297,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | future-architect_426eb53a | ENTAILED | 1/1 | 0 |  | [t](data/attribution/future-architect_426eb53a.md) |
 | future-architect_42fdc089 | AMBIGUOUS | 12/13 | 1 | prose-affirmative | [t](data/attribution/future-architect_42fdc089.md) |
 | future-architect_43b46cb3 | ENTAILED | 0/0 | 0 |  | [t](data/attribution/future-architect_43b46cb3.md) |
-| future-architect_472df0e1 | AMBIGUOUS | 19/20 | 1 | hypothesis | [t](data/attribution/future-architect_472df0e1.md) |
+| future-architect_472df0e1 | AMBIGUOUS | 19/20 | 1 | codebase-plural | [t](data/attribution/future-architect_472df0e1.md) |
 | future-architect_4a28722e | ENTAILED | 5/5 | 0 |  | [t](data/attribution/future-architect_4a28722e.md) |
 | future-architect_4ae87cc3 | AMBIGUOUS | 4/5 | 1 | hypothesis | [t](data/attribution/future-architect_4ae87cc3.md) |
 | future-architect_4c598bb9 | ENTAILED | 4/4 | 0 |  | [t](data/attribution/future-architect_4c598bb9.md) |
@@ -312,21 +312,21 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | future-architect_7c209cc9 | AMBIGUOUS | 3/5 | 2 | hypothesis | [t](data/attribution/future-architect_7c209cc9.md) |
 | future-architect_80b48fcb | ENTAILED | 4/4 | 0 |  | [t](data/attribution/future-architect_80b48fcb.md) |
 | future-architect_827f2cb8 | ENTAILED | 0/0 | 0 |  | [t](data/attribution/future-architect_827f2cb8.md) |
-| future-architect_835dc080 | AMBIGUOUS | 2/4 | 2 | hypothesis | [t](data/attribution/future-architect_835dc080.md) |
+| future-architect_835dc080 | AMBIGUOUS | 2/4 | 2 | codebase-plural | [t](data/attribution/future-architect_835dc080.md) |
 | future-architect_83bcca6e | AMBIGUOUS | 7/8 | 1 | hypothesis | [t](data/attribution/future-architect_83bcca6e.md) |
 | future-architect_83d1f809 | AMBIGUOUS | 4/5 | 1 | airtight | [t](data/attribution/future-architect_83d1f809.md) |
 | future-architect_847c6438 | AMBIGUOUS | 5/6 | 1 | hypothesis | [t](data/attribution/future-architect_847c6438.md) |
-| future-architect_847d820a | AMBIGUOUS | 22/23 | 1 | hypothesis | [t](data/attribution/future-architect_847d820a.md) |
+| future-architect_847d820a | AMBIGUOUS | 22/23 | 1 | codebase-plural | [t](data/attribution/future-architect_847d820a.md) |
 | future-architect_854821eb | ENTAILED | 2/2 | 0 |  | [t](data/attribution/future-architect_854821eb.md) |
 | future-architect_8775b5ef | AMBIGUOUS | 6/9 | 3 | hypothesis | [t](data/attribution/future-architect_8775b5ef.md) |
 | future-architect_8a611f9b | ENTAILED | 4/4 | 0 |  | [t](data/attribution/future-architect_8a611f9b.md) |
 | future-architect_8a8ab8cb | ENTAILED | 9/9 | 0 |  | [t](data/attribution/future-architect_8a8ab8cb.md) |
 | future-architect_8d5ea98e | AMBIGUOUS | 16/21 | 5 | hypothesis | [t](data/attribution/future-architect_8d5ea98e.md) |
 | future-architect_984debe9 | ENTAILED | 12/12 | 0 |  | [t](data/attribution/future-architect_984debe9.md) |
-| future-architect_98cbe6ed | AMBIGUOUS | 18/19 | 1 | hypothesis | [t](data/attribution/future-architect_98cbe6ed.md) |
+| future-architect_98cbe6ed | AMBIGUOUS | 18/19 | 1 | codebase-plural | [t](data/attribution/future-architect_98cbe6ed.md) |
 | future-architect_9ed5f2ca | AMBIGUOUS | 13/16 | 3 | hypothesis | [t](data/attribution/future-architect_9ed5f2ca.md) |
 | future-architect_a124518d | AMBIGUOUS | 24/25 | 1 | hypothesis | [t](data/attribution/future-architect_a124518d.md) |
-| future-architect_aeaf3086 | AMBIGUOUS | 9/10 | 1 | hypothesis | [t](data/attribution/future-architect_aeaf3086.md) |
+| future-architect_aeaf3086 | AMBIGUOUS | 9/10 | 1 | codebase-plural | [t](data/attribution/future-architect_aeaf3086.md) |
 | future-architect_bf14b5f6 | ENTAILED | 7/7 | 0 |  | [t](data/attribution/future-architect_bf14b5f6.md) |
 | future-architect_bfe0db77 | ENTAILED | 6/6 | 0 |  | [t](data/attribution/future-architect_bfe0db77.md) |
 | future-architect_d02535d0 | ENTAILED | 21/21 | 0 |  | [t](data/attribution/future-architect_d02535d0.md) |
@@ -349,7 +349,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | gravitational_07e2ca13 | AMBIGUOUS | 15/16 | 1 | airtight | [t](data/attribution/gravitational_07e2ca13.md) |
 | gravitational_08775e34 | ENTAILED | 18/18 | 0 |  | [t](data/attribution/gravitational_08775e34.md) |
 | gravitational_0a61c9e8 | AMBIGUOUS | 33/34 | 1 | airtight | [t](data/attribution/gravitational_0a61c9e8.md) |
-| gravitational_0b192c8d | AMBIGUOUS | 6/8 | 2 | hypothesis | [t](data/attribution/gravitational_0b192c8d.md) |
+| gravitational_0b192c8d | AMBIGUOUS | 6/8 | 2 | codebase-plural | [t](data/attribution/gravitational_0b192c8d.md) |
 | gravitational_103f3de2 | ENTAILED | 6/6 | 0 |  | [t](data/attribution/gravitational_103f3de2.md) |
 | gravitational_12cdaed6 | ENTAILED | 8/8 | 0 |  | [t](data/attribution/gravitational_12cdaed6.md) |
 | gravitational_1879807d | ENTAILED | 9/9 | 0 |  | [t](data/attribution/gravitational_1879807d.md) |
@@ -367,7 +367,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | gravitational_43fc9f6d | ENTAILED | 5/5 | 0 |  | [t](data/attribution/gravitational_43fc9f6d.md) |
 | gravitational_44b89c75 | AMBIGUOUS | 17/18 | 1 | hypothesis | [t](data/attribution/gravitational_44b89c75.md) |
 | gravitational_481158d6 | ENTAILED | 15/15 | 0 |  | [t](data/attribution/gravitational_481158d6.md) |
-| gravitational_49ab2a7b | AMBIGUOUS | 6/7 | 1 | hypothesis | [t](data/attribution/gravitational_49ab2a7b.md) |
+| gravitational_49ab2a7b | AMBIGUOUS | 6/7 | 1 | codebase-plural | [t](data/attribution/gravitational_49ab2a7b.md) |
 | gravitational_4b11dc4a | ENTAILED | 2/2 | 0 |  | [t](data/attribution/gravitational_4b11dc4a.md) |
 | gravitational_4d7c51b4 | AMBIGUOUS | 19/22 | 3 | prose-affirmative | [t](data/attribution/gravitational_4d7c51b4.md) |
 | gravitational_4f6f52f8 | AMBIGUOUS | 16/22 | 6 | hypothesis | [t](data/attribution/gravitational_4f6f52f8.md) |
@@ -406,7 +406,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | gravitational_c2ace99b | ENTAILED | 3/3 | 0 |  | [t](data/attribution/gravitational_c2ace99b.md) |
 | gravitational_cc3c38d7 | ENTAILED | 9/9 | 0 |  | [t](data/attribution/gravitational_cc3c38d7.md) |
 | gravitational_cdae4e3e | AMBIGUOUS | 4/10 | 6 | hypothesis | [t](data/attribution/gravitational_cdae4e3e.md) |
-| gravitational_d05df372 | AMBIGUOUS | 3/7 | 4 | hypothesis | [t](data/attribution/gravitational_d05df372.md) |
+| gravitational_d05df372 | AMBIGUOUS | 3/7 | 4 | codebase-plural | [t](data/attribution/gravitational_d05df372.md) |
 | gravitational_d45e26ce | ENTAILED | 2/2 | 0 |  | [t](data/attribution/gravitational_d45e26ce.md) |
 | gravitational_d96ea00a | AMBIGUOUS | 11/12 | 1 | hypothesis | [t](data/attribution/gravitational_d96ea00a.md) |
 | gravitational_dafcf377 | ENTAILED | 6/6 | 0 |  | [t](data/attribution/gravitational_dafcf377.md) |
@@ -414,7 +414,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | gravitational_e0c9b35a | AMBIGUOUS | 10/12 | 2 | hypothesis | [t](data/attribution/gravitational_e0c9b35a.md) |
 | gravitational_e2412a7c | AMBIGUOUS | 3/7 | 4 | hypothesis | [t](data/attribution/gravitational_e2412a7c.md) |
 | gravitational_e3a8fb7a | ENTAILED | 9/9 | 0 |  | [t](data/attribution/gravitational_e3a8fb7a.md) |
-| gravitational_e7683826 | AMBIGUOUS | 3/4 | 1 | hypothesis | [t](data/attribution/gravitational_e7683826.md) |
+| gravitational_e7683826 | AMBIGUOUS | 3/4 | 1 | codebase-plural | [t](data/attribution/gravitational_e7683826.md) |
 | gravitational_e9b7a25d | ENTAILED | 5/5 | 0 |  | [t](data/attribution/gravitational_e9b7a25d.md) |
 | gravitational_ea02952f | ENTAILED | 4/4 | 0 |  | [t](data/attribution/gravitational_ea02952f.md) |
 | gravitational_ec6c5eaf | ENTAILED | 6/6 | 0 |  | [t](data/attribution/gravitational_ec6c5eaf.md) |
@@ -441,7 +441,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | internetarchive_322d7a46 | AMBIGUOUS | 1/7 | 6 | hypothesis | [t](data/attribution/internetarchive_322d7a46.md) |
 | internetarchive_34099a36 | AMBIGUOUS | 26/27 | 1 | hypothesis | [t](data/attribution/internetarchive_34099a36.md) |
 | internetarchive_3677dd20 | AMBIGUOUS | 23/25 | 2 | prose-affirmative | [t](data/attribution/internetarchive_3677dd20.md) |
-| internetarchive_409914bf | AMBIGUOUS | 4/5 | 1 | hypothesis | [t](data/attribution/internetarchive_409914bf.md) |
+| internetarchive_409914bf | AMBIGUOUS | 4/5 | 1 | codebase-plural | [t](data/attribution/internetarchive_409914bf.md) |
 | internetarchive_4315bbe2 | ENTAILED | 4/4 | 0 |  | [t](data/attribution/internetarchive_4315bbe2.md) |
 | internetarchive_46bcf7c3 | ENTAILED | 4/4 | 0 |  | [t](data/attribution/internetarchive_46bcf7c3.md) |
 | internetarchive_46d7d325 | ENTAILED | 2/2 | 0 |  | [t](data/attribution/internetarchive_46d7d325.md) |
@@ -455,8 +455,8 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | internetarchive_54085373 | AMBIGUOUS | 4/8 | 4 | hypothesis | [t](data/attribution/internetarchive_54085373.md) |
 | internetarchive_5c6c22f3 | ENTAILED | 20/20 | 0 |  | [t](data/attribution/internetarchive_5c6c22f3.md) |
 | internetarchive_5de7de19 | ENTAILED | 18/18 | 0 |  | [t](data/attribution/internetarchive_5de7de19.md) |
-| internetarchive_5e9872c8 | AMBIGUOUS | 9/24 | 15 | hypothesis | [t](data/attribution/internetarchive_5e9872c8.md) |
-| internetarchive_5f7d8d19 | AMBIGUOUS | 14/16 | 2 | hypothesis | [t](data/attribution/internetarchive_5f7d8d19.md) |
+| internetarchive_5e9872c8 | AMBIGUOUS | 9/24 | 15 | codebase-plural | [t](data/attribution/internetarchive_5e9872c8.md) |
+| internetarchive_5f7d8d19 | AMBIGUOUS | 14/16 | 2 | codebase-plural | [t](data/attribution/internetarchive_5f7d8d19.md) |
 | internetarchive_630221ab | ENTAILED | 7/7 | 0 |  | [t](data/attribution/internetarchive_630221ab.md) |
 | internetarchive_64c18604 | ENTAILED | 10/10 | 0 |  | [t](data/attribution/internetarchive_64c18604.md) |
 | internetarchive_69cb6f27 | ENTAILED | 5/5 | 0 |  | [t](data/attribution/internetarchive_69cb6f27.md) |
@@ -467,13 +467,13 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | internetarchive_7549c413 | AMBIGUOUS | 11/22 | 11 | airtight | [t](data/attribution/internetarchive_7549c413.md) |
 | internetarchive_77c16d53 | AMBIGUOUS | 6/7 | 1 | hypothesis | [t](data/attribution/internetarchive_77c16d53.md) |
 | internetarchive_79dccb33 | AMBIGUOUS | 10/11 | 1 | prose-affirmative | [t](data/attribution/internetarchive_79dccb33.md) |
-| internetarchive_7b1ec94b | AMBIGUOUS | 15/16 | 1 | hypothesis | [t](data/attribution/internetarchive_7b1ec94b.md) |
+| internetarchive_7b1ec94b | AMBIGUOUS | 15/16 | 1 | codebase-plural | [t](data/attribution/internetarchive_7b1ec94b.md) |
 | internetarchive_7fab050b | ENTAILED | 8/8 | 0 |  | [t](data/attribution/internetarchive_7fab050b.md) |
 | internetarchive_80f511d3 | AMBIGUOUS | 12/15 | 3 | prose-affirmative | [t](data/attribution/internetarchive_80f511d3.md) |
 | internetarchive_84cc4ed5 | ENTAILED | 5/5 | 0 |  | [t](data/attribution/internetarchive_84cc4ed5.md) |
 | internetarchive_86d9b8a2 | ENTAILED | 5/5 | 0 |  | [t](data/attribution/internetarchive_86d9b8a2.md) |
 | internetarchive_88da48a8 | ENTAILED | 4/4 | 0 |  | [t](data/attribution/internetarchive_88da48a8.md) |
-| internetarchive_8b933806 | AMBIGUOUS | 24/26 | 2 | hypothesis | [t](data/attribution/internetarchive_8b933806.md) |
+| internetarchive_8b933806 | AMBIGUOUS | 24/26 | 2 | codebase-plural | [t](data/attribution/internetarchive_8b933806.md) |
 | internetarchive_8c988af8 | ENTAILED | 10/10 | 0 |  | [t](data/attribution/internetarchive_8c988af8.md) |
 | internetarchive_8d41b319 | ENTAILED | 1/1 | 0 |  | [t](data/attribution/internetarchive_8d41b319.md) |
 | internetarchive_90475fb6 | ENTAILED | 7/7 | 0 |  | [t](data/attribution/internetarchive_90475fb6.md) |
@@ -487,7 +487,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | internetarchive_ab62fa4d | ENTAILED | 17/17 | 0 |  | [t](data/attribution/internetarchive_ab62fa4d.md) |
 | internetarchive_afb819f8 | ENTAILED | 3/3 | 0 |  | [t](data/attribution/internetarchive_afb819f8.md) |
 | internetarchive_b2086f9b | AMBIGUOUS | 14/24 | 10 | hypothesis | [t](data/attribution/internetarchive_b2086f9b.md) |
-| internetarchive_b36762b2 | AMBIGUOUS | 8/10 | 2 | hypothesis | [t](data/attribution/internetarchive_b36762b2.md) |
+| internetarchive_b36762b2 | AMBIGUOUS | 8/10 | 2 | codebase-plural | [t](data/attribution/internetarchive_b36762b2.md) |
 | internetarchive_b70f9aba | ENTAILED | 1/1 | 0 |  | [t](data/attribution/internetarchive_b70f9aba.md) |
 | internetarchive_ba03a119 | ENTAILED | 5/5 | 0 |  | [t](data/attribution/internetarchive_ba03a119.md) |
 | internetarchive_ba3abfb6 | ENTAILED | 8/8 | 0 |  | [t](data/attribution/internetarchive_ba3abfb6.md) |
@@ -504,7 +504,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | internetarchive_ddbbdd64 | AMBIGUOUS | 7/9 | 2 | hypothesis | [t](data/attribution/internetarchive_ddbbdd64.md) |
 | internetarchive_de903b95 | ENTAILED | 1/1 | 0 |  | [t](data/attribution/internetarchive_de903b95.md) |
 | internetarchive_e0e34eb4 | ENTAILED | 6/6 | 0 |  | [t](data/attribution/internetarchive_e0e34eb4.md) |
-| internetarchive_e9e9d8be | AMBIGUOUS | 17/22 | 5 | hypothesis | [t](data/attribution/internetarchive_e9e9d8be.md) |
+| internetarchive_e9e9d8be | AMBIGUOUS | 17/22 | 5 | codebase-plural | [t](data/attribution/internetarchive_e9e9d8be.md) |
 | internetarchive_eb8da9e7 | ENTAILED | 6/6 | 0 |  | [t](data/attribution/internetarchive_eb8da9e7.md) |
 | internetarchive_f0341c0b | ENTAILED | 8/8 | 0 |  | [t](data/attribution/internetarchive_f0341c0b.md) |
 | internetarchive_f1f4efd6 | ENTAILED | 1/1 | 0 |  | [t](data/attribution/internetarchive_f1f4efd6.md) |
@@ -547,9 +547,9 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | navidrome_7fc964ae | ENTAILED | 15/15 | 0 |  | [t](data/attribution/navidrome_7fc964ae.md) |
 | navidrome_8808eadd | ENTAILED | 3/3 | 0 |  | [t](data/attribution/navidrome_8808eadd.md) |
 | navidrome_8a56584a | AMBIGUOUS | 13/14 | 1 | prose-affirmative | [t](data/attribution/navidrome_8a56584a.md) |
-| navidrome_8f034543 | AMBIGUOUS | 4/6 | 2 | hypothesis | [t](data/attribution/navidrome_8f034543.md) |
+| navidrome_8f034543 | AMBIGUOUS | 4/6 | 2 | codebase-plural | [t](data/attribution/navidrome_8f034543.md) |
 | navidrome_8f0d0029 | ENTAILED | 5/5 | 0 |  | [t](data/attribution/navidrome_8f0d0029.md) |
-| navidrome_94cc2b2a | AMBIGUOUS | 6/7 | 1 | hypothesis | [t](data/attribution/navidrome_94cc2b2a.md) |
+| navidrome_94cc2b2a | AMBIGUOUS | 6/7 | 1 | codebase-plural | [t](data/attribution/navidrome_94cc2b2a.md) |
 | navidrome_9c3b4561 | ENTAILED | 9/9 | 0 |  | [t](data/attribution/navidrome_9c3b4561.md) |
 | navidrome_a0290587 | ENTAILED | 3/3 | 0 |  | [t](data/attribution/navidrome_a0290587.md) |
 | navidrome_a1551074 | ENTAILED | 6/6 | 0 |  | [t](data/attribution/navidrome_a1551074.md) |
@@ -572,13 +572,13 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | protonmail_01b4c826 | ENTAILED | 8/8 | 0 |  | [t](data/attribution/protonmail_01b4c826.md) |
 | protonmail_03feb923 | ENTAILED | 0/0 | 0 |  | [t](data/attribution/protonmail_03feb923.md) |
 | protonmail_078178de | AMBIGUOUS | 3/4 | 1 | prose-affirmative | [t](data/attribution/protonmail_078178de.md) |
-| protonmail_0a917c6b | AMBIGUOUS | 2/3 | 1 | hypothesis | [t](data/attribution/protonmail_0a917c6b.md) |
+| protonmail_0a917c6b | AMBIGUOUS | 2/3 | 1 | codebase-plural | [t](data/attribution/protonmail_0a917c6b.md) |
 | protonmail_12381540 | ENTAILED | 10/10 | 0 |  | [t](data/attribution/protonmail_12381540.md) |
 | protonmail_1346a7d3 | ENTAILED | 4/4 | 0 |  | [t](data/attribution/protonmail_1346a7d3.md) |
-| protonmail_1c1b09fb | AMBIGUOUS | 9/10 | 1 | hypothesis | [t](data/attribution/protonmail_1c1b09fb.md) |
+| protonmail_1c1b09fb | AMBIGUOUS | 9/10 | 1 | codebase-plural | [t](data/attribution/protonmail_1c1b09fb.md) |
 | protonmail_2099c507 | ENTAILED | 4/4 | 0 |  | [t](data/attribution/protonmail_2099c507.md) |
 | protonmail_21b45bd4 | ENTAILED | 5/5 | 0 |  | [t](data/attribution/protonmail_21b45bd4.md) |
-| protonmail_24c785b2 | AMBIGUOUS | 6/8 | 2 | hypothesis | [t](data/attribution/protonmail_24c785b2.md) |
+| protonmail_24c785b2 | AMBIGUOUS | 6/8 | 2 | codebase-plural | [t](data/attribution/protonmail_24c785b2.md) |
 | protonmail_29aaad40 | AMBIGUOUS | 10/12 | 2 | hypothesis | [t](data/attribution/protonmail_29aaad40.md) |
 | protonmail_2ea4c94b | AMBIGUOUS | 21/23 | 2 | prose-affirmative | [t](data/attribution/protonmail_2ea4c94b.md) |
 | protonmail_32394eda | ENTAILED | 9/9 | 0 |  | [t](data/attribution/protonmail_32394eda.md) |
@@ -613,7 +613,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | protonmail_8b68951e | ENTAILED | 12/12 | 0 |  | [t](data/attribution/protonmail_8b68951e.md) |
 | protonmail_8f58c5dd | AMBIGUOUS | 14/21 | 7 | hypothesis | [t](data/attribution/protonmail_8f58c5dd.md) |
 | protonmail_94dc494b | ENTAILED | 12/12 | 0 |  | [t](data/attribution/protonmail_94dc494b.md) |
-| protonmail_9962092e | AMBIGUOUS | 4/6 | 2 | hypothesis | [t](data/attribution/protonmail_9962092e.md) |
+| protonmail_9962092e | AMBIGUOUS | 4/6 | 2 | codebase-plural | [t](data/attribution/protonmail_9962092e.md) |
 | protonmail_9b35b414 | ENTAILED | 8/8 | 0 |  | [t](data/attribution/protonmail_9b35b414.md) |
 | protonmail_a118161e | ENTAILED | 3/3 | 0 |  | [t](data/attribution/protonmail_a118161e.md) |
 | protonmail_a1a9b965 | ENTAILED | 14/14 | 0 |  | [t](data/attribution/protonmail_a1a9b965.md) |
@@ -638,7 +638,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | qutebrowser_04c65bb2 | AMBIGUOUS | 6/8 | 2 | hypothesis | [t](data/attribution/qutebrowser_04c65bb2.md) |
 | qutebrowser_08604f5a | ENTAILED | 8/8 | 0 |  | [t](data/attribution/qutebrowser_08604f5a.md) |
 | qutebrowser_09925f74 | ENTAILED | 8/8 | 0 |  | [t](data/attribution/qutebrowser_09925f74.md) |
-| qutebrowser_0b8cc812 | AMBIGUOUS | 10/11 | 1 | hypothesis | [t](data/attribution/qutebrowser_0b8cc812.md) |
+| qutebrowser_0b8cc812 | AMBIGUOUS | 10/11 | 1 | codebase-plural | [t](data/attribution/qutebrowser_0b8cc812.md) |
 | qutebrowser_0df09852 | ENTAILED | 4/4 | 0 |  | [t](data/attribution/qutebrowser_0df09852.md) |
 | qutebrowser_0e624e64 | AMBIGUOUS | 15/17 | 2 | hypothesis | [t](data/attribution/qutebrowser_0e624e64.md) |
 | qutebrowser_10cb81e8 | AMBIGUOUS | 4/6 | 2 | prose-affirmative | [t](data/attribution/qutebrowser_10cb81e8.md) |
@@ -647,11 +647,11 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | qutebrowser_1799b792 | ENTAILED | 4/4 | 0 |  | [t](data/attribution/qutebrowser_1799b792.md) |
 | qutebrowser_190bab12 | ENTAILED | 3/3 | 0 |  | [t](data/attribution/qutebrowser_190bab12.md) |
 | qutebrowser_1aec789f | ENTAILED | 12/12 | 0 |  | [t](data/attribution/qutebrowser_1aec789f.md) |
-| qutebrowser_1d9d9453 | AMBIGUOUS | 1/3 | 2 | hypothesis | [t](data/attribution/qutebrowser_1d9d9453.md) |
+| qutebrowser_1d9d9453 | AMBIGUOUS | 1/3 | 2 | codebase-plural | [t](data/attribution/qutebrowser_1d9d9453.md) |
 | qutebrowser_1e473c4b | ENTAILED | 4/4 | 0 |  | [t](data/attribution/qutebrowser_1e473c4b.md) |
 | qutebrowser_21b20116 | ENTAILED | 6/6 | 0 |  | [t](data/attribution/qutebrowser_21b20116.md) |
 | qutebrowser_22a3fd47 | AMBIGUOUS | 9/17 | 8 | hypothesis | [t](data/attribution/qutebrowser_22a3fd47.md) |
-| qutebrowser_2a10461c | AMBIGUOUS | 5/7 | 2 | hypothesis | [t](data/attribution/qutebrowser_2a10461c.md) |
+| qutebrowser_2a10461c | AMBIGUOUS | 5/7 | 2 | codebase-plural | [t](data/attribution/qutebrowser_2a10461c.md) |
 | qutebrowser_2e65f731 | ENTAILED | 17/17 | 0 |  | [t](data/attribution/qutebrowser_2e65f731.md) |
 | qutebrowser_30250d8e | ENTAILED | 9/9 | 0 |  | [t](data/attribution/qutebrowser_30250d8e.md) |
 | qutebrowser_30570a5c | AMBIGUOUS | 2/3 | 1 | hypothesis | [t](data/attribution/qutebrowser_30570a5c.md) |
@@ -674,7 +674,7 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | qutebrowser_744cd944 | AMBIGUOUS | 10/11 | 1 | hypothesis | [t](data/attribution/qutebrowser_744cd944.md) |
 | qutebrowser_74671c16 | AMBIGUOUS | 9/12 | 3 | airtight | [t](data/attribution/qutebrowser_74671c16.md) |
 | qutebrowser_7691556e | AMBIGUOUS | 7/8 | 1 | hypothesis | [t](data/attribution/qutebrowser_7691556e.md) |
-| qutebrowser_836221ec | AMBIGUOUS | 7/8 | 1 | hypothesis | [t](data/attribution/qutebrowser_836221ec.md) |
+| qutebrowser_836221ec | AMBIGUOUS | 7/8 | 1 | codebase-plural | [t](data/attribution/qutebrowser_836221ec.md) |
 | qutebrowser_83bef2ad | AMBIGUOUS | 3/5 | 2 | prose-affirmative | [t](data/attribution/qutebrowser_83bef2ad.md) |
 | qutebrowser_8e08f046 | ENTAILED | 20/20 | 0 |  | [t](data/attribution/qutebrowser_8e08f046.md) |
 | qutebrowser_8e152aaa | ENTAILED | 7/7 | 0 |  | [t](data/attribution/qutebrowser_8e152aaa.md) |
@@ -690,13 +690,13 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | qutebrowser_ae910113 | ENTAILED | 1/1 | 0 |  | [t](data/attribution/qutebrowser_ae910113.md) |
 | qutebrowser_b84ef9b2 | ENTAILED | 18/18 | 0 |  | [t](data/attribution/qutebrowser_b84ef9b2.md) |
 | qutebrowser_b9920503 | ENTAILED | 8/8 | 0 |  | [t](data/attribution/qutebrowser_b9920503.md) |
-| qutebrowser_bf65a1db | AMBIGUOUS | 29/30 | 1 | hypothesis | [t](data/attribution/qutebrowser_bf65a1db.md) |
+| qutebrowser_bf65a1db | AMBIGUOUS | 29/30 | 1 | codebase-plural | [t](data/attribution/qutebrowser_bf65a1db.md) |
 | qutebrowser_c41f152f | ENTAILED | 11/11 | 0 |  | [t](data/attribution/qutebrowser_c41f152f.md) |
-| qutebrowser_c9380605 | AMBIGUOUS | 6/8 | 2 | hypothesis | [t](data/attribution/qutebrowser_c9380605.md) |
-| qutebrowser_c97257ca | AMBIGUOUS | 5/20 | 15 | hypothesis | [t](data/attribution/qutebrowser_c97257ca.md) |
+| qutebrowser_c9380605 | AMBIGUOUS | 6/8 | 2 | codebase-plural | [t](data/attribution/qutebrowser_c9380605.md) |
+| qutebrowser_c97257ca | AMBIGUOUS | 5/20 | 15 | codebase-plural | [t](data/attribution/qutebrowser_c97257ca.md) |
 | qutebrowser_cb596193 | ENTAILED | 12/12 | 0 |  | [t](data/attribution/qutebrowser_cb596193.md) |
 | qutebrowser_d1164925 | AMBIGUOUS | 9/17 | 8 | airtight | [t](data/attribution/qutebrowser_d1164925.md) |
-| qutebrowser_d283e225 | AMBIGUOUS | 0/2 | 2 | hypothesis | [t](data/attribution/qutebrowser_d283e225.md) |
+| qutebrowser_d283e225 | AMBIGUOUS | 0/2 | 2 | codebase-plural | [t](data/attribution/qutebrowser_d283e225.md) |
 | qutebrowser_d6a3d1fe | AMBIGUOUS | 2/3 | 1 | hypothesis | [t](data/attribution/qutebrowser_d6a3d1fe.md) |
 | qutebrowser_d7d12935 | ENTAILED | 9/9 | 0 |  | [t](data/attribution/qutebrowser_d7d12935.md) |
 | qutebrowser_def864ad | AMBIGUOUS | 2/3 | 1 | hypothesis | [t](data/attribution/qutebrowser_def864ad.md) |
@@ -709,11 +709,11 @@ Every public task, its screen verdict, and — for AMBIGUOUS cases — the witne
 | qutebrowser_ea60bcfc | AMBIGUOUS | 7/8 | 1 | hypothesis | [t](data/attribution/qutebrowser_ea60bcfc.md) |
 | qutebrowser_ebf4b987 | ENTAILED | 16/16 | 0 |  | [t](data/attribution/qutebrowser_ebf4b987.md) |
 | qutebrowser_ebfe9b7a | ENTAILED | 8/8 | 0 |  | [t](data/attribution/qutebrowser_ebfe9b7a.md) |
-| qutebrowser_ef62208c | AMBIGUOUS | 5/8 | 3 | hypothesis | [t](data/attribution/qutebrowser_ef62208c.md) |
+| qutebrowser_ef62208c | AMBIGUOUS | 5/8 | 3 | codebase-plural | [t](data/attribution/qutebrowser_ef62208c.md) |
 | qutebrowser_f8692cb1 | ENTAILED | 4/4 | 0 |  | [t](data/attribution/qutebrowser_f8692cb1.md) |
 | qutebrowser_fce306d5 | ENTAILED | 27/27 | 0 |  | [t](data/attribution/qutebrowser_fce306d5.md) |
 | tutao | AMBIGUOUS | 13/19 | 6 | prose-affirmative | [t](data/attribution/tutao.md) |
-| tutao_170958a2 | AMBIGUOUS | 4/5 | 1 | hypothesis | [t](data/attribution/tutao_170958a2.md) |
+| tutao_170958a2 | AMBIGUOUS | 4/5 | 1 | codebase-plural | [t](data/attribution/tutao_170958a2.md) |
 | tutao_1919cee2 | ENTAILED | 2/2 | 0 |  | [t](data/attribution/tutao_1919cee2.md) |
 | tutao_26c98dd3 | ENTAILED | 8/8 | 0 |  | [t](data/attribution/tutao_26c98dd3.md) |
 | tutao_2e5d877a | ENTAILED | 3/3 | 0 |  | [t](data/attribution/tutao_2e5d877a.md) |

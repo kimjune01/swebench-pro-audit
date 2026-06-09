@@ -1,0 +1,21 @@
+{
+ "slug": "qutebrowser_c97257ca",
+ "iid": "instance_qutebrowser__qutebrowser-85b867fe8d4378c8e371f055c70452f546055854-v2ef375ac784985212b1805e1d0431dc8f1b3c171",
+ "choice": "Exact ValueError message wording for malformed parse_point input: whether invalid format should be reported as \"String {s} does not match X,Y\" rather than another user-facing invalid/expected-format wording.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "qutebrowser/utils/utils.py",
+   "snippet": "if not match:\n        raise ValueError(f\"String {s} does not match WxH+X+Y\")",
+   "way": "Gold-style convention: malformed structured geometry strings use \"String {value} does not match {FORMAT}\".",
+   "verified_path": "misc/userscripts/qute-pass"
+  },
+  {
+   "path": "qutebrowser/utils/utils.py",
+   "snippet": "if not match or not match.group(0):\n        raise ValueError(\n            f\"Invalid duration: {duration} - \"\n            \"expected XhYmZs or a number of milliseconds\"\n        )",
+   "way": "Alternative convention: malformed structured user strings use \"Invalid <thing>: <value> - expected <format>\".",
+   "verified_path": "qutebrowser/utils/utils.py"
+  }
+ ],
+ "ok": true
+}

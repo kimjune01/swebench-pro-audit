@@ -1,0 +1,1 @@
+{"discriminating_choice":"For QtWebEngine 5.15.2, whether the foreground/text brightness threshold should be emitted through the legacy blink-settings forceDarkModeTextBrightnessThreshold key rather than the unprefixed dark-mode-settings TextBrightnessThreshold key.","consistent":true,"precedents":[]}

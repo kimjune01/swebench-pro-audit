@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether a nil map value passed through a *map[string]string cache parameter is treated as an empty cache on lookup, returning \"\" and false without panicking.","consistent":true,"precedents":[]}

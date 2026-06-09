@@ -1,0 +1,15 @@
+{
+ "slug": "element-hq_973513cc",
+ "iid": "instance_element-hq__element-web-cf3c899dd1f221aa1a1f4c5a80dffc05b9c21c85-vnan",
+ "choice": "Whether a started voice broadcast playback with no currently playing chunk should be treated as grey/buffering rather than live/red.",
+ "n_verified": 1,
+ "verified": [
+  {
+   "path": "src/voice-broadcast/hooks/useVoiceBroadcastRecording.tsx",
+   "snippet": "const live = [\n        VoiceBroadcastInfoState.Started,\n        VoiceBroadcastInfoState.Resumed,\n    ].includes(recordingState);",
+   "way": "Recording liveness treats Started/Resumed info states as live, without requiring an actively playing chunk.",
+   "verified_path": "src/voice-broadcast/hooks/useVoiceBroadcastRecording.tsx"
+  }
+ ],
+ "ok": false
+}

@@ -1,0 +1,27 @@
+{
+ "slug": "qutebrowser_c9380605",
+ "iid": "instance_qutebrowser__qutebrowser-a84ecfb80a00f8ab7e341372560458e3f9cfffa2-v2ef375ac784985212b1805e1d0431dc8f1b3c171",
+ "choice": "Whether a command-running path should enable forgiving command-name recovery/suggestions by default for unknown commands, including startup commands, or require an explicit opt-in like the existing parser recovery behavior.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "qutebrowser/mainwindow/mainwindow.py",
+   "snippet": "        self._commandrunner = runners.CommandRunner(self.win_id,\n                                                    partial_match=True)",
+   "way": "interactive main-window command runner explicitly opts into forgiving command-name matching",
+   "verified_path": "qutebrowser/mainwindow/mainwindow.py"
+  },
+  {
+   "path": "qutebrowser/commands/runners.py",
+   "snippet": "    def __init__(self, win_id, partial_match=False, parent=None):\n        super().__init__(parent)\n        self._parser = parser.CommandParser(partial_match=partial_match)",
+   "way": "CommandRunner defaults to exact command matching unless a caller opts in",
+   "verified_path": "qutebrowser/commands/runners.py"
+  },
+  {
+   "path": "qutebrowser/app.py",
+   "snippet": "            log.init.debug(\"Startup cmd {!r}\".format(cmd))\n            commandrunner = runners.CommandRunner(win_id)\n            commandrunner.run_safely(cmd[1:])",
+   "way": "startup command execution uses the default exact-matching CommandRunner rather than the main-window opt-in behavior",
+   "verified_path": "qutebrowser/app.py"
+  }
+ ],
+ "ok": true
+}

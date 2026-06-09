@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether requesting the user 'picture' field via User.getUserFields(uid, ['username', 'picture']) should also generate avatar companion fields, including payload['icon:text'] from the first username character.","consistent":true,"precedents":[]}

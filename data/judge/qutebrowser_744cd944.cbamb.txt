@@ -1,0 +1,1 @@
+{"discriminating_choice":"Mapping non-special en-* locales without a matching locale .pak file to en-GB for the QtWebEngine locale workaround","consistent":true,"precedents":[]}

@@ -1,0 +1,1 @@
+{"discriminating_choice":"Handling an empty Qt log message passed to qt_message_handler: whether to replace a falsey msg with the sentinel text \"Logged empty message!\" and emit that as the logged message.","consistent":true,"precedents":[]}

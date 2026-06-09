@@ -1,0 +1,33 @@
+{
+ "slug": "NodeBB_1e137b07",
+ "iid": "instance_NodeBB__NodeBB-04998908ba6721d64eba79ae3b65a351dcfbc5b5-vnan",
+ "choice": "How a database batch getter should handle a falsy/non-array batch argument such as false: return an empty array as an empty batch, or allow it to fail as invalid input.",
+ "n_verified": 4,
+ "verified": [
+  {
+   "path": "src/database/mongo/hash.js",
+   "snippet": "module.getObjectsFields = async function (keys, fields) {\n\t\tif (!Array.isArray(keys) || !keys.length) {\n\t\t\treturn [];\n\t\t}",
+   "way": "Lenient batch getter convention: non-array or empty input returns [] instead of throwing.",
+   "verified_path": "src/database/mongo/hash.js"
+  },
+  {
+   "path": "src/database/mongo/sorted.js",
+   "snippet": "module.sortedSetsScore = async function (keys, value) {\n\t\tif (!Array.isArray(keys) || !keys.length) {\n\t\t\treturn [];\n\t\t}",
+   "way": "Lenient batch getter convention: non-array or empty input returns [] instead of throwing.",
+   "verified_path": "src/database/mongo/sorted.js"
+  },
+  {
+   "path": "src/database/mongo/sorted.js",
+   "snippet": "module.sortedSetScores = async function (key, values) {\n\t\tif (!key) {\n\t\t\treturn null;\n\t\t}\n\t\tif (!values.length) {\n\t\t\treturn [];\n\t\t}",
+   "way": "Strict/unguarded batch getter convention: falsy non-array values input is not normalized and will throw when reading .length.",
+   "verified_path": "src/database/mongo/sorted.js"
+  },
+  {
+   "path": "src/database/mongo/sorted.js",
+   "snippet": "module.isSortedSetMembers = async function (key, values) {\n\t\tif (!key) {\n\t\t\treturn;\n\t\t}\n\t\tif (!values.length) {\n\t\t\treturn [];\n\t\t}",
+   "way": "Strict/unguarded batch getter convention: falsy non-array values input is not normalized and will throw when reading .length.",
+   "verified_path": "src/database/mongo/sorted.js"
+  }
+ ],
+ "ok": true
+}

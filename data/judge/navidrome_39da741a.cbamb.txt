@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether album refresh/test setup should persist and return album `Genres` relation data (so single-genre albums like `101` have `Genres: model.Genres{genreRock}`) by routing through the relation-aware album repository `Put` rather than only writing the album row.","consistent":true,"precedents":[]}

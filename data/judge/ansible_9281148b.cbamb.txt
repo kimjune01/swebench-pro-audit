@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether ansible.utils.vars.isidentifier rejects hyphenated strings such as \"no-dashed-names-for-you\" as invalid identifiers","consistent":true,"precedents":[]}

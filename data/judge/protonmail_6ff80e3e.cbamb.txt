@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether numeric unreadFilter value 0 represents the Read filter, so MARK_AS_STATUS.READ with unreadFilter 0 means the filter already matches and elements should be removed from bypass rather than added","consistent":true,"precedents":[]}

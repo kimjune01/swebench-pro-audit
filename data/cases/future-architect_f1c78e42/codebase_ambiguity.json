@@ -1,0 +1,21 @@
+{
+ "slug": "future-architect_f1c78e42",
+ "iid": "instance_future-architect__vuls-ca3f6b1dbf2cd24d1537bfda43e788443ce03a0c",
+ "choice": "When adding extended-support EOL metadata for an OS release, whether to also set StandardSupportUntil so standard support remains active until an explicit date, or to omit StandardSupportUntil and let an extended-only entry count as standard-support-ended.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "config/os.go",
+   "snippet": "\"14.04\": {\n\t\t\t\tExtendedSupportUntil: time.Date(2022, 4, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t},",
+   "way": "extended support is recorded without StandardSupportUntil, which makes standard support ended whenever extended support exists",
+   "verified_path": "config/os.go"
+  },
+  {
+   "path": "config/os.go",
+   "snippet": "\"16.04\": {\n\t\t\t\tStandardSupportUntil: time.Date(2021, 4, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t\tExtendedSupportUntil: time.Date(2024, 4, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t},",
+   "way": "extended support is recorded together with an explicit StandardSupportUntil date",
+   "verified_path": "config/os.go"
+  }
+ ],
+ "ok": false
+}

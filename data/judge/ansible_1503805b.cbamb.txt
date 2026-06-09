@@ -1,0 +1,1 @@
+{"discriminating_choice":"Default PSRP authentication when no ansible_psrp_auth is set is 'negotiate'.","consistent":true,"precedents":[]}

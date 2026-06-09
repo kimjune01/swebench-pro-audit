@@ -1,0 +1,1 @@
+{"discriminating_choice":"For an author with `name` and general `date`, `add_db_name` sets `db_name` to the author name, a space, then the date, e.g. `Smith, John 1950`.","consistent":true,"precedents":[]}

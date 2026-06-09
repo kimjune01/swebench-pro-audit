@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether extra_suffixes_workaround expands every specific MIME type in the input, including non-image types like video/mp4, rather than limiting the workaround to image MIME types.","consistent":true,"precedents":[]}

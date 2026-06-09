@@ -1,0 +1,27 @@
+{
+ "slug": "future-architect_835dc080",
+ "iid": "instance_future-architect__vuls-8d5ea98e50cf616847f4e5a2df300395d1f719e9",
+ "choice": "When a slice-filtering helper removes every element, whether it returns the zero-value nil slice or an initialized empty non-nil slice.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "models/wordpress.go",
+   "snippet": "func (w WordPressPackages) Plugins() (ps []WpPackage) {\n\tfor _, p := range w {\n\t\tif p.Type == WPPlugin {\n\t\t\tps = append(ps, p)\n\t\t}\n\t}\n\treturn\n}",
+   "way": "nil zero-value named result slice when no packages match the filter",
+   "verified_path": "models/wordpress.go"
+  },
+  {
+   "path": "oval/debian.go",
+   "snippet": "\t\tfor srcPackName, srcPack := range r.SrcPackages {\n\t\t\tcopiedSourcePkgs[srcPackName] = srcPack\n\t\t\ttargetBianryNames := []string{}\n\t\t\tfor _, n := range srcPack.BinaryNames {\n\t\t\t\tif n == kernelPkgInOVAL || !strings.HasPrefix(n, \"linux-\") {\n\t\t\t\t\ttargetBianryNames = append(targetBianryNames, n)\n\t\t\t\t}\n\t\t\t}\n\t\t\tsrcPack.BinaryNames = targetBianryNames",
+   "way": "initialized empty non-nil slice when no binary names survive the filter",
+   "verified_path": "oval/debian.go"
+  },
+  {
+   "path": "scan/debian.go",
+   "snippet": "\tunknownServices := []string{}\n\tfor _, s := range services {\n\t\tfound := false\n\t\tfor _, p := range packs {\n\t\t\tfor _, proc := range p.NeedRestartProcs {\n\t\t\t\tif proc.ServiceName == s {\n\t\t\t\t\tfound = true\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tif !found {\n\t\t\tunknownServices = append(unknownServices, s)\n\t\t}\n\t}\n\treturn packs, unknownServices",
+   "way": "initialized empty non-nil slice when no services survive the filter",
+   "verified_path": "scan/debian.go"
+  }
+ ],
+ "ok": true
+}

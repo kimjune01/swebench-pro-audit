@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether SelectionInfo.__str__ should use a short one-line form like \"Qt wrapper: PyQt6 (via QUTE_QT_WRAPPER)\" for env/cli/default selections without import-attempt details, instead of the existing multi-line \"Qt wrapper:\\nselected: ...\" format.","consistent":true,"precedents":[]}

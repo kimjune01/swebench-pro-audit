@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether Cvss3Scores sets the returned CveContentCvss.Type to the source CveContentType, specifically DebianSecurityTracker, for a DebianSecurityTracker severity-derived entry.","consistent":true,"precedents":[]}

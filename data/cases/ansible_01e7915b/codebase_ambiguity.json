@@ -1,0 +1,15 @@
+{
+ "slug": "ansible_01e7915b",
+ "iid": "instance_ansible__ansible-ecea15c508f0e081525be036cf76bbb56dbcdd9d-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+ "choice": "Whether normalized collection requirements should be returned as a typed mapping with a `collections` bucket or as the plain list of collection requirement tuples.",
+ "n_verified": 1,
+ "verified": [
+  {
+   "path": "lib/ansible/cli/galaxy.py",
+   "snippet": "requirements = {\n            'roles': [],\n            'collections': [],\n        }",
+   "way": "requirements-file normalization uses a mapping with separate `roles` and `collections` buckets",
+   "verified_path": "lib/ansible/cli/galaxy.py"
+  }
+ ],
+ "ok": false
+}

@@ -1,0 +1,33 @@
+{
+ "slug": "navidrome_94cc2b2a",
+ "iid": "instance_navidrome__navidrome-d0dceae0943b8df16e579c2d9437e11760a0626a",
+ "choice": "Whether Subsonic share support must extend Router.New to accept a core.Share dependency from DI, or can use the existing DataStore/repositories from handlers without changing the constructor signature.",
+ "n_verified": 4,
+ "verified": [
+  {
+   "path": "server/public/public_endpoints.go",
+   "snippet": "func New(ds model.DataStore, artwork artwork.Artwork, streamer core.MediaStreamer, share core.Share) *Router {\n\tp := &Router{ds: ds, artwork: artwork, streamer: streamer, share: share}",
+   "way": "router receives the Share service as an explicit constructor dependency",
+   "verified_path": "server/public/public_endpoints.go"
+  },
+  {
+   "path": "server/nativeapi/native_api.go",
+   "snippet": "func New(ds model.DataStore, broker events.Broker, share core.Share) *Router {\n\tr := &Router{ds: ds, broker: broker, share: share}",
+   "way": "router receives the Share service as an explicit constructor dependency",
+   "verified_path": "server/nativeapi/native_api.go"
+  },
+  {
+   "path": "server/subsonic/bookmarks.go",
+   "snippet": "repo := api.ds.MediaFile(r.Context())\n\tbmks, err := repo.GetBookmarks()",
+   "way": "Subsonic handler obtains a repository through the existing DataStore field, without adding a constructor dependency",
+   "verified_path": "server/subsonic/bookmarks.go"
+  },
+  {
+   "path": "server/subsonic/radio.go",
+   "snippet": "radios, err := api.ds.Radio(ctx).GetAll(model.QueryOptions{Sort: \"name\"})\n\tif err != nil {",
+   "way": "Subsonic handler obtains a repository through the existing DataStore field, without adding a constructor dependency",
+   "verified_path": "server/subsonic/radio.go"
+  }
+ ],
+ "ok": true
+}

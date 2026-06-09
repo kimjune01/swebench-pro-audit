@@ -1,0 +1,21 @@
+{
+ "slug": "gravitational_4f6f52f8",
+ "iid": "instance_gravitational__teleport-eda668c30d9d3b56d9c69197b120b01013611186",
+ "choice": "Whether a requested kubeCluster that is absent from Forwarder.creds should fail immediately without requesting client credentials, or fall through to kube_service/direct session creation that requests client credentials.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "lib/kube/proxy/forwarder.go",
+   "snippet": "creds, ok := f.creds[ctx.kubeCluster]\n\tif !ok {\n\t\treturn nil, trace.NotFound(\"kubernetes cluster %q not found\", ctx.kubeCluster)\n\t}",
+   "way": "missing requested local credentials are terminal NotFound, so no client certificate is requested",
+   "verified_path": "lib/kube/proxy/forwarder.go"
+  },
+  {
+   "path": "lib/kube/proxy/forwarder.go",
+   "snippet": "if _, ok := f.creds[ctx.kubeCluster]; ok {\n\t\treturn f.newClusterSessionLocal(ctx)\n\t}\n\treturn f.newClusterSessionDirect(ctx, endpoints)",
+   "way": "missing requested local credentials are not terminal when kube_service endpoints exist; the code falls through to direct session creation",
+   "verified_path": "lib/kube/proxy/forwarder.go"
+  }
+ ],
+ "ok": false
+}

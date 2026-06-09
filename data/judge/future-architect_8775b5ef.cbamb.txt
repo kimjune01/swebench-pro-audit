@@ -1,0 +1,1 @@
+{"discriminating_choice":"For a library-only Trivy report, whether ScanResult.ServerName should be set to report.ArtifactName such as /data/struts-1.2.7/lib rather than the existing generic library-scan server name or separate library path metadata.","consistent":true,"precedents":[]}

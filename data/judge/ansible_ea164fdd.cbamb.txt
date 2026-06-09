@@ -1,0 +1,1 @@
+{"discriminating_choice":"Integration setup configures NX-OS system defaults with exactly `no system default switchport` and `system default switchport shutdown` before CLI tests.","consistent":true,"precedents":[]}

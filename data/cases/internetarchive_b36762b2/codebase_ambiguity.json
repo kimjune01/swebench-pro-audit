@@ -1,0 +1,21 @@
+{
+ "slug": "internetarchive_b36762b2",
+ "iid": "instance_internetarchive__openlibrary-3aeec6afed9198d734b7ee1293f03ca94ff970e1-v13642507b4fc1f8d234172bf8129942da2c2ca26",
+ "choice": "When the requested Wikipedia language is English and only a non-English Wikipedia link exists, whether to return no Wikipedia link or surface the available non-English link.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "openlibrary/core/wikidata.py",
+   "snippet": "if requested_wiki in self.sitelinks:\n            return self.sitelinks[requested_wiki]['url'], language\n        elif english_wiki in self.sitelinks:\n            return self.sitelinks[english_wiki]['url'], 'en'\n        return None",
+   "way": "strict requested-language lookup with English fallback only; returns None when English is requested and only another language exists",
+   "verified_path": "openlibrary/core/wikidata.py"
+  },
+  {
+   "path": "openlibrary/macros/WorkInfo.html",
+   "snippet": "$if this_lang:\n            <span class=\"tag\">$this_lang.lang: <a href=\"$this_lang.url\">$(this_lang.title or this_lang.url)</a></span>\n        $else:\n            <span class=\"tag\">$_(\"No link to Wikipedia in your language\")</span>\n            $if simple:\n                <span class=\"tag\">\n                Simple English: <a href=\"$simple.url\">$(simple.title or simple.url)</a>\n                </span>\n        $if len(wikipedia):\n            <span class=\"tag\"><a href=\"javascript:;\" class=\"slide-toggle\"\n                aria-haspopup=\"true\" aria-controls=\"full_list\">Other languages</a></span>\n            <div style=\"display: none\" id=\"full_list\"><span class=\"tag\">\n            $for link in wikipedia:\n                $link.lang: <a href=\"$link.url\">$(link.title or link.url)</a>&nbsp;",
+   "way": "when the current-language Wikipedia link is missing, still exposes available non-requested Wikipedia links under Other languages",
+   "verified_path": "openlibrary/macros/WorkInfo.html"
+  }
+ ],
+ "ok": true
+}

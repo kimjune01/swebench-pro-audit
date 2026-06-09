@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether command-template placeholder substitution replaces a placeholder embedded inside a larger argv token, e.g. replacing %b inside %bk to produce 123k, rather than only replacing whole-token placeholders.","consistent":true,"precedents":[]}

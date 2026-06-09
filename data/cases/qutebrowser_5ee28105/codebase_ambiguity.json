@@ -1,0 +1,15 @@
+{
+ "slug": "qutebrowser_5ee28105",
+ "iid": "instance_qutebrowser__qutebrowser-f631cd4422744160d9dcf7a0455da532ce973315-v35616345bb8052ea303186706cec663146f0f184",
+ "choice": "How missing persisted version state is classified when computing a changed/version-changed flag: treat absence as unchanged/default false versus compare the missing value to the current version and mark it changed.",
+ "n_verified": 1,
+ "verified": [
+  {
+   "path": "qutebrowser/config/configfiles.py",
+   "snippet": "        if 'general' in self:\n            old_qt_version = self['general'].get('qt_version', None)\n            old_qutebrowser_version = self['general'].get('version', None)\n            self.qt_version_changed = old_qt_version != qt_version\n            self.qutebrowser_version_changed = (\n                old_qutebrowser_version != qutebrowser.__version__)",
+   "way": "existing state section with a missing stored version key is treated as changed, because None is compared against the current version",
+   "verified_path": "qutebrowser/config/configfiles.py"
+  }
+ ],
+ "ok": false
+}

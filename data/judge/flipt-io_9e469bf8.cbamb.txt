@@ -1,0 +1,1 @@
+{"discriminating_choice":"DefaultConfig() sets authentication session token lifetime to 24 * time.Hour / 24h","consistent":true,"precedents":[]}

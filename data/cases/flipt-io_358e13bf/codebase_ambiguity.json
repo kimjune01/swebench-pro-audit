@@ -1,0 +1,21 @@
+{
+ "slug": "flipt-io_358e13bf",
+ "iid": "instance_flipt-io__flipt-86906cbfc3a5d3629a583f98e6301142f5f14bdb-v6bea0cc3a6fc532d7da914314f2944fc1cd04dee",
+ "choice": "Whether the new authentication.session.csrf.secure boolean should load/default to true rather than remain the zero-value false when omitted from config prose.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "internal/config/authentication.go",
+   "snippet": "\t\t\"session\": map[string]any{\n\t\t\t\"token_lifetime\": \"24h\",\n\t\t\t\"state_lifetime\": \"10m\",\n\t\t\t\"csrf\": map[string]any{\n\t\t\t\t\"secure\": true,\n\t\t\t},\n\t\t},",
+   "way": "authentication session CSRF secure is explicitly defaulted to true in production defaults",
+   "verified_path": "internal/config/authentication.go"
+  },
+  {
+   "path": "internal/config/config.go",
+   "snippet": "\t\tAuthentication: AuthenticationConfig{\n\t\t\tSession: AuthenticationSession{\n\t\t\t\tTokenLifetime: 24 * time.Hour,\n\t\t\t\tStateLifetime: 10 * time.Minute,\n\t\t\t\tCSRF: AuthenticationSessionCSRF{\n\t\t\t\t\tSecure: true,\n\t\t\t\t},\n\t\t\t},\n\t\t},",
+   "way": "sibling authentication session Secure is left omitted in the default struct literal, so the comparable optional secure boolean remains the Go zero value false",
+   "verified_path": "internal/config/config.go"
+  }
+ ],
+ "ok": true
+}

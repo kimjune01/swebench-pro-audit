@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether isRunningKernel should classify a non-kernel package such as SUSE Enterprise Server bash as not a kernel and not running, returning (false, false).","consistent":true,"precedents":[]}

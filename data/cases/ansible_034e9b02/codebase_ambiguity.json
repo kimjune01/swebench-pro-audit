@@ -1,0 +1,21 @@
+{
+ "slug": "ansible_034e9b02",
+ "iid": "instance_ansible__ansible-be2c376ab87e3e872ca21697508f12c6909cf85a-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+ "choice": "Whether role argspec entry_points values are summarized to each entry spec's short_description string or preserve the full entry spec object.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "lib/ansible/cli/doc.py",
+   "snippet": "for entry_point in argspec.keys():\n            entry_spec = argspec[entry_point] or {}\n            summary['entry_points'][entry_point] = entry_spec.get('short_description', '')",
+   "way": "role list/summary convention: map each entry point to its short_description string",
+   "verified_path": "lib/ansible/cli/doc.py"
+  },
+  {
+   "path": "lib/ansible/cli/doc.py",
+   "snippet": "for ep in argspec.keys():\n                if entry_point is None or ep == entry_point:\n                    entry_spec = argspec[ep] or {}\n                    doc['entry_points'][ep] = entry_spec",
+   "way": "role documentation convention: map each entry point to the full argspec object",
+   "verified_path": "lib/ansible/cli/doc.py"
+  }
+ ],
+ "ok": false
+}

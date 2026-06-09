@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether a cache helper that fails to marshal a value should return without calling the underlying cacher.Set, leaving the cache key unset","consistent":true,"precedents":[]}

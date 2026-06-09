@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether package-level vulnerability filters remove the entire CVE/VulnInfo when the only affected package is excluded by the package criterion, rather than retaining the CVE with no reportable affected packages.","consistent":true,"precedents":[]}

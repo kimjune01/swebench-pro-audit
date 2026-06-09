@@ -1,0 +1,27 @@
+{
+ "slug": "ansible_9ab63986",
+ "iid": "instance_ansible__ansible-40ade1f84b8bb10a63576b0ac320c13f57c87d34-v6382ea168a93d80a64aab1fbd8c4f02dc5ada5bf",
+ "choice": "Whether a user-supplied timeout value of 0 is invalid and must fail, versus being accepted with a defined zero-timeout behavior.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "lib/ansible/cli/console.py",
+   "snippet": "                if timeout < 0:\n                    display.error('The timeout must be greater than or equal to 1, use 0 to disable')\n                else:\n                    self.task_timeout = timeout",
+   "way": "zero timeout is accepted and explicitly means disabled/no task timeout",
+   "verified_path": "lib/ansible/cli/console.py"
+  },
+  {
+   "path": "lib/ansible/galaxy/api.py",
+   "snippet": "        while timeout == 0 or (time.time() - start) < timeout:",
+   "way": "zero timeout is accepted and means wait indefinitely rather than fail",
+   "verified_path": "lib/ansible/galaxy/api.py"
+  },
+  {
+   "path": "lib/ansible/modules/wait_for.py",
+   "snippet": "        end = start + datetime.timedelta(seconds=timeout)\n\n        while utcnow() < end:",
+   "way": "zero timeout is accepted by the module logic and produces an immediate no-wait deadline rather than argument validation failure",
+   "verified_path": "lib/ansible/modules/wait_for.py"
+  }
+ ],
+ "ok": true
+}

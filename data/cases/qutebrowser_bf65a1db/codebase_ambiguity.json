@@ -1,0 +1,33 @@
+{
+ "slug": "qutebrowser_bf65a1db",
+ "iid": "instance_qutebrowser__qutebrowser-70248f256f93ed9b1984494d0a1a919ddd774892-v2ef375ac784985212b1805e1d0431dc8f1b3c171",
+ "choice": "Whether invalid duration parsing must raise ValueError with a message containing the domain label \"Invalid duration\", rather than a reason-only parse error message.",
+ "n_verified": 4,
+ "verified": [
+  {
+   "path": "qutebrowser/utils/log.py",
+   "snippet": "if not names.issubset(LOGGER_NAMES):\n            raise InvalidLogFilterError(names)",
+   "way": "invalid parser input is routed to an exception whose message is domain-labeled as \"Invalid ...\"",
+   "verified_path": "qutebrowser/utils/log.py"
+  },
+  {
+   "path": "qutebrowser/utils/log.py",
+   "snippet": "invalid = names - set(LOGGER_NAMES)\n        super().__init__(\"Invalid log category {} - valid categories: {}\"\n                         .format(', '.join(sorted(invalid)),\n                                 ', '.join(LOGGER_NAMES)))",
+   "way": "invalid parser input message explicitly starts with an \"Invalid <domain>\" label",
+   "verified_path": "qutebrowser/utils/log.py"
+  },
+  {
+   "path": "qutebrowser/utils/urlutils.py",
+   "snippet": "s = s.strip()\n    split = s.split(maxsplit=1)\n    if not split:\n        raise ValueError(\"Empty search term!\")",
+   "way": "invalid parser input raises ValueError with a reason-only message, not an \"Invalid <domain>\" label",
+   "verified_path": "qutebrowser/utils/urlutils.py"
+  },
+  {
+   "path": "qutebrowser/utils/urlmatch.py",
+   "snippet": "if not parsed.scheme:\n            raise ParseError(\"Missing scheme\")",
+   "way": "invalid parser input raises a parse error with a reason-only message, not an \"Invalid <domain>\" label",
+   "verified_path": "qutebrowser/utils/urlmatch.py"
+  }
+ ],
+ "ok": true
+}

@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether the RHEL rebuild version-conversion helper leaves non-matching/noop version strings unchanged instead of altering, emptying, or rejecting them.","consistent":true,"precedents":[]}

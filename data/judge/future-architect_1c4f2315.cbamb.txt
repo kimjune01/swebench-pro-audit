@@ -1,0 +1,1 @@
+{"discriminating_choice":"For a plus CVE in a diff result, choose the affected package entry from the current scan result's Packages map rather than another source such as the previous scan result.","consistent":true,"precedents":[]}

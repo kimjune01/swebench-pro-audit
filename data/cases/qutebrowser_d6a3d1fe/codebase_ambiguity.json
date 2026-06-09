@@ -1,0 +1,27 @@
+{
+ "slug": "qutebrowser_d6a3d1fe",
+ "iid": "instance_qutebrowser__qutebrowser-6dd402c0d0f7665d32a74c43c5b4cf5dc8aff28d-v5fc38aaf22415ab0b70567368332beee7955b367",
+ "choice": "Exact user-facing recovery wording for corrupted/unavailable adblock filter cache data, specifically whether guidance says \"Please run :adblock-update.\" or uses the existing \"Run :adblock-update to get adblock lists.\" style.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "qutebrowser/components/braveadblock.py",
+   "snippet": "message.error(\"Reading adblock filter data failed (corrupted data?). \"\n                              \"Please run :adblock-update.\")",
+   "way": "error message for corrupted adblock filter cache uses a terse polite command: \"Please run :adblock-update.\"",
+   "verified_path": "qutebrowser/components/braveadblock.py"
+  },
+  {
+   "path": "qutebrowser/components/braveadblock.py",
+   "snippet": "message.info(\"Run :adblock-update to get adblock lists.\")",
+   "way": "same adblock component, missing cached/list data guidance uses imperative \"Run\" plus purpose text",
+   "verified_path": "qutebrowser/components/braveadblock.py"
+  },
+  {
+   "path": "qutebrowser/components/hostblock.py",
+   "snippet": "message.info(\"Run :adblock-update to get adblock lists.\")",
+   "way": "parallel adblock backend gives recovery guidance with imperative \"Run\" plus purpose text",
+   "verified_path": "qutebrowser/components/braveadblock.py"
+  }
+ ],
+ "ok": false
+}

@@ -1,0 +1,1 @@
+{"discriminating_choice":"whether the advanced config should explicitly set meta.telemetry_enabled to false instead of leaving it unset to inherit the default true value","consistent":true,"precedents":[]}

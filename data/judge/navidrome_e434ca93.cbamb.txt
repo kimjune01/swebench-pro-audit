@@ -1,0 +1,1 @@
+{"discriminating_choice":"Normalizing R128 Q7.8 gain to the ReplayGain reference by adding 5 dB, so r128_track_gain \"0\" maps to 5.0.","consistent":true,"precedents":[]}

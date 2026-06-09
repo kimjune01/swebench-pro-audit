@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether raw work-search user queries with field aliases and boolean/grouping syntax are parsed by the work-search Lucene-like query processor so that title maps to alternative_title, authors maps to author_name, OR is preserved, and parenthesized terms remain grouped.","consistent":true,"precedents":[]}

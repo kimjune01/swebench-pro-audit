@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether a table constructed with headers renders the header row, separator row, and body rows in the existing ASCII table format without truncation.","consistent":true,"precedents":[]}

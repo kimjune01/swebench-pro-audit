@@ -1,0 +1,21 @@
+{
+ "slug": "gravitational_d96ea00a",
+ "iid": "instance_gravitational__teleport-c782838c3a174fdff80cafd8cd3b1aa4dae8beb2",
+ "choice": "For a cache watch on a ClusterName backend update, whether the emitted processed event is the split ClusterName resource kind (`types.KindClusterName`) or the legacy aggregate ClusterConfig resource kind (`types.KindClusterConfig`).",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "lib/services/local/events.go",
+   "snippet": "func newClusterNameParser() *clusterNameParser {\n\treturn &clusterNameParser{\n\t\tbaseParser: newBaseParser(backend.Key(clusterConfigPrefix, namePrefix)),\n\t}\n}",
+   "way": "split-resource convention: the cluster name backend key is parsed by a ClusterName parser, producing ClusterName events",
+   "verified_path": "lib/services/local/events.go"
+  },
+  {
+   "path": "lib/services/local/events.go",
+   "snippet": "func newClusterConfigParser(getClusterConfig getClusterConfigFunc) *clusterConfigParser {\n\tprefixes := [][]byte{\n\t\tbackend.Key(clusterConfigPrefix, generalPrefix),\n\t\tbackend.Key(clusterConfigPrefix, namePrefix),\n\t\tbackend.Key(clusterConfigPrefix, auditPrefix),\n\t\tbackend.Key(clusterConfigPrefix, networkingPrefix),\n\t\tbackend.Key(clusterConfigPrefix, sessionRecordingPrefix),\n\t\tbackend.Key(authPrefix, preferencePrefix, generalPrefix),\n\t}",
+   "way": "legacy-aggregate convention: the same cluster name backend key is also watched by the ClusterConfig parser, so a ClusterName update can be represented as aggregate ClusterConfig",
+   "verified_path": "lib/services/local/events.go"
+  }
+ ],
+ "ok": false
+}

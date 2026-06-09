@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether DefaultGet should return the supplied default value with nil error when the underlying Get misses/returns ErrNotFound.", "consistent": true, "precedents":[]}

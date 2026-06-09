@@ -1,0 +1,21 @@
+{
+ "slug": "internetarchive_5e9872c8",
+ "iid": "instance_internetarchive__openlibrary-a48fd6ba9482c527602bc081491d9e8ae6e8226c-vfa6ff903cb27f336e17654595dd900fa943dcd91",
+ "choice": "How to represent the boolean has_fulltext Solr facet: force true-before-false with yes/no display labels versus preserve the raw facet value/count representation without labels.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "openlibrary/plugins/worksearch/code.py",
+   "snippet": "if name == 'has_fulltext':  # boolean facets\n            e_true = e_lst.find(\"int[@name='true']\")\n            true_count = e_true.text if e_true is not None else 0\n            e_false = e_lst.find(\"int[@name='false']\")\n            false_count = e_false.text if e_false is not None else 0\n            facets[name] = [\n                ('true', 'yes', true_count),\n                ('false', 'no', false_count),\n            ]",
+   "way": "boolean has_fulltext facet is normalized to true-before-false and given yes/no display labels",
+   "verified_path": "openlibrary/plugins/worksearch/code.py"
+  },
+  {
+   "path": "openlibrary/plugins/worksearch/subjects.py",
+   "snippet": "elif facet == \"has_fulltext\":\n            return [value, count]",
+   "way": "boolean has_fulltext facet is left as raw value/count with no yes/no display labels or forced true/false ordering",
+   "verified_path": "openlibrary/plugins/worksearch/subjects.py"
+  }
+ ],
+ "ok": true
+}

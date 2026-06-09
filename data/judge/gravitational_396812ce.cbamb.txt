@@ -1,0 +1,1 @@
+{"discriminating_choice":"With no tracked components, processState.getState() returns stateStarting rather than treating the empty component set as ok.","consistent":true,"precedents":[]}

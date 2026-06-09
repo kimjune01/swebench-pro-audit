@@ -1,0 +1,1 @@
+{"discriminating_choice":"When refactoring playqueue track loading to iterator-based chunking, the code must project each model.MediaFile to its ID string before using the chunk as an Eq{\"media_file.id\": ...} database filter, so Retrieve reloads the stored tracks instead of querying with model structs.","consistent":true,"precedents":[]}

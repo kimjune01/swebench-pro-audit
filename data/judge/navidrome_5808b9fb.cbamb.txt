@@ -1,0 +1,1 @@
+{"discriminating_choice":"Backend password-change validation failures are returned as *rest.ValidationError with a field-keyed Errors map.","consistent":true,"precedents":[]}

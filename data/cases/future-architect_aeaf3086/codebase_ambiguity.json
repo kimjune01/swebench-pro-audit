@@ -1,0 +1,27 @@
+{
+ "slug": "future-architect_aeaf3086",
+ "iid": "instance_future-architect__vuls-e3c27e1817d68248043bd09d63cc31f3344a6f2c",
+ "choice": "Whether the UUID-ensuring logic must be exposed as an unexported package-level helper named ensure with an injected generateFunc and needsOverwrite return, versus using existing production-shaped helpers/direct calls with concrete dependencies.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "saas/uuid.go",
+   "snippet": "func getOrCreateServerUUID(r models.ScanResult, server c.ServerInfo) (serverUUID string, err error) {\n\tif id, ok := server.UUIDs[r.ServerName]; !ok {\n\t\tif serverUUID, err = uuid.GenerateUUID(); err != nil {\n\t\t\treturn \"\", xerrors.Errorf(\"Failed to generate UUID: %w\", err)\n\t\t}",
+   "way": "UUID helper exists, but it is domain-named and calls uuid.GenerateUUID directly instead of accepting an injected generator or returning an overwrite flag.",
+   "verified_path": "saas/uuid.go"
+  },
+  {
+   "path": "saas/uuid.go",
+   "snippet": "func EnsureUUIDs(configPath string, results models.ScanResults) (err error) {\n\t// Sort Host->Container\n\tsort.Slice(results, func(i, j int) bool {\n\t\tif results[i].ServerName == results[j].ServerName {\n\t\t\treturn results[i].Container.ContainerID < results[j].Container.ContainerID",
+   "way": "The exported UUID workflow contains substantial implementation directly rather than delegating to a callable ensure helper with the hidden-test signature.",
+   "verified_path": "saas/uuid.go"
+  },
+  {
+   "path": "scan/executil.go",
+   "snippet": "func parallelExec(fn func(osTypeInterface) error, timeoutSec ...int) {\n\tresChan := make(chan osTypeInterface, len(servers))\n\tdefer close(resChan)\n\n\tfor _, s := range servers {",
+   "way": "Unexported production helpers sometimes accept a function parameter to supply variable behavior, showing the callback style is also an established convention.",
+   "verified_path": "scan/executil.go"
+  }
+ ],
+ "ok": true
+}

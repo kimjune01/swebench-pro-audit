@@ -1,0 +1,21 @@
+{
+ "slug": "flipt-io_d38a357b",
+ "iid": "instance_flipt-io__flipt-492cc0b158200089dceede3b1aba0ed28df3fb1d",
+ "choice": "File-based config key spelling for a multiword Go config field: mapping YAML `pool_size` into `RedisCacheConfig.PoolSize` rather than using a camelCase key such as `poolSize`.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "internal/config/database.go",
+   "snippet": "\tMaxIdleConn               int              `json:\"maxIdleConn,omitempty\" mapstructure:\"max_idle_conn\"`\n\tMaxOpenConn               int              `json:\"maxOpenConn,omitempty\" mapstructure:\"max_open_conn\"`\n\tConnMaxLifetime           time.Duration    `json:\"connMaxLifetime,omitempty\" mapstructure:\"conn_max_lifetime\"`",
+   "way": "snake_case file config keys for multiword Go config fields",
+   "verified_path": "internal/config/database.go"
+  },
+  {
+   "path": "internal/config/storage.go",
+   "snippet": "\tReadOnly *bool       `json:\"readOnly,omitempty\" mapstructure:\"readOnly,omitempty\"`",
+   "way": "camelCase file config key for a multiword Go config field",
+   "verified_path": "internal/config/storage.go"
+  }
+ ],
+ "ok": true
+}

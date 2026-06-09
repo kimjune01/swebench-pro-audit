@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether an empty collection name is treated as invalid and returns False because it is not a well-formed namespace.collection name with exactly two non-empty segments.","consistent":true,"precedents":[]}

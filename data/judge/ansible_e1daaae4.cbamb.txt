@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether to build the IPv4 local routing table query with the address-family selector before the ip subcommand, i.e. [ip_path, '-4', 'route', 'show', 'table', 'local'], rather than another valid ip-route argument ordering.","consistent":true,"precedents":[]}

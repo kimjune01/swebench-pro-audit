@@ -1,0 +1,27 @@
+{
+ "slug": "qutebrowser_0b8cc812",
+ "iid": "instance_qutebrowser__qutebrowser-c580ebf0801e5a3ecabc54f327498bb753c6d5f2-v2ef375ac784985212b1805e1d0431dc8f1b3c171",
+ "choice": "Whether a string hostname-widening/parsing helper should accept None as empty input, yielding no results, or treat None as invalid for a str parameter and raise by calling string methods.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "qutebrowser/config/configutils.py",
+   "snippet": "def _widened_hostnames(hostname: str) -> Iterable[str]:\n    \"\"\"A generator for widening string hostnames.\n\n    Ex: a.c.foo -> [a.c.foo, c.foo, foo]\"\"\"\n    while hostname:\n        yield hostname\n        hostname = hostname.partition(\".\")[-1]",
+   "way": "treats None/falsy hostname as empty sequence; None yields nothing rather than raising",
+   "verified_path": "qutebrowser/config/configutils.py"
+  },
+  {
+   "path": "qutebrowser/utils/urlutils.py",
+   "snippet": "def _parse_search_term(s: str) -> Tuple[Optional[str], Optional[str]]:\n    \"\"\"Get a search engine name and search term from a string.\n\n    Args:\n        s: The string to get a search engine for.\n\n    Return:\n        A (engine, term) tuple, where engine is None for the default engine.\n    \"\"\"\n    s = s.strip()",
+   "way": "treats None as invalid for a str parser; None raises AttributeError before empty handling",
+   "verified_path": "qutebrowser/utils/urlutils.py"
+  },
+  {
+   "path": "qutebrowser/utils/urlutils.py",
+   "snippet": "def is_url(urlstr: str) -> bool:\n    \"\"\"Check if url seems to be a valid URL.\n\n    Args:\n        urlstr: The URL as string.\n\n    Return:\n        True if it is a valid URL, False otherwise.\n    \"\"\"\n    autosearch = config.val.url.auto_search\n\n    log.url.debug(\"Checking if {!r} is a URL (autosearch={}).\".format(\n        urlstr, autosearch))\n\n    urlstr = urlstr.strip()",
+   "way": "treats None as invalid for a str URL helper; None raises AttributeError before parsing",
+   "verified_path": "qutebrowser/utils/urlutils.py"
+  }
+ ],
+ "ok": true
+}

@@ -1,0 +1,1 @@
+{"discriminating_choice":"Rendering PinnedMessageBanner/EventPreview under a MatrixClientContext provider so useEventPreview can read a MatrixClient from context","consistent":true,"precedents":[]}

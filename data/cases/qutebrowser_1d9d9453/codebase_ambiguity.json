@@ -1,0 +1,27 @@
+{
+ "slug": "qutebrowser_1d9d9453",
+ "iid": "instance_qutebrowser__qutebrowser-21b426b6a20ec1cc5ecad770730641750699757b-v363c8a7e5ccdf6968fc7ab84a2053ac78036691d",
+ "choice": "Whether Values.__repr__ should expose the new OrderedDict storage as vmap=odict_values(...) rather than preserving a logical/constructor-style values=... representation when replacing _values with _vmap.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "qutebrowser/config/configutils.py",
+   "snippet": "    def __repr__(self) -> str:\n        return utils.get_repr(self, opt=self.opt, values=self._values,\n                              constructor=True)",
+   "way": "logical constructor keyword values for the scoped-value collection",
+   "verified_path": "qutebrowser/browser/hints.py"
+  },
+  {
+   "path": "qutebrowser/config/config.py",
+   "snippet": "    def __repr__(self) -> str:\n        return utils.get_repr(self, constructor=True, config=self._config,\n                              configapi=self._configapi, prefix=self._prefix,\n                              pattern=self._pattern)",
+   "way": "keyword derived from private backing attribute name with the leading underscore stripped",
+   "verified_path": "qutebrowser/utils/usertypes.py"
+  },
+  {
+   "path": "qutebrowser/utils/usertypes.py",
+   "snippet": "    def __repr__(self) -> str:\n        return utils.get_repr(self, items=self._items, mode=self._mode,\n                              idx=self._idx, fuzzyval=self.fuzzyval)",
+   "way": "semantic public collection keyword items for a private internal collection",
+   "verified_path": "qutebrowser/config/configutils.py"
+  }
+ ],
+ "ok": true
+}

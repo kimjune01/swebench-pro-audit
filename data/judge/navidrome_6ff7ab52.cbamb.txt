@@ -1,0 +1,1 @@
+{"discriminating_choice":"When no explicit format is requested and a player MaxBitRate is present, whether to preserve the active transcoding configuration's TargetFormat while using the player bitrate.","consistent":true,"precedents":[]}

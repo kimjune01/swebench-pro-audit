@@ -1,0 +1,21 @@
+{
+ "slug": "qutebrowser_2a10461c",
+ "iid": "instance_qutebrowser__qutebrowser-8cd06741bb56cdca49f5cdc0542da97681154315-v5149fcda2a9a6fe1d35dfed1bade1444a11ef271",
+ "choice": "For QtWebEngine 6.6+, when colors.webpage.darkmode.policy.images is a non-smart value such as always/never, whether to omit the derived ImageClassifierPolicy setting entirely rather than emit a classifier policy value anyway.",
+ "n_verified": 2,
+ "verified": [
+  {
+   "path": "qutebrowser/config/qtargs.py",
+   "snippet": "    'content.prefers_reduced_motion': {\n        True: '--force-prefers-reduced-motion',\n        False: None,\n    },\n\n        elif arg is not None:\n            yield arg",
+   "way": "optional Chromium command-line/backend switch is suppressed for the value whose effect is default or inapplicable",
+   "verified_path": "qutebrowser/config/qtargs.py"
+  },
+  {
+   "path": "qutebrowser/browser/webengine/webenginesettings.py",
+   "snippet": "    _JS_CLIPBOARD_SETTINGS = {\n        'none': {\n            QWebEngineSettings.WebAttribute.JavascriptCanAccessClipboard: False,\n            QWebEngineSettings.WebAttribute.JavascriptCanPaste: False,\n        },\n\n            for attr, attr_val in self._JS_CLIPBOARD_SETTINGS[value].items():\n                self._settings.setAttribute(attr, attr_val)",
+   "way": "a single config value still explicitly sets all related lower-level backend attributes, including disabling attributes for the 'none' mode",
+   "verified_path": "qutebrowser/browser/webengine/webenginesettings.py"
+  }
+ ],
+ "ok": true
+}

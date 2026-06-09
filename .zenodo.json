@@ -1,0 +1,18 @@
+{
+  "title": "A determinacy audit of SWE-bench Pro: which tasks are underdetermined, with receipts",
+  "upload_type": "dataset",
+  "access_right": "open",
+  "license": "cc-by-sa-4.0",
+  "creators": [
+    { "name": "Kim, June" }
+  ],
+  "description": "<p>A preregistered determinacy audit of all 728 public SWE-bench Pro tasks. Each task is labeled for whether the behavior the hidden test grades is pinned by what a solver actually receives (the prose: problem + requirements + interface) plus the repository source.</p><p>The claimable result is two-tier: a <b>mechanical spine of 36 tasks (4.9%)</b> provable from committed receipts with no methodological buy-in (grep-certified absent constants, officially-graded prose-faithful alternative patches, a hand-verified prose clause), plus <b>29 two-expert splits (4.0%)</b> under the two-expert standard &mdash; cases where two world-class engineers, given only prose and source, would both write a requirement-faithful implementation the hidden test splits, proven on a prose-plurality or source-plurality axis. Splits are two-model adversarially verified: codex constructs the existence proof, an independent cross-family refuter (Claude opus) tries to kill it (29 of 41 survive), and a symmetric advocate pass over the determined cases recovers no missed splits (Cohen's &kappa; = 0.52).</p><p>Three KNOWN_BAD gold-fails-grader defects and at least one KNOWN_MISMATCH (prose describes one feature, gold and test grade another) are recorded separately. Verdicts are mechanical and re-derivable from per-case receipts.</p>",
+  "keywords": [
+    "SWE-bench Pro",
+    "benchmark audit",
+    "determinacy",
+    "specification underdetermination",
+    "LLM code generation",
+    "construct validity"
+  ]
+}

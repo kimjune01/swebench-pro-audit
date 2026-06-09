@@ -56,7 +56,7 @@ whose burden its tier defines:
 | **airtight** | the choice is an arbitrary constant present **nowhere a solver reads** | constant absent from prose **and** the codebase at base_commit (grep) | **yes** — mechanical |
 | **graded-patch** | a prose-faithful alternative impl exists and the bench rejects it | R2 both opus & codex (blind, no gold/test) call prose-faithful, then the official grader fails R2 on the discriminating test while PASS_TO_PASS stays green | **yes** — mechanical |
 | **prose-affirmative (hand)** | the prose explicitly describes the alternative the test rejects | the verbatim clause (tutao) | **yes** — mechanical |
-| **codebase-plural** | the codebase itself does the choice **>1 live way**, prose silent | ≥2 comparable, live, prose-silent precedents at base_commit (grep-verified; tests/examples/vendor/generated/deprecated excluded) | **under the two-precedent rule** (a stance a reader can contest) |
+| **codebase-plural** | the codebase does the choice **>1 live way**, prose silent, and **no ordinary convention selects** | ≥2 comparable, live, prose-silent precedents at base_commit (grep-verified; tests/examples/vendor/generated/deprecated excluded) **+ unselected**: the convergence rater also fails to resolve it (else the plurality is apparent, not binding — demoted) | **under the two-precedent+unselected rule** (a stance a reader can contest) |
 | **hypothesis** | screen-flagged, no qualifying witness | — | **no** — raters-pending, **not counted** |
 | **KNOWN_BAD** | gold fails its own grader | reference patch scores reward≠1 at the pinned commit | **yes** — mechanical, results-independent |
 
@@ -70,8 +70,8 @@ a passing patch never proves DETERMINED, symmetric to a failing patch never prov
 ```mermaid
 pie showData title SWE-bench Pro public set (n=728) by determinacy
     "ENTAILED — prose determines" : 478
-    "Hypothesis — raters-pending (not counted)" : 161
-    "PROVEN codebase-plural (two-precedent)" : 53
+    "Hypothesis — raters-pending (not counted)" : 196
+    "PROVEN codebase-plural (two-precedent, unselected)" : 18
     "PROVEN mechanical spine" : 36
 ```
 
@@ -82,22 +82,26 @@ pie showData title SWE-bench Pro public set (n=728) by determinacy
 | ENTAILED | 478 | 66% |
 | AMBIGUOUS — screen (≥1 GAP) | 250 | 34% |
 | &nbsp;&nbsp;**PROVEN — mechanical spine** (airtight 30 + graded-patch 5 + hand 1) | **36** | **4.9%** |
-| &nbsp;&nbsp;**PROVEN — codebase-plural** (two-precedent rule) | **53** | **7.3%** |
-| &nbsp;&nbsp;hypothesis (raters-pending, not counted) | 161 | 22% |
+| &nbsp;&nbsp;**PROVEN — codebase-plural** (two-precedent **+ unselected** rule) | **18** | **2.5%** |
+| &nbsp;&nbsp;hypothesis (raters-pending, not counted) | 196 | 27% |
 | KNOWN_BAD (gold fails grader; full 731 sweep, 0 new beyond the frozen 3) | 3 | — |
 
-**Two honest bars.** The headline **12.2%** is **4.9% mechanical + 7.3% codebase-plural**: the first term
+**Two honest bars.** The headline **7.4%** is **4.9% mechanical + 2.5% codebase-plural**: the first term
 needs no methodological buy-in (a hostile reader reproduces each from the receipts); the second depends on
-accepting the **two-precedent rule** — *when the base codebase has multiple comparable live conventions
-and the prompt is silent, the hidden test is choosing among unstated alternatives.* The 161 hypotheses are
-in **neither** number; converting them needs ≥2 independent codebase-aware raters + κ. This is a
-preregistered instrument with a proven spine, not a population rate. Full table: [`COVERAGE.md`](COVERAGE.md).
+accepting the **two-precedent rule**, now sharpened to require *unselected* plurality — ≥2 comparable live
+conventions, prose silent, **and** not collapsed by an ordinary convention (cross-checked against the
+convergence rater; this demoted 35 of an initial 53 to hypothesis). The 196 hypotheses are in **neither**
+number. A separate **design-level divergence** axis (see [`docs/DETERMINACY-AXIS.md`](docs/DETERMINACY-AXIS.md))
+raises the *candidate* union to **~20%**, but its mass is single-rater (panel-pending), so 20% is a
+candidate ceiling, not yet receipt-defensible. A preregistered instrument with a proven spine, not a
+population rate. Full table: [`COVERAGE.md`](COVERAGE.md).
 
 ## Recommendations
 
 ### If you run, report, or cite a Pro score
 - **A raw % can over-credit reasoning when reported as problem-solving.** At least 4.9% of the public set
-  is provably underdetermined (12.2% under the two-precedent rule) and 3 tasks have broken gold; passing
+  is provably underdetermined (7.4% under the two-precedent+unselected rule; ~20% candidate union with the
+  single-rater design-divergence axis) and 3 tasks have broken gold; passing
   those is oracle/guess, not solving. Report a **determinacy-weighted** denominator, or at minimum
   disclose that the headline mixes prose-determined and prose-underdetermined tasks.
 - **The closest reasoning-only signal is the ENTAILED subset, scored oracle-free.** (Even there, residual
@@ -183,7 +187,7 @@ underdetermination underneath it. What the ablations found (agent never sees the
 ## Honest limits
 
 - **n = 728 is done** (the whole public set), so sampling bias no longer binds the spine. What remains
-  gated is the **hypothesis tier (161)**: codebase-vs-borderline is interpretive and needs ≥2 independent
+  gated is the **hypothesis tier (196)**: codebase-vs-borderline is interpretive and needs ≥2 independent
   raters + κ before any of it counts — reported separately, excluded from both headline bars.
 - **The codebase-plural tier rests on the two-precedent rule** — guarded against cherry-picking but a
   stance a reader can contest. The 4.9% mechanical spine needs no such buy-in.

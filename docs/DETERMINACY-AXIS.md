@@ -51,9 +51,11 @@ convergence-with-convention granularity; report prose-literal silence separately
 
 ## Relation to the per-behavior spine (no double-counting)
 
-Reported as a **separate** axis, never merged into the per-behavior 4.9% / 7.4% spine. Measured overlap:
+Reported as a **separate** axis, never merged into the per-behavior 4.9% / 8.9% spine. Measured overlap
+(these union/overlap counts predate the two-expert re-grounding that took the per-behavior spine 54→65;
+the ~20% candidate ceiling is unchanged in magnitude, exact union pending a refresh):
 
-- per-behavior PROVEN spine = 54; opus design-divergent = 118; **union = 147 (20.2%)**, overlap = 25.
+- per-behavior PROVEN spine = 65 (was 54); opus design-divergent = 118; **union ≈ 147 (~20%)**.
 - Of the 118 divergent, **46 are per-behavior ENTAILED** — tasks the coverage screen called covered but
   whose *design* is underdetermined. That ~6% is divergence's genuine net-new contribution; the rest is
   the same underdetermination the per-behavior screen already saw, viewed at design granularity.
@@ -65,9 +67,10 @@ receipt-grade**, so it is publishable only with the tiers shown, not as one flat
 
 - **~36 (4.9%) carry mechanical receipts** a skeptic checks without trusting us: airtight (grep), graded
   patch (official grade), tutao (prose clause). This is the receipt-defensible floor today.
-- **18 (2.5%) rest on the codebase-plural two-precedent rule** — the precedents are shown and grep-real,
-  and the *unselected* reading is corroborated by the convergence rater; defensible, but the "unselected"
-  call is a disclosed stance.
+- **29 (4.0%) rest on the two-expert standard** — codex constructs an existence proof (prose plurality or
+  source plurality), an independent cross-family refuter (opus) tries to kill it and fails (29/41 survive),
+  and a symmetric advocate pass recovers no missed splits (κ=0.52, all disagreement skeptic-stricter);
+  two-model verified, but the standard itself is a disclosed stance.
 - **~93 rest on single-rater opus design-divergence** — a disciplined hypothesis whose "receipt" is one
   model's design pair, not a checkable artifact. **This is the mass that makes 20% not yet defensible.**
 
@@ -80,9 +83,9 @@ artifact, two options:
    that proved the 5 prose-affirmative cases, pointed at the design grain; the strongest receipt (a real
    prose-faithful patch the bench rejects).
 
-Until one of those runs, the honest published numbers are: **4.9% receipt-mechanical, 7.4% granting the
-codebase-plural tier, 20.2% candidate union (single-rater divergent, panel-pending)**, with a looser
-prose-literal-silence diagnostic at ~69%. Not a sum; not a concurrence; not yet panel-proven.
+Until one of those runs, the honest published numbers are: **4.9% receipt-mechanical, 8.9% granting the
+two-expert tier (two-model verified, κ=0.52), ~20% candidate union (single-rater divergent, panel-pending)**,
+with a looser prose-literal-silence diagnostic at ~69%. Not a sum; not a concurrence; not yet panel-proven.
 
 ## Scoring: the aspiration, what binary measures, what we propose
 

@@ -62,10 +62,14 @@ is a **GAP**; ≥1 GAP ⇒ AMBIGUOUS-screen. (`tools/judge_pool.py`, `tools/run_
      gold/test/each other), must answer "satisfies every requirement"; then grade R2 on a box — it must
      fail the discriminating FAIL_TO_PASS while PASS_TO_PASS stays green. Both-yes + clean-fail ⇒ PROVEN.
      (`tools/r2_promote.py gen|gate`, `driver/grade_r2.py` on the box.)
-   - *codebase-plural* (two-precedent rule): clone at `base_commit`; ask the model for ≥2 **comparable,
-     live** precedents that make the same choice differently; mechanically confirm each snippet exists in a
-     non-test/example/vendor/generated/deprecated path and the prose is silent. ≥2 distinct ⇒ PROVEN.
-     (`tools/codebase_ambiguity.py`.) Everything that does not clear a burden stays **hypothesis** (not counted).
+   - *two-expert split* (two-expert standard): for each plurality candidate, codex constructs an existence
+     proof on either axis — **prose** plurality (≥2 readings the requirement licenses, both faithful) or
+     **source** plurality (≥2 comparable, live, prose-silent precedents at `base_commit`, non-test/example/
+     vendor/generated/deprecated). Then an independent cross-family refuter (opus) tries to **kill** each
+     split (strained reading, lookalike precedent, prose actually selects); survivors are PROVEN. A
+     symmetric advocate pass over the *determined* cases looks for missed splits (recovered none; κ=0.52).
+     (`tools/plurality_proof.py` builds; the refute/advocate passes write `data/judge/*.refute.json` /
+     `*.advocate.json`.) Everything that does not survive stays **hypothesis** (not counted).
 
 **4. KNOWN_BAD gold sweep.** Grade the *gold* patch of all tasks with the official evaluator; any
 `reward≠1` is a candidate; **re-run each candidate isolated/alone** (a parallel-sweep hiccup is never logged

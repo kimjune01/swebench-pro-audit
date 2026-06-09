@@ -1,0 +1,27 @@
+{
+ "slug": "NodeBB_61d17c95",
+ "iid": "instance_NodeBB__NodeBB-f9ce92df988db7c1ae55d9ef96d247d27478bc70-vf2cf3cbd463b7ad942381f1c6d077626485a1e9e",
+ "choice": "Whether an invalid upload target path is reported through the generic error handler as HTTP 500, or as an explicit 4xx invalid-path API response.",
+ "n_verified": 3,
+ "verified": [
+  {
+   "path": "src/controllers/admin/uploads.js",
+   "snippet": "\tconst currentFolder = path.join(nconf.get('upload_path'), req.query.dir || '');\n\tif (!currentFolder.startsWith(nconf.get('upload_path'))) {\n\t\treturn next(new Error('[[error:invalid-path]]'));\n\t}",
+   "way": "admin uploads path validation passes a plain invalid-path Error to next, which uses the generic handler/500 path",
+   "verified_path": "src/controllers/admin/uploads.js"
+  },
+  {
+   "path": "src/middleware/assert.js",
+   "snippet": "\tif (!await file.exists(pathToFile)) {\n\t\treturn controllerHelpers.formatApiResponse(404, res, new Error('[[error:invalid-path]]'));\n\t}",
+   "way": "file path existence validation returns an explicit 404 invalid-path API response",
+   "verified_path": "src/middleware/assert.js"
+  },
+  {
+   "path": "src/middleware/assert.js",
+   "snippet": "\t// Guard against path traversal\n\tif (!pathToFile.startsWith(nconf.get('upload_path'))) {\n\t\treturn controllerHelpers.formatApiResponse(403, res, new Error('[[error:invalid-path]]'));\n\t}",
+   "way": "file path traversal validation returns an explicit 403 invalid-path API response",
+   "verified_path": "src/middleware/assert.js"
+  }
+ ],
+ "ok": true
+}

@@ -1,0 +1,1 @@
+{"discriminating_choice":"Whether db.mget treats falsy non-array keys (for example false or null) as empty input returning [] rather than throwing.","consistent":true,"precedents":[]}

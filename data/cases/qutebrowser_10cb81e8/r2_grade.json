@@ -1,0 +1,19 @@
+{
+ "instance_id": "instance_qutebrowser__qutebrowser-2e961080a85d660148937ee8f0f6b3445a8f2c01-v363c8a7e5ccdf6968fc7ab84a2053ac78036691d",
+ "gold_resolved": true,
+ "r2_resolved": false,
+ "clean_fail": true,
+ "n_flips_pass_to_fail": 6,
+ "flips": [
+  "tests/unit/config/test_qtargs.py::TestWebEngineArgs::test_accelerated_2d_canvas[5.15.2-False-auto-False]",
+  "tests/unit/config/test_qtargs.py::TestWebEngineArgs::test_accelerated_2d_canvas[6.5.3-True-always-True]",
+  "tests/unit/config/test_qtargs.py::TestWebEngineArgs::test_accelerated_2d_canvas[6.5.3-True-auto-True]",
+  "tests/unit/config/test_qtargs.py::TestWebEngineArgs::test_accelerated_2d_canvas[6.5.3-True-never-False]",
+  "tests/unit/config/test_qtargs.py::TestWebEngineArgs::test_accelerated_2d_canvas[6.6.0-True-always-True]",
+  "tests/unit/config/test_qtargs.py::TestWebEngineArgs::test_accelerated_2d_canvas[6.6.0-True-auto-False]"
+ ],
+ "missing_gold_passed": [],
+ "gold_tests": 108,
+ "r2_tests": 108,
+ "ran_ratio": 1.0
+}

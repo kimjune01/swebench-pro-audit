@@ -1,0 +1,12 @@
+{
+ "instance_id": "instance_protonmail__webclients-5d2576632037d655c3b6a28e98cd157f7e9a5ce1",
+ "gold_resolved": true,
+ "r2_resolved": true,
+ "clean_fail": false,
+ "n_flips_pass_to_fail": 0,
+ "flips": [],
+ "missing_gold_passed": [],
+ "gold_tests": 5,
+ "r2_tests": 5,
+ "ran_ratio": 1.0
+}

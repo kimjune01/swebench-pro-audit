@@ -1,0 +1,14 @@
+{
+ "instance_id": "instance_gravitational__teleport-0cb341c926713bdfcbb490c69659a9b101df99eb",
+ "gold_resolved": true,
+ "r2_resolved": false,
+ "clean_fail": true,
+ "n_flips_pass_to_fail": 1,
+ "flips": [
+  "TestRolesEqual"
+ ],
+ "missing_gold_passed": [],
+ "gold_tests": 2,
+ "r2_tests": 2,
+ "ran_ratio": 1.0
+}

@@ -11,16 +11,17 @@ Verdicts are mechanical and re-derivable from committed receipts. The **screen**
 | ENTAILED (every graded behavior has a covering requirement) | 478 | 66% | n/a (not a defect) |
 | AMBIGUOUS — screen (≥1 GAP) | 250 | 34% | screen only |
 | &nbsp;&nbsp;├─ **airtight** (constant absent from prose **and** codebase, grep-certified) | 30 | 4% | **YES — mechanical spine** |
+| &nbsp;&nbsp;├─ **prose-affirmative, graded-patch** (R2 both raters call faithful, bench fails it) | 5 | 1% | **YES — mechanical spine** |
 | &nbsp;&nbsp;├─ **prose-affirmative, hand-verified** (tutao) | 1 | 0% | **YES — mechanical spine** |
-| &nbsp;&nbsp;├─ prose-affirmative, codex-proposed (clause-verified, R2-entailment unproven) | 53 | 7% | NO — raters / graded-patch pending |
+| &nbsp;&nbsp;├─ prose-affirmative, codex-proposed (gate/graded-patch pending or not-clean) | 48 | 7% | NO — raters / graded-patch pending |
 | &nbsp;&nbsp;└─ codebase / borderline | 166 | 23% | NO — raters-pending |
 
 ## Claimable now (mechanical spine)
 
-- **KNOWN_AMBIGUOUS (PROVEN): 31** of 728 — 30 airtight + 1 prose-affirmative, each with a verified argument witness ([`KNOWN_AMBIGUOUS.md`](KNOWN_AMBIGUOUS.md)).
+- **KNOWN_AMBIGUOUS (PROVEN): 36** of 728 — 30 airtight (grep) + 5 graded-patch (R2 both-rater-faithful + bench-failed) + 1 hand-verified, each with a witness ([`KNOWN_AMBIGUOUS.md`](KNOWN_AMBIGUOUS.md)).
 - **KNOWN_BAD: 3** gold-fails-grader defects, frozen pre-run ([`KNOWN_BAD.md`](KNOWN_BAD.md); separately audited, outside the prose-set denominator).
 
-So on the 728-task public set, the claimable determinacy-failing floor is **31 PROVEN-ambiguous (4.3%)**, with a further **219 screen-flagged hypotheses (30%)** that an independent codebase-aware rater panel + κ must adjudicate before any of them counts. The codebase-class *rate* is therefore reported as raters-pending, not as a result. This is a preregistered instrument with a proven spine, not yet a population rate.
+So on the 728-task public set, the claimable determinacy-failing floor is **36 PROVEN-ambiguous (4.9%)**, with a further **214 screen-flagged hypotheses (29%)** that an independent codebase-aware rater panel + κ must adjudicate before any of them counts. The codebase-class *rate* is therefore reported as raters-pending, not as a result. This is a preregistered instrument with a proven spine, not yet a population rate.
 
 Full per-case table: [`COVERAGE.md`](COVERAGE.md). Method: [`docs/ADMISSIBILITY-SPEC.md`](docs/ADMISSIBILITY-SPEC.md).
 

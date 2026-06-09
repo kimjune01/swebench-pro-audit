@@ -1,0 +1,15 @@
+{
+ "instance_id": "instance_qutebrowser__qutebrowser-8f46ba3f6dc7b18375f7aa63c48a1fe461190430-v2ef375ac784985212b1805e1d0431dc8f1b3c171",
+ "gold_resolved": true,
+ "r2_resolved": false,
+ "clean_fail": true,
+ "n_flips_pass_to_fail": 2,
+ "flips": [
+  "tests/unit/test_qutebrowser.py::TestValidateUntrustedArgs::test_valid[args2]",
+  "tests/unit/test_qutebrowser.py::TestValidateUntrustedArgs::test_valid[args3]"
+ ],
+ "missing_gold_passed": [],
+ "gold_tests": 12,
+ "r2_tests": 12,
+ "ran_ratio": 1.0
+}

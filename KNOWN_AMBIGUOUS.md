@@ -2,7 +2,7 @@
 
 Gold passes its verifier, but the hidden test checks behavior no requirement determines (a specification lottery). **Two tiers.** The PROVEN tier (below) is the mechanical spine — each carries a verified argument witness and needs no rater. The HYPOTHESIS tier is screen-flagged and raters-pending; it is counted separately and NOT claimed.
 
-## PROVEN (mechanical spine): 31
+## PROVEN (mechanical spine): 36
 
 | case | class | instance_id | coverage | gaps | witness |
 |---|---|---|---|---|---|
@@ -10,6 +10,7 @@ Gold passes its verifier, but the hidden test checks behavior no requirement det
 | ansible_341a6be7 | airtight | `instance_ansible__ansible-ea04e0048dbb3b63f876aad7020e1de8eee9f362-v1055803c3a812189a1133297f7f5468579283f86` | 10/13 | 3 | [witness](data/cases/ansible_341a6be7/AMBIGUITY_WITNESS.md) |
 | ansible_6d34eb88 | airtight | `instance_ansible__ansible-bec27fb4c0a40c5f8bbcf26a475704227d65ee73-v30a923fb5c164d6cd18280c02422f75e611e8fb2` | 23/32 | 9 | [witness](data/cases/ansible_6d34eb88/AMBIGUITY_WITNESS.md) |
 | ansible_b6360dc5 | airtight | `instance_ansible__ansible-83909bfa22573777e3db5688773bda59721962ad-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5` | 1/2 | 1 | [witness](data/cases/ansible_b6360dc5/AMBIGUITY_WITNESS.md) |
+| ansible_bf98f031 | prose-affirmative | `instance_ansible__ansible-5260527c4a71bfed99d803e687dd19619423b134-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5` | 3/5 | 2 | [witness](data/cases/ansible_bf98f031/AMBIGUITY_WITNESS.md) |
 | ansible_dcc5dac1 | airtight | `instance_ansible__ansible-d33bedc48fdd933b5abd65a77c081876298e2f07-v0f01c69f1e2528b935359cfe578530722bca2c59` | 16/40 | 24 | [witness](data/cases/ansible_dcc5dac1/AMBIGUITY_WITNESS.md) |
 | element-hq_1a0dbbf1 | airtight | `instance_element-hq__element-web-e15ef9f3de36df7f318c083e485f44e1de8aad17` | 5/9 | 4 | [witness](data/cases/element-hq_1a0dbbf1/AMBIGUITY_WITNESS.md) |
 | flipt-io_1bd9924b | airtight | `instance_flipt-io__flipt-b6cef5cdc0daff3ee99e5974ed60a1dc6b4b0d67` | 13/14 | 1 | [witness](data/cases/flipt-io_1bd9924b/AMBIGUITY_WITNESS.md) |
@@ -28,16 +29,20 @@ Gold passes its verifier, but the hidden test checks behavior no requirement det
 | gravitational_07e2ca13 | airtight | `instance_gravitational__teleport-4e1c39639edf1ab494dd7562844c8b277b5cfa18-vee9b09fb20c43af7e520f57e9239bbcf46b7113d` | 15/16 | 1 | [witness](data/cases/gravitational_07e2ca13/AMBIGUITY_WITNESS.md) |
 | gravitational_0a61c9e8 | airtight | `instance_gravitational__teleport-4f771403dc4177dc26ee0370f7332f3fe54bee0f-vee9b09fb20c43af7e520f57e9239bbcf46b7113d` | 33/34 | 1 | [witness](data/cases/gravitational_0a61c9e8/AMBIGUITY_WITNESS.md) |
 | gravitational_2308160e | airtight | `instance_gravitational__teleport-3587cca7840f636489449113969a5066025dd5bf` | 3/4 | 1 | [witness](data/cases/gravitational_2308160e/AMBIGUITY_WITNESS.md) |
+| gravitational_2839d2aa | prose-affirmative | `instance_gravitational__teleport-0cb341c926713bdfcbb490c69659a9b101df99eb` | 14/15 | 1 | [witness](data/cases/gravitational_2839d2aa/AMBIGUITY_WITNESS.md) |
 | gravitational_b37b02cd | airtight | `instance_gravitational__teleport-c1b1c6a1541c478d7777a48fca993cc8206c73b9` | 6/10 | 4 | [witness](data/cases/gravitational_b37b02cd/AMBIGUITY_WITNESS.md) |
 | internetarchive_7549c413 | airtight | `instance_internetarchive__openlibrary-5fb312632097be7e9ac6ab657964af115224d15d-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4` | 11/22 | 11 | [witness](data/cases/internetarchive_7549c413/AMBIGUITY_WITNESS.md) |
 | internetarchive_c46e5170 | airtight | `instance_internetarchive__openlibrary-3f7db6bbbcc7c418b3db72d157c6aed1d45b2ccf-v430f20c722405e462d9ef44dee7d34c41e76fe7a` | 8/9 | 1 | [witness](data/cases/internetarchive_c46e5170/AMBIGUITY_WITNESS.md) |
 | navidrome_d0ce0303 | airtight | `instance_navidrome__navidrome-3972616585e82305eaf26aa25697b3f5f3082288` | 20/22 | 2 | [witness](data/cases/navidrome_d0ce0303/AMBIGUITY_WITNESS.md) |
 | navidrome_db11b6b8 | airtight | `instance_navidrome__navidrome-b3980532237e57ab15b2b93c49d5cd5b2d050013` | 4/5 | 1 | [witness](data/cases/navidrome_db11b6b8/AMBIGUITY_WITNESS.md) |
+| qutebrowser_10cb81e8 | prose-affirmative | `instance_qutebrowser__qutebrowser-2e961080a85d660148937ee8f0f6b3445a8f2c01-v363c8a7e5ccdf6968fc7ab84a2053ac78036691d` | 4/6 | 2 | [witness](data/cases/qutebrowser_10cb81e8/AMBIGUITY_WITNESS.md) |
+| qutebrowser_1547a48e | prose-affirmative | `instance_qutebrowser__qutebrowser-8f46ba3f6dc7b18375f7aa63c48a1fe461190430-v2ef375ac784985212b1805e1d0431dc8f1b3c171` | 7/9 | 2 | [witness](data/cases/qutebrowser_1547a48e/AMBIGUITY_WITNESS.md) |
 | qutebrowser_6d9c28ce | airtight | `instance_qutebrowser__qutebrowser-3d01c201b8aa54dd71d4f801b1dd12feb4c0a08a-v5fc38aaf22415ab0b70567368332beee7955b367` | 10/16 | 6 | [witness](data/cases/qutebrowser_6d9c28ce/AMBIGUITY_WITNESS.md) |
 | qutebrowser_74671c16 | airtight | `instance_qutebrowser__qutebrowser-fcfa069a06ade76d91bac38127f3235c13d78eb1-v5fc38aaf22415ab0b70567368332beee7955b367` | 9/12 | 3 | [witness](data/cases/qutebrowser_74671c16/AMBIGUITY_WITNESS.md) |
+| qutebrowser_83bef2ad | prose-affirmative | `instance_qutebrowser__qutebrowser-a25e8a09873838ca9efefd36ea8a45170bbeb95c-vc2f56a753b62a190ddb23cd330c257b9cf560d12` | 3/5 | 2 | [witness](data/cases/qutebrowser_83bef2ad/AMBIGUITY_WITNESS.md) |
 | qutebrowser_d1164925 | airtight | `instance_qutebrowser__qutebrowser-394bfaed6544c952c6b3463751abab3176ad4997-vafb3e8e01b31319c66c4e666b8a3b1d8ba55db24` | 9/17 | 8 | [witness](data/cases/qutebrowser_d1164925/AMBIGUITY_WITNESS.md) |
 | tutao | prose-affirmative | `instance_tutao__tutanota-51818218c6ae33de00cbea3a4d30daac8c34142e-vc4e41fd0029957297843cb9dec4a25c7c756f029` | 13/19 | 6 | [witness](data/cases/tutao/AMBIGUITY_WITNESS.md) |
 
-## HYPOTHESIS (codebase / borderline): 219 — raters-pending, NOT claimed
+## HYPOTHESIS (codebase / borderline): 214 — raters-pending, NOT claimed
 
 A snapshot shows plurality, not binding force; `DETERMINED-codebase` vs `AMBIGUOUS-codebase` is interpretive and needs ≥2 independent codebase-aware raters + κ (see ADMISSIBILITY-SPEC). Each carries an `AMBIGUITY_HYPOTHESIS.md`. Listed in [`COVERAGE.md`](COVERAGE.md).

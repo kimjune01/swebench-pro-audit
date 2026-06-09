@@ -69,9 +69,13 @@ def main():
     # witness accounting over the AMBIGUOUS screen. PROVEN (spine) = a case carrying a verified
     # AMBIGUITY_WITNESS.md: the 30 grep-certified airtight cases + the hand-verified tutao.
     klass = {c: witness_class(c) for c in amb}
+    def graded(c):
+        g = REPO / "data" / "cases" / c / "r2_grade.json"
+        return g.exists() and json.loads(g.read_text()).get("clean_fail")
     proven = [c for c in amb if klass[c][1]]
     airtight = [c for c in proven if klass[c][0] == "airtight"]
-    proseaff = [c for c in proven if klass[c][0] != "airtight"]          # hand-verified (tutao)
+    gradedpatch = [c for c in proven if klass[c][0] != "airtight" and graded(c)]  # R2 graded-patch
+    proseaff = [c for c in proven if klass[c][0] != "airtight" and not graded(c)]  # hand-verified (tutao)
     hypo = [c for c in amb if not klass[c][1]]
     auto_pa = [c for c in hypo if klass[c][0] == "prose-affirmative"]    # raters-pending tier
     cb_border = [c for c in hypo if klass[c][0] != "prose-affirmative"]  # codebase/borderline/skip
@@ -97,9 +101,11 @@ def main():
         f"| AMBIGUOUS — screen (≥1 GAP) | {len(amb)} | {len(amb)/n:.0%} | screen only |",
         f"| &nbsp;&nbsp;├─ **airtight** (constant absent from prose **and** codebase, grep-certified) | "
         f"{len(airtight)} | {len(airtight)/n:.0%} | **YES — mechanical spine** |",
+        f"| &nbsp;&nbsp;├─ **prose-affirmative, graded-patch** (R2 both raters call faithful, bench fails it) | "
+        f"{len(gradedpatch)} | {len(gradedpatch)/n:.0%} | **YES — mechanical spine** |",
         f"| &nbsp;&nbsp;├─ **prose-affirmative, hand-verified** (tutao) | "
         f"{len(proseaff)} | {len(proseaff)/n:.0%} | **YES — mechanical spine** |",
-        f"| &nbsp;&nbsp;├─ prose-affirmative, codex-proposed (clause-verified, R2-entailment unproven) | "
+        f"| &nbsp;&nbsp;├─ prose-affirmative, codex-proposed (gate/graded-patch pending or not-clean) | "
         f"{len(auto_pa)} | {len(auto_pa)/n:.0%} | NO — raters / graded-patch pending |",
         f"| &nbsp;&nbsp;└─ codebase / borderline | {len(cb_border)} | {len(cb_border)/n:.0%} | "
         f"NO — raters-pending |",
@@ -108,9 +114,9 @@ def main():
         s.append(f"| ERROR (judge did not parse) | {len(err)} | {len(err)/n:.0%} | — |")
     s += [
         "", "## Claimable now (mechanical spine)", "",
-        f"- **KNOWN_AMBIGUOUS (PROVEN): {len(spine)}** of {n} — {len(airtight)} airtight + "
-        f"{len(proseaff)} prose-affirmative, each with a verified argument witness "
-        "([`KNOWN_AMBIGUOUS.md`](KNOWN_AMBIGUOUS.md)).",
+        f"- **KNOWN_AMBIGUOUS (PROVEN): {len(spine)}** of {n} — {len(airtight)} airtight (grep) + "
+        f"{len(gradedpatch)} graded-patch (R2 both-rater-faithful + bench-failed) + {len(proseaff)} "
+        f"hand-verified, each with a witness ([`KNOWN_AMBIGUOUS.md`](KNOWN_AMBIGUOUS.md)).",
         f"- **KNOWN_BAD: {len(kb)}** gold-fails-grader defects, frozen pre-run "
         "([`KNOWN_BAD.md`](KNOWN_BAD.md); separately audited, outside the prose-set denominator).",
         "",
@@ -188,8 +194,9 @@ def main():
     (REPO / "OUR_CAPABILITY_GAPS.md").write_text("\n".join(og) + "\n")
 
     print(f"wrote ledgers. N={n} ENTAILED={len(ent)} AMBIGUOUS={len(amb)} | spine={len(spine)} "
-          f"(airtight={len(airtight)} + hand-pa={len(proseaff)}) | hypothesis={len(hypo)} "
-          f"(auto-pa={len(auto_pa)} codebase/borderline={len(cb_border)}) KNOWN_BAD={len(kb)} ERR={len(err)}")
+          f"(airtight={len(airtight)} + graded-patch={len(gradedpatch)} + hand={len(proseaff)}) | "
+          f"hypothesis={len(hypo)} (auto-pa={len(auto_pa)} codebase/borderline={len(cb_border)}) "
+          f"KNOWN_BAD={len(kb)} ERR={len(err)}")
 
 
 if __name__ == "__main__":

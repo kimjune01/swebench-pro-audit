@@ -1,0 +1,14 @@
+{
+ "instance_id": "instance_flipt-io__flipt-756f00f79ba8abf9fe53f3c6c818123b42eb7355",
+ "gold_resolved": true,
+ "r2_resolved": false,
+ "clean_fail": false,
+ "n_flips_pass_to_fail": 0,
+ "flips": [],
+ "missing_gold_passed": [
+  "TestLoad"
+ ],
+ "gold_tests": 7,
+ "r2_tests": 6,
+ "ran_ratio": 0.857
+}

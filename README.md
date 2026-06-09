@@ -37,7 +37,7 @@ explain from outside — see COI below.
 | **witness** | the per-tier evidence that upgrades a candidate to a claim (see the grid below). |
 | **mechanical spine** | the claims that need no rater: airtight + graded-patch + hand. |
 | **R2** | an alternative implementation that follows the prose but takes the *other* reading; used in the graded-patch proof. |
-| **two-precedent rule** | when the codebase has ≥2 comparable live conventions and the prose is silent, the test is choosing among unstated alternatives → ambiguous. |
+| **two-expert standard** | would two world-class engineers, given only the prose and the source, both write a requirement-faithful implementation that the hidden test splits? If yes — via prose plurality (≥2 faithful readings) or source plurality (≥2 live conventions) — the test grades an unstated choice → ambiguous. |
 | **hypothesis** | screen-flagged but lacking a qualifying witness — raters-pending, **not counted**. |
 | **KNOWN_BAD** | the gold patch fails its own grader (a mechanical defect). |
 
@@ -56,7 +56,7 @@ whose burden its tier defines:
 | **airtight** | the choice is an arbitrary constant present **nowhere a solver reads** | constant absent from prose **and** the codebase at base_commit (grep) | **yes** — mechanical |
 | **graded-patch** | a prose-faithful alternative impl exists and the bench rejects it | R2 both opus & codex (blind, no gold/test) call prose-faithful, then the official grader fails R2 on the discriminating test while PASS_TO_PASS stays green | **yes** — mechanical |
 | **prose-affirmative (hand)** | the prose explicitly describes the alternative the test rejects | the verbatim clause (tutao) | **yes** — mechanical |
-| **codebase-plural** | the codebase does the choice **>1 live way**, prose silent, and **no ordinary convention selects** | ≥2 comparable, live, prose-silent precedents at base_commit (grep-verified; tests/examples/vendor/generated/deprecated excluded) **+ unselected**: the convergence rater also fails to resolve it (else the plurality is apparent, not binding — demoted) | **under the two-precedent+unselected rule** (a stance a reader can contest) |
+| **two-expert split** | two world-class engineers, given only prose+source, both write a faithful impl the hidden test splits — via **prose** plurality (≥2 faithful readings) or **source** plurality (≥2 live, comparable, prose-silent conventions at base_commit) | codex constructs the existence proof on either axis; an independent cross-family refuter (opus) tries to kill it and fails; a symmetric advocate pass over the determined cases recovers none (κ=0.52, all disagreement skeptic-stricter) | **under the two-expert standard** — verified by two models, not asserted (a reader can still contest the standard itself) |
 | **hypothesis** | screen-flagged, no qualifying witness | — | **no** — raters-pending, **not counted** |
 | **KNOWN_BAD** | gold fails its own grader | reference patch scores reward≠1 at the pinned commit | **yes** — mechanical, results-independent |
 
@@ -70,8 +70,8 @@ a passing patch never proves DETERMINED, symmetric to a failing patch never prov
 ```mermaid
 pie showData title SWE-bench Pro public set (n=728) by determinacy
     "ENTAILED — prose determines" : 478
-    "Hypothesis — raters-pending (not counted)" : 196
-    "PROVEN codebase-plural (two-precedent, unselected)" : 18
+    "Hypothesis — raters-pending (not counted)" : 185
+    "PROVEN two-expert split (codex builds, opus refutes)" : 29
     "PROVEN mechanical spine" : 36
 ```
 
@@ -82,26 +82,30 @@ pie showData title SWE-bench Pro public set (n=728) by determinacy
 | ENTAILED | 478 | 66% |
 | AMBIGUOUS — screen (≥1 GAP) | 250 | 34% |
 | &nbsp;&nbsp;**PROVEN — mechanical spine** (airtight 30 + graded-patch 5 + hand 1) | **36** | **4.9%** |
-| &nbsp;&nbsp;**PROVEN — codebase-plural** (two-precedent **+ unselected** rule) | **18** | **2.5%** |
-| &nbsp;&nbsp;hypothesis (raters-pending, not counted) | 196 | 27% |
+| &nbsp;&nbsp;**PROVEN — two-expert split** (codex builds, opus refutes; κ=0.52) | **29** | **4.0%** |
+| &nbsp;&nbsp;hypothesis (raters-pending, not counted) | 185 | 25% |
 | KNOWN_BAD (gold fails grader; full 731 sweep, 0 new beyond the frozen 3) | 3 | — |
+| KNOWN_MISMATCH (prose describes one feature, gold+test grade another) | ≥1 | — |
 
-**Two honest bars.** The headline **7.4%** is **4.9% mechanical + 2.5% codebase-plural**: the first term
-needs no methodological buy-in (a hostile reader reproduces each from the receipts); the second depends on
-accepting the **two-precedent rule**, now sharpened to require *unselected* plurality — ≥2 comparable live
-conventions, prose silent, **and** not collapsed by an ordinary convention (cross-checked against the
-convergence rater; this demoted 35 of an initial 53 to hypothesis). The 196 hypotheses are in **neither**
-number. A separate **design-level divergence** axis (see [`docs/DETERMINACY-AXIS.md`](docs/DETERMINACY-AXIS.md))
-raises the *candidate* union to **~20%**, but its mass is single-rater (panel-pending), so 20% is a
-candidate ceiling, not yet receipt-defensible. A preregistered instrument with a proven spine, not a
-population rate. Full table: [`COVERAGE.md`](COVERAGE.md).
+**Two honest bars.** The headline **8.9%** is **4.9% mechanical + 4.0% two-expert**: the first term
+needs no methodological buy-in (a hostile reader reproduces each from the receipts); the second rests on
+the **two-expert standard** — but is *verified, not asserted*. For each of 53 plurality candidates, codex
+constructs an existence proof (two faithful readings the prose licenses, or two live conventions the
+codebase follows) and an independent cross-family refuter (Claude opus) tries to kill it: **29 of 41
+survived**, 12 fell to a hostile reading. A symmetric advocate pass over the 12 codex-*determined* cases
+recovered **0** missed splits, so the disagreement is entirely skeptic-stricter and **29 is the
+both-raters-agree floor** (Cohen's κ=0.52). The 185 hypotheses are in **neither** number. A separate
+**design-level divergence** axis (see [`docs/DETERMINACY-AXIS.md`](docs/DETERMINACY-AXIS.md)) raises the
+*candidate* union to **~20%**, but its mass is single-rater (panel-pending), so 20% is a candidate
+ceiling, not yet receipt-defensible. A preregistered instrument with a proven spine, not a population
+rate. Full table: [`COVERAGE.md`](COVERAGE.md).
 
 ## Recommendations
 
 ### If you run, report, or cite a Pro score
 - **A raw % can over-credit reasoning when reported as problem-solving.** At least 4.9% of the public set
-  is provably underdetermined (7.4% under the two-precedent+unselected rule; ~20% candidate union with the
-  single-rater design-divergence axis) and 3 tasks have broken gold; passing
+  is provably underdetermined (8.9% under the two-expert standard, two-model verified; ~20% candidate union
+  with the single-rater design-divergence axis) and 3 tasks have broken gold; passing
   those is oracle/guess, not solving. Report a **determinacy-weighted** denominator, or at minimum
   disclose that the headline mixes prose-determined and prose-underdetermined tasks.
 - **The closest reasoning-only signal is the ENTAILED subset, scored oracle-free.** (Even there, residual
@@ -187,10 +191,12 @@ underdetermination underneath it. What the ablations found (agent never sees the
 ## Honest limits
 
 - **n = 728 is done** (the whole public set), so sampling bias no longer binds the spine. What remains
-  gated is the **hypothesis tier (196)**: codebase-vs-borderline is interpretive and needs ≥2 independent
+  gated is the **hypothesis tier (185)**: codebase-vs-borderline is interpretive and needs ≥2 independent
   raters + κ before any of it counts — reported separately, excluded from both headline bars.
-- **The codebase-plural tier rests on the two-precedent rule** — guarded against cherry-picking but a
-  stance a reader can contest. The 4.9% mechanical spine needs no such buy-in.
+- **The two-expert tier rests on the two-expert standard** — but is two-model verified, not asserted: codex
+  constructs each split, opus tries to refute it (29/41 survive), and a symmetric advocate pass recovers no
+  missed splits (κ=0.52, all disagreement skeptic-stricter). A reader can still contest the *standard*
+  (whether two reasonable experts splitting = a defect); the 4.9% mechanical spine needs no such buy-in.
 - **The ablations are mechanism checks, small n**; they show the tested oracle-free interventions did not
   recover the lift, not that none could. The ~50% floor is a contaminated estimate; the clean
   prose-determined floor (oracle-free + post-cutoff) is unmeasured.

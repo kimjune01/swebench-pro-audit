@@ -32,10 +32,10 @@ Regenerate the ledgers from the committed per-case data (pure, no external deps)
 
 ```
 python tools/build_ledgers.py     # rewrites SUMMARY.md, COVERAGE.md, KNOWN_*.md, OUR_CAPABILITY_GAPS.md
+python tools/build_claims.py      # rewrites CLAIMS.md (the per-case claim table)
 ```
 
-If `build_ledgers.py` reproduces the same counts (478 / 36 / 53 / 161 / 3) from the committed `data/judge`
-and `data/cases`, the headline is reproduced. Nothing else is required to trust the spine.
+If the ledgers reproduce the same counts from the committed `data/judge` and `data/cases` — **478** ENTAILED / **36** mechanical spine / **29** two-expert / **185** hypothesis / **3** KNOWN_BAD (proven floor **65 = 36 + 29**) — the headline is reproduced. Nothing else is required to trust the mechanical spine.
 
 ---
 

@@ -164,7 +164,8 @@ def main():
     # ---- COVERAGE.md (full 728-row index) ----
     cov = ["# Full coverage index (all public tasks)", "",
            "Every public task, its screen verdict, and — for AMBIGUOUS cases — the witness class. "
-           "`airtight`/`prose-affirmative` are PROVEN (mechanical spine); `hypothesis` is raters-pending.",
+           "`airtight`/`prose-affirmative` are PROVEN mechanical spine; `plural-both`/`prose-plural`/"
+           "`codebase-plural` are PROVEN two-expert (adversarially verified); `hypothesis` is raters-pending.",
            "", "| case | verdict | cov | GAP | witness class | attribution |", "|---|---|---|---|---|---|"]
     for c, r in sorted(judged.items()):
         kl = klass.get(c, (None, False, None))[0] if c in amb else ""
@@ -191,10 +192,12 @@ def main():
     # ---- KNOWN_AMBIGUOUS.md (PROVEN spine + hypothesis count) ----
     ka = ["# KNOWN_AMBIGUOUS — gold passes, prose underdetermines", "",
           "Gold passes its verifier, but the hidden test checks behavior no requirement determines (a "
-          "specification lottery). **Two tiers.** The PROVEN tier (below) is the mechanical spine — each "
-          "carries a verified argument witness and needs no rater. The HYPOTHESIS tier is screen-flagged "
-          "and raters-pending; it is counted separately and NOT claimed.", "",
-          f"## PROVEN (mechanical spine): {len(spine)}", "",
+          "specification lottery). **Two proven tiers, then a hypothesis tier.** The mechanical spine "
+          f"({len(mech_spine)}) needs no rater (grep / official grade / a prose clause). The two-expert "
+          f"tier ({len(two_expert)}) is two-model adversarially verified (codex builds, opus refutes; "
+          "κ=0.52), inspectable but resting on the two-expert standard. The HYPOTHESIS tier is "
+          "screen-flagged and raters-pending; counted separately and NOT claimed.", "",
+          f"## PROVEN: {len(spine)} — mechanical spine {len(mech_spine)} + two-expert {len(two_expert)}", "",
           "| case | class | instance_id | coverage | gaps | witness |", "|---|---|---|---|---|---|"]
     for c in spine:
         r = judged[c]

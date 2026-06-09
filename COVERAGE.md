@@ -1,6 +1,6 @@
 # Full coverage index (all public tasks)
 
-Every public task, its screen verdict, and — for AMBIGUOUS cases — the witness class. `airtight`/`prose-affirmative` are PROVEN (mechanical spine); `hypothesis` is raters-pending.
+Every public task, its screen verdict, and — for AMBIGUOUS cases — the witness class. `airtight`/`prose-affirmative` are PROVEN mechanical spine; `plural-both`/`prose-plural`/`codebase-plural` are PROVEN two-expert (adversarially verified); `hypothesis` is raters-pending.
 
 | case | verdict | cov | GAP | witness class | attribution |
 |---|---|---|---|---|---|

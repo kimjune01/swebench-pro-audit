@@ -1,8 +1,8 @@
 # KNOWN_AMBIGUOUS — gold passes, prose underdetermines
 
-Gold passes its verifier, but the hidden test checks behavior no requirement determines (a specification lottery). **Two tiers.** The PROVEN tier (below) is the mechanical spine — each carries a verified argument witness and needs no rater. The HYPOTHESIS tier is screen-flagged and raters-pending; it is counted separately and NOT claimed.
+Gold passes its verifier, but the hidden test checks behavior no requirement determines (a specification lottery). **Two proven tiers, then a hypothesis tier.** The mechanical spine (36) needs no rater (grep / official grade / a prose clause). The two-expert tier (29) is two-model adversarially verified (codex builds, opus refutes; κ=0.52), inspectable but resting on the two-expert standard. The HYPOTHESIS tier is screen-flagged and raters-pending; counted separately and NOT claimed.
 
-## PROVEN (mechanical spine): 65
+## PROVEN: 65 — mechanical spine 36 + two-expert 29
 
 | case | class | instance_id | coverage | gaps | witness |
 |---|---|---|---|---|---|

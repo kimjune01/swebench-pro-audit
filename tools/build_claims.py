@@ -30,7 +30,16 @@ def short_iid(iid):
 
 
 def cell(s, maxlen=200):
-    return (s or "").replace("|", "\\|").replace("\n", " ")[:maxlen]
+    s = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", s or "")  # flatten markdown links (they'd resolve to repo root)
+    return s.replace("|", "\\|").replace("\n", " ")[:maxlen]
+
+
+def receipts(slug, wf, r2=False):
+    d = f"data/cases/{slug}"
+    links = [f"[witness]({d}/{wf})", f"[spec]({d}/spec.md)", f"[gold]({d}/gold.diff)", f"[test]({d}/hidden_test.diff)"]
+    if r2:
+        links += [f"[R2]({d}/r2.diff)", f"[grade]({d}/r2_grade.json)"]
+    return " · ".join(links)
 
 
 def collect():
@@ -80,29 +89,29 @@ def main():
         "## Tier 1 — mechanical spine (no model judgment)",
         "",
         f"### airtight ({len(r['airtight'])}) — discriminating constant absent from prose **and** codebase (grep)",
-        "", "| case | instance | graded behavior (the pinned constant) | witness |", "|---|---|---|---|",
+        "", "| case | instance | graded behavior (the pinned constant) | receipts |", "|---|---|---|---|",
     ]
     for slug, iid, _ax, claim, wf in r["airtight"]:
-        out.append(f"| `{slug}` | `{short_iid(iid)}` | {cell(claim)} | [w](data/cases/{slug}/{wf}) |")
+        out.append(f"| `{slug}` | `{short_iid(iid)}` | {cell(claim)} | {receipts(slug, wf)} |")
     out += ["",
             f"### graded-patch ({len(r['graded-patch'])}) — prose-faithful R2, blind-rater-confirmed, official grader rejects it",
-            "", "| case | instance | the alternative reading the bench rejects | witness |", "|---|---|---|---|"]
+            "", "| case | instance | the alternative reading the bench rejects | receipts |", "|---|---|---|---|"]
     for slug, iid, _ax, claim, wf in r["graded-patch"]:
-        out.append(f"| `{slug}` | `{short_iid(iid)}` | {cell(claim)} | [w](data/cases/{slug}/{wf}) |")
+        out.append(f"| `{slug}` | `{short_iid(iid)}` | {cell(claim)} | {receipts(slug, wf, r2=True)} |")
     out += ["",
             f"### hand-verified ({len(r['hand'])}) — prose explicitly describes the rejected reading",
-            "", "| case | instance | the prose clause vs the pinned reading | witness |", "|---|---|---|---|"]
+            "", "| case | instance | the prose clause vs the pinned reading | receipts |", "|---|---|---|---|"]
     for slug, iid, _ax, claim, wf in r["hand"]:
-        out.append(f"| `{slug}` | `{short_iid(iid)}` | {cell(claim)} | [w](data/cases/{slug}/{wf}) |")
+        out.append(f"| `{slug}` | `{short_iid(iid)}` | {cell(claim)} | {receipts(slug, wf)} |")
     out += ["",
             "## Tier 2 — two-expert splits (two-model adversarial: codex builds, opus refutes; κ=0.52)",
             "",
             f"All **{len(r['two-expert'])}** survived an independent hostile refutation. Axis = which "
             "plurality proves the split (prose: ≥2 faithful readings; source: ≥2 live conventions).",
-            "", "| case | instance | axis | the split (why two faithful impls diverge) | refuter | witness |",
+            "", "| case | instance | axis | the split (why two faithful impls diverge) | refuter | receipts |",
             "|---|---|---|---|---|---|"]
     for slug, iid, axis, claim, wf, ref in r["two-expert"]:
-        out.append(f"| `{slug}` | `{short_iid(iid)}` | {axis} | {cell(claim, 240)} | {ref} | [w](data/cases/{slug}/{wf}) |")
+        out.append(f"| `{slug}` | `{short_iid(iid)}` | {axis} | {cell(claim, 240)} | {ref} | {receipts(slug, wf)} |")
     out += ["",
             "## Negative controls — codex-proposed splits the refuter KILLED (not claimed)",
             "",

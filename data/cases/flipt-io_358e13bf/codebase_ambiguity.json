@@ -36,5 +36,14 @@
   "two_expert_split": false,
   "verdict": "determined",
   "why": "The stated task is determined around SnapshotCache.Delete and SnapshotStore.listRemoteRefs. The hidden test pins an authentication.session.csrf.secure default of true, but that behavior is outside the task prose and the proposed source receipts do not establish two live, comparable base-commit conventions. Therefore this is not proven imperfect under the requested PROSE or SOURCE plurality standard."
+ },
+ "advocate": {
+  "slug": "flipt-io_358e13bf",
+  "verdict": "determined-confirmed",
+  "axis": "none",
+  "reading_A": "",
+  "reading_B": "",
+  "receipt": "gold.diff touches only authentication.go/config.go/schema and adds `+\t\t\t\tsecure?:        bool` defaulting `\"csrf\": map[string]any{ \"secure\": true }`; hidden_test config_test.go expects `Secure: true`. The two json snippets (config.go and authentication.go) BOTH set secure to true in the gold \u2014 no live base-commit precedent sets it false/omitted.",
+  "why": "No two-expert split: the discriminator (csrf.secure default true) is prose-silent and there is no live conflicting base precedent (both cited snippets are gold-added true). The deeper defect is a spec/gold MISMATCH \u2014 prose describes SnapshotCache.Delete + listRemoteRefs but gold/test grade an unrelated CSRF-secure config feature \u2014 but that is a prose-vs-gold divergence, not a two faithful-readings split, so determined on the requested axis."
  }
 }

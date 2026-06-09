@@ -3,3 +3,7 @@
 - class: **determined** (NOT claimed)
 - Under the two-expert standard, no genuine split: The hidden test's ISBN-10 case enforces paired-form synthesis, but the task prose selects that behavior: get_identifier_forms is ordered [isbn10, isbn13, asin], and the requirements say canonical ISBN-13 is used to derive ISBN-10 and both forms are included in lookup. The proposed supplied-only precedents are not the same governing decision for this task; they classify existing identifier lists into stored fields, while the task is about generating lookup identifiers for Edition.from_isbn. A reasonable expert implementing only supplied-form bucketing would fail an explicit 'both forms' lookup requirement, so the two-expert split is not established.
 - Either the prose/interface selects one answer, or the cited source precedents are not the same decision in comparable context (lookalikes). Not underdetermined.
+
+## Corroborated determined (independent advocate)
+An independent opus advocate (cross-family, charged to FIND a split codex missed) could not, and conceded determined: Prose explicitly mandates paired-form synthesis and the [isbn10, isbn13, asin] order; supplied-only bucketing contradicts 'both forms must be included', so no faithful split.
+

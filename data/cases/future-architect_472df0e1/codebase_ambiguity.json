@@ -58,5 +58,14 @@
   "two_expert_split": false,
   "verdict": "determined",
   "why": "The hidden test pins Title to the WPScan payload title. Although the task prose does not explicitly list Title among the required fields, the base WordPress ingestion already sets Title: vulnerability.Title in detector/wordpress.go. The task asks to support enriched Enterprise fields and keep record production consistent; dropping or remapping an existing WPScan title field would be an avoidable regression, not an equally reasonable implementation. Cross-adapter differences in GitHub and Debian reflect source-specific schemas rather than a live comparable convention for this WPScan-specific mapper."
+ },
+ "advocate": {
+  "slug": "future-architect_472df0e1",
+  "verdict": "determined-confirmed",
+  "axis": "none",
+  "reading_A": "",
+  "reading_B": "",
+  "receipt": "gold.diff lines 157->163: base already had `-\t\t\t\t\t\tTitle:        vulnerability.Title,` and gold keeps it `+\t\t\t\t\t\tTitle:         vulnerability.Title,` (formatting realign only). The cross-adapter github.go (Summary-as-Title) and gost/debian.go (Title unset) are different source schemas. Enriched test Optional map has only `introduced_in` and `poc` \u2014 exactly the prose-enumerated keys (gold's extra closed_reason is untested).",
+  "why": "The only prose-silent field (CveContent.Title) is already live in the edited WPScan function at base as `Title: vulnerability.Title` and the gold preserves it verbatim; an engineer editing that function to add enriched fields would see the existing mapping and dropping it is a gratuitous regression, not a faithful alternate reading. Cross-adapter Title differences are source-specific, not governing for this mapper."
  }
 }

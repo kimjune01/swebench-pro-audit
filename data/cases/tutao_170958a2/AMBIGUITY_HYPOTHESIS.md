@@ -3,3 +3,7 @@
 - class: **determined** (NOT claimed)
 - Under the two-expert standard, no genuine split: The hidden test pins acceptance of lowercase vCard delimiters. That behavior is already live in vCardFileToVCards at base_commit, before the vCard 4.0 change, and the task explicitly requires maintaining existing vCard 2.1/3.0 behavior while keeping vCardFileToVCards as the entry point. A reasonable expert cannot replace that same-function behavior with stricter calendar-parser casing merely because CalendarParser handles VCALENDAR differently.
 - Either the prose/interface selects one answer, or the cited source precedents are not the same decision in comparable context (lookalikes). Not underdetermined.
+
+## Corroborated determined (independent advocate)
+An independent opus advocate (cross-family, charged to FIND a split codex missed) could not, and conceded determined: Lowercase-delimiter normalization is already live inside the edited function before the vCard-4.0 change, and prose requires maintaining existing importer behavior; the CalendarParser uppercase-only precedent is a different format/function and cannot override same-function behavior. No faithful split.
+

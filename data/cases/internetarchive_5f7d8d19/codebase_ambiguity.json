@@ -59,5 +59,14 @@
   "two_expert_split": false,
   "verdict": "determined",
   "why": "The hidden test's ISBN-10 case enforces paired-form synthesis, but the task prose selects that behavior: get_identifier_forms is ordered [isbn10, isbn13, asin], and the requirements say canonical ISBN-13 is used to derive ISBN-10 and both forms are included in lookup. The proposed supplied-only precedents are not the same governing decision for this task; they classify existing identifier lists into stored fields, while the task is about generating lookup identifiers for Edition.from_isbn. A reasonable expert implementing only supplied-form bucketing would fail an explicit 'both forms' lookup requirement, so the two-expert split is not established."
+ },
+ "advocate": {
+  "slug": "internetarchive_5f7d8d19",
+  "verdict": "determined-confirmed",
+  "axis": "none",
+  "reading_A": "",
+  "reading_B": "",
+  "receipt": "For ISBN inputs, the canonical ISBN-13 must be used to derive the ISBN-10 form if available, and both forms must be included in identifier lookup. The method `get_identifier_forms(isbn: str, asin: str)` must return a list of identifiers in the order `[isbn10, isbn13, asin]`.",
+  "why": "Prose explicitly mandates paired-form synthesis and the [isbn10, isbn13, asin] order; supplied-only bucketing contradicts 'both forms must be included', so no faithful split."
  }
 }

@@ -1,6 +1,6 @@
 # KNOWN_BAD — gold fails its own grader
 
-Mechanical defects (binary): the reference solution does not pass the official verifier at the pinned commit. Frozen pre-run, results-independent. Receipt: `data/cases/gold_fails_grader.defects.jsonl`. (These three are public Pro tasks audited pre-run; they sit outside the 728-task prose-set denominator.) The full gold-passes-verifier sweep across the public set — to find any beyond these three — needs the official grader and is pending (EC2-gated).
+Mechanical defects (binary): the reference solution does not pass the official verifier at the pinned commit. Frozen pre-run, results-independent. Receipt: `data/cases/gold_fails_grader.defects.jsonl`. (These three are public Pro tasks audited pre-run; they sit outside the 728-task prose-set denominator.) **The full gold-passes-verifier sweep is now complete**: all 731 graded (727 eligible, 0 incomplete); it independently **re-confirmed exactly these three** and found **no genuine new defects** — one parallel-sweep candidate (a tutao instance) cleared on isolated rerun (gold RESOLVED, Accuracy 100%), per the DeepSWE isolation protocol. Receipt: `data/gold_sweep/`.
 
 | instance_id | grader verdict |
 |---|---|

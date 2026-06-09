@@ -30,7 +30,11 @@ Receipt: reward ledger + isolated rerun.
 (2026-05-26, frozen before any scored run — exactly the results-independence we require):
 `vuls-bff6b755…` (Go), `NodeBB-00c70ce7…` (JS), `ansible-de5858f4…` (Py), each "gold NOT resolved."
 Verdict receipt: `data/cases/gold_fails_grader.defects.jsonl`; bundles in `data/cases/*_golddefect/`.
-The full gold-passes-verifier sweep across the public set (to find any beyond these 3) is **pending**.
+The full gold-passes-verifier sweep across the public set is **complete** (2026-06-09): 731 graded,
+727 eligible, 4 raw flags → **exactly these 3 confirmed** under the DeepSWE isolation protocol
+(parallel pass-1, isolated pass-2). The 4th flag (`tutao-fe240cbf…`) cleared on two isolated reruns
+(parallel-sweep false positive), so no new defect beyond the pre-frozen 3. Receipt:
+`data/gold_sweep/SWEEP_RESULT.json` + `sweep_defects_raw.jsonl`.
 
 ## KNOWN_AMBIGUOUS — gold passes, but the graded behavior is not determinable from the solver's materials
 

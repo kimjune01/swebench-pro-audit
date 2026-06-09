@@ -82,10 +82,11 @@ These are the checks/principles that audit already established; they apply direc
 
 - [ ] **Three trust axes, stated separately:** tasks are real / grader is fair / **the answer key works**.
       Report each; don't let one stand in for another.
-- [~] **Gold-passes-own-verifier, with isolation protocol.** Apply each gold through the official grader;
+- [x] **Gold-passes-own-verifier, with isolation protocol.** Apply each gold through the official grader;
       **pass 1 parallel, pass 2 re-run every non-passing task sequentially and alone**, so a resource
-      hiccup is never reported as a defect. Flag only golds that fail in isolation. *(We have a KNOWN_BAD
-      set; formalize the two-pass isolation and run it across Pro.)*
+      hiccup is never reported as a defect. Flag only golds that fail in isolation. *(Done 2026-06-09:
+      full public-set sweep, 731 graded, 4 raw flags → exactly 3 confirmed in isolation; tutao cleared as
+      a parallel false positive. Receipt: `data/gold_sweep/SWEEP_RESULT.json`.)*
 - [ ] **Audit yourself first.** Uniform failure is never N independent defects — it's one fault in the
       shared harness (the `docker compose` plugin lesson). Suspect our setup before the bench; add a
       loud assertion at the shared failure point. *(We already hit the analogous `git checkout` hang;

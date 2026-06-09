@@ -23,5 +23,6 @@
    "verified_path": "packages/components/containers/api/humanVerification/EmailMethodForm.tsx"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

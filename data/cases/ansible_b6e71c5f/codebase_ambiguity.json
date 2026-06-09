@@ -17,5 +17,6 @@
    "verified_path": "lib/ansible/modules/source_control/gitlab_project.py"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

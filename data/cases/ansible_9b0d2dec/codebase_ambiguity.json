@@ -17,5 +17,6 @@
    "verified_path": "lib/ansible/plugins/shell/powershell.py"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

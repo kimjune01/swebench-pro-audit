@@ -17,5 +17,6 @@
    "verified_path": "applications/mail/src/app/hooks/useResizeMessageView.ts"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

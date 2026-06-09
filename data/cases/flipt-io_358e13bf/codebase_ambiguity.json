@@ -17,5 +17,6 @@
    "verified_path": "internal/config/config.go"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

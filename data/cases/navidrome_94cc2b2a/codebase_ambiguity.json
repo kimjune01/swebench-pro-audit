@@ -29,5 +29,6 @@
    "verified_path": "server/subsonic/radio.go"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": true
 }

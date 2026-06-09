@@ -17,5 +17,6 @@
    "verified_path": "lib/reversetunnel/srv.go"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

@@ -23,5 +23,6 @@
    "verified_path": "persistence/album_repository.go"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

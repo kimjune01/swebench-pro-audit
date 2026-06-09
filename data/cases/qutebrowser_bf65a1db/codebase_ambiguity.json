@@ -29,5 +29,6 @@
    "verified_path": "qutebrowser/utils/urlmatch.py"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

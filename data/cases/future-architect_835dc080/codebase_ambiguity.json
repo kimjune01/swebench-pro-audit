@@ -23,5 +23,6 @@
    "verified_path": "scan/debian.go"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

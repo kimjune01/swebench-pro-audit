@@ -43,3 +43,6 @@ A from-codebase solver finds these coexisting production precedents making the c
    ```
 
 _Guard: each precedent verified to occur verbatim at base_commit in a non-test, non-example, non-vendor, non-deprecated path (grep); the prose is silent on the choice. codex proposed; citations mechanically verified._
+
+## Unselected cross-check
+Corroborated: the convergence rater (opus, prose + ordinary convention) also does not resolve this, so the plurality is unselected, not collapsed by an ordinary convention. The witness stands.

@@ -23,5 +23,6 @@
    "verified_path": "src/middleware/assert.js"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

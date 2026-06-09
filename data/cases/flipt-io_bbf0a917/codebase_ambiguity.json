@@ -17,5 +17,6 @@
    "verified_path": "build/internal/cmd/gitea/main.go"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

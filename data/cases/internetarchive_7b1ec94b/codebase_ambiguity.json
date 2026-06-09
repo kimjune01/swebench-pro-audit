@@ -17,5 +17,6 @@
    "verified_path": "scripts/import_open_textbook_library.py"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": true
 }

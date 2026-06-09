@@ -23,5 +23,6 @@
    "verified_path": "openlibrary/catalog/add_book/__init__.py"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": true
 }

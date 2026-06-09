@@ -29,5 +29,6 @@
    "verified_path": "scanner/redhatbase.go"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

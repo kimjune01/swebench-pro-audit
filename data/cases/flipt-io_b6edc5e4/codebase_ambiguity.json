@@ -17,5 +17,6 @@
    "verified_path": "internal/cmd/grpc.go"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

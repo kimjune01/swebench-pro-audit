@@ -17,5 +17,6 @@
    "verified_path": "src/api/chats.js"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

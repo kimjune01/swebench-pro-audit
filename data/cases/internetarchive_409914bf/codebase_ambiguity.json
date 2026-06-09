@@ -29,5 +29,6 @@
    "verified_path": "openlibrary/plugins/upstream/adapter.py"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

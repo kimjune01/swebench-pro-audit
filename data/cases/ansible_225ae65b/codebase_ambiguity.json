@@ -17,5 +17,6 @@
    "verified_path": "lib/ansible/cli/galaxy.py"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

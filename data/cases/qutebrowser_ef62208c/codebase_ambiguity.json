@@ -23,5 +23,6 @@
    "verified_path": "qutebrowser/config/configfiles.py"
   }
  ],
- "ok": true
+ "ok": true,
+ "convergence_corroborated": false
 }

@@ -1,0 +1,25 @@
+{
+ "slug": "navidrome_a9cf54af",
+ "repo": "navidrome/navidrome",
+ "base": "a9cf54afef34f980985c76ae3a5e1b7441098831",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "createFFmpegCommand replaces %b with the integer bitrate in the command token, producing 123k from %bk.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "s = strings.ReplaceAll(s, \"%b\", strconv.Itoa(maxBitRate))",
+   "gold_value": "`%bk` with maxBitRate 123 becomes `123k` via `strings.ReplaceAll(s, \"%b\", strconv.Itoa(maxBitRate))`",
+   "codebase_value": "`%b` is replaced anywhere inside each command token, including inside `%bk`.",
+   "why": "The live production command builder and default transcoding templates already establish the embedded `%b` replacement convention, and gold preserves that exact behavior.",
+   "precedents": [
+    {
+     "path": "core/ffmpeg/ffmpeg.go",
+     "snippet": "func createFFmpegCommand(cmd, path string, maxBitRate int) []string {\n\tsplit := strings.Split(fixCmd(cmd), \" \")\n\tfor i, s := range split {\n\t\ts = strings.ReplaceAll(s, \"%s\", path)\n\t\ts = strings.ReplaceAll(s, \"%b\", strconv.Itoa(maxBitRate))\n\t\tsplit[i] = s\n\t}\n\n\treturn split\n}",
+     "way": "Uses `strings.ReplaceAll` on every token, so placeholders embedded inside a larger token are substituted."
+    }
+   ]
+  }
+ ]
+}

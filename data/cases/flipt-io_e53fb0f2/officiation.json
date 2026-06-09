@@ -1,0 +1,47 @@
+{
+ "slug": "flipt-io_e53fb0f2",
+ "repo": "flipt-io/flipt",
+ "base": "e53fb0f25ef6747aa10fc3e6f457b620137bcd4f",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "Loading the advanced test config sets `Meta.TelemetryEnabled` to `false`.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "telemetry_enabled: false",
+   "gold_value": "telemetry_enabled: false",
+   "codebase_value": null,
+   "why": "The pinned value is for a non-production test fixture, and no live production code determines that this new telemetry key must be set to false in that fixture.",
+   "precedents": []
+  },
+  {
+   "behavior": "`Reporter.Close()` returns no error and calls `Close()` on the analytics client.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return r.client.Close()",
+   "gold_value": "return r.client.Close()",
+   "codebase_value": "return the underlying Close result directly",
+   "why": "The only live production Close wrapper in the base tree delegates directly to the wrapped closer, matching gold's direct `r.client.Close()` return.",
+   "precedents": [
+    {
+     "path": "storage/sql/migrator.go",
+     "snippet": "// Close closes the source and db\nfunc (m *Migrator) Close() (source, db error) {\n\treturn m.migrator.Close()\n}",
+     "way": "wrapper Close delegates to the underlying Close and returns its result"
+    }
+   ]
+  },
+  {
+   "behavior": "`report` enqueues an `analytics.Track` message.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "analytics.Track{",
+   "gold_value": "analytics.Track",
+   "codebase_value": null,
+   "why": "The base production tree has no live Segment analytics client usage or comparable Enqueue message-type precedent, so `analytics.Track` is not determined by repository convention.",
+   "precedents": []
+  }
+ ]
+}

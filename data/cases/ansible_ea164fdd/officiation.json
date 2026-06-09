@@ -1,0 +1,101 @@
+{
+ "slug": "ansible_ea164fdd",
+ "repo": "ansible/ansible",
+ "base": "ea164fdde79a3e624c28f90c74f57f06360d2333",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "Integration setup configures system defaults with exactly `no system default switchport` and `system default switchport shutdown` before including CLI tests.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "pat = '(no )*system default switchport$'",
+   "gold_value": "no system default switchport\nsystem default switchport shutdown",
+   "codebase_value": null,
+   "why": "No live production NX-OS code configures or parses these system default switchport setup lines, so the exact constants are not determined by the codebase.",
+   "precedents": []
+  },
+  {
+   "behavior": "The hidden integration tests run shutdown/default-state assertions only when `platform is not search('N3[5KL]|N[56]K|titanium')`.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "L3_enabled = True if re.search('N[356]K', platform) else False",
+   "gold_value": "L3_enabled = True if re.search('N[356]K', platform) else False; hidden test condition excludes platforms matching N3[5KL]|N[56]K|titanium",
+   "codebase_value": null,
+   "why": "Live production code uses several different platform groupings, so the exact gold grouping is not uniquely determined.",
+   "precedents": [
+    {
+     "path": "lib/ansible/module_utils/network/nxos/config/bfd_interfaces/bfd_interfaces.py",
+     "snippet": "        if re.search('N[56]K', platform):\n            # Some platforms do not support the 'bfd' interface keyword;\n            # remove the 'bfd' key from each want/have interface.",
+     "way": "N5K/N6K grouped with regex N[56]K"
+    },
+    {
+     "path": "lib/ansible/modules/network/nxos/_nxos_vlan.py",
+     "snippet": "        if not re.match('N[567]', os_platform) or (not obj_in_have.get('mode') and mode == 'ce'):\n            mode = w['mode'] = None",
+     "way": "N5/N6/N7 grouped with regex N[567]"
+    },
+    {
+     "path": "lib/ansible/module_utils/network/nxos/nxos.py",
+     "snippet": "        # Supported Platforms: N3K,N5K,N6K,N7K,N9K,N3K-F,N9K-F\n        m = re.match('(?P<short>N[35679][K57])-(?P<N35>C35)*', network_os_platform)",
+     "way": "N3/N5/N6/N7/N9/N35 normalized through a broader regex"
+    }
+   ]
+  },
+  {
+   "behavior": "Reserved management interface `mgmt0` is excluded from generated `nxos_interfaces` commands even when present in gathered config.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "interfaces_facts = remove_rsvd_interfaces(interfaces_facts)",
+   "gold_value": "interfaces_facts = remove_rsvd_interfaces(interfaces_facts)",
+   "codebase_value": "Exclude interfaces whose type is management using remove_rsvd_interfaces.",
+   "why": "The only live comparable reserved-interface handling excludes management interfaces, and gold matches that convention.",
+   "precedents": [
+    {
+     "path": "lib/ansible/module_utils/network/nxos/utils/utils.py",
+     "snippet": "def remove_rsvd_interfaces(interfaces):\n    \"\"\"Exclude reserved interfaces from user management\n    \"\"\"\n    return [i for i in interfaces if get_interface_type(i['name']) != 'management']",
+     "way": "Filters out management interfaces from user-managed interface lists"
+    },
+    {
+     "path": "lib/ansible/module_utils/network/eos/config/l3_interfaces/l3_interfaces.py",
+     "snippet": "        if not l3_interfaces_facts:\n            return []\n        return remove_rsvd_interfaces(l3_interfaces_facts)",
+     "way": "Applies the reserved-interface filter before generating L3 interface commands"
+    }
+   ]
+  },
+  {
+   "behavior": "`state: deleted` with no `config` resets all gathered interface objects to defaults, including `interface Ethernet1/1`, `no switchport`, `interface Ethernet1/2`, `no speed`, and `shutdown` in the unit test fixture.",
+   "status": "AMBIGUOUS",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "for h in have:",
+   "gold_value": "for h in have:",
+   "codebase_value": "for h in have: commands.extend(self.del_attribs(h))",
+   "why": "The live resource-module deletion convention is to iterate all current objects when want is empty, and gold matches that scope choice.",
+   "precedents": []
+  },
+  {
+   "behavior": "`state: deleted` with a playbook config resets only named existing objects and ignores desired attributes other than name.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "obj_in_want = search_obj_in_list(h['name'], want, 'name')",
+   "gold_value": "obj_in_have = search_obj_in_list(w['name'], have, 'name') / obj_in_want = search_obj_in_list(h['name'], want, 'name')",
+   "codebase_value": "Search current objects by name from each desired entry, then delete attributes from the matched current object.",
+   "why": "Live NX-OS resource modules consistently use desired entries as name selectors for deleted state, and gold matches that behavior.",
+   "precedents": [
+    {
+     "path": "lib/ansible/module_utils/network/nxos/config/interfaces/interfaces.py",
+     "snippet": "        if want:\n            for w in want:\n                obj_in_have = search_obj_in_list(w['name'], have, 'name')\n                commands.extend(self.del_attribs(obj_in_have))",
+     "way": "Deleted config entries are used only to find the existing object by name"
+    },
+    {
+     "path": "lib/ansible/modules/network/nxos/_nxos_vlan.py",
+     "snippet": "        if want:\n            for w in want:\n                obj_in_have = flatten_dict(search_obj_in_list(w['name'], have, 'name'))\n                commands.extend(self.del_attribs(obj_in_have))",
+     "way": "Deleted config entries are used only to find the existing object by name"
+    }
+   ]
+  }
+ ]
+}

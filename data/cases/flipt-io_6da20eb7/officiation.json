@@ -1,0 +1,19 @@
+{
+ "slug": "flipt-io_6da20eb7",
+ "repo": "flipt-io/flipt",
+ "base": "6da20eb7afb693a1cbee2482272e3aee2fbd43ee",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "The exporter initialization is guarded by a package-level sync.Once named traceExpOnce that the package test can reset before each subtest.",
+   "status": "AMBIGUOUS",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "traceExpOnce sync.Once",
+   "gold_value": "traceExpOnce sync.Once",
+   "codebase_value": "traceExpOnce sync.Once",
+   "why": "The base production code already implements the same tracing-exporter singleton with the exact guard name traceExpOnce, and gold preserves that name in the new tracing package.",
+   "precedents": []
+  }
+ ]
+}

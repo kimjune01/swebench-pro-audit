@@ -1,0 +1,59 @@
+{
+ "slug": "future-architect_9ed5f2ca",
+ "repo": "future-architect/vuls",
+ "base": "9ed5f2cac5be482995b68adaac4620ffb52e95a8",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "For the no-vulnerability debian OS report, ServerName is set to the report Target value \"no-vuln-image:v1 (debian 9.13)\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "scanResult.ServerName = trivyResult.Target",
+   "gold_value": "trivyResult.Target, specifically \"no-vuln-image:v1 (debian 9.13)\"",
+   "codebase_value": "trivyResult.Target",
+   "why": "The live Trivy parser sets OS-result metadata before iterating vulnerabilities, and its only Trivy OS ServerName assignment matches gold.",
+   "precedents": [
+    {
+     "path": "contrib/trivy/parser/parser.go",
+     "snippet": "func overrideServerData(scanResult *models.ScanResult, trivyResult *report.Result) {\n\tscanResult.Family = trivyResult.Type\n\tscanResult.ServerName = trivyResult.Target\n\tscanResult.Optional = map[string]interface{}{\n\t\t\"trivy-target\": trivyResult.Target,\n\t}\n\tscanResult.ScannedAt = time.Now()\n\tscanResult.ScannedBy = \"trivy\"\n\tscanResult.ScannedVia = \"trivy\"\n}",
+     "way": "supported Trivy OS metadata sets ServerName directly to the report Target"
+    }
+   ]
+  },
+  {
+   "behavior": "For the no-vulnerability debian OS report, ScannedBy is \"trivy\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "scanResult.ScannedBy = \"trivy\"",
+   "gold_value": "\"trivy\"",
+   "codebase_value": "\"trivy\"",
+   "why": "The live Trivy parser has exactly one Trivy OS provenance assignment for ScannedBy, and gold uses the same string.",
+   "precedents": [
+    {
+     "path": "contrib/trivy/parser/parser.go",
+     "snippet": "func overrideServerData(scanResult *models.ScanResult, trivyResult *report.Result) {\n\tscanResult.Family = trivyResult.Type\n\tscanResult.ServerName = trivyResult.Target\n\tscanResult.Optional = map[string]interface{}{\n\t\t\"trivy-target\": trivyResult.Target,\n\t}\n\tscanResult.ScannedAt = time.Now()\n\tscanResult.ScannedBy = \"trivy\"\n\tscanResult.ScannedVia = \"trivy\"\n}",
+     "way": "supported Trivy OS metadata sets ScannedBy to the lowercase string \"trivy\""
+    }
+   ]
+  },
+  {
+   "behavior": "For the no-vulnerability debian OS report, ScannedVia is \"trivy\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "scanResult.ScannedVia = \"trivy\"",
+   "gold_value": "\"trivy\"",
+   "codebase_value": "\"trivy\"",
+   "why": "The live Trivy parser has exactly one Trivy OS provenance assignment for ScannedVia, and gold uses the same string.",
+   "precedents": [
+    {
+     "path": "contrib/trivy/parser/parser.go",
+     "snippet": "func overrideServerData(scanResult *models.ScanResult, trivyResult *report.Result) {\n\tscanResult.Family = trivyResult.Type\n\tscanResult.ServerName = trivyResult.Target\n\tscanResult.Optional = map[string]interface{}{\n\t\t\"trivy-target\": trivyResult.Target,\n\t}\n\tscanResult.ScannedAt = time.Now()\n\tscanResult.ScannedBy = \"trivy\"\n\tscanResult.ScannedVia = \"trivy\"\n}",
+     "way": "supported Trivy OS metadata sets ScannedVia to the lowercase string \"trivy\""
+    }
+   ]
+  }
+ ]
+}

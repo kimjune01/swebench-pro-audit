@@ -1,10 +1,10 @@
 {
  "case": "navidrome_39da741a",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 7,
  "n_covered": 4,
- "n_gap": 3,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -19,21 +19,24 @@
    "covering_prose": null,
    "gold_anchor": "err := r.Put(&al.Album)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Album `102` / `Abbey Road` is expected to have `Genres: model.Genres{genreRock}`.",
    "covering_prose": null,
    "gold_anchor": "err := r.Put(&al.Album)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Album `103` / `Radioactivity` is expected to have `Genres: model.Genres{genreElectronic, genreRock}` in that order.",
    "covering_prose": null,
    "gold_anchor": "genres = append(genres, model.Genre{ID: id})",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Test database initialization saves albums through `AlbumRepository.Put(&a)` rather than the internal `put(a.ID, &a)`.",
@@ -56,5 +59,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 3,
+ "officiated": true
 }

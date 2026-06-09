@@ -1,0 +1,59 @@
+{
+ "slug": "qutebrowser_142f019c",
+ "repo": "qutebrowser/qutebrowser",
+ "base": "142f019c7a262e95eb1957ad0766c7a51621109b",
+ "verdict": "MISDETERMINED",
+ "gaps": [
+  {
+   "behavior": "extra_suffixes_workaround([\"image/jpeg\", \"video/mp4\"]) returns {\".jpg\", \".jpe\", \".m4v\", \".mpg4\"}.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "python_suffixes.update(mimetypes.guess_all_extensions(mime))",
+   "gold_value": "all extensions returned by mimetypes.guess_all_extensions(mime), yielding {\".jpg\", \".jpe\", \".m4v\", \".mpg4\"} under the hidden-test mocks",
+   "codebase_value": "one suitable extension per MIME type via utils.mimetype_extension / mimetypes.guess_extension(strict=False)",
+   "why": "The only live production MIME-to-extension convention chooses a single suitable extension, while gold pins every alias returned by guess_all_extensions.",
+   "precedents": [
+    {
+     "path": "qutebrowser/utils/utils.py",
+     "snippet": "def mimetype_extension(mimetype: str) -> Optional[str]:\n    \"\"\"Get a suitable extension for a given mimetype.\n\n    This mostly delegates to Python's mimetypes.guess_extension(), but backports some\n    changes (via a simple override dict) which are missing from earlier Python versions.\n    Most likely, this can be dropped once the minimum Python version is raised to 3.10.\n    \"\"\"\n    overrides = {\n        # Added in 3.10\n        \"application/x-hdf5\": \".h5\",\n        # Added around 3.8\n        \"application/manifest+json\": \".webmanifest\",\n    }\n    if mimetype in overrides:\n        return overrides[mimetype]\n    return mimetypes.guess_extension(mimetype, strict=False)",
+     "way": "choose one suitable extension for a MIME type"
+    }
+   ]
+  },
+  {
+   "behavior": "WebEnginePage.chooseFiles calls the parent chooseFiles exactly once.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return super().chooseFiles(mode, old_files, accepted_mimetypes)",
+   "gold_value": "return super().chooseFiles(mode, old_files, accepted_mimetypes)",
+   "codebase_value": "return super().chooseFiles(mode, old_files, accepted_mimetypes)",
+   "why": "The existing live chooseFiles implementation already delegates exactly once to the parent in the default-handler path, matching gold.",
+   "precedents": [
+    {
+     "path": "qutebrowser/browser/webkit/webpage.py",
+     "snippet": "        handler = config.val.fileselect.handler\n        if handler == \"default\":\n            return super().chooseFiles(mode, old_files, accepted_mimetypes)",
+     "way": "single returned parent chooseFiles call in the default handler path"
+    }
+   ]
+  },
+  {
+   "behavior": "For chooseFiles with [\"image/jpeg\", \"video/mp4\"], parent chooseFiles receives a list whose set is {\"image/jpeg\", \"video/mp4\", \".jpg\", \".jpe\", \".m4v\", \".mpg4\"}.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "accepted_mimetypes = list(accepted_mimetypes) + list(extra_suffixes)",
+   "gold_value": "{\"image/jpeg\", \"video/mp4\", \".jpg\", \".jpe\", \".m4v\", \".mpg4\"}",
+   "codebase_value": "original accepted MIME types plus at most one suitable extension per MIME type by the live MIME-extension convention",
+   "why": "The discriminating final set depends on gold's all-alias MIME expansion, but the live codebase convention determines only one suitable extension per MIME.",
+   "precedents": [
+    {
+     "path": "qutebrowser/utils/utils.py",
+     "snippet": "def mimetype_extension(mimetype: str) -> Optional[str]:\n    \"\"\"Get a suitable extension for a given mimetype.\n\n    This mostly delegates to Python's mimetypes.guess_extension(), but backports some\n    changes (via a simple override dict) which are missing from earlier Python versions.\n    Most likely, this can be dropped once the minimum Python version is raised to 3.10.\n    \"\"\"\n    overrides = {\n        # Added in 3.10\n        \"application/x-hdf5\": \".h5\",\n        # Added around 3.8\n        \"application/manifest+json\": \".webmanifest\",\n    }\n    if mimetype in overrides:\n        return overrides[mimetype]\n    return mimetypes.guess_extension(mimetype, strict=False)",
+     "way": "choose one suitable extension for a MIME type"
+    }
+   ]
+  }
+ ]
+}

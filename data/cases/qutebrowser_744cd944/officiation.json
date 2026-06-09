@@ -1,0 +1,19 @@
+{
+ "slug": "qutebrowser_744cd944",
+ "repo": "qutebrowser/qutebrowser",
+ "base": "744cd94469de77f52905bebb123597c040ac07b6",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "Other `en-*` locales map to `en-GB`, e.g. `en_GB.UTF-8`, `en_AU.UTF-8`, and `en_ZA.UTF-8`.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "elif locale_name.startswith('en-'):",
+   "gold_value": "en-GB",
+   "codebase_value": null,
+   "why": "The live production tree contains English locale literals and configurable language lists, but no comparable production rule for mapping regional English locales to a fallback locale.",
+   "precedents": []
+  }
+ ]
+}

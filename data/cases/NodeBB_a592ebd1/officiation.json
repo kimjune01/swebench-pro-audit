@@ -1,0 +1,69 @@
+{
+ "slug": "NodeBB_a592ebd1",
+ "repo": "NodeBB/NodeBB",
+ "base": "a592ebd1ff1915c72a71b7f738f1dc0ec7ed4f03",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "User.getUserFields(testUid, ['username', 'picture']) returns payload['icon:text'] equal to userData.username.slice(0, 1).toUpperCase().",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "user['icon:text'] = (user.username[0] || '').toUpperCase();",
+   "gold_value": "(user.username[0] || '').toUpperCase()",
+   "codebase_value": "(user.username[0] || '').toUpperCase()",
+   "why": "The live production registered-user icon path makes this exact derivation in exactly one place, and gold preserves it.",
+   "precedents": [
+    {
+     "path": "src/user/data.js",
+     "snippet": "\t\t\t// User Icons\n\t\t\tif (user.hasOwnProperty('picture') && user.username && parseInt(user.uid, 10) && !meta.config.defaultAvatar) {\n\t\t\t\tuser['icon:text'] = (user.username[0] || '').toUpperCase();\n\t\t\t\tuser['icon:bgColor'] = iconBackgrounds[Array.prototype.reduce.call(user.username, (cur, next) => cur + next.charCodeAt(), 0) % iconBackgrounds.length];\n\t\t\t}",
+     "way": "registered user icon:text is the first username character uppercased"
+    }
+   ]
+  },
+  {
+   "behavior": "User.getUserFields(testUid, ['username', 'picture']) returns a truthy payload['icon:bgColor'].",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "user['icon:bgColor'] = bgColor;",
+   "gold_value": "a truthy entry from the avatar icon background palette",
+   "codebase_value": "iconBackgrounds[Array.prototype.reduce.call(user.username, (cur, next) => cur + next.charCodeAt(), 0) % iconBackgrounds.length]",
+   "why": "The codebase has one live registered-user icon background mechanism, and it always assigns a truthy palette entry, matching gold's tested result.",
+   "precedents": [
+    {
+     "path": "src/user/data.js",
+     "snippet": "\tconst iconBackgrounds = [\n\t\t'#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3',\n\t\t'#009688', '#1b5e20', '#33691e', '#827717', '#e65100', '#ff5722',\n\t\t'#795548', '#607d8b',\n\t];",
+     "way": "registered user icon backgrounds come from a non-empty fixed palette"
+    },
+    {
+     "path": "src/user/data.js",
+     "snippet": "\t\t\t// User Icons\n\t\t\tif (user.hasOwnProperty('picture') && user.username && parseInt(user.uid, 10) && !meta.config.defaultAvatar) {\n\t\t\t\tuser['icon:text'] = (user.username[0] || '').toUpperCase();\n\t\t\t\tuser['icon:bgColor'] = iconBackgrounds[Array.prototype.reduce.call(user.username, (cur, next) => cur + next.charCodeAt(), 0) % iconBackgrounds.length];\n\t\t\t}",
+     "way": "registered user icon:bgColor is always assigned from the palette when icon fields are generated"
+    }
+   ]
+  },
+  {
+   "behavior": "When an invalid saved 'icon:bgColor' value ('teal') exists, User.getUserFields(testUid, ['username', 'picture']) returns a truthy payload['icon:bgColor'] that is included in await User.getIconBackgrounds(testUid).",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if (!iconBackgrounds.includes(bgColor)) {",
+   "gold_value": "fallback to a valid iconBackgrounds entry when the saved value is not included",
+   "codebase_value": "ignore any persisted icon:bgColor and compute icon:bgColor from the fixed palette using the username character-code sum",
+   "why": "The only live production registered-user icon background path does not emit stored icon:bgColor values at all, so gold's invalid-value fallback matches the codebase's valid-palette outcome.",
+   "precedents": [
+    {
+     "path": "src/user/data.js",
+     "snippet": "\t\t\t// User Icons\n\t\t\tif (user.hasOwnProperty('picture') && user.username && parseInt(user.uid, 10) && !meta.config.defaultAvatar) {\n\t\t\t\tuser['icon:text'] = (user.username[0] || '').toUpperCase();\n\t\t\t\tuser['icon:bgColor'] = iconBackgrounds[Array.prototype.reduce.call(user.username, (cur, next) => cur + next.charCodeAt(), 0) % iconBackgrounds.length];\n\t\t\t}",
+     "way": "registered user icon:bgColor is recomputed from the palette, so an invalid stored icon:bgColor is not emitted"
+    },
+    {
+     "path": "src/user/data.js",
+     "snippet": "\tconst fieldWhitelist = [\n\t\t'uid', 'username', 'userslug', 'email', 'email:confirmed', 'joindate',\n\t\t'lastonline', 'picture', 'fullname', 'location', 'birthday', 'website',\n\t\t'aboutme', 'signature', 'uploadedpicture', 'profileviews', 'reputation',\n\t\t'postcount', 'topiccount', 'lastposttime', 'banned', 'banned:expire',\n\t\t'status', 'flags', 'followerCount', 'followingCount', 'cover:url',\n\t\t'cover:position', 'groupTitle',\n\t];",
+     "way": "icon:bgColor is not a whitelisted persisted user field in the base code"
+    }
+   ]
+  }
+ ]
+}

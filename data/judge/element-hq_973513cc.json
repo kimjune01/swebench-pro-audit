@@ -1,10 +1,10 @@
 {
  "case": "element-hq_973513cc",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 22,
  "n_covered": 20,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -145,14 +145,16 @@
    "covering_prose": null,
    "gold_anchor": "this.setLiveness(\"grey\");",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "After receiving and playing the first chunk, `playback.getLiveness()` returns `\"live\"`.",
    "covering_prose": null,
    "gold_anchor": "this.setLiveness(\"live\");",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "VoiceBroadcastChunkEvents exposes `isLast(event: MatrixEvent): boolean`.",
@@ -161,5 +163,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 1,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

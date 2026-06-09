@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 21,
  "n_covered": 16,
- "n_gap": 5,
+ "n_gap": 1,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -19,7 +19,8 @@
    "covering_prose": null,
    "gold_anchor": "return scanResult, nil",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For supported OS result Type \"alpine\", the result Family is set to \"alpine\".",
@@ -47,7 +48,8 @@
    "covering_prose": null,
    "gold_anchor": "scanResult.ScannedBy = \"trivy\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Each vulnerability is keyed in ScannedCves by its Trivy VulnerabilityID, including CVE IDs, NSWG-ECO-516, pyup.io-37132, and RUSTSEC-* IDs; VulnInfo.CveID is the same identifier.",
@@ -61,7 +63,8 @@
    "covering_prose": null,
    "gold_anchor": "Score:           100",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "AffectedPackages entries use Trivy PkgName as Name and Trivy FixedVersion as FixedIn, e.g. openssl FixedIn \"1.1.1g-r0\" and guzzlehttp/guzzle FixedIn \"4.2.4, 5.3.1, 6.2.1\".",
@@ -82,7 +85,8 @@
    "covering_prose": null,
    "gold_anchor": "models.Trivy: models.CveContent{",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Cvss3Severity is copied from Trivy Severity, including exact values MEDIUM, HIGH, CRITICAL, and UNKNOWN in the fixtures.",
@@ -110,7 +114,8 @@
    "covering_prose": null,
    "gold_anchor": "var references models.References",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "OS package findings populate Packages with package Name and InstalledVersion, e.g. openssl Version \"1.1.1d-r3\" and the large Alpine fixture's bzip2/curl/expat/... package versions.",
@@ -154,5 +159,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 4,
+ "officiated": true
 }

@@ -1,10 +1,10 @@
 {
  "case": "protonmail_6ff80e3e",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 6,
  "n_covered": 0,
- "n_gap": 6,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,42 +12,51 @@
    "covering_prose": null,
    "gold_anchor": "(unreadFilter === 0 && action === MARK_AS_STATUS.READ)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "getElementsToBypassFilter(elements, MARK_AS_STATUS.UNREAD, 1) returns { elementsToBypass: [], elementsToRemove: elements }",
    "covering_prose": null,
    "gold_anchor": "(unreadFilter > 0 && action === MARK_AS_STATUS.UNREAD)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "getElementsToBypassFilter(elements, MARK_AS_STATUS.UNREAD, 0) returns { elementsToBypass: elements, elementsToRemove: [] }",
    "covering_prose": null,
    "gold_anchor": "elementsToBypass = elements;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "getElementsToBypassFilter(elements, MARK_AS_STATUS.READ, 1) returns { elementsToBypass: elements, elementsToRemove: [] }",
    "covering_prose": null,
    "gold_anchor": "elementsToRemove = [];",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "getElementsToBypassFilter(elements, MARK_AS_STATUS.READ, undefined) returns { elementsToBypass: [], elementsToRemove: [] }",
    "covering_prose": null,
    "gold_anchor": "if (unreadFilter === undefined)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "getElementsToBypassFilter(elements, MARK_AS_STATUS.UNREAD, undefined) returns { elementsToBypass: [], elementsToRemove: [] }",
    "covering_prose": null,
    "gold_anchor": "return { elementsToBypass: [], elementsToRemove: [] };",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 6,
+ "officiated": true
 }

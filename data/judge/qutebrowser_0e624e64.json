@@ -1,10 +1,10 @@
 {
  "case": "qutebrowser_0e624e64",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 17,
  "n_covered": 15,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,14 +12,16 @@
    "covering_prose": null,
    "gold_anchor": "ensure_valid(start)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "qtutils.interpolate_color raises qtutils.QtValueError when the end QColor is invalid.",
    "covering_prose": null,
    "gold_anchor": "ensure_valid(end)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "qtutils.interpolate_color raises ValueError when percent is -1.",
@@ -126,5 +128,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

@@ -1,8 +1,8 @@
 # KNOWN_AMBIGUOUS — gold passes, prose underdetermines
 
-Gold passes its verifier, but the hidden test checks behavior no requirement determines (a specification lottery). **Two proven tiers, then a hypothesis tier.** The mechanical spine (36) needs no rater (grep / official grade / a prose clause). The two-expert tier (29) is two-model adversarially verified (codex builds, opus refutes; κ=0.52), inspectable but resting on the two-expert standard. The HYPOTHESIS tier is screen-flagged and raters-pending; counted separately and NOT claimed.
+Gold passes its verifier, but the hidden test checks behavior no requirement determines (a specification lottery). **Two proven tiers, then a hypothesis tier.** The mechanical spine (83) needs no rater (grep / official grade / a prose clause). The two-expert tier (26) is two-model adversarially verified (codex builds, opus refutes; κ=0.52), inspectable but resting on the two-expert standard. The HYPOTHESIS tier is screen-flagged and raters-pending; counted separately and NOT claimed.
 
-## PROVEN: 65 — mechanical spine 36 + two-expert 29
+## PROVEN: 109 — mechanical spine 83 + two-expert 26
 
 | case | class | instance_id | coverage | gaps | witness |
 |---|---|---|---|---|---|
@@ -10,9 +10,12 @@ Gold passes its verifier, but the hidden test checks behavior no requirement det
 | NodeBB_61d17c95 | plural-both | `instance_NodeBB__NodeBB-f9ce92df988db7c1ae55d9ef96d247d27478bc70-vf2cf3cbd463b7ad942381f1c6d077626485a1e9e` | 2/3 | 1 | [witness](data/cases/NodeBB_61d17c95/AMBIGUITY_WITNESS.md) |
 | NodeBB_754965b5 | plural-both | `instance_NodeBB__NodeBB-4327a09d76f10a79109da9d91c22120428d3bdb9-vnan` | 5/8 | 3 | [witness](data/cases/NodeBB_754965b5/AMBIGUITY_WITNESS.md) |
 | NodeBB_aad0c5fd | plural-both | `instance_NodeBB__NodeBB-84dfda59e6a0e8a77240f939a7cb8757e6eaf945-v2c59007b1005cd5cd14cbb523ca5229db1fd2dd8` | 12/13 | 1 | [witness](data/cases/NodeBB_aad0c5fd/AMBIGUITY_WITNESS.md) |
+| ansible_07e7b69c | misdetermined | `instance_ansible__ansible-eea46a0d1b99a6dadedbb6a3502d599235fa7ec3-v390e508d27db7a51eece36bb6d9698b63a5b638a` | 11/12 | 1 | [witness](data/cases/ansible_07e7b69c/AMBIGUITY_WITNESS.md) |
 | ansible_20ef733e | airtight | `instance_ansible__ansible-1bd7dcf339dd8b6c50bc16670be2448a206f4fdb-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5` | 2/8 | 6 | [witness](data/cases/ansible_20ef733e/AMBIGUITY_WITNESS.md) |
 | ansible_225ae65b | plural-both | `instance_ansible__ansible-e40889e7112ae00a21a2c74312b330e67a766cc0-v1055803c3a812189a1133297f7f5468579283f86` | 3/4 | 1 | [witness](data/cases/ansible_225ae65b/AMBIGUITY_WITNESS.md) |
 | ansible_341a6be7 | airtight | `instance_ansible__ansible-ea04e0048dbb3b63f876aad7020e1de8eee9f362-v1055803c3a812189a1133297f7f5468579283f86` | 10/13 | 3 | [witness](data/cases/ansible_341a6be7/AMBIGUITY_WITNESS.md) |
+| ansible_3684b482 | airtight | `instance_ansible__ansible-8127abbc298cabf04aaa89a478fc5e5e3432a6fc-v30a923fb5c164d6cd18280c02422f75e611e8fb2` | 3/4 | 1 | [witness](data/cases/ansible_3684b482/AMBIGUITY_WITNESS.md) |
+| ansible_3fffddc1 | airtight | `instance_ansible__ansible-106909db8b730480615f4a33de0eb5b710944e78-v0f01c69f1e2528b935359cfe578530722bca2c59` | 5/6 | 1 | [witness](data/cases/ansible_3fffddc1/AMBIGUITY_WITNESS.md) |
 | ansible_6d34eb88 | airtight | `instance_ansible__ansible-bec27fb4c0a40c5f8bbcf26a475704227d65ee73-v30a923fb5c164d6cd18280c02422f75e611e8fb2` | 23/32 | 9 | [witness](data/cases/ansible_6d34eb88/AMBIGUITY_WITNESS.md) |
 | ansible_9ab63986 | plural-both | `instance_ansible__ansible-40ade1f84b8bb10a63576b0ac320c13f57c87d34-v6382ea168a93d80a64aab1fbd8c4f02dc5ada5bf` | 29/42 | 13 | [witness](data/cases/ansible_9ab63986/AMBIGUITY_WITNESS.md) |
 | ansible_9b0d2dec | plural-both | `instance_ansible__ansible-b5e0293645570f3f404ad1dbbe5f006956ada0df-v0f01c69f1e2528b935359cfe578530722bca2c59` | 13/14 | 1 | [witness](data/cases/ansible_9b0d2dec/AMBIGUITY_WITNESS.md) |
@@ -20,58 +23,99 @@ Gold passes its verifier, but the hidden test checks behavior no requirement det
 | ansible_b6e71c5f | plural-both | `instance_ansible__ansible-b6290e1d156af608bd79118d209a64a051c55001-v390e508d27db7a51eece36bb6d9698b63a5b638a` | 12/14 | 2 | [witness](data/cases/ansible_b6e71c5f/AMBIGUITY_WITNESS.md) |
 | ansible_bf98f031 | prose-affirmative | `instance_ansible__ansible-5260527c4a71bfed99d803e687dd19619423b134-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5` | 3/5 | 2 | [witness](data/cases/ansible_bf98f031/AMBIGUITY_WITNESS.md) |
 | ansible_dcc5dac1 | airtight | `instance_ansible__ansible-d33bedc48fdd933b5abd65a77c081876298e2f07-v0f01c69f1e2528b935359cfe578530722bca2c59` | 16/40 | 24 | [witness](data/cases/ansible_dcc5dac1/AMBIGUITY_WITNESS.md) |
+| ansible_ea164fdd | airtight | `instance_ansible__ansible-d72025be751c894673ba85caa063d835a0ad3a8c-v390e508d27db7a51eece36bb6d9698b63a5b638a` | 28/31 | 3 | [witness](data/cases/ansible_ea164fdd/AMBIGUITY_WITNESS.md) |
+| ansible_f9a45055 | misdetermined | `instance_ansible__ansible-d2f80991180337e2be23d6883064a67dcbaeb662-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5` | 17/18 | 1 | [witness](data/cases/ansible_f9a45055/AMBIGUITY_WITNESS.md) |
 | element-hq_1a0dbbf1 | airtight | `instance_element-hq__element-web-e15ef9f3de36df7f318c083e485f44e1de8aad17` | 5/9 | 4 | [witness](data/cases/element-hq_1a0dbbf1/AMBIGUITY_WITNESS.md) |
 | element-hq_1c039fcd | plural-both | `instance_element-hq__element-web-aec454dd6feeb93000380523cbb0b3681c0275fd-vnan` | 25/29 | 4 | [witness](data/cases/element-hq_1c039fcd/AMBIGUITY_WITNESS.md) |
+| element-hq_1f8fbc81 | airtight | `instance_element-hq__element-web-75c2c1a572fa45d1ea1d1a96e9e36e303332ecaa-vnan` | 4/6 | 2 | [witness](data/cases/element-hq_1f8fbc81/AMBIGUITY_WITNESS.md) |
+| element-hq_8b8d24c2 | codebase-plural | `instance_element-hq__element-web-7c63d52500e145d6fff6de41dd717f61ab88d02f-vnan` | 6/8 | 2 | [witness](data/cases/element-hq_8b8d24c2/AMBIGUITY_WITNESS.md) |
+| element-hq_973513cc | misdetermined | `instance_element-hq__element-web-cf3c899dd1f221aa1a1f4c5a80dffc05b9c21c85-vnan` | 21/22 | 1 | [witness](data/cases/element-hq_973513cc/AMBIGUITY_WITNESS.md) |
 | element-hq_ad9cbe93 | plural-both | `instance_element-hq__element-web-fe14847bb9bb07cab1b9c6c54335ff22ca5e516a-vnan` | 19/25 | 6 | [witness](data/cases/element-hq_ad9cbe93/AMBIGUITY_WITNESS.md) |
+| element-hq_c153a4d3 | codebase-plural | `instance_element-hq__element-web-71fe08ea0f159ccb707904d87f0a4aef205a167c-vnan` | 8/9 | 1 | [witness](data/cases/element-hq_c153a4d3/AMBIGUITY_WITNESS.md) |
+| element-hq_c2ae6c27 | codebase-plural | `instance_element-hq__element-web-b007ea81b2ccd001b00f332bee65070aa7fc00f9-vnan` | 5/11 | 6 | [witness](data/cases/element-hq_c2ae6c27/AMBIGUITY_WITNESS.md) |
+| element-hq_c9d9c421 | codebase-plural | `instance_element-hq__element-web-aeabf3b18896ac1eb7ae9757e66ce886120f8309-vnan` | 10/12 | 2 | [witness](data/cases/element-hq_c9d9c421/AMBIGUITY_WITNESS.md) |
+| element-hq_f97cef80 | misdetermined | `instance_element-hq__element-web-5dfde12c1c1c0b6e48f17e3405468593e39d9492-vnan` | 10/15 | 5 | [witness](data/cases/element-hq_f97cef80/AMBIGUITY_WITNESS.md) |
+| flipt-io_165ba79a | misdetermined | `instance_flipt-io__flipt-af7a0be46d15f0b63f16a868d13f3b48a838e7ce` | 9/11 | 2 | [witness](data/cases/flipt-io_165ba79a/AMBIGUITY_WITNESS.md) |
 | flipt-io_1bd9924b | airtight | `instance_flipt-io__flipt-b6cef5cdc0daff3ee99e5974ed60a1dc6b4b0d67` | 13/14 | 1 | [witness](data/cases/flipt-io_1bd9924b/AMBIGUITY_WITNESS.md) |
 | flipt-io_2d0ff0c9 | airtight | `instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55` | 11/18 | 7 | [witness](data/cases/flipt-io_2d0ff0c9/AMBIGUITY_WITNESS.md) |
 | flipt-io_32864671 | airtight | `instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b` | 13/14 | 1 | [witness](data/cases/flipt-io_32864671/AMBIGUITY_WITNESS.md) |
+| flipt-io_358e13bf | misdetermined | `instance_flipt-io__flipt-86906cbfc3a5d3629a583f98e6301142f5f14bdb-v6bea0cc3a6fc532d7da914314f2944fc1cd04dee` | 1/2 | 1 | [witness](data/cases/flipt-io_358e13bf/AMBIGUITY_WITNESS.md) |
 | flipt-io_3ddd2d16 | airtight | `instance_flipt-io__flipt-0fd09def402258834b9d6c0eaa6d3b4ab93b4446` | 9/12 | 3 | [witness](data/cases/flipt-io_3ddd2d16/AMBIGUITY_WITNESS.md) |
 | flipt-io_563a8c45 | airtight | `instance_flipt-io__flipt-6fd0f9e2587f14ac1fdd1c229f0bcae0468c8daa` | 13/17 | 4 | [witness](data/cases/flipt-io_563a8c45/AMBIGUITY_WITNESS.md) |
 | flipt-io_85bb23a3 | airtight | `instance_flipt-io__flipt-02e21636c58e86c51119b63e0fb5ca7b813b07b1` | 10/11 | 1 | [witness](data/cases/flipt-io_85bb23a3/AMBIGUITY_WITNESS.md) |
 | flipt-io_866ba43d | airtight | `instance_flipt-io__flipt-ea9a2663b176da329b3f574da2ce2a664fc5b4a1` | 15/19 | 4 | [witness](data/cases/flipt-io_866ba43d/AMBIGUITY_WITNESS.md) |
 | flipt-io_9c3cab43 | airtight | `instance_flipt-io__flipt-ebb3f84c74d61eee4d8c6875140b990eee62e146` | 5/7 | 2 | [witness](data/cases/flipt-io_9c3cab43/AMBIGUITY_WITNESS.md) |
+| flipt-io_9e469bf8 | misdetermined | `instance_flipt-io__flipt-cd18e54a0371fa222304742c6312e9ac37ea86c1` | 21/24 | 3 | [witness](data/cases/flipt-io_9e469bf8/AMBIGUITY_WITNESS.md) |
 | flipt-io_b22f5f02 | airtight | `instance_flipt-io__flipt-84806a178447e766380cc66b14dee9c6eeb534f4` | 8/9 | 1 | [witness](data/cases/flipt-io_b22f5f02/AMBIGUITY_WITNESS.md) |
 | flipt-io_b6edc5e4 | prose-plural | `instance_flipt-io__flipt-72d06db14d58692bfb4d07b1aa745a37b35956f3` | 14/18 | 4 | [witness](data/cases/flipt-io_b6edc5e4/AMBIGUITY_WITNESS.md) |
+| flipt-io_d38a357b | airtight | `instance_flipt-io__flipt-492cc0b158200089dceede3b1aba0ed28df3fb1d` | 4/5 | 1 | [witness](data/cases/flipt-io_d38a357b/AMBIGUITY_WITNESS.md) |
 | flipt-io_d52e03fd | plural-both | `instance_flipt-io__flipt-b2cd6a6dd73ca91b519015fd5924fde8d17f3f06` | 4/11 | 7 | [witness](data/cases/flipt-io_d52e03fd/AMBIGUITY_WITNESS.md) |
+| flipt-io_dc07fbbd | misdetermined | `instance_flipt-io__flipt-c6a7b1fd933e763b1675281b30077e161fa115a1` | 7/9 | 2 | [witness](data/cases/flipt-io_dc07fbbd/AMBIGUITY_WITNESS.md) |
+| flipt-io_e53fb0f2 | airtight | `instance_flipt-io__flipt-65581fef4aa807540cb933753d085feb0d7e736f` | 17/19 | 2 | [witness](data/cases/flipt-io_e53fb0f2/AMBIGUITY_WITNESS.md) |
 | flipt-io_ee02b164 | airtight | `instance_flipt-io__flipt-a42d38a1bb1df267c53d9d4a706cf34825ae3da9` | 3/6 | 3 | [witness](data/cases/flipt-io_ee02b164/AMBIGUITY_WITNESS.md) |
 | flipt-io_f3421c14 | airtight | `instance_flipt-io__flipt-2ce8a0331e8a8f63f2c1b555db8277ffe5aa2e63` | 5/7 | 2 | [witness](data/cases/flipt-io_f3421c14/AMBIGUITY_WITNESS.md) |
+| future-architect_1c4f2315 | misdetermined | `instance_future-architect__vuls-4c04acbd9ea5b073efe999e33381fa9f399d6f27` | 9/10 | 1 | [witness](data/cases/future-architect_1c4f2315/AMBIGUITY_WITNESS.md) |
 | future-architect_2c51bcf4 | airtight | `instance_future-architect__vuls-030b2e03525d68d74cb749959aac2d7f3fc0effa` | 0/5 | 5 | [witness](data/cases/future-architect_2c51bcf4/AMBIGUITY_WITNESS.md) |
+| future-architect_69d32d45 | airtight | `instance_future-architect__vuls-6eff6a9329a65cc412e79b8f82444dfa3d0f0b5a` | 9/38 | 29 | [witness](data/cases/future-architect_69d32d45/AMBIGUITY_WITNESS.md) |
 | future-architect_835dc080 | plural-both | `instance_future-architect__vuls-8d5ea98e50cf616847f4e5a2df300395d1f719e9` | 2/4 | 2 | [witness](data/cases/future-architect_835dc080/AMBIGUITY_WITNESS.md) |
 | future-architect_83d1f809 | airtight | `instance_future-architect__vuls-aaea15e516ece43978cf98e09e52080478b1d39f` | 4/5 | 1 | [witness](data/cases/future-architect_83d1f809/AMBIGUITY_WITNESS.md) |
+| future-architect_8775b5ef | misdetermined | `instance_future-architect__vuls-fd18df1dd4e4360f8932bc4b894bd8b40d654e7c` | 7/9 | 2 | [witness](data/cases/future-architect_8775b5ef/AMBIGUITY_WITNESS.md) |
+| future-architect_8d5ea98e | codebase-plural | `instance_future-architect__vuls-d18e7a751d07260d75ce3ba0cd67c4a6aebfd967` | 20/21 | 1 | [witness](data/cases/future-architect_8d5ea98e/AMBIGUITY_WITNESS.md) |
+| future-architect_a124518d | codebase-plural | `instance_future-architect__vuls-83bcca6e669ba2e4102f26c4a2b52f78c7861f1a` | 24/25 | 1 | [witness](data/cases/future-architect_a124518d/AMBIGUITY_WITNESS.md) |
 | future-architect_aeaf3086 | prose-plural | `instance_future-architect__vuls-e3c27e1817d68248043bd09d63cc31f3344a6f2c` | 9/10 | 1 | [witness](data/cases/future-architect_aeaf3086/AMBIGUITY_WITNESS.md) |
+| future-architect_e4f1e03f | misdetermined | `instance_future-architect__vuls-3c1489e588dacea455ccf4c352a3b1006902e2d4` | 26/32 | 6 | [witness](data/cases/future-architect_e4f1e03f/AMBIGUITY_WITNESS.md) |
+| future-architect_f1c78e42 | airtight | `instance_future-architect__vuls-ca3f6b1dbf2cd24d1537bfda43e788443ce03a0c` | 3/4 | 1 | [witness](data/cases/future-architect_f1c78e42/AMBIGUITY_WITNESS.md) |
 | gravitational_07e2ca13 | airtight | `instance_gravitational__teleport-4e1c39639edf1ab494dd7562844c8b277b5cfa18-vee9b09fb20c43af7e520f57e9239bbcf46b7113d` | 15/16 | 1 | [witness](data/cases/gravitational_07e2ca13/AMBIGUITY_WITNESS.md) |
 | gravitational_0a61c9e8 | airtight | `instance_gravitational__teleport-4f771403dc4177dc26ee0370f7332f3fe54bee0f-vee9b09fb20c43af7e520f57e9239bbcf46b7113d` | 33/34 | 1 | [witness](data/cases/gravitational_0a61c9e8/AMBIGUITY_WITNESS.md) |
 | gravitational_2308160e | airtight | `instance_gravitational__teleport-3587cca7840f636489449113969a5066025dd5bf` | 3/4 | 1 | [witness](data/cases/gravitational_2308160e/AMBIGUITY_WITNESS.md) |
 | gravitational_2839d2aa | prose-affirmative | `instance_gravitational__teleport-0cb341c926713bdfcbb490c69659a9b101df99eb` | 14/15 | 1 | [witness](data/cases/gravitational_2839d2aa/AMBIGUITY_WITNESS.md) |
+| gravitational_49ab2a7b | codebase-plural | `instance_gravitational__teleport-87a593518b6ce94624f6c28516ce38cc30cbea5a` | 6/7 | 1 | [witness](data/cases/gravitational_49ab2a7b/AMBIGUITY_WITNESS.md) |
 | gravitational_b37b02cd | airtight | `instance_gravitational__teleport-c1b1c6a1541c478d7777a48fca993cc8206c73b9` | 6/10 | 4 | [witness](data/cases/gravitational_b37b02cd/AMBIGUITY_WITNESS.md) |
 | gravitational_d05df372 | plural-both | `instance_gravitational__teleport-96019ce0be7a2c8e36363f359eb7c943b41dde70` | 3/7 | 4 | [witness](data/cases/gravitational_d05df372/AMBIGUITY_WITNESS.md) |
+| gravitational_d96ea00a | codebase-plural | `instance_gravitational__teleport-c782838c3a174fdff80cafd8cd3b1aa4dae8beb2` | 11/12 | 1 | [witness](data/cases/gravitational_d96ea00a/AMBIGUITY_WITNESS.md) |
+| gravitational_e0c9b35a | codebase-plural | `instance_gravitational__teleport-bb562408da4adeae16e025be65e170959d1ec492-vee9b09fb20c43af7e520f57e9239bbcf46b7113d` | 11/12 | 1 | [witness](data/cases/gravitational_e0c9b35a/AMBIGUITY_WITNESS.md) |
 | gravitational_e7683826 | plural-both | `instance_gravitational__teleport-dd3977957a67bedaf604ad6ca255ba8c7b6704e9` | 3/4 | 1 | [witness](data/cases/gravitational_e7683826/AMBIGUITY_WITNESS.md) |
+| gravitational_f958e034 | airtight | `instance_gravitational__teleport-46aa81b1ce96ebb4ebed2ae53fd78cd44a05da6c-vee9b09fb20c43af7e520f57e9239bbcf46b7113d` | 14/16 | 2 | [witness](data/cases/gravitational_f958e034/AMBIGUITY_WITNESS.md) |
 | internetarchive_409914bf | plural-both | `instance_internetarchive__openlibrary-dbbd9d539c6d4fd45d5be9662aa19b6d664b5137-v08d8e8889ec945ab821fb156c04c7d2e2810debb` | 4/5 | 1 | [witness](data/cases/internetarchive_409914bf/AMBIGUITY_WITNESS.md) |
 | internetarchive_5e9872c8 | plural-both | `instance_internetarchive__openlibrary-a48fd6ba9482c527602bc081491d9e8ae6e8226c-vfa6ff903cb27f336e17654595dd900fa943dcd91` | 9/24 | 15 | [witness](data/cases/internetarchive_5e9872c8/AMBIGUITY_WITNESS.md) |
 | internetarchive_7549c413 | airtight | `instance_internetarchive__openlibrary-5fb312632097be7e9ac6ab657964af115224d15d-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4` | 11/22 | 11 | [witness](data/cases/internetarchive_7549c413/AMBIGUITY_WITNESS.md) |
+| internetarchive_77c16d53 | codebase-plural | `instance_internetarchive__openlibrary-e1e502986a3b003899a8347ac8a7ff7b08cbfc39-v08d8e8889ec945ab821fb156c04c7d2e2810debb` | 6/7 | 1 | [witness](data/cases/internetarchive_77c16d53/AMBIGUITY_WITNESS.md) |
+| internetarchive_7b1ec94b | codebase-plural | `instance_internetarchive__openlibrary-798055d1a19b8fa0983153b709f460be97e33064-v13642507b4fc1f8d234172bf8129942da2c2ca26` | 15/16 | 1 | [witness](data/cases/internetarchive_7b1ec94b/AMBIGUITY_WITNESS.md) |
+| internetarchive_a08e5659 | misdetermined | `instance_internetarchive__openlibrary-e390c1212055dd84a262a798e53487e771d3fb64-v8717e18970bcdc4e0d2cea3b1527752b21e74866` | 5/6 | 1 | [witness](data/cases/internetarchive_a08e5659/AMBIGUITY_WITNESS.md) |
+| internetarchive_b2086f9b | misdetermined | `instance_internetarchive__openlibrary-9bdfd29fac883e77dcbc4208cab28c06fd963ab2-v76304ecdb3a5954fcf13feb710e8c40fcf24b73c` | 22/24 | 2 | [witness](data/cases/internetarchive_b2086f9b/AMBIGUITY_WITNESS.md) |
 | internetarchive_c46e5170 | airtight | `instance_internetarchive__openlibrary-3f7db6bbbcc7c418b3db72d157c6aed1d45b2ccf-v430f20c722405e462d9ef44dee7d34c41e76fe7a` | 8/9 | 1 | [witness](data/cases/internetarchive_c46e5170/AMBIGUITY_WITNESS.md) |
+| internetarchive_d38cb5a4 | codebase-plural | `instance_internetarchive__openlibrary-3c48b4bb782189e0858e6c3fc7956046cf3e1cfb-v2d9a6c849c60ed19fd0858ce9e40b7cc8e097e59` | 1/3 | 2 | [witness](data/cases/internetarchive_d38cb5a4/AMBIGUITY_WITNESS.md) |
 | internetarchive_e9e9d8be | plural-both | `instance_internetarchive__openlibrary-910b08570210509f3bcfebf35c093a48243fe754-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4` | 17/22 | 5 | [witness](data/cases/internetarchive_e9e9d8be/AMBIGUITY_WITNESS.md) |
+| navidrome_0079a9b9 | misdetermined | `instance_navidrome__navidrome-e12a14a87d392ac70ee4cc8079e3c3e0103dbcb2` | 4/6 | 2 | [witness](data/cases/navidrome_0079a9b9/AMBIGUITY_WITNESS.md) |
+| navidrome_1bf94531 | misdetermined | `instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a` | 9/10 | 1 | [witness](data/cases/navidrome_1bf94531/AMBIGUITY_WITNESS.md) |
+| navidrome_5808b9fb | airtight | `instance_navidrome__navidrome-874b17b8f614056df0ef021b5d4f977341084185` | 11/12 | 1 | [witness](data/cases/navidrome_5808b9fb/AMBIGUITY_WITNESS.md) |
 | navidrome_8f034543 | plural-both | `instance_navidrome__navidrome-dfa453cc4ab772928686838dc73d0130740f054e` | 4/6 | 2 | [witness](data/cases/navidrome_8f034543/AMBIGUITY_WITNESS.md) |
 | navidrome_94cc2b2a | plural-both | `instance_navidrome__navidrome-d0dceae0943b8df16e579c2d9437e11760a0626a` | 6/7 | 1 | [witness](data/cases/navidrome_94cc2b2a/AMBIGUITY_WITNESS.md) |
 | navidrome_d0ce0303 | airtight | `instance_navidrome__navidrome-3972616585e82305eaf26aa25697b3f5f3082288` | 20/22 | 2 | [witness](data/cases/navidrome_d0ce0303/AMBIGUITY_WITNESS.md) |
 | navidrome_db11b6b8 | airtight | `instance_navidrome__navidrome-b3980532237e57ab15b2b93c49d5cd5b2d050013` | 4/5 | 1 | [witness](data/cases/navidrome_db11b6b8/AMBIGUITY_WITNESS.md) |
+| navidrome_e434ca93 | airtight | `instance_navidrome__navidrome-56303cde23a4122d2447cbb266f942601a78d7e4` | 3/5 | 2 | [witness](data/cases/navidrome_e434ca93/AMBIGUITY_WITNESS.md) |
 | protonmail_0a917c6b | plural-both | `instance_protonmail__webclients-b387b24147e4b5ec3b482b8719ea72bee001462a` | 2/3 | 1 | [witness](data/cases/protonmail_0a917c6b/AMBIGUITY_WITNESS.md) |
 | protonmail_1c1b09fb | codebase-plural | `instance_protonmail__webclients-281a6b3f190f323ec2c0630999354fafb84b2880` | 9/10 | 1 | [witness](data/cases/protonmail_1c1b09fb/AMBIGUITY_WITNESS.md) |
 | protonmail_24c785b2 | codebase-plural | `instance_protonmail__webclients-01ea5214d11e0df8b7170d91bafd34f23cb0f2b1` | 6/8 | 2 | [witness](data/cases/protonmail_24c785b2/AMBIGUITY_WITNESS.md) |
+| protonmail_42082399 | misdetermined | `instance_protonmail__webclients-369fd37de29c14c690cb3b1c09a949189734026f` | 20/23 | 3 | [witness](data/cases/protonmail_42082399/AMBIGUITY_WITNESS.md) |
+| protonmail_4d0ef1ed | misdetermined | `instance_protonmail__webclients-2f2f6c311c6128fe86976950d3c0c2db07b03921` | 5/6 | 1 | [witness](data/cases/protonmail_4d0ef1ed/AMBIGUITY_WITNESS.md) |
 | qutebrowser_0b8cc812 | prose-plural | `instance_qutebrowser__qutebrowser-c580ebf0801e5a3ecabc54f327498bb753c6d5f2-v2ef375ac784985212b1805e1d0431dc8f1b3c171` | 10/11 | 1 | [witness](data/cases/qutebrowser_0b8cc812/AMBIGUITY_WITNESS.md) |
 | qutebrowser_10cb81e8 | prose-affirmative | `instance_qutebrowser__qutebrowser-2e961080a85d660148937ee8f0f6b3445a8f2c01-v363c8a7e5ccdf6968fc7ab84a2053ac78036691d` | 4/6 | 2 | [witness](data/cases/qutebrowser_10cb81e8/AMBIGUITY_WITNESS.md) |
+| qutebrowser_142f019c | misdetermined | `instance_qutebrowser__qutebrowser-7f9713b20f623fc40473b7167a082d6db0f0fd40-va0fd88aac89cde702ec1ba84877234da33adce8a` | 16/18 | 2 | [witness](data/cases/qutebrowser_142f019c/AMBIGUITY_WITNESS.md) |
 | qutebrowser_1547a48e | prose-affirmative | `instance_qutebrowser__qutebrowser-8f46ba3f6dc7b18375f7aa63c48a1fe461190430-v2ef375ac784985212b1805e1d0431dc8f1b3c171` | 7/9 | 2 | [witness](data/cases/qutebrowser_1547a48e/AMBIGUITY_WITNESS.md) |
 | qutebrowser_1d9d9453 | plural-both | `instance_qutebrowser__qutebrowser-21b426b6a20ec1cc5ecad770730641750699757b-v363c8a7e5ccdf6968fc7ab84a2053ac78036691d` | 1/3 | 2 | [witness](data/cases/qutebrowser_1d9d9453/AMBIGUITY_WITNESS.md) |
+| qutebrowser_5ee28105 | airtight | `instance_qutebrowser__qutebrowser-f631cd4422744160d9dcf7a0455da532ce973315-v35616345bb8052ea303186706cec663146f0f184` | 14/23 | 9 | [witness](data/cases/qutebrowser_5ee28105/AMBIGUITY_WITNESS.md) |
 | qutebrowser_6d9c28ce | airtight | `instance_qutebrowser__qutebrowser-3d01c201b8aa54dd71d4f801b1dd12feb4c0a08a-v5fc38aaf22415ab0b70567368332beee7955b367` | 10/16 | 6 | [witness](data/cases/qutebrowser_6d9c28ce/AMBIGUITY_WITNESS.md) |
+| qutebrowser_744cd944 | airtight | `instance_qutebrowser__qutebrowser-16de05407111ddd82fa12e54389d532362489da9-v363c8a7e5ccdf6968fc7ab84a2053ac78036691d` | 10/11 | 1 | [witness](data/cases/qutebrowser_744cd944/AMBIGUITY_WITNESS.md) |
 | qutebrowser_74671c16 | airtight | `instance_qutebrowser__qutebrowser-fcfa069a06ade76d91bac38127f3235c13d78eb1-v5fc38aaf22415ab0b70567368332beee7955b367` | 9/12 | 3 | [witness](data/cases/qutebrowser_74671c16/AMBIGUITY_WITNESS.md) |
 | qutebrowser_83bef2ad | prose-affirmative | `instance_qutebrowser__qutebrowser-a25e8a09873838ca9efefd36ea8a45170bbeb95c-vc2f56a753b62a190ddb23cd330c257b9cf560d12` | 3/5 | 2 | [witness](data/cases/qutebrowser_83bef2ad/AMBIGUITY_WITNESS.md) |
+| qutebrowser_a55f4db2 | misdetermined | `instance_qutebrowser__qutebrowser-fec187c2cb53d769c2682b35ca77858a811414a8-v363c8a7e5ccdf6968fc7ab84a2053ac78036691d` | 2/3 | 1 | [witness](data/cases/qutebrowser_a55f4db2/AMBIGUITY_WITNESS.md) |
 | qutebrowser_bf65a1db | plural-both | `instance_qutebrowser__qutebrowser-70248f256f93ed9b1984494d0a1a919ddd774892-v2ef375ac784985212b1805e1d0431dc8f1b3c171` | 29/30 | 1 | [witness](data/cases/qutebrowser_bf65a1db/AMBIGUITY_WITNESS.md) |
 | qutebrowser_c9380605 | plural-both | `instance_qutebrowser__qutebrowser-a84ecfb80a00f8ab7e341372560458e3f9cfffa2-v2ef375ac784985212b1805e1d0431dc8f1b3c171` | 6/8 | 2 | [witness](data/cases/qutebrowser_c9380605/AMBIGUITY_WITNESS.md) |
 | qutebrowser_c97257ca | plural-both | `instance_qutebrowser__qutebrowser-85b867fe8d4378c8e371f055c70452f546055854-v2ef375ac784985212b1805e1d0431dc8f1b3c171` | 5/20 | 15 | [witness](data/cases/qutebrowser_c97257ca/AMBIGUITY_WITNESS.md) |
 | qutebrowser_d1164925 | airtight | `instance_qutebrowser__qutebrowser-394bfaed6544c952c6b3463751abab3176ad4997-vafb3e8e01b31319c66c4e666b8a3b1d8ba55db24` | 9/17 | 8 | [witness](data/cases/qutebrowser_d1164925/AMBIGUITY_WITNESS.md) |
 | tutao | prose-affirmative | `instance_tutao__tutanota-51818218c6ae33de00cbea3a4d30daac8c34142e-vc4e41fd0029957297843cb9dec4a25c7c756f029` | 13/19 | 6 | [witness](data/cases/tutao/AMBIGUITY_WITNESS.md) |
 
-## HYPOTHESIS (codebase / borderline): 185 — raters-pending, NOT claimed
+## HYPOTHESIS (codebase / borderline): 63 — raters-pending, NOT claimed
 
 A snapshot shows plurality, not binding force; `DETERMINED-codebase` vs `AMBIGUOUS-codebase` is interpretive and needs ≥2 independent codebase-aware raters + κ (see ADMISSIBILITY-SPEC). Each carries an `AMBIGUITY_HYPOTHESIS.md`. Listed in [`COVERAGE.md`](COVERAGE.md).

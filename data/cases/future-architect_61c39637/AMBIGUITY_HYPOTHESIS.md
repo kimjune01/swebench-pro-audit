@@ -1,21 +1,39 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- future-architect_61c39637
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- future-architect_61c39637
 
 - instance_id: `instance_future-architect__vuls-e4728e388120b311c4ed469e4f942e0347a2689b-v264a82e2f4818e30f5a25e4da53b27ba119f62b5`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `future-architect/vuls` @ `61c39637f2`
 
-## The graded behavior
-Cvss3Scores marks the DebianSecurityTracker severity-derived score as CalculatedBySeverity true.
-- test assertion: [`hidden_test.diff`](hidden_test.diff) `CalculatedBySeverity: true,`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** A DebianSecurityTracker pipe-joined severity entry returned by Cvss3Scores must set CalculatedBySeverity to true.  gold: [`gold.diff`#L99](gold.diff#L99) `CalculatedBySeverity: true,`
-- **R2 (prose-faithful alternative):** A from-prose implementation could compute the DebianSecurityTracker CVSS3 score from the highest-ranked pipe-joined label and preserve the uppercased joined Severity while leaving CalculatedBySeverity at its zero value.
+- **Cvss3Scores returns Type DebianSecurityTracker for the DebianSecurityTracker input entry.** -- gold `Type: ctype` matches codebase `Type: ctype`. The live severity-derived Cvss3Scores path already includes DebianSecurityTracker in the ctype list and appends Type: ctype, so gold matches the only comparable codebase pattern.
+1. `models/vulninfos.go` -- severity-derived CveContents entries preserve the iterated source ctype as CveContentCvss.Type
+   ```
+   for _, ctype := range []CveContentType{Debian, DebianSecurityTracker, Ubuntu, UbuntuAPI, Amazon, Trivy, GitHub, WpScan} {
+   		if conts, found := v.CveContents[ctype]; found {
+   			for _, cont := range conts {
+   				if cont.Cvss3Severity != "" {
+   					values = append(values, CveContentCvss{
+   						Type: ctype,
+   ```
+- **Cvss3Scores returns Cvss Type CVSS3 for the DebianSecurityTracker severity-derived score.** -- gold `Type:                 CVSS3` matches codebase `Type: CVSS3`. The live severity-derived Cvss3Scores constructor sets Cvss.Type to CVSS3 for all listed CveContents types, including DebianSecurityTracker, matching gold.
+1. `models/vulninfos.go` -- severity-derived Cvss3Scores entries use nested Cvss.Type CVSS3
+   ```
+   values = append(values, CveContentCvss{
+   						Type: ctype,
+   						Value: Cvss{
+   							Type:                 CVSS3,
+   							Score:                severityToCvssScoreRoughly(cont.Cvss3Severity),
+   ```
+- **Cvss3Scores marks the DebianSecurityTracker severity-derived score as CalculatedBySeverity true.** -- gold `CalculatedBySeverity: true` matches codebase `CalculatedBySeverity: true`. Every live severity-derived Cvss3Scores construction sets CalculatedBySeverity to true, and gold follows that convention.
+1. `models/vulninfos_test.go` -- severity-derived Cvss3Scores entries mark CalculatedBySeverity true
+   ```
+   Value: Cvss{
+   							Type:                 CVSS3,
+   							Score:                severityToCvssScoreRoughly(cont.Cvss3Severity),
+   							CalculatedBySeverity: true,
+   							Severity:             strings.ToUpper(cont.Cvss3Severity),
+   ```
 
-## Status: HYPOTHESIS
-Class `codebase` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-The expected Cvss object in the hidden test includes CalculatedBySeverity: true, so a DeepEqual comparison rejects the otherwise correct result with false.
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

@@ -1,0 +1,69 @@
+{
+ "slug": "navidrome_39da741a",
+ "repo": "navidrome/navidrome",
+ "base": "39da741a807498a01a31435a097b98fe6021c902",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Album `101` / `Sgt Peppers` is expected to have `Genres: model.Genres{genreRock}`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "err := r.Put(&al.Album)",
+   "gold_value": "model.Genres{genreRock}",
+   "codebase_value": "A genre-bearing model stores all unique genres in `model.Genres`; with one genre this is a one-element collection, while legacy `Genre` is the first element's name.",
+   "why": "The live media-file genre mapper is the only comparable multi-genre model precedent and it represents a single genre as a single-element `Genres` slice, matching gold.",
+   "precedents": [
+    {
+     "path": "scanner/mapping.go",
+     "snippet": "for _, g := range all {\n\t\tgenre := model.Genre{Name: g}\n\t\t_ = s.genres.Put(&genre)\n\t\tresult = append(result, genre)\n\t}\n\tif len(result) == 0 {\n\t\treturn \"\", nil\n\t}\n\treturn result[0].Name, result",
+     "way": "build a unique `model.Genres` slice and set the legacy genre string from the first genre"
+    }
+   ]
+  },
+  {
+   "behavior": "Album `102` / `Abbey Road` is expected to have `Genres: model.Genres{genreRock}`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "err := r.Put(&al.Album)",
+   "gold_value": "model.Genres{genreRock}",
+   "codebase_value": "A genre-bearing model stores all unique genres in `model.Genres`; with one genre this is a one-element collection, while legacy `Genre` is the first element's name.",
+   "why": "The live media-file genre mapper is the only comparable multi-genre model precedent and it represents a single genre as a single-element `Genres` slice, matching gold.",
+   "precedents": [
+    {
+     "path": "scanner/mapping.go",
+     "snippet": "for _, g := range all {\n\t\tgenre := model.Genre{Name: g}\n\t\t_ = s.genres.Put(&genre)\n\t\tresult = append(result, genre)\n\t}\n\tif len(result) == 0 {\n\t\treturn \"\", nil\n\t}\n\treturn result[0].Name, result",
+     "way": "build a unique `model.Genres` slice and set the legacy genre string from the first genre"
+    }
+   ]
+  },
+  {
+   "behavior": "Album `103` / `Radioactivity` is expected to have `Genres: model.Genres{genreElectronic, genreRock}` in that order.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "genres = append(genres, model.Genre{ID: id})",
+   "gold_value": "model.Genres{genreElectronic, genreRock}",
+   "codebase_value": "Genres are appended in first-seen/input order, persisted in that order, and loaded back by relation `rowid`.",
+   "why": "All live comparable multi-genre production code preserves first/insertion order, so gold's Electronic-then-Rock order is determined if that is the input relation order.",
+   "precedents": [
+    {
+     "path": "scanner/mapping.go",
+     "snippet": "for _, g := range all {\n\t\tgenre := model.Genre{Name: g}\n\t\t_ = s.genres.Put(&genre)\n\t\tresult = append(result, genre)\n\t}",
+     "way": "append genres in the order accumulated from input tags"
+    },
+    {
+     "path": "scanner/cached_genre_repository.go",
+     "snippet": "for _, g := range genres {\n\t\tins = ins.Values(g.ID, id)\n\t}",
+     "way": "persist genre relations in the slice's existing order"
+    },
+    {
+     "path": "persistence/sql_genres.go",
+     "snippet": "sql := Select(\"g.*\", \"mg.media_file_id\").From(\"genre g\").Join(\"media_file_genres mg on mg.genre_id = g.id\").\n\t\tWhere(Eq{\"mg.media_file_id\": ids}).OrderBy(\"mg.media_file_id\", \"mg.rowid\")",
+     "way": "hydrate related genres in relation insertion order via `rowid`"
+    }
+   ]
+  }
+ ]
+}

@@ -1,10 +1,10 @@
 {
  "case": "qutebrowser_2a10461c",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 7,
  "n_covered": 5,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 6,
  "rows": [
   {
@@ -12,14 +12,16 @@
    "covering_prose": null,
    "gold_anchor": "'always': None,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For QtWebEngine 6.6.1 with colors.webpage.darkmode.policy.images=never, dark-mode-settings is exactly [('ImagePolicy', '1')].",
    "covering_prose": null,
    "gold_anchor": "'never': None,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For QtWebEngine 6.6.1 with colors.webpage.darkmode.policy.images=smart, dark-mode-settings is exactly [('ImagePolicy', '2'), ('ImageClassifierPolicy', '0')].",
@@ -98,5 +100,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

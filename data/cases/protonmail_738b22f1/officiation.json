@@ -1,0 +1,101 @@
+{
+ "slug": "protonmail_738b22f1",
+ "repo": "protonmail/webclients",
+ "base": "738b22f1e8efbb8a0420db86af89fb630a6c9f58",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "getLabelID(\"0\") returns \"0\"",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return labelID as MAILBOX_LABEL_IDS;",
+   "gold_value": "0",
+   "codebase_value": "0",
+   "why": "The live enum defines '0' as a built-in mailbox label and the live custom-label helper treats enum values as non-custom, matching gold.",
+   "precedents": [
+    {
+     "path": "packages/shared/lib/constants.ts",
+     "snippet": "export enum MAILBOX_LABEL_IDS {\n    INBOX = '0',\n    ALL_DRAFTS = '1',\n    ALL_SENT = '2',\n    TRASH = '3',\n    SPAM = '4',\n    ALL_MAIL = '5',\n    STARRED = '10',\n    ARCHIVE = '6',\n    SENT = '7',\n    DRAFTS = '8',\n    OUTBOX = '9',\n    SCHEDULED = '12',\n    ALMOST_ALL_MAIL = '15',\n    SNOOZED = '16',\n}",
+     "way": "MAILBOX_LABEL_IDS.INBOX is exactly the string '0'."
+    },
+    {
+     "path": "applications/mail/src/app/helpers/labels.ts",
+     "snippet": "export const isCustomLabelOrFolder = (labelID: string) =>\n    !Object.values(MAILBOX_LABEL_IDS).includes(labelID as MAILBOX_LABEL_IDS);",
+     "way": "A label ID present in MAILBOX_LABEL_IDS is not custom and is preserved as a built-in ID."
+    }
+   ]
+  },
+  {
+   "behavior": "getLabelID(\"1\") returns \"1\"",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return labelID as MAILBOX_LABEL_IDS;",
+   "gold_value": "1",
+   "codebase_value": "1",
+   "why": "The live enum defines '1' as a built-in mailbox label and production system/custom helpers treat it as non-custom, matching gold.",
+   "precedents": [
+    {
+     "path": "packages/shared/lib/constants.ts",
+     "snippet": "export enum MAILBOX_LABEL_IDS {\n    INBOX = '0',\n    ALL_DRAFTS = '1',\n    ALL_SENT = '2',\n    TRASH = '3',\n    SPAM = '4',\n    ALL_MAIL = '5',\n    STARRED = '10',\n    ARCHIVE = '6',\n    SENT = '7',\n    DRAFTS = '8',\n    OUTBOX = '9',\n    SCHEDULED = '12',\n    ALMOST_ALL_MAIL = '15',\n    SNOOZED = '16',\n}",
+     "way": "MAILBOX_LABEL_IDS.ALL_DRAFTS is exactly the string '1'."
+    },
+    {
+     "path": "applications/mail/src/app/helpers/labels.ts",
+     "snippet": "const SYSTEM_LABELS = [STARRED, SNOOZED, ALL_MAIL, ALMOST_ALL_MAIL, SCHEDULED, ALL_SENT, ALL_DRAFTS, OUTBOX, INBOX];\n\nexport const isSystemLabel = (labelID: string) => SYSTEM_LABELS.includes(labelID as MAILBOX_LABEL_IDS);",
+     "way": "ALL_DRAFTS is included among system labels."
+    },
+    {
+     "path": "applications/mail/src/app/helpers/labels.ts",
+     "snippet": "export const isCustomLabelOrFolder = (labelID: string) =>\n    !Object.values(MAILBOX_LABEL_IDS).includes(labelID as MAILBOX_LABEL_IDS);",
+     "way": "A label ID present in MAILBOX_LABEL_IDS is not custom and is preserved as a built-in ID."
+    }
+   ]
+  },
+  {
+   "behavior": "getLabelID(\"test\") returns \"custom\"",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return 'custom';",
+   "gold_value": "custom",
+   "codebase_value": "custom",
+   "why": "The live helper classifies every non-MAILBOX_LABEL_IDS value as custom, so 'test' is determined to normalize to the gold custom bucket.",
+   "precedents": [
+    {
+     "path": "applications/mail/src/app/helpers/labels.ts",
+     "snippet": "export const isCustomLabelOrFolder = (labelID: string) =>\n    !Object.values(MAILBOX_LABEL_IDS).includes(labelID as MAILBOX_LABEL_IDS);",
+     "way": "Any label ID not present in MAILBOX_LABEL_IDS is classified as custom label/folder."
+    },
+    {
+     "path": "applications/mail/src/app/helpers/message/messageExpandable.ts",
+     "snippet": "    if (labelID === MAILBOX_LABEL_IDS.STARRED || isCustomLabelOrFolder(labelID)) {\n        return getFirstMessageToRead(messages.filter((message) => hasLabel(message, labelID) && !isDraft(message)));\n    }",
+     "way": "Production behavior branches on isCustomLabelOrFolder for non-system label IDs."
+    }
+   ]
+  },
+  {
+   "behavior": "getLabelID(\"-10\") returns \"custom\"",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return 'custom';",
+   "gold_value": "custom",
+   "codebase_value": "custom",
+   "why": "The live custom-label rule is enum nonmembership, and '-10' is not a live MAILBOX_LABEL_IDS value, matching gold.",
+   "precedents": [
+    {
+     "path": "applications/mail/src/app/helpers/labels.ts",
+     "snippet": "export const isCustomLabelOrFolder = (labelID: string) =>\n    !Object.values(MAILBOX_LABEL_IDS).includes(labelID as MAILBOX_LABEL_IDS);",
+     "way": "Any label ID not present in MAILBOX_LABEL_IDS is classified as custom label/folder."
+    },
+    {
+     "path": "packages/shared/lib/constants.ts",
+     "snippet": "export enum MAILBOX_LABEL_IDS {\n    INBOX = '0',\n    ALL_DRAFTS = '1',\n    ALL_SENT = '2',\n    TRASH = '3',\n    SPAM = '4',\n    ALL_MAIL = '5',\n    STARRED = '10',\n    ARCHIVE = '6',\n    SENT = '7',\n    DRAFTS = '8',\n    OUTBOX = '9',\n    SCHEDULED = '12',\n    ALMOST_ALL_MAIL = '15',\n    SNOOZED = '16',\n}",
+     "way": "The built-in mailbox label enum contains no '-10' value."
+    }
+   ]
+  }
+ ]
+}

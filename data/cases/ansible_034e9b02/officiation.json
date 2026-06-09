@@ -1,0 +1,59 @@
+{
+ "slug": "ansible_034e9b02",
+ "repo": "ansible/ansible",
+ "base": "034e9b0252b9aafe27804ba72320ad99b3344090",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "_build_summary maps entry point 'main' to the string 'main short description'.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "summary['entry_points'][ep] = entry_spec.get('short_description', '')",
+   "gold_value": "entry_spec.get('short_description', '')",
+   "codebase_value": "entry_spec.get('short_description', '')",
+   "why": "The live RoleMixin._build_summary implementation already determines that every entry point summary value is the short_description string, matching gold.",
+   "precedents": [
+    {
+     "path": "hacking/shippable/incidental.py",
+     "snippet": "        summary = {}\n        summary['collection'] = collection\n        summary['entry_points'] = {}\n        for entry_point in argspec.keys():\n            entry_spec = argspec[entry_point] or {}\n            summary['entry_points'][entry_point] = entry_spec.get('short_description', '')\n        return (fqcn, summary)",
+     "way": "summary['entry_points'][entry_point] is assigned entry_spec.get('short_description', '')"
+    }
+   ]
+  },
+  {
+   "behavior": "_build_summary maps entry point 'alternate' to the string 'alternate short description'.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "summary['entry_points'][ep] = entry_spec.get('short_description', '')",
+   "gold_value": "entry_spec.get('short_description', '')",
+   "codebase_value": "entry_spec.get('short_description', '')",
+   "why": "The codebase makes no separate distinction for 'alternate'; the live loop applies the same short_description mapping to every entry point, matching gold.",
+   "precedents": [
+    {
+     "path": "hacking/shippable/incidental.py",
+     "snippet": "        summary = {}\n        summary['collection'] = collection\n        summary['entry_points'] = {}\n        for entry_point in argspec.keys():\n            entry_spec = argspec[entry_point] or {}\n            summary['entry_points'][entry_point] = entry_spec.get('short_description', '')\n        return (fqcn, summary)",
+     "way": "all argspec keys are handled the same way, with the entry point mapped to entry_spec.get('short_description', '')"
+    }
+   ]
+  },
+  {
+   "behavior": "_build_summary with empty argspec returns summary['entry_points'] as an empty dictionary.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "summary['entry_points'] = {}",
+   "gold_value": "{}",
+   "codebase_value": "{}",
+   "why": "With an empty argspec the live production loop has no iterations, so the initialized empty dict is returned, matching gold.",
+   "precedents": [
+    {
+     "path": "hacking/shippable/incidental.py",
+     "snippet": "        summary = {}\n        summary['collection'] = collection\n        summary['entry_points'] = {}\n        for entry_point in argspec.keys():\n            entry_spec = argspec[entry_point] or {}\n            summary['entry_points'][entry_point] = entry_spec.get('short_description', '')\n        return (fqcn, summary)",
+     "way": "summary['entry_points'] is initialized to {} and only populated by iterating argspec.keys()"
+    }
+   ]
+  }
+ ]
+}

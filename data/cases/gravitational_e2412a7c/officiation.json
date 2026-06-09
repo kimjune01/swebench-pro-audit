@@ -1,0 +1,86 @@
+{
+ "slug": "gravitational_e2412a7c",
+ "repo": "gravitational/teleport",
+ "base": "e2412a7c37314c9482d856f407f737c9e5b34bce",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "RFD24 migration returns 10 raw events for the inserted time range and event type after retrying for up to 5 minutes with 5 second intervals.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "{b.migrateRFD24, \"migrateRFD24\"}",
+   "gold_value": "{b.migrateRFD24, \"migrateRFD24\"}",
+   "codebase_value": "go b.migrateRFD24WithRetry(ctx)",
+   "why": "The base DynamoDB production code already requires RFD24 migration to run from startup, and gold preserves that migration as an explicit task.",
+   "precedents": [
+    {
+     "path": "lib/events/dynamoevents/dynamoevents.go",
+     "snippet": "\t// Migrate the table according to RFD 24 if it still has the old schema.\n\tgo b.migrateRFD24WithRetry(ctx)",
+     "way": "DynamoDB event log initialization starts the RFD24 migration in the background."
+    },
+    {
+     "path": "lib/events/dynamoevents/dynamoevents.go",
+     "snippet": "// migrateRFD24WithRetry tries the migration multiple times until it succeeds in the case\n// of spontaneous errors.\nfunc (l *Log) migrateRFD24WithRetry(ctx context.Context) {\n\tfor {\n\t\terr := l.migrateRFD24(ctx)\n\n\t\tif err == nil {\n\t\t\tbreak\n\t\t}",
+     "way": "The RFD24 migration is retried until it succeeds."
+    }
+   ]
+  },
+  {
+   "behavior": "RFD24 migration sets each raw event's CreatedAtDate to time.Unix(event.CreatedAt, 0).Format(iso8601DateFormat).",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "item[keyDate] = dateAttribute",
+   "gold_value": "item[keyDate] = dateAttribute",
+   "codebase_value": "time.Unix(timestampRaw, 0).Format(iso8601DateFormat) stored at keyDate",
+   "why": "The base migration already computes the same date value and writes it to the same key that gold preserves through refactoring.",
+   "precedents": [
+    {
+     "path": "lib/events/dynamoevents/dynamoevents.go",
+     "snippet": "\t\t\t// Convert the timestamp into a date string of format `yyyy-mm-dd`.\n\t\t\ttimestamp := time.Unix(timestampRaw, 0)\n\t\t\tdate := timestamp.Format(iso8601DateFormat)\n\n\t\t\tdateAttribute, err := dynamodbattribute.Marshal(date)\n\t\t\tif err != nil {\n\t\t\t\treturn trace.Wrap(err)\n\t\t\t}\n\n\t\t\titem[keyDate] = dateAttribute",
+     "way": "RFD24 date migration derives CreatedAtDate from CreatedAt using iso8601DateFormat."
+    },
+    {
+     "path": "lib/events/dynamoevents/dynamoevents.go",
+     "snippet": "\t// keyDate identifies the date the event was created at in UTC.\n\t// The date takes the format `yyyy-mm-dd` as a string.\n\t// Specified in RFD 24.\n\tkeyDate = \"CreatedAtDate\"",
+     "way": "The CreatedAtDate key and yyyy-mm-dd date convention are fixed in DynamoDB production code."
+    }
+   ]
+  },
+  {
+   "behavior": "Raw event search after FieldsMap conversion succeeds without error over the inserted date range with nil event type filter, limit 1000, ascending order, and empty start key.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "event, err := events.FromEventFields(rawEvent.FieldsMap)",
+   "gold_value": "event, err := events.FromEventFields(rawEvent.FieldsMap)",
+   "codebase_value": "unmarshal rawEvent.Fields into events.EventFields, then call events.FromEventFields(fields)",
+   "why": "Gold changes only the storage source from JSON string to FieldsMap while keeping the codebase's single conversion path through events.FromEventFields.",
+   "precedents": [
+    {
+     "path": "lib/events/dynamoevents/dynamoevents.go",
+     "snippet": "\teventArr := make([]apievents.AuditEvent, 0, len(rawEvents))\n\tfor _, rawEvent := range rawEvents {\n\t\tvar fields events.EventFields\n\t\tif err := utils.FastUnmarshal([]byte(rawEvent.Fields), &fields); err != nil {\n\t\t\treturn nil, \"\", trace.Wrap(err)\n\t\t}\n\t\tevent, err := events.FromEventFields(fields)\n\t\tif err != nil {\n\t\t\treturn nil, \"\", trace.Wrap(err)\n\t\t}",
+     "way": "SearchEvents turns stored EventFields into typed audit events with events.FromEventFields."
+    }
+   ]
+  },
+  {
+   "behavior": "Large table retrieval returns exactly 4000 events after emitting 4000 legacy audit events, polling up to dynamoDBLargeQueryRetries with QueryDelay between attempts.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "FieldsMap:      fields",
+   "gold_value": "FieldsMap:      fields",
+   "codebase_value": "json.Marshal(fields) followed by Fields: string(data)",
+   "why": "The base code has one DynamoDB legacy-emission convention: persist the provided EventFields; gold matches that semantics with the new native map field.",
+   "precedents": [
+    {
+     "path": "lib/events/dynamoevents/dynamoevents.go",
+     "snippet": "\tdata, err := json.Marshal(fields)\n\tif err != nil {\n\t\treturn trace.Wrap(err)\n\t}\n\te := event{\n\t\tSessionID:      sessionID,\n\t\tEventIndex:     int64(eventIndex),\n\t\tEventType:      fields.GetString(events.EventType),\n\t\tEventNamespace: apidefaults.Namespace,\n\t\tCreatedAt:      created.Unix(),\n\t\tFields:         string(data),\n\t\tCreatedAtDate:  created.Format(iso8601DateFormat),\n\t}",
+     "way": "Legacy DynamoDB event emission stores the provided EventFields as the event metadata payload."
+    }
+   ]
+  }
+ ]
+}

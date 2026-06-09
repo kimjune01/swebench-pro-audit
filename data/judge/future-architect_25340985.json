@@ -1,10 +1,10 @@
 {
  "case": "future-architect_25340985",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 3,
  "n_covered": 1,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 3,
  "rows": [
   {
@@ -19,14 +19,16 @@
    "covering_prose": null,
    "gold_anchor": "\"8\":  \"jessie\",",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Debian major release \"9\" is supported: deb.supported(\"9\") returns true.",
    "covering_prose": null,
    "gold_anchor": "\"9\":  \"stretch\",",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Debian major release \"10\" is supported: deb.supported(\"10\") returns true.",
@@ -49,5 +51,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

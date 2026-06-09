@@ -1,0 +1,25 @@
+{
+ "slug": "tutao_170958a2",
+ "repo": "tutao/tutanota",
+ "base": "170958a2bb463b25c691640b522780d3b602ce99",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "For a block delimited by lowercase `begin:vcard` and `end:vcard`, `vCardFileToVCards` still parses the card after normalizing those delimiters.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "vCardFileData = vCardFileData.replace(/begin:vcard/g, \"BEGIN:VCARD\")",
+   "gold_value": "vCardFileData = vCardFileData.replace(/begin:vcard/g, \"BEGIN:VCARD\") and vCardFileData = vCardFileData.replace(/end:vcard/g, \"END:VCARD\")",
+   "codebase_value": "vCard import normalizes exact lowercase `begin:vcard` and `end:vcard` delimiters to `BEGIN:VCARD` and `END:VCARD` before parsing.",
+   "why": "The same production entry point already makes this delimiter-casing choice exactly this way, and gold preserves it.",
+   "precedents": [
+    {
+     "path": "src/contacts/VCardImporter.ts",
+     "snippet": "\tvCardFileData = vCardFileData.replace(/begin:vcard/g, \"BEGIN:VCARD\")\n\tvCardFileData = vCardFileData.replace(/end:vcard/g, \"END:VCARD\")\n\tvCardFileData = vCardFileData.replace(/version:2.1/g, \"VERSION:2.1\")",
+     "way": "lowercase vCard structural markers are normalized before parsing"
+    }
+   ]
+  }
+ ]
+}

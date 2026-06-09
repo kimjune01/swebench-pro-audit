@@ -12,7 +12,8 @@
    "covering_prose": null,
    "gold_anchor": "noiseSuppression: { ideal: MediaDeviceHandler.getAudioNoiseSuppression() }",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "When starting a recording with noise suppression disabled, Recorder is constructed with encoderBitRate equal to highQualityRecorderOptions.bitrate, i.e. 96000.",
@@ -33,7 +34,8 @@
    "covering_prose": null,
    "gold_anchor": "noiseSuppression: { ideal: MediaDeviceHandler.getAudioNoiseSuppression() }",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "When starting a recording with noise suppression enabled, Recorder is constructed with encoderBitRate equal to voiceRecorderOptions.bitrate, i.e. 24000.",
@@ -49,5 +51,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

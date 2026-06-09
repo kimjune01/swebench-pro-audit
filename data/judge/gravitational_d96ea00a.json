@@ -110,7 +110,8 @@
    "covering_prose": null,
    "gold_anchor": "{Kind: types.KindClusterName},",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "ForAuth cache returns the updated ClusterName `example.com` with matching ClusterID after ResourceID normalization.",
@@ -168,5 +169,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

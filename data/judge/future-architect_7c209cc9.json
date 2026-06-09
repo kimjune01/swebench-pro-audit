@@ -1,10 +1,10 @@
 {
  "case": "future-architect_7c209cc9",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 5,
  "n_covered": 3,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -33,14 +33,19 @@
    "covering_prose": null,
    "gold_anchor": "return rhelRebuildOSVerPattern.ReplaceAllString(ver, \".el$1\")",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`rhelRebuildOSVersionToRHEL` must remove the minor rebuild suffix in the table case named `remove_minor`.",
    "covering_prose": null,
    "gold_anchor": "var rhelRebuildOSVerPattern = regexp.MustCompile(`\\.[es]l(\\d+)(?:_\\d+)?(?:\\.(centos|rocky|alma))?`)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

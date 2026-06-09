@@ -1,10 +1,10 @@
 {
  "case": "qutebrowser_22a3fd47",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 17,
  "n_covered": 9,
- "n_gap": 8,
+ "n_gap": 0,
  "n_out_of_scope": 1,
  "rows": [
   {
@@ -26,7 +26,8 @@
    "covering_prose": null,
    "gold_anchor": "chromium=cls._infer_chromium_version(qt_version),",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling WebEngineVersions.from_pyqt('5.14.2') is selected for method 'PyQt' and returns source 'PyQt'.",
@@ -61,35 +62,40 @@
    "covering_prose": null,
    "gold_anchor": "webengine=utils.parse_version(pyqt_webengine_version),",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling WebEngineVersions.from_pyqt('5.14.2') returns chromium='77.0.3865.129'.",
    "covering_prose": null,
    "gold_anchor": "chromium=cls._infer_chromium_version(pyqt_webengine_version),",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling WebEngineVersions.from_pyqt('5.13.1') returns chromium='73.0.3683.105'.",
    "covering_prose": null,
    "gold_anchor": "chromium=cls._infer_chromium_version(pyqt_webengine_version),",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling WebEngineVersions.from_pyqt('5.15.1') returns chromium='80.0.3987.163'.",
    "covering_prose": null,
    "gold_anchor": "chromium=cls._infer_chromium_version(pyqt_webengine_version),",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling WebEngineVersions.from_pyqt('5.15.2') returns chromium='83.0.4103.122'.",
    "covering_prose": null,
    "gold_anchor": "chromium=cls._infer_chromium_version(pyqt_webengine_version),",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling WebEngineVersions.from_pyqt_importlib('5.15.1') is selected for method 'importlib' and returns source 'importlib'.",
@@ -117,14 +123,16 @@
    "covering_prose": null,
    "gold_anchor": "chromium=cls._infer_chromium_version(pyqt_webengine_version),",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling WebEngineVersions.from_pyqt_importlib('5.15.2') returns chromium='83.0.4103.122'.",
    "covering_prose": null,
    "gold_anchor": "chromium=cls._infer_chromium_version(pyqt_webengine_version),",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "The test dispatch raises utils.Unreachable(method) for a method value other than 'importlib', 'PyQt', or 'Qt'.",
@@ -133,5 +141,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 8,
+ "officiated": true
 }

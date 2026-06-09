@@ -1,10 +1,10 @@
 {
  "case": "flipt-io_bbf0a917",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 12,
  "n_covered": 11,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 3,
  "rows": [
   {
@@ -96,7 +96,8 @@
    "covering_prose": null,
    "gold_anchor": "return fmt.Errorf(\"github %s info response status: %q\", userReq.URL.Path, resp.Status)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "If GitHub /user/orgs returns 429 Too Many Requests during organization membership verification, the system returns an internal error with message github /user/orgs info response status: \"429 Too Many Requests\".",
@@ -112,5 +113,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

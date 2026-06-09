@@ -1,0 +1,52 @@
+{
+ "slug": "qutebrowser_0e624e64",
+ "repo": "qutebrowser/qutebrowser",
+ "base": "0e624e64695e8f566c7391f65f737311aeb6b2eb",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "qtutils.interpolate_color raises qtutils.QtValueError when the start QColor is invalid.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "ensure_valid(start)",
+   "gold_value": "qtutils.QtValueError via ensure_valid(start)",
+   "codebase_value": "qtutils.QtValueError via qtutils.ensure_valid(start)",
+   "why": "The original live production interpolate_color already validates start with qtutils.ensure_valid, and qtutils.ensure_valid deterministically raises QtValueError.",
+   "precedents": [
+    {
+     "path": "qutebrowser/utils/utils.py",
+     "snippet": "    qtutils.ensure_valid(start)\n    qtutils.ensure_valid(end)",
+     "way": "interpolate_color validates the start QColor with qtutils.ensure_valid"
+    },
+    {
+     "path": "qutebrowser/utils/qtutils.py",
+     "snippet": "def ensure_valid(obj: 'Validatable') -> None:\n    \"\"\"Ensure a Qt object with an .isValid() method is valid.\"\"\"\n    if not obj.isValid():\n        raise QtValueError(obj)",
+     "way": "qtutils.ensure_valid raises QtValueError for invalid Qt objects"
+    }
+   ]
+  },
+  {
+   "behavior": "qtutils.interpolate_color raises qtutils.QtValueError when the end QColor is invalid.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "ensure_valid(end)",
+   "gold_value": "qtutils.QtValueError via ensure_valid(end)",
+   "codebase_value": "qtutils.QtValueError via qtutils.ensure_valid(end)",
+   "why": "The original live production interpolate_color already validates end with qtutils.ensure_valid, and qtutils.ensure_valid deterministically raises QtValueError.",
+   "precedents": [
+    {
+     "path": "qutebrowser/utils/utils.py",
+     "snippet": "    qtutils.ensure_valid(start)\n    qtutils.ensure_valid(end)",
+     "way": "interpolate_color validates the end QColor with qtutils.ensure_valid"
+    },
+    {
+     "path": "qutebrowser/utils/qtutils.py",
+     "snippet": "def ensure_valid(obj: 'Validatable') -> None:\n    \"\"\"Ensure a Qt object with an .isValid() method is valid.\"\"\"\n    if not obj.isValid():\n        raise QtValueError(obj)",
+     "way": "qtutils.ensure_valid raises QtValueError for invalid Qt objects"
+    }
+   ]
+  }
+ ]
+}

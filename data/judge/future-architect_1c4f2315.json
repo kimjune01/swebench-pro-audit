@@ -1,10 +1,10 @@
 {
  "case": "future-architect_1c4f2315",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 10,
  "n_covered": 8,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -40,14 +40,16 @@
    "covering_prose": null,
    "gold_anchor": "p = current.Packages[affected.Name]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For a minus CVE, the returned Packages entry for its affected package is copied from the previous scan result.",
    "covering_prose": null,
    "gold_anchor": "p = previous.Packages[affected.Name]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "When only plus is requested, a CVE present only in the current scan is included in ScannedCves with DiffStatus \"+\".",
@@ -77,5 +79,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 1,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

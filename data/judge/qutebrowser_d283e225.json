@@ -1,10 +1,10 @@
 {
  "case": "qutebrowser_d283e225",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 2,
  "n_covered": 0,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,14 +12,19 @@
    "covering_prose": null,
    "gold_anchor": "mult = 359.0 if kind == 'h' else 255.0",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`hsva(10%,20%,30%,40%)` is parsed as `QColor.fromHsv(35, 51, 76, 102)`, including hue percentage scaled with a 359 maximum and saturation/value/alpha percentages scaled with a 255 maximum using integer truncation.",
    "covering_prose": null,
    "gold_anchor": "int_vals = [self._parse_value(p[0], p[1]) for p in zip(kind, vals)]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

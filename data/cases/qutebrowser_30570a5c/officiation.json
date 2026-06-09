@@ -1,0 +1,25 @@
+{
+ "slug": "qutebrowser_30570a5c",
+ "repo": "qutebrowser/qutebrowser",
+ "base": "30570a5cad1a3e7f648f066b4a1df8158d6b1189",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Calling `qtlog.qt_message_handler(qtcore.QtMsgType.QtDebugMsg, context, \"\")` logs exactly one captured message with text `Logged empty message!`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if not msg:",
+   "gold_value": "Logged empty message!",
+   "codebase_value": "Logged empty message!",
+   "why": "The base production Qt message handler in qutebrowser/utils/log.py already makes the exact same empty-message normalization that gold preserves after moving the handler to qtlog.py.",
+   "precedents": [
+    {
+     "path": "qutebrowser/utils/log.py",
+     "snippet": "    if not msg:\n        msg = \"Logged empty message!\"",
+     "way": "Falsey Qt log messages are normalized to the literal sentinel \"Logged empty message!\" before being logged."
+    }
+   ]
+  }
+ ]
+}

@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 23,
  "n_covered": 10,
- "n_gap": 13,
+ "n_gap": 9,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,7 +12,8 @@
    "covering_prose": null,
    "gold_anchor": "self.qt_version_changed = False",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "When stored Qt version equals current Qt version, StateConfig.qt_version_changed is False.",
@@ -89,84 +90,99 @@
    "covering_prose": null,
    "gold_anchor": "'never': []",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "VersionChange.minor.matches_filter('never') returns False.",
    "covering_prose": null,
    "gold_anchor": "'never': []",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "VersionChange.patch.matches_filter('never') returns False.",
    "covering_prose": null,
    "gold_anchor": "'never': []",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "VersionChange.major.matches_filter('major') returns True.",
    "covering_prose": null,
    "gold_anchor": "'major': [VersionChange.major]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "VersionChange.minor.matches_filter('major') returns False.",
    "covering_prose": null,
    "gold_anchor": "'major': [VersionChange.major]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "VersionChange.patch.matches_filter('major') returns False.",
    "covering_prose": null,
    "gold_anchor": "'major': [VersionChange.major]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "VersionChange.major.matches_filter('minor') returns True.",
    "covering_prose": null,
    "gold_anchor": "'minor': [VersionChange.major, VersionChange.minor]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "VersionChange.minor.matches_filter('minor') returns True.",
    "covering_prose": null,
    "gold_anchor": "'minor': [VersionChange.major, VersionChange.minor]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "VersionChange.patch.matches_filter('minor') returns False.",
    "covering_prose": null,
    "gold_anchor": "'minor': [VersionChange.major, VersionChange.minor]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "VersionChange.major.matches_filter('patch') returns True.",
    "covering_prose": null,
    "gold_anchor": "'patch': [VersionChange.major, VersionChange.minor, VersionChange.patch]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "VersionChange.minor.matches_filter('patch') returns True.",
    "covering_prose": null,
    "gold_anchor": "'patch': [VersionChange.major, VersionChange.minor, VersionChange.patch]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "VersionChange.patch.matches_filter('patch') returns True.",
    "covering_prose": null,
    "gold_anchor": "'patch': [VersionChange.major, VersionChange.minor, VersionChange.patch]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 4,
+ "officiated": true
 }

@@ -1,10 +1,10 @@
 {
  "case": "navidrome_265f33ed",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 6,
  "n_covered": 5,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 3,
  "rows": [
   {
@@ -68,7 +68,11 @@
    "covering_prose": null,
    "gold_anchor": "DefaultGet(key string, defaultValue string) (string, error)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

@@ -1,0 +1,19 @@
+{
+ "slug": "ansible_3fffddc1",
+ "repo": "ansible/ansible",
+ "base": "3fffddc18305f4d910774b57bc90e14456e7a15b",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "When multipart_encoding is '7or8bit' for an ASCII text file, the generated multipart fixture contains the header 'Content-Transfer-Encoding: 7bit'.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "\"7or8bit\": email.encoders.encode_7or8bit",
+   "gold_value": "\"7or8bit\": email.encoders.encode_7or8bit, yielding Content-Transfer-Encoding: 7bit for the ASCII file",
+   "codebase_value": null,
+   "why": "The base production tree has no live use of email.encoders, encode_7or8bit, 7or8bit, 7bit/8bit transfer encoding, or any comparable non-base64 multipart encoding choice; its only multipart file path uses MIMEApplication(f.read()) for the old base64 default.",
+   "precedents": []
+  }
+ ]
+}

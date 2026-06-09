@@ -1,10 +1,10 @@
 {
  "case": "navidrome_1bf94531",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 10,
  "n_covered": 8,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -68,14 +68,19 @@
    "covering_prose": null,
    "gold_anchor": "Dialect = \"sqlite3\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Driver is changed to the custom registered sqlite driver name used with dbx.NewFromDB and backup sql.Open calls.",
    "covering_prose": null,
    "gold_anchor": "Driver  = Dialect + \"_custom\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   }
- ]
+ ],
+ "n_misdetermined": 1,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

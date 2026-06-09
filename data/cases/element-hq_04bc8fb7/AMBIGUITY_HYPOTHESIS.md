@@ -1,21 +1,39 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- element-hq_04bc8fb7
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED -- not claimed) -- element-hq_04bc8fb7
 
 - instance_id: `instance_element-hq__element-web-66d0b318bc6fee0d17b54c1781d6ab5d5d323135-vnan`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- well-specified by component reuse; prose silent, one codebase way, gold matches)
+- repo `element-hq/element-web` @ `04bc8fb71c4a`
 
-## The graded behavior
-The rendered SeekBar has step="0.001".
-- test assertion: [`hidden_test.diff`#L26](hidden_test.diff#L26) `step="0.001"`
+## Why this is determined, not ambiguous
+All five screened GAP behaviors are HTML attributes of the rendered `SeekBar`:
+`class="mx_SeekBar"`, `type="range"`, `max="1"`, `step="0.001"`, `tabindex="0"`. The spec
+directs the solver to reuse a **named, pre-existing** component:
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** The SeekBar range input uses a step size of 0.001.  gold: [`gold.diff`#L98](gold.diff#L98) `<SeekBar playback={playback} />`
-- **R2 (prose-faithful alternative):** A from-prose engineer could render the SeekBar with another reasonable step size, such as 1 second or any browser default, while still supporting seeking and visual playback progress.
+> "Introduce the `SeekBar` component located at `/components/views/audio_messages/SeekBar` inside the voice broadcast playback UI ..." ([`spec.md`#L15](../../cases/element-hq_04bc8fb7/spec.md))
 
-## Status: HYPOTHESIS
-Class `airtight` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
+and to render it with "proper attributes (`min`, `max`, `step`, `value`)" ([`spec.md`#L35](../../cases/element-hq_04bc8fb7/spec.md)).
+The gold patch does exactly that -- `<SeekBar playback={playback} />` ([`gold.diff`#L98](../../cases/element-hq_04bc8fb7/gold.diff)) -- adding no attributes of its own.
 
-## Why R2 fails the test
-The snapshot assertion requires the rendered input to contain step="0.001", so any other step value or omitted step fails.
+Every asserted attribute is intrinsic to the component already present at base_commit
+`04bc8fb71c4a`:
 
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+```
+src/components/views/audio_messages/SeekBar.tsx:97   public render(): ReactNode {
+... return <input
+        type="range"
+        className='mx_SeekBar'
+        tabIndex={this.props.tabIndex}
+        min={0}
+        max={1}
+        value={this.state.percentage}
+        step={0.001}
+        style={{ '--fillTo': this.state.percentage } as ISeekCSS}
+```
+
+A from-spec solver who reuses the directed component (as instructed) produces all five
+attributes verbatim. There is no plurality: a single existing component fixes the answer.
+The screen over-flagged because it checked "does prose restate each attribute" rather than
+"does prose direct reuse of a component that carries the attribute." **Not underdetermined;
+not claimed.**
+
+_Guard: the SeekBar component and its `step={0.001}`, `type="range"`, `className='mx_SeekBar'`, `min/max`, `tabIndex` are grep'd verbatim at base_commit `04bc8fb71c4a` (the parent of the gold commit), in production (non-test) source. The spec names this exact component path._

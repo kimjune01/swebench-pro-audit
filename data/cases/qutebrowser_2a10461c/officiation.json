@@ -1,0 +1,42 @@
+{
+ "slug": "qutebrowser_2a10461c",
+ "repo": "qutebrowser/qutebrowser",
+ "base": "2a10461ca473838cbc3bf6b92501324470d4f521",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "For QtWebEngine 6.6.1 with colors.webpage.darkmode.policy.images=always, dark-mode-settings is exactly [('ImagePolicy', '0')].",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "'always': None,",
+   "gold_value": "None / no ImageClassifierPolicy tuple",
+   "codebase_value": "None means suppress the backend Chromium argument/setting emission",
+   "why": "The live QtWebEngine argument mapper already represents inapplicable/no-op Chromium backend settings as None and suppresses emission, matching gold's omission of ImageClassifierPolicy for always.",
+   "precedents": [
+    {
+     "path": "qutebrowser/config/qtargs.py",
+     "snippet": "    'qt.chromium.low_end_device_mode': {\n        'auto': None,\n        'always': '--enable-low-end-device-mode',\n        'never': '--disable-low-end-device-mode',\n    },\n    'content.prefers_reduced_motion': {\n        True: '--force-prefers-reduced-motion',\n        False: None,\n    },\n    'qt.chromium.sandboxing': {\n        'enable-all': None,\n        'disable-seccomp-bpf': '--disable-seccomp-filter-sandbox',\n        'disable-all': '--no-sandbox',\n    }\n}\n\n\ndef _qtwebengine_settings_args() -> Iterator[str]:\n    for setting, args in sorted(_WEBENGINE_SETTINGS.items()):\n        arg = args[config.instance.get(setting)]\n        if arg is not None:\n            yield arg",
+     "way": "config-to-Chromium argument mappings use None for values that should not emit a backend switch, and the emitter skips None"
+    }
+   ]
+  },
+  {
+   "behavior": "For QtWebEngine 6.6.1 with colors.webpage.darkmode.policy.images=never, dark-mode-settings is exactly [('ImagePolicy', '1')].",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "'never': None,",
+   "gold_value": "None / no ImageClassifierPolicy tuple",
+   "codebase_value": "None means suppress the backend Chromium argument/setting emission",
+   "why": "The live QtWebEngine argument mapper already represents inapplicable/no-op Chromium backend settings as None and suppresses emission, matching gold's omission of ImageClassifierPolicy for never.",
+   "precedents": [
+    {
+     "path": "qutebrowser/config/qtargs.py",
+     "snippet": "    'qt.chromium.low_end_device_mode': {\n        'auto': None,\n        'always': '--enable-low-end-device-mode',\n        'never': '--disable-low-end-device-mode',\n    },\n    'content.prefers_reduced_motion': {\n        True: '--force-prefers-reduced-motion',\n        False: None,\n    },\n    'qt.chromium.sandboxing': {\n        'enable-all': None,\n        'disable-seccomp-bpf': '--disable-seccomp-filter-sandbox',\n        'disable-all': '--no-sandbox',\n    }\n}\n\n\ndef _qtwebengine_settings_args() -> Iterator[str]:\n    for setting, args in sorted(_WEBENGINE_SETTINGS.items()):\n        arg = args[config.instance.get(setting)]\n        if arg is not None:\n            yield arg",
+     "way": "config-to-Chromium argument mappings use None for values that should not emit a backend switch, and the emitter skips None"
+    }
+   ]
+  }
+ ]
+}

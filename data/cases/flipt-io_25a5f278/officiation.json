@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_25a5f278",
+ "repo": "flipt-io/flipt",
+ "base": "25a5f278e1116ca22f86d86b4a5259ca05ef2623",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "NewWebhookClient preserves an empty signing secret as empty.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "signingSecret: signingSecret,",
+   "gold_value": "signingSecret: signingSecret",
+   "codebase_value": "signingSecret: signingSecret",
+   "why": "Live webhook production code already stores the signing secret verbatim and the live schema makes the unset webhook signing secret the empty string, matching gold.",
+   "precedents": [
+    {
+     "path": "internal/server/audit/webhook/client.go",
+     "snippet": "func NewWebhookClient(logger *zap.Logger, url, signingSecret string, httpClient *retryablehttp.Client) Client {\n\treturn &webhookClient{\n\t\tlogger:        logger,\n\t\turl:           url,\n\t\tsigningSecret: signingSecret,\n\t\thttpClient:    httpClient,\n\t}\n}",
+     "way": "constructor stores the signingSecret parameter directly in the webhookClient field"
+    },
+    {
+     "path": "config/flipt.schema.cue",
+     "snippet": "\t\t\twebhook?: {\n\t\t\t\tenabled?:              bool | *false\n\t\t\t\turl?:                  string | *\"\"\n\t\t\t\tmax_backoff_duration?: =~#duration | *\"15s\"\n\t\t\t\tsigning_secret?:       string | *\"\"\n\t\t\t\ttemplates?: [...{\n\t\t\t\t\turl:  string\n\t\t\t\t\tbody: string\n\t\t\t\t\theaders?: [string]: string\n\t\t\t\t}]\n\t\t\t}",
+     "way": "webhook signing_secret is optional and defaults to the empty string"
+    }
+   ]
+  }
+ ]
+}

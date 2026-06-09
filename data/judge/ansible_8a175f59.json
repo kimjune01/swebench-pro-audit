@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 39,
  "n_covered": 28,
- "n_gap": 11,
+ "n_gap": 5,
  "n_out_of_scope": 7,
  "rows": [
   {
@@ -12,7 +12,8 @@
    "covering_prose": null,
    "gold_anchor": "test: rhel/8.3@3.6",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "apt check mode fails when apt bindings are missing, and the failure message contains \"If run normally this module can auto-install it.\"",
@@ -103,7 +104,8 @@
    "covering_prose": null,
    "gold_anchor": "interpreter = probe_interpreters_for_module(system_interpreters, 'rpmfluff')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "The RPM test repository includes a noarch package named noarchfake version 1.0 release 1.",
@@ -187,14 +189,16 @@
    "covering_prose": null,
    "gold_anchor": "self._selinux_initial_context = [None, None, None]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "AnsibleModule.selinux_initial_context() returns [None, None, None, None] when MLS is enabled.",
    "covering_prose": null,
    "gold_anchor": "self._selinux_initial_context.append(None)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "AnsibleModule.selinux_default_context('/foo/bar') returns [None, None, None] when SELinux is unavailable.",
@@ -222,7 +226,8 @@
    "covering_prose": null,
    "gold_anchor": "ret = selinux.matchpathcon(to_native(path, errors='surrogate_or_strict'), mode)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "AnsibleModule.selinux_context('/foo/bar') returns [None, None, None] when SELinux is unavailable.",
@@ -250,14 +255,16 @@
    "covering_prose": null,
    "gold_anchor": "ret = selinux.lgetfilecon_raw(to_native(path, errors='surrogate_or_strict'))",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "AnsibleModule.selinux_context('/foo/bar') raises SystemExit when lgetfilecon_raw raises a generic OSError.",
    "covering_prose": null,
    "gold_anchor": "ret = selinux.lgetfilecon_raw(to_native(path, errors='surrogate_or_strict'))",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "AnsibleModule.is_special_selinux_path('/some/path/that/should/be/nfs') returns (False, None) when reading mount data raises OSError.",
@@ -306,28 +313,35 @@
    "covering_prose": null,
    "gold_anchor": "if not self.selinux_enabled():",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "AnsibleModule.set_context_if_different raises SystemExit when lsetfilecon returns 1.",
    "covering_prose": null,
    "gold_anchor": "if not self.selinux_enabled():",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "AnsibleModule.set_context_if_different raises SystemExit when lsetfilecon raises OSError.",
    "covering_prose": null,
    "gold_anchor": "if not self.selinux_enabled():",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "AnsibleModule.set_context_if_different uses the special filesystem context 'sp_u:sp_r:sp_t:s0' for lsetfilecon when is_special_selinux_path returns a special context.",
    "covering_prose": null,
    "gold_anchor": "if not self.selinux_enabled():",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 6,
+ "officiated": true
 }

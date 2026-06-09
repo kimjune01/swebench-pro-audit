@@ -1,0 +1,170 @@
+{
+ "slug": "protonmail_6ff80e3e",
+ "repo": "protonmail/webclients",
+ "base": "6ff80e3e9b482201065ec8af21d8a2ddfec0eead",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "getElementsToBypassFilter(elements, MARK_AS_STATUS.READ, 0) returns { elementsToBypass: [], elementsToRemove: elements }",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "(unreadFilter === 0 && action === MARK_AS_STATUS.READ)",
+   "gold_value": "{ elementsToBypass: [], elementsToRemove: elements }",
+   "codebase_value": "Unread: 0 is the read filter; matching read elements do not need bypass and affected bypass IDs are removed when no longer needed.",
+   "why": "Live filter code uniquely treats Unread 0 as read and selected read elements pass the filter without bypass, matching gold's remove-not-bypass result.",
+   "precedents": [
+    {
+     "path": "applications/mail/src/app/helpers/mailboxUrl.ts",
+     "snippet": "        case 'read':\n            return { Unread: 0 };\n        case 'unread':\n            return { Unread: 1 };",
+     "way": "read filter is Unread: 0; unread filter is Unread: 1"
+    },
+    {
+     "path": "applications/mail/src/app/logic/elements/elementsSelectors.ts",
+     "snippet": "                const elementUnread = isUnread(element, labelID);\n                return filter.Unread ? elementUnread : !elementUnread;",
+     "way": "falsy Unread filter value selects read elements"
+    },
+    {
+     "path": "applications/mail/src/app/logic/elements/elementsReducers.ts",
+     "snippet": "    if (action.payload.isMove) {\n        const elementIDs = action.payload.elements.map(({ ID }) => ID || '');\n        state.bypassFilter = diff(state.bypassFilter, elementIDs);\n    }",
+     "way": "when affected elements no longer need bypass, their IDs are removed from bypassFilter"
+    }
+   ]
+  },
+  {
+   "behavior": "getElementsToBypassFilter(elements, MARK_AS_STATUS.UNREAD, 1) returns { elementsToBypass: [], elementsToRemove: elements }",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "(unreadFilter > 0 && action === MARK_AS_STATUS.UNREAD)",
+   "gold_value": "{ elementsToBypass: [], elementsToRemove: elements }",
+   "codebase_value": "Unread values greater than 0 are treated as unread filter values; matching unread elements do not need bypass and affected bypass IDs are removed when no longer needed.",
+   "why": "Live code uniquely treats positive Unread filter values as unread, so newly unread elements match the filter and gold's remove-not-bypass result follows.",
+   "precedents": [
+    {
+     "path": "applications/mail/src/app/helpers/mailboxUrl.ts",
+     "snippet": "        case 'read':\n            return { Unread: 0 };\n        case 'unread':\n            return { Unread: 1 };",
+     "way": "unread filter is represented by Unread: 1"
+    },
+    {
+     "path": "applications/mail/src/app/logic/elements/helpers/elementTotal.ts",
+     "snippet": "    if (unreadFilter > 0) {\n        return (count.Unread || 0) + bypassFilterCount;\n    }\n    return (count.Total || 0) - (count.Unread || 0) + bypassFilterCount;",
+     "way": "positive unreadFilter selects unread count; zero selects read count"
+    },
+    {
+     "path": "applications/mail/src/app/logic/elements/elementsReducers.ts",
+     "snippet": "    if (action.payload.isMove) {\n        const elementIDs = action.payload.elements.map(({ ID }) => ID || '');\n        state.bypassFilter = diff(state.bypassFilter, elementIDs);\n    }",
+     "way": "when affected elements no longer need bypass, their IDs are removed from bypassFilter"
+    }
+   ]
+  },
+  {
+   "behavior": "getElementsToBypassFilter(elements, MARK_AS_STATUS.UNREAD, 0) returns { elementsToBypass: elements, elementsToRemove: [] }",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "elementsToBypass = elements;",
+   "gold_value": "{ elementsToBypass: [], elementsToRemove: elements }",
+   "codebase_value": "Unread: 0 is the read filter; matching read elements do not need bypass and affected bypass IDs are removed when no longer needed.",
+   "why": "Live filter code uniquely treats Unread 0 as read and selected read elements pass the filter without bypass, matching gold's remove-not-bypass result.",
+   "precedents": [
+    {
+     "path": "applications/mail/src/app/helpers/mailboxUrl.ts",
+     "snippet": "        case 'read':\n            return { Unread: 0 };\n        case 'unread':\n            return { Unread: 1 };",
+     "way": "read filter is Unread: 0; unread filter is Unread: 1"
+    },
+    {
+     "path": "applications/mail/src/app/logic/elements/elementsSelectors.ts",
+     "snippet": "                const elementUnread = isUnread(element, labelID);\n                return filter.Unread ? elementUnread : !elementUnread;",
+     "way": "falsy Unread filter value selects read elements"
+    },
+    {
+     "path": "applications/mail/src/app/logic/elements/elementsReducers.ts",
+     "snippet": "    if (action.payload.isMove) {\n        const elementIDs = action.payload.elements.map(({ ID }) => ID || '');\n        state.bypassFilter = diff(state.bypassFilter, elementIDs);\n    }",
+     "way": "when affected elements no longer need bypass, their IDs are removed from bypassFilter"
+    }
+   ]
+  },
+  {
+   "behavior": "getElementsToBypassFilter(elements, MARK_AS_STATUS.READ, 1) returns { elementsToBypass: elements, elementsToRemove: [] }",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "elementsToRemove = [];",
+   "gold_value": "{ elementsToBypass: elements, elementsToRemove: [] }",
+   "codebase_value": "Unread: 1 selects unread elements; read elements fail that filter and must be added to bypass to stay visible.",
+   "why": "The live selector and existing optimistic mark-as comment determine that an element made read while viewing unread items needs bypass, matching gold.",
+   "precedents": [
+    {
+     "path": "applications/mail/src/app/helpers/mailboxUrl.ts",
+     "snippet": "        case 'read':\n            return { Unread: 0 };\n        case 'unread':\n            return { Unread: 1 };",
+     "way": "unread filter is Unread: 1"
+    },
+    {
+     "path": "applications/mail/src/app/logic/elements/elementsSelectors.ts",
+     "snippet": "                if (bypassFilter.includes(element.ID || '')) {\n                    return true;\n                }\n                const elementUnread = isUnread(element, labelID);\n                return filter.Unread ? elementUnread : !elementUnread;",
+     "way": "bypassFilter keeps otherwise-filtered elements visible; truthy Unread filter selects unread elements"
+    },
+    {
+     "path": "applications/mail/src/app/hooks/optimistic/useOptimisticMarkAs.ts",
+     "snippet": "            // When changing the read / unread status of an element\n            // We want them to stay on the current filter even if it doesn't match the filter anymore\n            // So we manually update the elements cache to mark these ids to bypass the filter logic",
+     "way": "mark-as changes that no longer match the current filter are intentionally bypassed"
+    }
+   ]
+  },
+  {
+   "behavior": "getElementsToBypassFilter(elements, MARK_AS_STATUS.READ, undefined) returns { elementsToBypass: [], elementsToRemove: [] }",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if (unreadFilter === undefined)",
+   "gold_value": "{ elementsToBypass: [], elementsToRemove: [] }",
+   "codebase_value": "Unread === undefined means no unread filter; totals and URL serialization omit unread filtering, so bypass is a no-op for this choice.",
+   "why": "Live code uniquely treats undefined Unread as no unread/read filter and does not apply bypass accounting, matching gold's empty bypass and remove lists.",
+   "precedents": [
+    {
+     "path": "applications/mail/src/app/helpers/mailboxUrl.ts",
+     "snippet": "export const filterToString = (filter: Filter): string | undefined =>\n    filter.Unread === undefined ? undefined : filter.Unread === 0 ? 'read' : 'unread';",
+     "way": "undefined Unread serializes as no unread/read filter"
+    },
+    {
+     "path": "applications/mail/src/app/logic/elements/helpers/elementTotal.ts",
+     "snippet": "    if (unreadFilter === undefined) {\n        return count.Total || 0;\n    }\n    if (unreadFilter > 0) {",
+     "way": "undefined unreadFilter uses total count without bypassFilterCount"
+    },
+    {
+     "path": "applications/mail/src/app/logic/elements/elementsSelectors.ts",
+     "snippet": "        return expectedPageLength(page, dynamicTotal, isFilter(params.filter) ? bypassFilter.length : 0);",
+     "way": "when no filter is active, bypassFilter length is not applied"
+    }
+   ]
+  },
+  {
+   "behavior": "getElementsToBypassFilter(elements, MARK_AS_STATUS.UNREAD, undefined) returns { elementsToBypass: [], elementsToRemove: [] }",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return { elementsToBypass: [], elementsToRemove: [] };",
+   "gold_value": "{ elementsToBypass: [], elementsToRemove: [] }",
+   "codebase_value": "Unread === undefined means no unread filter; totals and URL serialization omit unread filtering, so bypass is a no-op for this choice.",
+   "why": "Live code uniquely treats undefined Unread as no unread/read filter and does not apply bypass accounting, matching gold's empty bypass and remove lists.",
+   "precedents": [
+    {
+     "path": "applications/mail/src/app/helpers/mailboxUrl.ts",
+     "snippet": "export const filterToString = (filter: Filter): string | undefined =>\n    filter.Unread === undefined ? undefined : filter.Unread === 0 ? 'read' : 'unread';",
+     "way": "undefined Unread serializes as no unread/read filter"
+    },
+    {
+     "path": "applications/mail/src/app/logic/elements/helpers/elementTotal.ts",
+     "snippet": "    if (unreadFilter === undefined) {\n        return count.Total || 0;\n    }\n    if (unreadFilter > 0) {",
+     "way": "undefined unreadFilter uses total count without bypassFilterCount"
+    },
+    {
+     "path": "applications/mail/src/app/logic/elements/elementsSelectors.ts",
+     "snippet": "        return expectedPageLength(page, dynamicTotal, isFilter(params.filter) ? bypassFilter.length : 0);",
+     "way": "when no filter is active, bypassFilter length is not applied"
+    }
+   ]
+  }
+ ]
+}

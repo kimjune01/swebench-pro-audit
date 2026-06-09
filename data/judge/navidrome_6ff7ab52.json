@@ -1,10 +1,10 @@
 {
  "case": "navidrome_6ff7ab52",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 5,
  "n_covered": 3,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -26,7 +26,8 @@
    "covering_prose": null,
    "gold_anchor": "cFormat = trc.TargetFormat",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "When explicit bitrate 160 is requested with a player MaxBitRate and a transcoding default present, selectTranscodingOptions returns bitrate 160.",
@@ -40,7 +41,11 @@
    "covering_prose": null,
    "gold_anchor": "cFormat = trc.TargetFormat",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

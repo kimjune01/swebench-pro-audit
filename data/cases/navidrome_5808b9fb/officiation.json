@@ -1,0 +1,36 @@
+{
+ "slug": "navidrome_5808b9fb",
+ "repo": "navidrome/navidrome",
+ "base": "5808b9fb718eaec4d0e72f02bebb811ca7bc8ca0",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "Validation failures are returned as *rest.ValidationError.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "err := &rest.ValidationError{Errors: map[string]string{}}",
+   "gold_value": "*rest.ValidationError with Errors: map[string]string{}",
+   "codebase_value": null,
+   "why": "The live production tree has no comparable server-side field-validation precedent returning rest.ValidationError or any Errors map, so the exact error type is an unstated free choice.",
+   "precedents": []
+  },
+  {
+   "behavior": "Each single-field validation failure in the tested scenarios contains exactly one entry in Errors.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if len(err.Errors) > 0 {",
+   "gold_value": "Each tested single-field failure yields exactly one Errors entry.",
+   "codebase_value": "One validation entry is recorded per failing field, so a single-field failure yields one entry.",
+   "why": "The only live field-validation collection pattern records one keyed entry for each failed field, which matches gold's one-entry result for single-field failures.",
+   "precedents": [
+    {
+     "path": "ui/src/layout/Login.js",
+     "snippet": "const validateLogin = useCallback(\n    (values) => {\n      const errors = {}\n      if (!values.username) {\n        errors.username = translate('ra.validation.required')\n      }\n      if (!values.password) {\n        errors.password = translate('ra.validation.required')\n      }\n      return errors\n    },\n    [translate]\n  )",
+     "way": "Field validation accumulates one error property per failing field."
+    }
+   ]
+  }
+ ]
+}

@@ -1,10 +1,10 @@
 {
  "case": "internetarchive_ddbbdd64",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 9,
  "n_covered": 7,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 1,
  "rows": [
   {
@@ -26,14 +26,16 @@
    "covering_prose": null,
    "gold_anchor": "date = a['date']",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For an author with `birth_date` and `death_date`, `add_db_name` mutates the author to include `db_name` as name, a space, birth date, hyphen, death date, e.g. `Smith, John 1895-1964`.",
    "covering_prose": null,
    "gold_anchor": "date = a.get('birth_date', '') + '-' + a.get('death_date', '')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling `add_db_name({})` does not raise and leaves the record unchanged as `{}`.",
@@ -77,5 +79,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

@@ -1,21 +1,36 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- navidrome_6ff7ab52
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- navidrome_6ff7ab52
 
 - instance_id: `instance_navidrome__navidrome-6c6223f2f9db2c8c253e0d40a192e3519c9037d1`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `navidrome/navidrome` @ `6ff7ab52f4`
 
-## The graded behavior
-When explicit bitrate 160 is requested and no explicit format is requested, with active transcoding configuration target "oga", selectTranscodingOptions returns format "oga".
-- test assertion: [`hidden_test.diff`#L21](hidden_test.diff#L21) `Expect(format).To(Equal("oga"))`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** When an explicit bitrate is requested but no format is requested, the active transcoding configuration's TargetFormat is used.  gold: [`gold.diff`#L56](gold.diff#L56) `cFormat = trc.TargetFormat`
-- **R2 (prose-faithful alternative):** When only an explicit bitrate is requested, a from-prose engineer could apply the bitrate without selecting the active transcoding configuration's format unless the prose explicitly says to do so.
+- **When no explicit bitrate is requested and a player with MaxBitRate is present, selectTranscodingOptions returns the active transcoding configuration format "oga".** -- gold `oga` matches codebase `active transcoding TargetFormat`. All live comparable production code found derives the implicit format from the active transcoding TargetFormat, and gold's "oga" is that TargetFormat in the hidden test.
+1. `core/media_streamer.go` -- Use trc.TargetFormat as the format when request format is empty and transcoding exists.
+   ```
+   format, bitRate := "", 0
+   	if trc, hasDefault := request.TranscodingFrom(ctx); hasDefault {
+   		format = trc.TargetFormat
+   		bitRate = trc.DefaultBitRate
+   
+   		if p, ok := request.PlayerFrom(ctx); ok && p.MaxBitRate > 0 && p.MaxBitRate < bitRate {
+   			bitRate = p.MaxBitRate
+   		}
+   ```
+- **When explicit bitrate 160 is requested and no explicit format is requested, with active transcoding configuration target "oga", selectTranscodingOptions returns format "oga".** -- gold `oga` matches codebase `active transcoding TargetFormat`. The base code separates format selection from bitrate selection, and every live comparable implicit-format path uses the active transcoding TargetFormat, matching gold's "oga".
+1. `core/media_streamer.go` -- With empty reqFormat, use trc.TargetFormat before applying requested bitrate separately.
+   ```
+   func determineFormatAndBitRate(ctx context.Context, srcBitRate int, reqFormat string, reqBitRate int) (string, int) {
+   	if reqFormat != "" {
+   		return reqFormat, reqBitRate
+   	}
+   
+   	format, bitRate := "", 0
+   	if trc, hasDefault := request.TranscodingFrom(ctx); hasDefault {
+   		format = trc.TargetFormat
+   		bitRate = trc.DefaultBitRate
+   ```
 
-## Status: HYPOTHESIS
-Class `codebase` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-R2 can return a non-"oga" format, so it fails the assertion that format equals "oga".
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

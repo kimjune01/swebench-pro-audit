@@ -1,10 +1,10 @@
 {
  "case": "internetarchive_2edaf728",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 11,
  "n_covered": 7,
- "n_gap": 4,
+ "n_gap": 0,
  "n_out_of_scope": 1,
  "rows": [
   {
@@ -12,7 +12,8 @@
    "covering_prose": null,
    "gold_anchor": "raise PublicationYearTooOld(publication_year)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "validate_record(rec, True) returns None for publish_date '1499' instead of raising a too-old publication year error.",
@@ -26,14 +27,16 @@
    "covering_prose": null,
    "gold_anchor": "raise PublishedInFutureYear(publication_year)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "validate_record(rec, False) raises IndependentlyPublished when publishers is ['Independently Published'].",
    "covering_prose": null,
    "gold_anchor": "raise IndependentlyPublished",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "validate_record(rec, True) returns None when publishers is ['Independently Published'] instead of raising an independently-published error.",
@@ -47,7 +50,8 @@
    "covering_prose": null,
    "gold_anchor": "raise SourceNeedsISBN",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "validate_record(rec, True) returns None when source_records is ['bwb:bwb_id'] and isbn_10 is empty instead of raising a missing-ISBN error.",
@@ -91,5 +95,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 4,
+ "officiated": true
 }

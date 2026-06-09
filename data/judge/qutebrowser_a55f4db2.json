@@ -1,10 +1,10 @@
 {
  "case": "qutebrowser_a55f4db2",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 3,
  "n_covered": 2,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,7 +12,8 @@
    "covering_prose": null,
    "gold_anchor": "if split[0] in config.val.url.searchengines:",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "For input `test path-search`, the constructed query is exactly `q=path-search`.",
@@ -28,5 +29,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 1,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

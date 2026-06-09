@@ -1,0 +1,64 @@
+{
+ "slug": "future-architect_61c39637",
+ "repo": "future-architect/vuls",
+ "base": "61c39637f2f3809e1b5dad05f0c57c799dce1587",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Cvss3Scores returns Type DebianSecurityTracker for the DebianSecurityTracker input entry.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "Type: ctype,",
+   "gold_value": "Type: ctype",
+   "codebase_value": "Type: ctype",
+   "why": "The live severity-derived Cvss3Scores path already includes DebianSecurityTracker in the ctype list and appends Type: ctype, so gold matches the only comparable codebase pattern.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "for _, ctype := range []CveContentType{Debian, DebianSecurityTracker, Ubuntu, UbuntuAPI, Amazon, Trivy, GitHub, WpScan} {\n\t\tif conts, found := v.CveContents[ctype]; found {\n\t\t\tfor _, cont := range conts {\n\t\t\t\tif cont.Cvss3Severity != \"\" {\n\t\t\t\t\tvalues = append(values, CveContentCvss{\n\t\t\t\t\t\tType: ctype,",
+     "way": "severity-derived CveContents entries preserve the iterated source ctype as CveContentCvss.Type"
+    }
+   ]
+  },
+  {
+   "behavior": "Cvss3Scores returns Cvss Type CVSS3 for the DebianSecurityTracker severity-derived score.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "Type:                 CVSS3,",
+   "gold_value": "Type:                 CVSS3",
+   "codebase_value": "Type: CVSS3",
+   "why": "The live severity-derived Cvss3Scores constructor sets Cvss.Type to CVSS3 for all listed CveContents types, including DebianSecurityTracker, matching gold.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "values = append(values, CveContentCvss{\n\t\t\t\t\t\tType: ctype,\n\t\t\t\t\t\tValue: Cvss{\n\t\t\t\t\t\t\tType:                 CVSS3,\n\t\t\t\t\t\t\tScore:                severityToCvssScoreRoughly(cont.Cvss3Severity),",
+     "way": "severity-derived Cvss3Scores entries use nested Cvss.Type CVSS3"
+    }
+   ]
+  },
+  {
+   "behavior": "Cvss3Scores marks the DebianSecurityTracker severity-derived score as CalculatedBySeverity true.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "CalculatedBySeverity: true,",
+   "gold_value": "CalculatedBySeverity: true",
+   "codebase_value": "CalculatedBySeverity: true",
+   "why": "Every live severity-derived Cvss3Scores construction sets CalculatedBySeverity to true, and gold follows that convention.",
+   "precedents": [
+    {
+     "path": "models/vulninfos_test.go",
+     "snippet": "Value: Cvss{\n\t\t\t\t\t\t\tType:                 CVSS3,\n\t\t\t\t\t\t\tScore:                severityToCvssScoreRoughly(cont.Cvss3Severity),\n\t\t\t\t\t\t\tCalculatedBySeverity: true,\n\t\t\t\t\t\t\tSeverity:             strings.ToUpper(cont.Cvss3Severity),",
+     "way": "severity-derived Cvss3Scores entries mark CalculatedBySeverity true"
+    },
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "values = append(values, CveContentCvss{\n\t\t\t\tType: \"Vendor\",\n\t\t\t\tValue: Cvss{\n\t\t\t\t\tType:                 CVSS3,\n\t\t\t\t\tScore:                score,\n\t\t\t\t\tCalculatedBySeverity: true,\n\t\t\t\t\tSeverity:             strings.ToUpper(adv.Severity),",
+     "way": "advisory severity-derived Cvss3Scores entries also mark CalculatedBySeverity true"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,127 @@
+{
+ "slug": "protonmail_8f58c5dd",
+ "repo": "protonmail/webclients",
+ "base": "8f58c5dd5ea6e1b87a8ea6786d99f3eb7014a7b6",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "For a valid minimal persisted session, the returned object includes blob: ''.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return persistedSession;",
+   "gold_value": "''",
+   "codebase_value": "''",
+   "why": "The live persisted-session parser normalizes missing blob exactly to '', which matches the gold return value from getPersistedSessions().",
+   "precedents": [
+    {
+     "path": "packages/shared/lib/authentication/persistedSessionStorage.ts",
+     "snippet": "            blob: parsedValue.blob || '',",
+     "way": "Missing/falsy parsedValue.blob is normalized to empty string."
+    }
+   ]
+  },
+  {
+   "behavior": "For a valid minimal persisted session, the returned object includes isSubUser: false.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return persistedSession;",
+   "gold_value": "false",
+   "codebase_value": "false",
+   "why": "The live persisted-session parser normalizes missing isSubUser exactly to false, which matches the gold return value from getPersistedSessions().",
+   "precedents": [
+    {
+     "path": "packages/shared/lib/authentication/persistedSessionStorage.ts",
+     "snippet": "            isSubUser: parsedValue.isSubUser || false,",
+     "way": "Missing/falsy parsedValue.isSubUser is normalized to false."
+    }
+   ]
+  },
+  {
+   "behavior": "For a valid minimal persisted session, the returned object includes payloadType: 'default'.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return persistedSession;",
+   "gold_value": "'default'",
+   "codebase_value": "'default'",
+   "why": "The live persisted-session parser assigns payloadType 'default' for non-offline persisted sessions, which matches the gold return value from getPersistedSessions().",
+   "precedents": [
+    {
+     "path": "packages/shared/lib/authentication/persistedSessionStorage.ts",
+     "snippet": "                : { payloadType: 'default' }),",
+     "way": "A persisted session without offlineKeySalt is normalized to payloadType 'default'."
+    }
+   ]
+  },
+  {
+   "behavior": "For a valid minimal persisted session, the returned object includes payloadVersion: 1.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return persistedSession;",
+   "gold_value": "1",
+   "codebase_value": "1",
+   "why": "The live persisted-session parser normalizes missing payloadVersion exactly to 1, which matches the gold return value from getPersistedSessions().",
+   "precedents": [
+    {
+     "path": "packages/shared/lib/authentication/persistedSessionStorage.ts",
+     "snippet": "            payloadVersion: parsedValue.payloadVersion || 1,",
+     "way": "Missing/falsy parsedValue.payloadVersion is normalized to 1."
+    }
+   ]
+  },
+  {
+   "behavior": "For a valid minimal persisted session without persistedAt, the returned object includes persistedAt: 0.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return persistedSession;",
+   "gold_value": "0",
+   "codebase_value": "0",
+   "why": "The live persisted-session parser normalizes missing persistedAt exactly to 0, which matches the gold return value from getPersistedSessions().",
+   "precedents": [
+    {
+     "path": "packages/shared/lib/authentication/persistedSessionStorage.ts",
+     "snippet": "            persistedAt: parsedValue.persistedAt || 0,",
+     "way": "Missing/falsy parsedValue.persistedAt is normalized to 0."
+    }
+   ]
+  },
+  {
+   "behavior": "For a valid minimal persisted session, the returned object includes persistent: true.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return persistedSession;",
+   "gold_value": "true",
+   "codebase_value": "true",
+   "why": "The live persisted-session parser explicitly defaults missing persistent to true for old behavior, which matches the gold return value from getPersistedSessions().",
+   "precedents": [
+    {
+     "path": "packages/shared/lib/authentication/persistedSessionStorage.ts",
+     "snippet": "            persistent: typeof parsedValue.persistent === 'boolean' ? parsedValue.persistent : true, // Default to true (old behavior)",
+     "way": "Missing non-boolean parsedValue.persistent is normalized to true."
+    }
+   ]
+  },
+  {
+   "behavior": "For a valid minimal persisted session, the returned object includes trusted: false.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return persistedSession;",
+   "gold_value": "false",
+   "codebase_value": "false",
+   "why": "The live persisted-session parser normalizes missing trusted exactly to false, which matches the gold return value from getPersistedSessions().",
+   "precedents": [
+    {
+     "path": "packages/shared/lib/authentication/persistedSessionStorage.ts",
+     "snippet": "            trusted: parsedValue.trusted || false,",
+     "way": "Missing/falsy parsedValue.trusted is normalized to false."
+    }
+   ]
+  }
+ ]
+}

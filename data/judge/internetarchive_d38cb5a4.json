@@ -19,14 +19,19 @@
    "covering_prose": null,
    "gold_anchor": "edition['languages'].append(saved_language)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "For xml expectation `zweibchersatir01horauoft_marc.xml`, `languages` is exactly `[\"ger\", \"lat\"]` in that order instead of only `[\"ger\"]`.",
    "covering_prose": null,
    "gold_anchor": "edition['languages'].append(saved_language)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

@@ -1,0 +1,125 @@
+{
+ "slug": "navidrome_257ccc5f",
+ "repo": "navidrome/navidrome",
+ "base": "257ccc5f4323bb2f39e09fa903546edf7cdf370a",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "On a successful walkDirTree run, errC does not receive nil or any other error value.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "if err != nil {",
+   "gold_value": "send only non-nil errors; on success errC receives no value",
+   "codebase_value": null,
+   "why": "Live production code uses both nil-sentinel completion and non-nil-only error-channel conventions.",
+   "precedents": [
+    {
+     "path": "scanner/tag_scanner.go",
+     "snippet": "walkerError := make(chan error)\ngo func() {\n\terr := walkDirTree(ctx, s.rootFolder, results)\n\tif err != nil {\n\t\tlog.Error(\"There were errors reading directories from filesystem\", err)\n\t}\n\twalkerError <- err\n\tlog.Debug(\"Finished reading directories from filesystem\", \"elapsed\", time.Since(start))\n}()\nreturn results, walkerError",
+     "way": "sends the returned error value on completion, including nil on success"
+    },
+    {
+     "path": "scanner/tag_scanner.go",
+     "snippet": "go func() {\n\tdefer close(outputChannel)\n\tdefer close(errorChannel)\n\n\tfor s := range ReadOrDone(ctx, inputChannel) {\n\t\tif err := sem1.Acquire(ctx, 1); err != nil {\n\t\t\tif !errors.Is(err, context.Canceled) {\n\t\t\t\tlog.Error(ctx, \"Failed to acquire semaphore\", err)\n\t\t\t}\n\t\t\tbreak\n\t\t}\n\n\t\tgo func(s In) {\n\t\t\tdefer sem1.Release(1)\n\n\t\t\tresult, err := fn(ctx, s)\n\t\t\tif err != nil {\n\t\t\t\tif !errors.Is(err, context.Canceled) {\n\t\t\t\t\terrorChannel <- err\n\t\t\t\t}\n\t\t\t} else {\n\t\t\t\toutputChannel <- result\n\t\t\t}\n\t\t}(s)",
+     "way": "sends only non-nil errors and closes the error channel on completion"
+    }
+   ]
+  },
+  {
+   "behavior": "walkDirTree reports the root directory stats under the absolute baseDir path.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "dir := filepath.Clean(filepath.Join(rootPath, currentFolder))",
+   "gold_value": "filepath.Clean(filepath.Join(rootPath, currentFolder)) yielding the supplied absolute baseDir for currentFolder \".\"",
+   "codebase_value": "filepath.Clean(currentFolder) with walkDirTree starting currentFolder at rootFolder, so the root stats Path is the supplied root folder path",
+   "why": "The existing walker records the root under the caller-supplied root path, and gold preserves that when switching to fs.FS-relative traversal.",
+   "precedents": [
+    {
+     "path": "scanner/walk_dir_tree.go",
+     "snippet": "func walkDirTree(ctx context.Context, rootFolder string, results walkResults) error {\n\terr := walkFolder(ctx, rootFolder, rootFolder, results)\n\tif err != nil {\n\t\tlog.Error(ctx, \"Error loading directory tree\", err)\n\t}\n\tclose(results)\n\treturn err\n}",
+     "way": "starts traversal with currentFolder equal to the supplied rootFolder"
+    },
+    {
+     "path": "scanner/walk_dir_tree.go",
+     "snippet": "dir := filepath.Clean(currentFolder)\nlog.Trace(ctx, \"Found directory\", \"dir\", dir, \"audioCount\", stats.AudioFilesCount,\n\t\"images\", stats.Images, \"hasPlaylist\", stats.HasPlaylist)\nstats.Path = dir",
+     "way": "stores the cleaned current folder path as stats.Path"
+    }
+   ]
+  },
+  {
+   "behavior": "isDirOrSymlinkToDir returns false for regular files.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return false, nil",
+   "gold_value": "return false, nil",
+   "codebase_value": "return false, nil",
+   "why": "The live implementation already makes the exact regular-file classification that gold keeps.",
+   "precedents": [
+    {
+     "path": "scanner/walk_dir_tree.go",
+     "snippet": "if dirEnt.Type()&os.ModeSymlink == 0 {\n\treturn false, nil\n}",
+     "way": "regular non-symlink files are classified as not directories without error"
+    }
+   ]
+  },
+  {
+   "behavior": "isDirIgnored returns true when a folder contains a .ndignore file.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "_, err := fs.Stat(fsys, filepath.Join(baseDir, dirEnt.Name(), consts.SkipScanFile))",
+   "gold_value": "ignore when fs.Stat of filepath.Join(baseDir, dirEnt.Name(), consts.SkipScanFile) succeeds, with consts.SkipScanFile equal to \".ndignore\"",
+   "codebase_value": "ignore when os.Stat of filepath.Join(baseDir, name, consts.SkipScanFile) succeeds, with consts.SkipScanFile equal to \".ndignore\"",
+   "why": "The base scanner already ignores directories containing the configured .ndignore file.",
+   "precedents": [
+    {
+     "path": "scanner/walk_dir_tree.go",
+     "snippet": "_, err := os.Stat(filepath.Join(baseDir, name, consts.SkipScanFile))\nreturn err == nil",
+     "way": "presence of the skip-scan file makes the directory ignored"
+    },
+    {
+     "path": "consts/consts.go",
+     "snippet": "I18nFolder   = \"i18n\"\nSkipScanFile = \".ndignore\"",
+     "way": "the skip-scan filename is .ndignore"
+    }
+   ]
+  },
+  {
+   "behavior": "isDirIgnored returns true when a folder name starts with a single dot.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if strings.HasPrefix(dirEnt.Name(), \".\") && !strings.HasPrefix(dirEnt.Name(), \"..\") {",
+   "gold_value": "strings.HasPrefix(name, \".\") && !strings.HasPrefix(name, \"..\") returns true",
+   "codebase_value": "strings.HasPrefix(name, \".\") && !strings.HasPrefix(name, \"..\") returns true",
+   "why": "The live directory-ignore rule uses the same single-dot hidden-folder predicate as gold.",
+   "precedents": [
+    {
+     "path": "scanner/walk_dir_tree.go",
+     "snippet": "name := dirEnt.Name()\nif strings.HasPrefix(name, \".\") && !strings.HasPrefix(name, \"..\") {\n\treturn true\n}",
+     "way": "single-dot-prefixed directory names are ignored"
+    }
+   ]
+  },
+  {
+   "behavior": "isDirIgnored returns false when a folder name starts with ellipses.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if strings.HasPrefix(dirEnt.Name(), \".\") && !strings.HasPrefix(dirEnt.Name(), \"..\") {",
+   "gold_value": "strings.HasPrefix(name, \".\") && !strings.HasPrefix(name, \"..\") evaluates false for an ellipses-prefixed name",
+   "codebase_value": "strings.HasPrefix(name, \".\") && !strings.HasPrefix(name, \"..\") evaluates false for an ellipses-prefixed name",
+   "why": "The live code explicitly comments that ellipses-starting album folders are allowed and implements that exception.",
+   "precedents": [
+    {
+     "path": "scanner/walk_dir_tree.go",
+     "snippet": "// allows Album folders for albums which e.g. start with ellipses\nname := dirEnt.Name()\nif strings.HasPrefix(name, \".\") && !strings.HasPrefix(name, \"..\") {\n\treturn true\n}",
+     "way": "ellipses-prefixed directory names are allowed by excluding names that start with two dots from the hidden-folder rule"
+    }
+   ]
+  }
+ ]
+}

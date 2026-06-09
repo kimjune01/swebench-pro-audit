@@ -1,10 +1,10 @@
 {
  "case": "flipt-io_6fd0f9e2",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 17,
  "n_covered": 15,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -40,7 +40,8 @@
    "covering_prose": null,
    "gold_anchor": "return \"oci\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "NewSource accepts a logger, OCI store, and WithPollInterval(time.Second), returns a non-nil Source and nil error.",
@@ -110,7 +111,8 @@
    "covering_prose": null,
    "gold_anchor": "defer close(ch)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "A later Source.Get with no new digest returns the existing current snapshot rather than rebuilding a new one.",
@@ -126,5 +128,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

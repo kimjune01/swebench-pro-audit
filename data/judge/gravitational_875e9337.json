@@ -1,10 +1,10 @@
 {
  "case": "gravitational_875e9337",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 11,
  "n_covered": 8,
- "n_gap": 3,
+ "n_gap": 0,
  "n_out_of_scope": 7,
  "rows": [
   {
@@ -117,21 +117,27 @@
    "covering_prose": null,
    "gold_anchor": "KeyRing:         gcpKeyring,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "The unused AWS KMS ARN in newTestPack uses config.AWSKMS.AWSRegion and config.AWSKMS.AWSAccount rather than local environment variable values.",
    "covering_prose": null,
    "gold_anchor": "AWSAccount: awsKMSAccount,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "The unused AWS KMS metadata in newTestPack uses config.AWSKMS.AWSAccount and config.AWSKMS.AWSRegion rather than local environment variable values.",
    "covering_prose": null,
    "gold_anchor": "AWSRegion:  awsKMSRegion,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 3,
+ "officiated": true
 }

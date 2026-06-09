@@ -5,18 +5,22 @@ abstract: >-
   A preregistered determinacy audit of all 728 public SWE-bench Pro tasks. Each task is
   labeled for whether the behavior the hidden test grades is pinned by what a solver
   actually receives (the prose: problem + requirements + interface) plus the repository
-  source. The claimable result is two-tier: a mechanical spine of 36 tasks (4.9%) provable
-  from committed receipts with no methodological buy-in (grep-certified absent constants,
-  officially-graded prose-faithful alternative patches, a hand-verified prose clause), plus
-  29 two-expert splits (4.0%) under the two-expert standard — cases where two world-class
-  engineers, given only prose and source, would both write a requirement-faithful
-  implementation the hidden test splits, proven on a prose-plurality or source-plurality
-  axis. Splits are two-model adversarially verified: codex constructs the existence proof,
-  an independent cross-family refuter (Claude opus) tries to kill it (29 of 41 survive), and
-  a symmetric advocate pass over the determined cases recovers no missed splits
-  (Cohen's kappa = 0.52). Three KNOWN_BAD gold-fails-grader defects and at least one
-  KNOWN_MISMATCH (prose describes one feature, gold and test grade another) are recorded
-  separately. Verdicts are mechanical and re-derivable from per-case receipts.
+  source. The decisive evidence is the repository itself: a codebase-determinacy sweep
+  settles each prose-silent graded behavior against grep-verified live precedents at the
+  base commit — one codebase way and gold matches it is determined-codebase (78 tasks, not
+  a defect); one way and gold pins a different value is misdetermined; two or more live ways
+  is codebase-plural; no precedent and an absent constant is airtight. The claimable result
+  is two-tier: a mechanical spine of 83 tasks (11.4%) provable from committed receipts by
+  grep with no methodological buy-in (absent constants, contradicted conventions, multi-way
+  choices, officially-graded prose-faithful alternative patches, a hand-verified clause),
+  plus 26 two-expert reading-judgment splits (3.6%, cumulative 15.0%) where the prose itself
+  licenses two faithful readings the hidden test splits. The prose-plurality splits are
+  two-model adversarially verified: GPT-5.5 constructs the existence proof, an independent
+  cross-family refuter (Claude opus) tries to kill it, a symmetric advocate pass recovers no
+  missed splits (Cohen's kappa = 0.52); the grep-mechanical tiers need no such pass. Three
+  KNOWN_BAD gold-fails-grader defects and at least one KNOWN_MISMATCH (prose describes one
+  feature, gold and test grade another) are recorded separately. Verdicts are mechanical and
+  re-derivable from per-case receipts.
 type: dataset
 authors:
   - family-names: Kim

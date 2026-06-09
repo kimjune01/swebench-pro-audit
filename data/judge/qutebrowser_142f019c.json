@@ -1,10 +1,10 @@
 {
  "case": "qutebrowser_142f019c",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 18,
  "n_covered": 15,
- "n_gap": 3,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -54,7 +54,8 @@
    "covering_prose": null,
    "gold_anchor": "python_suffixes.update(mimetypes.guess_all_extensions(mime))",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "extra_suffixes_workaround([\"image/*\"]) returns {\".jpg\", \".jpe\", \".png\"}.",
@@ -75,7 +76,8 @@
    "covering_prose": null,
    "gold_anchor": "return super().chooseFiles(mode, old_files, accepted_mimetypes)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "WebEnginePage.chooseFiles passes the final accepted MIME types/extensions as the third positional argument to parent chooseFiles.",
@@ -117,7 +119,8 @@
    "covering_prose": null,
    "gold_anchor": "accepted_mimetypes = list(accepted_mimetypes) + list(extra_suffixes)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "For chooseFiles with [\"image/*\"], parent chooseFiles receives a list whose set is {\"image/*\", \".jpg\", \".jpe\", \".png\"}.",
@@ -133,5 +136,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 2,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

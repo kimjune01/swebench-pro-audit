@@ -1,0 +1,36 @@
+{
+ "slug": "future-architect_f1c78e42",
+ "repo": "future-architect/vuls",
+ "base": "f1c78e42a22aaefe3aa816c0ebd47a845850b856",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "GetEOL reports Oracle Linux 6 standard support not ended at 2021-01-06 23:59:59 UTC.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "StandardSupportUntil: time.Date(2021, 3, 1, 23, 59, 59, 0, time.UTC),",
+   "gold_value": "StandardSupportUntil: time.Date(2021, 3, 1, 23, 59, 59, 0, time.UTC)",
+   "codebase_value": "StandardSupportUntil: time.Date(2021, 3, 1, 23, 59, 59, 0, time.UTC)",
+   "why": "The base code already encodes the exact Oracle Linux 6 StandardSupportUntil value that gold relies on.",
+   "precedents": [
+    {
+     "path": "cwe/en.go",
+     "snippet": "\"6\": {\n\t\t\t\tStandardSupportUntil: time.Date(2021, 3, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t\tExtendedSupportUntil: time.Date(2024, 3, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t},",
+     "way": "Oracle Linux 6 standard support ends at 2021-03-01 23:59:59 UTC"
+    }
+   ]
+  },
+  {
+   "behavior": "GetEOL reports Oracle Linux 9 standard support not ended at 2021-01-06 23:59:59 UTC.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "StandardSupportUntil: time.Date(2032, 6, 1, 23, 59, 59, 0, time.UTC),",
+   "gold_value": "StandardSupportUntil: time.Date(2032, 6, 1, 23, 59, 59, 0, time.UTC)",
+   "codebase_value": null,
+   "why": "The live Oracle EOL map has entries only through Oracle Linux 8 and no production code fixes the Oracle Linux 9 standard-support cutoff.",
+   "precedents": []
+  }
+ ]
+}

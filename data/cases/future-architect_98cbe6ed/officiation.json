@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_98cbe6ed",
+ "repo": "future-architect/vuls",
+ "base": "98cbe6ed837ce5983ddcb138f5c1577b9b7cf2bf",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "parseApkInstalledList parses `apk list --installed` package lines and ignores preceding WARNING lines that do not match the package-list format.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "for _, match := range re.FindAllStringSubmatch(stdout, -1) {",
+   "gold_value": "ignore nonmatching WARNING lines while parsing matching package-list records",
+   "codebase_value": "skip warning/noise lines and continue parsing package output",
+   "why": "Live package-output parsers consistently skip warning/noise lines, and the gold implementation matches that convention by only iterating regex-matching package rows.",
+   "precedents": [
+    {
+     "path": "scanner/alpine.go",
+     "snippet": "\t\tif len(ss) < 3 {\n\t\t\tif strings.Contains(ss[0], \"WARNING\") {\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\treturn nil, xerrors.Errorf(\"Failed to parse apk info -v: %s\", line)\n\t\t}",
+     "way": "Alpine package parsing skips WARNING lines that do not fit the normal package format."
+    },
+    {
+     "path": "scanner/suse.go",
+     "snippet": "\t\tif line == \"\" || strings.Contains(line, \"S | Repository\") || strings.Contains(line, \"--+----------------\") || warnRepoPattern.MatchString(line) {\n\t\t\tcontinue\n\t\t}",
+     "way": "SUSE package update parsing skips warning/header/noise lines before parsing package rows."
+    }
+   ]
+  }
+ ]
+}

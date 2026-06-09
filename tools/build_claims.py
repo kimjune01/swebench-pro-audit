@@ -53,7 +53,7 @@ def receipts(slug, wf, r2=False):
 
 
 def collect():
-    rows = {"airtight": [], "graded-patch": [], "hand": [], "two-expert": []}
+    rows = {"airtight": [], "misdetermined": [], "codebase-plural": [], "graded-patch": [], "hand": [], "two-expert": []}
     for d in sorted(CASES.iterdir()):
         w = d / "AMBIGUITY_WITNESS.md"
         if not w.exists():
@@ -68,16 +68,22 @@ def collect():
         if klass == "airtight":
             claim = first_after(t, "The graded behavior")
             rows["airtight"].append((d.name, iid, "absent-constant", claim, w.name))
+        elif klass == "misdetermined":
+            claim = first_after(t, "The graded behavior")
+            rows["misdetermined"].append((d.name, iid, "codebase determines X, gold pins Y", claim, w.name))
+        elif klass == "codebase-plural":
+            claim = (first_after(t, "The underdetermined choice") or first_after(t, "The graded behavior"))
+            rows["codebase-plural"].append((d.name, iid, "codebase makes the choice >=2 live ways", claim, w.name))
         elif klass == "prose-affirmative":
             graded = (d / "r2_grade.json").exists()
             tier = "graded-patch" if graded else "hand"
             r1 = field(t, r"- \*\*R1") or first_after(t, "The graded behavior")
             claim = field(t, r"R2 takes the alternative reading") or r1
             rows[tier].append((d.name, iid, "prose-faithful R2 rejected" if graded else "prose clause", claim[:240], w.name))
-        elif klass in ("plural-both", "prose-plural", "codebase-plural"):
+        elif klass in ("plural-both", "prose-plural"):
             te = caj.get("two_expert", {})
             rf = caj.get("refutation", {})
-            axis = {"plural-both": "prose+source", "prose-plural": "prose", "codebase-plural": "source"}[klass]
+            axis = {"plural-both": "prose+source", "prose-plural": "prose"}[klass]
             claim = (te.get("why") or caj.get("choice", ""))[:300]
             ref = f"opus refuter: survived ({rf.get('axis_attacked','-')})" if rf.get("verdict") == "survives" else "—"
             rows["two-expert"].append((d.name, iid, axis, claim, w.name, ref))
@@ -102,6 +108,16 @@ def main():
         "", "| case | instance | graded behavior (the pinned constant) | receipts |", "|---|---|---|---|",
     ]
     for slug, iid, _ax, claim, wf in r["airtight"]:
+        out.append(f"| `{slug}` | `{short_iid(iid)}` | {cell(claim)} | {receipts(slug, wf)} |")
+    out += ["",
+            f"### misdetermined ({len(r['misdetermined'])}) — codebase determines one value (grep), gold/test pin a different one",
+            "", "| case | instance | graded behavior (codebase determines X, gold pins Y) | receipts |", "|---|---|---|---|"]
+    for slug, iid, _ax, claim, wf in r["misdetermined"]:
+        out.append(f"| `{slug}` | `{short_iid(iid)}` | {cell(claim)} | {receipts(slug, wf)} |")
+    out += ["",
+            f"### codebase-plural ({len(r['codebase-plural'])}) — the codebase makes the choice ≥2 live ways (grep), the test pins one",
+            "", "| case | instance | the underdetermined choice | receipts |", "|---|---|---|---|"]
+    for slug, iid, _ax, claim, wf in r["codebase-plural"]:
         out.append(f"| `{slug}` | `{short_iid(iid)}` | {cell(claim)} | {receipts(slug, wf)} |")
     out += ["",
             f"### graded-patch ({len(r['graded-patch'])}) — prose-faithful R2, blind-rater-confirmed, official grader rejects it",

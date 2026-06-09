@@ -1,10 +1,10 @@
 {
  "case": "element-hq_7a33818b",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 11,
  "n_covered": 10,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 1,
  "rows": [
   {
@@ -54,7 +54,8 @@
    "covering_prose": null,
    "gold_anchor": "selectedDeviceCount={selectedDeviceIds.length}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "After clicking two device checkboxes, both corresponding checkbox inputs are checked.",
@@ -91,5 +92,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

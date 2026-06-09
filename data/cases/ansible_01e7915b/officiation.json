@@ -1,0 +1,19 @@
+{
+ "slug": "ansible_01e7915b",
+ "repo": "ansible/ansible",
+ "base": "01e7915b0a9778a934a0f0e9e9d110dbef7e31ec",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "Collection requirement normalization returns a mapping whose `collections` entry contains directly supplied collection requirements.",
+   "status": "AMBIGUOUS",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "requirements['collections'].append((name, requirement or '*', None))",
+   "gold_value": "requirements['collections'].append((name, requirement or '*', None))",
+   "codebase_value": "plain list of collection requirement tuples",
+   "why": "The live direct-argument normalization path returns a list, while gold changes that same path to populate a mapping under `collections`.",
+   "precedents": []
+  }
+ ]
+}

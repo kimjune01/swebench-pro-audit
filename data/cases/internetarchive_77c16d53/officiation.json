@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_77c16d53",
+ "repo": "internetarchive/openlibrary",
+ "base": "77c16d530b4d5c0f33d68bead2c6b329aee9b996",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "The appended JSON segment is formatted with Python json.dumps default spaces, producing `{\"authors\": [{\"name\": \"Author 1\"}]}` rather than another valid JSON serialization.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "json.dumps(self.extra_fields, cls=InfogamiThingEncoder)",
+   "gold_value": "{\"authors\": [{\"name\": \"Author 1\"}]}",
+   "codebase_value": null,
+   "why": "Live production code uses both default json.dumps spacing and explicit compact JSON separators, so the gold whitespace is one valid local pattern but not uniquely determined.",
+   "precedents": [
+    {
+     "path": "openlibrary/core/edits.py",
+     "snippet": "        json_comment = json.dumps({\"comments\": comments})",
+     "way": "default json.dumps formatting with spaces after separators"
+    },
+    {
+     "path": "openlibrary/coverstore/code.py",
+     "snippet": "        return json.dumps(\n            [] if isinstance(value, Nothing) else value,\n            separators=(\",\", \":\"),\n            cls=NothingEncoder,\n        )",
+     "way": "compact JSON formatting with separators=(\",\", \":\")"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,96 @@
+{
+ "slug": "internetarchive_2edaf728",
+ "repo": "internetarchive/openlibrary",
+ "base": "2edaf7283cf5d934e0d60aac0cc89eff7ceb6e43",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "validate_record(rec, False) raises PublicationYearTooOld for publish_date '1499'.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "raise PublicationYearTooOld(publication_year)",
+   "gold_value": "raise PublicationYearTooOld(publication_year) for publication_year 1499 when override_validation is False",
+   "codebase_value": "publication_year_too_old returns True for publish_year < 1500, and validate_publication_year raises PublicationYearTooOld when not override",
+   "why": "Live validation code has a single cutoff, publish_year < 1500, and gold uses that same choice for 1499.",
+   "precedents": [
+    {
+     "path": "openlibrary/catalog/add_book/__init__.py",
+     "snippet": "def validate_publication_year(publication_year: int, override: bool = False) -> None:\n    \"\"\"\n    Validate the publication year and raise an error if:\n        - the book is published prior to 1500 AND override = False; or\n        - the book is published in a future year.\n    \"\"\"\n    if publication_year_too_old(publication_year) and not override:\n        raise PublicationYearTooOld(publication_year)\n    elif published_in_future_year(publication_year):\n        raise PublishedInFutureYear(publication_year)",
+     "way": "raises PublicationYearTooOld when publication_year_too_old is true and override is false"
+    },
+    {
+     "path": "openlibrary/catalog/utils/__init__.py",
+     "snippet": "def publication_year_too_old(publish_year: int) -> bool:\n    \"\"\"\n    Returns True if publish_year is < 1,500 CE, and False otherwise.\n    \"\"\"\n    return publish_year < 1500",
+     "way": "publication years below 1500 are too old"
+    }
+   ]
+  },
+  {
+   "behavior": "validate_record(rec, False) raises PublishedInFutureYear for publish_date '3000'.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "raise PublishedInFutureYear(publication_year)",
+   "gold_value": "raise PublishedInFutureYear(publication_year) for publication_year 3000 when override_validation is False",
+   "codebase_value": "published_in_future_year returns True when publish_year > datetime.datetime.now().year, and validate_publication_year raises PublishedInFutureYear",
+   "why": "Live validation code makes future-year rejection one way, and gold matches it for year 3000.",
+   "precedents": [
+    {
+     "path": "openlibrary/catalog/add_book/__init__.py",
+     "snippet": "def validate_publication_year(publication_year: int, override: bool = False) -> None:\n    \"\"\"\n    Validate the publication year and raise an error if:\n        - the book is published prior to 1500 AND override = False; or\n        - the book is published in a future year.\n    \"\"\"\n    if publication_year_too_old(publication_year) and not override:\n        raise PublicationYearTooOld(publication_year)\n    elif published_in_future_year(publication_year):\n        raise PublishedInFutureYear(publication_year)",
+     "way": "raises PublishedInFutureYear when published_in_future_year is true"
+    },
+    {
+     "path": "openlibrary/catalog/utils/__init__.py",
+     "snippet": "def published_in_future_year(publish_year: int) -> bool:\n    \"\"\"\n    Look to see if a book is published in a future year as compared to the\n    current year.\n\n    Some import sources have publication dates in a future year, and the\n    likelihood is high that this is bad data. So we don't want to import these.\n    \"\"\"\n    return publish_year > datetime.datetime.now().year",
+     "way": "publication years greater than the current year are future years"
+    }
+   ]
+  },
+  {
+   "behavior": "validate_record(rec, False) raises IndependentlyPublished when publishers is ['Independently Published'].",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "raise IndependentlyPublished",
+   "gold_value": "raise IndependentlyPublished when publishers contains 'Independently Published' and override_validation is False",
+   "codebase_value": "publisher.casefold() == \"independently published\" causes validate_record to raise IndependentlyPublished",
+   "why": "The live helper has exactly one comparable publisher-matching rule, and gold pins the same exception for that value.",
+   "precedents": [
+    {
+     "path": "openlibrary/catalog/add_book/__init__.py",
+     "snippet": "    if is_independently_published(rec.get('publishers', [])):\n        raise IndependentlyPublished",
+     "way": "validate_record raises IndependentlyPublished when the helper detects an independently published publisher"
+    },
+    {
+     "path": "openlibrary/catalog/utils/__init__.py",
+     "snippet": "def is_independently_published(publishers: list[str]) -> bool:\n    \"\"\"\n    Return True if publishers contains (casefolded) \"independently published\".\n    \"\"\"\n    return any(\n        publisher.casefold() == \"independently published\" for publisher in publishers\n    )",
+     "way": "casefolded publisher text exactly equal to independently published is rejected"
+    }
+   ]
+  },
+  {
+   "behavior": "validate_record(rec, False) raises SourceNeedsISBN when source_records is ['amazon:amazon_id'] and isbn_10 is empty.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "raise SourceNeedsISBN",
+   "gold_value": "raise SourceNeedsISBN for source_records ['amazon:amazon_id'] with empty isbn_10 when override_validation is False",
+   "codebase_value": "sources_requiring_isbn = ['amazon', 'bwb']; source_records are split at ':' and records lacking isbn_10/isbn_13 raise SourceNeedsISBN",
+   "why": "The live helper has a single production list of ISBN-requiring source prefixes including amazon, and gold matches that choice.",
+   "precedents": [
+    {
+     "path": "openlibrary/catalog/add_book/__init__.py",
+     "snippet": "    if needs_isbn_and_lacks_one(rec):\n        raise SourceNeedsISBN",
+     "way": "validate_record raises SourceNeedsISBN when the ISBN requirement helper is true"
+    },
+    {
+     "path": "openlibrary/catalog/utils/__init__.py",
+     "snippet": "    def needs_isbn(rec: dict) -> bool:\n        sources_requiring_isbn = ['amazon', 'bwb']\n        return any(\n            record.split(\":\")[0] in sources_requiring_isbn\n            for record in rec.get('source_records', [])\n        )\n\n    def has_isbn(rec: dict) -> bool:\n        return any(rec.get('isbn_10', []) or rec.get('isbn_13', []))\n\n    return needs_isbn(rec) and not has_isbn(rec)",
+     "way": "amazon and bwb source prefixes require an ISBN, and empty isbn_10/isbn_13 means the record lacks one"
+    }
+   ]
+  }
+ ]
+}

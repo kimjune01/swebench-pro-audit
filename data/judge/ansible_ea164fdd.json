@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 31,
  "n_covered": 26,
- "n_gap": 5,
+ "n_gap": 3,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,7 +12,8 @@
    "covering_prose": null,
    "gold_anchor": "pat = '(no )*system default switchport$'",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Facts gathering requests both `show running-config all | incl 'system default switchport'` and `show running-config | section ^interface`.",
@@ -47,14 +48,16 @@
    "covering_prose": null,
    "gold_anchor": "L3_enabled = True if re.search('N[356]K', platform) else False",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "Reserved management interface `mgmt0` is excluded from generated `nxos_interfaces` commands even when present in gathered config.",
    "covering_prose": null,
    "gold_anchor": "interfaces_facts = remove_rsvd_interfaces(interfaces_facts)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Facts include existing interfaces that have only default state in `default_interfaces`, and desired entries for those names are added to the comparison set as `{'name': <name>}`.",
@@ -194,14 +197,16 @@
    "covering_prose": null,
    "gold_anchor": "for h in have:",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`state: deleted` with a playbook config resets only named existing objects and ignores desired attributes other than name.",
    "covering_prose": null,
    "gold_anchor": "obj_in_want = search_obj_in_list(h['name'], want, 'name')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Merged state updates only differences between desired and current interface state, such as changed description, speed, duplex, mtu, ip_forward, fabric forwarding, mode, or enabled state.",
@@ -224,5 +229,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

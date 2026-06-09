@@ -12,7 +12,8 @@
    "covering_prose": null,
    "gold_anchor": "const cli = useContext(MatrixClientContext);",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "Pinned banner plain text preview is resolved asynchronously, so tests wait with findByText for \"First pinned message\" / \"Second pinned message\" / \"Third pinned message\" / \"Fourth pinned message\".",
@@ -40,7 +41,8 @@
    "covering_prose": null,
    "gold_anchor": "title={preview}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "Plain text pinned messages render without a type prefix.",
@@ -98,5 +100,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

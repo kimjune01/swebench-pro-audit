@@ -1,0 +1,62 @@
+{
+ "slug": "internetarchive_cb6c053e",
+ "repo": "internetarchive/openlibrary",
+ "base": "cb6c053eba49facef557ee95d587f6d6c93caf3a",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "For list key `/people/anand-test/lists/OL1L`, `get_owner()` returns a non-None user object whose `.key` is `/people/anand-test`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if match := web.re_compile(r\"(/people/[^/]+)/lists/OL\\d+L\").match(self.key):",
+   "gold_value": "`/people/anand-test` is accepted because the owner regex uses `[^/]+` for the username segment.",
+   "codebase_value": "List owner and list route parsing use `[^/]+` for the `/people/...` segment, which accepts hyphenated usernames.",
+   "why": "The base production List.get_owner implementation and list route patterns already accept hyphenated usernames, matching gold's `[^/]+` parser.",
+   "precedents": [
+    {
+     "path": "openlibrary/core/models.py",
+     "snippet": "    def get_owner(self):\n        if match := web.re_compile(r\"(/people/[^/]+)/lists/OL\\d+L\").match(self.key):\n            key = match.group(1)\n            return self._site.get(key)",
+     "way": "owner extraction accepts any non-slash `/people/` segment"
+    },
+    {
+     "path": "openlibrary/plugins/openlibrary/lists.py",
+     "snippet": "class lists_edit(delegate.page):\n    path = r\"(/people/[^/]+)?(/lists/OL\\d+L)/edit\"",
+     "way": "list URL routing accepts any non-slash `/people/` segment"
+    },
+    {
+     "path": "openlibrary/plugins/upstream/account.py",
+     "snippet": "        if not re.match('^[A-Za-z0-9-_]{3,20}$', username):\n            return _('Username may only contain numbers and letters')",
+     "way": "account username validation includes `-` as an allowed username character"
+    }
+   ]
+  },
+  {
+   "behavior": "For list key `/people/anand_test/lists/OL1L`, `get_owner()` returns a non-None user object whose `.key` is `/people/anand_test`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if match := web.re_compile(r\"(/people/[^/]+)/lists/OL\\d+L\").match(self.key):",
+   "gold_value": "`/people/anand_test` is accepted because the owner regex uses `[^/]+` for the username segment.",
+   "codebase_value": "List owner and list route parsing use `[^/]+` for the `/people/...` segment, which accepts underscore usernames.",
+   "why": "The base production List.get_owner implementation and related list-key parsing already accept underscore usernames, matching gold's `[^/]+` parser.",
+   "precedents": [
+    {
+     "path": "openlibrary/core/models.py",
+     "snippet": "    def get_owner(self):\n        if match := web.re_compile(r\"(/people/[^/]+)/lists/OL\\d+L\").match(self.key):\n            key = match.group(1)\n            return self._site.get(key)",
+     "way": "owner extraction accepts any non-slash `/people/` segment"
+    },
+    {
+     "path": "openlibrary/data/dump.py",
+     "snippet": "        if key.startswith(\"/people/\") and not re.match(\n            r\"^/people/[^/]+/lists/OL\\d+L$\", key\n        ):",
+     "way": "dump filtering treats list keys as valid with any non-slash `/people/` segment"
+    },
+    {
+     "path": "openlibrary/plugins/upstream/account.py",
+     "snippet": "        if not re.match('^[A-Za-z0-9-_]{3,20}$', username):\n            return _('Username may only contain numbers and letters')",
+     "way": "account username validation includes `_` as an allowed username character"
+    }
+   ]
+  }
+ ]
+}

@@ -75,7 +75,8 @@
    "covering_prose": null,
    "gold_anchor": "append_match(rule, params['destination_ports'], 'multiport')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "The exact command includes `['-i', 'eth0']` after the multiport destination-port arguments.",
@@ -98,5 +99,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

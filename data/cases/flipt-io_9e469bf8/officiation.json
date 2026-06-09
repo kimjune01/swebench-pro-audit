@@ -1,0 +1,223 @@
+{
+ "slug": "flipt-io_9e469bf8",
+ "repo": "flipt-io/flipt",
+ "base": "9e469bf851c6519616c2b220f946138b71fab047",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "`DefaultConfig()` sets authentication session token lifetime to `24 * time.Hour`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "TokenLifetime: 24 * time.Hour",
+   "gold_value": "24 * time.Hour",
+   "codebase_value": "24h decoded to 24 * time.Hour",
+   "why": "Production config defaults set token_lifetime exactly to 24h, which decodes to the gold duration.",
+   "precedents": [
+    {
+     "path": "internal/config/authentication.go",
+     "snippet": "v.SetDefault(\"authentication\", map[string]any{\n\t\t\"required\": false,\n\t\t\"session\": map[string]any{\n\t\t\t\"token_lifetime\": \"24h\",\n\t\t\t\"state_lifetime\": \"10m\",\n\t\t},\n\t\t\"methods\": methods,\n\t})",
+     "way": "token_lifetime defaults to 24h"
+    }
+   ]
+  },
+  {
+   "behavior": "`DefaultConfig()` sets authentication session state lifetime to `10 * time.Minute`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "StateLifetime: 10 * time.Minute",
+   "gold_value": "10 * time.Minute",
+   "codebase_value": "10m decoded to 10 * time.Minute",
+   "why": "Production config defaults set state_lifetime exactly to 10m, which decodes to the gold duration.",
+   "precedents": [
+    {
+     "path": "internal/config/authentication.go",
+     "snippet": "v.SetDefault(\"authentication\", map[string]any{\n\t\t\"required\": false,\n\t\t\"session\": map[string]any{\n\t\t\t\"token_lifetime\": \"24h\",\n\t\t\t\"state_lifetime\": \"10m\",\n\t\t},\n\t\t\"methods\": methods,\n\t})",
+     "way": "state_lifetime defaults to 10m"
+    }
+   ]
+  },
+  {
+   "behavior": "`DefaultConfig()` sets cache TTL to `1 * time.Minute`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "TTL:     1 * time.Minute",
+   "gold_value": "1 * time.Minute",
+   "codebase_value": "1 * time.Minute",
+   "why": "Production cache defaults set ttl exactly to 1 * time.Minute.",
+   "precedents": [
+    {
+     "path": "internal/config/cache.go",
+     "snippet": "v.SetDefault(\"cache\", map[string]any{\n\t\t\"enabled\": false,\n\t\t\"backend\": CacheMemory,\n\t\t\"ttl\":     1 * time.Minute,",
+     "way": "cache ttl defaults to 1 * time.Minute"
+    }
+   ]
+  },
+  {
+   "behavior": "`DefaultConfig()` sets memory cache eviction interval to `5 * time.Minute`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "EvictionInterval: 5 * time.Minute",
+   "gold_value": "5 * time.Minute",
+   "codebase_value": "5 * time.Minute",
+   "why": "Production cache defaults set memory eviction_interval exactly to 5 * time.Minute.",
+   "precedents": [
+    {
+     "path": "internal/config/cache.go",
+     "snippet": "\"memory\": map[string]any{\n\t\t\t\"enabled\":           false, // deprecated (see below)\n\t\t\t\"eviction_interval\": 5 * time.Minute,\n\t\t},",
+     "way": "memory eviction_interval defaults to 5 * time.Minute"
+    }
+   ]
+  },
+  {
+   "behavior": "`DefaultConfig()` sets audit buffer capacity to `2`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "Capacity:    2",
+   "gold_value": "2",
+   "codebase_value": "2",
+   "why": "Production audit defaults set buffer capacity exactly to 2.",
+   "precedents": [
+    {
+     "path": "internal/config/audit.go",
+     "snippet": "\"buffer\": map[string]any{\n\t\t\t\"capacity\":     2,\n\t\t\t\"flush_period\": \"2m\",\n\t\t},",
+     "way": "audit buffer capacity defaults to 2"
+    }
+   ]
+  },
+  {
+   "behavior": "`DefaultConfig()` sets audit buffer flush period to `2 * time.Minute`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "FlushPeriod: 2 * time.Minute",
+   "gold_value": "2 * time.Minute",
+   "codebase_value": "2m decoded to 2 * time.Minute",
+   "why": "Production audit defaults set flush_period exactly to 2m, which decodes to the gold duration.",
+   "precedents": [
+    {
+     "path": "internal/config/audit.go",
+     "snippet": "\"buffer\": map[string]any{\n\t\t\t\"capacity\":     2,\n\t\t\t\"flush_period\": \"2m\",\n\t\t},",
+     "way": "audit buffer flush_period defaults to 2m"
+    }
+   ]
+  },
+  {
+   "behavior": "`DefaultConfig()` sets database URL to `\"file:/var/opt/flipt/flipt.db\"`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "URL:                       \"file:/var/opt/flipt/flipt.db\"",
+   "gold_value": "\"file:/var/opt/flipt/flipt.db\"",
+   "codebase_value": "\"file:/var/opt/flipt/flipt.db\"",
+   "why": "Production database defaults set db.url exactly to the gold URL when connection fields are absent.",
+   "precedents": [
+    {
+     "path": "internal/config/database.go",
+     "snippet": "if setDefaultURL {\n\t\tv.SetDefault(\"db.url\", \"file:/var/opt/flipt/flipt.db\")\n\t}",
+     "way": "db.url defaults to file:/var/opt/flipt/flipt.db"
+    }
+   ]
+  },
+  {
+   "behavior": "`DefaultConfig()` sets database max idle connections to `2`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "MaxIdleConn:               2",
+   "gold_value": "2",
+   "codebase_value": "2",
+   "why": "Production database defaults set max_idle_conn exactly to 2.",
+   "precedents": [
+    {
+     "path": "internal/config/database.go",
+     "snippet": "func (c *DatabaseConfig) setDefaults(v *viper.Viper) {\n\tv.SetDefault(\"db\", map[string]any{\n\t\t\"max_idle_conn\": 2,\n\t})",
+     "way": "db max_idle_conn defaults to 2"
+    }
+   ]
+  },
+  {
+   "behavior": "`DefaultConfig()` sets database prepared statements enabled to `true`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "PreparedStatementsEnabled: true",
+   "gold_value": "true",
+   "codebase_value": "true",
+   "why": "Production database defaults set prepared_statements_enabled exactly to true.",
+   "precedents": [
+    {
+     "path": "internal/config/database.go",
+     "snippet": "v.SetDefault(\"db.prepared_statements_enabled\", true)",
+     "way": "db prepared_statements_enabled defaults to true"
+    }
+   ]
+  },
+  {
+   "behavior": "`DefaultConfig()` sets tracing exporter defaults including Jaeger host and port from `jaeger.DefaultUDPSpanServerHost` and `jaeger.DefaultUDPSpanServerPort`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "Host: jaeger.DefaultUDPSpanServerHost",
+   "gold_value": "TracingJaeger with jaeger.DefaultUDPSpanServerHost/jaeger.DefaultUDPSpanServerPort",
+   "codebase_value": "TracingJaeger with host \"localhost\" and port 6831",
+   "why": "Production tracing defaults pin the same Jaeger endpoint values that the gold expresses through Jaeger constants.",
+   "precedents": [
+    {
+     "path": "internal/config/tracing.go",
+     "snippet": "v.SetDefault(\"tracing\", map[string]any{\n\t\t\"enabled\":  false,\n\t\t\"exporter\": TracingJaeger,\n\t\t\"jaeger\": map[string]any{\n\t\t\t\"enabled\": false, // deprecated (see below)\n\t\t\t\"host\":    \"localhost\",\n\t\t\t\"port\":    6831,\n\t\t},",
+     "way": "tracing defaults to Jaeger at localhost:6831"
+    }
+   ]
+  },
+  {
+   "behavior": "The advanced YAML fixture loads audit log sink enabled `true`, file `\"/path/to/logs.txt\"`, capacity `10`, and flush period `3 * time.Minute`.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "flush_period: 3m",
+   "gold_value": "enabled true, file \"/path/to/logs.txt\", capacity 10, flush_period 3m",
+   "codebase_value": null,
+   "why": "Live production code defines audit defaults and validation ranges but does not determine this exact advanced fixture combination.",
+   "precedents": []
+  },
+  {
+   "behavior": "Storage local configuration fields are pointer-shaped in expected loaded configs, using `Local: &Local{...}`.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "Local *Local      `json:\"local,omitempty\" mapstructure:\"local,omitempty\"`",
+   "gold_value": "Local *Local",
+   "codebase_value": "Local Local",
+   "why": "The live StorageConfig uses a value field for Local, while gold pins a pointer field.",
+   "precedents": [
+    {
+     "path": "internal/config/storage.go",
+     "snippet": "type StorageConfig struct {\n\tType  StorageType `json:\"type,omitempty\" mapstructure:\"type\"`\n\tLocal Local       `json:\"local,omitempty\" mapstructure:\"local\"`\n\tGit   Git         `json:\"git,omitempty\" mapstructure:\"git\"`\n}",
+     "way": "storage local and git subconfigs are value-shaped"
+    }
+   ]
+  },
+  {
+   "behavior": "Storage git configuration fields are pointer-shaped in expected loaded configs, using `Git: &Git{...}`.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "Git   *Git        `json:\"git,omitempty\" mapstructure:\"git,omitempty\"`",
+   "gold_value": "Git *Git",
+   "codebase_value": "Git Git",
+   "why": "The live StorageConfig uses a value field for Git, while gold pins a pointer field.",
+   "precedents": [
+    {
+     "path": "internal/config/storage.go",
+     "snippet": "type StorageConfig struct {\n\tType  StorageType `json:\"type,omitempty\" mapstructure:\"type\"`\n\tLocal Local       `json:\"local,omitempty\" mapstructure:\"local\"`\n\tGit   Git         `json:\"git,omitempty\" mapstructure:\"git\"`\n}",
+     "way": "storage local and git subconfigs are value-shaped"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,140 @@
+{
+ "slug": "gravitational_cdae4e3e",
+ "repo": "gravitational/teleport",
+ "base": "cdae4e3ee28eedb6b58c1989676c6523ba6dadcc",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "When terminal size cannot be determined during go test, the table uses default width 80 for cases with a matching truncated column.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "width = 80",
+   "gold_value": "width = 80",
+   "codebase_value": "width = 80",
+   "why": "The base production tsh helper already uses exactly width 80 as the fallback, and gold preserves that value.",
+   "precedents": [
+    {
+     "path": "tool/tsh/tsh.go",
+     "snippet": "width, _, err := term.GetSize(int(os.Stdin.Fd()))\n\tif err != nil {\n\t\twidth = 80\n\t}",
+     "way": "On terminal-size failure, the live truncated-column helper falls back to width 80."
+    }
+   ]
+  },
+  {
+   "behavior": "With columns column1, column2, column3 and one 30-character cell in each column, truncating column2 produces exactly four newline-split rows.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "t.AddRow(row)",
+   "gold_value": "t.AddRow(row) after t.AddColumn(column), producing 4 strings after strings.Split(..., \"\\n\") for one headed data row",
+   "codebase_value": "t.AddRow(row) after t.AddColumn(column), with AsBuffer printing header, separator, body rows, each ending in newline",
+   "why": "The live table renderer and helper determine the one-row headed output shape that splits into four strings.",
+   "precedents": [
+    {
+     "path": "tool/tsh/tsh.go",
+     "snippet": "for _, column := range columns {\n\t\tif column.Title == truncatedColumn {\n\t\t\tcolumn.MaxCellLength = width - totalLen - len(\"... \")\n\t\t}\n\t\tt.AddColumn(column)\n\t}\n\n\tfor _, row := range rows {\n\t\tt.AddRow(row)\n\t}\n\treturn t",
+     "way": "The live helper adds all configured columns first, then adds each provided row exactly once."
+    },
+    {
+     "path": "lib/asciitable/table.go",
+     "snippet": "fmt.Fprintf(writer, template+\"\\n\", colh...)\n\t\tfmt.Fprintf(writer, template+\"\\n\", cols...)",
+     "way": "Headed tables print a header line and separator line with trailing newlines."
+    },
+    {
+     "path": "lib/asciitable/table.go",
+     "snippet": "for _, row := range t.rows {\n\t\tvar rowi []interface{}\n\t\tfor i := range row {\n\t\t\tcell, addFootnote := t.truncateCell(i, row[i])\n\t\t\tif addFootnote {\n\t\t\t\tfootnoteLabels[t.columns[i].FootnoteLabel] = struct{}{}\n\t\t\t}\n\t\t\trowi = append(rowi, cell)\n\t\t}\n\t\tfmt.Fprintf(writer, template+\"\\n\", rowi...)\n\t}",
+     "way": "Each stored body row is printed once with a trailing newline."
+    }
+   ]
+  },
+  {
+   "behavior": "When truncatedColumn is column2, the data row has length exactly 80.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "column.MaxCellLength = width - totalLen - len(\"... \")",
+   "gold_value": "column.MaxCellLength = width - totalLen - len(\"... \")",
+   "codebase_value": "column.MaxCellLength = width - totalLen - len(\"... \")",
+   "why": "The exact remaining-width formula already exists in live production code and gold copies it.",
+   "precedents": [
+    {
+     "path": "tool/tsh/tsh.go",
+     "snippet": "for _, column := range columns {\n\t\tif column.Title == truncatedColumn {\n\t\t\tcolumn.MaxCellLength = width - totalLen - len(\"... \")\n\t\t}\n\t\tt.AddColumn(column)\n\t}",
+     "way": "The live helper gives the designated truncated column all remaining width minus len(\"... \")."
+    }
+   ]
+  },
+  {
+   "behavior": "When truncatedColumn is column2, the complete rendered output rows exactly match: header \"column1                        column2           column3                        \", separator \"------------------------------ ----------------- ------------------------------ \", data \"cell1cell1cell1cell1cell1cell1 cell2cell2cell... cell3cell3cell3cell3cell3cell3 \", and a final empty row.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "t.AddColumn(column)",
+   "gold_value": "columns added in columnOrder with column2 MaxCellLength set by width - totalLen - len(\"... \"), then rendered by AsBuffer with truncated cells as cell[:MaxCellLength] + \"...\"",
+   "codebase_value": "same",
+   "why": "The live helper and renderer determine the same column order, widths, and literal truncation output that the test pins.",
+   "precedents": [
+    {
+     "path": "tool/tsh/tsh.go",
+     "snippet": "for collIndex, colName := range columnOrder {\n\t\tcolumn := asciitable.Column{\n\t\t\tTitle:         colName,\n\t\t\tMaxCellLength: len(colName),\n\t\t}\n\t\tif colName == truncatedColumn { // truncated column is handled separately in next loop\n\t\t\tcolumns = append(columns, column)\n\t\t\tcontinue\n\t\t}",
+     "way": "The live helper preserves columnOrder and defers only the designated truncated column's final width."
+    },
+    {
+     "path": "tool/tsh/tsh.go",
+     "snippet": "if column.MaxCellLength > maxColWidth {\n\t\t\tcolumn.MaxCellLength = maxColWidth\n\t\t\ttotalLen += column.MaxCellLength + 4 // \"...<space>\"\n\t\t} else {\n\t\t\ttotalLen += column.MaxCellLength + 1 // +1 for column separator\n\t\t}\n\t\tcolumns = append(columns, column)",
+     "way": "Non-truncated columns are capped and counted with the same separator/ellipsis accounting used by gold."
+    },
+    {
+     "path": "lib/asciitable/table.go",
+     "snippet": "truncatedCell := fmt.Sprintf(\"%v...\", cell[:maxCellLength])",
+     "way": "Truncated cells append the literal string \"...\" after the retained prefix."
+    }
+   ]
+  },
+  {
+   "behavior": "When truncatedColumn is column3, the data row has length exactly 80.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "column.MaxCellLength = width - totalLen - len(\"... \")",
+   "gold_value": "column.MaxCellLength = width - totalLen - len(\"... \")",
+   "codebase_value": "column.MaxCellLength = width - totalLen - len(\"... \")",
+   "why": "The codebase's live truncated-column helper makes this exact choice one way, and gold matches it.",
+   "precedents": [
+    {
+     "path": "tool/tsh/tsh.go",
+     "snippet": "for _, column := range columns {\n\t\tif column.Title == truncatedColumn {\n\t\t\tcolumn.MaxCellLength = width - totalLen - len(\"... \")\n\t\t}\n\t\tt.AddColumn(column)\n\t}",
+     "way": "The live helper uses the same remaining-width formula regardless of the truncated column's position."
+    }
+   ]
+  },
+  {
+   "behavior": "When truncatedColumn is column3, the complete rendered output rows exactly match: header \"column1                        column2                        column3           \", separator \"------------------------------ ------------------------------ ----------------- \", data \"cell1cell1cell1cell1cell1cell1 cell2cell2cell2cell2cell2cell2 cell3cell3cell... \", and a final empty row.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "t.AddColumn(column)",
+   "gold_value": "columns added in columnOrder with column3 MaxCellLength set by width - totalLen - len(\"... \"), then rendered by AsBuffer with truncated cells as cell[:MaxCellLength] + \"...\"",
+   "codebase_value": "same",
+   "why": "The production helper and renderer already determine this exact last-column truncation layout, and gold matches that behavior.",
+   "precedents": [
+    {
+     "path": "tool/tsh/tsh.go",
+     "snippet": "for collIndex, colName := range columnOrder {\n\t\tcolumn := asciitable.Column{\n\t\t\tTitle:         colName,\n\t\t\tMaxCellLength: len(colName),\n\t\t}\n\t\tif colName == truncatedColumn { // truncated column is handled separately in next loop\n\t\t\tcolumns = append(columns, column)\n\t\t\tcontinue\n\t\t}",
+     "way": "The live helper preserves columnOrder and defers only the designated truncated column's final width."
+    },
+    {
+     "path": "tool/tsh/tsh.go",
+     "snippet": "for _, column := range columns {\n\t\tif column.Title == truncatedColumn {\n\t\t\tcolumn.MaxCellLength = width - totalLen - len(\"... \")\n\t\t}\n\t\tt.AddColumn(column)\n\t}",
+     "way": "The live helper computes the final width for the designated truncated column before adding it to the table."
+    },
+    {
+     "path": "lib/asciitable/table.go",
+     "snippet": "writer := tabwriter.NewWriter(&buffer, 5, 0, 1, ' ', 0)\n\ttemplate := strings.Repeat(\"%v\\t\", len(t.columns))",
+     "way": "The live renderer uses tabwriter with the same padding and tab template that determines the exact visible row spacing."
+    }
+   ]
+  }
+ ]
+}

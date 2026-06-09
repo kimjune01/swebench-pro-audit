@@ -12,14 +12,16 @@
    "covering_prose": null,
    "gold_anchor": "return value + 5",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "When only r128_track_gain is present with value \"-3776\", RGTrackGain() returns -9.75.",
    "covering_prose": null,
    "gold_anchor": "var value = float64(iValue) / 256.0",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "When only r128_track_gain is present with value \"Infinity\", RGTrackGain() returns exactly 0.0.",
@@ -42,5 +44,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

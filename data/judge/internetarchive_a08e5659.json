@@ -1,10 +1,10 @@
 {
  "case": "internetarchive_a08e5659",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 6,
  "n_covered": 4,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -26,14 +26,16 @@
    "covering_prose": null,
    "gold_anchor": "add('printdisabled_s', ';'.join(printdisabled))",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`lending_edition_s` equals `'OL2M'`, the public edition rather than the borrowable edition.",
    "covering_prose": null,
    "gold_anchor": "add('lending_edition_s', re_edition_key.match(best_ed['key']).group(1))",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "Sorted `ia` equals `['foo00bar', 'foo01bar', 'foo02bar']`, so the field contains all three expected OCAIDs regardless of order.",
@@ -49,5 +51,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 1,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

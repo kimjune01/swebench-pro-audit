@@ -1,10 +1,10 @@
 {
  "case": "future-architect_8775b5ef",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 9,
  "n_covered": 6,
- "n_gap": 3,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -33,14 +33,16 @@
    "covering_prose": null,
    "gold_anchor": "scanResult.ServerName = report.ArtifactName",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "For the Struts library-only Trivy report, Family is set to `pseudo` when OS metadata is absent.",
    "covering_prose": null,
    "gold_anchor": "scanResult.Family = constant.ServerTypePseudo",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For the Struts library-only Trivy report, Optional is nil and does not contain `trivy-target`.",
@@ -54,7 +56,8 @@
    "covering_prose": null,
    "gold_anchor": "scanResult.ServerName = report.ArtifactName",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "For the OS-and-library Trivy report, Release is set to `10.2` from OS metadata name.",
@@ -70,5 +73,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 2,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

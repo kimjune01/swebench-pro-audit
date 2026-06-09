@@ -1,0 +1,35 @@
+{
+ "slug": "ansible_0044091a",
+ "repo": "ansible/ansible",
+ "base": "0044091a055dd9cd448f7639a65b7e8cc3dacbf1",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "The multiport tokens appear after `['-j', 'ACCEPT']` and before `['-i', 'eth0']` in the command.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "append_match(rule, params['destination_ports'], 'multiport')",
+   "gold_value": "emit `-m multiport --dports ...` after `-j ACCEPT` and before `-i eth0`",
+   "codebase_value": null,
+   "why": "Live iptables rule construction already places comparable match and port/interface tokens in multiple relative positions, so the gold ordering is not uniquely determined by codebase precedent.",
+   "precedents": [
+    {
+     "path": "lib/ansible/modules/iptables.py",
+     "snippet": "    append_param(rule, params['destination'], '-d', False)\n    append_param(rule, params['match'], '-m', True)\n    append_tcp_flags(rule, params['tcp_flags'], '--tcp-flags')\n    append_param(rule, params['jump'], '-j', False)",
+     "way": "explicit match modules are emitted before the jump and before interface arguments"
+    },
+    {
+     "path": "lib/ansible/modules/iptables.py",
+     "snippet": "    append_param(rule, params['in_interface'], '-i', False)\n    append_param(rule, params['out_interface'], '-o', False)\n    append_param(rule, params['fragment'], '-f', False)\n    append_param(rule, params['set_counters'], '-c', False)\n    append_param(rule, params['source_port'], '--source-port', False)\n    append_param(rule, params['destination_port'], '--destination-port', False)",
+     "way": "port/interface-related rule arguments are emitted after the jump, with interface arguments before port arguments"
+    },
+    {
+     "path": "lib/ansible/modules/iptables.py",
+     "snippet": "    elif params['ctstate']:\n        append_match(rule, params['ctstate'], 'conntrack')\n        append_csv(rule, params['ctstate'], '--ctstate')\n    if 'iprange' in params['match']:",
+     "way": "inferred match modules are emitted later, after jump and after interface arguments"
+    }
+   ]
+  }
+ ]
+}

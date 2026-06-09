@@ -1,26 +1,27 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- internetarchive_34099a36
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- internetarchive_34099a36
 
 - instance_id: `instance_internetarchive__openlibrary-757fcf46c70530739c150c57b37d6375f155dc97-ve8c8d62a2b60610a3c4631f5f23ed866bada9818`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `internetarchive/openlibrary` @ `34099a36bc`
 
-## The graded behavior
-For full_title 'A test full title : subtitle (parens).', expand_record(... )['titles'] must equal exactly ['A test full title : subtitle (parens).', 'a test full title subtitle (parens)', 'test full title : subtitle (parens).', 'test full title subtitle (parens)'] in that order.
-- test assertion: [`hidden_test.diff`](hidden_test.diff) `assert expanded_record['titles'] == [
-        'A test full title : subtitle (parens).',
-        'a test full title subtitle (parens)',
-        'test full title : subtitle (parens).',
-        'test full title subtitle (parens)',
-    ]`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** expand_record delegates title expansion to the existing build_titles behavior, preserving its exact title variants and order.  gold: [`gold.diff`#L154](gold.diff#L154) `expanded_rec = build_titles(rec['full_title'])`
-- **R2 (prose-faithful alternative):** expand_record could generate a prose-faithful list of lowercased normalized title alternatives with and without punctuation in a different order or without retaining the original full_title string.
+- **For full title `A test full title : subtitle (parens).`, `expand_record(... )['titles']` equals exactly `['A test full title : subtitle (parens).', 'a test full title subtitle (parens)', 'test full title : subtitle (parens).', 'test full title subtitle (parens)']` in that order.** -- gold `['A test full title : subtitle (parens).', 'a test full title subtitle (parens)', 'test full title : subtitle (parens).', 'test full title subtitle (parens)']` matches codebase `build_titles(title) initializes titles as [title, normalized_title], then appends leading-article-stripped variants via titles += t2; for this input it yields exactly ['A test full title : subtitle (parens).', 'a test full title subtitle (parens)', 'test full title : subtitle (parens).', 'test full title subtitle (parens)'].`. Live production code already defines this exact comparable title expansion one way, and gold preserves it by delegating expand_record to build_titles(rec['full_title']).
+1. `openlibrary/catalog/merge/merge_marc.py` -- Generate titles as [original title, normalized title], then append stripped-leading-article variants in that order.
+   ```
+   def build_titles(title):
+       """
+       Uses a full title to create normalized and short title versions.
+   
+       :param str title: Full title of an edition
+       :rtype: dict
+       :return: An expanded set of title variations
+       """
+       normalized_title = normalize(title).lower()
+       titles = [title, normalized_title]
+       if title.find(' & ') != -1:
+           t = title.replac
+   ```
 
-## Status: HYPOTHESIS
-Class `codebase` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-R2 fails because the hidden test asserts exact list equality, including the original punctuated title and the specific ordering produced by build_titles.
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

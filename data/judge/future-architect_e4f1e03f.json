@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 32,
  "n_covered": 18,
- "n_gap": 14,
+ "n_gap": 1,
  "n_out_of_scope": 1,
  "rows": [
   {
@@ -40,28 +40,32 @@
    "covering_prose": null,
    "gold_anchor": "case 7.0 <= score:",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "CountGroupBySeverity counts a CVE with Cvss3Score 5.0 as \"Medium\".",
    "covering_prose": null,
    "gold_anchor": "case 4.0 <= score:",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "CountGroupBySeverity counts a CVE with Cvss3Score 2.0 as \"Low\".",
    "covering_prose": null,
    "gold_anchor": "m[\"Low\"]++",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "CountGroupBySeverity counts a CVE with no score as \"Unknown\".",
    "covering_prose": null,
    "gold_anchor": "m[\"Unknown\"]++",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "CountGroupBySeverity prefers MaxCvss3Score before falling back to MaxCvss2Score.",
@@ -96,21 +100,24 @@
    "covering_prose": null,
    "gold_anchor": "func (v VulnInfo) Cvss2Scores() (values []CveContentCvss) {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "Cvss2Scores returns CVSS2 entries in RedHat before Nvd order when both exist.",
    "covering_prose": null,
    "gold_anchor": "order := []CveContentType{RedHatAPI, RedHat, Nvd, Jvn}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "Cvss2Scores skips an entry that has only Cvss3Score and Cvss3Severity but no Cvss2Score or Cvss2Severity.",
    "covering_prose": null,
    "gold_anchor": "if cont.Cvss2Score == 0 && cont.Cvss2Severity == \"\" {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "MaxCvss2Score does not derive a CVSS2 score from an Ubuntu severity-only OVAL entry.",
@@ -124,7 +131,8 @@
    "covering_prose": null,
    "gold_anchor": "if cont.Cvss3Score == 0 && cont.Cvss3Severity == \"\" {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "Cvss3Scores derives an Ubuntu Cvss3Severity \"HIGH\" entry into a CVSS3 score of 8.9 with CalculatedBySeverity true and Severity \"HIGH\".",
@@ -145,7 +153,8 @@
    "covering_prose": null,
    "gold_anchor": "if v3Max.Type != Unknown {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "MaxCvssScore returns a severity-derived CVSS3 score for an Ubuntu Cvss3Severity \"HIGH\" entry with no numeric CVSS scores.",
@@ -187,7 +196,8 @@
    "covering_prose": null,
    "gold_anchor": "return \"None\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "Cvss.Format formats severity-derived scores with an empty Vector using SeverityToCvssScoreRange plus severity text.",
@@ -215,28 +225,35 @@
    "covering_prose": null,
    "gold_anchor": "case \"IMPORTANT\", \"HIGH\":",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "SeverityToCvssScoreRange maps \"MODERATE\" and \"MEDIUM\" severities to \"4.0-6.9\".",
    "covering_prose": null,
    "gold_anchor": "case \"MODERATE\", \"MEDIUM\":",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "SeverityToCvssScoreRange maps \"LOW\" severity to \"0.1-3.9\".",
    "covering_prose": null,
    "gold_anchor": "return \"0.1-3.9\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "SeverityToCvssScoreRange maps unknown or empty severity to \"None\".",
    "covering_prose": null,
    "gold_anchor": "return \"None\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   }
- ]
+ ],
+ "n_misdetermined": 5,
+ "n_determined_codebase": 8,
+ "officiated": true
 }

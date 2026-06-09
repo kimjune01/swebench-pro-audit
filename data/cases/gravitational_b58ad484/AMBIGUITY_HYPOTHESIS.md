@@ -1,21 +1,24 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- gravitational_b58ad484
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- gravitational_b58ad484
 
 - instance_id: `instance_gravitational__teleport-fb0ab2b9b771377a689fd0d0374777c251e58bbf`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `gravitational/teleport` @ `b58ad48464`
 
-## The graded behavior
-NewCircularBuffer(-1) returns a nil buffer as well as an error.
-- test assertion: [`hidden_test.diff`#L36](hidden_test.diff#L36) `require.Nil(t, buff)`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** When size is invalid, NewCircularBuffer returns nil for the buffer and a non-nil error.  gold: [`gold.diff`#L153](gold.diff#L153) `return nil, trace.BadParameter("circular buffer size should be > 0")`
-- **R2 (prose-faithful alternative):** When size is invalid, NewCircularBuffer returns an error, with the buffer return value unspecified by the prose.
+- **NewCircularBuffer(-1) returns a nil buffer.** -- gold `nil buffer; return nil, trace.BadParameter("circular buffer size should be > 0")` matches codebase `nil pointer result on constructor validation failure`. Live constructor precedents at the base commit return nil for the pointer result on validation errors, matching gold's nil buffer choice.
+1. `lib/session/session.go` -- invalid numeric constructor parameter returns nil pointer with error
+   ```
+   func NewTerminalParamsFromUint32(w uint32, h uint32) (*TerminalParams, error) {
+   	if w > maxSize || w < minSize {
+   		return nil, trace.BadParameter("bad width")
+   	}
+   	if h > maxSize || h < minSize {
+   		return nil, trace.BadParameter("bad height")
+   	}
+   	return &TerminalParams{W: int(w), H: int(h)}, nil
+   }
+   ```
 
-## Status: HYPOTHESIS
-Class `airtight` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-An implementation that returns any non-nil buffer alongside the required error fails require.Nil(t, buff).
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

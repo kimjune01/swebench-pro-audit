@@ -1,32 +1,46 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- protonmail_8f58c5dd
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- protonmail_8f58c5dd
 
 - instance_id: `instance_protonmail__webclients-3f22e2172cbdfd7b9abb2b1d8fd80c16d38b4bbe`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `protonmail/webclients` @ `8f58c5dd5e`
 
-## The graded behavior
-For a valid minimal persisted session without persistedAt, the returned object includes persistedAt: 0.
-- test assertion: [`hidden_test.diff`](hidden_test.diff) `expect(result).toEqual({
-            UserID: '1234',
-            UID: 'abcd-1234',
-            blob: '',
-            isSubUser: false,
-            localID: 0,
-            payloadType: 'default',
-            payloadVersion: 1,
-            persistedAt: 0,
-            persistent: true,
-            trusted: false,
-        });`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** The returned persisted session is the normalized getPersistedSessions() object, including a default persistedAt of 0 when storage omitted it.  gold: [`gold.diff`#L182](gold.diff#L182) `return persistedSession;`
-- **R2 (prose-faithful alternative):** A from-prose engineer could return the full valid persisted session data available from storage, including UID and localID, without inventing persistedAt when it was absent.
+- **For a valid minimal persisted session, the returned object includes blob: ''.** -- gold `''` matches codebase `''`. The live persisted-session parser normalizes missing blob exactly to '', which matches the gold return value from getPersistedSessions().
+1. `packages/shared/lib/authentication/persistedSessionStorage.ts` -- Missing/falsy parsedValue.blob is normalized to empty string.
+   ```
+   blob: parsedValue.blob || '',
+   ```
+- **For a valid minimal persisted session, the returned object includes isSubUser: false.** -- gold `false` matches codebase `false`. The live persisted-session parser normalizes missing isSubUser exactly to false, which matches the gold return value from getPersistedSessions().
+1. `packages/shared/lib/authentication/persistedSessionStorage.ts` -- Missing/falsy parsedValue.isSubUser is normalized to false.
+   ```
+   isSubUser: parsedValue.isSubUser || false,
+   ```
+- **For a valid minimal persisted session, the returned object includes payloadType: 'default'.** -- gold `'default'` matches codebase `'default'`. The live persisted-session parser assigns payloadType 'default' for non-offline persisted sessions, which matches the gold return value from getPersistedSessions().
+1. `packages/shared/lib/authentication/persistedSessionStorage.ts` -- A persisted session without offlineKeySalt is normalized to payloadType 'default'.
+   ```
+   : { payloadType: 'default' }),
+   ```
+- **For a valid minimal persisted session, the returned object includes payloadVersion: 1.** -- gold `1` matches codebase `1`. The live persisted-session parser normalizes missing payloadVersion exactly to 1, which matches the gold return value from getPersistedSessions().
+1. `packages/shared/lib/authentication/persistedSessionStorage.ts` -- Missing/falsy parsedValue.payloadVersion is normalized to 1.
+   ```
+   payloadVersion: parsedValue.payloadVersion || 1,
+   ```
+- **For a valid minimal persisted session without persistedAt, the returned object includes persistedAt: 0.** -- gold `0` matches codebase `0`. The live persisted-session parser normalizes missing persistedAt exactly to 0, which matches the gold return value from getPersistedSessions().
+1. `packages/shared/lib/authentication/persistedSessionStorage.ts` -- Missing/falsy parsedValue.persistedAt is normalized to 0.
+   ```
+   persistedAt: parsedValue.persistedAt || 0,
+   ```
+- **For a valid minimal persisted session, the returned object includes persistent: true.** -- gold `true` matches codebase `true`. The live persisted-session parser explicitly defaults missing persistent to true for old behavior, which matches the gold return value from getPersistedSessions().
+1. `packages/shared/lib/authentication/persistedSessionStorage.ts` -- Missing non-boolean parsedValue.persistent is normalized to true.
+   ```
+   persistent: typeof parsedValue.persistent === 'boolean' ? parsedValue.persistent : true, // Default to true (old behavior)
+   ```
+- **For a valid minimal persisted session, the returned object includes trusted: false.** -- gold `false` matches codebase `false`. The live persisted-session parser normalizes missing trusted exactly to false, which matches the gold return value from getPersistedSessions().
+1. `packages/shared/lib/authentication/persistedSessionStorage.ts` -- Missing/falsy parsedValue.trusted is normalized to false.
+   ```
+   trusted: parsedValue.trusted || false,
+   ```
 
-## Status: HYPOTHESIS
-Class `codebase` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-R2 fails because the hidden test requires deep equality with an object containing persistedAt: 0.
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

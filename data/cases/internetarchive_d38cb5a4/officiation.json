@@ -1,0 +1,52 @@
+{
+ "slug": "internetarchive_d38cb5a4",
+ "repo": "internetarchive/openlibrary",
+ "base": "d38cb5a4162aa2942cdb5037dd679f37687b9d4f",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "For bin expectation `zweibchersatir01horauoft_meta.mrc`, `languages` is exactly `[\"ger\", \"lat\"]` in that order instead of only `[\"ger\"]`.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "edition['languages'].append(saved_language)",
+   "gold_value": "[\"ger\", \"lat\"]",
+   "codebase_value": "plural: some production import/list code preserves encounter order by appending, while other production import/list code deduplicates through set/list(set(...)) and does not preserve source order",
+   "why": "The repository has live production precedents for both preserving appended order and discarding order via set deduplication, so it does not uniquely determine the tested language order.",
+   "precedents": [
+    {
+     "path": "openlibrary/plugins/importapi/import_edition_builder.py",
+     "snippet": "def add_list(self, key, val):\n        if key in self.edition_dict:\n            self.edition_dict[key].append(val)\n        else:\n            self.edition_dict[key] = [val]",
+     "way": "preserves encounter order for repeated imported list values by appending"
+    },
+    {
+     "path": "openlibrary/catalog/add_book/__init__.py",
+     "snippet": "for k, vals in rec['identifiers'].items():\n            identifiers[k].extend(vals)\n            identifiers[k] = list(set(identifiers[k]))",
+     "way": "deduplicates list values through a set, so source order is not preserved"
+    }
+   ]
+  },
+  {
+   "behavior": "For xml expectation `zweibchersatir01horauoft_marc.xml`, `languages` is exactly `[\"ger\", \"lat\"]` in that order instead of only `[\"ger\"]`.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "edition['languages'].append(saved_language)",
+   "gold_value": "[\"ger\", \"lat\"]",
+   "codebase_value": "plural: some production import/list code preserves encounter order by appending, while other production import/list code deduplicates through set/list(set(...)) and does not preserve source order",
+   "why": "The repository has live production precedents for both preserving appended order and discarding order via set deduplication, so it does not uniquely determine the tested language order.",
+   "precedents": [
+    {
+     "path": "openlibrary/plugins/importapi/import_edition_builder.py",
+     "snippet": "def add_list(self, key, val):\n        if key in self.edition_dict:\n            self.edition_dict[key].append(val)\n        else:\n            self.edition_dict[key] = [val]",
+     "way": "preserves encounter order for repeated imported list values by appending"
+    },
+    {
+     "path": "openlibrary/catalog/add_book/__init__.py",
+     "snippet": "for k, vals in rec['identifiers'].items():\n            identifiers[k].extend(vals)\n            identifiers[k] = list(set(identifiers[k]))",
+     "way": "deduplicates list values through a set, so source order is not preserved"
+    }
+   ]
+  }
+ ]
+}

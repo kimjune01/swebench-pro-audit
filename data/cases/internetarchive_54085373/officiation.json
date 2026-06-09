@@ -1,0 +1,111 @@
+{
+ "slug": "internetarchive_54085373",
+ "repo": "internetarchive/openlibrary",
+ "base": "540853735859789920caf9ee78a762ebe14f6103",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Batch.get_relpath(\"0008\", \"80\") returns \"covers_0008/covers_0008_80\" with no extension and no size prefix.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return os.path.join(folder, filename)",
+   "gold_value": "covers_0008/covers_0008_80",
+   "codebase_value": "covers_0008/covers_0008_80",
+   "why": "Live archival audit and serving code both construct the full-size archive item/file base as covers_<item> and covers_<item>_<batch> with no size prefix, matching gold.",
+   "precedents": [
+    {
+     "path": "openlibrary/coverstore/archive.py",
+     "snippet": "    for size in sizes:\n        prefix = f\"{size}_\" if size else ''\n        item = f\"{prefix}covers_{group_id:04}\"\n        files = (f\"{prefix}covers_{group_id:04}_{i:02}\" for i in scope)",
+     "way": "Full size uses empty prefix, yielding covers_0008 and covers_0008_80 before extension checking."
+    },
+    {
+     "path": "openlibrary/coverstore/code.py",
+     "snippet": "                prefix = f\"{size.lower()}_\" if size else \"\"\n                pid = \"%010d\" % int(value)\n                item_id = f\"{prefix}covers_{pid[:4]}\"\n                item_tar = f\"{prefix}covers_{pid[:4]}_{pid[4:6]}.tar\"",
+     "way": "Full size uses empty prefix for item and archive filename base."
+    }
+   ]
+  },
+  {
+   "behavior": "Batch.get_relpath(\"0008\", \"80\", size=\"s\") returns \"s_covers_0008/s_covers_0008_80\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "prefix = f\"{size.lower()}_\" if size else \"\"",
+   "gold_value": "s_covers_0008/s_covers_0008_80",
+   "codebase_value": "s_covers_<item_id>/s_covers_<item_id>_<batch_id>",
+   "why": "All live comparable code uses lowercase size plus underscore before covers for sized archive items and files, matching gold for s.",
+   "precedents": [
+    {
+     "path": "openlibrary/coverstore/archive.py",
+     "snippet": "    for size in sizes:\n        prefix = f\"{size}_\" if size else ''\n        item = f\"{prefix}covers_{group_id:04}\"\n        files = (f\"{prefix}covers_{group_id:04}_{i:02}\" for i in scope)",
+     "way": "With size 's', archive audit builds s_covers_0008 and s_covers_0008_80."
+    },
+    {
+     "path": "openlibrary/coverstore/archive.py",
+     "snippet": "        if '-' in name:\n            size = name[len(id + '-') :][0].lower()\n            tarname = size + \"_\" + tarname\n        else:\n            size = \"\"",
+     "way": "Archived small image variants use the lowercase extracted size plus underscore before the covers archive name."
+    },
+    {
+     "path": "openlibrary/coverstore/code.py",
+     "snippet": "                prefix = f\"{size.lower()}_\" if size else \"\"\n                pid = \"%010d\" % int(value)\n                item_id = f\"{prefix}covers_{pid[:4]}\"\n                item_tar = f\"{prefix}covers_{pid[:4]}_{pid[4:6]}.tar\"",
+     "way": "Serving redirects lowercase the requested size and prefix both item and archive name with s_."
+    }
+   ]
+  },
+  {
+   "behavior": "Batch.get_relpath(\"0008\", \"80\", size=\"m\") returns \"m_covers_0008/m_covers_0008_80\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "prefix = f\"{size.lower()}_\" if size else \"\"",
+   "gold_value": "m_covers_0008/m_covers_0008_80",
+   "codebase_value": "m_covers_<item_id>/m_covers_<item_id>_<batch_id>",
+   "why": "All live comparable code uses lowercase size plus underscore before covers for sized archive items and files, matching gold for m.",
+   "precedents": [
+    {
+     "path": "openlibrary/coverstore/archive.py",
+     "snippet": "    for size in sizes:\n        prefix = f\"{size}_\" if size else ''\n        item = f\"{prefix}covers_{group_id:04}\"\n        files = (f\"{prefix}covers_{group_id:04}_{i:02}\" for i in scope)",
+     "way": "With size 'm', archive audit builds m_covers_0008 and m_covers_0008_80."
+    },
+    {
+     "path": "openlibrary/coverstore/archive.py",
+     "snippet": "        if '-' in name:\n            size = name[len(id + '-') :][0].lower()\n            tarname = size + \"_\" + tarname\n        else:\n            size = \"\"",
+     "way": "Archived medium image variants use the lowercase extracted size plus underscore before the covers archive name."
+    },
+    {
+     "path": "openlibrary/coverstore/code.py",
+     "snippet": "                prefix = f\"{size.lower()}_\" if size else \"\"\n                pid = \"%010d\" % int(value)\n                item_id = f\"{prefix}covers_{pid[:4]}\"\n                item_tar = f\"{prefix}covers_{pid[:4]}_{pid[4:6]}.tar\"",
+     "way": "Serving redirects lowercase the requested size and prefix both item and archive name with m_."
+    }
+   ]
+  },
+  {
+   "behavior": "Batch.get_relpath(\"0008\", \"80\", size=\"l\") returns \"l_covers_0008/l_covers_0008_80\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "prefix = f\"{size.lower()}_\" if size else \"\"",
+   "gold_value": "l_covers_0008/l_covers_0008_80",
+   "codebase_value": "l_covers_<item_id>/l_covers_<item_id>_<batch_id>",
+   "why": "All live comparable code uses lowercase size plus underscore before covers for sized archive items and files, matching gold for l.",
+   "precedents": [
+    {
+     "path": "openlibrary/coverstore/archive.py",
+     "snippet": "    for size in sizes:\n        prefix = f\"{size}_\" if size else ''\n        item = f\"{prefix}covers_{group_id:04}\"\n        files = (f\"{prefix}covers_{group_id:04}_{i:02}\" for i in scope)",
+     "way": "With size 'l', archive audit builds l_covers_0008 and l_covers_0008_80."
+    },
+    {
+     "path": "openlibrary/coverstore/archive.py",
+     "snippet": "        if '-' in name:\n            size = name[len(id + '-') :][0].lower()\n            tarname = size + \"_\" + tarname\n        else:\n            size = \"\"",
+     "way": "Archived large image variants use the lowercase extracted size plus underscore before the covers archive name."
+    },
+    {
+     "path": "openlibrary/coverstore/code.py",
+     "snippet": "                prefix = f\"{size.lower()}_\" if size else \"\"\n                pid = \"%010d\" % int(value)\n                item_id = f\"{prefix}covers_{pid[:4]}\"\n                item_tar = f\"{prefix}covers_{pid[:4]}_{pid[4:6]}.tar\"",
+     "way": "Serving redirects lowercase the requested size and prefix both item and archive name with l_."
+    }
+   ]
+  }
+ ]
+}

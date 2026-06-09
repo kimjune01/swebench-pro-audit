@@ -1,10 +1,10 @@
 {
  "case": "element-hq_04bc8fb7",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 28,
  "n_covered": 23,
- "n_gap": 5,
+ "n_gap": 0,
  "n_out_of_scope": 3,
  "rows": [
   {
@@ -47,14 +47,14 @@
    "covering_prose": null,
    "gold_anchor": "<SeekBar playback={playback} />",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase"
   },
   {
    "test": "The rendered `SeekBar` has `type=\"range\"`.",
    "covering_prose": null,
    "gold_anchor": "<SeekBar playback={playback} />",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase"
   },
   {
    "test": "The rendered `SeekBar` has `min=\"0\"`.",
@@ -68,14 +68,14 @@
    "covering_prose": null,
    "gold_anchor": "<SeekBar playback={playback} />",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase"
   },
   {
    "test": "The rendered `SeekBar` has `step=\"0.001\"`.",
    "covering_prose": null,
    "gold_anchor": "<SeekBar playback={playback} />",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase"
   },
   {
    "test": "The rendered `SeekBar` has `value=\"0\"` initially.",
@@ -96,7 +96,7 @@
    "covering_prose": null,
    "gold_anchor": "<SeekBar playback={playback} />",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase"
   },
   {
    "test": "A newly started VoiceBroadcastPlayback reports `durationSeconds` as `0` before receiving chunks.",
@@ -224,5 +224,7 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 5
 }

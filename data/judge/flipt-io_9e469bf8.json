@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 24,
  "n_covered": 11,
- "n_gap": 13,
+ "n_gap": 1,
  "n_out_of_scope": 2,
  "rows": [
   {
@@ -82,70 +82,80 @@
    "covering_prose": null,
    "gold_anchor": "TokenLifetime: 24 * time.Hour",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`DefaultConfig()` sets authentication session state lifetime to `10 * time.Minute`.",
    "covering_prose": null,
    "gold_anchor": "StateLifetime: 10 * time.Minute",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`DefaultConfig()` sets cache TTL to `1 * time.Minute`.",
    "covering_prose": null,
    "gold_anchor": "TTL:     1 * time.Minute",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`DefaultConfig()` sets memory cache eviction interval to `5 * time.Minute`.",
    "covering_prose": null,
    "gold_anchor": "EvictionInterval: 5 * time.Minute",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`DefaultConfig()` sets audit buffer capacity to `2`.",
    "covering_prose": null,
    "gold_anchor": "Capacity:    2",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`DefaultConfig()` sets audit buffer flush period to `2 * time.Minute`.",
    "covering_prose": null,
    "gold_anchor": "FlushPeriod: 2 * time.Minute",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`DefaultConfig()` sets database URL to `\"file:/var/opt/flipt/flipt.db\"`.",
    "covering_prose": null,
    "gold_anchor": "URL:                       \"file:/var/opt/flipt/flipt.db\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`DefaultConfig()` sets database max idle connections to `2`.",
    "covering_prose": null,
    "gold_anchor": "MaxIdleConn:               2",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`DefaultConfig()` sets database prepared statements enabled to `true`.",
    "covering_prose": null,
    "gold_anchor": "PreparedStatementsEnabled: true",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`DefaultConfig()` sets tracing exporter defaults including Jaeger host and port from `jaeger.DefaultUDPSpanServerHost` and `jaeger.DefaultUDPSpanServerPort`.",
    "covering_prose": null,
    "gold_anchor": "Host: jaeger.DefaultUDPSpanServerHost",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "The Load path composes decode hooks from exported `DecodeHooks` plus the experimental-field skip hook.",
@@ -159,7 +169,8 @@
    "covering_prose": null,
    "gold_anchor": "flush_period: 3m",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "The advanced YAML fixture loads tracing exporter `TracingOTLP` and OTLP endpoint `\"localhost:4318\"`.",
@@ -180,14 +191,19 @@
    "covering_prose": null,
    "gold_anchor": "Local *Local      `json:\"local,omitempty\" mapstructure:\"local,omitempty\"`",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "Storage git configuration fields are pointer-shaped in expected loaded configs, using `Git: &Git{...}`.",
    "covering_prose": null,
    "gold_anchor": "Git   *Git        `json:\"git,omitempty\" mapstructure:\"git,omitempty\"`",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   }
- ]
+ ],
+ "n_misdetermined": 2,
+ "n_determined_codebase": 10,
+ "officiated": true
 }

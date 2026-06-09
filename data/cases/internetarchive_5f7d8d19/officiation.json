@@ -1,0 +1,52 @@
+{
+ "slug": "internetarchive_5f7d8d19",
+ "repo": "internetarchive/openlibrary",
+ "base": "5f7d8d190e2f0d837545e582fd5db99aae51a979",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "get_identifier_forms(isbn=\"1111111111\", asin=\"\") returns [\"1111111111\", \"9781111111113\"]",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "isbn_13 = to_isbn_13(isbn)",
+   "gold_value": "[\"1111111111\", \"9781111111113\"]",
+   "codebase_value": "derive paired ISBN forms and order them [isbn10, isbn13]",
+   "why": "Live lookup/search code synthesizes the paired ISBN form, and the Edition lookup precedent orders the result as ISBN-10 then ISBN-13, matching gold.",
+   "precedents": [
+    {
+     "path": "openlibrary/core/models.py",
+     "snippet": "isbn13 = to_isbn_13(isbn)\n        if isbn13 is None and not isbn:\n            return None  # consider raising ValueError\n\n        isbn10 = isbn_13_to_isbn_10(isbn13)\n        book_ids: list[str] = []\n        if isbn10 is not None:\n            book_ids.extend(\n                [isbn10, isbn13]\n            ) if isbn13 is not None else book_ids.append(isbn10)",
+     "way": "derives the paired ISBN form and uses both ISBN-10 and ISBN-13 for Edition.from_isbn lookup"
+    },
+    {
+     "path": "openlibrary/solr/updater/edition.py",
+     "snippet": "isbns += [\n            isbn.replace(\"_\", \"\").strip() for isbn in self._edition.get(\"isbn_13\", [])\n        ]\n        isbns += [\n            isbn.replace(\"_\", \"\").strip() for isbn in self._edition.get(\"isbn_10\", [])\n        ]\n\n        # Get the isbn13 when isbn10 is present and vice-versa.\n        isbns += [opposite_isbn(v) for v in isbns]",
+     "way": "derives the opposite ISBN form so both ISBN-10 and ISBN-13 are searchable"
+    }
+   ]
+  },
+  {
+   "behavior": "get_identifier_forms(isbn=\"9780747532699\", asin=\"\") returns [\"0747532699\", \"9780747532699\"]",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "isbn_10 = isbn_13_to_isbn_10(isbn_13) if isbn_13 else None",
+   "gold_value": "[\"0747532699\", \"9780747532699\"]",
+   "codebase_value": "derive paired ISBN forms and order them [isbn10, isbn13]",
+   "why": "Live lookup/search code derives the opposite ISBN form, and the Edition lookup precedent places ISBN-10 before ISBN-13, matching gold.",
+   "precedents": [
+    {
+     "path": "openlibrary/core/models.py",
+     "snippet": "isbn13 = to_isbn_13(isbn)\n        if isbn13 is None and not isbn:\n            return None  # consider raising ValueError\n\n        isbn10 = isbn_13_to_isbn_10(isbn13)\n        book_ids: list[str] = []\n        if isbn10 is not None:\n            book_ids.extend(\n                [isbn10, isbn13]\n            ) if isbn13 is not None else book_ids.append(isbn10)",
+     "way": "derives ISBN-10 from canonical ISBN-13 and searches [isbn10, isbn13]"
+    },
+    {
+     "path": "openlibrary/solr/updater/edition.py",
+     "snippet": "isbns += [\n            isbn.replace(\"_\", \"\").strip() for isbn in self._edition.get(\"isbn_13\", [])\n        ]\n        isbns += [\n            isbn.replace(\"_\", \"\").strip() for isbn in self._edition.get(\"isbn_10\", [])\n        ]\n\n        # Get the isbn13 when isbn10 is present and vice-versa.\n        isbns += [opposite_isbn(v) for v in isbns]",
+     "way": "derives the opposite ISBN form so both ISBN-10 and ISBN-13 are searchable"
+    }
+   ]
+  }
+ ]
+}

@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 24,
  "n_covered": 14,
- "n_gap": 10,
+ "n_gap": 1,
  "n_out_of_scope": 2,
  "rows": [
   {
@@ -68,7 +68,8 @@
    "covering_prose": null,
    "gold_anchor": "field = sf.name + r'\\:'",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "process_user_query('title:flatland:a romance of many dimensions') maps title to alternative_title and escapes the inner colon in the field value.",
@@ -110,63 +111,72 @@
    "covering_prose": null,
    "gold_anchor": "sf.expr = luqum.tree.Phrase(f'\"{normed}\"')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "process_user_query('lcc:NC760 .B2813') normalizes the grouped LCC to exactly lcc:NC-0760.00000000.B2813* with a trailing star because the normalized value has no space.",
    "covering_prose": null,
    "gold_anchor": "sf.expr = luqum.tree.Word(f'{normed}*')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "process_user_query('lcc:good evening') leaves unnormalizable LCC text grouped as lcc:(good evening).",
    "covering_prose": null,
    "gold_anchor": "if normed:",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "process_user_query('lcc:[NC1 TO NC1000]') normalizes the LCC range bounds to exactly lcc:[NC-0001.00000000 TO NC-1000.00000000].",
    "covering_prose": null,
    "gold_anchor": "val.low.value, val.high.value = normed",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "process_user_query('lcc:NC76.B2813*') normalizes an LCC prefix query to exactly lcc:NC-0076.00000000.B2813*.",
    "covering_prose": null,
    "gold_anchor": "return normalize_lcc_prefix(val.value[:-1]) + '*'",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "process_user_query('lcc:*B2813') leaves a leading-star LCC suffix query unchanged as lcc:*B2813.",
    "covering_prose": null,
    "gold_anchor": "if '*' in val.value and not val.value.startswith('*'):",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "process_user_query('lcc:*B2813*') leaves a leading-star multi-star LCC query unchanged as lcc:*B2813*.",
    "covering_prose": null,
    "gold_anchor": "if '*' in val.value and not val.value.startswith('*'):",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "process_user_query('lcc:NC76*B2813*') normalizes the LCC prefix portion to exactly lcc:NC-0076*B2813*.",
    "covering_prose": null,
    "gold_anchor": "return normalize_lcc_prefix(val.value[:-1]) + '*'",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "process_user_query('lcc:\"NC760 .B2813\"') preserves quotes while normalizing the LCC phrase to exactly lcc:\"NC-0760.00000000.B2813\".",
    "covering_prose": null,
    "gold_anchor": "val.value = f'\"{normed}\"'",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "process_user_query('test') returns the unchanged unfielded query string 'test'.",
@@ -189,5 +199,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 1,
+ "n_determined_codebase": 8,
+ "officiated": true
 }

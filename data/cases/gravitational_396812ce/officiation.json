@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_396812ce",
+ "repo": "gravitational/teleport",
+ "base": "396812cebff3ebfd075bbed04acefc65e787a537",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "With no tracked components, processState.getState() returns stateStarting.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "state := stateStarting",
+   "gold_value": "stateStarting",
+   "codebase_value": "stateStarting",
+   "why": "Live production code initializes process readiness to stateStarting before any updates, so gold's empty-component aggregate default matches the codebase convention.",
+   "precedents": [
+    {
+     "path": "version.mk",
+     "snippet": "func init() {\n\tprometheus.MustRegister(stateGauge)\n\tstateGauge.Set(stateStarting)\n}",
+     "way": "The readiness gauge is initialized to stateStarting before any process state events are processed."
+    },
+    {
+     "path": "lib/service/state.go",
+     "snippet": "func newProcessState(process *TeleportProcess) *processState {\n\treturn &processState{\n\t\tprocess:      process,\n\t\trecoveryTime: process.Clock.Now(),\n\t\tcurrentState: stateStarting,\n\t}\n}",
+     "way": "A newly created processState starts in stateStarting before any readiness/degraded/OK event changes it."
+    }
+   ]
+  }
+ ]
+}

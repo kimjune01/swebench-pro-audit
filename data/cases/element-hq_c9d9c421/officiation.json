@@ -1,0 +1,47 @@
+{
+ "slug": "element-hq_c9d9c421",
+ "repo": "element-hq/element-web",
+ "base": "c9d9c421bc7e3f2a9d5d5ed05679cb3e8e06a388",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "PinnedMessageBanner tests render inside MatrixClient context so EventPreview/useEventPreview can access a client context.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "const cli = useContext(MatrixClientContext);",
+   "gold_value": "const cli = useContext(MatrixClientContext);",
+   "codebase_value": null,
+   "why": "Live production components that need a Matrix client use both MatrixClientContext and MatrixClientPeg, so the repository does not determine the gold context-dependent choice uniquely.",
+   "precedents": [
+    {
+     "path": "src/components/views/rooms/RoomPreviewCard.tsx",
+     "snippet": "const RoomPreviewCard: FC<IProps> = ({ room, onJoinButtonClicked, onRejectButtonClicked }) => {\n    const cli = useContext(MatrixClientContext);\n    const isVideoRoom = calcIsVideoRoom(room);",
+     "way": "Use React MatrixClientContext via useContext."
+    },
+    {
+     "path": "src/PosthogTrackers.ts",
+     "snippet": "    public componentDidMount(): void {\n        this.unmounted = false;\n        this.suppressReadReceiptAnimation = false;\n        const client = MatrixClientPeg.safeGet();",
+     "way": "Use global MatrixClientPeg.safeGet()."
+    }
+   ]
+  },
+  {
+   "behavior": "Plain pinned message preview span includes title equal to the preview text, e.g. title=\"First pinned message\".",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "title={preview}",
+   "gold_value": "title={preview}",
+   "codebase_value": null,
+   "why": "The base production tree contains comparable preview renderers both with title={preview} and with no title, so the gold title attribute is not uniquely determined.",
+   "precedents": [
+    {
+     "path": "src/components/views/rooms/PinnedMessageBanner.tsx",
+     "snippet": "    if (!prefix)\n        return (\n            <span className=\"mx_PinnedMessageBanner_message\" data-testid=\"banner-message\">\n                {preview}\n            </span>\n        );",
+     "way": "Plain pinned message preview renders without a title attribute."
+    }
+   ]
+  }
+ ]
+}

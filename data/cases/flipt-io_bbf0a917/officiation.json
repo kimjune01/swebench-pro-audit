@@ -1,0 +1,25 @@
+{
+ "slug": "flipt-io_bbf0a917",
+ "repo": "flipt-io/flipt",
+ "base": "bbf0a917fbdf4c92017f760b63727b921eb9fc98",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "If GitHub /user returns 400 Bad Request during callback, the system returns an internal error with message github /user info response status: \"400 Bad Request\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return fmt.Errorf(\"github %s info response status: %q\", userReq.URL.Path, resp.Status)",
+   "gold_value": "github /user info response status: \"400 Bad Request\"",
+   "codebase_value": "github %s info response status: %q using the GitHub endpoint string, which is /user for this call",
+   "why": "The live GitHub auth helper already formats non-OK GitHub API responses exactly this way, and gold preserves the same observable value for /user.",
+   "precedents": [
+    {
+     "path": "build/internal/cmd/gitea/main.go",
+     "snippet": "if resp.StatusCode != http.StatusOK {\n\t\treturn fmt.Errorf(\"github %s info response status: %q\", endpoint, resp.Status)\n\t}",
+     "way": "GitHub API status errors identify the failing operation with the endpoint string and include the HTTP status text quoted with %q."
+    }
+   ]
+  }
+ ]
+}

@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 19,
  "n_covered": 16,
- "n_gap": 3,
+ "n_gap": 2,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -19,7 +19,8 @@
    "covering_prose": null,
    "gold_anchor": "telemetry_enabled: false",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "`NewReporter` returns a non-nil reporter when called with `Meta.TelemetryEnabled: true`.",
@@ -33,7 +34,8 @@
    "covering_prose": null,
    "gold_anchor": "return r.client.Close()",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "`report` with enabled telemetry and an empty state file returns no error.",
@@ -47,7 +49,8 @@
    "covering_prose": null,
    "gold_anchor": "analytics.Track{",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "`report` sends event name `flipt.ping`.",
@@ -140,5 +143,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

@@ -1,9 +1,23 @@
-# Ambiguity HYPOTHESIS (two-expert: DETERMINED -- not claimed) -- future-architect_472df0e1
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- future-architect_472df0e1
 
-- class: **determined** (NOT claimed)
-- Under the two-expert standard, no genuine split: The hidden test pins Title to the WPScan payload title. Although the task prose does not explicitly list Title among the required fields, the base WordPress ingestion already sets Title: vulnerability.Title in detector/wordpress.go. The task asks to support enriched Enterprise fields and keep record production consistent; dropping or remapping an existing WPScan title field would be an avoidable regression, not an equally reasonable implementation. Cross-adapter differences in GitHub and Debian reflect source-specific schemas rather than a live comparable convention for this WPScan-specific mapper.
-- Either the prose/interface selects one answer, or the cited source precedents are not the same decision in comparable context (lookalikes). Not underdetermined.
+- instance_id: `instance_future-architect__vuls-50580f6e98eeb36f53f27222f7f4fdfea0b21e8d`
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `future-architect/vuls` @ `472df0e1b6`
 
-## Corroborated determined (independent advocate)
-An independent opus advocate (cross-family, charged to FIND a split codex missed) could not, and conceded determined: The only prose-silent field (CveContent.Title) is already live in the edited WPScan function at base as `Title: vulnerability.Title` and the gold preserves it verbatim; an engineer editing that function to add enriched fields would see the existing mapping and dropping it is a gratuitous regression, not a faithful alternate reading. Cross-adapter Title differences are source-specific, not governing for this mapper.
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
+- **The record Title is copied from the payload title: WordPress <= 4.9.4 - Application Denial of Service (DoS) (unpatched).** -- gold `WordPress <= 4.9.4 - Application Denial of Service (DoS) (unpatched) via vulnerability.Title` matches codebase `Title:        vulnerability.Title`. The live base WordPress mapper already makes the exact WPScan-specific choice by assigning CveContent.Title from vulnerability.Title, and the gold patch preserves that choice.
+1. `gost/ubuntu.go` -- copies the WPScan payload title into CveContent.Title
+   ```
+   models.CveContent{
+   						Type:         models.WpScan,
+   						CveID:        cveID,
+   						Title:        vulnerability.Title,
+   						References:   refs,
+   						Published:    vulnerability.CreatedAt,
+   						LastModified: vulnerability.UpdatedAt,
+   					},
+   ```
+
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

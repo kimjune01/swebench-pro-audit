@@ -131,7 +131,11 @@
    "covering_prose": null,
    "gold_anchor": "+\tFailed  ResultType = \"failed\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

@@ -1,0 +1,72 @@
+{
+ "slug": "protonmail_9962092e",
+ "repo": "protonmail/webclients",
+ "base": "9962092e576b71effbd99523da503148691bb3a6",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "CSV file size validation throws an error if the file is greater than 10MB.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "import { BASE_SIZE } from '@proton/shared/lib/helpers/size';",
+   "gold_value": "throw when file.size > 10 * BASE_SIZE ** 2; BASE_SIZE is imported from @proton/shared/lib/helpers/size in gold",
+   "codebase_value": "throw when file size is strictly greater than MAX_IMPORT_FILE_SIZE, where MAX_IMPORT_FILE_SIZE is 10 * BASE_SIZE ** 2 and displayed as '10 MB'",
+   "why": "Live calendar and contacts import flows use the same 10 MB import limit and strict greater-than rejection, matching the gold/test behavior.",
+   "precedents": [
+    {
+     "path": "packages/components/containers/members/multipleUserCreation/constants.ts",
+     "snippet": "export const MAX_IMPORT_FILE_SIZE = 10 * BASE_SIZE ** 2;\nexport const MAX_IMPORT_FILE_SIZE_STRING = '10 MB';",
+     "way": "import file-size maximum is 10 * BASE_SIZE ** 2 / '10 MB'"
+    },
+    {
+     "path": "packages/components/containers/calendar/importModal/ImportModal.tsx",
+     "snippet": "        if (fileAttached.size > MAX_IMPORT_FILE_SIZE) {\n            throw new ImportFileError(IMPORT_ERROR_TYPE.FILE_TOO_BIG, filename);\n        }",
+     "way": "strictly greater than max is rejected"
+    },
+    {
+     "path": "packages/shared/lib/calendar/constants.ts",
+     "snippet": "export const MAX_IMPORT_FILE_SIZE = 10 * BASE_SIZE ** 2;\nexport const MAX_IMPORT_FILE_SIZE_STRING = '10 MB';",
+     "way": "import file-size maximum is 10 * BASE_SIZE ** 2 / '10 MB'"
+    },
+    {
+     "path": "packages/components/containers/calendar/importModal/ImportModal.tsx",
+     "snippet": "        if (fileAttached.size > MAX_IMPORT_FILE_SIZE) {\n            throw new ImportFileError(IMPORT_ERROR_TYPE.FILE_TOO_BIG, filename);\n        }",
+     "way": "strictly greater than max is rejected"
+    }
+   ]
+  },
+  {
+   "behavior": "CSV file size validation does not throw an error if the file is less than or equal to 10MB.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "import { BASE_SIZE } from '@proton/shared/lib/helpers/size';",
+   "gold_value": "do not throw when file.size <= 10 * BASE_SIZE ** 2; BASE_SIZE is imported from @proton/shared/lib/helpers/size in gold",
+   "codebase_value": "allow files at or below MAX_IMPORT_FILE_SIZE, where MAX_IMPORT_FILE_SIZE is 10 * BASE_SIZE ** 2 and displayed as '10 MB'",
+   "why": "Comparable live import validators reject only `>` the 10 MB limit, so the codebase determines that less-than-or-equal values are accepted.",
+   "precedents": [
+    {
+     "path": "packages/components/containers/calendar/importModal/ImportModal.tsx",
+     "snippet": "        if (fileAttached.size > MAX_IMPORT_FILE_SIZE) {\n            throw new ImportFileError(IMPORT_ERROR_TYPE.FILE_TOO_BIG, filename);\n        }",
+     "way": "only sizes strictly greater than the max throw, so equality is allowed"
+    },
+    {
+     "path": "packages/components/containers/calendar/importModal/ImportModal.tsx",
+     "snippet": "        if (fileAttached.size > MAX_IMPORT_FILE_SIZE) {\n            throw new ImportFileError(IMPORT_ERROR_TYPE.FILE_TOO_BIG, filename);\n        }",
+     "way": "only sizes strictly greater than the max throw, so equality is allowed"
+    },
+    {
+     "path": "packages/shared/lib/contacts/constants.ts",
+     "snippet": "export const MAX_IMPORT_FILE_SIZE = 10 * BASE_SIZE ** 2;\nexport const MAX_IMPORT_FILE_SIZE_STRING = '10 MB';",
+     "way": "import file-size maximum is 10 * BASE_SIZE ** 2 / '10 MB'"
+    },
+    {
+     "path": "packages/components/containers/members/multipleUserCreation/constants.ts",
+     "snippet": "export const MAX_IMPORT_FILE_SIZE = 10 * BASE_SIZE ** 2;\nexport const MAX_IMPORT_FILE_SIZE_STRING = '10 MB';",
+     "way": "import file-size maximum is 10 * BASE_SIZE ** 2 / '10 MB'"
+    }
+   ]
+  }
+ ]
+}

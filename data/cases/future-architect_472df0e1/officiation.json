@@ -1,0 +1,25 @@
+{
+ "slug": "future-architect_472df0e1",
+ "repo": "future-architect/vuls",
+ "base": "472df0e1b6ab9b50f8605af957ad054c7a732938",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "The record Title is copied from the payload title: WordPress <= 4.9.4 - Application Denial of Service (DoS) (unpatched).",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "Title:         vulnerability.Title,",
+   "gold_value": "WordPress <= 4.9.4 - Application Denial of Service (DoS) (unpatched) via vulnerability.Title",
+   "codebase_value": "Title:        vulnerability.Title",
+   "why": "The live base WordPress mapper already makes the exact WPScan-specific choice by assigning CveContent.Title from vulnerability.Title, and the gold patch preserves that choice.",
+   "precedents": [
+    {
+     "path": "gost/ubuntu.go",
+     "snippet": "models.CveContent{\n\t\t\t\t\t\tType:         models.WpScan,\n\t\t\t\t\t\tCveID:        cveID,\n\t\t\t\t\t\tTitle:        vulnerability.Title,\n\t\t\t\t\t\tReferences:   refs,\n\t\t\t\t\t\tPublished:    vulnerability.CreatedAt,\n\t\t\t\t\t\tLastModified: vulnerability.UpdatedAt,\n\t\t\t\t\t},",
+     "way": "copies the WPScan payload title into CveContent.Title"
+    }
+   ]
+  }
+ ]
+}

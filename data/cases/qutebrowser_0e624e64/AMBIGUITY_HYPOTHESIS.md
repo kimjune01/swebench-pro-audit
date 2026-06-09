@@ -1,22 +1,23 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- qutebrowser_0e624e64
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- qutebrowser_0e624e64
 
 - instance_id: `instance_qutebrowser__qutebrowser-bedc9f7fadf93f83d8dee95feeecb9922b6f063f-v2ef375ac784985212b1805e1d0431dc8f1b3c171`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `qutebrowser/qutebrowser` @ `0e624e6469`
 
-## The graded behavior
-qtutils.interpolate_color raises qtutils.QtValueError when the start QColor is invalid.
-- test assertion: [`hidden_test.diff`](hidden_test.diff) `with pytest.raises(qtutils.QtValueError):
-            qtutils.interpolate_color(Color(), colors.white, 0)`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** Invalid start colors are validated by qtutils.ensure_valid and therefore raise qtutils.QtValueError.  gold: [`gold.diff`#L100](gold.diff#L100) `ensure_valid(start)`
-- **R2 (prose-faithful alternative):** A prose-faithful implementation could validate the invalid start QColor by raising a generic ValueError or another validation exception.
+- **qtutils.interpolate_color raises qtutils.QtValueError when the start QColor is invalid.** -- gold `qtutils.QtValueError via ensure_valid(start)` matches codebase `qtutils.QtValueError via qtutils.ensure_valid(start)`. The original live production interpolate_color already validates start with qtutils.ensure_valid, and qtutils.ensure_valid deterministically raises QtValueError.
+1. `qutebrowser/utils/utils.py` -- interpolate_color validates the start QColor with qtutils.ensure_valid
+   ```
+   qtutils.ensure_valid(start)
+       qtutils.ensure_valid(end)
+   ```
+- **qtutils.interpolate_color raises qtutils.QtValueError when the end QColor is invalid.** -- gold `qtutils.QtValueError via ensure_valid(end)` matches codebase `qtutils.QtValueError via qtutils.ensure_valid(end)`. The original live production interpolate_color already validates end with qtutils.ensure_valid, and qtutils.ensure_valid deterministically raises QtValueError.
+1. `qutebrowser/utils/utils.py` -- interpolate_color validates the end QColor with qtutils.ensure_valid
+   ```
+   qtutils.ensure_valid(start)
+       qtutils.ensure_valid(end)
+   ```
 
-## Status: HYPOTHESIS
-Class `codebase` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-The hidden test specifically expects qtutils.QtValueError for an invalid start color.
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

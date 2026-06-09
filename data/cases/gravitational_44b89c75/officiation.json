@@ -1,0 +1,19 @@
+{
+ "slug": "gravitational_44b89c75",
+ "repo": "gravitational/teleport",
+ "base": "44b89c75c07c34c4026beaeab494fef1ad67e5e5",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "With Failed login, the result field serializes as `res=failed`.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": false,
+   "gold_anchor": "+\tFailed  ResultType = \"failed\"",
+   "gold_value": "failed",
+   "codebase_value": null,
+   "why": "No live production code in the working tree provides a comparable precedent for the exact failed-result payload spelling, so the lowercase constant is not codebase-determined.",
+   "precedents": []
+  }
+ ]
+}

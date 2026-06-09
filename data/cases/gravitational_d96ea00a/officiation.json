@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_d96ea00a",
+ "repo": "gravitational/teleport",
+ "base": "d96ea00a00c897ce2fed9f8dca92ca17932d8d02",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "ForAuth cache emits the ClusterName update with resource kind `types.KindClusterName`.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "{Kind: types.KindClusterName},",
+   "gold_value": "types.KindClusterName",
+   "codebase_value": null,
+   "why": "The live codebase contains both split ClusterName and legacy aggregate ClusterConfig handling for the cluster-name backend update, so the gold-pinned `types.KindClusterName` event kind is one of multiple comparable production conventions.",
+   "precedents": [
+    {
+     "path": "lib/cache/cache.go",
+     "snippet": "// ForAuth sets up watch configuration for the auth server\nfunc ForAuth(cfg Config) Config {\n\tcfg.target = \"auth\"\n\tcfg.Watches = []types.WatchKind{\n\t\t{Kind: types.KindCertAuthority, LoadSecrets: true},\n\t\t{Kind: types.KindClusterName},\n\t\t{Kind: types.KindClusterConfig},",
+     "way": "ForAuth watches both the split ClusterName kind and the legacy aggregate ClusterConfig kind."
+    },
+    {
+     "path": "lib/services/local/events.go",
+     "snippet": "func newClusterConfigParser(getClusterConfig getClusterConfigFunc) *clusterConfigParser {\n\tprefixes := [][]byte{\n\t\tbackend.Key(clusterConfigPrefix, generalPrefix),\n\t\tbackend.Key(clusterConfigPrefix, namePrefix),\n\t\tbackend.Key(clusterConfigPrefix, auditPrefix),\n\t\tbackend.Key(clusterConfigPrefix, networkingPrefix),\n\t\tbackend.Key(clusterConfigPrefix, sessionRecordingPrefix),\n\t\tbackend.Key(authPrefix, preferencePrefix, generalPrefix),\n\t}",
+     "way": "The legacy ClusterConfig parser also matches the cluster-name backend key, so the same update can be represented through the aggregate ClusterConfig path."
+    }
+   ]
+  }
+ ]
+}

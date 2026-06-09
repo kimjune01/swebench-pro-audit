@@ -1,10 +1,10 @@
 {
  "case": "future-architect_0b9ec051",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 4,
  "n_covered": 2,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -26,14 +26,19 @@
    "covering_prose": null,
    "gold_anchor": "CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "SortByConfident given [CpeVersionMatch, OvalMatch] returns exactly [OvalMatch, CpeVersionMatch].",
    "covering_prose": null,
    "gold_anchor": "CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

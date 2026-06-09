@@ -159,7 +159,8 @@
    "covering_prose": null,
    "gold_anchor": "return models.ListenPort{}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "parseListenPorts(\"127.0.0.1:22\") returns models.ListenPort{Address: \"127.0.0.1\", Port: \"22\"}.",
@@ -182,5 +183,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

@@ -1,10 +1,10 @@
 {
  "case": "gravitational_b58ad484",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 10,
  "n_covered": 9,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -19,7 +19,8 @@
    "covering_prose": null,
    "gold_anchor": "return nil, trace.BadParameter(\"circular buffer size should be > 0\")",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "NewCircularBuffer(5) returns no error and a non-nil buffer.",
@@ -77,5 +78,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

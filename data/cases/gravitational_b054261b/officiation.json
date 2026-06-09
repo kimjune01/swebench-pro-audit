@@ -1,0 +1,52 @@
+{
+ "slug": "gravitational_b054261b",
+ "repo": "gravitational/teleport",
+ "base": "b054261bc1cce536d307cbdad358f7c6c941b851",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "On http.StateClosed, accepted connections remains cumulative at 1.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "defer r.ConnectionClosed(service, conn)",
+   "gold_value": "accepted connections remains cumulative at 1 after close",
+   "codebase_value": "acceptedConnections is a CounterVec incremented on accept; ConnectionClosed decrements only activeConnections, so accepted remains cumulative.",
+   "why": "The live reporter defines accepted connections as a Prometheus counter named with _total and its close path only decrements the active gauge, matching gold's cumulative accepted value.",
+   "precedents": [
+    {
+     "path": "lib/srv/ingress/reporter.go",
+     "snippet": "\t// acceptedConnections measures connections accepted by each listener type and ingress path.\n\t// This allows us to differentiate between connections going through alpn routing or directly\n\t// to the listener.\n\tacceptedConnections = prometheus.NewCounterVec(prometheus.CounterOpts{\n\t\tNamespace: \"teleport\",\n\t\tName:      \"accepted_connections_total\",\n\t}, commonLabels)\n\n\t// activeConnections measures the current number of active connections.\n\tactiveConnections = prometheus.NewGaugeVec(prometheus.GaugeOpts{\n\t\tNamespace: \"teleport\",\n\t\tName:      \"active_connections\",\n\t}, commonLabels)",
+     "way": "accepted connections are a cumulative counter; active connections are a gauge"
+    },
+    {
+     "path": "lib/srv/ingress/reporter.go",
+     "snippet": "// ConnectionAccepted reports a new connection, ConnectionClosed must be called when the connection closes.\nfunc (r *Reporter) ConnectionAccepted(service string, conn net.Conn) {\n\tpath := r.getIngressPath(conn)\n\tacceptedConnections.WithLabelValues(path, service).Inc()\n\tactiveConnections.WithLabelValues(path, service).Inc()\n}\n\n// ConnectionClosed reports a closed connection. This should only be called after ConnectionAccepted.\nfunc (r *Reporter) ConnectionClosed(service string, conn net.Conn) {\n\tpath := r.getIngressPath(conn)\n\tactiveConnections.WithLabelValues(path, service).Dec()\n}",
+     "way": "close decrements only activeConnections, not acceptedConnections"
+    }
+   ]
+  },
+  {
+   "behavior": "On http.StateClosed for a TLS connection with a client certificate, authenticated accepted connections remains cumulative at 1.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "r.AuthenticatedConnectionClosed(service, conn)",
+   "gold_value": "authenticated accepted connections remains cumulative at 1 after close",
+   "codebase_value": "authenticatedConnectionsAccepted is a CounterVec incremented on authentication; AuthenticatedConnectionClosed decrements only authenticatedConnectionsActive, so authenticated accepted remains cumulative.",
+   "why": "The live reporter defines authenticated accepted connections as a cumulative _total counter and its authenticated close path only decrements the active gauge, matching gold's cumulative authenticated accepted value.",
+   "precedents": [
+    {
+     "path": "lib/srv/ingress/reporter.go",
+     "snippet": "\t// authenticatedConnectionsAccepted measures the number of connections that successfully authenticated.\n\tauthenticatedConnectionsAccepted = prometheus.NewCounterVec(prometheus.CounterOpts{\n\t\tNamespace: \"teleport\",\n\t\tName:      \"authenticated_accepted_connections_total\",\n\t}, commonLabels)\n\n\t// authenticatedConnectionsActive measures the current number of active connections that\n\t// successfully authenticated.\n\tauthenticatedConnectionsActive = prometheus.NewGaugeVec(prometheus.GaugeOpts{\n\t\tNamespace: \"teleport\",\n\t\tName:      \"authenticated_active_connections\",\n\t}, commonLabels)",
+     "way": "authenticated accepted connections are a cumulative counter; authenticated active connections are a gauge"
+    },
+    {
+     "path": "lib/srv/ingress/reporter.go",
+     "snippet": "// ConnectionAuthenticated reports a new authenticated connection, AuthenticatedConnectionClosed must\n// be called when the connection is closed.\nfunc (r *Reporter) ConnectionAuthenticated(service string, conn net.Conn) {\n\tpath := r.getIngressPath(conn)\n\tauthenticatedConnectionsAccepted.WithLabelValues(path, service).Inc()\n\tauthenticatedConnectionsActive.WithLabelValues(path, service).Inc()\n}\n\n// AuthenticatedConnectionClosed reports a closed authenticated connection, this should only be called\n// after ConnectionAuthenticated.\nfunc (r *Reporter) AuthenticatedConnectionClosed(service string, conn net.Conn) {\n\tpath := r.getIngressPath(conn)\n\tauthenticatedConnectionsActive.WithLabelValues(path, service).Dec()\n}",
+     "way": "authenticated close decrements only authenticatedConnectionsActive, not authenticatedConnectionsAccepted"
+    }
+   ]
+  }
+ ]
+}

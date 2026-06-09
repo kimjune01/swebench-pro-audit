@@ -1,9 +1,22 @@
-# Ambiguity HYPOTHESIS (two-expert: DETERMINED -- not claimed) -- element-hq_53415bfd
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- element-hq_53415bfd
 
-- class: **determined** (NOT claimed)
-- Under the two-expert standard, no genuine split: The hidden test enforces that omitting `enableRoomOptionsMenu` still renders when customization allows it. That is not an unstated lottery: the task is adding a new customization gate to an already-visible menu, and the pre-existing RoomHeader behavior treated omitted `enableRoomOptionsMenu` as default true. The cited source precedents do not prove a comparable source plurality: AppTile/DialogButtons support default-true optional visibility props, while ShareDialogButtons/PollOption concern unrelated optional UI adornments whose omission naturally hides extra content. A reasonable expert preserving existing RoomHeader behavior would not infer that the new gate should silently flip omitted `enableRoomOptionsMenu` to disabled.
-- Either the prose/interface selects one answer, or the cited source precedents are not the same decision in comparable context (lookalikes). Not underdetermined.
+- instance_id: `instance_element-hq__element-web-53b42e321777a598aaf2bb3eab22d710569f83a8-vnan`
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `element-hq/element-web` @ `53415bfdfe`
 
-## Corroborated determined (independent advocate)
-An independent opus advocate (cross-family, charged to FIND a split codex missed) could not, and conceded determined: The enableRoomOptionsMenu prop already pre-existed in RoomHeader as default-true (the edited line is the existing `if`, and the pre-existing test names omission as 'default true'); the task only ANDs a new customization gate onto live behavior, so nothing is left to a lottery.
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
+- **RoomHeader renders the room options context menu when enableRoomOptionsMenu is omitted and shouldShowComponent returns true.** -- gold `omitted enableRoomOptionsMenu remains enabled; gold gates on this.props.enableRoomOptionsMenu && shouldShowComponent(UIComponent.RoomOptionsMenu)` matches codebase `enableRoomOptionsMenu defaults to true`. The live RoomHeader production code directly defines enableRoomOptionsMenu as an optional prop with defaultProps setting it to true, and gold preserves that default while adding the customization gate.
+1. `src/components/views/rooms/RoomHeader.tsx` -- omitted enableRoomOptionsMenu defaults to enabled
+   ```
+   export default class RoomHeader extends React.Component<IProps, IState> {
+       public static defaultProps: Partial<IProps> = {
+           inRoom: false,
+           excludedRightPanelPhaseButtons: [],
+           showButtons: true,
+           enableRoomOptionsMenu: true,
+       };
+   ```
+
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

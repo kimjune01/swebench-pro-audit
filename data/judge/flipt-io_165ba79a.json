@@ -1,10 +1,10 @@
 {
  "case": "flipt-io_165ba79a",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 11,
  "n_covered": 8,
- "n_gap": 3,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -47,7 +47,8 @@
    "covering_prose": null,
    "gold_anchor": "deprecatedMsgTracingJaegerEnabled  = `Please use 'tracing.enabled' and 'tracing.backend' instead.`",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "The hidden test loads deprecated tracing input from ./testdata/deprecated/tracing_jaeger_enabled.yml containing tracing.jaeger.enabled: true.",
@@ -75,14 +76,19 @@
    "covering_prose": null,
    "gold_anchor": "deprecatedMsgCacheMemoryEnabled    = `Please use 'cache.enabled' and 'cache.backend' instead.`",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "Deprecated cache.memory.expiration still emits exactly \"\\\"cache.memory.expiration\\\" is deprecated and will be removed in a future version. Please use 'cache.ttl' instead.\"",
    "covering_prose": null,
    "gold_anchor": "deprecatedMsgCacheMemoryExpiration = `Please use 'cache.ttl' instead.`",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 2,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

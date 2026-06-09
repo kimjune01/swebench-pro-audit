@@ -1,9 +1,39 @@
-# Ambiguity HYPOTHESIS (two-expert: DETERMINED -- not claimed) -- internetarchive_5f7d8d19
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- internetarchive_5f7d8d19
 
-- class: **determined** (NOT claimed)
-- Under the two-expert standard, no genuine split: The hidden test's ISBN-10 case enforces paired-form synthesis, but the task prose selects that behavior: get_identifier_forms is ordered [isbn10, isbn13, asin], and the requirements say canonical ISBN-13 is used to derive ISBN-10 and both forms are included in lookup. The proposed supplied-only precedents are not the same governing decision for this task; they classify existing identifier lists into stored fields, while the task is about generating lookup identifiers for Edition.from_isbn. A reasonable expert implementing only supplied-form bucketing would fail an explicit 'both forms' lookup requirement, so the two-expert split is not established.
-- Either the prose/interface selects one answer, or the cited source precedents are not the same decision in comparable context (lookalikes). Not underdetermined.
+- instance_id: `instance_internetarchive__openlibrary-5de7de19211e71b29b2f2ba3b1dff2fe065d660f-v08d8e8889ec945ab821fb156c04c7d2e2810debb`
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `internetarchive/openlibrary` @ `5f7d8d190e`
 
-## Corroborated determined (independent advocate)
-An independent opus advocate (cross-family, charged to FIND a split codex missed) could not, and conceded determined: Prose explicitly mandates paired-form synthesis and the [isbn10, isbn13, asin] order; supplied-only bucketing contradicts 'both forms must be included', so no faithful split.
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
+- **get_identifier_forms(isbn="1111111111", asin="") returns ["1111111111", "9781111111113"]** -- gold `["1111111111", "9781111111113"]` matches codebase `derive paired ISBN forms and order them [isbn10, isbn13]`. Live lookup/search code synthesizes the paired ISBN form, and the Edition lookup precedent orders the result as ISBN-10 then ISBN-13, matching gold.
+1. `openlibrary/core/models.py` -- derives the paired ISBN form and uses both ISBN-10 and ISBN-13 for Edition.from_isbn lookup
+   ```
+   isbn13 = to_isbn_13(isbn)
+           if isbn13 is None and not isbn:
+               return None  # consider raising ValueError
+   
+           isbn10 = isbn_13_to_isbn_10(isbn13)
+           book_ids: list[str] = []
+           if isbn10 is not None:
+               book_ids.extend(
+                   [isbn10, isbn13]
+               ) if isbn13 is not None else book_ids.append(isbn10)
+   ```
+- **get_identifier_forms(isbn="9780747532699", asin="") returns ["0747532699", "9780747532699"]** -- gold `["0747532699", "9780747532699"]` matches codebase `derive paired ISBN forms and order them [isbn10, isbn13]`. Live lookup/search code derives the opposite ISBN form, and the Edition lookup precedent places ISBN-10 before ISBN-13, matching gold.
+1. `openlibrary/core/models.py` -- derives ISBN-10 from canonical ISBN-13 and searches [isbn10, isbn13]
+   ```
+   isbn13 = to_isbn_13(isbn)
+           if isbn13 is None and not isbn:
+               return None  # consider raising ValueError
+   
+           isbn10 = isbn_13_to_isbn_10(isbn13)
+           book_ids: list[str] = []
+           if isbn10 is not None:
+               book_ids.extend(
+                   [isbn10, isbn13]
+               ) if isbn13 is not None else book_ids.append(isbn10)
+   ```
+
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

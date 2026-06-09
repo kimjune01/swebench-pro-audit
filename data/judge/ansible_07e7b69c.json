@@ -1,10 +1,10 @@
 {
  "case": "ansible_07e7b69c",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 12,
  "n_covered": 10,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -47,7 +47,7 @@
    "covering_prose": null,
    "gold_anchor": "retries=dict(default=10, type='int')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase"
   },
   {
    "test": "When `retries=2` is supplied and the wait condition never succeeds, `run_commands` is called exactly 2 times.",
@@ -82,7 +82,7 @@
    "covering_prose": null,
    "gold_anchor": "'only non-config commands are supported when using check mode, not '",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED"
   },
   {
    "test": "Outside check mode, `commands=['configure terminal']` produces an empty warnings list.",
@@ -91,5 +91,7 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 1,
+ "n_determined_codebase": 1
 }

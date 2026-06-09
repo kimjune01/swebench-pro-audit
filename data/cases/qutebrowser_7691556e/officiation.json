@@ -1,0 +1,35 @@
+{
+ "slug": "qutebrowser_7691556e",
+ "repo": "qutebrowser/qutebrowser",
+ "base": "7691556ea171c241eabb76e65c64c90dfc354327",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "str(SelectionInfo(wrapper=\"PyQt6\", reason=env)) returns exactly \"Qt wrapper: PyQt6 (via QUTE_QT_WRAPPER)\"",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return f\"Qt wrapper: {self.wrapper} (via {self.reason.value})\"",
+   "gold_value": "Qt wrapper: PyQt6 (via QUTE_QT_WRAPPER)",
+   "codebase_value": "QUTE_QT_WRAPPER",
+   "why": "The base production code has a single env-selection reason value, QUTE_QT_WRAPPER, and SelectionInfo formatting already renders reason.value in the via slot, which gold preserves.",
+   "precedents": [
+    {
+     "path": "qutebrowser/qt/machinery.py",
+     "snippet": "    #: The wrapper was selected via the QUTE_QT_WRAPPER environment variable.\n    env = \"QUTE_QT_WRAPPER\"",
+     "way": "env reason value is QUTE_QT_WRAPPER"
+    },
+    {
+     "path": "qutebrowser/qt/machinery.py",
+     "snippet": "        lines.append(f\"selected: {self.wrapper} (via {self.reason.value})\")",
+     "way": "SelectionInfo rendering uses the SelectionReason.value text in the via slot"
+    },
+    {
+     "path": "qutebrowser/qt/machinery.py",
+     "snippet": "    env_var = \"QUTE_QT_WRAPPER\"\n    env_wrapper = os.environ.get(env_var)\n    if env_wrapper:\n        if env_wrapper not in WRAPPERS:\n            raise Error(f\"Unknown wrapper {env_wrapper} set via {env_var}, \"\n                        f\"allowed: {', '.join(WRAPPERS)}\")\n        return SelectionInfo(wrapper=env_wrapper, reason=SelectionReason.env)",
+     "way": "QUTE_QT_WRAPPER environment selection records SelectionReason.env"
+    }
+   ]
+  }
+ ]
+}

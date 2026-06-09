@@ -1,0 +1,69 @@
+{
+ "slug": "gravitational_875e9337",
+ "repo": "gravitational/teleport",
+ "base": "875e9337e00cc332a8e786612aaff2566b128858",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "The unused GCP KMS key version name in newTestPack is built from config.GCPKMS.KeyRing rather than a local environment variable value.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "KeyRing:         gcpKeyring,",
+   "gold_value": "config.GCPKMS.KeyRing",
+   "codebase_value": "GCP KMS keyring-derived behavior uses the config-derived keyring field.",
+   "why": "Live GCP KMS production code canonicalizes KeyRing through config-backed keystore state before using it for key-version decisions, matching gold's config.GCPKMS.KeyRing source.",
+   "precedents": [
+    {
+     "path": "lib/auth/keystore/gcp_kms.go",
+     "snippet": "\treturn &gcpKMSKeyStore{\n\t\thostUUID:        cfg.HostUUID,\n\t\tkeyRing:         cfg.KeyRing,\n\t\tprotectionLevel: gcpKMSProtectionLevels[cfg.ProtectionLevel],\n\t\tkmsClient:       kmsClient,\n\t\tlog:             logger,\n\t\tclock:           clock,",
+     "way": "copy cfg.KeyRing into the backend's canonical keyRing field"
+    },
+    {
+     "path": "lib/auth/keystore/gcp_kms.go",
+     "snippet": "\tif !strings.HasPrefix(keyID.keyVersionName, g.keyRing) {\n\t\treturn false, nil\n\t}\n\treturn true, nil",
+     "way": "compare key version names against the backend/config-derived keyring"
+    }
+   ]
+  },
+  {
+   "behavior": "The unused AWS KMS ARN in newTestPack uses config.AWSKMS.AWSRegion and config.AWSKMS.AWSAccount rather than local environment variable values.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "AWSAccount: awsKMSAccount,",
+   "gold_value": "config.AWSKMS.AWSRegion and config.AWSKMS.AWSAccount",
+   "codebase_value": "AWS ARN construction from configuration uses cfg.Region and cfg.Account fields.",
+   "why": "The comparable live production ARN builder takes region/account from its config object, so gold's config.AWSKMS fields match the codebase convention.",
+   "precedents": [
+    {
+     "path": "lib/utils/aws/aws.go",
+     "snippet": "\t\t\t\t\tarn.ARN{\n\t\t\t\t\t\tPartition: cfg.Partition,\n\t\t\t\t\t\tService:   \"athena\",\n\t\t\t\t\t\tRegion:    cfg.Region,\n\t\t\t\t\t\tAccountID: cfg.Account,\n\t\t\t\t\t\tResource:  \"workgroup/\" + cfg.AthenaWorkgroupName,\n\t\t\t\t\t}.String(),",
+     "way": "construct ARN Region and AccountID from config fields"
+    }
+   ]
+  },
+  {
+   "behavior": "The unused AWS KMS metadata in newTestPack uses config.AWSKMS.AWSAccount and config.AWSKMS.AWSRegion rather than local environment variable values.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "AWSRegion:  awsKMSRegion,",
+   "gold_value": "config.AWSKMS.AWSAccount and config.AWSKMS.AWSRegion",
+   "codebase_value": "AWS KMS key metadata is populated from config-derived keystore fields.",
+   "why": "Live AWS KMS production code derives key metadata from the config-backed keystore fields, matching gold's use of config.AWSKMS.AWSAccount and config.AWSKMS.AWSRegion.",
+   "precedents": [
+    {
+     "path": "lib/auth/keystore/aws_kms.go",
+     "snippet": "\treturn &awsKMSKeystore{\n\t\tcluster:    cfg.Cluster,\n\t\tawsAccount: cfg.AWSAccount,\n\t\tawsRegion:  cfg.AWSRegion,\n\t\tkms:        kmsClient,\n\t\tclock:      cfg.clock,\n\t\tlogger:     logger,",
+     "way": "copy AWSAccount and AWSRegion from config into canonical keystore fields"
+    },
+    {
+     "path": "lib/auth/keystore/aws_kms.go",
+     "snippet": "\tkeyID := awsKMSKeyID{\n\t\tarn:     keyARN,\n\t\taccount: a.awsAccount,\n\t\tregion:  a.awsRegion,\n\t}.marshal()",
+     "way": "populate AWS KMS key metadata from the config-derived keystore fields"
+    }
+   ]
+  }
+ ]
+}

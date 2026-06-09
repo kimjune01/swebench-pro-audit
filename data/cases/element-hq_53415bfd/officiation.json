@@ -1,0 +1,25 @@
+{
+ "slug": "element-hq_53415bfd",
+ "repo": "element-hq/element-web",
+ "base": "53415bfdfeb9f25e6755dde2bc41e9dbca4fa791",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "RoomHeader renders the room options context menu when enableRoomOptionsMenu is omitted and shouldShowComponent returns true.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if (this.props.enableRoomOptionsMenu && shouldShowComponent(UIComponent.RoomOptionsMenu)) {",
+   "gold_value": "omitted enableRoomOptionsMenu remains enabled; gold gates on this.props.enableRoomOptionsMenu && shouldShowComponent(UIComponent.RoomOptionsMenu)",
+   "codebase_value": "enableRoomOptionsMenu defaults to true",
+   "why": "The live RoomHeader production code directly defines enableRoomOptionsMenu as an optional prop with defaultProps setting it to true, and gold preserves that default while adding the customization gate.",
+   "precedents": [
+    {
+     "path": "src/components/views/rooms/RoomHeader.tsx",
+     "snippet": "export default class RoomHeader extends React.Component<IProps, IState> {\n    public static defaultProps: Partial<IProps> = {\n        inRoom: false,\n        excludedRightPanelPhaseButtons: [],\n        showButtons: true,\n        enableRoomOptionsMenu: true,\n    };",
+     "way": "omitted enableRoomOptionsMenu defaults to enabled"
+    }
+   ]
+  }
+ ]
+}

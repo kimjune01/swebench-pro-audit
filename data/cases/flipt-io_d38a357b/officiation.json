@@ -1,0 +1,41 @@
+{
+ "slug": "flipt-io_d38a357b",
+ "repo": "flipt-io/flipt",
+ "base": "d38a357b67ced2c3eba83e7a4aa71a1b2af019ae",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "Redis file-based config loads pool_size as 50 into cfg.Cache.Redis.PoolSize.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "pool_size: 50",
+   "gold_value": "50",
+   "codebase_value": null,
+   "why": "No live production config or connection-pool precedent in the base tree fixes 50 as the value for this kind of Redis pool-size sample.",
+   "precedents": []
+  },
+  {
+   "behavior": "Redis file-based config loads min_idle_conn as 2 into cfg.Cache.Redis.MinIdleConn.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "min_idle_conn: 2",
+   "gold_value": "2",
+   "codebase_value": "2",
+   "why": "The only live comparable idle-connection tuning value in production code is 2, and gold matches it.",
+   "precedents": [
+    {
+     "path": "internal/config/database.go",
+     "snippet": "func (c *DatabaseConfig) setDefaults(v *viper.Viper) {\n\tv.SetDefault(\"db\", map[string]any{\n\t\t\"max_idle_conn\": 2,\n\t})",
+     "way": "Idle connection tuning defaults to 2."
+    },
+    {
+     "path": "config/flipt.schema.cue",
+     "snippet": "\t#db: {\n\t\tpassword?:                    string\n\t\tmax_idle_conn?:               int | *2\n\t\tmax_open_conn?:               int\n\t\tconn_max_lifetime?:           =~#duration | int",
+     "way": "The schema default for an idle connection count is 2."
+    }
+   ]
+  }
+ ]
+}

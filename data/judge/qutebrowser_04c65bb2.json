@@ -1,10 +1,10 @@
 {
  "case": "qutebrowser_04c65bb2",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 8,
  "n_covered": 6,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -26,7 +26,8 @@
    "covering_prose": null,
    "gold_anchor": "unvisted_nodes.append(node)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For template '{{ conf.auto_save.interval + conf.hints.min_chars }}', returns frozenset(['auto_save.interval', 'hints.min_chars']).",
@@ -54,7 +55,8 @@
    "covering_prose": null,
    "gold_anchor": "config.instance.ensure_has_opt(option)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For template '{{ conf.ccc + 1 }}', raises configexc.NoOptionError for an invalid referenced option used in an expression.",
@@ -63,5 +65,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 12,
  "n_covered": 10,
- "n_gap": 2,
+ "n_gap": 1,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -54,7 +54,8 @@
    "covering_prose": null,
    "gold_anchor": "b.cleanupSlots()",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "A cursor that is explicitly closed after reading one of two appended items decrements the unread second item's wait count.",
@@ -89,7 +90,11 @@
    "covering_prose": null,
    "gold_anchor": "rw sync.RWMutex",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

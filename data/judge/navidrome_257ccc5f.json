@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 12,
  "n_covered": 6,
- "n_gap": 6,
+ "n_gap": 1,
  "n_out_of_scope": 2,
  "rows": [
   {
@@ -26,14 +26,16 @@
    "covering_prose": null,
    "gold_anchor": "if err != nil {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "walkDirTree reports the root directory stats under the absolute baseDir path.",
    "covering_prose": null,
    "gold_anchor": "dir := filepath.Clean(filepath.Join(rootPath, currentFolder))",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "isDirOrSymlinkToDir accepts an fs.FS argument and uses it to identify a normal directory as true.",
@@ -54,7 +56,8 @@
    "covering_prose": null,
    "gold_anchor": "return false, nil",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "isDirOrSymlinkToDir returns false for symlinks to files when resolving through fs.FS.",
@@ -75,21 +78,24 @@
    "covering_prose": null,
    "gold_anchor": "_, err := fs.Stat(fsys, filepath.Join(baseDir, dirEnt.Name(), consts.SkipScanFile))",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "isDirIgnored returns true when a folder name starts with a single dot.",
    "covering_prose": null,
    "gold_anchor": "if strings.HasPrefix(dirEnt.Name(), \".\") && !strings.HasPrefix(dirEnt.Name(), \"..\") {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "isDirIgnored returns false when a folder name starts with ellipses.",
    "covering_prose": null,
    "gold_anchor": "if strings.HasPrefix(dirEnt.Name(), \".\") && !strings.HasPrefix(dirEnt.Name(), \"..\") {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "isDirIgnored returns false when a folder name is $Recycle.Bin.",
@@ -105,5 +111,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 5,
+ "officiated": true
 }

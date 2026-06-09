@@ -1,10 +1,10 @@
 {
  "case": "future-architect_98cbe6ed",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 19,
  "n_covered": 18,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -26,7 +26,8 @@
    "covering_prose": null,
    "gold_anchor": "for _, match := range re.FindAllStringSubmatch(stdout, -1) {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "parseApkInstalledList extracts binary package names alpine-baselayout, alpine-baselayout-data, and ca-certificates-bundle from the package-version field by treating the last two hyphen-separated components as the version/release.",
@@ -140,5 +141,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

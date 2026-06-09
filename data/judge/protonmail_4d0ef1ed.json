@@ -1,10 +1,10 @@
 {
  "case": "protonmail_4d0ef1ed",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 6,
  "n_covered": 4,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -26,7 +26,8 @@
    "covering_prose": null,
    "gold_anchor": "chunk(shareIds, 50)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "When the unmigrated-shares request rejects with data.Code equal to HTTP_STATUS_CODE.NOT_FOUND, migrateShares resolves without calling queryMigrateLegacyShares.",
@@ -40,7 +41,8 @@
    "covering_prose": null,
    "gold_anchor": "return resolve(null);",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "When getShareSessionKey fails for a share ID, migrateShares sends that share ID in UnreadableShareIDs and excludes it from PassphraseNodeKeyPackets while keeping decryptable shares in PassphraseNodeKeyPackets.",
@@ -49,5 +51,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 1,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

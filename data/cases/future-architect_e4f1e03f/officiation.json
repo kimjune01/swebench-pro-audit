@@ -1,0 +1,276 @@
+{
+ "slug": "future-architect_e4f1e03f",
+ "repo": "future-architect/vuls",
+ "base": "e4f1e03f6234bbe88564bdfc2d23f120db3c67a6",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "CountGroupBySeverity counts a CVE with Cvss3Score 7.0 as \"High\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "case 7.0 <= score:",
+   "gold_value": "7.0 <= score => High",
+   "codebase_value": "7.0 <= score => High",
+   "why": "Live CountGroupBySeverity uses the same 7.0 threshold for High, so gold matches the sole production bucket rule.",
+   "precedents": [
+    {
+     "path": "report/slack.go",
+     "snippet": "\t\tswitch {\n\t\tcase 7.0 <= score:\n\t\t\tm[\"High\"]++\n\t\tcase 4.0 <= score:\n\t\t\tm[\"Medium\"]++\n\t\tcase 0 < score:\n\t\t\tm[\"Low\"]++\n\t\tdefault:\n\t\t\tm[\"Unknown\"]++\n\t\t}",
+     "way": "High starts at 7.0"
+    }
+   ]
+  },
+  {
+   "behavior": "CountGroupBySeverity counts a CVE with Cvss3Score 5.0 as \"Medium\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "case 4.0 <= score:",
+   "gold_value": "4.0 <= score < 7.0 => Medium",
+   "codebase_value": "4.0 <= score < 7.0 => Medium",
+   "why": "Live CountGroupBySeverity uses 4.0 as the Medium threshold, so a 5.0 score is determined to be Medium.",
+   "precedents": [
+    {
+     "path": "report/slack.go",
+     "snippet": "\t\tswitch {\n\t\tcase 7.0 <= score:\n\t\t\tm[\"High\"]++\n\t\tcase 4.0 <= score:\n\t\t\tm[\"Medium\"]++\n\t\tcase 0 < score:\n\t\t\tm[\"Low\"]++\n\t\tdefault:\n\t\t\tm[\"Unknown\"]++\n\t\t}",
+     "way": "Medium starts at 4.0 after High is excluded"
+    }
+   ]
+  },
+  {
+   "behavior": "CountGroupBySeverity counts a CVE with Cvss3Score 2.0 as \"Low\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "m[\"Low\"]++",
+   "gold_value": "0 < score < 4.0 => Low",
+   "codebase_value": "0 < score < 4.0 => Low",
+   "why": "Live CountGroupBySeverity buckets any positive score below Medium as Low, matching gold.",
+   "precedents": [
+    {
+     "path": "report/slack.go",
+     "snippet": "\t\tswitch {\n\t\tcase 7.0 <= score:\n\t\t\tm[\"High\"]++\n\t\tcase 4.0 <= score:\n\t\t\tm[\"Medium\"]++\n\t\tcase 0 < score:\n\t\t\tm[\"Low\"]++\n\t\tdefault:\n\t\t\tm[\"Unknown\"]++\n\t\t}",
+     "way": "Low is any remaining positive score"
+    }
+   ]
+  },
+  {
+   "behavior": "CountGroupBySeverity counts a CVE with no score as \"Unknown\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "m[\"Unknown\"]++",
+   "gold_value": "default => Unknown",
+   "codebase_value": "default => Unknown",
+   "why": "Live CountGroupBySeverity already sends scores that do not pass any positive threshold to Unknown.",
+   "precedents": [
+    {
+     "path": "report/slack.go",
+     "snippet": "\t\tswitch {\n\t\tcase 7.0 <= score:\n\t\t\tm[\"High\"]++\n\t\tcase 4.0 <= score:\n\t\t\tm[\"Medium\"]++\n\t\tcase 0 < score:\n\t\t\tm[\"Low\"]++\n\t\tdefault:\n\t\t\tm[\"Unknown\"]++\n\t\t}",
+     "way": "no positive score falls to Unknown"
+    }
+   ]
+  },
+  {
+   "behavior": "Cvss2Scores takes no os-family argument.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "func (v VulnInfo) Cvss2Scores() (values []CveContentCvss) {",
+   "gold_value": "func (v VulnInfo) Cvss2Scores() (values []CveContentCvss)",
+   "codebase_value": "func (v VulnInfo) Cvss2Scores(myFamily string) (values []CveContentCvss)",
+   "why": "The live API is family-dependent everywhere, while gold removes the argument.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "func (v VulnInfo) Cvss2Scores(myFamily string) (values []CveContentCvss) {\n\torder := []CveContentType{Nvd, RedHatAPI, RedHat, Jvn}\n\tif myFamily != config.RedHat && myFamily != config.CentOS {\n\t\torder = append(order, NewCveContentType(myFamily))\n\t}",
+     "way": "Cvss2Scores takes myFamily and uses it in source ordering"
+    },
+    {
+     "path": "report/slack.go",
+     "snippet": "\tscores := append(vinfo.Cvss3Scores(), vinfo.Cvss2Scores(osFamily)...)",
+     "way": "production caller passes an OS family argument"
+    }
+   ]
+  },
+  {
+   "behavior": "Cvss2Scores returns CVSS2 entries in RedHat before Nvd order when both exist.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "order := []CveContentType{RedHatAPI, RedHat, Nvd, Jvn}",
+   "gold_value": "RedHatAPI, RedHat, Nvd, Jvn",
+   "codebase_value": "Nvd, RedHatAPI, RedHat, Jvn",
+   "why": "The sole live Cvss2Scores ordering puts Nvd before RedHat sources, but gold pins RedHat before Nvd.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\torder := []CveContentType{Nvd, RedHatAPI, RedHat, Jvn}\n\tif myFamily != config.RedHat && myFamily != config.CentOS {\n\t\torder = append(order, NewCveContentType(myFamily))\n\t}",
+     "way": "Nvd precedes RedHatAPI and RedHat in Cvss2Scores"
+    }
+   ]
+  },
+  {
+   "behavior": "Cvss2Scores skips an entry that has only Cvss3Score and Cvss3Severity but no Cvss2Score or Cvss2Severity.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if cont.Cvss2Score == 0 && cont.Cvss2Severity == \"\" {",
+   "gold_value": "skip when Cvss2Score == 0 and Cvss2Severity == \"\"",
+   "codebase_value": "skip when Cvss2Score == 0 or Cvss2Severity == \"\"",
+   "why": "For the tested Cvss3-only case, the live CVSS2-specific guard already skips the entry because both CVSS2 fields are absent.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\t\tif cont, found := v.CveContents[ctype]; found {\n\t\t\tif cont.Cvss2Score == 0 || cont.Cvss2Severity == \"\" {\n\t\t\t\tcontinue\n\t\t\t}",
+     "way": "Cvss2Scores skips entries with no CVSS2 score or no CVSS2 severity"
+    }
+   ]
+  },
+  {
+   "behavior": "Cvss3Scores skips a source entry whose Cvss3Score is 0.0 and whose Cvss3Severity is empty.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "if cont.Cvss3Score == 0 && cont.Cvss3Severity == \"\" {",
+   "gold_value": "skip empty CVSS3 entries",
+   "codebase_value": "include ordered-source entries without checking Cvss3Score or Cvss3Severity",
+   "why": "Live Cvss3Scores includes empty ordered-source CVSS3 records, while gold adds a skip guard.",
+   "precedents": [
+    {
+     "path": "models/cvecontents.go",
+     "snippet": "\tfor _, ctype := range order {\n\t\tif cont, found := v.CveContents[ctype]; found {\n\t\t\t// https://nvd.nist.gov/vuln-metrics/cvss\n\t\t\tvalues = append(values, CveContentCvss{\n\t\t\t\tType: ctype,\n\t\t\t\tValue: Cvss{\n\t\t\t\t\tType:     CVSS3,\n\t\t\t\t\tScore:    cont.Cvss3Score,\n\t\t\t\t\tVector:   cont.Cvss3Vector,\n\t\t\t\t\tSeverity: strings.ToUpper(cont.Cvss3Severity),\n\t\t\t\t},\n\t\t\t})\n\t\t}\n\t}",
+     "way": "Cvss3Scores appends any found ordered source without an empty-entry guard"
+    }
+   ]
+  },
+  {
+   "behavior": "MaxCvssScore returns a CVSS3 score when both CVSS3 and higher CVSS2 numeric scores exist.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "if v3Max.Type != Unknown {",
+   "gold_value": "prefer any known CVSS3 score",
+   "codebase_value": "prefer higher CVSS2 numeric score unless it was calculated by severity",
+   "why": "The live max-score rule is numeric maximum with a derived-severity exception, but gold pins unconditional CVSS3 precedence.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "func (v VulnInfo) MaxCvssScore() CveContentCvss {\n\tv3Max := v.MaxCvss3Score()\n\tv2Max := v.MaxCvss2Score()\n\tmax := v3Max\n\tif max.Type == Unknown {\n\t\treturn v2Max\n\t}\n\n\tif max.Value.Score < v2Max.Value.Score && !v2Max.Value.CalculatedBySeverity {\n\t\tmax = v2Max\n\t}\n\treturn max\n}",
+     "way": "higher non-derived CVSS2 can override CVSS3"
+    }
+   ]
+  },
+  {
+   "behavior": "Cvss.Format returns \"None \" for a CVSS value with empty Severity and empty Vector.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "return \"None\"",
+   "gold_value": "\"None\"",
+   "codebase_value": "\"\"",
+   "why": "Live Cvss.Format returns c.Severity for empty score/vector, so an empty severity formats as an empty string, not None.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "func (c Cvss) Format() string {\n\tif c.Score == 0 || c.Vector == \"\" {\n\t\treturn c.Severity\n\t}\n\tswitch c.Type {",
+     "way": "empty Severity returns the empty string"
+    }
+   ]
+  },
+  {
+   "behavior": "SeverityToCvssScoreRange maps \"IMPORTANT\" and \"HIGH\" severities to \"7.0-8.9\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "case \"IMPORTANT\", \"HIGH\":",
+   "gold_value": "\"7.0-8.9\"",
+   "codebase_value": "High bucket starts at 7.0 and IMPORTANT/HIGH severity maps to 8.9",
+   "why": "Combining the live High threshold with the live IMPORTANT/HIGH severity score determines the same 7.0-8.9 range.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\t\tcase 7.0 <= score:\n\t\t\tm[\"High\"]++\n\t\tcase 4.0 <= score:\n\t\t\tm[\"Medium\"]++",
+     "way": "High score range lower bound is 7.0"
+    },
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\tcase \"IMPORTANT\", \"HIGH\":\n\t\treturn 8.9",
+     "way": "IMPORTANT/HIGH severity-derived score uses 8.9"
+    }
+   ]
+  },
+  {
+   "behavior": "SeverityToCvssScoreRange maps \"MODERATE\" and \"MEDIUM\" severities to \"4.0-6.9\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "case \"MODERATE\", \"MEDIUM\":",
+   "gold_value": "\"4.0-6.9\"",
+   "codebase_value": "Medium bucket starts at 4.0 and MODERATE/MEDIUM severity maps to 6.9",
+   "why": "The live Medium threshold and severity-derived score determine the same 4.0-6.9 range.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\t\tcase 4.0 <= score:\n\t\t\tm[\"Medium\"]++\n\t\tcase 0 < score:\n\t\t\tm[\"Low\"]++",
+     "way": "Medium score range lower bound is 4.0"
+    },
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\tcase \"MODERATE\", \"MEDIUM\":\n\t\treturn 6.9",
+     "way": "MODERATE/MEDIUM severity-derived score uses 6.9"
+    }
+   ]
+  },
+  {
+   "behavior": "SeverityToCvssScoreRange maps \"LOW\" severity to \"0.1-3.9\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return \"0.1-3.9\"",
+   "gold_value": "\"0.1-3.9\"",
+   "codebase_value": "Low is positive below 4.0, with LOW severity mapped to 3.9 and scores below 0.1 treated as absent for fallback",
+   "why": "Live production code supplies the low-score floor behavior and the LOW upper representative, matching gold's 0.1-3.9 range.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\t\tscore := vInfo.MaxCvss2Score().Value.Score\n\t\tif score < 0.1 {\n\t\t\tscore = vInfo.MaxCvss3Score().Value.Score\n\t\t}",
+     "way": "scores below 0.1 are treated as not present for CVSS fallback"
+    },
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\t\tcase 0 < score:\n\t\t\tm[\"Low\"]++\n\t\tdefault:\n\t\t\tm[\"Unknown\"]++",
+     "way": "Low is the positive-score bucket below Medium"
+    },
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\tcase \"LOW\":\n\t\treturn 3.9",
+     "way": "LOW severity-derived score uses 3.9"
+    }
+   ]
+  },
+  {
+   "behavior": "SeverityToCvssScoreRange maps unknown or empty severity to \"None\".",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "return \"None\"",
+   "gold_value": "\"None\"",
+   "codebase_value": "multiple: 0, Unknown, ?, or empty string depending on live site",
+   "why": "The live code uses several different unknown/no-severity conventions and has no single production precedent for the string None.",
+   "precedents": [
+    {
+     "path": "report/report.go",
+     "snippet": "\t\tdefault:\n\t\t\tm[\"Unknown\"]++",
+     "way": "unknown score group is labeled Unknown"
+    },
+    {
+     "path": "report/slack.go",
+     "snippet": "\tseverity := strings.ToUpper(maxCvss.Value.Severity)\n\tif severity == \"\" {\n\t\tseverity = \"?\"\n\t}",
+     "way": "empty rendered severity becomes ?"
+    }
+   ]
+  }
+ ]
+}

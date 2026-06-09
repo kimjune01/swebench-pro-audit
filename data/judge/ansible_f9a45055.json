@@ -1,10 +1,10 @@
 {
  "case": "ansible_f9a45055",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 18,
  "n_covered": 17,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 2,
  "rows": [
   {
@@ -145,7 +145,11 @@
    "covering_prose": null,
    "gold_anchor": "for abs_path in m.sorted(wantdirs=True):",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   }
- ]
+ ],
+ "n_misdetermined": 1,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

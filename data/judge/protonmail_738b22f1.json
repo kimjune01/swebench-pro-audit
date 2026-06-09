@@ -1,10 +1,10 @@
 {
  "case": "protonmail_738b22f1",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 8,
  "n_covered": 4,
- "n_gap": 4,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -40,28 +40,35 @@
    "covering_prose": null,
    "gold_anchor": "return labelID as MAILBOX_LABEL_IDS;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "getLabelID(\"1\") returns \"1\"",
    "covering_prose": null,
    "gold_anchor": "return labelID as MAILBOX_LABEL_IDS;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "getLabelID(\"test\") returns \"custom\"",
    "covering_prose": null,
    "gold_anchor": "return 'custom';",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "getLabelID(\"-10\") returns \"custom\"",
    "covering_prose": null,
    "gold_anchor": "return 'custom';",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 4,
+ "officiated": true
 }

@@ -61,7 +61,8 @@
    "covering_prose": null,
    "gold_anchor": "ariaLabel={_t(\"Profile picture\")}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "HTMLExport exported event avatars render aria-label=\"Profile picture\" instead of \"Avatar\".",
@@ -77,5 +78,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

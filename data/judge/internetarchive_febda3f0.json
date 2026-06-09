@@ -1,10 +1,10 @@
 {
  "case": "internetarchive_febda3f0",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 4,
  "n_covered": 1,
- "n_gap": 3,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,21 +12,24 @@
    "covering_prose": null,
    "gold_anchor": "WorkSearchScheme",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For `title:\"food rules\" author:pollan`, `process_user_query` returns exactly `alternative_title:\"food rules\" author_name:pollan`, including preserving the quoted phrase and mapping `author` to `author_name`.",
    "covering_prose": null,
    "gold_anchor": "WorkSearchScheme",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For `authors:Kim Harrison OR authors:Lynsay Sands`, `process_user_query` returns exactly `author_name:(Kim Harrison) OR author_name:(Lynsay Sands)`, including grouping the two-word author names and preserving `OR`.",
    "covering_prose": null,
    "gold_anchor": "WorkSearchScheme",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For bare ISBN-like input `978-0-06-093546-7`, `process_user_query` returns exactly `isbn:(9780060935467)`, normalizing away dashes and rewriting the bare query as an ISBN field query.",
@@ -35,5 +38,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 3,
+ "officiated": true
 }

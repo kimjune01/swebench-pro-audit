@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 23,
  "n_covered": 18,
- "n_gap": 5,
+ "n_gap": 1,
  "n_out_of_scope": 5,
  "rows": [
   {
@@ -12,28 +12,32 @@
    "covering_prose": null,
    "gold_anchor": "export const getAllDropdownOptions = (",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "When a preselected country is provided, getAllDropdownOptions prepends a divider whose default text is exactly \"Based on your time zone\".",
    "covering_prose": null,
    "gold_anchor": "preSelectedOptionDivider = c('Country select label').t`Based on your time zone`",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "When a preselected France option is provided, getAllDropdownOptions prepends France with countryCode exactly \"fr-preselected\", not \"fr\".",
    "covering_prose": null,
    "gold_anchor": "countryCode: `${preSelectedOption.countryCode}${PRESELECTED_COUNTRY_OPTION_SUFFIX}`",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "When a custom preselected divider text is provided, getAllDropdownOptions uses that exact divider text before the preselected option.",
    "covering_prose": null,
    "gold_anchor": "preSelectedOptionDivider = c('Country select label').t`Based on your time zone`",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "The holidays calendar modal preselects France when the user's primary time zone is Europe/Paris.",
@@ -180,7 +184,8 @@
    "covering_prose": null,
    "gold_anchor": "if (!countryCode) {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "getSuggestedHolidaysCalendar returns nlCalendar for Europe/Brussels and languageTags ['en-US', 'nl_NL'], selecting the Netherlands country from the language tag.",
@@ -203,5 +208,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 2,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

@@ -1,0 +1,42 @@
+{
+ "slug": "future-architect_7c209cc9",
+ "repo": "future-architect/vuls",
+ "base": "7c209cc9dc71e30bf762677d6a380ddc93d551ec",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "`rhelRebuildOSVersionToRHEL` must leave the table case named `noop` unchanged.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return rhelRebuildOSVerPattern.ReplaceAllString(ver, \".el$1\")",
+   "gold_value": "grub2-tools-2.02-0.80.el7.x86_64",
+   "codebase_value": "plain `.el<major>` is replaced with the same `.el<major>`, leaving the full version unchanged",
+   "why": "The live converter already implements exactly the same replacement behavior that gold keeps under the renamed function.",
+   "precedents": [
+    {
+     "path": "oval/util.go",
+     "snippet": "var rhelDownStreamOSVerPattern = regexp.MustCompile(`\\.[es]l(\\d+)(?:_\\d+)?(?:\\.(centos|rocky|alma))?`)\n\nfunc rhelDownStreamOSVersionToRHEL(ver string) string {\n\treturn rhelDownStreamOSVerPattern.ReplaceAllString(ver, \".el$1\")\n}",
+     "way": "Normalize RHEL downstream versions by replacing the matched `.el`/`.sl` segment with `.el<major>`; a plain `.el7` match becomes `.el7`, so the noop case remains unchanged."
+    }
+   ]
+  },
+  {
+   "behavior": "`rhelRebuildOSVersionToRHEL` must remove the minor rebuild suffix in the table case named `remove_minor`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "var rhelRebuildOSVerPattern = regexp.MustCompile(`\\.[es]l(\\d+)(?:_\\d+)?(?:\\.(centos|rocky|alma))?`)",
+   "gold_value": "sudo-1.8.23-10.el7.1",
+   "codebase_value": "minor rebuild suffixes matching `(?:_\\d+)?` are removed while preserving the major as `.el<major>`",
+   "why": "The live production regex has exactly one comparable convention for this normalization, and gold matches it.",
+   "precedents": [
+    {
+     "path": "oval/util.go",
+     "snippet": "var rhelDownStreamOSVerPattern = regexp.MustCompile(`\\.[es]l(\\d+)(?:_\\d+)?(?:\\.(centos|rocky|alma))?`)\n\nfunc rhelDownStreamOSVersionToRHEL(ver string) string {\n\treturn rhelDownStreamOSVerPattern.ReplaceAllString(ver, \".el$1\")\n}",
+     "way": "The production regex explicitly consumes an optional underscore minor suffix before replacing the whole match with `.el$1`."
+    }
+   ]
+  }
+ ]
+}

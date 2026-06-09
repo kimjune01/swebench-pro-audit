@@ -1,10 +1,10 @@
 {
  "case": "internetarchive_322d7a46",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 7,
  "n_covered": 1,
- "n_gap": 6,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -19,42 +19,51 @@
    "covering_prose": null,
    "gold_anchor": "resp.raise_for_status()",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling `solr_update` against a non-JSON 503 Service Unavailable response retries, so `httpx.post` is called more than once.",
    "covering_prose": null,
    "gold_anchor": "RetryStrategy(",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling `solr_update` when `httpx.post` raises `ConnectError` retries, so `httpx.post` is called more than once.",
    "covering_prose": null,
    "gold_anchor": "[HTTPStatusError, TimeoutException, HTTPError]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling `solr_update` against a 400 response with a top-level `error` object is treated as handled and makes exactly one `httpx.post` call.",
    "covering_prose": null,
    "gold_anchor": "global_error = resp_json.get('error')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling `solr_update` against a 400 response with `responseHeader.errors` is treated as handled and makes exactly one `httpx.post` call.",
    "covering_prose": null,
    "gold_anchor": "indiv_errors = resp_json.get('responseHeader', {}).get('errors', [])",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling `solr_update` against a 500 response retries, so `httpx.post` is called more than once.",
    "covering_prose": null,
    "gold_anchor": "resp.raise_for_status()",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 6,
+ "officiated": true
 }

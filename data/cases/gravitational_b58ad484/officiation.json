@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_b58ad484",
+ "repo": "gravitational/teleport",
+ "base": "b58ad484649e51b439ba11df387e25e23e8296d1",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "NewCircularBuffer(-1) returns a nil buffer.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return nil, trace.BadParameter(\"circular buffer size should be > 0\")",
+   "gold_value": "nil buffer; return nil, trace.BadParameter(\"circular buffer size should be > 0\")",
+   "codebase_value": "nil pointer result on constructor validation failure",
+   "why": "Live constructor precedents at the base commit return nil for the pointer result on validation errors, matching gold's nil buffer choice.",
+   "precedents": [
+    {
+     "path": "lib/session/session.go",
+     "snippet": "func NewTerminalParamsFromUint32(w uint32, h uint32) (*TerminalParams, error) {\n\tif w > maxSize || w < minSize {\n\t\treturn nil, trace.BadParameter(\"bad width\")\n\t}\n\tif h > maxSize || h < minSize {\n\t\treturn nil, trace.BadParameter(\"bad height\")\n\t}\n\treturn &TerminalParams{W: int(w), H: int(h)}, nil\n}",
+     "way": "invalid numeric constructor parameter returns nil pointer with error"
+    },
+    {
+     "path": "lib/utils/anonymizer.go",
+     "snippet": "func NewHMACAnonymizer(key string) (*HMACAnonymizer, error) {\n\tif strings.TrimSpace(key) == \"\" {\n\t\treturn nil, trace.BadParameter(\"HMAC key must not be empty\")\n\t}\n\treturn &HMACAnonymizer{\n\t\tkey: key,\n\t}, nil\n}",
+     "way": "invalid constructor parameter returns nil pointer with error"
+    }
+   ]
+  }
+ ]
+}

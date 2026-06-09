@@ -1,0 +1,52 @@
+{
+ "slug": "gravitational_0b192c8d",
+ "repo": "gravitational/teleport",
+ "base": "0b192c8d132e07e024340a9780c1641a5de5b326",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "VirtualPathEnvNames(VirtualPathCA, VirtualPathCAParams(types.DatabaseCA)) returns [\"TSH_VIRTUAL_PATH_CA_DB\", \"TSH_VIRTUAL_PATH_CA\"].",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "strings.ToUpper(string(caType))",
+   "gold_value": "TSH_VIRTUAL_PATH_CA_DB",
+   "codebase_value": "DatabaseCA CertAuthType = \"db\"",
+   "why": "For CertAuthType serialization, live production code uses the enum string value, so DatabaseCA is the single codebase value db and gold's uppercased DB matches it.",
+   "precedents": [
+    {
+     "path": "api/types/trust.go",
+     "snippet": "// CertAuthType specifies certificate authority type\ntype CertAuthType string\n\nconst (\n\t// HostCA identifies the key as a host certificate authority\n\tHostCA CertAuthType = \"host\"\n\t// UserCA identifies the key as a user certificate authority\n\tUserCA CertAuthType = \"user\"\n\t// DatabaseCA is a certificate authority used in database access.\n\tDatabaseCA CertAuthType = \"db\"\n\t// JWTSigner identifies type of certificate authority as JWT signer. In this\n\t// case JWT is not a certificate authority because it does not issue\n\t// certificates but rather is an authority that signs tokens, however it behaves\n\t// much like a CA in terms of rotation and storage.\n\tJWTSigner CertAuthType = \"jwt\"\n)\n\n// CertAuthTypes lists all certificate authority types.\nvar CertAuthTypes = []CertAuthType{HostCA, UserCA, DatabaseCA, JWTSigner}",
+     "way": "DatabaseCA is represented by the enum string value \"db\", which uppercases to DB."
+    },
+    {
+     "path": "tool/tbot/config/configtemplate_tls.go",
+     "snippet": "func (c *CertAuthType) UnmarshalYAML(node *yaml.Node) error {\n\tvar certType string\n\terr := node.Decode(&certType)\n\tif err != nil {\n\t\treturn trace.Wrap(err)\n\t}\n\n\tswitch certType {\n\tcase \"\":\n\t\t*c = CertAuthType(defaultCAType)\n\tcase string(types.HostCA), string(types.UserCA), string(types.DatabaseCA):\n\t\t*c = CertAuthType(certType)\n\tdefault:",
+     "way": "Live config parsing accepts the string(types.DatabaseCA) representation directly."
+    }
+   ]
+  },
+  {
+   "behavior": "VirtualPathEnvNames(VirtualPathCA, VirtualPathCAParams(types.HostCA)) returns [\"TSH_VIRTUAL_PATH_CA_HOST\", \"TSH_VIRTUAL_PATH_CA\"].",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "strings.ToUpper(string(caType))",
+   "gold_value": "TSH_VIRTUAL_PATH_CA_HOST",
+   "codebase_value": "HostCA CertAuthType = \"host\"",
+   "why": "For CertAuthType serialization, live production code uses the enum string value, so HostCA is the single codebase value host and gold's uppercased HOST matches it.",
+   "precedents": [
+    {
+     "path": "api/types/trust.go",
+     "snippet": "// CertAuthType specifies certificate authority type\ntype CertAuthType string\n\nconst (\n\t// HostCA identifies the key as a host certificate authority\n\tHostCA CertAuthType = \"host\"\n\t// UserCA identifies the key as a user certificate authority\n\tUserCA CertAuthType = \"user\"\n\t// DatabaseCA is a certificate authority used in database access.\n\tDatabaseCA CertAuthType = \"db\"\n\t// JWTSigner identifies type of certificate authority as JWT signer. In this\n\t// case JWT is not a certificate authority because it does not issue\n\t// certificates but rather is an authority that signs tokens, however it behaves\n\t// much like a CA in terms of rotation and storage.\n\tJWTSigner CertAuthType = \"jwt\"\n)\n\n// CertAuthTypes lists all certificate authority types.\nvar CertAuthTypes = []CertAuthType{HostCA, UserCA, DatabaseCA, JWTSigner}",
+     "way": "HostCA is represented by the enum string value \"host\", which uppercases to HOST."
+    },
+    {
+     "path": "tool/tbot/config/configtemplate_tls.go",
+     "snippet": "func (c *CertAuthType) UnmarshalYAML(node *yaml.Node) error {\n\tvar certType string\n\terr := node.Decode(&certType)\n\tif err != nil {\n\t\treturn trace.Wrap(err)\n\t}\n\n\tswitch certType {\n\tcase \"\":\n\t\t*c = CertAuthType(defaultCAType)\n\tcase string(types.HostCA), string(types.UserCA), string(types.DatabaseCA):\n\t\t*c = CertAuthType(certType)\n\tdefault:",
+     "way": "Live config parsing accepts the string(types.HostCA) representation directly."
+    }
+   ]
+  }
+ ]
+}

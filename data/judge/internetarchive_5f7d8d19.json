@@ -1,10 +1,10 @@
 {
  "case": "internetarchive_5f7d8d19",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 16,
  "n_covered": 14,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -89,14 +89,16 @@
    "covering_prose": null,
    "gold_anchor": "isbn_13 = to_isbn_13(isbn)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "get_identifier_forms(isbn=\"9780747532699\", asin=\"\") returns [\"0747532699\", \"9780747532699\"]",
    "covering_prose": null,
    "gold_anchor": "isbn_10 = isbn_13_to_isbn_10(isbn_13) if isbn_13 else None",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "get_identifier_forms(isbn=\"\", asin=\"B06XYHVXVJ\") returns [\"B06XYHVXVJ\"]",
@@ -119,5 +121,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

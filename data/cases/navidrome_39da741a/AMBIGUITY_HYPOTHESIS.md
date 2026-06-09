@@ -1,21 +1,46 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- navidrome_39da741a
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- navidrome_39da741a
 
 - instance_id: `instance_navidrome__navidrome-5e549255201e622c911621a7b770477b1f5a89be`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `navidrome/navidrome` @ `39da741a80`
 
-## The graded behavior
-Album `103` / `Radioactivity` is expected to have `Genres: model.Genres{genreElectronic, genreRock}` in that order.
-- test assertion: [`hidden_test.diff`#L79](hidden_test.diff#L79) `albumRadioactivity = model.Album{ID: "103", Name: "Radioactivity", Artist: "Kraftwerk", OrderAlbumName: "radioactivity", AlbumArtistID: "2", Genre: "Electronic", Genres: model.Genres{genreElectronic, genreRock}, CoverArtId: "3", CoverArtPath: P("/kraft/radio/radio.mp3"), SongCount: 2, FullText: " kraftwerk radioactivity"}`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** Album genres preserve the relation/input order so Radioactivity hydrates as Electronic followed by Rock.  gold: [`gold.diff`#L169](gold.diff#L169) `genres = append(genres, model.Genre{ID: id})`
-- **R2 (prose-faithful alternative):** Album genres are any consistently ordered unique set derived from tracks, such as sorting by genre name, ID, or another stable repository convention.
+- **Album `101` / `Sgt Peppers` is expected to have `Genres: model.Genres{genreRock}`.** -- gold `model.Genres{genreRock}` matches codebase `A genre-bearing model stores all unique genres in `model.Genres`; with one genre this is a one-element collection, while legacy `Genre` is the first element's name.`. The live media-file genre mapper is the only comparable multi-genre model precedent and it represents a single genre as a single-element `Genres` slice, matching gold.
+1. `scanner/mapping.go` -- build a unique `model.Genres` slice and set the legacy genre string from the first genre
+   ```
+   for _, g := range all {
+   		genre := model.Genre{Name: g}
+   		_ = s.genres.Put(&genre)
+   		result = append(result, genre)
+   	}
+   	if len(result) == 0 {
+   		return "", nil
+   	}
+   	return result[0].Name, result
+   ```
+- **Album `102` / `Abbey Road` is expected to have `Genres: model.Genres{genreRock}`.** -- gold `model.Genres{genreRock}` matches codebase `A genre-bearing model stores all unique genres in `model.Genres`; with one genre this is a one-element collection, while legacy `Genre` is the first element's name.`. The live media-file genre mapper is the only comparable multi-genre model precedent and it represents a single genre as a single-element `Genres` slice, matching gold.
+1. `scanner/mapping.go` -- build a unique `model.Genres` slice and set the legacy genre string from the first genre
+   ```
+   for _, g := range all {
+   		genre := model.Genre{Name: g}
+   		_ = s.genres.Put(&genre)
+   		result = append(result, genre)
+   	}
+   	if len(result) == 0 {
+   		return "", nil
+   	}
+   	return result[0].Name, result
+   ```
+- **Album `103` / `Radioactivity` is expected to have `Genres: model.Genres{genreElectronic, genreRock}` in that order.** -- gold `model.Genres{genreElectronic, genreRock}` matches codebase `Genres are appended in first-seen/input order, persisted in that order, and loaded back by relation `rowid`.`. All live comparable multi-genre production code preserves first/insertion order, so gold's Electronic-then-Rock order is determined if that is the input relation order.
+1. `scanner/mapping.go` -- append genres in the order accumulated from input tags
+   ```
+   for _, g := range all {
+   		genre := model.Genre{Name: g}
+   		_ = s.genres.Put(&genre)
+   		result = append(result, genre)
+   	}
+   ```
 
-## Status: HYPOTHESIS
-Class `borderline` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-A stable ordering that returns Rock before Electronic would not equal the test fixture's exact `model.Genres{genreElectronic, genreRock}` slice.
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

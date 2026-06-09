@@ -1,0 +1,110 @@
+{
+ "slug": "internetarchive_322d7a46",
+ "repo": "internetarchive/openlibrary",
+ "base": "322d7a46cdc965bfabbf9500e98fde098c9d95b2",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Calling `solr_update(SolrUpdateState(commit=True), solr_base_url=\"http://localhost:8983/solr/foobar\")` against a 200 JSON Solr response makes exactly one `httpx.post` call.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "resp.raise_for_status()",
+   "gold_value": "resp.raise_for_status() on non-400 responses, yielding exactly one post for HTTP 200",
+   "codebase_value": "non-400 responses call `resp.raise_for_status()` inside a `RetryStrategy`; with no exception the wrapped request runs once",
+   "why": "The base production `solr_update` already implements the exact successful-response path that gold relocates.",
+   "precedents": [
+    {
+     "path": "openlibrary/solr/update_work.py",
+     "snippet": "            if resp.status_code == 400:\n                resp_json = resp.json()\n\n                indiv_errors = resp_json.get('responseHeader', {}).get('errors', [])\n                if indiv_errors:\n                    for e in indiv_errors:\n                        logger.error(f'Individual Solr POST Error: {e}')\n\n                global_error = resp_json.get('error')\n                if global_error:\n                    logger.error(f'Global Solr POST Error: {global_error.get(\"msg\")}')\n\n                if not (indiv_errors or global_error):\n                    # We can handle the above errors. Any other 400 status codes\n                    # are fatal and should cause a retry\n                    resp.raise_for_status()\n            else:\n                resp.raise_for_status()",
+     "way": "non-400 Solr update responses use `resp.raise_for_status()`; HTTP 200 raises nothing"
+    }
+   ]
+  },
+  {
+   "behavior": "Calling `solr_update` against a non-JSON 503 Service Unavailable response retries, so `httpx.post` is called more than once.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "RetryStrategy(",
+   "gold_value": "RetryStrategy wraps the request and retries HTTPStatusError failures",
+   "codebase_value": "status 503 takes the non-400 branch, calls `resp.raise_for_status()`, and `RetryStrategy([HTTPStatusError, TimeoutException, HTTPError], max_retries=5, delay=8)` retries",
+   "why": "The live Solr update code has the same 503 path and retry wrapper, with no competing Solr batch-update precedent.",
+   "precedents": [
+    {
+     "path": "openlibrary/utils/retry.py",
+     "snippet": "    def __call__(self, func):\n        try:\n            return func()\n        except Exception as e:\n            if not any(isinstance(e, exc) for exc in self.exceptions):\n                raise e\n\n            self.last_exception = e\n\n            if self.retry_count < self.max_retries:\n                self.retry_count += 1\n                time.sleep(self.delay)\n                return self(func)\n            else:\n                raise MaxRetriesExceeded(self.last_exception)",
+     "way": "matching exceptions are retried recursively"
+    }
+   ]
+  },
+  {
+   "behavior": "Calling `solr_update` when `httpx.post` raises `ConnectError` retries, so `httpx.post` is called more than once.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "[HTTPStatusError, TimeoutException, HTTPError]",
+   "gold_value": "[HTTPStatusError, TimeoutException, HTTPError]",
+   "codebase_value": "[HTTPStatusError, TimeoutException, HTTPError]",
+   "why": "The base code's retry exception list exactly matches gold, and `ConnectError` is covered by the broad HTTP error policy.",
+   "precedents": [
+    {
+     "path": "openlibrary/solr/update_work.py",
+     "snippet": "        except HTTPError as e:\n            logger.error(f'HTTP Solr POST Error: {e}')\n            raise\n\n    retry = RetryStrategy(\n        [HTTPStatusError, TimeoutException, HTTPError],\n        max_retries=5,\n        delay=8,\n    )",
+     "way": "Solr update retries broad `HTTPError` failures as well as status and timeout errors"
+    }
+   ]
+  },
+  {
+   "behavior": "Calling `solr_update` against a 400 response with a top-level `error` object is treated as handled and makes exactly one `httpx.post` call.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "global_error = resp_json.get('error')",
+   "gold_value": "top-level `error` from `resp_json.get('error')` is handled without `raise_for_status()`",
+   "codebase_value": "top-level `error` from `resp_json.get('error')` is handled without `raise_for_status()`",
+   "why": "The live production Solr update code already treats top-level 400 `error` as handled exactly as gold does.",
+   "precedents": [
+    {
+     "path": "openlibrary/solr/update_work.py",
+     "snippet": "                global_error = resp_json.get('error')\n                if global_error:\n                    logger.error(f'Global Solr POST Error: {global_error.get(\"msg\")}')\n\n                if not (indiv_errors or global_error):\n                    # We can handle the above errors. Any other 400 status codes\n                    # are fatal and should cause a retry\n                    resp.raise_for_status()",
+     "way": "a global Solr 400 error is logged and suppresses the fatal `raise_for_status()` path"
+    }
+   ]
+  },
+  {
+   "behavior": "Calling `solr_update` against a 400 response with `responseHeader.errors` is treated as handled and makes exactly one `httpx.post` call.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "indiv_errors = resp_json.get('responseHeader', {}).get('errors', [])",
+   "gold_value": "`resp_json.get('responseHeader', {}).get('errors', [])` is handled without `raise_for_status()`",
+   "codebase_value": "`resp_json.get('responseHeader', {}).get('errors', [])` is handled without `raise_for_status()`",
+   "why": "The base production code makes the same partial-failure handling choice that gold pins.",
+   "precedents": [
+    {
+     "path": "openlibrary/solr/update_work.py",
+     "snippet": "                indiv_errors = resp_json.get('responseHeader', {}).get('errors', [])\n                if indiv_errors:\n                    for e in indiv_errors:\n                        logger.error(f'Individual Solr POST Error: {e}')\n\n                global_error = resp_json.get('error')\n                if global_error:\n                    logger.error(f'Global Solr POST Error: {global_error.get(\"msg\")}')\n\n                if not (indiv_errors or global_error):\n                    # We can handle the above errors. Any other 400 status codes\n                    # are fatal and should cause a retry\n                    resp.raise_for_status()",
+     "way": "individual Solr 400 errors are logged and suppress the fatal retry path"
+    }
+   ]
+  },
+  {
+   "behavior": "Calling `solr_update` against a 500 response retries, so `httpx.post` is called more than once.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "resp.raise_for_status()",
+   "gold_value": "non-400 500 response calls `resp.raise_for_status()` and retries via RetryStrategy",
+   "codebase_value": "non-400 500 response calls `resp.raise_for_status()` and retries via RetryStrategy",
+   "why": "The base Solr update implementation already selects retry for HTTP 500 through `raise_for_status()` and `RetryStrategy`.",
+   "precedents": [
+    {
+     "path": "openlibrary/utils/retry.py",
+     "snippet": "            if self.retry_count < self.max_retries:\n                self.retry_count += 1\n                time.sleep(self.delay)\n                return self(func)\n            else:\n                raise MaxRetriesExceeded(self.last_exception)",
+     "way": "retryable exceptions cause another function call until the retry limit"
+    }
+   ]
+  }
+ ]
+}

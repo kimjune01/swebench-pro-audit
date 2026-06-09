@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_e434ca93",
+ "repo": "navidrome/navidrome",
+ "base": "e434ca937255be6e12f11300648b3486de0aa9c2",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "When only r128_track_gain is present with value \"0\", RGTrackGain() returns 5.0.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "return value + 5",
+   "gold_value": "+5 dB offset, so \"0\" returns 5.0",
+   "codebase_value": null,
+   "why": "The live production code at the base commit has ReplayGain parsing and use sites but no comparable R128 loudness-reference conversion or fixed offset convention.",
+   "precedents": []
+  },
+  {
+   "behavior": "When only r128_track_gain is present with value \"-3776\", RGTrackGain() returns -9.75.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "var value = float64(iValue) / 256.0",
+   "gold_value": "float64(iValue) / 256.0, so -3776 becomes -14.75 before the +5 offset and returns -9.75",
+   "codebase_value": null,
+   "why": "The live production code contains no comparable R128 or Q7.8 fixed-point gain decoding precedent that determines the divisor.",
+   "precedents": []
+  }
+ ]
+}

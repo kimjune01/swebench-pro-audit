@@ -1,0 +1,25 @@
+{
+ "slug": "NodeBB_88e891fc",
+ "repo": "NodeBB/NodeBB",
+ "base": "88e891fcc66d79c3fbc19379c12dc6225630251e",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Response status code is 307 for the redirect when an unconfirmed logged-in user with requireEmailAddress enabled is blocked after entering an email that is not yet confirmed.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "controllers.helpers.redirect(res, '/register/complete');",
+   "gold_value": "307 via controllers.helpers.redirect(res, '/register/complete')",
+   "codebase_value": "controllers.helpers.redirect(res, '/register/complete') for this middleware's registration-completion block",
+   "why": "For the same middleware path being fixed, the base production code already routes blocked registration-completion users through controllers.helpers.redirect to /register/complete, and gold matches that live in-file convention.",
+   "precedents": [
+    {
+     "path": "src/middleware/user.js",
+     "snippet": "\t\tif (!allowed.includes(path)) {\n\t\t\t// Append user data if present\n\t\t\treq.session.registration.uid = req.session.registration.uid || req.uid;\n\n\t\t\tcontrollers.helpers.redirect(res, '/register/complete');\n\t\t} else {",
+     "way": "The existing live registration-completion middleware redirect uses controllers.helpers.redirect, the same redirect mechanism gold preserves and the hidden test observes as 307."
+    }
+   ]
+  }
+ ]
+}

@@ -1,21 +1,17 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- NodeBB_47910d70
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- NodeBB_47910d70
 
 - instance_id: `instance_NodeBB__NodeBB-b398321a5eb913666f903a794219833926881a8f-vd59a5728dfc977f44533186ace531248c2917516`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `NodeBB/NodeBB` @ `47910d708d`
 
-## The graded behavior
-Categories global group privileges include key 'groups:chat:privileged' with value false.
-- test assertion: [`hidden_test.diff`#L17](hidden_test.diff#L17) `'groups:chat:privileged': false,`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** Adding the global privilege entry also exposes a derived group privilege key named 'groups:chat:privileged' with value false in category privilege structures.  gold: [`gold.diff`#L279](gold.diff#L279) `['chat:privileged', { label: '[[admin/manage/privileges:chat-with-privileged]]', type: 'posting' }],`
-- **R2 (prose-faithful alternative):** A from-prose engineer could add only the named global privilege 'chat:privileged' without assuming category/group privilege output must include a 'groups:'-prefixed derived key.
+- **Categories global group privileges include key 'groups:chat:privileged' with value false.** -- gold ``groups:chat:privileged`: false` matches codebase `Every global privilege key is mirrored as `groups:${privilege}`, and group privilege booleans are computed from membership, yielding `false` when the group is not in that privilege set.`. Adding gold's `chat:privileged` entry to the global privilege map necessarily produces `groups:chat:privileged`, and the existing group privilege value computation makes it false unless explicitly granted.
+1. `src/privileges/global.js` -- Global group privilege keys are generated from the same global privilege map by prefixing each key with `groups:`.
+   ```
+   privsGlobal.getUserPrivilegeList = async () => await plugins.hooks.fire('filter:privileges.global.list', Array.from(_privilegeMap.keys()));
+   privsGlobal.getGroupPrivilegeList = async () => await plugins.hooks.fire('filter:privileges.global.groups.list', Array.from(_privilegeMap.keys()).map(privilege => `groups:${privilege}`));
+   ```
 
-## Status: HYPOTHESIS
-Class `codebase` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-R2 fails because the hidden test deep-equality assertion requires the exact 'groups:chat:privileged': false entry to be present.
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

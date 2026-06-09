@@ -1,0 +1,35 @@
+{
+ "slug": "future-architect_4ae87cc3",
+ "repo": "future-architect/vuls",
+ "base": "4ae87cc36cb1b1dbc7fd49680d553c8bb47fa8b6",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "When the cache map value is nil and the requested key is `akismet`, `searchCache` returns empty string `\"\"` and `ok == false` without panicking.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "value, ok := (*wpVulnCaches)[name]",
+   "gold_value": "\"\" and false, without panicking",
+   "codebase_value": "two-value map lookup returns the zero value and ok == false when not found",
+   "why": "Production code consistently uses direct two-value map lookup for read-only missing-entry behavior, and gold matches that convention by returning the string zero value and false.",
+   "precedents": [
+    {
+     "path": "report/report.go",
+     "snippet": "func getOrCreateServerUUID(r models.ScanResult, server c.ServerInfo) (serverUUID string, err error) {\n\tif id, ok := server.UUIDs[r.ServerName]; !ok {\n\t\tif serverUUID, err = uuid.GenerateUUID(); err != nil {\n\t\t\treturn \"\", xerrors.Errorf(\"Failed to generate UUID: %w\", err)\n\t\t}",
+     "way": "direct two-value lookup on map[string]string; missing entry is handled as !ok and string zero value"
+    },
+    {
+     "path": "scan/debian.go",
+     "snippet": "func (o *debian) getChangelogCache(meta *cache.Meta, pack models.Package) string {\n\tcachedPack, found := meta.Packs[pack.Name]\n\tif !found {\n\t\to.log.Debugf(\"Not found in cache: %s\", pack.Name)\n\t\treturn \"\"\n\t}",
+     "way": "direct two-value lookup for cache miss; missing entry returns empty string path"
+    },
+    {
+     "path": "report/report.go",
+     "snippet": "\tfor k, v := range def.Optional {\n\t\tif vv, ok := server.Optional[k]; ok && v == vv {\n\t\t\tdelete(server.Optional, k)\n\t\t}\n\t}",
+     "way": "direct two-value lookup on optional map with no nil guard for read-only absence"
+    }
+   ]
+  }
+ ]
+}

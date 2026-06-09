@@ -1,0 +1,52 @@
+{
+ "slug": "navidrome_1bf94531",
+ "repo": "navidrome/navidrome",
+ "base": "1bf94531fdb3599ccfbc5aca574152b8802bf5eb",
+ "verdict": "MISDETERMINED",
+ "gaps": [
+  {
+   "behavior": "A new Dialect identifier exists and can be used with sql.Open(Dialect, path) for the base sqlite3 dialect in db tests.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "Dialect = \"sqlite3\"",
+   "gold_value": "Dialect = \"sqlite3\"",
+   "codebase_value": "\"sqlite3\"",
+   "why": "Although the new identifier name Dialect is not present in the base tree, the live codebase determines the underlying base SQLite dialect value exactly as \"sqlite3\", matching gold.",
+   "precedents": [
+    {
+     "path": "db/db.go",
+     "snippet": "\terr = goose.SetDialect(Driver)",
+     "way": "Migrations use the existing Driver value as the SQLite dialect."
+    },
+    {
+     "path": "db/backup.go",
+     "snippet": "\tbackupDb, err := sql.Open(Driver, path)",
+     "way": "Direct backup database opens use the existing Driver value."
+    }
+   ]
+  },
+  {
+   "behavior": "Driver is changed to the custom registered sqlite driver name used with dbx.NewFromDB and backup sql.Open calls.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "Driver  = Dialect + \"_custom\"",
+   "gold_value": "Driver = Dialect + \"_custom\"",
+   "codebase_value": "Driver = \"sqlite3\"",
+   "why": "Live production code gives the exported Driver identifier exactly one value, \"sqlite3\", while gold changes that identifier to the custom registered name.",
+   "precedents": [
+    {
+     "path": "db/backup.go",
+     "snippet": "\tbackupDb, err := sql.Open(Driver, path)",
+     "way": "Backup sql.Open uses db.Driver as the base SQLite driver."
+    },
+    {
+     "path": "persistence/dbx_builder.go",
+     "snippet": "\tb.Builder = dbx.NewFromDB(d.ReadDB(), db.Driver)\n\tb.wdb = dbx.NewFromDB(d.WriteDB(), db.Driver)",
+     "way": "dbx.NewFromDB uses db.Driver as the base SQLite dialect/driver string."
+    }
+   ]
+  }
+ ]
+}

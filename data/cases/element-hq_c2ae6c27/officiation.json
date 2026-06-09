@@ -1,0 +1,140 @@
+{
+ "slug": "element-hq_c2ae6c27",
+ "repo": "element-hq/element-web",
+ "base": "c2ae6c279b8c80ea5bd58f3354e5949a9fa5ee41",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "arraySmoothingResample([2,2,0,2,2,0,2,2,0], 3) returns exactly [1,1,2].",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "return arrayFastResample(samples, points);",
+   "gold_value": "[1,1,2]",
+   "codebase_value": null,
+   "why": "Live production waveform code has both fast-resample and trim/fill length-normalization precedents, so the repo alone does not uniquely select the gold final sizing method.",
+   "precedents": [
+    {
+     "path": "src/voice/Playback.ts",
+     "snippet": "this.resampledWaveform = arrayFastResample(seedWaveform ?? DEFAULT_WAVEFORM, PLAYBACK_WAVEFORM_SAMPLES);",
+     "way": "normalizes playback waveform length with arrayFastResample"
+    },
+    {
+     "path": "src/components/views/voice_messages/PlaybackWaveform.tsx",
+     "snippet": "private toHeights(waveform: number[]) {\n        const seed = arraySeed(0, PLAYBACK_WAVEFORM_SAMPLES);\n        return arrayTrimFill(waveform, PLAYBACK_WAVEFORM_SAMPLES, seed);\n    }",
+     "way": "normalizes playback waveform length with arrayTrimFill"
+    }
+   ]
+  },
+  {
+   "behavior": "arraySmoothingResample([2,2,0,2,2,0,2,2], 2) returns exactly [1,2].",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "return arrayFastResample(samples, points);",
+   "gold_value": "[1,1,2]",
+   "codebase_value": null,
+   "why": "Live production waveform code has both fast-resample and trim/fill length-normalization precedents, so the repo alone does not uniquely select the gold final sizing method.",
+   "precedents": [
+    {
+     "path": "src/voice/Playback.ts",
+     "snippet": "this.resampledWaveform = arrayFastResample(seedWaveform ?? DEFAULT_WAVEFORM, PLAYBACK_WAVEFORM_SAMPLES);",
+     "way": "normalizes playback waveform length with arrayFastResample"
+    },
+    {
+     "path": "src/components/views/voice_messages/PlaybackWaveform.tsx",
+     "snippet": "private toHeights(waveform: number[]) {\n        const seed = arraySeed(0, PLAYBACK_WAVEFORM_SAMPLES);\n        return arrayTrimFill(waveform, PLAYBACK_WAVEFORM_SAMPLES, seed);\n    }",
+     "way": "normalizes playback waveform length with arrayTrimFill"
+    }
+   ]
+  },
+  {
+   "behavior": "arraySmoothingResample([2,0,2], 6) returns exactly [2,2,0,0,2,2].",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "return arrayFastResample(input, points);",
+   "gold_value": "[2,2,0,0,2,2]",
+   "codebase_value": null,
+   "why": "The codebase contains two live comparable waveform resizing conventions, and gold selects only the fast-resample one.",
+   "precedents": [
+    {
+     "path": "src/voice/Playback.ts",
+     "snippet": "this.resampledWaveform = arrayFastResample(seedWaveform ?? DEFAULT_WAVEFORM, PLAYBACK_WAVEFORM_SAMPLES);",
+     "way": "upsizes or downsizes playback waveform data through arrayFastResample"
+    },
+    {
+     "path": "src/components/views/voice_messages/PlaybackWaveform.tsx",
+     "snippet": "private toHeights(waveform: number[]) {\n        const seed = arraySeed(0, PLAYBACK_WAVEFORM_SAMPLES);\n        return arrayTrimFill(waveform, PLAYBACK_WAVEFORM_SAMPLES, seed);\n    }",
+     "way": "pads or trims playback waveform data through arrayTrimFill with a zero seed"
+    }
+   ]
+  },
+  {
+   "behavior": "arraySmoothingResample([2,0,2], 5) returns exactly [2,2,0,0,2].",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "return arrayFastResample(input, points);",
+   "gold_value": "[2,2,0,0,2]",
+   "codebase_value": null,
+   "why": "Fast resampling is live production precedent, but not the only live production precedent for making waveform arrays exactly the desired length.",
+   "precedents": [
+    {
+     "path": "src/voice/Playback.ts",
+     "snippet": "this.resampledWaveform = arrayFastResample(seedWaveform ?? DEFAULT_WAVEFORM, PLAYBACK_WAVEFORM_SAMPLES);",
+     "way": "normalizes playback waveform length with arrayFastResample"
+    },
+    {
+     "path": "src/components/views/voice_messages/PlaybackWaveform.tsx",
+     "snippet": "private toHeights(waveform: number[]) {\n        const seed = arraySeed(0, PLAYBACK_WAVEFORM_SAMPLES);\n        return arrayTrimFill(waveform, PLAYBACK_WAVEFORM_SAMPLES, seed);\n    }",
+     "way": "normalizes playback waveform length with arrayTrimFill"
+    }
+   ]
+  },
+  {
+   "behavior": "arraySmoothingResample([2,0], 5) returns exactly [2,2,2,0,0].",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "return arrayFastResample(input, points);",
+   "gold_value": "[2,2,0,0,2]",
+   "codebase_value": null,
+   "why": "Fast resampling is live production precedent, but not the only live production precedent for making waveform arrays exactly the desired length.",
+   "precedents": [
+    {
+     "path": "src/voice/Playback.ts",
+     "snippet": "this.resampledWaveform = arrayFastResample(seedWaveform ?? DEFAULT_WAVEFORM, PLAYBACK_WAVEFORM_SAMPLES);",
+     "way": "normalizes playback waveform length with arrayFastResample"
+    },
+    {
+     "path": "src/components/views/voice_messages/PlaybackWaveform.tsx",
+     "snippet": "private toHeights(waveform: number[]) {\n        const seed = arraySeed(0, PLAYBACK_WAVEFORM_SAMPLES);\n        return arrayTrimFill(waveform, PLAYBACK_WAVEFORM_SAMPLES, seed);\n    }",
+     "way": "normalizes playback waveform length with arrayTrimFill"
+    }
+   ]
+  },
+  {
+   "behavior": "arraySmoothingResample([2,0], 6) returns exactly [2,2,2,0,0,0].",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "return arrayFastResample(input, points);",
+   "gold_value": "[2,2,0,0,2,2]",
+   "codebase_value": null,
+   "why": "The codebase contains two live comparable waveform resizing conventions, and gold selects only the fast-resample one.",
+   "precedents": [
+    {
+     "path": "src/voice/Playback.ts",
+     "snippet": "this.resampledWaveform = arrayFastResample(seedWaveform ?? DEFAULT_WAVEFORM, PLAYBACK_WAVEFORM_SAMPLES);",
+     "way": "upsizes or downsizes playback waveform data through arrayFastResample"
+    },
+    {
+     "path": "src/components/views/voice_messages/PlaybackWaveform.tsx",
+     "snippet": "private toHeights(waveform: number[]) {\n        const seed = arraySeed(0, PLAYBACK_WAVEFORM_SAMPLES);\n        return arrayTrimFill(waveform, PLAYBACK_WAVEFORM_SAMPLES, seed);\n    }",
+     "way": "pads or trims playback waveform data through arrayTrimFill with a zero seed"
+    }
+   ]
+  }
+ ]
+}

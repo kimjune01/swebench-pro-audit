@@ -1,0 +1,91 @@
+{
+ "slug": "navidrome_3910e77a",
+ "repo": "navidrome/navidrome",
+ "base": "3910e77a7a6ff747487b5ef484a67dbab5826f6a",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Retrieving the stored playqueue before deleting temp-track succeeds without error and AssertPlayQueue(pq, actual) passes, meaning the retrieved playqueue contains both tracks from the stored playqueue.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "ids := slice.SeqFunc(tracks, func(t model.MediaFile) string { return t.ID })",
+   "gold_value": "ids := slice.SeqFunc(tracks, func(t model.MediaFile) string { return t.ID })",
+   "codebase_value": "collect each t.ID from tracks, query by chunks, then append found tracks in the original tracks order",
+   "why": "The live playqueue loader already determines that retrieval preserves all still-existing stored tracks in their original order, and gold keeps that behavior while changing ID collection to SeqFunc.",
+   "precedents": [
+    {
+     "path": "persistence/playqueue_repository.go",
+     "snippet": "\t// Collect all ids\n\tids := make([]string, len(tracks))\n\tfor i, t := range tracks {\n\t\tids[i] = t.ID\n\t}",
+     "way": "derive query IDs from every input track ID"
+    },
+    {
+     "path": "persistence/playqueue_repository.go",
+     "snippet": "\t// Create a new list of tracks with the same order as the original\n\t// Exclude tracks that are not in the DB anymore\n\tnewTracks := make(model.MediaFiles, 0, len(tracks))\n\tfor _, t := range tracks {\n\t\tif track, ok := trackMap[t.ID]; ok {\n\t\t\tnewTracks = append(newTracks, track)\n\t\t}\n\t}\n\treturn newTracks",
+     "way": "return existing tracks in original input order"
+    }
+   ]
+  },
+  {
+   "behavior": "CollectChunks over an empty input sequence with chunk size 1 yields no chunks, leaving the collected result nil.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if len(s) > 0 {",
+   "gold_value": "if len(s) > 0 {",
+   "codebase_value": "yield nothing for empty input",
+   "why": "The existing live CollectChunks implementation yields no final chunk unless the buffer is non-empty, so an empty input produces no yielded chunks and a caller's nil result remains nil.",
+   "precedents": [
+    {
+     "path": "utils/slice/slice.go",
+     "snippet": "func CollectChunks[T any](n int, it iter.Seq[T]) iter.Seq[[]T] {\n\treturn func(yield func([]T) bool) {\n\t\tvar s []T\n\t\tfor x := range it {\n\t\t\ts = append(s, x)\n\t\t\tif len(s) >= n {\n\t\t\t\tif !yield(s) {\n\t\t\t\t\treturn\n\t\t\t\t}\n\t\t\t\ts = nil\n\t\t\t}\n\t\t}\n\t\tif len(s) > 0 {\n\t\t\tyield(s)\n\t\t}\n\t}\n}",
+     "way": "only yield the trailing chunk when len(s) > 0"
+    }
+   ]
+  },
+  {
+   "behavior": "CollectChunks over input [1, 2, 3] with chunk size 10 yields exactly one chunk: [1, 2, 3].",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "yield(s)",
+   "gold_value": "yield(s)",
+   "codebase_value": "emit one trailing partial chunk when len(s) > 0",
+   "why": "Both live chunking utilities include a non-empty trailing partial chunk, matching gold's final yield.",
+   "precedents": [
+    {
+     "path": "utils/slice/slice.go",
+     "snippet": "\t\tif len(s) > 0 {\n\t\t\tyield(s)\n\t\t}",
+     "way": "yield final partial chunk"
+    },
+    {
+     "path": "utils/slice/slice.go",
+     "snippet": "func BreakUp[T any](items []T, chunkSize int) [][]T {\n\tnumTracks := len(items)\n\tvar chunks [][]T\n\tfor i := 0; i < numTracks; i += chunkSize {\n\t\tend := i + chunkSize\n\t\tif end > numTracks {\n\t\t\tend = numTracks\n\t\t}\n\n\t\tchunks = append(chunks, items[i:end])\n\t}\n\treturn chunks\n}",
+     "way": "append a final chunk ending at len(items) when fewer than chunkSize items remain"
+    }
+   ]
+  },
+  {
+   "behavior": "CollectChunks over input [1, 2, 3, 4, 5] with chunk size 3 yields exactly two chunks: [1, 2, 3] and [4, 5].",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if len(s) >= n {",
+   "gold_value": "if len(s) >= n {",
+   "codebase_value": "yield each full chunk once len(s) >= n, reset the buffer, then yield any non-empty remainder",
+   "why": "The live production chunking behavior is consistently full chunks followed by a non-empty remainder, which determines the two chunks gold pins.",
+   "precedents": [
+    {
+     "path": "utils/slice/slice.go",
+     "snippet": "\t\tfor x := range it {\n\t\t\ts = append(s, x)\n\t\t\tif len(s) >= n {\n\t\t\t\tif !yield(s) {\n\t\t\t\t\treturn\n\t\t\t\t}\n\t\t\t\ts = nil\n\t\t\t}\n\t\t}\n\t\tif len(s) > 0 {\n\t\t\tyield(s)\n\t\t}",
+     "way": "yield full chunks at len(s) >= n, then yield leftover partial chunk"
+    },
+    {
+     "path": "utils/slice/slice.go",
+     "snippet": "\tfor i := 0; i < numTracks; i += chunkSize {\n\t\tend := i + chunkSize\n\t\tif end > numTracks {\n\t\t\tend = numTracks\n\t\t}\n\n\t\tchunks = append(chunks, items[i:end])\n\t}",
+     "way": "iterate by chunkSize and append both full chunks and final remainder"
+    }
+   ]
+  }
+ ]
+}

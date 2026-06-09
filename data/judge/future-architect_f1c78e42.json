@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 4,
  "n_covered": 2,
- "n_gap": 2,
+ "n_gap": 1,
  "n_out_of_scope": 11,
  "rows": [
   {
@@ -26,7 +26,8 @@
    "covering_prose": null,
    "gold_anchor": "StandardSupportUntil: time.Date(2021, 3, 1, 23, 59, 59, 0, time.UTC),",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "GetEOL recognizes Oracle Linux 9 as found and not extended-support-ended at 2021-01-06 23:59:59 UTC.",
@@ -40,7 +41,8 @@
    "covering_prose": null,
    "gold_anchor": "StandardSupportUntil: time.Date(2032, 6, 1, 23, 59, 59, 0, time.UTC),",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "GetEOL returns found=false for Oracle Linux release \"10\" at 2021-01-06 23:59:59 UTC, with standard and extended support not ended.",
@@ -112,5 +114,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

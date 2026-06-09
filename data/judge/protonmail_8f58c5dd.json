@@ -1,10 +1,10 @@
 {
  "case": "protonmail_8f58c5dd",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 21,
  "n_covered": 14,
- "n_gap": 7,
+ "n_gap": 0,
  "n_out_of_scope": 1,
  "rows": [
   {
@@ -47,49 +47,56 @@
    "covering_prose": null,
    "gold_anchor": "return persistedSession;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For a valid minimal persisted session, the returned object includes isSubUser: false.",
    "covering_prose": null,
    "gold_anchor": "return persistedSession;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For a valid minimal persisted session, the returned object includes payloadType: 'default'.",
    "covering_prose": null,
    "gold_anchor": "return persistedSession;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For a valid minimal persisted session, the returned object includes payloadVersion: 1.",
    "covering_prose": null,
    "gold_anchor": "return persistedSession;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For a valid minimal persisted session without persistedAt, the returned object includes persistedAt: 0.",
    "covering_prose": null,
    "gold_anchor": "return persistedSession;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For a valid minimal persisted session, the returned object includes persistent: true.",
    "covering_prose": null,
    "gold_anchor": "return persistedSession;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For a valid minimal persisted session, the returned object includes trusted: false.",
    "covering_prose": null,
    "gold_anchor": "return persistedSession;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "When there are no active persisted sessions, getLastActivePersistedUserSession returns null.",
@@ -161,5 +168,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 7,
+ "officiated": true
 }

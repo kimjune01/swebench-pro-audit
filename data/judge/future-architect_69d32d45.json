@@ -33,112 +33,128 @@
    "covering_prose": null,
    "gold_anchor": "\"7\": {\n\t\t\t\tStandardSupportUntil: time.Date(2024, 6, 30, 23, 59, 59, 0, time.UTC),\n\t\t\t}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "RedHat release \"8\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"8\": {\n\t\t\t\tStandardSupportUntil: time.Date(2029, 5, 31, 23, 59, 59, 0, time.UTC),\n\t\t\t}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "RedHat release \"6\" is found; on 2021-01-06 standard support is ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"6\": {\n\t\t\t\tStandardSupportUntil: time.Date(2020, 11, 30, 23, 59, 59, 0, time.UTC),\n\t\t\t\tExtendedSupportUntil: time.Date(2024, 6, 30, 23, 59, 59, 0, time.UTC),\n\t\t\t}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "RedHat release \"9\" is not found.",
    "covering_prose": null,
    "gold_anchor": "}[major(release)]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "CentOS release \"7\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"7\": {StandardSupportUntil: time.Date(2024, 6, 30, 23, 59, 59, 0, time.UTC)}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "CentOS release \"8\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"8\": {StandardSupportUntil: time.Date(2021, 12, 31, 23, 59, 59, 0, time.UTC)}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "CentOS release \"6\" is found; on 2021-01-06 standard support is ended and extended support is ended.",
    "covering_prose": null,
    "gold_anchor": "\"6\": {Ended: true}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "CentOS release \"9\" is not found.",
    "covering_prose": null,
    "gold_anchor": "}[major(release)]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Oracle release \"7\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"7\": {\n\t\t\t\tStandardSupportUntil: time.Date(2024, 7, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Oracle release \"8\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"8\": {\n\t\t\t\tStandardSupportUntil: time.Date(2029, 7, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Oracle release \"6\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"6\": {\n\t\t\t\tStandardSupportUntil: time.Date(2021, 3, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t\tExtendedSupportUntil: time.Date(2024, 3, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Oracle release \"9\" is not found.",
    "covering_prose": null,
    "gold_anchor": "}[major(release)]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Ubuntu release \"18.04\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"18.04\": {\n\t\t\t\tStandardSupportUntil: time.Date(2023, 4, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t\tExtendedSupportUntil: time.Date(2028, 4, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Ubuntu release \"18.04\" is found; on 2025-01-06 standard support is ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"18.04\": {\n\t\t\t\tStandardSupportUntil: time.Date(2023, 4, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t\tExtendedSupportUntil: time.Date(2028, 4, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Ubuntu test named \"Ubuntu 16.04 supported\" uses release \"18.04\"; it is found and not ended on 2021-01-06.",
    "covering_prose": null,
    "gold_anchor": "\"18.04\": {\n\t\t\t\tStandardSupportUntil: time.Date(2023, 4, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t\tExtendedSupportUntil: time.Date(2028, 4, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Ubuntu release \"14.04\" is found; on 2021-01-06 standard support is ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"14.04\": {\n\t\t\t\tExtendedSupportUntil: time.Date(2022, 4, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Ubuntu release \"14.10\" is found; on 2021-01-06 standard support is ended and extended support is ended.",
@@ -152,77 +168,88 @@
    "covering_prose": null,
    "gold_anchor": "}[release]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Ubuntu release \"21.04\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"21.04\": {\n\t\t\t\tStandardSupportUntil: time.Date(2022, 1, 1, 23, 59, 59, 0, time.UTC),\n\t\t\t}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Debian release \"9\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"9\":  {StandardSupportUntil: time.Date(2022, 6, 30, 23, 59, 59, 0, time.UTC)}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Debian release \"10\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"10\": {StandardSupportUntil: time.Date(2024, 6, 30, 23, 59, 59, 0, time.UTC)}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Debian release \"8\" is found; on 2021-01-06 standard support is ended and extended support is ended.",
    "covering_prose": null,
    "gold_anchor": "\"8\":  {Ended: true}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Debian release \"11\" is not found.",
    "covering_prose": null,
    "gold_anchor": "}[major(release)]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Alpine release \"3.10\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"3.10\": {StandardSupportUntil: time.Date(2021, 5, 1, 23, 59, 59, 0, time.UTC)}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Alpine release \"3.11\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"3.11\": {StandardSupportUntil: time.Date(2021, 11, 1, 23, 59, 59, 0, time.UTC)}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Alpine release \"3.12\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
    "covering_prose": null,
    "gold_anchor": "\"3.12\": {StandardSupportUntil: time.Date(2022, 5, 1, 23, 59, 59, 0, time.UTC)}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Alpine release \"3.9\" is found; on 2021-01-06 standard support is ended and extended support is ended.",
    "covering_prose": null,
    "gold_anchor": "\"3.9\":  {Ended: true}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Alpine release \"3.13\" is not found.",
    "covering_prose": null,
    "gold_anchor": "}[release]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "FreeBSD release \"11\" is found; on 2021-01-06 standard support is not ended and extended support is not ended.",
@@ -243,14 +270,16 @@
    "covering_prose": null,
    "gold_anchor": "\"12\": {StandardSupportUntil: time.Date(2024, 6, 30, 23, 59, 59, 0, time.UTC)}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "FreeBSD release \"10\" is found; on 2021-01-06 standard support is ended and extended support is ended.",
    "covering_prose": null,
    "gold_anchor": "\"10\": {Ended: true}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "GetEOL returns a second boolean indicating whether lifecycle data was found.",
@@ -294,5 +323,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

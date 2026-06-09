@@ -1,10 +1,10 @@
 {
  "case": "NodeBB_88e891fc",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 2,
  "n_covered": 1,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,7 +12,8 @@
    "covering_prose": null,
    "gold_anchor": "controllers.helpers.redirect(res, '/register/complete');",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Response Location header is `${nconf.get('relative_path')}/register/complete`, not `${nconf.get('relative_path')}/me/edit/email`, for an unconfirmed logged-in non-admin user when requireEmailAddress is enabled and the route is not `/edit/email` and does not start with `/confirm/`.",
@@ -21,5 +22,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

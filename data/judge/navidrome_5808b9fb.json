@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 12,
  "n_covered": 10,
- "n_gap": 2,
+ "n_gap": 1,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -82,14 +82,19 @@
    "covering_prose": null,
    "gold_anchor": "err := &rest.ValidationError{Errors: map[string]string{}}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Each single-field validation failure in the tested scenarios contains exactly one entry in Errors.",
    "covering_prose": null,
    "gold_anchor": "if len(err.Errors) > 0 {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

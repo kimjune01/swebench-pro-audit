@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 16,
  "n_covered": 12,
- "n_gap": 4,
+ "n_gap": 2,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,7 +12,8 @@
    "covering_prose": null,
    "gold_anchor": "colh = append(colh, col.Title)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "A headless table with 2 columns omits the header and separator rows.",
@@ -54,7 +55,8 @@
    "covering_prose": null,
    "gold_anchor": "truncatedCell := fmt.Sprintf(\"%v...\", cell[:maxCellLength])",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "A truncated Motto cell with FootnoteLabel `[*]` appends that label to the rendered cell.",
@@ -110,14 +112,19 @@
    "covering_prose": null,
    "gold_anchor": "fmt.Fprintln(writer)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "The rendered table has exact space padding and separator widths matching the maximum rendered cell/header width per column.",
    "covering_prose": null,
    "gold_anchor": "strings.Repeat(\"-\", col.width)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

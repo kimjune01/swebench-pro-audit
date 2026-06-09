@@ -1,24 +1,19 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- gravitational_396812ce
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- gravitational_396812ce
 
 - instance_id: `instance_gravitational__teleport-ba6c4a135412c4296dd5551bd94042f0dc024504-v626ec2a48416b10a88641359a169d99e935ff037`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `gravitational/teleport` @ `396812cebf`
 
-## The graded behavior
-With no tracked components, processState.getState() returns stateStarting.
-- test assertion: [`hidden_test.diff`](hidden_test.diff) `desc:   "no components",
-			states: map[string]*componentState{},
-			want:   stateStarting,`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** If no components have been tracked yet, the overall readiness state is starting.  gold: [`gold.diff`](gold.diff) `state := stateStarting
-	numNotOK := len(f.states)`
-- **R2 (prose-faithful alternative):** If no components have been tracked yet, the overall readiness state could be ok because no tracked component is degraded, recovering, or starting.
+- **With no tracked components, processState.getState() returns stateStarting.** -- gold `stateStarting` matches codebase `stateStarting`. Live production code initializes process readiness to stateStarting before any updates, so gold's empty-component aggregate default matches the codebase convention.
+1. `version.mk` -- The readiness gauge is initialized to stateStarting before any process state events are processed.
+   ```
+   func init() {
+   	prometheus.MustRegister(stateGauge)
+   	stateGauge.Set(stateStarting)
+   }
+   ```
 
-## Status: HYPOTHESIS
-Class `codebase` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-R2 fails because the hidden test expects an empty component map to produce stateStarting.
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

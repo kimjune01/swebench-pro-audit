@@ -1,10 +1,10 @@
 {
  "case": "element-hq_53415bfd",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 11,
  "n_covered": 10,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 3,
  "rows": [
   {
@@ -47,7 +47,8 @@
    "covering_prose": null,
    "gold_anchor": "if (this.props.enableRoomOptionsMenu && shouldShowComponent(UIComponent.RoomOptionsMenu)) {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "RoomHeader does not render the room options context menu when enableRoomOptionsMenu is false and shouldShowComponent returns true.",
@@ -105,5 +106,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

@@ -1,26 +1,63 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- protonmail_738b22f1
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- protonmail_738b22f1
 
 - instance_id: `instance_protonmail__webclients-d3e513044d299d04e509bf8c0f4e73d812030246`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `protonmail/webclients` @ `738b22f1e8`
 
-## The graded behavior
-getLabelID("-10") returns "custom"
-- test assertion: [`hidden_test.diff`](hidden_test.diff) `{
-            value: '-10',
-            expected: 'custom',
-        }`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** The test pins that the label ID string '-10' is treated as a custom label or folder and normalized to 'custom'.  gold: [`gold.diff`](gold.diff) `if (isCustomLabelOrFolder(labelID)) {
-        return 'custom';
-    }`
-- **R2 (prose-faithful alternative):** A from-prose engineer could treat only recognizable user-created label IDs as custom and preserve an unrecognized system-looking string such as '-10' unchanged or reject it.
+- **getLabelID("0") returns "0"** -- gold `0` matches codebase `0`. The live enum defines '0' as a built-in mailbox label and the live custom-label helper treats enum values as non-custom, matching gold.
+1. `packages/shared/lib/constants.ts` -- MAILBOX_LABEL_IDS.INBOX is exactly the string '0'.
+   ```
+   export enum MAILBOX_LABEL_IDS {
+       INBOX = '0',
+       ALL_DRAFTS = '1',
+       ALL_SENT = '2',
+       TRASH = '3',
+       SPAM = '4',
+       ALL_MAIL = '5',
+       STARRED = '10',
+       ARCHIVE = '6',
+       SENT = '7',
+       DRAFTS = '8',
+       OUTBOX = '9',
+       SCHEDULED = '12',
+       ALMOST_ALL_MAIL = '15',
+       SNOOZED = '16',
+   }
+   ```
+- **getLabelID("1") returns "1"** -- gold `1` matches codebase `1`. The live enum defines '1' as a built-in mailbox label and production system/custom helpers treat it as non-custom, matching gold.
+1. `packages/shared/lib/constants.ts` -- MAILBOX_LABEL_IDS.ALL_DRAFTS is exactly the string '1'.
+   ```
+   export enum MAILBOX_LABEL_IDS {
+       INBOX = '0',
+       ALL_DRAFTS = '1',
+       ALL_SENT = '2',
+       TRASH = '3',
+       SPAM = '4',
+       ALL_MAIL = '5',
+       STARRED = '10',
+       ARCHIVE = '6',
+       SENT = '7',
+       DRAFTS = '8',
+       OUTBOX = '9',
+       SCHEDULED = '12',
+       ALMOST_ALL_MAIL = '15',
+       SNOOZED = '16',
+   }
+   ```
+- **getLabelID("test") returns "custom"** -- gold `custom` matches codebase `custom`. The live helper classifies every non-MAILBOX_LABEL_IDS value as custom, so 'test' is determined to normalize to the gold custom bucket.
+1. `applications/mail/src/app/helpers/labels.ts` -- Any label ID not present in MAILBOX_LABEL_IDS is classified as custom label/folder.
+   ```
+   export const isCustomLabelOrFolder = (labelID: string) =>
+       !Object.values(MAILBOX_LABEL_IDS).includes(labelID as MAILBOX_LABEL_IDS);
+   ```
+- **getLabelID("-10") returns "custom"** -- gold `custom` matches codebase `custom`. The live custom-label rule is enum nonmembership, and '-10' is not a live MAILBOX_LABEL_IDS value, matching gold.
+1. `applications/mail/src/app/helpers/labels.ts` -- Any label ID not present in MAILBOX_LABEL_IDS is classified as custom label/folder.
+   ```
+   export const isCustomLabelOrFolder = (labelID: string) =>
+       !Object.values(MAILBOX_LABEL_IDS).includes(labelID as MAILBOX_LABEL_IDS);
+   ```
 
-## Status: HYPOTHESIS
-Class `codebase` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-R2 fails because the hidden table explicitly expects getLabelID('-10') to return 'custom'.
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

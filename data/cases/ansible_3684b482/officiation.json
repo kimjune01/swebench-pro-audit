@@ -1,0 +1,19 @@
+{
+ "slug": "ansible_3684b482",
+ "repo": "ansible/ansible",
+ "base": "3684b4824d367f866d038c5373f975503580d49e",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "lib/ansible/plugins/connection/__init__.py is no longer ignored for pylint:ansible-deprecated-version in test/sanity/ignore.txt.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "class ConnectionKwargs(t.TypedDict):",
+   "gold_value": "remove `lib/ansible/plugins/connection/__init__.py pylint:ansible-deprecated-version` from `test/sanity/ignore.txt`",
+   "codebase_value": null,
+   "why": "The live production code can show deprecated-version call sites, but no live production precedent determines maintenance of a test/sanity ignore entry for this file after the requested TypedDict/interface change.",
+   "precedents": []
+  }
+ ]
+}

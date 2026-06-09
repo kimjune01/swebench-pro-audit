@@ -1,0 +1,436 @@
+{
+ "slug": "ansible_1503805b",
+ "repo": "ansible/ansible",
+ "base": "1503805b703787aba06111f67e7dc564e3420cad",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Default `_psrp_auth` is `'negotiate'`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "self._psrp_auth = self.get_option('auth')",
+   "gold_value": "'negotiate'",
+   "codebase_value": "'negotiate'",
+   "why": "The live psrp option declaration gives exactly `default: negotiate`, and the live implementation reads that option.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "        self._psrp_path = self.get_option('path')\n        self._psrp_auth = self.get_option('auth')",
+     "way": "_psrp_auth is assigned from the documented auth option"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_configuration_name` is `'Microsoft.PowerShell'`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "self._psrp_configuration_name = self.get_option('configuration_name')",
+   "gold_value": "'Microsoft.PowerShell'",
+   "codebase_value": "'Microsoft.PowerShell'",
+   "why": "The live psrp option declaration gives exactly `default: Microsoft.PowerShell`, and the live implementation reads that option.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "  configuration_name:\n    description:\n    - The name of the PowerShell configuration endpoint to connect to.\n    type: str\n    vars:\n    - name: ansible_psrp_configuration_name\n    default: Microsoft.PowerShell",
+     "way": "configuration_name defaults to Microsoft.PowerShell"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "        self._psrp_configuration_name = self.get_option('configuration_name')",
+     "way": "_psrp_configuration_name is assigned from the documented configuration_name option"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_host` is `'inventory_hostname'`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "self._psrp_host = self.get_option('remote_addr')",
+   "gold_value": "'inventory_hostname'",
+   "codebase_value": "'inventory_hostname'",
+   "why": "The live psrp option declaration gives exactly `default: inventory_hostname`, and the live implementation reads that option.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/strategy/__init__.py",
+     "snippet": "  remote_addr:\n    description:\n    - The hostname or IP address of the remote host.\n    default: inventory_hostname\n    type: str\n    vars:\n    - name: inventory_hostname\n    - name: ansible_host\n    - name: ansible_psrp_host",
+     "way": "remote_addr defaults to inventory_hostname"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "        self._psrp_host = self.get_option('remote_addr')",
+     "way": "_psrp_host is assigned from the documented remote_addr option"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_port` is `5986`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "port = 5986 if protocol == 'https' else 5985",
+   "gold_value": "5986",
+   "codebase_value": "5986",
+   "why": "The live `_build_kwargs` code sets port to exactly `5986` when both protocol and port are unset.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "        protocol = self.get_option('protocol')\n        port = self.get_option('port')\n        if protocol is None and port is None:\n            protocol = 'https'\n            port = 5986",
+     "way": "when protocol and port are unset, port is 5986"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "        self._psrp_port = int(port)",
+     "way": "_psrp_port is the computed port converted to int"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_user` is `None`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "self._psrp_user = self.get_option('remote_user')",
+   "gold_value": "None",
+   "codebase_value": "None",
+   "why": "The live psrp option declaration provides no default for `remote_user`, and the live implementation reads that option directly.",
+   "precedents": [
+    {
+     "path": "lib/ansible/modules/meta.py",
+     "snippet": "  remote_user:\n    description:\n    - The user to log in as.\n    type: str\n    vars:\n    - name: ansible_user\n    - name: ansible_psrp_user\n    keyword:\n    - name: remote_user",
+     "way": "remote_user has no declared default, so the option default is None"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "        self._psrp_user = self.get_option('remote_user')",
+     "way": "_psrp_user is assigned from the documented remote_user option"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['server']` is `'inventory_hostname'`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "server=self._psrp_host",
+   "gold_value": "'inventory_hostname'",
+   "codebase_value": "'inventory_hostname'",
+   "why": "The live code passes `_psrp_host` as `server`, and `_psrp_host` comes from `remote_addr`, whose default is `inventory_hostname`.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "        self._psrp_host = self.get_option('remote_addr')",
+     "way": "server source is _psrp_host from remote_addr"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            server=self._psrp_host, port=self._psrp_port,",
+     "way": "_psrp_conn_kwargs server is _psrp_host"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/winrm.py",
+     "snippet": "  remote_addr:\n    description:\n    - The hostname or IP address of the remote host.\n    default: inventory_hostname",
+     "way": "remote_addr defaults to inventory_hostname"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['port']` is `5986`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "port=self._psrp_port",
+   "gold_value": "5986",
+   "codebase_value": "5986",
+   "why": "The live code computes the default port as `5986` and passes `_psrp_port` as the `port` kwarg.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "        if protocol is None and port is None:\n            protocol = 'https'\n            port = 5986",
+     "way": "default computed port is 5986"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            server=self._psrp_host, port=self._psrp_port,",
+     "way": "_psrp_conn_kwargs port is _psrp_port"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['username']` is `None`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "username=self._psrp_user",
+   "gold_value": "None",
+   "codebase_value": "None",
+   "why": "The live code passes `_psrp_user` as `username`, and `remote_user` has no declared default.",
+   "precedents": [
+    {
+     "path": "lib/ansible/modules/meta.py",
+     "snippet": "  remote_user:\n    description:\n    - The user to log in as.\n    type: str\n    vars:\n    - name: ansible_user\n    - name: ansible_psrp_user\n    keyword:\n    - name: remote_user",
+     "way": "remote_user has no declared default, so the option default is None"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            username=self._psrp_user, password=self._psrp_pass,",
+     "way": "_psrp_conn_kwargs username is _psrp_user"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['password']` is `None`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "password=self.get_option('remote_password')",
+   "gold_value": "None",
+   "codebase_value": "None",
+   "why": "The live code passes the remote_password-derived `_psrp_pass`, and the option has no declared default.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/winrm.py",
+     "snippet": "  remote_password:\n    description: Authentication password for the O(remote_user). Can be supplied as CLI option.\n    type: str\n    vars:\n    - name: ansible_password\n    - name: ansible_winrm_pass\n    - name: ansible_winrm_password\n    aliases:\n    - password  # Needed for --ask-pass to come through on delegation",
+     "way": "remote_password has no declared default, so the option default is None"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "        self._psrp_pass = self.get_option('remote_password')",
+     "way": "_psrp_pass is assigned from remote_password"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            username=self._psrp_user, password=self._psrp_pass,",
+     "way": "_psrp_conn_kwargs password is _psrp_pass"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['path']` is `'wsman'`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "path=self.get_option('path')",
+   "gold_value": "'wsman'",
+   "codebase_value": "'wsman'",
+   "why": "The live psrp option declaration gives exactly `default: 'wsman'`, and the live kwargs pass the path option through.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            ssl=self._psrp_protocol == 'https', path=self._psrp_path,",
+     "way": "_psrp_conn_kwargs path is _psrp_path"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['auth']` is `'negotiate'`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "auth=self._psrp_auth",
+   "gold_value": "'negotiate'",
+   "codebase_value": "'negotiate'",
+   "why": "The live code passes `_psrp_auth` as `auth`, and the documented auth option defaults to `negotiate`.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "    default: negotiate",
+     "way": "auth defaults to negotiate"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            auth=self._psrp_auth, cert_validation=self._psrp_cert_validation,",
+     "way": "_psrp_conn_kwargs auth is _psrp_auth"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['connection_timeout']` is `30`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "connection_timeout=self.get_option('connection_timeout')",
+   "gold_value": "30",
+   "codebase_value": "30",
+   "why": "The live psrp option declaration gives exactly `default: 30`, and the live kwargs pass that option through.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/winrm.py",
+     "snippet": "  connection_timeout:\n    description:\n    - The connection timeout for making the request to the remote host.\n    - This is measured in seconds.\n    type: int\n    vars:\n    - name: ansible_psrp_connection_timeout\n    default: 30",
+     "way": "connection_timeout defaults to 30"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            connection_timeout=self._psrp_connection_timeout,",
+     "way": "_psrp_conn_kwargs connection_timeout is _psrp_connection_timeout"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['encryption']` is `'auto'`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "encryption=self.get_option('message_encryption')",
+   "gold_value": "'auto'",
+   "codebase_value": "'auto'",
+   "why": "The live psrp option declaration gives exactly `default: auto`, and the live kwargs pass that option as `encryption`.",
+   "precedents": [
+    {
+     "path": "lib/ansible/modules/meta.py",
+     "snippet": "    choices:\n    - auto\n    - always\n    - never\n    default: auto",
+     "way": "message_encryption defaults to auto"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            encryption=self._psrp_message_encryption, proxy=self._psrp_proxy,",
+     "way": "_psrp_conn_kwargs encryption is _psrp_message_encryption"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['proxy']` is `None`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "proxy=self.get_option('proxy')",
+   "gold_value": "None",
+   "codebase_value": "None",
+   "why": "The live code passes `_psrp_proxy` as `proxy`, and the proxy option has no declared default.",
+   "precedents": [
+    {
+     "path": "lib/ansible/modules/get_url.py",
+     "snippet": "  proxy:\n    description:\n    - Set the proxy URL to use when connecting to the remote host.\n    vars:\n    - name: ansible_psrp_proxy\n    type: str",
+     "way": "proxy has no declared default, so the option default is None"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            encryption=self._psrp_message_encryption, proxy=self._psrp_proxy,",
+     "way": "_psrp_conn_kwargs proxy is _psrp_proxy"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['max_envelope_size']` is `153600`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "max_envelope_size=self.get_option('max_envelope_size')",
+   "gold_value": "153600",
+   "codebase_value": "153600",
+   "why": "The live psrp option declaration gives exactly `default: 153600`, and the live kwargs pass that option through.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "  max_envelope_size:\n    description:\n    - Sets the maximum size of each WSMan message sent to the remote host.\n    - This is measured in bytes.\n    - Defaults to C(150KiB) for compatibility with older hosts.\n    type: int\n    vars:\n    - name: ansible_psrp_max_envelope_size\n    default: 153600",
+     "way": "max_envelope_size defaults to 153600"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            max_envelope_size=self._psrp_max_envelope_size,",
+     "way": "_psrp_conn_kwargs max_envelope_size is _psrp_max_envelope_size"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['operation_timeout']` is `20`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "operation_timeout=self.get_option('operation_timeout')",
+   "gold_value": "20",
+   "codebase_value": "20",
+   "why": "The live psrp option declaration gives exactly `default: 20`, and the live kwargs pass that option through.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "  operation_timeout:\n    description:\n    - Sets the WSMan timeout for each operation.\n    - This is measured in seconds.\n    - This should not exceed the value for O(connection_timeout).\n    type: int\n    vars:\n    - name: ansible_psrp_operation_timeout\n    default: 20",
+     "way": "operation_timeout defaults to 20"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            operation_timeout=self._psrp_operation_timeout,",
+     "way": "_psrp_conn_kwargs operation_timeout is _psrp_operation_timeout"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['read_timeout']` is `30`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "read_timeout=self.get_option('read_timeout')",
+   "gold_value": "30",
+   "codebase_value": "30",
+   "why": "The live option declaration fixes `read_timeout` at `30`, and live production code already uses that option value for the kwarg when the feature is available.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "  read_timeout:\n    description:\n    - The read timeout for receiving data from the remote host.\n    - This value must always be greater than O(operation_timeout).\n    - This option requires pypsrp >= 0.3.\n    - This is measured in seconds.\n    type: int\n    vars:\n    - name: ansible_psrp_read_timeout\n    default: 30",
+     "way": "read_timeout defaults to 30"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "        if hasattr(pypsrp, 'FEATURES') and 'wsman_read_timeout' in pypsrp.FEATURES:\n            self._psrp_conn_kwargs['read_timeout'] = self._psrp_read_timeout",
+     "way": "when supported, _psrp_conn_kwargs read_timeout is _psrp_read_timeout"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['reconnection_backoff']` is `2.0`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "reconnection_backoff=float(self.get_option('reconnection_backoff'))",
+   "gold_value": "2.0",
+   "codebase_value": "2.0",
+   "why": "The live option default is `2` and the live implementation converts it with `float(...)`, determining the kwarg value as `2.0`.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "  reconnection_backoff:\n    description:\n    - The backoff time to use in between reconnection attempts.\n      (First sleeps X, then sleeps 2*X, then sleeps 4*X, ...)\n    - This is measured in seconds.\n    - The C(ansible_psrp_reconnection_backoff) variable was added in Ansible\n      2.9.\n    type: int\n    vars:\n    - name: ansible_psrp_connection_backoff\n    - name: ansible_psrp_reconnection_backoff\n    default: 2",
+     "way": "reconnection_backoff option defaults to 2"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "        self._psrp_reconnection_backoff = float(self.get_option('reconnection_backoff'))",
+     "way": "the default is converted to float, yielding 2.0"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            self._psrp_conn_kwargs['reconnection_retries'] = self._psrp_reconnection_retries\n            self._psrp_conn_kwargs['reconnection_backoff'] = self._psrp_reconnection_backoff",
+     "way": "when supported, _psrp_conn_kwargs reconnection_backoff is the float-converted option"
+    }
+   ]
+  },
+  {
+   "behavior": "Default `_psrp_conn_kwargs['reconnection_retries']` is `0`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "reconnection_retries=self.get_option('reconnection_retries')",
+   "gold_value": "0",
+   "codebase_value": "0",
+   "why": "The live psrp option declaration gives exactly `default: 0`, and live production code already uses that option value for the kwarg when the feature is available.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/connection/ssh.py",
+     "snippet": "  reconnection_retries:\n    description:\n    - The number of retries on connection errors.\n    type: int\n    vars:\n    - name: ansible_psrp_reconnection_retries\n    default: 0\n    version_added: '2.8'",
+     "way": "reconnection_retries defaults to 0"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "        self._psrp_reconnection_retries = int(self.get_option('reconnection_retries'))",
+     "way": "_psrp_reconnection_retries is the integer option value"
+    },
+    {
+     "path": "lib/ansible/plugins/connection/psrp.py",
+     "snippet": "            self._psrp_conn_kwargs['reconnection_retries'] = self._psrp_reconnection_retries\n            self._psrp_conn_kwargs['reconnection_backoff'] = self._psrp_reconnection_backoff",
+     "way": "when supported, _psrp_conn_kwargs reconnection_retries is _psrp_reconnection_retries"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "slug": "future-architect_8775b5ef",
+ "repo": "future-architect/vuls",
+ "base": "8775b5efdfc5811bc11da51dbfb66c6f09476423",
+ "verdict": "MISDETERMINED",
+ "gaps": [
+  {
+   "behavior": "For the Struts library-only Trivy report, ServerName is set to `/data/struts-1.2.7/lib`.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "scanResult.ServerName = report.ArtifactName",
+   "gold_value": "/data/struts-1.2.7/lib",
+   "codebase_value": "library scan by trivy",
+   "why": "The live Trivy v2 parser makes the same library-only ServerName choice exactly one way, but gold replaces that fixed value with report.ArtifactName.",
+   "precedents": [
+    {
+     "path": "contrib/trivy/parser/v2/parser.go",
+     "snippet": "if scanResult.ServerName == \"\" {\n\t\t\t\tscanResult.ServerName = \"library scan by trivy\"\n\t\t\t}",
+     "way": "library-only Trivy metadata uses the fixed ServerName \"library scan by trivy\" when ServerName is empty."
+    }
+   ]
+  },
+  {
+   "behavior": "For the Struts library-only Trivy report, Family is set to `pseudo` when OS metadata is absent.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "scanResult.Family = constant.ServerTypePseudo",
+   "gold_value": "pseudo",
+   "codebase_value": "pseudo",
+   "why": "The live codebase consistently uses constant.ServerTypePseudo, whose value is \"pseudo\", for pseudo/no-OS scan results and gold matches it.",
+   "precedents": [
+    {
+     "path": "contrib/trivy/parser/v2/parser.go",
+     "snippet": "if scanResult.Family == \"\" {\n\t\t\t\tscanResult.Family = constant.ServerTypePseudo\n\t\t\t}",
+     "way": "library-only Trivy metadata assigns constant.ServerTypePseudo when Family is empty."
+    },
+    {
+     "path": "constant/constant.go",
+     "snippet": "// ServerTypePseudo is used for ServerInfo.Type, r.Family\n\tServerTypePseudo = \"pseudo\"",
+     "way": "constant.ServerTypePseudo is the string \"pseudo\" for r.Family."
+    }
+   ]
+  },
+  {
+   "behavior": "For the OS-and-library Trivy report, ServerName is set to `quay.io/fluentd_elasticsearch/fluentd:v2.9.0`, without the OS target suffix.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "scanResult.ServerName = report.ArtifactName",
+   "gold_value": "quay.io/fluentd_elasticsearch/fluentd:v2.9.0",
+   "codebase_value": "Trivy OS result Target, including the OS suffix",
+   "why": "The live Trivy v2 parser makes the OS-result ServerName choice exactly one way, using r.Target with the OS suffix, while gold pins report.ArtifactName without that suffix.",
+   "precedents": [
+    {
+     "path": "contrib/trivy/parser/v2/parser.go",
+     "snippet": "if pkg.IsTrivySupportedOS(r.Type) {\n\t\t\tscanResult.Family = r.Type\n\t\t\tscanResult.ServerName = r.Target\n\t\t\tscanResult.Optional = map[string]interface{}{\n\t\t\t\ttrivyTarget: r.Target,\n\t\t\t}",
+     "way": "supported OS Trivy metadata assigns ServerName from r.Target, not report.ArtifactName."
+    }
+   ]
+  }
+ ]
+}

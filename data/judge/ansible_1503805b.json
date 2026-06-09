@@ -1,10 +1,10 @@
 {
  "case": "ansible_1503805b",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 38,
  "n_covered": 19,
- "n_gap": 19,
+ "n_gap": 0,
  "n_out_of_scope": 2,
  "rows": [
   {
@@ -33,63 +33,72 @@
    "covering_prose": null,
    "gold_anchor": "self._psrp_auth = self.get_option('auth')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_configuration_name` is `'Microsoft.PowerShell'`.",
    "covering_prose": null,
    "gold_anchor": "self._psrp_configuration_name = self.get_option('configuration_name')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_host` is `'inventory_hostname'`.",
    "covering_prose": null,
    "gold_anchor": "self._psrp_host = self.get_option('remote_addr')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_port` is `5986`.",
    "covering_prose": null,
    "gold_anchor": "port = 5986 if protocol == 'https' else 5985",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_user` is `None`.",
    "covering_prose": null,
    "gold_anchor": "self._psrp_user = self.get_option('remote_user')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['server']` is `'inventory_hostname'`.",
    "covering_prose": null,
    "gold_anchor": "server=self._psrp_host",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['port']` is `5986`.",
    "covering_prose": null,
    "gold_anchor": "port=self._psrp_port",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['username']` is `None`.",
    "covering_prose": null,
    "gold_anchor": "username=self._psrp_user",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['password']` is `None`.",
    "covering_prose": null,
    "gold_anchor": "password=self.get_option('remote_password')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['ssl']` is `True`.",
@@ -103,14 +112,16 @@
    "covering_prose": null,
    "gold_anchor": "path=self.get_option('path')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['auth']` is `'negotiate'`.",
    "covering_prose": null,
    "gold_anchor": "auth=self._psrp_auth",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['cert_validation']` is `True`.",
@@ -124,21 +135,24 @@
    "covering_prose": null,
    "gold_anchor": "connection_timeout=self.get_option('connection_timeout')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['encryption']` is `'auto'`.",
    "covering_prose": null,
    "gold_anchor": "encryption=self.get_option('message_encryption')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['proxy']` is `None`.",
    "covering_prose": null,
    "gold_anchor": "proxy=self.get_option('proxy')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['no_proxy']` is `False`.",
@@ -152,35 +166,40 @@
    "covering_prose": null,
    "gold_anchor": "max_envelope_size=self.get_option('max_envelope_size')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['operation_timeout']` is `20`.",
    "covering_prose": null,
    "gold_anchor": "operation_timeout=self.get_option('operation_timeout')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['read_timeout']` is `30`.",
    "covering_prose": null,
    "gold_anchor": "read_timeout=self.get_option('read_timeout')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['reconnection_backoff']` is `2.0`.",
    "covering_prose": null,
    "gold_anchor": "reconnection_backoff=float(self.get_option('reconnection_backoff'))",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs['reconnection_retries']` is `0`.",
    "covering_prose": null,
    "gold_anchor": "reconnection_retries=self.get_option('reconnection_retries')",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Default `_psrp_conn_kwargs` includes certificate, CredSSP, and negotiate option keys even when their values are defaulted.",
@@ -287,5 +306,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 19,
+ "officiated": true
 }

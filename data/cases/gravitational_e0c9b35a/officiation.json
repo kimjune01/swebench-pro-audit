@@ -1,0 +1,52 @@
+{
+ "slug": "gravitational_e0c9b35a",
+ "repo": "gravitational/teleport",
+ "base": "e0c9b35a5567c186760e10b3a51a8f74f0dabea1",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "Overflow/backlog cleanup is triggered by the next Append after the grace period has elapsed, not merely by advancing the configured clock.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "b.cleanupSlots()",
+   "gold_value": "b.cleanupSlots() is called from Append, so expired overflow is cleaned only when a subsequent Append occurs.",
+   "codebase_value": "fanout backlog grace-period expiry is evaluated during event emission, not by clock advancement alone",
+   "why": "The closest live comparable production code is Teleport's existing backend fanout buffer, which checks grace-period expiry only while emitting another event, matching gold's next-Append trigger.",
+   "precedents": [
+    {
+     "path": "lib/backend/buffer.go",
+     "snippet": "// emit attempts to emit an event. Returns false if the watcher has\n// exceeded the backlog grace period.\nfunc (w *BufferWatcher) emit(e Event) (ok bool) {\n\tw.bmu.Lock()\n\tdefer w.bmu.Unlock()\n\n\tif !w.flushBacklog() {\n\t\tif w.buffer.cfg.clock.Now().After(w.backlogSince.Add(w.buffer.cfg.gracePeriod)) {\n\t\t\t// backlog has existed for longer than grace period,\n\t\t\t// this watcher needs to be removed.\n\t\t\treturn false\n\t\t}\n\t\t// backlog exists, but we are still within grace period.\n\t\tw.backlog = append(w.backlog, e)\n\t\treturn true\n\t}",
+     "way": "lazy grace-period check during emit/new event"
+    }
+   ]
+  },
+  {
+   "behavior": "Buffer internals expose fields rw, ring, and entry wait in-package such that the test can take buf.rw.RLock() and inspect buf.ring[0].wait.Load().",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "rw sync.RWMutex",
+   "gold_value": "rw sync.RWMutex; ring []entry[T]; wait atomic.Uint64",
+   "codebase_value": null,
+   "why": "Live production structs use multiple comparable unexported RWMutex naming conventions, so the exact test-pinned field name rw is not uniquely determined by the codebase.",
+   "precedents": [
+    {
+     "path": "lib/services/watcher.go",
+     "snippet": "type proxyCollector struct {\n\tProxyWatcherConfig\n\t// current holds a map of the currently known proxies (keyed by server name,\n\t// RWMutex protected).\n\tcurrent         map[string]types.Server\n\trw              sync.RWMutex\n\tinitializationC chan struct{}\n\tonce            sync.Once\n}",
+     "way": "RWMutex field named rw"
+    },
+    {
+     "path": "lib/srv/ctx.go",
+     "snippet": "type ServerContext struct {\n\t// ConnectionContext is the parent context which manages connection-level\n\t// resources.\n\t*sshutils.ConnectionContext\n\t*log.Entry\n\n\tmu sync.RWMutex\n\n\t// env is a list of environment variables passed to the session.\n\tenv map[string]string",
+     "way": "RWMutex field named mu"
+    },
+    {
+     "path": "lib/services/watcher.go",
+     "snippet": "type databaseCollector struct {\n\t// DatabaseWatcherConfig is the watcher configuration.\n\tDatabaseWatcherConfig\n\t// current holds a map of the currently known database resources.\n\tcurrent map[string]types.Database\n\t// lock protects the \"current\" map.\n\tlock sync.RWMutex\n\t// initializationC is used to check that the\n\tinitializationC chan struct{}\n\tonce            sync.Once",
+     "way": "RWMutex field named lock"
+    }
+   ]
+  }
+ ]
+}

@@ -1,10 +1,10 @@
 {
  "case": "future-architect_472df0e1",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 20,
  "n_covered": 19,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 2,
  "rows": [
   {
@@ -47,7 +47,8 @@
    "covering_prose": null,
    "gold_anchor": "Title:         vulnerability.Title,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "The Enterprise record Summary is copied from description when description is present.",
@@ -161,5 +162,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

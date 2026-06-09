@@ -1,0 +1,47 @@
+{
+ "slug": "qutebrowser_d283e225",
+ "repo": "qutebrowser/qutebrowser",
+ "base": "d283e2250fcc533838fbac1078acd5883c77e2e3",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "`hsv(10%,10%,10%)` is parsed as `QColor.fromHsv(35, 25, 25)`, including hue percentage scaled with a 359 maximum and integer truncation to 35.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "mult = 359.0 if kind == 'h' else 255.0",
+   "gold_value": "int(float(val) * mult), so hue 10% with mult 359.0 / 100 becomes 35",
+   "codebase_value": "QtColor percentage parsing truncates scaled floats with int(float(val) * mult)",
+   "why": "The only live comparable production parser for QtColor percentage components uses int() truncation, and gold preserves that quantization while changing the hue multiplier.",
+   "precedents": [
+    {
+     "path": "qutebrowser/config/configtypes.py",
+     "snippet": "        mult = 255.0\n        if val.endswith('%'):\n            val = val[:-1]\n            mult = 255.0 / 100\n\n        try:\n            return int(float(val) * mult)",
+     "way": "direct QtColor color component percentage parser truncates after scaling"
+    }
+   ]
+  },
+  {
+   "behavior": "`hsva(10%,20%,30%,40%)` is parsed as `QColor.fromHsv(35, 51, 76, 102)`, including hue percentage scaled with a 359 maximum and saturation/value/alpha percentages scaled with a 255 maximum using integer truncation.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "int_vals = [self._parse_value(p[0], p[1]) for p in zip(kind, vals)]",
+   "gold_value": "ordered per-component parsing with int truncation gives QColor.fromHsv(35, 51, 76, 102)",
+   "codebase_value": "QtColor parses comma-separated color components in order and truncates percentage-scaled floats with int(float(val) * mult)",
+   "why": "The live QtColor parser already establishes ordered component parsing plus int() truncation for percentages, and gold matches that convention while selecting the hue-specific multiplier.",
+   "precedents": [
+    {
+     "path": "qutebrowser/config/configtypes.py",
+     "snippet": "            vals = value[openparen+1:-1].split(',')\n            int_vals = [self._parse_value(v) for v in vals]\n            if kind == 'rgba' and len(int_vals) == 4:\n                return QColor.fromRgb(*int_vals)\n            elif kind == 'rgb' and len(int_vals) == 3:\n                return QColor.fromRgb(*int_vals)\n            elif kind == 'hsva' and len(int_vals) == 4:\n                return QColor.fromHsv(*int_vals)",
+     "way": "QtColor parses supplied components in order and passes the resulting integer list to the matching QColor constructor"
+    },
+    {
+     "path": "qutebrowser/config/configtypes.py",
+     "snippet": "        mult = 255.0\n        if val.endswith('%'):\n            val = val[:-1]\n            mult = 255.0 / 100\n\n        try:\n            return int(float(val) * mult)",
+     "way": "direct QtColor color component percentage parser truncates after scaling"
+    }
+   ]
+  }
+ ]
+}

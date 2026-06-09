@@ -1,0 +1,25 @@
+{
+ "slug": "element-hq_7a33818b",
+ "repo": "element-hq/element-web",
+ "base": "7a33818bd7ec89c21054691afcb6db2fb2631e14",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Selecting two devices makes the header show the text \"2 sessions selected\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "selectedDeviceCount={selectedDeviceIds.length}",
+   "gold_value": "%(selectedDeviceCount)s sessions selected",
+   "codebase_value": "%(selectedDeviceCount)s sessions selected",
+   "why": "Live production code already contains exactly the selected-count header wording that gold and the hidden test pin.",
+   "precedents": [
+    {
+     "path": "src/components/views/settings/devices/FilteredDeviceListHeader.tsx",
+     "snippet": "{ selectedDeviceCount > 0\n                ? _t('%(selectedDeviceCount)s sessions selected', { selectedDeviceCount })\n                : _t('Sessions')\n            }",
+     "way": "Nonzero selected-device count is rendered as \"%(selectedDeviceCount)s sessions selected\"."
+    }
+   ]
+  }
+ ]
+}

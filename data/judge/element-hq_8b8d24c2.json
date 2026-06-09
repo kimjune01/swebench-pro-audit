@@ -26,14 +26,16 @@
    "covering_prose": null,
    "gold_anchor": "\"mx_WysiwygComposer_Editor_content_placeholder\": Boolean(placeholder),",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "For plain-text composer, when no placeholder prop is passed, the textbox does not have class mx_WysiwygComposer_Editor_content_placeholder.",
    "covering_prose": null,
    "gold_anchor": "\"mx_WysiwygComposer_Editor_content_placeholder\": Boolean(placeholder),",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "For rich-text composer, when placeholder is 'my placeholder' and content is empty, the textbox has class mx_WysiwygComposer_Editor_content_placeholder.",
@@ -77,5 +79,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

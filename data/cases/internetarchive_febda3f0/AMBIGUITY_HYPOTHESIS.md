@@ -1,24 +1,47 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- internetarchive_febda3f0
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- internetarchive_febda3f0
 
 - instance_id: `instance_internetarchive__openlibrary-7f6b722a10f822171501d027cad60afe53337732-ve8c8d62a2b60610a3c4631f5f23ed866bada9818`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `internetarchive/openlibrary` @ `febda3f008`
 
-## The graded behavior
-For `authors:Kim Harrison OR authors:Lynsay Sands`, `process_user_query` returns exactly `author_name:(Kim Harrison) OR author_name:(Lynsay Sands)`, including grouping the two-word author names and preserving `OR`.
-- test assertion: [`hidden_test.diff`](hidden_test.diff) `'Operators': (
-        'authors:Kim Harrison OR authors:Lynsay Sands',
-        'author_name:(Kim Harrison) OR author_name:(Lynsay Sands)',
-    ),`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** The `authors` field alias must be rewritten to the exact Solr field `author_name` while preserving `OR` and grouping multi-word author values.  gold: [`gold.diff`#L169](gold.diff#L169) `'authors': 'author_name',`
-- **R2 (prose-faithful alternative):** A prose-faithful implementation could safely escape and preserve the user-entered `authors` field or map it to a different valid work-search author field.
+- **For `title:(Holidays are Hell) authors:(Kim Harrison) OR authors:(Lynsay Sands)`, `process_user_query` returns exactly `alternative_title:(Holidays are Hell) author_name:(Kim Harrison) OR author_name:(Lynsay Sands)`, including mapping `title` to `alternative_title`, mapping `authors` to `author_name`, preserving `OR`, and preserving parenthesized terms.** -- gold `alternative_title:(Holidays are Hell) author_name:(Kim Harrison) OR author_name:(Lynsay Sands)` matches codebase `title -> alternative_title; authors -> author_name; valid parsed query syntax is preserved via str(q_tree)`. The base production implementation already makes this exact raw-query aliasing and parsed-syntax preservation choice, and gold moves that same behavior into WorkSearchScheme.
+1. `openlibrary/plugins/worksearch/code.py` -- The production user-query field alias map sends `title` to `alternative_title` and `authors` to `author_name`.
+   ```
+   FIELD_NAME_MAP = {
+       'author': 'author_name',
+       'authors': 'author_name',
+       'by': 'author_name',
+       'number_of_pages': 'number_of_pages_median',
+       'publishers': 'publisher',
+       'subtitle': 'alternative_subtitle',
+       'title': 'alternative_title',
+       'work_subtitle': 'subtitle',
+       'work_title': 'title',
+   ```
+- **For `title:"food rules" author:pollan`, `process_user_query` returns exactly `alternative_title:"food rules" author_name:pollan`, including preserving the quoted phrase and mapping `author` to `author_name`.** -- gold `alternative_title:"food rules" author_name:pollan` matches codebase `title -> alternative_title; author -> author_name; quoted phrases are preserved via luqum parsing/stringification`. The base production query processor has a single live convention for these raw-query field aliases and preserves quoted syntax on successful parse, matching gold.
+1. `openlibrary/plugins/worksearch/code.py` -- The production alias map sends `author` to `author_name` and `title` to `alternative_title`.
+   ```
+   FIELD_NAME_MAP = {
+       'author': 'author_name',
+       'authors': 'author_name',
+       'by': 'author_name',
+       'number_of_pages': 'number_of_pages_median',
+       'publishers': 'publisher',
+       'subtitle': 'alternative_subtitle',
+       'title': 'alternative_title',
+       'work_subtitle': 'subtitle',
+       'work_title': 'title',
+   ```
+- **For `authors:Kim Harrison OR authors:Lynsay Sands`, `process_user_query` returns exactly `author_name:(Kim Harrison) OR author_name:(Lynsay Sands)`, including grouping the two-word author names and preserving `OR`.** -- gold `author_name:(Kim Harrison) OR author_name:(Lynsay Sands)` matches codebase `authors -> author_name; valid Boolean operator syntax is preserved; multi-word field values remain grouped by the parsed query tree`. The codebase already treats `authors` as an `author_name` alias in parsed user queries and uses grouped author values with preserved Boolean `OR`, so gold matches the live convention.
+1. `openlibrary/plugins/worksearch/code.py` -- The production alias map sends both `author` and `authors` to `author_name`.
+   ```
+   FIELD_NAME_MAP = {
+       'author': 'author_name',
+       'authors': 'author_name',
+       'by': 'author_name',
+   ```
 
-## Status: HYPOTHESIS
-Class `airtight` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-The hidden test asserts the exact output string containing `author_name:(Kim Harrison) OR author_name:(Lynsay Sands)`.
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

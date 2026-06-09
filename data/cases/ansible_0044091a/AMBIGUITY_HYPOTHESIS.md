@@ -2,37 +2,9 @@
 
 - instance_id: `instance_ansible__ansible-83fb24b923064d3576d473747ebbe62e4535c9e3-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5`
 - class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- repo `ansible/ansible` @ `0044091a05`
 
-## The graded behavior
-the multiport match and --dports tokens are emitted after ['-j', 'ACCEPT'] and before ['-i', 'eth0'] in the iptables command
-- test assertion: [`hidden_test.diff`#L8](hidden_test.diff#L8) `        self.assertEqual(run_command.call_args_list[0][0][0], [
-            '/sbin/iptables',
-            '-t', 'filter',
-            '-C', 'INPUT',
-            '-p', 'tcp',
-            '-s', '192.168.0.1/32',
-            '-j', 'ACCEPT',
-            '-m', 'multiport',
-            '--dports', '80,443,8081:8085',
-            '-i', 'eth0',
-            '-m', 'comment',
-            '--comment', 'this is a comment'
-        ])`
+## Defect, but not mechanically proven
+Verdict **AMBIGUOUS**: a faithful solver fails, but no single gap yields a grep-clean witness (airtight-absent / >=1 misdetermined precedent / >=2 plural precedents). Raters-pending; not claimed.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** The destination_ports multiport match is inserted at the existing construct_rule position after jump handling and before interface handling.  gold: [`gold.diff`#L47](gold.diff#L47) `    append_param(rule, params['to_destination'], '--to-destination', False)
-+    append_match(rule, params['destination_ports'], 'multiport')
-+    append_csv(rule, params['destination_ports'], '--dports')
-     append_param(rule, params['to_source'], '--to-source', False)
-     append_param(rule, params['goto'], '-g', False)
-     append_param(rule, params['in_interface'], '-i', False)`
-- **R2 (prose-faithful alternative):** A from-prose engineer could append the multiport match elsewhere in the rule, such as before the jump or after the interface, while still using append_match and append_csv.
-
-## Status: HYPOTHESIS
-Class `codebase` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-The test compares the full argv list in exact order, so any prose-faithful placement other than after '-j', 'ACCEPT' and before '-i', 'eth0' fails the equality assertion.
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+- (AMBIGUOUS) The multiport tokens appear after `['-j', 'ACCEPT']` and before `['-i', 'eth0']` in the command. -- Live iptables rule construction already places comparable match and port/interface tokens in multiple relative positions, so the gold ordering is not uniquely determined by codebase precedent.

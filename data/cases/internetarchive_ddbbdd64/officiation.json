@@ -1,0 +1,52 @@
+{
+ "slug": "internetarchive_ddbbdd64",
+ "repo": "internetarchive/openlibrary",
+ "base": "ddbbdd64ecde64f314b9083953af63d07305f640",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "For an author with `name` and general `date`, `add_db_name` mutates the author to include `db_name` as name, a space, then date, e.g. `Smith, John 1950`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "date = a['date']",
+   "gold_value": "date = a['date']; db_name = ' '.join([a['name'], date])",
+   "codebase_value": "Use the author date value unchanged, joined to the name with one space.",
+   "why": "Live production db_name construction already uses the general date value unchanged and joins it to the name with a single space, matching gold.",
+   "precedents": [
+    {
+     "path": "openlibrary/catalog/add_book/__init__.py",
+     "snippet": "        if 'date' in a:\n            assert 'birth_date' not in a\n            assert 'death_date' not in a\n            date = a['date']\n        elif 'birth_date' in a or 'death_date' in a:\n            date = a.get('birth_date', '') + '-' + a.get('death_date', '')\n        a['db_name'] = ' '.join([a['name'], date]) if date else a['name']",
+     "way": "date = a['date']; join name and date with one space"
+    },
+    {
+     "path": "openlibrary/catalog/add_book/match.py",
+     "snippet": "    elif a.date:\n        date = a.date\n    return ' '.join([a['name'], date]) if date else a['name']",
+     "way": "date = a.date; join name and date with one space"
+    }
+   ]
+  },
+  {
+   "behavior": "For an author with `birth_date` and `death_date`, `add_db_name` mutates the author to include `db_name` as name, a space, birth date, hyphen, death date, e.g. `Smith, John 1895-1964`.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "date = a.get('birth_date', '') + '-' + a.get('death_date', '')",
+   "gold_value": "date = a.get('birth_date', '') + '-' + a.get('death_date', ''); db_name = ' '.join([a['name'], date])",
+   "codebase_value": "Use birth_date + '-' + death_date with no spaces around the hyphen, joined to the name with one space.",
+   "why": "Live production db_name construction already uses a bare hyphen between birth and death dates and a single separating space after the name, matching gold.",
+   "precedents": [
+    {
+     "path": "openlibrary/catalog/add_book/__init__.py",
+     "snippet": "        elif 'birth_date' in a or 'death_date' in a:\n            date = a.get('birth_date', '') + '-' + a.get('death_date', '')\n        a['db_name'] = ' '.join([a['name'], date]) if date else a['name']",
+     "way": "birth_date + '-' + death_date; join name and date with one space"
+    },
+    {
+     "path": "openlibrary/templates/merge/authors.html",
+     "snippet": "    if a.birth_date or a.death_date:\n        date = a.get('birth_date', '') + '-' + a.get('death_date', '')\n    elif a.date:\n        date = a.date\n    return ' '.join([a['name'], date]) if date else a['name']",
+     "way": "birth_date + '-' + death_date; join name and date with one space"
+    }
+   ]
+  }
+ ]
+}

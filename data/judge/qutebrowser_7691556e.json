@@ -1,10 +1,10 @@
 {
  "case": "qutebrowser_7691556e",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 8,
  "n_covered": 7,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 3,
  "rows": [
   {
@@ -40,7 +40,8 @@
    "covering_prose": null,
    "gold_anchor": "return f\"Qt wrapper: {self.wrapper} (via {self.reason.value})\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "str(SelectionInfo(wrapper=\"PyQt6\", reason=auto, pyqt5=\"ImportError: Python imploded\", pyqt6=\"success\")) returns a verbose multi-line string beginning with \"Qt wrapper info:\" and listing PyQt5, PyQt6, and selected PyQt6 via autoselect",
@@ -84,5 +85,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

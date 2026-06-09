@@ -1,10 +1,10 @@
 {
  "case": "tutao_170958a2",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 5,
  "n_covered": 4,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 8,
  "rows": [
   {
@@ -47,7 +47,8 @@
    "covering_prose": null,
    "gold_anchor": "vCardFileData = vCardFileData.replace(/begin:vcard/g, \"BEGIN:VCARD\")",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For a vCard 4.0 block whose version line is lowercase `version:4.0`, `vCardFileToVCards` preserves that lowercase casing in the returned content when another uppercase vCard 4.0 card makes the file valid.",
@@ -98,5 +99,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

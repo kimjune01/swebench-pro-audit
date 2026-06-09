@@ -1,10 +1,10 @@
 {
  "case": "gravitational_e2412a7c",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 7,
  "n_covered": 3,
- "n_gap": 4,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,14 +12,16 @@
    "covering_prose": null,
    "gold_anchor": "{b.migrateRFD24, \"migrateRFD24\"}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "RFD24 migration sets each raw event's CreatedAtDate to time.Unix(event.CreatedAt, 0).Format(iso8601DateFormat).",
    "covering_prose": null,
    "gold_anchor": "item[keyDate] = dateAttribute",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "FieldsMap conversion returns nil error when converting legacy events whose Fields attribute is a JSON string.",
@@ -47,14 +49,19 @@
    "covering_prose": null,
    "gold_anchor": "event, err := events.FromEventFields(rawEvent.FieldsMap)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Large table retrieval returns exactly 4000 events after emitting 4000 legacy audit events, polling up to dynamoDBLargeQueryRetries with QueryDelay between attempts.",
    "covering_prose": null,
    "gold_anchor": "FieldsMap:      fields",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 4,
+ "officiated": true
 }

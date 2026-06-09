@@ -1,22 +1,17 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- ansible_9281148b
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- ansible_9281148b
 
 - instance_id: `instance_ansible__ansible-1ee70fc272aff6bf3415357c6e13c5de5b928d9b-v1055803c3a812189a1133297f7f5468579283f86`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `ansible/ansible` @ `9281148b62`
 
-## The graded behavior
-isidentifier("no-dashed-names-for-you") returns False
-- test assertion: [`hidden_test.diff`#L34](hidden_test.diff#L34) `"pass", "foo ", " foo", "1234", "1234abc", "", "   ", "foo bar", "no-dashed-names-for-you",`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** A dashed name such as "no-dashed-names-for-you" is not a valid identifier and must return False.  gold: [`gold.diff`](gold.diff) `if not ident.isidentifier():
-        return False`
-- **R2 (prose-faithful alternative):** A from-prose engineer could implement only the explicitly listed invalid categories and examples, without adding a specific dashed-name case.
+- **isidentifier("no-dashed-names-for-you") returns False** -- gold `False for "no-dashed-names-for-you"` matches codebase `hyphenated variable names are invalid; valid variable names contain only letters, numbers, and underscores and must start with a letter or underscore`. Live production code consistently treats '-' as invalid in variable/Python identifier names, so gold's False result for the dashed string matches the codebase convention.
+1. `lib/ansible/constants.py` -- hyphenated names such as 'not-valid' are invalid Python variable names
+   ```
+   # This matches a string that cannot be used as a valid python variable name i.e 'not-valid', 'not!valid@either' '1_nor_This'
+   INVALID_VARIABLE_NAMES = re.compile(r'^[\d\W]|[^\w]')
+   ```
 
-## Status: HYPOTHESIS
-Class `borderline` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-The hidden test includes "no-dashed-names-for-you" in the invalid parameter list and asserts not isidentifier(identifier).
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

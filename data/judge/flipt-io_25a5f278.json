@@ -1,10 +1,10 @@
 {
  "case": "flipt-io_25a5f278",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 13,
  "n_covered": 12,
- "n_gap": 1,
+ "n_gap": 0,
  "n_out_of_scope": 5,
  "rows": [
   {
@@ -110,7 +110,8 @@
    "covering_prose": null,
    "gold_anchor": "signingSecret: signingSecret,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "NewWebhookClient sets RetryWaitMax to the configured 8*time.Second max backoff duration.",
@@ -133,5 +134,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

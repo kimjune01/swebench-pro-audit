@@ -1,0 +1,76 @@
+{
+ "slug": "future-architect_2d075079",
+ "repo": "future-architect/vuls",
+ "base": "2d075079f112658b02e67b409958d5872477aad6",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "FilterIgnorePkgs removes a CVE whose only affected package name matches the ignore package regex ^kernel.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return false",
+   "gold_value": "return false",
+   "codebase_value": "Exclude the CVE when every affected package matches an ignore regexp.",
+   "why": "The base live implementation makes this exact all-packages-matched exclusion choice, and gold preserves it while moving the method.",
+   "precedents": [
+    {
+     "path": "models/scanresults.go",
+     "snippet": "\t\tfor _, p := range v.AffectedPackages {\n\t\t\tmatch := false\n\t\t\tfor _, re := range regexps {\n\t\t\t\tif re.MatchString(p.Name) {\n\t\t\t\t\tmatch = true\n\t\t\t\t}\n\t\t\t}\n\t\t\tif !match {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t\treturn false",
+     "way": "After checking every affected package, the function returns false only if none were unmatched, so a single matching package is excluded."
+    }
+   ]
+  },
+  {
+   "behavior": "FilterIgnorePkgs keeps a CVE that has no affected packages even when ignore package regexps are provided.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if len(v.AffectedPackages) == 0",
+   "gold_value": "if len(v.AffectedPackages) == 0",
+   "codebase_value": "Keep CVEs with no affected packages.",
+   "why": "The base live implementation explicitly keeps CVEs whose AffectedPackages length is zero, matching gold.",
+   "precedents": [
+    {
+     "path": "models/scanresults.go",
+     "snippet": "\t\tif len(v.AffectedPackages) == 0 {\n\t\t\treturn true\n\t\t}",
+     "way": "An empty affected-package list returns true, keeping the CVE."
+    }
+   ]
+  },
+  {
+   "behavior": "FilterIgnorePkgs keeps a CVE with affected packages kernel and vim when the only ignore package regex is ^kernel.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if !match {\n\t\t\t\treturn true\n\t\t\t}",
+   "gold_value": "if !match {\n\t\t\t\treturn true\n\t\t\t}",
+   "codebase_value": "Keep the CVE if any affected package is unmatched by the ignore regexps.",
+   "why": "The base live implementation uses any-unmatched-package-keeps-CVE semantics, so kernel plus vim with only ^kernel is kept, matching gold.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\t\tfor _, p := range v.AffectedPackages {\n\t\t\tmatch := false\n\t\t\tfor _, re := range regexps {\n\t\t\t\tif re.MatchString(p.Name) {\n\t\t\t\t\tmatch = true\n\t\t\t\t}\n\t\t\t}\n\t\t\tif !match {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}",
+     "way": "The first affected package with no matching ignore regexp returns true, keeping the CVE."
+    }
+   ]
+  },
+  {
+   "behavior": "FilterIgnorePkgs removes a CVE with affected packages kernel and vim when ignore package regexps include ^kernel, ^vim, and ^bind.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return false",
+   "gold_value": "return false",
+   "codebase_value": "Exclude the CVE when every affected package is matched by the ignore regexps; unused extra regexps do not matter.",
+   "why": "The base live implementation ignores unmatched regexps and excludes once all affected packages match some regexp, matching gold.",
+   "precedents": [
+    {
+     "path": "models/scanresults.go",
+     "snippet": "\t\tfor _, p := range v.AffectedPackages {\n\t\t\tmatch := false\n\t\t\tfor _, re := range regexps {\n\t\t\t\tif re.MatchString(p.Name) {\n\t\t\t\t\tmatch = true\n\t\t\t\t}\n\t\t\t}\n\t\t\tif !match {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t\treturn false",
+     "way": "The function only tracks whether each package matched some regexp, then returns false after all packages are matched."
+    }
+   ]
+  }
+ ]
+}

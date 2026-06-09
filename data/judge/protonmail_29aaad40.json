@@ -1,10 +1,10 @@
 {
  "case": "protonmail_29aaad40",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 12,
  "n_covered": 10,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 8,
  "rows": [
   {
@@ -40,7 +40,8 @@
    "covering_prose": null,
    "gold_anchor": "getCachedTrashed",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "During successful recovery, moveLinks is called exactly 1 time.",
@@ -54,7 +55,8 @@
    "covering_prose": null,
    "gold_anchor": "await loadChildren(abortSignal, share.shareId, share.rootLinkId, undefined, undefined, true);",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "During successful recovery, deletePhotosShare is called exactly 1 time when both regular and trashed sources are empty at delete time.",
@@ -147,5 +149,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

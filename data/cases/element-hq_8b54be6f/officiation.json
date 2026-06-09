@@ -1,0 +1,52 @@
+{
+ "slug": "element-hq_8b54be6f",
+ "repo": "element-hq/element-web",
+ "base": "8b54be6f48631083cb853cda5def60d438daa14f",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "The kebab trigger renders as an AccessibleButton role=\"button\" element with tabindex=\"0\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "<ContextMenuButton",
+   "gold_value": "<ContextMenuButton>, which renders AccessibleButton defaults: element='div', role='button', tabIndex=0",
+   "codebase_value": "ContextMenuButton renders AccessibleButton, and AccessibleButton defaults to element='div', role='button', tabIndex=0.",
+   "why": "The repository has a dedicated ContextMenuButton for menu triggers, and its AccessibleButton defaults exactly match the gold snapshot.",
+   "precedents": [
+    {
+     "path": "src/RoomNotifs.ts",
+     "snippet": "return (\n        <AccessibleButton\n            {...props}\n            onClick={onClick}\n            onContextMenu={onContextMenu || onClick}\n            title={label}\n            aria-label={label}\n            aria-haspopup={true}\n            aria-expanded={isExpanded}\n        >\n            { children }\n        </AccessibleButton>\n    );",
+     "way": "ContextMenuButton uses AccessibleButton for context-menu triggers."
+    },
+    {
+     "path": "src/components/views/elements/AccessibleButton.tsx",
+     "snippet": "AccessibleButton.defaultProps = {\n    element: 'div' as keyof ReactHTML,\n    role: 'button',\n    tabIndex: 0,\n};",
+     "way": "AccessibleButton defaults to a div with role button and tabIndex 0."
+    },
+    {
+     "path": "src/components/structures/SpaceRoomView.tsx",
+     "snippet": "<ContextMenuButton\n            className=\"mx_BaseCard_header_title_button--option\"\n            inputRef={handle}\n            onClick={openMenu}\n            isExpanded={menuDisplayed}\n            label={_t(\"Options\")}\n        />",
+     "way": "A live context-menu trigger uses ContextMenuButton without overriding element, role, or tabIndex."
+    }
+   ]
+  },
+  {
+   "behavior": "SettingsSubsectionHeading renders supplied children after the h3 heading.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "<SettingsSubsectionHeading heading={_t('Current session')}>",
+   "gold_value": "Supplied children render after the h3 heading.",
+   "codebase_value": "Supplied children render after the h3 heading.",
+   "why": "The existing production component already fixes child ordering after the h3, and gold matches that implementation.",
+   "precedents": [
+    {
+     "path": "src/components/views/settings/shared/SettingsSubsectionHeading.tsx",
+     "snippet": "export const SettingsSubsectionHeading: React.FC<SettingsSubsectionHeadingProps> = ({ heading, children, ...rest }) => (\n    <div {...rest} className=\"mx_SettingsSubsectionHeading\">\n        <Heading className=\"mx_SettingsSubsectionHeading_heading\" size='h3'>{ heading }</Heading>\n        { children }\n    </div>\n);",
+     "way": "The live SettingsSubsectionHeading implementation renders children immediately after the Heading h3."
+    }
+   ]
+  }
+ ]
+}

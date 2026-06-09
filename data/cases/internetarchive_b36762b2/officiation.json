@@ -1,0 +1,42 @@
+{
+ "slug": "internetarchive_b36762b2",
+ "repo": "internetarchive/openlibrary",
+ "base": "b36762b27e11d2bdf1ef556a8c5588294bb7deb7",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "`_get_wikipedia_link('en')` returns `None` when only an `eswiki` sitelink exists.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return None",
+   "gold_value": "None",
+   "codebase_value": "return None unless the requested wiki exists or enwiki exists",
+   "why": "The live Wikidata method already makes the exact fallback choice one way, and gold preserves that behavior under the private method name.",
+   "precedents": [
+    {
+     "path": "openlibrary/core/wikidata.py",
+     "snippet": "    def get_wikipedia_link(self, language: str = 'en') -> tuple[str, str] | None:\n        \"\"\"\n        Get the Wikipedia URL and language for a given language code.\n        Falls back to English if requested language is unavailable.\n        \"\"\"\n        requested_wiki = f'{language}wiki'\n        english_wiki = 'enwiki'\n\n        if requested_wiki in self.sitelinks:\n            return self.sitelinks[requested_wiki]['url'], language\n        elif english_wiki in self.sitelinks:\n            return self.sitelinks[english_wiki]['url'], 'en'\n        return None",
+     "way": "Only requested-language and English fallback are considered; no arbitrary non-English fallback is used."
+    }
+   ]
+  },
+  {
+   "behavior": "`_get_statement_values('P2038')` returns `['Value1', 'Value2', 'Value3']` for three statements with those contents, preserving statement order.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "for statement in self.statements[property_id]",
+   "gold_value": "for statement in self.statements[property_id]",
+   "codebase_value": "for statement in self.statements[property_id]",
+   "why": "The live production implementation already extracts statement contents by direct list iteration in stored order, and gold keeps the same iteration expression.",
+   "precedents": [
+    {
+     "path": "openlibrary/core/wikidata.py",
+     "snippet": "    def get_statement_values(self, property_id: str) -> list[str]:\n        \"\"\"\n        Get all values for a given property statement (e.g., P2038).\n        Returns an empty list if the property doesn't exist.\n        \"\"\"\n        if property_id not in self.statements:\n            return []\n\n        return [\n            statement[\"value\"][\"content\"]\n            for statement in self.statements[property_id]\n            if \"value\" in statement and \"content\" in statement[\"value\"]\n        ]",
+     "way": "Values are collected by direct iteration over the stored statement list, preserving its order."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,92 @@
+{
+ "slug": "protonmail_42082399",
+ "repo": "protonmail/webclients",
+ "base": "42082399f3c51b8e9fb92e54312aafda1838ec4d",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "getAllDropdownOptions(countryOptions) returns exactly the normal grouped dropdown options with no preselected option inserted.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "export const getAllDropdownOptions = (",
+   "gold_value": "getAllDropdownOptions",
+   "codebase_value": "getCountryDropdownOptions",
+   "why": "The base code already implements the no-preselected behavior under getCountryDropdownOptions, while gold pins a new helper name.",
+   "precedents": [
+    {
+     "path": "packages/components/components/country/helpers.ts",
+     "snippet": "export const getCountryDropdownOptions = (\n    options: CountryOption[],\n    preSelectedOption?: CountryOption,\n    preSelectedOptionDivider = c('Country select label').t`Based on your time zone`\n) => {",
+     "way": "The live country dropdown helper is exported as getCountryDropdownOptions."
+    },
+    {
+     "path": "packages/components/components/country/helpers.ts",
+     "snippet": "    const preselected: DropdownOption[] = preSelectedOption\n        ? [\n              { type: 'divider', text: preSelectedOptionDivider },\n              {\n                  type: 'country',\n                  countryCode: preSelectedOption.countryCode,\n                  countryName: preSelectedOption.countryName,\n              },\n          ]\n        : [];",
+     "way": "With no preSelectedOption, the preselected prefix is an empty array."
+    }
+   ]
+  },
+  {
+   "behavior": "When a preselected country is provided, getAllDropdownOptions prepends a divider whose default text is exactly \"Based on your time zone\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "preSelectedOptionDivider = c('Country select label').t`Based on your time zone`",
+   "gold_value": "Based on your time zone",
+   "codebase_value": "Based on your time zone",
+   "why": "The live helper has exactly the same default string for the same preselected-country divider.",
+   "precedents": [
+    {
+     "path": "packages/components/components/country/helpers.ts",
+     "snippet": "export const getCountryDropdownOptions = (\n    options: CountryOption[],\n    preSelectedOption?: CountryOption,\n    preSelectedOptionDivider = c('Country select label').t`Based on your time zone`\n) => {",
+     "way": "The production country dropdown helper uses exactly this default divider text."
+    }
+   ]
+  },
+  {
+   "behavior": "When a preselected France option is provided, getAllDropdownOptions prepends France with countryCode exactly \"fr-preselected\", not \"fr\".",
+   "status": "AMBIGUOUS",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "countryCode: `${preSelectedOption.countryCode}${PRESELECTED_COUNTRY_OPTION_SUFFIX}`",
+   "gold_value": "fr-preselected",
+   "codebase_value": "fr",
+   "why": "The comparable live code uses the original country code for the preselected row, but gold pins a suffixed synthetic value.",
+   "precedents": []
+  },
+  {
+   "behavior": "When a custom preselected divider text is provided, getAllDropdownOptions uses that exact divider text before the preselected option.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "preSelectedOptionDivider = c('Country select label').t`Based on your time zone`",
+   "gold_value": "caller-provided preSelectedOptionDivider",
+   "codebase_value": "caller-provided preSelectedOptionDivider",
+   "why": "The same production helper already uses the custom divider parameter verbatim in that position.",
+   "precedents": [
+    {
+     "path": "packages/components/components/country/helpers.ts",
+     "snippet": "              { type: 'divider', text: preSelectedOptionDivider },\n              {\n                  type: 'country',\n                  countryCode: preSelectedOption.countryCode,\n                  countryName: preSelectedOption.countryName,\n              },",
+     "way": "The live helper places the provided preSelectedOptionDivider directly before the preselected country."
+    }
+   ]
+  },
+  {
+   "behavior": "getSuggestedHolidaysCalendar returns undefined for Europe/Brussels and languageTags ['en-US'] when multiple countries match the time zone but no country can be inferred from language tags.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "if (!countryCode) {",
+   "gold_value": "undefined",
+   "codebase_value": "first matching timezone calendar's CountryCode",
+   "why": "The base production logic resolves timezone ambiguity by taking the first matched country, while gold returns undefined when language tags do not infer a country.",
+   "precedents": [
+    {
+     "path": "packages/shared/lib/calendar/holidaysCalendar/holidaysCalendar.ts",
+     "snippet": "    if (calendarsFromTimezone.length > 0) {\n        return findHolidaysCalendarByCountryCodeAndLanguageCode(\n            calendars,\n            calendarsFromTimezone[0].CountryCode,\n            languageCode\n        );\n    }\n\n    // If no option is found based on the time zone, return undefined\n    return undefined;",
+     "way": "The live default holidays calendar logic chooses calendarsFromTimezone[0].CountryCode whenever any timezone match exists."
+    }
+   ]
+  }
+ ]
+}

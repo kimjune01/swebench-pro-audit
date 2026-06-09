@@ -1,0 +1,67 @@
+{
+ "slug": "flipt-io_6fd0f9e2",
+ "repo": "flipt-io/flipt",
+ "base": "6fd0f9e2587f14ac1fdd1c229f0bcae0468c8daa",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "OCI Source.String() returns exactly \"oci\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return \"oci\"",
+   "gold_value": "\"oci\"",
+   "codebase_value": "bare lowercase storage backend key, with OCI's backend key spelled \"oci\"",
+   "why": "Live filesystem sources return bare lowercase backend keys, and the live OCI backend key is defined exactly as \"oci\".",
+   "precedents": [
+    {
+     "path": "rpc/flipt/operators.go",
+     "snippet": "const (\n\tDatabaseStorageType = StorageType(\"database\")\n\tLocalStorageType    = StorageType(\"local\")\n\tGitStorageType      = StorageType(\"git\")\n\tObjectStorageType   = StorageType(\"object\")\n\tOCIStorageType      = StorageType(\"oci\")\n)",
+     "way": "OCI storage type key is exactly \"oci\"."
+    },
+    {
+     "path": "internal/storage/fs/s3/source.go",
+     "snippet": "// String returns an identifier string for the store type.\nfunc (*Source) String() string {\n\treturn \"git\"\n}",
+     "way": "filesystem source String returns the bare lowercase storage key."
+    },
+    {
+     "path": "internal/storage/fs/git/source.go",
+     "snippet": "// String returns an identifier string for the store type.\nfunc (s *Source) String() string {\n\treturn \"local\"\n}",
+     "way": "filesystem source String returns the bare lowercase storage key."
+    },
+    {
+     "path": "internal/storage/fs/git/source.go",
+     "snippet": "// String returns an identifier string for the store type.\nfunc (s *Source) String() string {\n\treturn \"s3\"\n}",
+     "way": "filesystem source String returns the bare lowercase storage key."
+    }
+   ]
+  },
+  {
+   "behavior": "Subscribe closes the provided channel before returning after cancellation.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "defer close(ch)",
+   "gold_value": "defer close(ch)",
+   "codebase_value": "Subscribe defers close(ch) at entry",
+   "why": "All live production filesystem Subscribe implementations use defer close(ch), so gold matches the single codebase convention.",
+   "precedents": [
+    {
+     "path": "internal/storage/fs/git/source.go",
+     "snippet": "// Subscribe feeds gitfs implementations of fs.FS onto the provided channel.\n// It blocks until the provided context is cancelled (it will be called in a goroutine).\n// It closes the provided channel before it returns.\nfunc (s *Source) Subscribe(ctx context.Context, ch chan<- *storagefs.StoreSnapshot) {\n\tdefer close(ch)",
+     "way": "Subscribe closes the provided channel before returning."
+    },
+    {
+     "path": "internal/storage/fs/local/source.go",
+     "snippet": "// Subscribe feeds local fs.FS implementations onto the provided channel.\n// It blocks until the provided context is cancelled.\nfunc (s *Source) Subscribe(ctx context.Context, ch chan<- *storagefs.StoreSnapshot) {\n\tdefer close(ch)",
+     "way": "Subscribe closes the provided channel before returning."
+    },
+    {
+     "path": "internal/storage/fs/s3/source.go",
+     "snippet": "// Subscribe feeds S3 populated *StoreSnapshot instances onto the provided channel.\n// It blocks until the provided context is cancelled.\nfunc (s *Source) Subscribe(ctx context.Context, ch chan<- *storagefs.StoreSnapshot) {\n\tdefer close(ch)",
+     "way": "Subscribe closes the provided channel before returning."
+    }
+   ]
+  }
+ ]
+}

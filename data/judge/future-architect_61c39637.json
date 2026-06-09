@@ -1,10 +1,10 @@
 {
  "case": "future-architect_61c39637",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 11,
  "n_covered": 8,
- "n_gap": 3,
+ "n_gap": 0,
  "n_out_of_scope": 5,
  "rows": [
   {
@@ -103,21 +103,27 @@
    "covering_prose": null,
    "gold_anchor": "Type: ctype,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Cvss3Scores returns Cvss Type CVSS3 for the DebianSecurityTracker severity-derived score.",
    "covering_prose": null,
    "gold_anchor": "Type:                 CVSS3,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Cvss3Scores marks the DebianSecurityTracker severity-derived score as CalculatedBySeverity true.",
    "covering_prose": null,
    "gold_anchor": "CalculatedBySeverity: true,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 3,
+ "officiated": true
 }

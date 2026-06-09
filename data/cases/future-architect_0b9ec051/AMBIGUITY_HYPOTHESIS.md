@@ -1,28 +1,31 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- future-architect_0b9ec051
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- future-architect_0b9ec051
 
 - instance_id: `instance_future-architect__vuls-f0b3a8b1db98eb1bd32685f1c36c41a99c3452ed`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `future-architect/vuls` @ `0b9ec05181`
 
-## The graded behavior
-SortByConfident given [CpeVersionMatch, OvalMatch] returns exactly [OvalMatch, CpeVersionMatch].
-- test assertion: [`hidden_test.diff`](hidden_test.diff) `in: Confidences{
-				CpeVersionMatch,
-				OvalMatch,
-			},
-			out: Confidences{
-				OvalMatch,
-				CpeVersionMatch,
-			},`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** CpeVersionMatch has a tie-break ordering that places it after OvalMatch when both have the same numeric confidence score.  gold: [`gold.diff`#L154](gold.diff#L154) `CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}`
-- **R2 (prose-faithful alternative):** A from-prose engineer could sort only by numeric confidence score and preserve input order for equal-score confidences.
+- **SortByConfident given [OvalMatch, CpeVersionMatch] returns exactly [OvalMatch, CpeVersionMatch].** -- gold `CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}; OvalMatch = Confidence{100, OvalMatchStr, 0}; sorted result [OvalMatch, CpeVersionMatch]` matches codebase `CpeNameMatch = Confidence{100, CpeNameMatchStr, 1}; OvalMatch = Confidence{100, OvalMatchStr, 0}; SortByConfident sorts ascending by SortOrder`. The requested rename makes CpeVersionMatch the successor of CpeNameMatch, and the live code uniquely sets that CPE confidence after OvalMatch in SortByConfident ordering.
+1. `models/vulninfos.go` -- SortByConfident orders confidences by ascending SortOrder.
+   ```
+   func (cs Confidences) SortByConfident() Confidences {
+   	sort.Slice(cs, func(i, j int) bool {
+   		return cs[i].SortOrder < cs[j].SortOrder
+   	})
+   	return cs
+   }
+   ```
+- **SortByConfident given [CpeVersionMatch, OvalMatch] returns exactly [OvalMatch, CpeVersionMatch].** -- gold `CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}; OvalMatch = Confidence{100, OvalMatchStr, 0}; sorted result [OvalMatch, CpeVersionMatch]` matches codebase `CpeNameMatch = Confidence{100, CpeNameMatchStr, 1}; OvalMatch = Confidence{100, OvalMatchStr, 0}; SortByConfident sorts ascending by SortOrder`. The requested rename makes CpeVersionMatch the successor of CpeNameMatch, and the live code uniquely sets that CPE confidence after OvalMatch in SortByConfident ordering.
+1. `models/vulninfos.go` -- SortByConfident orders confidences by ascending SortOrder.
+   ```
+   func (cs Confidences) SortByConfident() Confidences {
+   	sort.Slice(cs, func(i, j int) bool {
+   		return cs[i].SortOrder < cs[j].SortOrder
+   	})
+   	return cs
+   }
+   ```
 
-## Status: HYPOTHESIS
-Class `airtight` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-With stable score-only sorting, [CpeVersionMatch, OvalMatch] would remain [CpeVersionMatch, OvalMatch], contradicting the asserted output order.
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

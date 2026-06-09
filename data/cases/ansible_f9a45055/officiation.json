@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_f9a45055",
+ "repo": "ansible/ansible",
+ "base": "f9a450551de47ac2b9d1d7e66a103cbf8f05c37f",
+ "verdict": "MISDETERMINED",
+ "gaps": [
+  {
+   "behavior": "The artifact file listing is sorted in the order produced by distlib manifest sorting, with top-level files before directories and nested paths following their parent directories.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "for abs_path in m.sorted(wantdirs=True):",
+   "gold_value": "for abs_path in m.sorted(wantdirs=True):",
+   "codebase_value": "raw os.listdir traversal order is appended to file_manifest['files'], and the tar artifact iterates file_manifest['files'] without sorting",
+   "why": "The live collection build code determines artifact listing order by unsorted filesystem traversal preserved into tar emission, while gold pins distlib sorted(wantdirs=True) order.",
+   "precedents": [
+    {
+     "path": "lib/ansible/galaxy/collection/__init__.py",
+     "snippet": "    def _walk(b_path, b_top_level_dir):\n        for b_item in os.listdir(b_path):\n            b_abs_path = os.path.join(b_path, b_item)\n            b_rel_base_dir = b'' if b_path == b_top_level_dir else b_path[len(b_top_level_dir) + 1:]\n            b_rel_path = os.path.join(b_rel_base_dir, b_item)\n            rel_path = to_text(b_rel_path, errors='surrogate_or_strict')",
+     "way": "collection FILES.json entries are generated from unsorted os.listdir traversal"
+    },
+    {
+     "path": "lib/ansible/galaxy/collection/__init__.py",
+     "snippet": "            for file_info in file_manifest['files']:  # type: ignore[union-attr]\n                if file_info['name'] == '.':\n                    continue\n\n                # arcname expects a native string, cannot be bytes\n                filename = to_native(file_info['name'], errors='surrogate_or_strict')",
+     "way": "collection tar artifact entries are emitted in existing file_manifest['files'] order without sorting"
+    }
+   ]
+  }
+ ]
+}

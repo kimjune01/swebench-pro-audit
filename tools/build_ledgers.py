@@ -41,10 +41,21 @@ def witness_class(c):
     return None, False, None
 
 
+def cov_disp(r):
+    """non-defect behaviors covered = prose-COVERED + DETERMINED-codebase (a faithful solver gets both)."""
+    return r.get("n_covered", 0) + r.get("n_determined_codebase", 0)
+
+
+def gap_disp(r):
+    """defect behaviors = AMBIGUOUS + MISDETERMINED (a faithful solver fails both)."""
+    return r.get("n_gap", 0) + r.get("n_misdetermined", 0)
+
+
 def classify_of(case, rec):
-    if rec.get("verdict") == "AMBIGUOUS":
-        return "AMBIGUOUS"
-    if rec.get("verdict") == "ENTAILED" and case in OUR_LOSSES:
+    v = rec.get("verdict")
+    if v in ("AMBIGUOUS", "MISDETERMINED"):
+        return v
+    if v == "ENTAILED" and case in OUR_LOSSES:
         return "OUR_GAP"
     return "—"
 
@@ -65,8 +76,14 @@ def main():
     judged = load_judged()
     n = len(judged)
     ent = [c for c, r in judged.items() if r.get("verdict") == "ENTAILED"]
-    amb = [c for c, r in judged.items() if r.get("verdict") == "AMBIGUOUS"]
-    err = [c for c, r in judged.items() if r.get("verdict") not in ("ENTAILED", "AMBIGUOUS")]
+    det_cb = [c for c, r in judged.items() if r.get("verdict") == "DETERMINED-codebase"]
+    amb_only = [c for c, r in judged.items() if r.get("verdict") == "AMBIGUOUS"]
+    misd = [c for c, r in judged.items() if r.get("verdict") == "MISDETERMINED"]
+    # the DEFECT set: a faithful solver fails. AMBIGUOUS (>=2 codebase ways) + MISDETERMINED (one
+    # codebase way, gold pins a different value). Both carry a witness; both are claimable.
+    amb = amb_only + misd
+    err = [c for c, r in judged.items()
+           if r.get("verdict") not in ("ENTAILED", "DETERMINED-codebase", "AMBIGUOUS", "MISDETERMINED")]
 
     # witness accounting over the AMBIGUOUS screen. PROVEN (spine) = a case carrying a verified
     # AMBIGUITY_WITNESS.md: the 30 grep-certified airtight cases + the hand-verified tutao.
@@ -76,13 +93,19 @@ def main():
         return g.exists() and json.loads(g.read_text()).get("clean_fail")
     proven = [c for c in amb if klass[c][1]]
     airtight = [c for c in proven if klass[c][0] == "airtight"]
-    TWO_EXPERT = {"plural-both", "prose-plural", "codebase-plural"}
-    two_expert = [c for c in proven if klass[c][0] in TWO_EXPERT]  # survived adversarial refutation
+    misdet = [c for c in proven if klass[c][0] == "misdetermined"]
+    cbplural = [c for c in proven if klass[c][0] == "codebase-plural"]
+    # two-expert = the reading-judgment tier (the prose licenses >=2 faithful readings); these are the
+    # cases that went through codex-construct + opus-refute. codebase-plural is grep-mechanical (>=2 live
+    # precedents), so it sits in the mechanical spine, not the adversarial tier.
+    TWO_EXPERT = {"plural-both", "prose-plural"}
+    two_expert = [c for c in proven if klass[c][0] in TWO_EXPERT]
     gradedpatch = [c for c in proven if klass[c][0] == "prose-affirmative" and graded(c)]
     proseaff = [c for c in proven if klass[c][0] == "prose-affirmative" and not graded(c)]  # tutao
-    # mechanical spine = assumption-free tiers (no model judgment). two-expert rests on the two-expert
-    # standard but is two-model adversarially verified (codex constructs, opus refutes), not asserted.
-    mech_spine = airtight + gradedpatch + proseaff
+    # mechanical spine = assumption-free tiers (no model judgment), all grep/grade-settled: airtight +
+    # misdetermined (codebase determines X, gold pins Y) + codebase-plural (>=2 live ways) + graded-patch
+    # + hand-verified. Evidence settles each; a hostile reader reproduces it.
+    mech_spine = airtight + misdet + cbplural + gradedpatch + proseaff
     hypo = [c for c in amb if not klass[c][1]]
     auto_pa = [c for c in hypo if klass[c][0] == "prose-affirmative"]    # raters-pending tier
     cb_border = [c for c in hypo if klass[c][0] != "prose-affirmative"]  # codebase/borderline/refuted/determined
@@ -105,9 +128,19 @@ def main():
         "| label | count | of N | claimable without raters? |", "|---|---:|---:|---|",
         f"| ENTAILED (every graded behavior has a covering requirement) | {len(ent)} | "
         f"{len(ent)/n:.0%} | n/a (not a defect) |",
-        f"| AMBIGUOUS — screen (≥1 GAP) | {len(amb)} | {len(amb)/n:.0%} | screen only |",
+        f"| DETERMINED-codebase (prose silent, one codebase way, gold matches) | {len(det_cb)} | "
+        f"{len(det_cb)/n:.0%} | n/a (not a defect — well-specified by convention/reuse) |",
+        f"| DEFECT — screen (a faithful solver fails) | {len(amb)} | {len(amb)/n:.0%} | screen only |",
+        f"| &nbsp;&nbsp;├─ AMBIGUOUS (≥2 codebase ways; test pins one) | {len(amb_only)} | "
+        f"{len(amb_only)/n:.0%} | per witness class below |",
+        f"| &nbsp;&nbsp;├─ MISDETERMINED (one codebase way; test grades a different value) | {len(misd)} | "
+        f"{len(misd)/n:.0%} | per witness class below |",
         f"| &nbsp;&nbsp;├─ **airtight** (constant absent from prose **and** codebase, grep-certified) | "
         f"{len(airtight)} | {len(airtight)/n:.0%} | **YES — mechanical spine** |",
+        f"| &nbsp;&nbsp;├─ **misdetermined** (codebase determines X one way, gold/test pin Y≠X; grep-certified) | "
+        f"{len(misdet)} | {len(misdet)/n:.0%} | **YES — mechanical spine** |",
+        f"| &nbsp;&nbsp;├─ **codebase-plural** (codebase makes the choice ≥2 live ways; grep-certified) | "
+        f"{len(cbplural)} | {len(cbplural)/n:.0%} | **YES — mechanical spine** |",
         f"| &nbsp;&nbsp;├─ **prose-affirmative, graded-patch** (R2 both raters call faithful, bench fails it) | "
         f"{len(gradedpatch)} | {len(gradedpatch)/n:.0%} | **YES — mechanical spine** |",
         f"| &nbsp;&nbsp;├─ **prose-affirmative, hand-verified** (tutao) | "
@@ -157,8 +190,8 @@ def main():
     for c in ("element", "protonmail", "qutebrowser", "tutao"):
         if c in judged:
             r = judged[c]
-            s.append(f"| {c} | {r.get('verdict')} | {r.get('n_covered')}/{r.get('in_gold_total')} | "
-                     f"{r.get('n_gap',0)} | {classify_of(c,r)} | [table](data/attribution/{c}.md) |")
+            s.append(f"| {c} | {r.get('verdict')} | {cov_disp(r)}/{r.get('in_gold_total')} | "
+                     f"{gap_disp(r)} | {classify_of(c,r)} | [table](data/attribution/{c}.md) |")
     (REPO / "SUMMARY.md").write_text("\n".join(s) + "\n")
 
     # ---- COVERAGE.md (full 728-row index) ----
@@ -169,9 +202,9 @@ def main():
            "", "| case | verdict | cov | GAP | witness class | attribution |", "|---|---|---|---|---|---|"]
     for c, r in sorted(judged.items()):
         kl = klass.get(c, (None, False, None))[0] if c in amb else ""
-        kl = kl or ("" if r.get("verdict") != "AMBIGUOUS" else "(pending)")
-        cov.append(f"| {c} | {r.get('verdict')} | {r.get('n_covered')}/{r.get('in_gold_total')} | "
-                   f"{r.get('n_gap',0)} | {kl} | [t](data/attribution/{c}.md) |")
+        kl = kl or ("" if r.get("verdict") not in ("AMBIGUOUS", "MISDETERMINED") else "(pending)")
+        cov.append(f"| {c} | {r.get('verdict')} | {cov_disp(r)}/{r.get('in_gold_total')} | "
+                   f"{gap_disp(r)} | {kl} | [t](data/attribution/{c}.md) |")
     (REPO / "COVERAGE.md").write_text("\n".join(cov) + "\n")
 
     # ---- KNOWN_BAD.md ----
@@ -201,8 +234,8 @@ def main():
           "| case | class | instance_id | coverage | gaps | witness |", "|---|---|---|---|---|---|"]
     for c in spine:
         r = judged[c]
-        ka.append(f"| {c} | {klass[c][0]} | `{iid(c)}` | {r['n_covered']}/{r.get('in_gold_total')} | "
-                  f"{r.get('n_gap',0)} | [witness](data/cases/{c}/AMBIGUITY_WITNESS.md) |")
+        ka.append(f"| {c} | {klass[c][0]} | `{iid(c)}` | {cov_disp(r)}/{r.get('in_gold_total')} | "
+                  f"{gap_disp(r)} | [witness](data/cases/{c}/AMBIGUITY_WITNESS.md) |")
     ka += ["", f"## HYPOTHESIS (codebase / borderline): {len(hypo)} — raters-pending, NOT claimed", "",
            "A snapshot shows plurality, not binding force; `DETERMINED-codebase` vs `AMBIGUOUS-codebase` "
            "is interpretive and needs ≥2 independent codebase-aware raters + κ (see ADMISSIBILITY-SPEC). "
@@ -217,8 +250,8 @@ def main():
           "| case | instance_id | coverage | gaps | attribution |", "|---|---|---|---|---|"]
     for c, r in sorted(judged.items()):
         if classify_of(c, r) == "OUR_GAP":
-            og.append(f"| {c} | `{iid(c)}` | {r['n_covered']}/{r.get('in_gold_total')} | "
-                      f"{r.get('n_gap',0)} | [table](data/attribution/{c}.md) |")
+            og.append(f"| {c} | `{iid(c)}` | {cov_disp(r)}/{r.get('in_gold_total')} | "
+                      f"{gap_disp(r)} | [table](data/attribution/{c}.md) |")
     (REPO / "OUR_CAPABILITY_GAPS.md").write_text("\n".join(og) + "\n")
 
     print(f"wrote ledgers. N={n} ENTAILED={len(ent)} AMBIGUOUS={len(amb)} | PROVEN={len(spine)} "

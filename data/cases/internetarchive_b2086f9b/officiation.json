@@ -1,0 +1,198 @@
+{
+ "slug": "internetarchive_b2086f9b",
+ "repo": "internetarchive/openlibrary",
+ "base": "b2086f9bf54a3a8289e558a8f542673e3d01b376",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "process_user_query('flatland:a romance of many dimensions') escapes the unknown field-looking colon and returns 'flatland\\\\:a romance of many dimensions'.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "field = sf.name + r'\\:'",
+   "gold_value": "flatland\\\\:a romance of many dimensions",
+   "codebase_value": "escape the field-looking colon as sf.name + r'\\\\:'",
+   "why": "The live query utility has a single production rule for unknown fields, and the gold value uses that same escaped-colon form.",
+   "precedents": [
+    {
+     "path": "openlibrary/solr/query_utils.py",
+     "snippet": "        if isinstance(sf, SearchField) and not is_valid_field(sf.name):\n            field = sf.name + r'\\:'",
+     "way": "Unknown SearchField names are rewritten with a backslash-escaped colon."
+    }
+   ]
+  },
+  {
+   "behavior": "process_user_query('lcc:NC760 .B2813 2004') normalizes the LCC to exactly lcc:\"NC-0760.00000000.B2813 2004\" with quotes because the normalized value contains a space.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "sf.expr = luqum.tree.Phrase(f'\"{normed}\"')",
+   "gold_value": "lcc:\"NC-0760.00000000.B2813 2004\"",
+   "codebase_value": "both quoted full normalized value and truncated unquoted normalized prefix appear in live comparable query-formatting code",
+   "why": "Live production code has two comparable LCC query-formatting conventions for normalized values with spaces, so the quoted full value is not uniquely determined.",
+   "precedents": [
+    {
+     "path": "openlibrary/plugins/worksearch/code.py",
+     "snippet": "    elif isinstance(val, luqum.tree.Phrase):\n        normed = short_lcc_to_sortable_lcc(val.value.strip('\"'))\n        if normed:\n            val.value = f'\"{normed}\"'",
+     "way": "Work search LCC phrase normalization keeps the full normalized value and wraps it in quotes."
+    },
+    {
+     "path": "openlibrary/components/LibraryExplorer.vue",
+     "snippet": "                toQueryFormat: lcc => {\n                    const normalized = short_lcc_to_sortable_lcc(lcc);\n                    return normalized ? normalized.split(' ')[0] : lcc;\n                },",
+     "way": "LibraryExplorer LCC query formatting drops everything after the first space and does not quote it."
+    }
+   ]
+  },
+  {
+   "behavior": "process_user_query('lcc:NC760 .B2813') normalizes the grouped LCC to exactly lcc:NC-0760.00000000.B2813* with a trailing star because the normalized value has no space.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "sf.expr = luqum.tree.Word(f'{normed}*')",
+   "gold_value": "lcc:NC-0760.00000000.B2813*",
+   "codebase_value": "lcc:NC-0760.00000000.B2813",
+   "why": "The live production convention normalizes non-wildcard LCC text without adding '*', while gold pins a wildcard suffix.",
+   "precedents": [
+    {
+     "path": "openlibrary/components/LibraryExplorer.vue",
+     "snippet": "                toQueryFormat: lcc => {\n                    const normalized = short_lcc_to_sortable_lcc(lcc);\n                    return normalized ? normalized.split(' ')[0] : lcc;\n                },",
+     "way": "LCC query formatting returns the normalized value without appending a wildcard."
+    }
+   ]
+  },
+  {
+   "behavior": "process_user_query('lcc:good evening') leaves unnormalizable LCC text grouped as lcc:(good evening).",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if normed:",
+   "gold_value": "lcc:(good evening)",
+   "codebase_value": "leave the grouped field value unchanged when no normalization result exists",
+   "why": "The parser groups multi-word field text and the LCC transform has no production rule that rewrites unnormalizable text, matching the gold's unchanged grouped value.",
+   "precedents": [
+    {
+     "path": "openlibrary/solr/query_utils.py",
+     "snippet": "            if isinstance(sf.expr, Word) and all(isinstance(n, Word) for n in others):\n                # Replace BaseOperation with SearchField\n                node.children = others\n                sf.expr = Group(type(node)(sf.expr, *others))",
+     "way": "Greedy field binding groups multi-word field values into a Group."
+    },
+    {
+     "path": "openlibrary/plugins/worksearch/code.py",
+     "snippet": "    elif isinstance(val, luqum.tree.Phrase):\n        normed = short_lcc_to_sortable_lcc(val.value.strip('\"'))\n        if normed:\n            val.value = f'\"{normed}\"'\n    else:\n        logger.warning(f\"Unexpected lcc SearchField value type: {type(val)}\")",
+     "way": "LCC transformation only mutates when a normalization result exists for handled value types; otherwise it leaves the value alone."
+    }
+   ]
+  },
+  {
+   "behavior": "process_user_query('lcc:[NC1 TO NC1000]') normalizes the LCC range bounds to exactly lcc:[NC-0001.00000000 TO NC-1000.00000000].",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "val.low.value, val.high.value = normed",
+   "gold_value": "lcc:[NC-0001.00000000 TO NC-1000.00000000]",
+   "codebase_value": "NC1 -> NC-0001.00000000 and NC1000 -> NC-1000.00000000",
+   "why": "The live code explicitly documents and implements the same NC1-to-NC1000 sortable range values that gold pins.",
+   "precedents": [
+    {
+     "path": "openlibrary/plugins/worksearch/code.py",
+     "snippet": "def lcc_transform(sf: luqum.tree.SearchField):\n    # e.g. lcc:[NC1 TO NC1000] to lcc:[NC-0001.00000000 TO NC-1000.00000000]\n    # for proper range search",
+     "way": "The production worksearch code documents this exact range normalization."
+    },
+    {
+     "path": "openlibrary/utils/lcc.py",
+     "snippet": "def normalize_lcc_range(start: str, end: str) -> list[str | None]:\n    \"\"\"\n    :param str start: LCC prefix to start range\n    :param str end: LCC prefix to end range\n    :return: range with prefixes being prefixes for sortable LCCs\n    \"\"\"\n    return [\n        lcc if lcc == '*' else short_lcc_to_sortable_lcc(lcc) for lcc in (start, end)",
+     "way": "Range bounds are normalized with short_lcc_to_sortable_lcc."
+    }
+   ]
+  },
+  {
+   "behavior": "process_user_query('lcc:NC76.B2813*') normalizes an LCC prefix query to exactly lcc:NC-0076.00000000.B2813*.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return normalize_lcc_prefix(val.value[:-1]) + '*'",
+   "gold_value": "lcc:NC-0076.00000000.B2813*",
+   "codebase_value": "NC76.B2813* -> NC-0076.00000000.B2813*",
+   "why": "The live worksearch wildcard path and LCC prefix helper determine the same normalized prefix format gold uses.",
+   "precedents": [
+    {
+     "path": "openlibrary/plugins/worksearch/code.py",
+     "snippet": "        if '*' in val.value and not val.value.startswith('*'):\n            # Marshals human repr into solr repr\n            # lcc:A720* should become A--0720*\n            parts = val.value.split('*', 1)\n            lcc_prefix = normalize_lcc_prefix(parts[0])\n            val.value = (lcc_prefix or parts[0]) + '*' + parts[1]",
+     "way": "LCC wildcard queries normalize the prefix before the first star and preserve the wildcard suffix."
+    }
+   ]
+  },
+  {
+   "behavior": "process_user_query('lcc:*B2813') leaves a leading-star LCC suffix query unchanged as lcc:*B2813.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if '*' in val.value and not val.value.startswith('*'):",
+   "gold_value": "lcc:*B2813",
+   "codebase_value": "leave leading-star LCC query unchanged",
+   "why": "The production condition excludes leading-star values from prefix normalization, matching gold's unchanged suffix query.",
+   "precedents": [
+    {
+     "path": "openlibrary/plugins/worksearch/code.py",
+     "snippet": "    elif isinstance(val, luqum.tree.Word):\n        if '*' in val.value and not val.value.startswith('*'):\n            # Marshals human repr into solr repr\n            # lcc:A720* should become A--0720*\n            parts = val.value.split('*', 1)\n            lcc_prefix = normalize_lcc_prefix(parts[0])\n            val.value = (lcc_prefix or parts[0]) + '*' + parts[1]\n        else:\n            normed = short_lcc_to_sortable_lcc(val.value.strip('\"'))\n            if normed:\n                val.value = normed",
+     "way": "Only wildcard values that do not start with '*' take the prefix-normalization branch; failed normalization in the else branch leaves the value unchanged."
+    }
+   ]
+  },
+  {
+   "behavior": "process_user_query('lcc:*B2813*') leaves a leading-star multi-star LCC query unchanged as lcc:*B2813*.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if '*' in val.value and not val.value.startswith('*'):",
+   "gold_value": "lcc:*B2813*",
+   "codebase_value": "leave leading-star multi-star LCC query unchanged",
+   "why": "The live wildcard condition leaves any value beginning with '*' outside the normalization branch, so gold matches the codebase convention.",
+   "precedents": [
+    {
+     "path": "openlibrary/plugins/worksearch/code.py",
+     "snippet": "    elif isinstance(val, luqum.tree.Word):\n        if '*' in val.value and not val.value.startswith('*'):\n            # Marshals human repr into solr repr\n            # lcc:A720* should become A--0720*\n            parts = val.value.split('*', 1)\n            lcc_prefix = normalize_lcc_prefix(parts[0])\n            val.value = (lcc_prefix or parts[0]) + '*' + parts[1]\n        else:\n            normed = short_lcc_to_sortable_lcc(val.value.strip('\"'))\n            if normed:\n                val.value = normed",
+     "way": "The only wildcard normalization branch explicitly excludes values starting with '*'."
+    }
+   ]
+  },
+  {
+   "behavior": "process_user_query('lcc:NC76*B2813*') normalizes the LCC prefix portion to exactly lcc:NC-0076*B2813*.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return normalize_lcc_prefix(val.value[:-1]) + '*'",
+   "gold_value": "lcc:NC-0076*B2813*",
+   "codebase_value": "normalize the text before the first star, then append '*' plus the remaining text",
+   "why": "The live wildcard split-and-rejoin rule determines exactly the gold output for a prefix followed by additional wildcard text.",
+   "precedents": [
+    {
+     "path": "openlibrary/plugins/worksearch/code.py",
+     "snippet": "        if '*' in val.value and not val.value.startswith('*'):\n            # Marshals human repr into solr repr\n            # lcc:A720* should become A--0720*\n            parts = val.value.split('*', 1)\n            lcc_prefix = normalize_lcc_prefix(parts[0])\n            val.value = (lcc_prefix or parts[0]) + '*' + parts[1]",
+     "way": "The prefix before the first '*' is normalized and the rest after that first '*' is preserved."
+    },
+    {
+     "path": "openlibrary/utils/lcc.py",
+     "snippet": "            elif result.endswith('-0000.'):\n                result = result.rstrip('0.')\n            return result.rstrip('.')",
+     "way": "normalize_lcc_prefix('NC76') produces the shorter sortable prefix form NC-0076 rather than the full fixed decimal."
+    }
+   ]
+  },
+  {
+   "behavior": "process_user_query('lcc:\"NC760 .B2813\"') preserves quotes while normalizing the LCC phrase to exactly lcc:\"NC-0760.00000000.B2813\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "val.value = f'\"{normed}\"'",
+   "gold_value": "lcc:\"NC-0760.00000000.B2813\"",
+   "codebase_value": "quoted phrase value is normalized and wrapped again with double quotes",
+   "why": "The live LCC phrase branch uses the same quote-preserving normalized assignment as the gold patch.",
+   "precedents": [
+    {
+     "path": "openlibrary/plugins/worksearch/code.py",
+     "snippet": "    elif isinstance(val, luqum.tree.Phrase):\n        normed = short_lcc_to_sortable_lcc(val.value.strip('\"'))\n        if normed:\n            val.value = f'\"{normed}\"'",
+     "way": "Phrase LCC values strip quotes for normalization, then restore quotes around the normalized value."
+    }
+   ]
+  }
+ ]
+}

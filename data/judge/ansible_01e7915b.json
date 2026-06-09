@@ -47,7 +47,8 @@
    "covering_prose": null,
    "gold_anchor": "requirements['collections'].append((name, requirement or '*', None))",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "Collection requirement normalization returns parsed requirements as a mapping containing both `collections` and `roles`, so callers can inspect skipped roles.",
@@ -140,5 +141,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

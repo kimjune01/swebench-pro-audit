@@ -1,10 +1,10 @@
 {
  "case": "internetarchive_54085373",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 8,
  "n_covered": 4,
- "n_gap": 4,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,28 +12,32 @@
    "covering_prose": null,
    "gold_anchor": "return os.path.join(folder, filename)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Batch.get_relpath(\"0008\", \"80\", size=\"s\") returns \"s_covers_0008/s_covers_0008_80\".",
    "covering_prose": null,
    "gold_anchor": "prefix = f\"{size.lower()}_\" if size else \"\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Batch.get_relpath(\"0008\", \"80\", size=\"m\") returns \"m_covers_0008/m_covers_0008_80\".",
    "covering_prose": null,
    "gold_anchor": "prefix = f\"{size.lower()}_\" if size else \"\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Batch.get_relpath(\"0008\", \"80\", size=\"l\") returns \"l_covers_0008/l_covers_0008_80\".",
    "covering_prose": null,
    "gold_anchor": "prefix = f\"{size.lower()}_\" if size else \"\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Batch.get_relpath(\"0008\", \"80\", ext=\"tar\") returns \"covers_0008/covers_0008_80.tar\".",
@@ -63,5 +67,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 4,
+ "officiated": true
 }

@@ -1,0 +1,25 @@
+{
+ "slug": "future-architect_83bcca6e",
+ "repo": "future-architect/vuls",
+ "base": "83bcca6e669ba2e4102f26c4a2b52f78c7861f1a",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "A wildcard listen address \"*\" is expanded to each ServerInfo.IPv4Addrs entry, producing map[string][]string{\"127.0.0.1\": {\"22\"}, \"192.168.1.1\": {\"22\"}}.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "if addr == \"*\" {",
+   "gold_value": "expand \"*\" by iterating l.ServerInfo.IPv4Addrs and assigning the same port(s) to each IPv4 address",
+   "codebase_value": "expand \"*\" by iterating l.ServerInfo.IPv4Addrs and appending addr+\":\"+port for each address/port pair",
+   "why": "The base production implementation already treats \"*\" as a wildcard over ServerInfo.IPv4Addrs in detectScanDest, and gold preserves that same expansion while changing only the returned data shape.",
+   "precedents": [
+    {
+     "path": "scan/base.go",
+     "snippet": "\tfor addr, ports := range scanIPPortsMap {\n\t\tif addr == \"*\" {\n\t\t\tfor _, addr := range l.ServerInfo.IPv4Addrs {\n\t\t\t\tfor _, port := range ports {\n\t\t\t\t\tscanDestIPPorts = append(scanDestIPPorts, addr+\":\"+port)\n\t\t\t\t}\n\t\t\t}\n\t\t} else {\n\t\t\tfor _, port := range ports {\n\t\t\t\tscanDestIPPorts = append(scanDestIPPorts, addr+\":\"+port)\n\t\t\t}\n\t\t}\n\t}",
+     "way": "wildcard listen address is expanded to every l.ServerInfo.IPv4Addrs entry"
+    }
+   ]
+  }
+ ]
+}

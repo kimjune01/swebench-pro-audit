@@ -1,0 +1,59 @@
+{
+ "slug": "flipt-io_165ba79a",
+ "repo": "flipt-io/flipt",
+ "base": "165ba79a44732208147f516fa6fa4d1dc72b7008",
+ "verdict": "MISDETERMINED",
+ "gaps": [
+  {
+   "behavior": "Loading a config containing tracing.jaeger.enabled emits exactly \"\\\"tracing.jaeger.enabled\\\" is deprecated and will be removed in a future version. Please use 'tracing.enabled' and 'tracing.backend' instead.\"",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "deprecatedMsgTracingJaegerEnabled  = `Please use 'tracing.enabled' and 'tracing.backend' instead.`",
+   "gold_value": "Please use 'tracing.enabled' and 'tracing.backend' instead.",
+   "codebase_value": "backend before enabled, as in Please use 'cache.backend' and 'cache.enabled' instead.",
+   "why": "The only live comparable two-field backend/enabled deprecation message orders backend before enabled, while gold pins enabled before backend.",
+   "precedents": [
+    {
+     "path": "internal/config/deprecations.go",
+     "snippet": "deprecatedMsgMemoryEnabled      = `Please use 'cache.backend' and 'cache.enabled' instead.`",
+     "way": "backend before enabled in the comparable cache backend/enabled deprecation message"
+    }
+   ]
+  },
+  {
+   "behavior": "Deprecated cache.memory.enabled warning text uses exactly \"Please use 'cache.enabled' and 'cache.backend' instead.\"",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "deprecatedMsgCacheMemoryEnabled    = `Please use 'cache.enabled' and 'cache.backend' instead.`",
+   "gold_value": "Please use 'cache.enabled' and 'cache.backend' instead.",
+   "codebase_value": "Please use 'cache.backend' and 'cache.enabled' instead.",
+   "why": "The base production code already determines the cache.memory.enabled warning text one way, and gold changes it to the opposite order.",
+   "precedents": [
+    {
+     "path": "internal/config/deprecations.go",
+     "snippet": "deprecatedMsgMemoryEnabled      = `Please use 'cache.backend' and 'cache.enabled' instead.`",
+     "way": "cache.backend before cache.enabled"
+    }
+   ]
+  },
+  {
+   "behavior": "Deprecated cache.memory.expiration still emits exactly \"\\\"cache.memory.expiration\\\" is deprecated and will be removed in a future version. Please use 'cache.ttl' instead.\"",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "deprecatedMsgCacheMemoryExpiration = `Please use 'cache.ttl' instead.`",
+   "gold_value": "Please use 'cache.ttl' instead.",
+   "codebase_value": "Please use 'cache.ttl' instead.",
+   "why": "The live production constant already uses exactly the message gold preserves.",
+   "precedents": [
+    {
+     "path": "internal/config/deprecations.go",
+     "snippet": "deprecatedMsgMemoryExpiration   = `Please use 'cache.ttl' instead.`",
+     "way": "cache.memory.expiration points to cache.ttl with this exact wording"
+    }
+   ]
+  }
+ ]
+}

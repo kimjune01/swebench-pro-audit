@@ -1,9 +1,19 @@
-# Ambiguity HYPOTHESIS (two-expert: DETERMINED -- not claimed) -- element-hq_7a33818b
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- element-hq_7a33818b
 
-- class: **determined** (NOT claimed)
-- Under the two-expert standard, no genuine split: For the discriminating choice as stated, the prose determines the answer. A reasonable implementation that keeps the selected-session count out of the list header would fail the explicit Expected Behavior and the concrete requirement to pass selectedDeviceIds.length as selectedDeviceCount to FilteredDeviceListHeader. The hidden test's expectation for '2 sessions selected' follows the selected header-count path rather than grading a prose-silent location choice.
-- Either the prose/interface selects one answer, or the cited source precedents are not the same decision in comparable context (lookalikes). Not underdetermined.
+- instance_id: `instance_element-hq__element-web-772df3021201d9c73835a626df8dcb6334ad9a3e-vnan`
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `element-hq/element-web` @ `7a33818bd7`
 
-## Corroborated determined (independent advocate)
-An independent opus advocate (cross-family, charged to FIND a split codex missed) could not, and conceded determined: FilteredDeviceListHeader already rendered '%(selectedDeviceCount)s sessions selected' from a pre-existing selectedDeviceCount prop; the change only wires selectedDeviceIds.length into the existing slot, so the header text is fixed by live code. The exhaustive requirement list (exact data-testids, labels, prop names) leaves no prose-silent decision to two-expert-split.
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
+- **Selecting two devices makes the header show the text "2 sessions selected".** -- gold `%(selectedDeviceCount)s sessions selected` matches codebase `%(selectedDeviceCount)s sessions selected`. Live production code already contains exactly the selected-count header wording that gold and the hidden test pin.
+1. `src/components/views/settings/devices/FilteredDeviceListHeader.tsx` -- Nonzero selected-device count is rendered as "%(selectedDeviceCount)s sessions selected".
+   ```
+   { selectedDeviceCount > 0
+                   ? _t('%(selectedDeviceCount)s sessions selected', { selectedDeviceCount })
+                   : _t('Sessions')
+               }
+   ```
+
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

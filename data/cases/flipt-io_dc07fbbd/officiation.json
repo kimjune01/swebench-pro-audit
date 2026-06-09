@@ -1,0 +1,47 @@
+{
+ "slug": "flipt-io_dc07fbbd",
+ "repo": "flipt-io/flipt",
+ "base": "dc07fbbd64b05a6f14cc16aa5bcbade2863f9d53",
+ "verdict": "MISDETERMINED",
+ "gaps": [
+  {
+   "behavior": "Importing a document with version 5.0 returns the exact error string \"unsupported version: 5.0\".",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "return fmt.Errorf(\"unsupported version: %s\", doc.Version)",
+   "gold_value": "unsupported version: 5.0",
+   "codebase_value": "invalid version: 5.0",
+   "why": "The live config document version validator uses the single comparable wording \"invalid version: %s\", while gold pins \"unsupported version: %s\".",
+   "precedents": [
+    {
+     "path": "internal/config/config.go",
+     "snippet": "\t\tif strings.TrimSpace(c.Version) != \"1.0\" {\n\t\t\treturn fmt.Errorf(\"invalid version: %s\", c.Version)\n\t\t}",
+     "way": "invalid version: %s"
+    }
+   ]
+  },
+  {
+   "behavior": "Importing with document namespace namespace1 and CLI namespace namespace2 returns the exact error string \"namespace mismatch: namespaces must match in file and args if both provided: namespace1 != namespace2\".",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "return fmt.Errorf(\"namespace mismatch: namespaces must match in file and args if both provided: %s != %s\", doc.Namespace, i.namespace)",
+   "gold_value": "namespace mismatch: namespaces must match in file and args if both provided: namespace1 != namespace2",
+   "codebase_value": "invalid field namespace_key: must be the same for all requests if specified",
+   "why": "The direct live namespace-consistency check reports an invalid namespace_key field with a generic same-for-all reason, while gold pins a new mismatch sentence including both values.",
+   "precedents": [
+    {
+     "path": "internal/server/evaluator.go",
+     "snippet": "\t\t} else if req.NamespaceKey != r.NamespaceKey {\n\t\t\treturn &res, errs.InvalidFieldError(\"namespace_key\", \"must be the same for all requests if specified\")\n\t\t}",
+     "way": "InvalidFieldError(\"namespace_key\", \"must be the same for all requests if specified\")"
+    },
+    {
+     "path": "errors/errors.go",
+     "snippet": "func (e ErrValidation) Error() string {\n\treturn fmt.Sprintf(\"invalid field %s: %s\", e.field, e.reason)\n}",
+     "way": "invalid field <field>: <reason>"
+    }
+   ]
+  }
+ ]
+}

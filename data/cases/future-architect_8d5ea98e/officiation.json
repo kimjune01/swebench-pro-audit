@@ -1,0 +1,123 @@
+{
+ "slug": "future-architect_8d5ea98e",
+ "repo": "future-architect/vuls",
+ "base": "8d5ea98e50cf616847f4e5a2df300395d1f719e9",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "The caller-provided ScanResult fields JSONVersion=1 and ServerUUID=\"uuid\" are preserved in the returned result.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return scanResult, nil",
+   "gold_value": "return the same caller-provided scanResult with JSONVersion=1 and ServerUUID=\"uuid\" preserved",
+   "codebase_value": "in-place mutation of *models.ScanResult, preserving unrelated fields",
+   "why": "Live ScanResult enrichment code consistently treats *models.ScanResult parameters as in-place objects, so preserving JSONVersion and ServerUUID matches the codebase pattern.",
+   "precedents": [
+    {
+     "path": "report/report.go",
+     "snippet": "func FillCveInfo(dbclient DBClient, r *models.ScanResult, cpeURIs []string, ignoreWillNotFix bool, integrations ...Integration) error {\n\tutil.Log.Debugf(\"need to refresh\")\n\n\tnCVEs, err := libmanager.FillLibrary(r)",
+     "way": "accepts an existing *models.ScanResult and fills it through in-place helper calls instead of allocating a replacement"
+    },
+    {
+     "path": "report/report.go",
+     "snippet": "\t\t\t\tvinfo.AlertDict = alerts\n\t\t\t\tr.ScannedCves[cveID] = vinfo\n\t\t\t\tbreak",
+     "way": "updates selected fields inside the provided ScanResult while leaving unrelated metadata untouched"
+    }
+   ]
+  },
+  {
+   "behavior": "For OS findings, ScannedBy and ScannedVia are both exactly \"trivy\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "scanResult.ScannedBy = \"trivy\"",
+   "gold_value": "\"trivy\"",
+   "codebase_value": "\"trivy\"",
+   "why": "The only live Trivy-specific source spelling is lowercase \"trivy\", and gold uses that same value for the new Trivy result provenance.",
+   "precedents": [
+    {
+     "path": "models/cvecontents.go",
+     "snippet": "\t// Trivy is Trivy\n\tTrivy CveContentType = \"trivy\"",
+     "way": "Trivy source identity is the lowercase string \"trivy\""
+    },
+    {
+     "path": "models/library.go",
+     "snippet": "\tfor _, refURL := range vul.References {\n\t\trefs = append(refs, Reference{Source: \"trivy\", Link: refURL})\n\t}\n\n\tcontent := CveContent{\n\t\tType:          Trivy,",
+     "way": "Trivy-derived vulnerability content uses source \"trivy\" and the Trivy content type"
+    }
+   ]
+  },
+  {
+   "behavior": "Each vulnerability gets one Confidence with Score 100 and DetectionMethod \"TrivyMatch\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "Score:           100",
+   "gold_value": "models.Confidence{Score: 100, DetectionMethod: \"TrivyMatch\"}",
+   "codebase_value": "TrivyMatch = Confidence{100, TrivyMatchStr, 0} with TrivyMatchStr = \"TrivyMatch\"",
+   "why": "The codebase already has a single Trivy confidence constant, and gold matches its score and detection method.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\t// TrivyMatchStr is a String representation of Trivy\n\tTrivyMatchStr = \"TrivyMatch\"",
+     "way": "defines the Trivy detection method string as \"TrivyMatch\""
+    },
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\t// TrivyMatch ranking how confident the CVE-ID was deteted correctly\n\tTrivyMatch = Confidence{100, TrivyMatchStr, 0}",
+     "way": "defines TrivyMatch confidence with score 100"
+    },
+    {
+     "path": "libmanager/libManager.go",
+     "snippet": "\t\tfor _, vinfo := range vinfos {\n\t\t\tvinfo.Confidences.AppendIfMissing(models.TrivyMatch)\n\t\t\tr.ScannedCves[vinfo.CveID] = vinfo\n\t\t}",
+     "way": "Trivy library findings receive models.TrivyMatch as their confidence"
+    }
+   ]
+  },
+  {
+   "behavior": "CveContents are stored under source key \"trivy\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "models.Trivy: models.CveContent{",
+   "gold_value": "models.Trivy / \"trivy\"",
+   "codebase_value": "models.Trivy / \"trivy\"",
+   "why": "Live Trivy vulnerability conversion already stores CveContent under models.Trivy, so gold follows the established key.",
+   "precedents": [
+    {
+     "path": "models/cvecontents.go",
+     "snippet": "\t// Trivy is Trivy\n\tTrivy CveContentType = \"trivy\"",
+     "way": "declares the Trivy CveContentType key as \"trivy\""
+    },
+    {
+     "path": "models/library.go",
+     "snippet": "\tcontent := CveContent{\n\t\tType:          Trivy,\n\t\tCveID:         cveID,\n\t\tTitle:         vul.Title,\n\t\tSummary:       vul.Description,\n\t\tCvss3Severity: string(vul.Severity),\n\t\tReferences:    refs,\n\t}\n\tcontents[Trivy] = content",
+     "way": "stores Trivy-derived content under the Trivy key"
+    }
+   ]
+  },
+  {
+   "behavior": "When a vulnerability has no References, the expected References field is nil rather than an empty slice, as for pyup.io-37132.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-plural",
+   "airtight_absent": false,
+   "gold_anchor": "var references models.References",
+   "gold_value": "nil models.References",
+   "codebase_value": null,
+   "why": "Production code uses both nil and explicitly empty reference slices before assigning References, so the nil-vs-empty choice is not uniquely determined.",
+   "precedents": [
+    {
+     "path": "oval/redhat.go",
+     "snippet": "\t\tvar refs []models.Reference\n\t\tfor _, url := range vulnerability.References.URL {\n\t\t\trefs = append(refs, models.Reference{\n\t\t\t\tLink: url,\n\t\t\t})\n\t\t}",
+     "way": "nil slice when there are no references"
+    },
+    {
+     "path": "models/utils.go",
+     "snippet": "\trefs := []Reference{}\n\tfor _, refURL := range vul.References {\n\t\trefs = append(refs, Reference{Source: \"trivy\", Link: refURL})\n\t}",
+     "way": "empty non-nil slice when there are no references"
+    }
+   ]
+  }
+ ]
+}

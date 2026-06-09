@@ -1,0 +1,42 @@
+{
+ "slug": "protonmail_29aaad40",
+ "repo": "protonmail/webclients",
+ "base": "29aaad40bdc4c440960cf493116399bd96863a0e",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "During successful recovery, getCachedTrashed is called exactly 3 times.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "getCachedTrashed",
+   "gold_value": "getCachedTrashed is called 3 times",
+   "codebase_value": "the existing recovery flow reads the regular children cache 3 times, once in each of decrypt, prepare, and delete/cleanup phases",
+   "why": "The prose requires adding trashed items to the same operation, and the live recovery operation already has exactly three regular-source cache reads for the analogous decisions, which gold mirrors for the trashed source.",
+   "precedents": [
+    {
+     "path": "applications/drive/src/app/store/_photos/usePhotosRecovery.ts",
+     "snippet": "                await loadChildren(abortSignal, share.shareId, share.rootLinkId);\n                await waitFor(\n                    () => {\n                        const { isDecrypting } = getCachedChildren(abortSignal, share.shareId, share.rootLinkId);\n                        return !isDecrypting;\n                    },\n                    { abortSignal }\n                );\n            }\n        },\n        [getCachedChildren, loadChildren]\n    );\n\n    const handlePrepareLinks = useCallback(\n        async (abortSignal: AbortSignal, shares: Share[] | ShareWithKey[]) => {\n            let allRestoredData: { links: DecryptedLink[]; shareId: string }[] = [];\n            let totalNbLinks: number = 0;\n\n            for (const share of shares) {\n                const { links } = getCachedChildren(abortSignal, share.shareId, share.rootLinkId);\n                allRestoredData.push({\n                    links,\n                    shareId: share.shareId,\n                });\n                totalNbLinks += links.length;\n            }\n            return { allRestoredData, totalNbLinks };\n        },\n        [getCachedChildren]\n    );\n\n    const safelyDeleteShares = useCallback(\n        async (abortSignal: AbortSignal, shares: Share[] | ShareWithKey[]) => {\n            for (const share of shares) {\n                const { links } = getCachedChildren(abortSignal, share.shareId, share.rootLinkId);\n                if (!links.length) {",
+     "way": "regular recovery source cache is consulted exactly three times across the successful flow"
+    }
+   ]
+  },
+  {
+   "behavior": "During successful recovery, loadChildren is called exactly 1 time.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "await loadChildren(abortSignal, share.shareId, share.rootLinkId, undefined, undefined, true);",
+   "gold_value": "await loadChildren(abortSignal, share.shareId, share.rootLinkId, undefined, undefined, true); is called once",
+   "codebase_value": "the recovery flow calls loadChildren once in handleDecryptLinks",
+   "why": "The live recovery hook initiates loading exactly once per share before waiting and then reuses cached data for later phases, and gold preserves that one-call structure while adding the explicit include-trashed mode.",
+   "precedents": [
+    {
+     "path": "applications/drive/src/app/store/_photos/usePhotosRecovery.ts",
+     "snippet": "    const handleDecryptLinks = useCallback(\n        async (abortSignal: AbortSignal, shares: Share[] | ShareWithKey[]) => {\n            for (const share of shares) {\n                await loadChildren(abortSignal, share.shareId, share.rootLinkId);\n                await waitFor(",
+     "way": "single loadChildren call in the recovery decrypt/enumeration step"
+    }
+   ]
+  }
+ ]
+}

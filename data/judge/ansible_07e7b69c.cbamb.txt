@@ -1,1 +1,1 @@
-{"discriminating_choice":"Default retry count for network command modules with wait_for conditions when retries is omitted","consistent":true,"precedents":[]}
+{"discriminating_choice":"default retry count for network command wait_for polling when retries is omitted","consistent":true,"precedents":[]}

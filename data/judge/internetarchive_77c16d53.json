@@ -54,7 +54,11 @@
    "covering_prose": null,
    "gold_anchor": "json.dumps(self.extra_fields, cls=InfogamiThingEncoder)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

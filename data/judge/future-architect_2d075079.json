@@ -1,10 +1,10 @@
 {
  "case": "future-architect_2d075079",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 20,
  "n_covered": 16,
- "n_gap": 4,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -124,28 +124,35 @@
    "covering_prose": null,
    "gold_anchor": "return false",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "FilterIgnorePkgs keeps a CVE that has no affected packages even when ignore package regexps are provided.",
    "covering_prose": null,
    "gold_anchor": "if len(v.AffectedPackages) == 0",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "FilterIgnorePkgs keeps a CVE with affected packages kernel and vim when the only ignore package regex is ^kernel.",
    "covering_prose": null,
    "gold_anchor": "if !match {\n\t\t\t\treturn true\n\t\t\t}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "FilterIgnorePkgs removes a CVE with affected packages kernel and vim when ignore package regexps include ^kernel, ^vim, and ^bind.",
    "covering_prose": null,
    "gold_anchor": "return false",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 4,
+ "officiated": true
 }

@@ -19,7 +19,8 @@
    "covering_prose": null,
    "gold_anchor": "return arrayFastResample(samples, points);",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "arraySmoothingResample([2,2,0,2,2,0,2,2], 3) returns exactly [1,1,2].",
@@ -33,35 +34,40 @@
    "covering_prose": null,
    "gold_anchor": "return arrayFastResample(samples, points);",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "arraySmoothingResample([2,0,2], 6) returns exactly [2,2,0,0,2,2].",
    "covering_prose": null,
    "gold_anchor": "return arrayFastResample(input, points);",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "arraySmoothingResample([2,0,2], 5) returns exactly [2,2,0,0,2].",
    "covering_prose": null,
    "gold_anchor": "return arrayFastResample(input, points);",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "arraySmoothingResample([2,0], 5) returns exactly [2,2,2,0,0].",
    "covering_prose": null,
    "gold_anchor": "return arrayFastResample(input, points);",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "arraySmoothingResample([2,0], 6) returns exactly [2,2,2,0,0,0].",
    "covering_prose": null,
    "gold_anchor": "return arrayFastResample(input, points);",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "arraySmoothingResample([2,0,2], 3) returns the input unchanged, exactly [2,0,2].",
@@ -84,5 +90,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

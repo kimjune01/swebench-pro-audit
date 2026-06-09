@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 19,
  "n_covered": 17,
- "n_gap": 2,
+ "n_gap": 1,
  "n_out_of_scope": 4,
  "rows": [
   {
@@ -131,7 +131,8 @@
    "covering_prose": null,
    "gold_anchor": "name = ' '.join(strip_foc(s).strip(STRIP_CHARS) for s in name_parts)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-plural"
   },
   {
    "test": "The exact `880_Nihon_no_chasho.json` output includes publish date `1971`, copyright date `1972`, country `ja`, language `jpn`, OCLC `502869803`, note `Includes index in v.2.`, subjects `Japanese tea ceremony` and `Book reviews`, by-statement, publisher `Heibonsha`, place `T\u014dky\u014d`, and pagination `2 volumes`.",
@@ -159,7 +160,8 @@
    "covering_prose": null,
    "gold_anchor": "return [{'title': s, 'type': '/type/toc_item'} for s in toc]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "The binary and XML fixture comparison harness now checks iterable values by length and membership, allowing order-insensitive comparison for lists of dictionaries.",
@@ -168,5 +170,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

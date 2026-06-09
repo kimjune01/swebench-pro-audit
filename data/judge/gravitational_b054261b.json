@@ -1,10 +1,10 @@
 {
  "case": "gravitational_b054261b",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 17,
  "n_covered": 15,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -68,7 +68,8 @@
    "covering_prose": null,
    "gold_anchor": "defer r.ConnectionClosed(service, conn)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "On http.StateClosed, active connections is decremented to 0.",
@@ -82,7 +83,8 @@
    "covering_prose": null,
    "gold_anchor": "r.AuthenticatedConnectionClosed(service, conn)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "On http.StateClosed for a TLS connection with a client certificate, authenticated active connections is decremented to 0.",
@@ -126,5 +128,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

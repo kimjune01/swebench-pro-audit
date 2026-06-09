@@ -1,0 +1,25 @@
+{
+ "slug": "flipt-io_29d3f9db",
+ "repo": "flipt-io/flipt",
+ "base": "29d3f9db40c83434d0e3cc082af8baec64c391a9",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "TestValidate_Failure: first validation error Message equals \"flags.0.rules.1.distributions.0.rollout: invalid value 110 (out of bound <=100)\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "Message: e.Error(),",
+   "gold_value": "flags.0.rules.1.distributions.0.rollout: invalid value 110 (out of bound <=100)",
+   "codebase_value": "raw CUE validation error string via e.Error()",
+   "why": "The only live production CUE validation error construction in the codebase uses e.Error() directly, and the gold patch preserves that same choice.",
+   "precedents": [
+    {
+     "path": "internal/cue/validate.go",
+     "snippet": "\tfor _, e := range cueerrors.Errors(err) {\n\t\trerr := Error{\n\t\t\tMessage: e.Error(),\n\t\t\tLocation: Location{\n\t\t\t\tFile: file,\n\t\t\t},\n\t\t}",
+     "way": "Validation Error.Message is assigned directly from e.Error() while iterating cueerrors.Errors(err)."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_47910d70",
+ "repo": "NodeBB/NodeBB",
+ "base": "47910d708d8d6c18fdc3e57a0933b6d2a1d881bd",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Categories global group privileges include key 'groups:chat:privileged' with value false.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "['chat:privileged', { label: '[[admin/manage/privileges:chat-with-privileged]]', type: 'posting' }],",
+   "gold_value": "`groups:chat:privileged`: false",
+   "codebase_value": "Every global privilege key is mirrored as `groups:${privilege}`, and group privilege booleans are computed from membership, yielding `false` when the group is not in that privilege set.",
+   "why": "Adding gold's `chat:privileged` entry to the global privilege map necessarily produces `groups:chat:privileged`, and the existing group privilege value computation makes it false unless explicitly granted.",
+   "precedents": [
+    {
+     "path": "src/privileges/global.js",
+     "snippet": "privsGlobal.getUserPrivilegeList = async () => await plugins.hooks.fire('filter:privileges.global.list', Array.from(_privilegeMap.keys()));\nprivsGlobal.getGroupPrivilegeList = async () => await plugins.hooks.fire('filter:privileges.global.groups.list', Array.from(_privilegeMap.keys()).map(privilege => `groups:${privilege}`));",
+     "way": "Global group privilege keys are generated from the same global privilege map by prefixing each key with `groups:`."
+    },
+    {
+     "path": "src/privileges/helpers.js",
+     "snippet": "\t\tfor (let x = 0, numPrivs = groupPrivileges.length; x < numPrivs; x += 1) {\n\t\t\tmemberPrivs[groupPrivileges[x]] = memberSets[x].includes(member);\n\t\t}",
+     "way": "Each listed group privilege gets a boolean from membership in that privilege set, so an ungranted privilege is `false`."
+    }
+   ]
+  }
+ ]
+}

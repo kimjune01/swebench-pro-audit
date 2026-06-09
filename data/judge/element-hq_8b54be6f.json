@@ -1,10 +1,10 @@
 {
  "case": "element-hq_8b54be6f",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 20,
  "n_covered": 18,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 1,
  "rows": [
   {
@@ -75,7 +75,8 @@
    "covering_prose": null,
    "gold_anchor": "<ContextMenuButton",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For verified and unverified current devices, the current session section snapshot includes an enabled kebab trigger rather than a disabled one.",
@@ -96,7 +97,8 @@
    "covering_prose": null,
    "gold_anchor": "<SettingsSubsectionHeading heading={_t('Current session')}>",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Clicking the current session kebab trigger opens a menu containing an accessible item labeled \"Sign out\".",
@@ -154,5 +156,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

@@ -1,10 +1,10 @@
 {
  "case": "navidrome_3910e77a",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 8,
  "n_covered": 4,
- "n_gap": 4,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,7 +12,8 @@
    "covering_prose": null,
    "gold_anchor": "ids := slice.SeqFunc(tracks, func(t model.MediaFile) string { return t.ID })",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "CollectChunks is called with an iterator sequence as the first argument and the chunk size as the second argument.",
@@ -26,21 +27,24 @@
    "covering_prose": null,
    "gold_anchor": "if len(s) > 0 {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "CollectChunks over input [1, 2, 3] with chunk size 10 yields exactly one chunk: [1, 2, 3].",
    "covering_prose": null,
    "gold_anchor": "yield(s)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "CollectChunks over input [1, 2, 3, 4, 5] with chunk size 3 yields exactly two chunks: [1, 2, 3] and [4, 5].",
    "covering_prose": null,
    "gold_anchor": "if len(s) >= n {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "SeqFunc exists and can be called as slice.SeqFunc with an input slice and mapping function.",
@@ -63,5 +67,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 4,
+ "officiated": true
 }

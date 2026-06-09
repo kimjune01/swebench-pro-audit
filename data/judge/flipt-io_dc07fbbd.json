@@ -1,10 +1,10 @@
 {
  "case": "flipt-io_dc07fbbd",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 9,
  "n_covered": 7,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 2,
  "rows": [
   {
@@ -47,7 +47,8 @@
    "covering_prose": null,
    "gold_anchor": "return fmt.Errorf(\"unsupported version: %s\", doc.Version)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "Importing with document namespace namespace1 and CLI namespace namespace1 succeeds.",
@@ -75,7 +76,8 @@
    "covering_prose": null,
    "gold_anchor": "return fmt.Errorf(\"namespace mismatch: namespaces must match in file and args if both provided: %s != %s\", doc.Namespace, i.namespace)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED",
+   "officiated_klass": "MISDETERMINED"
   },
   {
    "test": "WithNamespace sets the importer CLI namespace used for namespace matching.",
@@ -84,5 +86,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 2,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

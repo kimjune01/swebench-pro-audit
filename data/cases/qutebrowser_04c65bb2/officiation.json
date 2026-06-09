@@ -1,0 +1,62 @@
+{
+ "slug": "qutebrowser_04c65bb2",
+ "repo": "qutebrowser/qutebrowser",
+ "base": "04c65bb2b72542b239de2491c9242d8f641636db",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "For template '{{ conf.aliases[\"a\"].propname }}', returns frozenset(['aliases']), stopping the configuration key before the dictionary lookup/property access.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "unvisted_nodes.append(node)",
+   "gold_value": "aliases",
+   "codebase_value": "Config option keys stop at the declared option name; item access happens on the option value after fetching aliases.",
+   "why": "Live config access treats aliases as a dict-valued option and performs bracket lookup on its value, so gold's aliases boundary matches the codebase convention.",
+   "precedents": [
+    {
+     "path": "qutebrowser/commands/runners.py",
+     "snippet": "        parts = text.strip().split(maxsplit=1)\n        try:\n            alias = config.val.aliases[parts[0]]\n        except KeyError:\n            return default",
+     "way": "Fetches the dict-valued config option as config.val.aliases, then indexes the returned value with parts[0]."
+    },
+    {
+     "path": "qutebrowser/commands/runners.py",
+     "snippet": "aliases:\n  default:\n    w: session-save\n    q: close\n    qa: quit\n    wq: quit --save\n    wqa: quit --save\n  type:\n    name: Dict",
+     "way": "Declares aliases as the config option, not per-alias dotted sub-options."
+    },
+    {
+     "path": "qutebrowser/config/config.py",
+     "snippet": "        name = self._join(attr)\n        if configdata.is_valid_prefix(name):\n            return ConfigContainer(config=self._config,\n                                   configapi=self._configapi,\n                                   prefix=name, pattern=self._pattern)\n\n        with self._handle_error('getting', name):\n            if self._configapi is None:\n                # access from Python code\n                return self._config.get(name)",
+     "way": "Attribute chains are resolved into a config option name; once the name is not only a prefix, the option value is fetched."
+    }
+   ]
+  },
+  {
+   "behavior": "For template '{{ conf.bbb[\"a\"].propname }}', raises configexc.NoOptionError for invalid option 'bbb' discovered before the dictionary lookup/property access.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "config.instance.ensure_has_opt(option)",
+   "gold_value": "bbb",
+   "codebase_value": "Validate the resolved config option name before value-level item/property access; an unknown base option raises NoOptionError for that base name.",
+   "why": "The live config path validates the option name before returning any value that could be indexed, so gold's NoOptionError for bbb matches the codebase convention.",
+   "precedents": [
+    {
+     "path": "qutebrowser/config/config.py",
+     "snippet": "    def get_opt(self, name: str) -> 'configdata.Option':\n        \"\"\"Get a configdata.Option object for the given setting.\"\"\"\n        try:\n            return configdata.DATA[name]\n        except KeyError:\n            deleted = name in configdata.MIGRATIONS.deleted\n            renamed = configdata.MIGRATIONS.renamed.get(name)\n            exception = configexc.NoOptionError(\n                name, deleted=deleted, renamed=renamed)\n            raise exception from None",
+     "way": "NoOptionError is raised for the exact option name passed to get_opt."
+    },
+    {
+     "path": "qutebrowser/config/config.py",
+     "snippet": "        name = self._join(attr)\n        if configdata.is_valid_prefix(name):\n            return ConfigContainer(config=self._config,\n                                   configapi=self._configapi,\n                                   prefix=name, pattern=self._pattern)\n\n        with self._handle_error('getting', name):\n            if self._configapi is None:\n                # access from Python code\n                return self._config.get(name)",
+     "way": "A config attribute segment becomes the option name to fetch once it is not merely a valid prefix."
+    },
+    {
+     "path": "qutebrowser/config/config.py",
+     "snippet": "        opt = self.get_opt(name)\n        obj = self.get_obj(name, url=url, fallback=fallback)\n        return opt.typ.to_py(obj)",
+     "way": "Config.get validates the option name with get_opt before returning the option value."
+    }
+   ]
+  }
+ ]
+}

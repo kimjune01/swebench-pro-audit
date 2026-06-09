@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_1f8fbc81",
+ "repo": "element-hq/element-web",
+ "base": "1f8fbc819795b9c19c567b4737109183acf86162",
+ "verdict": "AMBIGUOUS",
+ "gaps": [
+  {
+   "behavior": "When starting a recording with noise suppression disabled, getUserMedia is called with audio.noiseSuppression shaped as { ideal: false }.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "noiseSuppression: { ideal: MediaDeviceHandler.getAudioNoiseSuppression() }",
+   "gold_value": "noiseSuppression: { ideal: false }",
+   "codebase_value": null,
+   "why": "No live production code in the available base working tree makes a comparable media constraint shape choice for noiseSuppression or another boolean audio-processing preference.",
+   "precedents": []
+  },
+  {
+   "behavior": "When starting a recording with noise suppression enabled, getUserMedia is called with audio.noiseSuppression shaped as { ideal: true }.",
+   "status": "AMBIGUOUS",
+   "klass": "AMBIGUOUS-airtight",
+   "airtight_absent": true,
+   "gold_anchor": "noiseSuppression: { ideal: MediaDeviceHandler.getAudioNoiseSuppression() }",
+   "gold_value": "noiseSuppression: { ideal: true }",
+   "codebase_value": null,
+   "why": "No live production code in the available base working tree makes a comparable media constraint shape choice for noiseSuppression or another boolean audio-processing preference.",
+   "precedents": []
+  }
+ ]
+}

@@ -1,10 +1,10 @@
 {
  "case": "gravitational_4f6f52f8",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 22,
  "n_covered": 16,
- "n_gap": 6,
+ "n_gap": 0,
  "n_out_of_scope": 2,
  "rows": [
   {
@@ -33,7 +33,8 @@
    "covering_prose": null,
    "gold_anchor": "creds, ok := f.creds[ctx.kubeCluster]",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Calling newClusterSession for local kubeCluster \"local\" when Forwarder.creds contains \"local\" succeeds and creates a non-nil sess.forwarder.",
@@ -110,7 +111,8 @@
    "covering_prose": null,
    "gold_anchor": "endpoints = append(endpoints, kubeClusterEndpoint{",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Discovered kube_service endpoints include addr from the service address and serverID formatted as name.teleportCluster.name, e.g. \"public.kube-cluster\" and \"tunnel.kube-cluster\".",
@@ -131,14 +133,16 @@
    "covering_prose": null,
    "gold_anchor": "tlsConfig, err := f.getOrRequestClientCreds(ctx)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "A direct kube_service session increments f.clientCredentials.Len() to 1.",
    "covering_prose": null,
    "gold_anchor": "tlsConfig, err := f.getOrRequestClientCreds(ctx)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "clusterSession.dial with zero kubeClusterEndpoints returns an error classified by trace.IsBadParameter(err) == true.",
@@ -166,14 +170,19 @@
    "covering_prose": null,
    "gold_anchor": "return nil, trace.NewAggregate(errs...)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "clusterSession.dial with 10 endpoints where only index 5 has addr \"addr1\" succeeds and sets sess.kubeAddress to \"addr1\".",
    "covering_prose": null,
    "gold_anchor": "continue",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 6,
+ "officiated": true
 }

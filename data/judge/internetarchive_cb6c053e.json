@@ -1,10 +1,10 @@
 {
  "case": "internetarchive_cb6c053e",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 8,
  "n_covered": 6,
- "n_gap": 2,
+ "n_gap": 0,
  "n_out_of_scope": 2,
  "rows": [
   {
@@ -61,14 +61,16 @@
    "covering_prose": null,
    "gold_anchor": "if match := web.re_compile(r\"(/people/[^/]+)/lists/OL\\d+L\").match(self.key):",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For list key `/people/anand_test/lists/OL1L`, `get_owner()` returns a non-None user object whose `.key` is `/people/anand_test`.",
    "covering_prose": null,
    "gold_anchor": "if match := web.re_compile(r\"(/people/[^/]+)/lists/OL\\d+L\").match(self.key):",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "When the parsed owner user exists in the site, `get_owner()` returns that corresponding user object.",
@@ -77,5 +79,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 2,
+ "officiated": true
 }

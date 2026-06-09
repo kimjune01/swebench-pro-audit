@@ -4,7 +4,7 @@
  "verdict": "AMBIGUOUS",
  "in_gold_total": 5,
  "n_covered": 3,
- "n_gap": 2,
+ "n_gap": 1,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -19,14 +19,16 @@
    "covering_prose": null,
    "gold_anchor": "pool_size: 50",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Redis file-based config loads min_idle_conn as 2 into cfg.Cache.Redis.MinIdleConn.",
    "covering_prose": null,
    "gold_anchor": "min_idle_conn: 2",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "Redis file-based config parses conn_max_idle_time: 10m into 10 * time.Minute.",
@@ -42,5 +44,8 @@
    "in_gold": true,
    "status": "COVERED"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 1,
+ "officiated": true
 }

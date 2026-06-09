@@ -1,10 +1,10 @@
 {
  "case": "NodeBB_a592ebd1",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 4,
  "n_covered": 1,
- "n_gap": 3,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,14 +12,16 @@
    "covering_prose": null,
    "gold_anchor": "user['icon:text'] = (user.username[0] || '').toUpperCase();",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "User.getUserFields(testUid, ['username', 'picture']) returns a truthy payload['icon:bgColor'].",
    "covering_prose": null,
    "gold_anchor": "user['icon:bgColor'] = bgColor;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "User.getIconBackgrounds(testUid) is callable and returns valid background options used to validate payload['icon:bgColor'].",
@@ -33,7 +35,11 @@
    "covering_prose": null,
    "gold_anchor": "if (!iconBackgrounds.includes(bgColor)) {",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 3,
+ "officiated": true
 }

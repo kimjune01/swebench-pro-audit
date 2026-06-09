@@ -1,10 +1,10 @@
 {
  "case": "flipt-io_456ee257",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 5,
  "n_covered": 0,
- "n_gap": 5,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -12,35 +12,43 @@
    "covering_prose": null,
    "gold_anchor": "func (s *Store) setJSON(ctx context.Context, key string, value any) {\n\tset(ctx, s, marshalFunc[any](json.Marshal), key, value)\n}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "getJSON returns false when the underlying cacher.Get returns an error.",
    "covering_prose": null,
    "gold_anchor": "func (s *Store) getJSON(ctx context.Context, key string, value any) bool {\n\treturn get(ctx, s, unmarshalFunc[any](json.Unmarshal), key, value)\n}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "getJSON returns false when cached bytes are present but JSON unmarshalling fails.",
    "covering_prose": null,
    "gold_anchor": "err = u.Unmarshal(cachePayload, value)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "getProtobuf returns false when the underlying cacher.Get returns an error.",
    "covering_prose": null,
    "gold_anchor": "func (s *Store) getProtobuf(ctx context.Context, key string, value proto.Message) bool {\n\treturn get(ctx, s, unmarshalFunc[proto.Message](proto.Unmarshal), key, value)\n}",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "getProtobuf returns false when cached bytes are present but Protocol Buffer unmarshalling fails.",
    "covering_prose": null,
    "gold_anchor": "return get(ctx, s, unmarshalFunc[proto.Message](proto.Unmarshal), key, value)",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 5,
+ "officiated": true
 }

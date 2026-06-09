@@ -1,8 +1,21 @@
-# Ambiguity HYPOTHESIS (two-expert split REFUTED on adversarial review) -- NodeBB_88e891fc
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- NodeBB_88e891fc
 
-- class: **refuted** (NOT claimed)
-- codex constructed a two-expert split (ambiguous-both); an independent hostile refuter (Claude opus, cross-family) killed it on the **selection** axis.
-- **Refutation:** The 307 is not a choice the solver makes. The bug lives in src/middleware/user.js, which ALREADY redirects to /register/complete via controllers.helpers.redirect(res, '/register/complete') (→307). The gold fix only edits the allowed-path logic and leaves that exact helper call intact; any competent fix to this middleware bug preserves the in-file redirect that yields 307.
-- **Why:** The bare res.redirect precedents are in a different module (authentication.js), not the governing convention for this middleware; the test's 307 grades pre-existing untouched code, so no two experts diverge on it — split refuted on selection/mislocated grounds.
+- instance_id: `instance_NodeBB__NodeBB-bd80d36e0dcf78cd4360791a82966078b3a07712-v4fbcfae8b15e4ce5d132c408bca69ebb9cf146ed`
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `NodeBB/NodeBB` @ `88e891fcc6`
 
-The split does not survive a senior engineer's hostile reading; not a defensible imperfection.
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
+
+- **Response status code is 307 for the redirect when an unconfirmed logged-in user with requireEmailAddress enabled is blocked after entering an email that is not yet confirmed.** -- gold `307 via controllers.helpers.redirect(res, '/register/complete')` matches codebase `controllers.helpers.redirect(res, '/register/complete') for this middleware's registration-completion block`. For the same middleware path being fixed, the base production code already routes blocked registration-completion users through controllers.helpers.redirect to /register/complete, and gold matches that live in-file convention.
+1. `src/middleware/user.js` -- The existing live registration-completion middleware redirect uses controllers.helpers.redirect, the same redirect mechanism gold preserves and the hidden test observes as 307.
+   ```
+   if (!allowed.includes(path)) {
+   			// Append user data if present
+   			req.session.registration.uid = req.session.registration.uid || req.uid;
+   
+   			controllers.helpers.redirect(res, '/register/complete');
+   		} else {
+   ```
+
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

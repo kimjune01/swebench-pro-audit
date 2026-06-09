@@ -1,0 +1,52 @@
+{
+ "slug": "navidrome_6ff7ab52",
+ "repo": "navidrome/navidrome",
+ "base": "6ff7ab52f4a62e65d59b6c6eb9b9f47eb976c43b",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "When no explicit bitrate is requested and a player with MaxBitRate is present, selectTranscodingOptions returns the active transcoding configuration format \"oga\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "cFormat = trc.TargetFormat",
+   "gold_value": "oga",
+   "codebase_value": "active transcoding TargetFormat",
+   "why": "All live comparable production code found derives the implicit format from the active transcoding TargetFormat, and gold's \"oga\" is that TargetFormat in the hidden test.",
+   "precedents": [
+    {
+     "path": "core/media_streamer.go",
+     "snippet": "\tformat, bitRate := \"\", 0\n\tif trc, hasDefault := request.TranscodingFrom(ctx); hasDefault {\n\t\tformat = trc.TargetFormat\n\t\tbitRate = trc.DefaultBitRate\n\n\t\tif p, ok := request.PlayerFrom(ctx); ok && p.MaxBitRate > 0 && p.MaxBitRate < bitRate {\n\t\t\tbitRate = p.MaxBitRate\n\t\t}",
+     "way": "Use trc.TargetFormat as the format when request format is empty and transcoding exists."
+    },
+    {
+     "path": "server/subsonic/helpers.go",
+     "snippet": "func getTranscoding(ctx context.Context) (format string, bitRate int) {\n\tif trc, ok := request.TranscodingFrom(ctx); ok {\n\t\tformat = trc.TargetFormat\n\t}\n\tif plr, ok := request.PlayerFrom(ctx); ok {\n\t\tbitRate = plr.MaxBitRate\n\t}\n\treturn\n}",
+     "way": "Use trc.TargetFormat for format and player MaxBitRate only for bitrate."
+    }
+   ]
+  },
+  {
+   "behavior": "When explicit bitrate 160 is requested and no explicit format is requested, with active transcoding configuration target \"oga\", selectTranscodingOptions returns format \"oga\".",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "cFormat = trc.TargetFormat",
+   "gold_value": "oga",
+   "codebase_value": "active transcoding TargetFormat",
+   "why": "The base code separates format selection from bitrate selection, and every live comparable implicit-format path uses the active transcoding TargetFormat, matching gold's \"oga\".",
+   "precedents": [
+    {
+     "path": "core/media_streamer.go",
+     "snippet": "func determineFormatAndBitRate(ctx context.Context, srcBitRate int, reqFormat string, reqBitRate int) (string, int) {\n\tif reqFormat != \"\" {\n\t\treturn reqFormat, reqBitRate\n\t}\n\n\tformat, bitRate := \"\", 0\n\tif trc, hasDefault := request.TranscodingFrom(ctx); hasDefault {\n\t\tformat = trc.TargetFormat\n\t\tbitRate = trc.DefaultBitRate",
+     "way": "With empty reqFormat, use trc.TargetFormat before applying requested bitrate separately."
+    },
+    {
+     "path": "conf/configuration.go",
+     "snippet": "\t\t\tif !ok {\n\t\t\t\tformat = \"raw\"\n\t\t\t} else {\n\t\t\t\tformat = transcoding.TargetFormat\n\t\t\t\tmaxBitRate = transcoding.DefaultBitRate\n\t\t\t}",
+     "way": "When no format is provided and transcoding exists, use transcoding.TargetFormat."
+    }
+   ]
+  }
+ ]
+}

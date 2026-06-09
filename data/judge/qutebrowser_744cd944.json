@@ -54,7 +54,8 @@
    "covering_prose": null,
    "gold_anchor": "elif locale_name.startswith('en-'):",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "Spanish regional locales map to `es-419`, e.g. `es_MX.UTF-8`, `es_AR.UTF-8`, and `es_US.UTF-8`.",
@@ -91,5 +92,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

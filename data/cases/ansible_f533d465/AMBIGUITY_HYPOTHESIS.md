@@ -1,22 +1,25 @@
-# Ambiguity HYPOTHESIS (raters-pending, NOT claimed) -- ansible_f533d465
+# Ambiguity HYPOTHESIS (two-expert: DETERMINED-codebase -- not claimed) -- ansible_f533d465
 
 - instance_id: `instance_ansible__ansible-f327e65d11bb905ed9f15996024f857a95592629-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5`
-- class: **hypothesis** (disciplined hypothesis)
-- witness: argument; one behavior suffices (existence proof).
+- class: **determined-codebase** (NOT claimed -- prose silent, one codebase way, gold matches)
+- repo `ansible/ansible` @ `f533d46572`
 
-## The graded behavior
-AnsibleCollectionRef.is_valid_collection_name('') is False because the value does not contain exactly one namespace/name separator.
-- test assertion: [`hidden_test.diff`#L36](hidden_test.diff#L36) `('', False),`
+## Why this is determined, not ambiguous
+The prose is silent on these behaviors, but the codebase implements each exactly one live way and gold matches it; a from-codebase solver lands on gold. Not underdetermined.
 
-## Two readings; the test pins one
-- **R1 (test-pinned / gold):** A collection name with anything other than exactly one dot separator, including the empty string, is invalid and returns False.  gold: [`gold.diff`#L118](gold.diff#L118) `if collection_name.count(u'.') != 1:
-            return False`
-- **R2 (prose-faithful alternative):** A from-prose engineer could focus only on rejecting Python keywords and invalid identifier segments when a namespace/name pair is present, leaving empty or malformed non-FQCN input to existing validation behavior.
+- **`AnsibleCollectionRef.is_valid_collection_name('') is False` because the value does not contain exactly one namespace/name separator.** -- gold `False for '' via `collection_name.count(u'.') != 1`` matches codebase `False when the tested FQCN does not contain exactly one `.` separator`. The base tree already has live production FQCN validation that rejects non-one-dot inputs with `return False`, and the gold change ports that exact separator-count rule to `is_valid_collection_name`.
+1. `lib/ansible/galaxy/dependency_resolution/dataclasses.py` -- Boolean FQCN validation rejects any value whose dot count is not exactly one before checking namespace/name segments.
+   ```
+   def _is_fqcn(tested_str):
+       # FIXME: port this to AnsibleCollectionRef.is_valid_collection_name
+       if tested_str.count('.') != 1:
+           return False
+   
+       return all(
+           # FIXME: keywords and identifiers are different in differnt Pythons
+           not iskeyword(ns_or_name) and _is_py_id(ns_or_name)
+           for ns_or_name in tested_str.split('.')
+       )
+   ```
 
-## Status: HYPOTHESIS
-Class `codebase` is not snapshot-decidable as underdetermination (plurality != binding force; see ADMISSIBILITY-SPEC.md). Flagged for >=2 independent codebase-aware raters + kappa. **Not counted in the claimable spine.**
-
-## Why R2 fails the test
-R2 would not necessarily make the empty string return exactly False in this validation helper, but the hidden parametrized case requires that result.
-
-_codex proposed; anchors mechanically verified against the committed gold/test/prose._
+_Guard: each precedent grep'd verbatim at base_commit in a non-test/non-vendor path; gold's value equals the codebase's one way. Evidence settles it -- no rater._

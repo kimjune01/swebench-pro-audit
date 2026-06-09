@@ -1,0 +1,59 @@
+{
+ "slug": "ansible_e1daaae4",
+ "repo": "ansible/ansible",
+ "base": "e1daaae42af1a4e465edbdad4bb3c6dd7e7110d5",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Runs the IPv4 local routing table query as ['fake/ip', '-4', 'route', 'show', 'table', 'local'] when ip_path is 'fake/ip'.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "args = [ip_path, '-4', 'route', 'show', 'table', 'local']",
+   "gold_value": "[ip_path, '-4', 'route', 'show', 'table', 'local']",
+   "codebase_value": "[ip_path, '-4', 'route', <operation>, ...]",
+   "why": "The live Linux network fact code uses exactly this family-flag-before-route argv convention for IPv4 ip route commands, and gold follows it.",
+   "precedents": [
+    {
+     "path": "lib/ansible/module_utils/facts/network/linux.py",
+     "snippet": "        command = dict(\n            v4=[ip_path, '-4', 'route', 'get', '8.8.8.8'],\n            v6=[ip_path, '-6', 'route', 'get', '2404:6800:400a:800::1012']\n        )",
+     "way": "IPv4 route commands put '-4' immediately after ip_path and before 'route'."
+    }
+   ]
+  },
+  {
+   "behavior": "Runs the IPv6 local routing table query as ['fake/ip', '-6', 'route', 'show', 'table', 'local'] when ip_path is 'fake/ip'.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "args = [ip_path, '-6', 'route', 'show', 'table', 'local']",
+   "gold_value": "[ip_path, '-6', 'route', 'show', 'table', 'local']",
+   "codebase_value": "[ip_path, '-6', 'route', <operation>, ...]",
+   "why": "The live Linux network fact code uses exactly this family-flag-before-route argv convention for IPv6 ip route commands, and gold follows it.",
+   "precedents": [
+    {
+     "path": "lib/ansible/module_utils/facts/network/linux.py",
+     "snippet": "        command = dict(\n            v4=[ip_path, '-4', 'route', 'get', '8.8.8.8'],\n            v6=[ip_path, '-6', 'route', 'get', '2404:6800:400a:800::1012']\n        )",
+     "way": "IPv6 route commands put '-6' immediately after ip_path and before 'route'."
+    }
+   ]
+  },
+  {
+   "behavior": "Extracts the address or prefix from the second whitespace-delimited field of each local route line.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "address = words[1]",
+   "gold_value": "words[1]",
+   "codebase_value": "words[1]",
+   "why": "The live Linux network parser consistently treats the second whitespace-delimited token as the address or address/prefix field for ip address output, and gold applies the same token choice to local route lines.",
+   "precedents": [
+    {
+     "path": "lib/ansible/module_utils/facts/network/sunos.py",
+     "snippet": "                    if words[0] == 'inet':\n                        if '/' in words[1]:\n                            address, netmask_length = words[1].split('/')",
+     "way": "IPv4 inet parser reads address/prefix from words[1]."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_487f9044",
+ "repo": "qutebrowser/qutebrowser",
+ "base": "487f90443cd1bf66bf2368b7a5c004f4e1b27777",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Deleting the focused `:tab-select` completion item for `0/2` closes that tab, leaving only `data/hello.txt` active.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "def delete_tab(data):",
+   "gold_value": "`def delete_tab(data):` closes the selected tab and is passed as `delete_func` for tab completion categories.",
+   "codebase_value": "`def delete_buffer(data):` closes the selected tab and is passed as `delete_func` for buffer/tab completion categories.",
+   "why": "The live base implementation for the same tab-selection completion source already made focused completion deletion close the selected tab, and gold preserves that behavior under the renamed `tab-select`/`tabs` API.",
+   "precedents": [
+    {
+     "path": "qutebrowser/completion/models/miscmodels.py",
+     "snippet": "    def delete_buffer(data):\n        \"\"\"Close the selected tab.\"\"\"\n        win_id, tab_index = data[0].split('/')\n        tabbed_browser = objreg.get('tabbed-browser', scope='window',\n                                    window=int(win_id))\n        tabbed_browser.on_tab_close_requested(int(tab_index) - 1)",
+     "way": "tab/buffer completion entries are deletable; deleting a completion item closes the referenced tab"
+    },
+    {
+     "path": "qutebrowser/completion/models/configmodel.py",
+     "snippet": "            cat = listcategory.ListCategory(\n                title, tabs, delete_func=delete_buffer, sort=False)",
+     "way": "the tab/buffer completion category explicitly wires the tab-closing delete handler"
+    }
+   ]
+  }
+ ]
+}

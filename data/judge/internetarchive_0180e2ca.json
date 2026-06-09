@@ -68,14 +68,19 @@
    "covering_prose": null,
    "gold_anchor": "get_languages,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   },
   {
    "test": "The add_languages fixture clears cached convert_iso_to_marc data before seeding mock languages.",
    "covering_prose": null,
    "gold_anchor": "convert_iso_to_marc,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "AMBIGUOUS",
+   "officiated_klass": "AMBIGUOUS-airtight"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 0,
+ "officiated": true
 }

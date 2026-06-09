@@ -1,0 +1,25 @@
+{
+ "slug": "qutebrowser_836221ec",
+ "repo": "qutebrowser/qutebrowser",
+ "base": "836221ecaf2bad121c741b0c41dff508049e8ca5",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "dump_userconfig(include_hidden=True) orders the returned lines as content.headers.custom, content.plugins, then content.webgl.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "for values in sorted(self, key=lambda v: v.opt.name):",
+   "gold_value": "alphabetical by option name: content.headers.custom, content.plugins, content.webgl",
+   "codebase_value": "alphabetical by option name via sorted(self, key=lambda v: v.opt.name)",
+   "why": "The live config-diff dump path already sorts option groups by opt.name, and gold preserves that same ordering when passing include_hidden through to Values.dump.",
+   "precedents": [
+    {
+     "path": "qutebrowser/utils/debug.py",
+     "snippet": "lines: List[str] = []\n        for values in sorted(self, key=lambda v: v.opt.name):\n            lines += values.dump()",
+     "way": "dump_userconfig sorts dumped option groups alphabetically by option name before emitting lines"
+    }
+   ]
+  }
+ ]
+}

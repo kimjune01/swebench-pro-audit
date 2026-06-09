@@ -1,0 +1,93 @@
+{
+ "slug": "flipt-io_456ee257",
+ "repo": "flipt-io/flipt",
+ "base": "456ee2570b53ee8efd812aeb64546a19ed9256fc",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "setJSON called with an unmarshalable value such as make(chan int) must handle the JSON marshal error and must not set cacher.cacheKey; cacher.cacheKey remains empty.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "func (s *Store) setJSON(ctx context.Context, key string, value any) {\n\tset(ctx, s, marshalFunc[any](json.Marshal), key, value)\n}",
+   "gold_value": "return after logging the marshal error; do not call cacher.Set, leaving cacher.cacheKey empty",
+   "codebase_value": "return after logging the marshal error; do not call cacher.Set",
+   "why": "The live storage cache JSON setter already makes this exact choice, and gold preserves it through the generic setJSON path.",
+   "precedents": [
+    {
+     "path": "internal/storage/cache/cache.go",
+     "snippet": "func (s *Store) set(ctx context.Context, key string, value any) {\n\tcachePayload, err := json.Marshal(value)\n\tif err != nil {\n\t\ts.logger.Error(\"marshalling for storage cache\", zap.Error(err))\n\t\treturn\n\t}\n\n\terr = s.cacher.Set(ctx, key, cachePayload)\n\tif err != nil {\n\t\ts.logger.Error(\"setting in storage cache\", zap.Error(err))\n\t}\n}",
+     "way": "JSON marshal error is logged and returns before s.cacher.Set."
+    }
+   ]
+  },
+  {
+   "behavior": "getJSON returns false when the underlying cacher.Get returns an error.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "func (s *Store) getJSON(ctx context.Context, key string, value any) bool {\n\treturn get(ctx, s, unmarshalFunc[any](json.Unmarshal), key, value)\n}",
+   "gold_value": "return false",
+   "codebase_value": "return false",
+   "why": "The live JSON storage cache getter treats a cache Get error as a cache miss by returning false, matching gold.",
+   "precedents": [
+    {
+     "path": "internal/storage/cache/cache.go",
+     "snippet": "func (s *Store) get(ctx context.Context, key string, value any) bool {\n\tcachePayload, cacheHit, err := s.cacher.Get(ctx, key)\n\tif err != nil {\n\t\ts.logger.Error(\"getting from storage cache\", zap.Error(err))\n\t\treturn false\n\t} else if !cacheHit {\n\t\treturn false\n\t}",
+     "way": "cacher.Get error is logged and returns false."
+    }
+   ]
+  },
+  {
+   "behavior": "getJSON returns false when cached bytes are present but JSON unmarshalling fails.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "err = u.Unmarshal(cachePayload, value)",
+   "gold_value": "return false",
+   "codebase_value": "return false",
+   "why": "The live JSON storage cache getter already returns false on unmarshal failure, and gold generalizes that same branch.",
+   "precedents": [
+    {
+     "path": "internal/storage/cache/cache.go",
+     "snippet": "\terr = json.Unmarshal(cachePayload, value)\n\tif err != nil {\n\t\ts.logger.Error(\"unmarshalling from storage cache\", zap.Error(err))\n\t\treturn false\n\t}\n\n\treturn true",
+     "way": "JSON unmarshal error is logged and returns false."
+    }
+   ]
+  },
+  {
+   "behavior": "getProtobuf returns false when the underlying cacher.Get returns an error.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "func (s *Store) getProtobuf(ctx context.Context, key string, value proto.Message) bool {\n\treturn get(ctx, s, unmarshalFunc[proto.Message](proto.Unmarshal), key, value)\n}",
+   "gold_value": "return false",
+   "codebase_value": "return false",
+   "why": "The live protobuf authn storage cache getter treats a cache Get error as a false cache hit result, matching gold.",
+   "precedents": [
+    {
+     "path": "internal/storage/authn/cache/cache.go",
+     "snippet": "func (s *Store) get(ctx context.Context, key string, value proto.Message) bool {\n\tcachePayload, cacheHit, err := s.cacher.Get(ctx, key)\n\tif err != nil {\n\t\ts.logger.Error(\"getting from storage cache\", zap.Error(err))\n\t\treturn false\n\t} else if !cacheHit {\n\t\treturn false\n\t}",
+     "way": "cacher.Get error is logged and returns false."
+    }
+   ]
+  },
+  {
+   "behavior": "getProtobuf returns false when cached bytes are present but Protocol Buffer unmarshalling fails.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "return get(ctx, s, unmarshalFunc[proto.Message](proto.Unmarshal), key, value)",
+   "gold_value": "return false",
+   "codebase_value": "return false",
+   "why": "The live protobuf storage cache getter already returns false on proto.Unmarshal failure, and gold keeps that convention through getProtobuf.",
+   "precedents": [
+    {
+     "path": "internal/storage/authn/cache/cache.go",
+     "snippet": "\terr = proto.Unmarshal(cachePayload, value)\n\tif err != nil {\n\t\ts.logger.Error(\"unmarshalling from storage cache\", zap.Error(err))\n\t\treturn false\n\t}\n\n\treturn true",
+     "way": "protobuf unmarshal error is logged and returns false."
+    }
+   ]
+  }
+ ]
+}

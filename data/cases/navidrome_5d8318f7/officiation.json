@@ -1,0 +1,42 @@
+{
+ "slug": "navidrome_5d8318f7",
+ "repo": "navidrome/navidrome",
+ "base": "5d8318f7b362c5b044f892f775d264a5d40e4e24",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "Track metadata in #EXTINF lines is formatted as artist, space-hyphen-space, title after the duration comma.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "fmt.Sprintf(\"#EXTINF:%.f,%s - %s\\n\", t.Duration, t.Artist, t.Title)",
+   "gold_value": "fmt.Sprintf(\"#EXTINF:%.f,%s - %s\\n\", t.Duration, t.Artist, t.Title)",
+   "codebase_value": "fmt.Sprintf(\"#EXTINF:%.f,%s - %s\\n\", t.Duration, t.Artist, t.Title)",
+   "why": "The live Native API playlist export already emits #EXTINF lines with the exact artist-space-hyphen-space-title format that gold uses.",
+   "precedents": [
+    {
+     "path": "server/nativeapi/playlists.go",
+     "snippet": "\t\tfor _, t := range pls.Tracks {\n\t\t\theader := fmt.Sprintf(\"#EXTINF:%.f,%s - %s\\n\", t.Duration, t.Artist, t.Title)\n\t\t\tline := t.Path + \"\\n\"\n\t\t\t_, err = w.Write([]byte(header + line))",
+     "way": "artist - title"
+    }
+   ]
+  },
+  {
+   "behavior": "The generated M3U8 string ends with a trailing newline after the final track path.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "buf.WriteString(t.Path + \"\\n\")",
+   "gold_value": "buf.WriteString(t.Path + \"\\n\")",
+   "codebase_value": "line := t.Path + \"\\n\"",
+   "why": "The live Native API playlist export appends \"\\n\" to each path before writing it, so the final path also has a trailing newline.",
+   "precedents": [
+    {
+     "path": "server/nativeapi/playlists.go",
+     "snippet": "\t\tfor _, t := range pls.Tracks {\n\t\t\theader := fmt.Sprintf(\"#EXTINF:%.f,%s - %s\\n\", t.Duration, t.Artist, t.Title)\n\t\t\tline := t.Path + \"\\n\"\n\t\t\t_, err = w.Write([]byte(header + line))",
+     "way": "append newline to every track path line"
+    }
+   ]
+  }
+ ]
+}

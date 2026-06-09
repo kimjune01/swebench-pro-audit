@@ -1,0 +1,52 @@
+{
+ "slug": "future-architect_0b9ec051",
+ "repo": "future-architect/vuls",
+ "base": "0b9ec05181360e3fdb4a314152927f6f3ccb746d",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "SortByConfident given [OvalMatch, CpeVersionMatch] returns exactly [OvalMatch, CpeVersionMatch].",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}",
+   "gold_value": "CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}; OvalMatch = Confidence{100, OvalMatchStr, 0}; sorted result [OvalMatch, CpeVersionMatch]",
+   "codebase_value": "CpeNameMatch = Confidence{100, CpeNameMatchStr, 1}; OvalMatch = Confidence{100, OvalMatchStr, 0}; SortByConfident sorts ascending by SortOrder",
+   "why": "The requested rename makes CpeVersionMatch the successor of CpeNameMatch, and the live code uniquely sets that CPE confidence after OvalMatch in SortByConfident ordering.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "func (cs Confidences) SortByConfident() Confidences {\n\tsort.Slice(cs, func(i, j int) bool {\n\t\treturn cs[i].SortOrder < cs[j].SortOrder\n\t})\n\treturn cs\n}",
+     "way": "SortByConfident orders confidences by ascending SortOrder."
+    },
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\t// CpeNameMatch is a ranking how confident the CVE-ID was detected correctly\n\tCpeNameMatch = Confidence{100, CpeNameMatchStr, 1}\n\n\t// YumUpdateSecurityMatch is a ranking how confident the CVE-ID was detected correctly\n\tYumUpdateSecurityMatch = Confidence{100, YumUpdateSecurityMatchStr, 2}\n\n\t// PkgAuditMatch is a ranking how confident the CVE-ID was detected correctly\n\tPkgAuditMatch = Confidence{100, PkgAuditMatchStr, 2}\n\n\t// OvalMatch is a ranking how confident the CVE-ID was detected correctly\n\tOvalMatch = Confidence{100, OvalMatchStr, 0}",
+     "way": "The pre-rename CPE confidence has SortOrder 1, while OvalMatch has SortOrder 0."
+    }
+   ]
+  },
+  {
+   "behavior": "SortByConfident given [CpeVersionMatch, OvalMatch] returns exactly [OvalMatch, CpeVersionMatch].",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}",
+   "gold_value": "CpeVersionMatch = Confidence{100, CpeVersionMatchStr, 1}; OvalMatch = Confidence{100, OvalMatchStr, 0}; sorted result [OvalMatch, CpeVersionMatch]",
+   "codebase_value": "CpeNameMatch = Confidence{100, CpeNameMatchStr, 1}; OvalMatch = Confidence{100, OvalMatchStr, 0}; SortByConfident sorts ascending by SortOrder",
+   "why": "The requested rename makes CpeVersionMatch the successor of CpeNameMatch, and the live code uniquely sets that CPE confidence after OvalMatch in SortByConfident ordering.",
+   "precedents": [
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "func (cs Confidences) SortByConfident() Confidences {\n\tsort.Slice(cs, func(i, j int) bool {\n\t\treturn cs[i].SortOrder < cs[j].SortOrder\n\t})\n\treturn cs\n}",
+     "way": "SortByConfident orders confidences by ascending SortOrder."
+    },
+    {
+     "path": "models/vulninfos.go",
+     "snippet": "\t// CpeNameMatch is a ranking how confident the CVE-ID was detected correctly\n\tCpeNameMatch = Confidence{100, CpeNameMatchStr, 1}\n\n\t// YumUpdateSecurityMatch is a ranking how confident the CVE-ID was detected correctly\n\tYumUpdateSecurityMatch = Confidence{100, YumUpdateSecurityMatchStr, 2}\n\n\t// PkgAuditMatch is a ranking how confident the CVE-ID was detected correctly\n\tPkgAuditMatch = Confidence{100, PkgAuditMatchStr, 2}\n\n\t// OvalMatch is a ranking how confident the CVE-ID was detected correctly\n\tOvalMatch = Confidence{100, OvalMatchStr, 0}",
+     "way": "The pre-rename CPE confidence has SortOrder 1, while OvalMatch has SortOrder 0."
+    }
+   ]
+  }
+ ]
+}

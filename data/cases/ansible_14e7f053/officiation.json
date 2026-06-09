@@ -1,0 +1,25 @@
+{
+ "slug": "ansible_14e7f053",
+ "repo": "ansible/ansible",
+ "base": "14e7f05318ddc421330209eece0e891d0eaef10d",
+ "verdict": "DETERMINED-codebase",
+ "gaps": [
+  {
+   "behavior": "When a term contains only a path and no key=value options, `_parse_parameters` returns that entire term as the filename.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "relpath = term",
+   "gold_value": "relpath = term",
+   "codebase_value": "relpath = term",
+   "why": "The base production password lookup parser already handles the no-option branch by assigning the whole term to `relpath`, and the gold patch preserves that exact choice inside the new instance method.",
+   "precedents": [
+    {
+     "path": "lib/ansible/plugins/lookup/password.py",
+     "snippet": "first_split = term.split(' ', 1)\n    if len(first_split) <= 1:\n        # Only a single argument given, therefore it's a path\n        relpath = term\n        params = dict()",
+     "way": "A single-argument password lookup term is treated entirely as the path."
+    }
+   ]
+  }
+ ]
+}

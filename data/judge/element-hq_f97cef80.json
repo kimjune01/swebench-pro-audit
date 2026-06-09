@@ -1,10 +1,10 @@
 {
  "case": "element-hq_f97cef80",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "MISDETERMINED",
  "in_gold_total": 15,
  "n_covered": 10,
- "n_gap": 5,
+ "n_gap": 0,
  "n_out_of_scope": 0,
  "rows": [
   {
@@ -68,21 +68,21 @@
    "covering_prose": null,
    "gold_anchor": "private sequence = 0;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED"
   },
   {
    "test": "A pause info event sent before any chunks have been emitted carries sequence value 0.",
    "covering_prose": null,
    "gold_anchor": "private sequence = 0;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED"
   },
   {
    "test": "A resume info event sent before any chunks have been emitted carries sequence value 0.",
    "covering_prose": null,
    "gold_anchor": "private sequence = 0;",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED"
   },
   {
    "test": "The first emitted voice broadcast chunk carries sequence value 1.",
@@ -103,14 +103,16 @@
    "covering_prose": null,
    "gold_anchor": "sequence: ++this.sequence,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED"
   },
   {
    "test": "After two emitted chunks, a stopped info event carries sequence value 2.",
    "covering_prose": null,
    "gold_anchor": "sequence: ++this.sequence,",
    "in_gold": true,
-   "status": "GAP"
+   "status": "MISDETERMINED"
   }
- ]
+ ],
+ "n_misdetermined": 5,
+ "n_determined_codebase": 0
 }

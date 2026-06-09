@@ -1,10 +1,10 @@
 {
  "case": "future-architect_9ed5f2ca",
  "ok": true,
- "verdict": "AMBIGUOUS",
+ "verdict": "DETERMINED-codebase",
  "in_gold_total": 16,
  "n_covered": 13,
- "n_gap": 3,
+ "n_gap": 0,
  "n_out_of_scope": 7,
  "rows": [
   {
@@ -96,7 +96,8 @@
    "covering_prose": null,
    "gold_anchor": "scanResult.ServerName = trivyResult.Target",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For the no-vulnerability debian OS report, Family is set to the report Type value \"debian\".",
@@ -110,14 +111,16 @@
    "covering_prose": null,
    "gold_anchor": "scanResult.ScannedBy = \"trivy\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For the no-vulnerability debian OS report, ScannedVia is \"trivy\".",
    "covering_prose": null,
    "gold_anchor": "scanResult.ScannedVia = \"trivy\"",
    "in_gold": true,
-   "status": "GAP"
+   "status": "DETERMINED-codebase",
+   "officiated_klass": "DETERMINED-codebase"
   },
   {
    "test": "For the no-vulnerability debian OS report, Optional is map[string]interface{}{\"trivy-target\": \"no-vuln-image:v1 (debian 9.13)\"}.",
@@ -168,5 +171,8 @@
    "in_gold": false,
    "status": "OUT_OF_SCOPE"
   }
- ]
+ ],
+ "n_misdetermined": 0,
+ "n_determined_codebase": 3,
+ "officiated": true
 }

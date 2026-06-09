@@ -1,0 +1,47 @@
+{
+ "slug": "protonmail_4d0ef1ed",
+ "repo": "protonmail/webclients",
+ "base": "4d0ef1ed136e80692723f148dc0390dcf28ba9dc",
+ "verdict": "MISDETERMINED",
+ "gaps": [
+  {
+   "behavior": "For 120 legacy shares, migrateShares submits migration requests in batches of exactly 50, 50, and 20 share IDs, preserving the original order within each batch.",
+   "status": "DETERMINED-codebase",
+   "klass": "DETERMINED-codebase",
+   "airtight_absent": false,
+   "gold_anchor": "chunk(shareIds, 50)",
+   "gold_value": "chunk(shareIds, 50)",
+   "codebase_value": "50",
+   "why": "Live Drive production batching uses a single shared batch size of 50, matching gold's chunk size.",
+   "precedents": [
+    {
+     "path": "packages/shared/lib/drive/constants.ts",
+     "snippet": "export const BATCH_REQUEST_SIZE = 50;",
+     "way": "Drive batch request size is 50."
+    },
+    {
+     "path": "applications/drive/src/app/store/_links/useLinksActions.ts",
+     "snippet": "const batches = chunk(linkIds, BATCH_REQUEST_SIZE);",
+     "way": "Drive link IDs are chunked using the shared Drive batch request size."
+    }
+   ]
+  },
+  {
+   "behavior": "When the migrate POST request rejects with data.Code equal to HTTP_STATUS_CODE.NOT_FOUND after the first batch, migrateShares has called queryMigrateLegacyShares for the first 50-share batch and does not call it for the second 50-share batch.",
+   "status": "MISDETERMINED",
+   "klass": "MISDETERMINED",
+   "airtight_absent": false,
+   "gold_anchor": "return resolve(null);",
+   "gold_value": "return resolve(null); stop after the first migrate POST 404",
+   "codebase_value": "catch each batch request failure and record failures while allowing the batch queue to continue",
+   "why": "The closest live Drive batch-request precedent continues through failed batches, while gold pins early termination after the first migrate POST 404.",
+   "precedents": [
+    {
+     "path": "applications/drive/src/app/store/_links/useLinksActions.ts",
+     "snippet": "const queue = batches.map(\n                (batchLinkIds) => () =>\n                    debouncedRequest<T>(query(batchLinkIds, shareId), abortSignal)\n                        .then((response) => {\n                            responses.push({ batchLinkIds, response });\n                            batchLinkIds.forEach((linkId) => successes.push(linkId));\n                        })\n                        .catch((error) => {\n                            batchLinkIds.forEach((linkId) => (failures[linkId] = error));\n                        })\n            );\n            await preventLeave(runInQueue(queue, maxParallelRequests));",
+     "way": "Batch request errors are caught inside each queued batch and stored as per-link failures, so the helper runs the queue rather than aborting subsequent batches."
+    }
+   ]
+  }
+ ]
+}

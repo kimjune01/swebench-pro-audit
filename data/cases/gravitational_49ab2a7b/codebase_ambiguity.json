@@ -18,5 +18,34 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": true
+ "convergence_corroborated": true,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": false,
+   "reading_A": "`SQLServerPinger.Ping` should use the supplied `context.Context` for the SQL Server validation operation, e.g. `db.PingContext(ctx)`.",
+   "reading_B": "`SQLServerPinger.Ping` may accept the required `context.Context` but perform setup/dial with available APIs and then use a non-context validation ping, e.g. `db.Ping()`.",
+   "both_survive_expert_review": "Not proven from prose alone. The interface lists `context.Context`, which strongly signals cancellation/deadline propagation in Go even though the prose does not explicitly say the validation ping must be context-bound. The stronger receipt is source plurality.",
+   "unselecting_prose_quote": "Inputs: `context.Context`, `PingParams`\n\nDescription: Tests the connection to a SQL Server database using the provided connection parameters. Returns an error if the connection attempt fails.",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "Existing `DatabasePinger.Ping(ctx, params)` implementations in the same Teleport connection-test database package make the validation/ping context decision differently: PostgreSQL binds the validation query to `ctx`, while MySQL uses `ctx` for connection setup/dialing but calls a non-context `conn.Ping()` for validation.",
+   "precedents": [
+    {
+     "path": "lib/client/conntest/database/postgres.go",
+     "snippet": "conn, err := pgconn.ConnectConfig(ctx, pgconnConfig)\n\tif err != nil {\n\t\treturn trace.Wrap(err)\n\t}\n\n\tdefer func() {\n\t\tif err := conn.Close(ctx); err != nil {\n\t\t\tlogrus.WithError(err).Info(\"failed to close connection in PostgresPinger.Ping\")\n\t\t}\n\t}()\n\n\tresult, err := conn.Exec(ctx, selectOneQuery).ReadAll()",
+     "way": "Context is propagated through connection setup, close, and the actual validation query."
+    },
+    {
+     "path": "lib/client/conntest/database/mysql.go",
+     "snippet": "conn, err := client.ConnectWithDialer(ctx, \"tcp\", addr,\n\t\tparams.Username,\n\t\t\"\", // no password, we're dialing into a tunnel.\n\t\tparams.DatabaseName,\n\t\tnd.DialContext,\n\t)\n\tif err != nil {\n\t\t// convert the error from MySQL client since it can be wrapped in a \"Causer\".\n\t\t// The MySQL engine in the agent already does this, but we need it here because\n\t\t// the error is from the MySQL client.\n\t\treturn trace.Wrap(common.ConvertError(err))\n\t}\n\n\tdefer func() {\n\t\tif err := conn.Close(); err != nil {\n\t\t\tlogrus.WithError(err).Info(\"Failed to close connection in MySQLPinger.Ping\")\n\t\t}\n\t}()\n\n\tif err := conn.Ping(); err != nil {",
+     "way": "Context is used for dialing/setup, but the actual validation ping is non-context-aware."
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-source",
+  "why": "The hidden test pins the PostgreSQL-style choice by expecting SQL Server validation to complete under the caller's `10*time.Second` context, and the golden patch uses `db.PingContext(ctx)`. But at base commit the same package and same `DatabasePinger.Ping(ctx, params)` role already has two live production precedents: PostgreSQL validates with `Exec(ctx, ...)`, while MySQL validates with non-context `conn.Ping()` after context-aware connection setup. A reasonable expert implementing SQL Server could follow either existing pinger pattern; the prose does not state that the validation operation itself must be bound to the context deadline. Thus the test grades an unstated source-precedent choice."
+ }
 }

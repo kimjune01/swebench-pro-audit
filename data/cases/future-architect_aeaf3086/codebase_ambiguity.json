@@ -24,5 +24,23 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": false
+ "convergence_corroborated": false,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": true,
+   "reading_A": "The UUID-ensuring behavior should be factored into an unexported package-level helper named `ensure` that accepts the servers map, config path, scan results, and an injected `generateFunc`, and returns `(needsOverwrite bool, err error)`. This follows the prose references to a supplied/provided generator and to a function producing `needsOverwrite`.",
+   "reading_B": "The implementation only needs to satisfy the observable SAAS behavior: reuse valid UUIDs, generate missing/invalid UUIDs, update scan results, track whether any change occurred, and rewrite config.toml only when needed. It may do this inside the existing exported workflow or in differently named production-shaped helpers using `uuid.GenerateUUID` directly, because no helper name or callable signature is specified.",
+   "both_survive_expert_review": "Both survive. Reading A is a reasonable testability-oriented implementation of the prose's 'provided function', 'supplied generator', and `needsOverwrite` flag language. Reading B is also reasonable because the stated interface says no new interfaces are introduced and the requirements specify behavior, storage keys, validity checks, and rewrite gating, but never require a package-level symbol named `ensure` or any exact internal signature. A professional implementation can meet all runtime requirements without exposing that exact helper.",
+   "unselecting_prose_quote": "`The function responsible for ensuring UUIDs must produce a flag (`needsOverwrite`) indicating whether any UUIDs were added or corrected. The configuration file must be rewritten only when `needsOverwrite` is true; if false, no write must occur.` / `No new interfaces are introduced.`",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": false,
+   "same_decision": "The proposed source precedents show existing direct UUID helpers and one unrelated callback-style helper, but they are not strong enough to prove that the codebase already makes this same helper-signature decision in two comparable UUID-ensuring contexts. The imperfection is established from prose/test mismatch instead.",
+   "precedents": []
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-prose",
+  "why": "The hidden test directly calls `ensure(tt.args.servers, tt.args.path, tt.args.scanResults, tt.args.generateFunc)` and therefore fails any otherwise-correct implementation that keeps the logic inside `EnsureUUIDs`, uses a different helper name, or uses concrete `uuid.GenerateUUID` in production-shaped code. The task prose requires behavioral outcomes and a `needsOverwrite` decision, but it does not select the internal symbol name `ensure` or the exact injectable-generator signature. That creates a two-expert split: one reasonable expert writes the hidden-test-shaped helper, another reasonable expert preserves the existing public surface and still satisfies every stated behavioral requirement."
+ }
 }

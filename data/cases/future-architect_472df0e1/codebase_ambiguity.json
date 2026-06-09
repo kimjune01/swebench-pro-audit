@@ -24,5 +24,39 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": false
+ "convergence_corroborated": false,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": false,
+   "reading_A": "Populate models.CveContent.Title from the WPScan vulnerability title field, preserving the existing WordPress ingestion behavior while adding Enterprise fields.",
+   "reading_B": "Do not populate Title because the requirements enumerate canonical identifier, references, timestamps, vuln_type, fix version, summary, poc, introduced_in, and cvss, but never explicitly require Title.",
+   "both_survive_expert_review": "No. Reading B is prose-plausible in isolation, but it does not survive expert review against the provided repo source: the base WordPress ingestion already maps WPScan title to CveContent.Title, and the task is to support enriched fields while keeping records consistent, not to drop an existing basic field.",
+   "unselecting_prose_quote": "Produced records should preserve canonical identifiers, public references, publication and last-update timestamps, vulnerability classification, and the version where the issue is fixed when available. When enriched data is present, records should also include a descriptive summary, a proof-of-concept reference, an \u201cintroduced\u201d version indicator, and severity metrics.",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": false,
+   "same_decision": "No. The cited snippets show different source adapters using CveContent.Title differently, but they are not governing, comparable precedents for this WPScan-specific task because detector/wordpress.go at base already makes the exact local decision for WPScan payload title. A reasonable expert working in this function would preserve that existing mapping while adding enriched fields.",
+   "precedents": [
+    {
+     "path": "detector/wordpress.go",
+     "snippet": "models.CveContent{\n\t\t\t\t\t\t\tType:         models.WpScan,\n\t\t\t\t\t\t\tCveID:        cveID,\n\t\t\t\t\t\t\tTitle:        vulnerability.Title,\n\t\t\t\t\t\t\tReferences:   refs,\n\t\t\t\t\t\t\tPublished:    vulnerability.CreatedAt,\n\t\t\t\t\t\t\tLastModified: vulnerability.UpdatedAt,\n\t\t\t\t\t\t},",
+     "way": "local WPScan ingestion already copies the WPScan payload title into CveContent.Title"
+    },
+    {
+     "path": "detector/github.go",
+     "snippet": "cveContent := models.CveContent{\n\t\t\t\t\t\tType:          models.GitHub,\n\t\t\t\t\t\tCveID:         cveID,\n\t\t\t\t\t\tTitle:         v.Node.SecurityAdvisory.Summary,\n\t\t\t\t\t\tSummary:       v.Node.SecurityAdvisory.Description,",
+     "way": "GitHub adapter uses GitHub advisory Summary as Title, but this is a different source schema and does not override the WPScan-specific precedent"
+    },
+    {
+     "path": "gost/debian.go",
+     "snippet": "return &models.CveContent{\n\t\tType:          models.DebianSecurityTracker,\n\t\tCveID:         cve.CveID,\n\t\tSummary:       cve.Description,",
+     "way": "Debian Security Tracker adapter leaves Title unset and stores Description as Summary, but this is a different source adapter and not comparable enough for the WPScan title choice"
+    }
+   ]
+  },
+  "two_expert_split": false,
+  "verdict": "determined",
+  "why": "The hidden test pins Title to the WPScan payload title. Although the task prose does not explicitly list Title among the required fields, the base WordPress ingestion already sets Title: vulnerability.Title in detector/wordpress.go. The task asks to support enriched Enterprise fields and keep record production consistent; dropping or remapping an existing WPScan title field would be an avoidable regression, not an equally reasonable implementation. Cross-adapter differences in GitHub and Debian reflect source-specific schemas rather than a live comparable convention for this WPScan-specific mapper."
+ }
 }

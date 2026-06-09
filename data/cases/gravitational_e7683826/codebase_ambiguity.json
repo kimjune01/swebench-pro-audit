@@ -18,5 +18,34 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": false
+ "convergence_corroborated": false,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": true,
+   "reading_A": "Add the three proxy loopback principals immediately after Proxy.PublicAddrs and before the existing reversetunnel.LocalKubernetes entry, preserving the existing proxy ordering of configured public addresses before fixed local Kubernetes principals.",
+   "reading_B": "Add the three loopback principals as fixed local/Kubernetes identities before configured public addresses, following the existing kube-role pattern where localhost, 127.0.0.1, ::1, and reversetunnel.LocalKubernetes precede Kube.PublicAddrs.",
+   "both_survive_expert_review": "Yes. The prose requires inclusion of localhost, 127.0.0.1, and ::1 and inclusion of configured public addresses, but does not specify relative ordering. Both implementations include every required principal and differ only on an unstated list order that the hidden test nevertheless asserts.",
+   "unselecting_prose_quote": "Proxy services should include `localhost`, `127.0.0.1` (IPv4 loopback), and `::1` (IPv6 loopback) in the list of additional principals. ... Improve `getAdditionalPrincipals` to include all configured public addresses for each role, including proxy, SSH, tunnel, and kube addresses, so that principals and DNS entries are accurately generated for certificate usage.",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "In lib/service/service.go at base commit, getAdditionalPrincipals already orders fixed local/Kubernetes principals relative to configured public addresses in two different live role cases: proxy puts configured Proxy.PublicAddrs before the fixed LocalKubernetes principal, while kube puts fixed localhost/loopback/LocalKubernetes principals before configured Kube.PublicAddrs.",
+   "precedents": [
+    {
+     "path": "lib/service/service.go",
+     "snippet": "case teleport.RoleProxy:\n\t\taddrs = append(process.Config.Proxy.PublicAddrs, utils.NetAddr{Addr: reversetunnel.LocalKubernetes})\n\t\taddrs = append(addrs, process.Config.Proxy.SSHPublicAddrs...)\n\t\taddrs = append(addrs, process.Config.Proxy.TunnelPublicAddrs...)\n\t\taddrs = append(addrs, process.Config.Proxy.Kube.PublicAddrs...)",
+     "way": "configured proxy public addresses first, then fixed LocalKubernetes, then other configured proxy addresses"
+    },
+    {
+     "path": "lib/service/service.go",
+     "snippet": "case teleport.RoleKube:\n\t\taddrs = append(addrs,\n\t\t\tutils.NetAddr{Addr: string(teleport.PrincipalLocalhost)},\n\t\t\tutils.NetAddr{Addr: string(teleport.PrincipalLoopbackV4)},\n\t\t\tutils.NetAddr{Addr: string(teleport.PrincipalLoopbackV6)},\n\t\t\tutils.NetAddr{Addr: reversetunnel.LocalKubernetes},\n\t\t)\n\t\taddrs = append(addrs, process.Config.Kube.PublicAddrs...)",
+     "way": "fixed localhost/loopback/LocalKubernetes principals first, then configured kube public addresses"
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-both",
+  "why": "The hidden test pins an ordering choice that the prose never states: proxy loopbacks must appear after Proxy.PublicAddrs and before reversetunnel.LocalKubernetes. A reasonable implementation could instead group the new fixed loopback principals before configured public addresses, matching the existing kube-role construction in the same function. Because both satisfy the stated inclusion requirements and the base source contains comparable live precedents for both orderings, the hidden test grades an unstated choice."
+ }
 }

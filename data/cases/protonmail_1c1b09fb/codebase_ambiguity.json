@@ -24,5 +24,39 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": true
+ "convergence_corroborated": true,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": false,
+   "reading_A": "Implement the required Markdown cleanup behavior through htmlToMarkdown while keeping the cleanup helper module-local/private.",
+   "reading_B": "Export the cleanup helper, e.g. cleanMarkdown, so it can be imported directly from markdown.ts.",
+   "both_survive_expert_review": "Both are professionally reasonable implementation choices, but this is not a prose ambiguity: the prose explicitly makes fixNestedLists the new public interface and never names cleanMarkdown or requires direct importability of cleanup helpers.",
+   "unselecting_prose_quote": "New public interface: \\n- Name: fixNestedLists \\nType: Function \\nLocation: applications/mail/src/app/helpers/assistant/markdown.ts \\nInput: dom: Document \\nOutput: Document",
+   "test_pins": "B"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "Whether a production helper used inside a content/Markdown/HTML transformation or cleaning pipeline is exported for direct import, or kept private as a module-local implementation detail.",
+   "precedents": [
+    {
+     "path": "applications/mail/src/app/helpers/textToHtml.ts",
+     "snippet": "const generatePlaceHolder = (text: string) => {\n    let placeholder = '';\n    do {\n        placeholder = Math.random().toString(36).substring(3) + Math.random().toString(36).substring(3);\n    } while (text.includes(placeholder));\n    return placeholder;\n};\n\nexport const prepareConversionToHTML = (content: string, tagsToDisable?: string[]) => {\n    // We want empty new lines to behave as if they were not empty (this is non-standard markdown behaviour)\n    // It's more logical though for users that don't know about markdown.\n    const placeholder = generatePlaceHolder(content);",
+     "way": "private module-local helper used by an exported Markdown-to-HTML conversion helper"
+    },
+    {
+     "path": "applications/mail/src/app/helpers/transforms/transformLinks.ts",
+     "snippet": "const sanitizeRelativeHttpLinks = (link: HTMLLinkElement) => {\n    if (matches(link, EXCLUDE_ANCHORS) && !linkUsesProtocols(link) && link.nodeName === 'A') {\n        // link.href is the absolute value of the link: mail.proton.me is prepended, use getAttribute\n        const url = link.getAttribute('href');\n\n        if (url) {\n            link.setAttribute('href', `http://${url}`);\n        }\n    }\n};\n\nconst removeTrackingTokens = (link: HTMLLinkElement) => {",
+     "way": "private module-local helpers in an exported HTML/link transformation pipeline"
+    },
+    {
+     "path": "applications/mail/src/app/helpers/encryptedSearch/esBuild.ts",
+     "snippet": "export const removeTag = (element: HTMLElement, tagName: string) => {\n    let removeTag = true;\n    while (removeTag) {\n        const tagInstances = element.getElementsByTagName(tagName);\n        const tagInstance = tagInstances.item(0);\n        if (tagInstance) {\n            tagInstance.remove();\n        }\n        removeTag = tagInstances.length !== 0;\n    }\n};\n\n/**\n * Remove quoted text and HTML tags from body\n */\nexport const cleanText = (text: string, includeQuote: boolean) => {",
+     "way": "sub-helper exported alongside an exported content-cleaning helper"
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-source",
+  "why": "The hidden test imports cleanMarkdown directly from ./markdown, but the task only declares fixNestedLists as a new public interface. A reasonable implementation can satisfy the stated cleanup behavior with cleanMarkdown kept private, matching existing private helper precedents in textToHtml.ts and transformLinks.ts. Another reasonable implementation can export the helper, matching esBuild.ts. Because the codebase contains live, comparable precedents on both sides and the prose is silent on cleanMarkdown exportability, the hidden test grades an unstated source-convention choice."
+ }
 }

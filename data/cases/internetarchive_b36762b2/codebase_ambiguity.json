@@ -18,5 +18,34 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": true
+ "convergence_corroborated": true,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": true,
+   "reading_A": "When language='en' and only a non-English Wikipedia sitelink exists, _get_wikipedia_link should return None because the requested English link is unavailable and the only specified fallback is English itself.",
+   "reading_B": "When language='en' and only a non-English Wikipedia sitelink exists, _get_wikipedia_link should surface the available non-English link because links are available and the prose separately requires correctly handling the only-non-English-link case without saying that this case must return None.",
+   "both_survive_expert_review": "Both readings are professionally reasonable. Reading A follows the explicit requested-language and English-fallback rules. Reading B follows the explicit no-links-vs-links distinction and treats the special only-non-English requirement as requiring some useful non-English result. The prose never states what to do when the requested language is English, English is absent, and another Wikipedia link exists.",
+   "unselecting_prose_quote": "The method for Wikipedia links should return the correct URL and language when the requested locale is available, fall back to English whenever the requested locale is missing, return `None` when there are no links, and properly handle the case where only a non-English link is defined.",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "When a localized/current/requested Wikipedia language is unavailable but other Wikipedia language links exist, whether to suppress the non-requested links or still expose available non-requested Wikipedia links.",
+   "precedents": [
+    {
+     "path": "openlibrary/core/wikidata.py",
+     "snippet": "if requested_wiki in self.sitelinks:\n            return self.sitelinks[requested_wiki]['url'], language\n        elif english_wiki in self.sitelinks:\n            return self.sitelinks[english_wiki]['url'], 'en'\n        return None",
+     "way": "strict requested-language lookup with English fallback only; returns None when English is requested and only another language exists"
+    },
+    {
+     "path": "openlibrary/macros/WorkInfo.html",
+     "snippet": "$if this_lang:\n            <span class=\"tag\">$this_lang.lang: <a href=\"$this_lang.url\">$(this_lang.title or this_lang.url)</a></span>\n        $else:\n            <span class=\"tag\">$_(\"No link to Wikipedia in your language\")</span>\n            $if simple:\n                <span class=\"tag\">\n                Simple English: <a href=\"$simple.url\">$(simple.title or simple.url)</a>\n                </span>\n        $if len(wikipedia):\n            <span class=\"tag\"><a href=\"javascript:;\" class=\"slide-toggle\"\n                aria-haspopup=\"true\" aria-controls=\"full_list\">Other languages</a></span>\n            <div style=\"display: none\" id=\"full_list\"><span class=\"tag\">\n            $for link in wikipedia:\n                $link.lang: <a href=\"$link.url\">$(link.title or link.url)</a>&nbsp;",
+     "way": "when the current-language Wikipedia link is missing, still exposes available non-requested Wikipedia links under Other languages"
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-both",
+  "why": "The hidden test asserts _get_wikipedia_link('en') is None when only eswiki exists. The prose does not select that outcome over returning the sole available non-English Wikipedia link, because it only says to return None when no links are available and separately says to handle the only-non-English case. The source also contains two live non-test precedents for the same localization choice: the Wikidata helper suppresses non-requested non-English links under an English-only fallback, while WorkInfo.html still exposes other available Wikipedia languages when the current-language link is missing."
+ }
 }

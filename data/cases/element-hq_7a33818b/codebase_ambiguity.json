@@ -18,5 +18,34 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": false
+ "convergence_corroborated": false,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": false,
+   "reading_A": "The selected device count must be visibly surfaced in the list header; when two sessions are selected, the header should show a selected-session count such as the existing '2 sessions selected' rendering.",
+   "reading_B": "The selected device count may be kept out of the header, with a static header/action label or the count shown elsewhere.",
+   "both_survive_expert_review": "No. Reading B contradicts the task's Expected Behavior, which says users should 'view the total number of selected sessions in the header', and the requirements further say FilteredDeviceListHeader receives selectedDeviceCount set to selectedDeviceIds.length.",
+   "unselecting_prose_quote": "Users should be able to select multiple devices from the list, view the total number of selected sessions in the header, and perform bulk actions such as signing out or cancelling the selection. ... FilteredDeviceListHeader should receive a selectedDeviceCount prop (set to selectedDeviceIds.length).",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": false,
+   "same_decision": "Rejected. The source precedents proposed are not enough to override the prose because this task is not prose-silent: it explicitly selects the header. They are also weaker comparators: one is an older/device-panel bulk action button pattern, and the other is an add-existing-space dialog where the action label remains static. Neither is the governing convention for a requirement that specifically wires selectedDeviceCount into FilteredDeviceListHeader.",
+   "precedents": [
+    {
+     "path": "src/components/views/settings/DevicesPanel.tsx",
+     "snippet": "<AccessibleButton\n                className=\"mx_DevicesPanel_deleteButton\"\n                onClick={this.onDeleteClick}\n                kind=\"danger_outline\"\n                disabled={this.state.selectedDevices.length === 0}\n                data-testid='sign-out-devices-btn'\n            >\n                { _t(\"Sign out %(count)s selected devices\", { count: this.state.selectedDevices.length }) }\n            </AccessibleButton>",
+     "way": "Count in bulk action button label, not header; rejected as non-governing because the task explicitly requires the count in the header."
+    },
+    {
+     "path": "src/components/views/dialogs/AddExistingToSpaceDialog.tsx",
+     "snippet": "button = <AccessibleButton kind=\"primary\" disabled={selectedToAdd.size < 1} onClick={addRooms}>\n                { _t(\"Add\") }\n            </AccessibleButton>;",
+     "way": "Selection only affects action enablement/static label in a dialog; rejected as a different context and contrary to the explicit header-count requirement here."
+    }
+   ]
+  },
+  "two_expert_split": false,
+  "verdict": "determined",
+  "why": "For the discriminating choice as stated, the prose determines the answer. A reasonable implementation that keeps the selected-session count out of the list header would fail the explicit Expected Behavior and the concrete requirement to pass selectedDeviceIds.length as selectedDeviceCount to FilteredDeviceListHeader. The hidden test's expectation for '2 sessions selected' follows the selected header-count path rather than grading a prose-silent location choice."
+ }
 }

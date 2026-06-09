@@ -24,5 +24,39 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": true
+ "convergence_corroborated": true,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": true,
+   "reading_A": "For a missing optional scalar field in the normalized Google Books edition record, include the required field name and use None, e.g. \"subtitle\": None and \"description\": None.",
+   "reading_B": "For a missing optional scalar field in the normalized Google Books edition record, either use an import-system sentinel already used elsewhere such as the empty string, or omit an unavailable optional scalar while still mapping all available fields.",
+   "both_survive_expert_review": "Yes. The prose requires correct mapping of available fields and proper handling of missing fields, but it never states the sentinel for a missing optional scalar. The requirement that fields be included at minimum pushes toward including keys, but it still does not choose None over an empty string; existing import code also shows omission as an accepted shape for absent optional scalars.",
+   "unselecting_prose_quote": "Automated tests confirm accurate parsing of varied Google Books responses, including: Correct mapping of available fields (title, subtitle, authors, publisher, page count, description, publish date). Proper handling of missing or incomplete fields (e.g., no authors, no ISBN-13). ... The metadata fields parsed and staged from a Google Books response must include at minimum: `isbn_10`, `isbn_13`, `title`, `subtitle`, `authors`, `source_records`, `publishers`, `publish_date`, `number_of_pages`, and `description`, and must match the data structure expected by Open Library\u2019s import system.",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "How production import/metadata normalization represents an absent optional scalar field in an Open Library import record.",
+   "precedents": [
+    {
+     "path": "openlibrary/core/vendors.py",
+     "snippet": "title, subtitle = split_amazon_title(metadata['title'])\n    conforming_metadata['title'] = title\n    if subtitle:\n        conforming_metadata['full_title'] = f'{title}{ISBD_UNIT_PUNCT}{subtitle}'\n        conforming_metadata['subtitle'] = subtitle",
+     "way": "Amazon metadata normalization omits the subtitle key when no subtitle is present."
+    },
+    {
+     "path": "scripts/promise_batch_imports.py",
+     "snippet": "'publish_date': (\n            format_date(\n                date=publish_date, only_year=publish_date[-4:] in ('0000', '0101')\n            )\n            if publish_date\n            else ''\n        ),",
+     "way": "Promise import normalization emits a missing scalar metadata field as an empty string."
+    },
+    {
+     "path": "scripts/import_open_textbook_library.py",
+     "snippet": "if data.get(\"copyright_year\"):\n        import_record['publish_date'] = str(data[\"copyright_year\"])",
+     "way": "Open Textbook import normalization omits the publish_date key when the source field is missing."
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-both",
+  "why": "The hidden test asserts exact dict equality and requires missing `subtitle` and `description` to be present with value None. The task prose asks for missing-field handling and an Open Library-shaped normalized record, but does not specify the missing-scalar sentinel. A reasonable expert could use None; another could use the empty string, as existing import code does for a missing publish_date, or omit unavailable optional scalar keys, as existing Amazon/Open Textbook normalization does. Those implementations would differ only on an unstated representation choice, and the hidden test passes one while failing the other."
+ }
 }

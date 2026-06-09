@@ -18,5 +18,23 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": false
+ "convergence_corroborated": false,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": true,
+   "reading_A": "The error message may identify the failing GitHub API operation by endpoint/path, e.g. `github /user/orgs info response status: \"429 Too Many Requests\"` or `github /user/teams info response status: \"400 Bad Request\"`.",
+   "reading_B": "The error message may identify the failing operation by descriptive context, e.g. `github organization membership verification response status: \"429 Too Many Requests\"` or `github team membership verification response status: \"400 Bad Request\"`.",
+   "both_survive_expert_review": "Yes. The prose requires only that the message indicate the failing operation and status code; both an endpoint path and a descriptive operation label do that. Neither reading contradicts the API behavior, authentication semantics, or interface. The hidden test requires an exact endpoint/path-shaped message even though the prose does not specify exact wording.",
+   "unselecting_prose_quote": "When GitHub API calls return non-success HTTP status codes during organization or team membership verification, the system must return an internal server error with a message indicating the failing operation and status code.",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": false,
+   "same_decision": "No sufficiently comparable live source plurality is established for this exact choice. The base GitHub auth helper itself already formats GitHub API non-OK responses with the endpoint string, while the proposed OIDC/Kubernetes example is a different auth-provider discovery context and is too distant to overcome the more local GitHub precedent.",
+   "precedents": []
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-prose",
+  "why": "The benchmark pins exact error-message wording that the task prose does not determine. A reasonable implementation can return an internal error whose message names the failing operation as `/user/orgs` or `/user/teams`; another can name it as organization/team membership verification. Both satisfy the stated requirement to indicate the failing operation and status code, but the hidden test accepts only the endpoint/path wording. The proposed source plurality is not needed and is weaker because the closest GitHub source precedent points toward endpoint-style wording."
+ }
 }

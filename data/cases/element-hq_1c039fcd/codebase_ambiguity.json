@@ -24,5 +24,39 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": true
+ "convergence_corroborated": true,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": true,
+   "reading_A": "For permalink/pill rendering, a user who is absent from the target/current room may still be treated as known if they share any room with the current user, so the pill may fetch/use cached profile data and render the user's display name/avatar.",
+   "reading_B": "For permalink/pill rendering in a target/current room, only membership in that target/current room is sufficient to attach room-member/profile data; the new known-user cache can exist for profile APIs generally without changing the pill's target-room membership rule.",
+   "both_survive_expert_review": "Both survive. The prose defines known users globally as users who share a room with the current user, but it does not explicitly say that user permalink/pill rendering must use any-shared-room knowledge instead of the target/current room's membership. It names permalink lookups, pills, and member lists as motivating examples, yet the required interfaces are cache/store APIs, not a UI contract for pills.",
+   "unselecting_prose_quote": "\"known users\" (users who share a room with the current user) ... especially in scenarios that frequently reference user profiles (such as permalink lookups, pills, or member lists)",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "When resolving/rendering a user reference, whether profile/member data may come from outside the target/current room or must be tied to the current room.",
+   "precedents": [
+    {
+     "path": "src/hooks/usePermalinkMember.ts",
+     "snippet": "const userInRoom = shouldLookUpUser && userId && targetRoom ? targetRoom.getMember(userId) : null;\nconst [member, setMember] = useState<RoomMember | null>(userInRoom);\n\nuseEffect(() => {\n    if (!shouldLookUpUser || !userId || member) {\n        // nothing to do here\n        return;\n    }\n\n    const doProfileLookup = (userId: string): void => {\n        MatrixClientPeg.get()\n            .getProfileInfo(userId)",
+     "way": "If the user is not a member of the target room, permalink member lookup falls back to a global profile API lookup."
+    },
+    {
+     "path": "src/editor/parts.ts",
+     "snippet": "public userPill(displayName: string, userId: string): UserPillPart {\n    const member = this.room.getMember(userId);\n    return new UserPillPart(userId, displayName, member || undefined);\n}",
+     "way": "Composer user pill construction only uses membership from the current composer room."
+    },
+    {
+     "path": "src/components/views/dialogs/spotlight/SpotlightDialog.tsx",
+     "snippet": ".reduce((members, room) => {\n    for (const member of room.getJoinedMembers()) {\n        members[member.userId] = member;\n    }\n    return members;\n}, {} as Record<string, RoomMember>)",
+     "way": "User discovery treats membership in any visible joined room as sufficient to surface a known user."
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-both",
+  "why": "The hidden test adds user2 as a member of room2, renders a pill in room1, and expects a UserPill showing \"User 2\", so it enforces the any-shared-room reading. But the task prose never explicitly states that pill rendering for a target room must accept another shared room as sufficient, and the base source contains live comparable precedents on both sides: permalink lookup already falls back outside the target room, editor pills require current-room membership, and spotlight uses any joined room. Two reasonable experts could implement the store faithfully while choosing different integration behavior for pills; the hidden test grades that unstated choice."
+ }
 }

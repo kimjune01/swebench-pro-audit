@@ -18,5 +18,34 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": true
+ "convergence_corroborated": true,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": true,
+   "reading_A": "Malformed parse_point input should raise ValueError with the exact qutebrowser parse_rect-style wording: \"String {s} does not match X,Y\".",
+   "reading_B": "Malformed parse_point input may raise ValueError with any descriptive, user-friendly expected-format wording, e.g. \"Invalid point: {s} - expected X,Y\".",
+   "both_survive_expert_review": "Yes. The prose requires ValueError, descriptiveness, user-friendliness, and clear indication of the expected coordinate format, but never specifies exact wording or a required prefix. Both messages satisfy every stated requirement.",
+   "unselecting_prose_quote": "The function should raise ValueError with descriptive error messages when input strings are malformed, missing commas, or contain non-integer values. / The error messages should be user-friendly and clearly indicate what format is expected for coordinate input.",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "How a qutebrowser string parser reports malformed structured user input: a terse \"String {value} does not match {FORMAT}\" message versus an \"Invalid <thing>: <value> - expected <format>\" message.",
+   "precedents": [
+    {
+     "path": "qutebrowser/utils/utils.py",
+     "snippet": "if not match:\n        raise ValueError(f\"String {s} does not match WxH+X+Y\")",
+     "way": "Malformed structured geometry strings use \"String {value} does not match {FORMAT}\"."
+    },
+    {
+     "path": "qutebrowser/utils/utils.py",
+     "snippet": "if not match or not match.group(0):\n        raise ValueError(\n            f\"Invalid duration: {duration} - \"\n            \"expected XhYmZs or a number of milliseconds\"\n        )",
+     "way": "Malformed structured user strings use \"Invalid <thing>: <value> - expected <format>\"."
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-both",
+  "why": "The hidden tests assert exact string equality for malformed parse_point inputs such as \"String 1x1 does not match X,Y\", but the task prose only requires descriptive, user-friendly ValueError messages that indicate the expected format. A reasonable expert following parse_rect-style structured geometry parsing would emit the pinned message; another reasonable expert following parse_duration-style user-input parsing would emit an \"Invalid point ... expected X,Y\" message. Both are professionally acceptable under the prose, so the hidden test grades an unstated wording choice."
+ }
 }

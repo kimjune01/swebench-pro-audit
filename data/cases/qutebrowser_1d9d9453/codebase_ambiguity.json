@@ -24,5 +24,39 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": false
+ "convergence_corroborated": false,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": true,
+   "reading_A": "Update Values.__repr__ to expose the new storage object directly, e.g. utils.get_repr(self, opt=self.opt, vmap=self._vmap.values(), constructor=True), producing vmap=odict_values(...).",
+   "reading_B": "Update Values.__repr__ to derive its contents from _vmap while preserving the prior logical/constructor-style public label for the collection, e.g. values=list(self._vmap.values()) or values=self._vmap.values(), rather than exposing the private storage name.",
+   "both_survive_expert_review": "Yes. The prose requires that repr be generated from the new _vmap structure instead of the old _values list, but it does not state the repr keyword must be vmap or that the mapping values view itself must be exposed. Preserving the old logical collection label values while sourcing from _vmap is a reasonable compatibility-oriented implementation, especially with 'No new interfaces are introduced'. Exposing vmap is also reasonable because the requirements explicitly name _vmap as the new internal structure.",
+   "unselecting_prose_quote": "The `__repr__` method of `Values` should be updated to use the new internal `_vmap` structure instead of the old `_values` list.",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "How qutebrowser __repr__ calls name fields backed by private storage: expose a private backing attribute name with the leading underscore stripped versus preserve a semantic/constructor-style public name for the represented collection/object state.",
+   "precedents": [
+    {
+     "path": "qutebrowser/config/configutils.py",
+     "snippet": "def __repr__(self) -> str:\n        return utils.get_repr(self, opt=self.opt, values=self._values,\n                              constructor=True)",
+     "way": "Same class at base_commit uses the logical constructor/public keyword values for the scoped-value collection, rather than exposing the storage concern separately."
+    },
+    {
+     "path": "qutebrowser/config/config.py",
+     "snippet": "def __repr__(self) -> str:\n        return utils.get_repr(self, constructor=True, config=self._config,\n                              configapi=self._configapi, prefix=self._prefix,\n                              pattern=self._pattern)",
+     "way": "Uses keywords matching private backing attributes with the leading underscore stripped."
+    },
+    {
+     "path": "qutebrowser/utils/usertypes.py",
+     "snippet": "def __repr__(self) -> str:\n        return utils.get_repr(self, items=self._items, mode=self._mode,\n                              idx=self._idx, fuzzyval=self.fuzzyval)",
+     "way": "Uses a semantic public collection keyword items for private _items storage."
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-both",
+  "why": "The hidden test asserts the exact repr string with vmap=odict_values(...). The task prose only says repr must use _vmap instead of _values, which leaves both exposing the new storage name and preserving the old logical values representation professionally reasonable. Base-commit source also contains comparable repr naming precedents pointing both ways, including the same Values class using values=self._values and other reprs using either stripped private names or semantic public collection names."
+ }
 }

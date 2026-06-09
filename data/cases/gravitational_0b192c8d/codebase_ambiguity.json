@@ -24,5 +24,39 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": true
+ "convergence_corroborated": true,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": true,
+   "reading_A": "VirtualPathCAParams should use the underlying types.CertAuthType string as the CA parameter, so types.DatabaseCA, whose value is \"db\", produces TSH_VIRTUAL_PATH_CA_DB.",
+   "reading_B": "VirtualPathCAParams should use the full resource name for the CA kind, so a database CA is spelled DATABASE or database_ca in generated path identifiers, producing a CA_DATABASE-style name rather than CA_DB.",
+   "both_survive_expert_review": "Yes. The prose requires a CA parameter helper and upper-case virtual path names, but gives no concrete CA example and does not say whether CertAuthType values are serialized verbatim or normalized to resource names. The function input being types.CertAuthType makes A very natural; the existing user-facing database CA path spelling makes B professionally defensible.",
+   "unselecting_prose_quote": "\"Parameter helpers exist for CA Database App and Kubernetes. Functions VirtualPathEnvName and VirtualPathEnvNames format upper case environment variable names so that VirtualPathEnvNames returns the names from most specific to least specific ending with TSH_VIRTUAL_PATH_<KIND>.\"",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "How to spell the database certificate-authority component when producing external textual identifiers or paths for CA material: the codebase uses both the short CertAuthType token `db` and the full word `database`.",
+   "precedents": [
+    {
+     "path": "api/types/trust.go",
+     "snippet": "// DatabaseCA is a certificate authority used in database access.\nDatabaseCA CertAuthType = \"db\"",
+     "way": "Short token `db` for the DatabaseCA type."
+    },
+    {
+     "path": "tool/tctl/common/auth_command.go",
+     "snippet": "var allowedCertificateTypes = []string{\"user\", \"host\", \"tls-host\", \"tls-user\", \"tls-user-der\", \"windows\", \"db\"}",
+     "way": "External CA type selection accepts the short token `db`."
+    },
+    {
+     "path": "tool/tbot/config/configtemplate_tls_cas.go",
+     "snippet": "// defaultDatabaseCAPath is the default filename for the database CA\n// certificate\ndefaultDatabaseCAPath = \"teleport-database-ca.crt\"",
+     "way": "Filesystem path naming spells the database CA with full `database`."
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-both",
+  "why": "The hidden test requires VirtualPathCAParams(types.DatabaseCA) to produce TSH_VIRTUAL_PATH_CA_DB. The task prose never states the CA parameter spelling rule, and base source contains live, comparable precedents for both the short `db` spelling and the full `database` spelling for database CA identifiers/paths. A reasonable implementation following the full-word path precedent would satisfy the written requirements but fail this hidden assertion."
+ }
 }

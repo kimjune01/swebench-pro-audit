@@ -30,5 +30,44 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": false
+ "convergence_corroborated": false,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": true,
+   "reading_A": "On the no-valid-entry path, parseSSHKeygen must return empty keyType and empty key together with the non-nil error, because no valid key type/key exists to return.",
+   "reading_B": "On the no-valid-entry path, parseSSHKeygen must return a non-nil error, but the two string return values are not specified by the prose and may be partial parser state or otherwise ignored by callers when err is non-nil.",
+   "both_survive_expert_review": "Yes. Reading A is the conservative clean-result interpretation. Reading B is also professionally reasonable in Go because non-error return values are often unspecified when err is non-nil unless the contract documents them, and the requirement only mandates the error for the no-valid case.",
+   "unselecting_prose_quote": "The function must skip any lines that are empty or start with `#`, support parsing both plain (`<host> <keyType> <key>`) and hashed (`|1|... <keyType> <key>`) known_hosts entries, and must return a non-nil error if no valid key type and key are found.",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "In production parser code that returns parsed data plus an error, malformed input is handled both by returning zero parsed data with the error and by returning accumulated parsed data with the error; the task prose does not select which convention parseSSHKeygen must follow on error.",
+   "precedents": [
+    {
+     "path": "scanner/debian.go",
+     "snippet": "return \"\", \"\", \"\", \"\", \"\", xerrors.Errorf(\"Unknown format: %s\", line)",
+     "way": "malformed parser input returns zero parsed values with an error"
+    },
+    {
+     "path": "scanner/base.go",
+     "snippet": "if len(ss) < 11 {\n\t\treturn \"\", xerrors.Errorf(\"Unknown format: %s\", stdout)\n\t}",
+     "way": "malformed parser input returns zero parsed value with an error"
+    },
+    {
+     "path": "scanner/debian.go",
+     "snippet": "return ver, xerrors.Errorf(\"Unknown Format: %s\", stdout)",
+     "way": "malformed/no-match parser input returns the accumulated parsed value with an error"
+    },
+    {
+     "path": "scanner/redhatbase.go",
+     "snippet": "pack, err := o.parseUpdatablePacksLine(line)\n\t\tif err != nil {\n\t\t\treturn updatable, err\n\t\t}",
+     "way": "malformed line returns the partial accumulated collection with an error"
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-both",
+  "why": "The hidden test asserts not only that parseSSHKeygen(\"invalid\") returns an error, but also that keyType and key are empty. The prose requires a non-nil error when no valid key type/key is found, but never states the accompanying string values on the error path. The base code also contains live parser precedents in both directions, so two reasonable experts could implement the same stated contract differently and only one would pass the hidden assertion."
+ }
 }

@@ -1,0 +1,45 @@
+You audit whether a benchmark task is IMPERFECT: whether the hidden test can fail an implementation that
+any reasonable expert would accept. The standard is the TWO-EXPERT TEST.
+
+  Imagine two of the world's best software engineers, each given ONLY this task's prose and the repo
+  source at base_commit. Each independently writes an implementation that is correct and reasonable by
+  any professional standard -- faithful to every stated requirement, idiomatic in this codebase. If the
+  hidden test would PASS one and FAIL the other, the bench is imperfect: it grades an unstated choice, a
+  specification lottery. Your job is to prove that case, or show it doesn't hold, WITH RECEIPTS.
+
+Two reasonable experts can diverge for exactly two reasons; EITHER one, if genuine, proves the imperfection:
+
+  (PROSE)   the requirement prose licenses >=2 incompatible readings, each fully faithful to what is
+            written. RECEIPT = the verbatim prose span that fails to select between them, the two
+            readings, and which one the hidden test enforces.
+  (SOURCE)  the codebase already makes the SAME semantic decision >=2 live, comparable, prose-silent
+            ways, so each expert reasonably follows a different existing precedent. RECEIPT = >=2
+            verbatim non-test/non-vendor snippets at base_commit doing the same decision differently.
+
+This is an EXISTENCE question, not a convergence poll. "A skilled solver would probably converge on the
+right reading" does NOT discharge it: the test is whether BOTH implementations are reasonable, not
+whether one is more likely. If both pass professional review, the divergence is real.
+
+Be adversarial against YOURSELF -- a false imperfection is worse than a miss:
+  - Reject a PROSE reading if a world-class engineer reading the prose would NOT plausibly choose it
+    (strained, ignores a stated requirement, contradicts the interface). Both readings must survive
+    expert review, not just parse.
+  - Reject SOURCE precedents that are different decisions in different contexts (lookalikes), or that an
+    expert would clearly not treat as the governing convention for THIS choice.
+  - If the prose or interface actually selects one answer, the verdict is "determined" -- say so.
+
+== TASK PROSE (problem + requirements + interface) ==
+{SPEC}
+
+== THE DISCRIMINATING CHOICE (what the hidden test pins) ==
+{CHOICE}
+
+== SOURCE PRECEDENTS already proposed (verify against the standard, do not trust) ==
+{PREC}
+
+Output ONLY JSON:
+{"prose_plurality": {"exists": bool, "reading_A": str, "reading_B": str, "both_survive_expert_review": str, "unselecting_prose_quote": str, "test_pins": "A"|"B"|"unknown"},
+ "source_plurality": {"exists": bool, "same_decision": str, "precedents": [{"path": str, "snippet": str, "way": str}]},
+ "two_expert_split": bool,
+ "verdict": "ambiguous-prose"|"ambiguous-source"|"ambiguous-both"|"determined",
+ "why": str}

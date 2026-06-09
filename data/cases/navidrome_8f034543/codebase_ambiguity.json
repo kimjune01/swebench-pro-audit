@@ -24,5 +24,39 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": false
+ "convergence_corroborated": false,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": true,
+   "reading_A": "`ToSql` must return the specific hidden-test string shape: `media_file.id IN (SELECT ... WHERE (...))` / `media_file.id NOT IN (SELECT ... WHERE (...))`, with Squirrel-style capitalization, spacing, selected-column rendering, predicate order, and parentheses.",
+   "reading_B": "`ToSql` may return any semantically equivalent parameterized SQL fragment that uses `IN`/`NOT IN` against `media_file.id`, selects `media_file_id` from `playlist_tracks` aliased as `pl`, left-joins `playlist`, filters the given playlist id, restricts to public playlists, and returns args `[playlist_id, 1]`, even if casing/formatting differs.",
+   "both_survive_expert_review": "Yes. The prose specifies SQL semantics, tables, join condition, public-playlist predicate, placeholders, and argument order, but it never specifies exact string casing/spacing/parenthesization or that Squirrel must generate the subquery. A raw parameterized SQL predicate with the same semantics is professionally reasonable; the hidden Squirrel-shaped string is also reasonable.",
+   "unselecting_prose_quote": "`InPlaylist.ToSql` should generate a parameterized predicate on `media_file.id` using `IN` with a subquery that selects `media_file_id` from `playlist_tracks` aliased as `pl`, left-joins `playlist` on `pl.playlist_id = playlist.id`, filters by the provided playlist identifier, and restricts to public playlists via `playlist.public = ?`. It should return the SQL fragment with placeholders and the arguments in this order: `[playlist_id, 1]`.",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "How Navidrome code renders SQL membership/subquery predicates used through Squirrel-style query construction: delegate expression rendering to Squirrel, yielding Squirrel's exact string shape, or pass a raw SQL predicate string/ConcatExpr with lower-case `not in (select ...)`.",
+   "precedents": [
+    {
+     "path": "model/criteria/operators.go",
+     "snippet": "func (is Is) ToSql() (sql string, args []interface{}, err error) {\n\treturn squirrel.Eq(mapFields(is)).ToSql()\n}",
+     "way": "Criteria operators delegate predicate rendering to Squirrel, making exact output formatting a consequence of Squirrel."
+    },
+    {
+     "path": "persistence/playlist_repository.go",
+     "snippet": "del := Delete(\"playlist_tracks\").Where(And{\n\t\t\tConcatExpr(\"media_file_id not in (select id from media_file)\"),\n\t\t\tEq{\"playlist_id\": pl.Id},\n\t\t})",
+     "way": "Production playlist cleanup uses a raw lower-case `not in (select ...)` membership predicate inside a Squirrel query."
+    },
+    {
+     "path": "persistence/album_repository.go",
+     "snippet": "del := Delete(r.tableName).Where(\"id not in (select distinct(album_id) from media_file)\")",
+     "way": "Production repository cleanup uses a raw lower-case `not in (select ...)` predicate string rather than Squirrel-generated membership SQL."
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-both",
+  "why": "The hidden test asserts exact SQL strings for `InPlaylist.ToSql` and `NotInPlaylist.ToSql`, but the task prose only specifies the SQL semantics and argument order, not byte-for-byte formatting. At base commit, the codebase also contains both Squirrel-rendered criteria predicates and raw lower-case subquery membership predicates in production persistence code. One expert could reasonably follow the local criteria-operator Squirrel style and pass; another could reasonably write a semantically identical raw parameterized `IN`/`NOT IN` subquery and fail solely because the hidden test grades unstated formatting."
+ }
 }

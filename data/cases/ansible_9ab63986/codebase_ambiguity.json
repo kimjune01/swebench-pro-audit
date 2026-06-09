@@ -24,5 +24,39 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": true
+ "convergence_corroborated": true,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": true,
+   "reading_A": "`timeout` is a positive-duration limit or null/unset; `0` is not a meaningful maximum wait for mount information gathering, so a module may reject it as invalid and require a positive number or null.",
+   "reading_B": "`timeout` is an optional float maximum in seconds; `0` is a valid float bound meaning zero seconds of waiting, so the module should accept it and apply the configured `on_timeout` behavior immediately or perform no wait.",
+   "both_survive_expert_review": "Yes. The prose says only 'Optional float for the maximum time in seconds' and that behavior 'upon a timeout' is controlled by `on_timeout`; it never states that the float must be positive, nonzero, or that zero is forbidden. A positive-only validation is professionally defensible for a wait duration, but accepting zero as a defined zero-second timeout is also professionally defensible.",
+   "unselecting_prose_quote": "- The information gathering process must be configurable with a `timeout` parameter, and the module's behavior upon a timeout must be controllable via an `on_timeout` parameter, supporting actions to `error`, `warn`, or `ignore`.\n\n- `timeout`: Optional float for the maximum time in seconds to wait for mount information gathering.\n- `on_timeout`: Optional string (`error`, `warn`, or `ignore`) defining the action on timeout.",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "Treatment of a user-supplied timeout value of zero in Ansible timeout controls is not uniform, and live non-test code contains comparable precedents where zero is accepted rather than rejected, with different defined meanings.",
+   "precedents": [
+    {
+     "path": "lib/ansible/cli/console.py",
+     "snippet": "if timeout < 0:\n                    display.error('The timeout must be greater than or equal to 1, use 0 to disable')\n                else:\n                    self.task_timeout = timeout",
+     "way": "zero timeout is accepted and explicitly means disabled/no task timeout"
+    },
+    {
+     "path": "lib/ansible/galaxy/api.py",
+     "snippet": "while timeout == 0 or (time.time() - start) < timeout:",
+     "way": "zero timeout is accepted and means wait indefinitely rather than fail"
+    },
+    {
+     "path": "lib/ansible/modules/wait_for.py",
+     "snippet": "end = start + datetime.timedelta(seconds=timeout)\n\n        while utcnow() < end:",
+     "way": "zero timeout is accepted by the module logic and produces an immediate no-wait deadline rather than argument validation failure"
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-both",
+  "why": "The hidden test pins `timeout: 0` as invalid: `test_invalid_timeout` expects `AnsibleFailJson` matching `argument 'timeout' must be a positive number or null`, and the gold implementation fails when `seconds <= 0`. The task prose never says the timeout must be positive or nonzero; it only calls it an optional float maximum wait and defines `on_timeout` behavior. Thus one reasonable expert can reject zero as not a positive wait duration, while another can accept zero as a valid zero-second timeout. The source receipts reinforce that accepting zero is not exotic in this codebase: multiple live Ansible timeout paths accept zero with defined behavior rather than validation failure."
+ }
 }

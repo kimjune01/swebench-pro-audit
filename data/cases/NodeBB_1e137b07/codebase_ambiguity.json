@@ -30,5 +30,44 @@
   }
  ],
  "ok": true,
- "convergence_corroborated": false
+ "convergence_corroborated": false,
+ "two_expert": {
+  "prose_plurality": {
+   "exists": false,
+   "reading_A": "Treat falsy non-array inputs such as false/null as an empty batch and return [].",
+   "reading_B": "Treat db.mget as typed only for keys: string[]; false/null are invalid inputs and need not be normalized.",
+   "both_survive_expert_review": "No. Reading A is a reasonable defensive implementation, but it is not licensed by the prose/interface alone because the interface explicitly specifies keys: string[] and never says falsy non-array inputs must be accepted. Reading B fully survives the prose.",
+   "unselecting_prose_quote": "Input: keys: string[] (An array of database keys to retrieve.)",
+   "test_pins": "A"
+  },
+  "source_plurality": {
+   "exists": true,
+   "same_decision": "Existing MongoDB database batch APIs make the same prose-silent choice differently: some normalize non-array/empty batch arguments to [], while other comparable batch-value getters assume an array and will fail on falsy non-array input when reading .length.",
+   "precedents": [
+    {
+     "path": "src/database/mongo/hash.js",
+     "snippet": "module.getObjectsFields = async function (keys, fields) {\n\t\tif (!Array.isArray(keys) || !keys.length) {\n\t\t\treturn [];\n\t\t}",
+     "way": "Lenient: non-array or empty batch input returns []."
+    },
+    {
+     "path": "src/database/mongo/sorted.js",
+     "snippet": "module.sortedSetsScore = async function (keys, value) {\n\t\tif (!Array.isArray(keys) || !keys.length) {\n\t\t\treturn [];\n\t\t}",
+     "way": "Lenient: non-array or empty batch input returns []."
+    },
+    {
+     "path": "src/database/mongo/sorted.js",
+     "snippet": "module.sortedSetScores = async function (key, values) {\n\t\tif (!key) {\n\t\t\treturn null;\n\t\t}\n\t\tif (!values.length) {\n\t\t\treturn [];\n\t\t}",
+     "way": "Strict/unguarded: falsy non-array batch values are not normalized and will throw on .length."
+    },
+    {
+     "path": "src/database/mongo/sorted.js",
+     "snippet": "module.isSortedSetMembers = async function (key, values) {\n\t\tif (!key) {\n\t\t\treturn;\n\t\t}\n\t\tif (!values.length) {\n\t\t\treturn [];\n\t\t}",
+     "way": "Strict/unguarded: falsy non-array batch values are not normalized and will throw on .length."
+    }
+   ]
+  },
+  "two_expert_split": true,
+  "verdict": "ambiguous-source",
+  "why": "The prose does not require accepting false/null for db.mget because it specifies keys: string[]. However, the base code already has live, comparable database batch getters that disagree on this exact defensive-normalization choice. One expert could implement db.mget with the lenient Array.isArray guard used by getObjectsFields/sortedSetsScore and pass the hidden test. Another could implement the typed array contract and preserve the strict/unguarded convention used by sortedSetScores/isSortedSetMembers, failing only the hidden false/null assertions. Both are professionally reasonable from source precedent, so the hidden test grades an unstated source-convention choice."
+ }
 }

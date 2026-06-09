@@ -13,17 +13,18 @@ Verdicts are mechanical and re-derivable from committed receipts. The **screen**
 | &nbsp;&nbsp;├─ **airtight** (constant absent from prose **and** codebase, grep-certified) | 30 | 4% | **YES — mechanical spine** |
 | &nbsp;&nbsp;├─ **prose-affirmative, graded-patch** (R2 both raters call faithful, bench fails it) | 5 | 1% | **YES — mechanical spine** |
 | &nbsp;&nbsp;├─ **prose-affirmative, hand-verified** (tutao) | 1 | 0% | **YES — mechanical spine** |
-| &nbsp;&nbsp;├─ **codebase-plural** (≥2 live coexisting conventions, prose silent) | 18 | 2% | **YES — under the two-precedent rule** |
+| &nbsp;&nbsp;├─ **two-expert split** (prose and/or source plurality; survived hostile refutation) | 29 | 4% | **YES — two-model adversarial (codex builds, opus refutes)** |
 | &nbsp;&nbsp;├─ prose-affirmative, codex-proposed (gate/graded-patch pending or not-clean) | 48 | 7% | NO — raters / graded-patch pending |
-| &nbsp;&nbsp;└─ codebase / borderline (no 2 comparable live precedents found) | 148 | 20% | NO — raters-pending |
+| &nbsp;&nbsp;└─ codebase / borderline (no 2 comparable live precedents found) | 137 | 19% | NO — raters-pending |
 
 ## Claimable now — two bars
 
 - **Mechanical spine (no methodological buy-in): 36 of 728 (4.9%)** — 30 airtight (grep) + 5 graded-patch (R2 both-rater-faithful + bench-failed) + 1 hand-verified. A hostile reader reproduces each from the committed gold+test+prose and has nothing to argue.
-- **Plus codebase-plural under the two-precedent rule: 18**, giving **54 total (7.4%)**. These cite ≥2 live, comparable, prose-silent coexisting conventions in the repo at base_commit (grep-verified, test/example/vendor/deprecated excluded). Defensible, but rests on the stance that two live conventions + silent prose = underdetermined — a reader can contest it ('a solver would infer which binds').
+- **Plus two-expert splits, adversarially verified: 29**, giving **65 total (8.9%)**. Each is a case where two world-class engineers, given only the prose and the repo source, would both write a requirement-faithful implementation that the hidden test splits — proven on either axis (the prose licenses ≥2 faithful readings, or the codebase makes the same decision ≥2 live ways). codex constructs the existence proof; an independent cross-family refuter (Claude opus) tries to kill it; these survived. A symmetric advocate pass over the determined cases recovered none. Inter-rater κ=0.52 (moderate); all disagreement is skeptic-stricter, so this is the both-raters-agree floor. Rests on the two-expert standard — not assumption-free, but verified, not asserted.
 - **KNOWN_BAD: 3** gold-fails-grader defects, frozen pre-run; the full 731 sweep re-confirmed exactly these and found no new genuine defect ([`KNOWN_BAD.md`](KNOWN_BAD.md)).
+- **KNOWN_MISMATCH: ≥1** — a distinct defect class where the prose describes one feature but the gold+test grade another (`flipt-io_358e13bf`: prose asks for snapshot-cache deletion, gold/test grade a CSRF config default). Not underdetermination, not gold-fails-grader; surfaced incidentally, a systematic scan is a separate pass ([`KNOWN_MISMATCH.md`](KNOWN_MISMATCH.md)).
 
-Headline, honestly two-tier: **4.9% provably underdetermined with no assumptions; 7.4% under a reasonable solver model.** A further 196 screen-flagged hypotheses (27%) remain raters-pending and are NOT counted. A preregistered instrument with a proven spine, not a population rate.
+Headline, honestly two-tier: **4.9% provably underdetermined with no assumptions; 8.9% once the adversarially-verified two-expert splits are added.** A further 185 screen-flagged hypotheses (25%) remain raters-pending and are NOT counted. A preregistered instrument with a proven spine, not a population rate.
 
 Full per-case table: [`COVERAGE.md`](COVERAGE.md). Method: [`docs/ADMISSIBILITY-SPEC.md`](docs/ADMISSIBILITY-SPEC.md).
 

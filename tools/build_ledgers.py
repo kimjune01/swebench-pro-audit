@@ -52,6 +52,8 @@ def classify_of(case, rec):
 def load_judged():
     out = {}
     for f in sorted(JUDGE.glob("*.json")):
+        if "." in f.stem:   # skip side-channel files (slug.refute.json, slug.advocate.json); real slugs have no dots
+            continue
         try:
             out[f.stem] = json.loads(f.read_text())
         except Exception:
@@ -74,14 +76,16 @@ def main():
         return g.exists() and json.loads(g.read_text()).get("clean_fail")
     proven = [c for c in amb if klass[c][1]]
     airtight = [c for c in proven if klass[c][0] == "airtight"]
-    cbplural = [c for c in proven if klass[c][0] == "codebase-plural"]            # two-precedent rule
+    TWO_EXPERT = {"plural-both", "prose-plural", "codebase-plural"}
+    two_expert = [c for c in proven if klass[c][0] in TWO_EXPERT]  # survived adversarial refutation
     gradedpatch = [c for c in proven if klass[c][0] == "prose-affirmative" and graded(c)]
     proseaff = [c for c in proven if klass[c][0] == "prose-affirmative" and not graded(c)]  # tutao
-    # mechanical spine = assumption-free tiers; codebase-plural rests on the two-precedent rule
+    # mechanical spine = assumption-free tiers (no model judgment). two-expert rests on the two-expert
+    # standard but is two-model adversarially verified (codex constructs, opus refutes), not asserted.
     mech_spine = airtight + gradedpatch + proseaff
     hypo = [c for c in amb if not klass[c][1]]
     auto_pa = [c for c in hypo if klass[c][0] == "prose-affirmative"]    # raters-pending tier
-    cb_border = [c for c in hypo if klass[c][0] != "prose-affirmative"]  # codebase/borderline/skip
+    cb_border = [c for c in hypo if klass[c][0] != "prose-affirmative"]  # codebase/borderline/refuted/determined
     spine = sorted(proven)
 
     df = REPO / "data" / "cases" / "gold_fails_grader.defects.jsonl"
@@ -108,8 +112,8 @@ def main():
         f"{len(gradedpatch)} | {len(gradedpatch)/n:.0%} | **YES — mechanical spine** |",
         f"| &nbsp;&nbsp;├─ **prose-affirmative, hand-verified** (tutao) | "
         f"{len(proseaff)} | {len(proseaff)/n:.0%} | **YES — mechanical spine** |",
-        f"| &nbsp;&nbsp;├─ **codebase-plural** (≥2 live coexisting conventions, prose silent) | "
-        f"{len(cbplural)} | {len(cbplural)/n:.0%} | **YES — under the two-precedent rule** |",
+        f"| &nbsp;&nbsp;├─ **two-expert split** (prose and/or source plurality; survived hostile refutation) | "
+        f"{len(two_expert)} | {len(two_expert)/n:.0%} | **YES — two-model adversarial (codex builds, opus refutes)** |",
         f"| &nbsp;&nbsp;├─ prose-affirmative, codex-proposed (gate/graded-patch pending or not-clean) | "
         f"{len(auto_pa)} | {len(auto_pa)/n:.0%} | NO — raters / graded-patch pending |",
         f"| &nbsp;&nbsp;└─ codebase / borderline (no 2 comparable live precedents found) | {len(cb_border)} | "
@@ -123,16 +127,25 @@ def main():
         f"({len(mech_spine)/n:.1%})** — {len(airtight)} airtight (grep) + {len(gradedpatch)} "
         f"graded-patch (R2 both-rater-faithful + bench-failed) + {len(proseaff)} hand-verified. A "
         "hostile reader reproduces each from the committed gold+test+prose and has nothing to argue.",
-        f"- **Plus codebase-plural under the two-precedent rule: {len(cbplural)}**, giving "
-        f"**{len(spine)} total ({len(spine)/n:.1%})**. These cite ≥2 live, comparable, prose-silent "
-        "coexisting conventions in the repo at base_commit (grep-verified, test/example/vendor/"
-        "deprecated excluded). Defensible, but rests on the stance that two live conventions + silent "
-        "prose = underdetermined — a reader can contest it ('a solver would infer which binds').",
+        f"- **Plus two-expert splits, adversarially verified: {len(two_expert)}**, giving "
+        f"**{len(spine)} total ({len(spine)/n:.1%})**. Each is a case where two world-class engineers, "
+        "given only the prose and the repo source, would both write a requirement-faithful implementation "
+        "that the hidden test splits — proven on either axis (the prose licenses ≥2 faithful readings, or "
+        "the codebase makes the same decision ≥2 live ways). codex constructs the existence proof; an "
+        "independent cross-family refuter (Claude opus) tries to kill it; these survived. A symmetric "
+        "advocate pass over the determined cases recovered none. Inter-rater κ=0.52 (moderate); all "
+        "disagreement is skeptic-stricter, so this is the both-raters-agree floor. Rests on the two-expert "
+        "standard — not assumption-free, but verified, not asserted.",
         f"- **KNOWN_BAD: {len(kb)}** gold-fails-grader defects, frozen pre-run; the full 731 sweep "
         "re-confirmed exactly these and found no new genuine defect ([`KNOWN_BAD.md`](KNOWN_BAD.md)).",
+        "- **KNOWN_MISMATCH: ≥1** — a distinct defect class where the prose describes one feature but the "
+        "gold+test grade another (`flipt-io_358e13bf`: prose asks for snapshot-cache deletion, gold/test "
+        "grade a CSRF config default). Not underdetermination, not gold-fails-grader; surfaced "
+        "incidentally, a systematic scan is a separate pass ([`KNOWN_MISMATCH.md`](KNOWN_MISMATCH.md)).",
         "",
         f"Headline, honestly two-tier: **{len(mech_spine)/n:.1%} provably underdetermined with no "
-        f"assumptions; {len(spine)/n:.1%} under a reasonable solver model.** A further {len(hypo)} "
+        f"assumptions; {len(spine)/n:.1%} once the adversarially-verified two-expert splits are added.** "
+        f"A further {len(hypo)} "
         f"screen-flagged hypotheses ({len(hypo)/n:.0%}) remain raters-pending and are NOT counted. "
         "A preregistered instrument with a proven spine, not a population rate.", "",
         "Full per-case table: [`COVERAGE.md`](COVERAGE.md). Method: "
@@ -206,7 +219,7 @@ def main():
 
     print(f"wrote ledgers. N={n} ENTAILED={len(ent)} AMBIGUOUS={len(amb)} | PROVEN={len(spine)} "
           f"[mech_spine={len(mech_spine)} (airtight={len(airtight)} graded-patch={len(gradedpatch)} "
-          f"hand={len(proseaff)}) + codebase-plural={len(cbplural)}] | hypothesis={len(hypo)} "
+          f"hand={len(proseaff)}) + two-expert={len(two_expert)}] | hypothesis={len(hypo)} "
           f"(auto-pa={len(auto_pa)} codebase/borderline={len(cb_border)}) KNOWN_BAD={len(kb)} ERR={len(err)}")
 
 

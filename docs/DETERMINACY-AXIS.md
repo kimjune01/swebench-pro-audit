@@ -72,6 +72,26 @@ one that fixed nothing. Recommended instead, per instance:
 
 computable today from the grader's per-test `_output.json`. It decouples the determinate majority from the
 divergent minority — a divergent assertion costs only its `1/N` share instead of the whole instance.
+
+**What the float means: residual maintainer work.** `1 − score` is the fraction of the task still left for
+a repo maintainer to reach a mergeable state — which is precisely the production value a coding agent
+provides (distance closed toward done), and exactly what a binary `resolved` discards. Pass/fail only
+answers "did you hand me a zero-touch merge-ready PR"; a maintainer actually feels the *marginal* effort to
+finish what the agent started. And the residual is heterogeneous: a determinate gap leaves *implementation*
+work, but a **divergent** gap leaves only a one-line *clarification* ("I wanted 404 here") — the cheapest
+residual there is. Binary scores that 11/12-done, needs-one-clarification PR identically to garbage; the
+float scores it as the near-complete work it is. (Caveat: a regression is residual work too, arguably
+costlier than an un-done behavior — the `−r` term penalizes it only linearly; a maintainer-effort-faithful
+variant would weight regressions heavier.)
+
+**No premium for 100%.** `1 − score` is a *lower bound* on residual work — it counts only what the existing
+tests can see. A careful maintainer reviews even a fully-passing PR for what the suite never checked
+(design, security, untested edges), so a perfect score means "no test caught anything," not "correct" or
+"merge-ready, zero touch." The held-out suite is a partial oracle; the maintainer is the fuller one. This
+is itself an argument for the float over binary: pass/fail invents a discontinuity at 100% — worthless
+below, done at — that the maintainer's workflow does not contain. They review both the 11/12 and the 12/12;
+the only difference is how much they fix, which falls *continuously* with the residual. The float matches
+that gradient; the binary fabricates a finish line that isn't there.
 **Imperfect** (it weights all assertions equally and does not *resolve* the underdetermination — mitigation,
 not cure), but strictly **less** imperfect than binary. Canonical case: `qutebrowser-e34dfc68` passes
 233/248 and loses on a 15-case DNS matrix the prose never specifies — binary `0`, float ≈ the determinate

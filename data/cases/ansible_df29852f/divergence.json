@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_df29852f",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 35,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Accept singular and plural full-word units in the predefined mapping, such as megabyte and megabytes, kilobit and kilobits, with case-insensitive matching.",
+   "design_B": "Accept only the singular full-word units explicitly represented by the mapping, such as megabyte and kilobit, rejecting plural forms like megabytes and kilobits.",
+   "why_both_faithful": "The prose requires a predefined mapping supporting abbreviations and full words, but gives only examples and never specifies the complete valid unit vocabulary or whether plural full-word units are valid.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

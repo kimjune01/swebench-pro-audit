@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For unknown message types, `_onMessage` resolves without doing anything after parsing the `<type>;<jsonPayload>` envelope.",
+  "design_B": "For unknown message types, `_onMessage` rejects or throws an error after parsing the envelope.",
+  "why_both_faithful": "The prose specifies required behavior for `entityUpdate` and `unreadCounterUpdate` but gives no required behavior for any other message type.",
+  "selecting_clause": null
+}

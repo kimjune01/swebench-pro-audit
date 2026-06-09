@@ -1,0 +1,24 @@
+{
+ "slug": "protonmail_01b4c826",
+ "breadth": {
+  "files": 15,
+  "hunks": 36,
+  "loc": 106,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": null
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Render the in-sidebar appsDropdown immediately before the logo in the Sidebar\u2019s top branding area.",
+   "design_B": "Render the in-sidebar appsDropdown immediately after the logo in the Sidebar\u2019s top branding area.",
+   "why_both_faithful": "The prose requires appsDropdown to be relocated into the Sidebar next to the logo, but never specifies whether it appears before or after the logo.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

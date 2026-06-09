@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When a resolved orphan path escapes the uploads directory after normalization, skip that candidate and continue deleting the rest.",
+  "design_B": "When a resolved orphan path escapes the uploads directory after normalization, throw an error and abort the cleanOrphans invocation.",
+  "why_both_faithful": "The prose requires path resolution to ensure files remain within the uploads directory, but does not specify whether violating candidates should be ignored or treated as fatal.",
+  "selecting_clause": null
+}

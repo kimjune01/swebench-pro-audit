@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_189d41a9",
+ "breadth": {
+  "files": 7,
+  "hunks": 25,
+  "loc": 414,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define perMessage=4, perRole=1, and perRequest=3, then use those constants in the specified prompt and completion formulas.",
+   "design_B": "Define perMessage=3, perRole=1, and perRequest=3, then use those constants in the same specified formulas.",
+   "why_both_faithful": "The prose requires applying constants named perMessage, perRole, and perRequest but never states their numeric values.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

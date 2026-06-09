@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_9d9f3a19",
+ "breadth": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 251,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Read the current host from os.environ.get(\"HOSTNAME\", ...) \u2014 the conventional Unix variable set by the shell/container.",
+   "design_B": "Read the current host from a different environment key such as os.environ.get(\"HOST\", ...) (or a custom key like \"OL_HOSTNAME\"), still via os.environ.get as required.",
+   "why_both_faithful": "The requirement only mandates the host be read via os.environ.get(...) and never names the specific environment key, so any key choice satisfies the prose while a test that sets one particular variable would pass only the matching implementation.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Read the current hostname with os.environ.get(\"HOSTNAME\") inside limit_server before matching allowed_hosts.",
+   "design_B": "Read the current hostname with os.environ.get(\"SERVER_HOSTNAME\") or another deployment-specific environment key inside limit_server before matching allowed_hosts.",
+   "why_both_faithful": "The prose requires using os.environ.get(...) for the current host name but never specifies which environment variable name must be queried.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

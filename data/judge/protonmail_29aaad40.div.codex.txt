@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Abort the recovery immediately on the first loading, moving, or deleting error, mark the overall recovery FAILED, and set failed/unrecovered counts to all still-targeted items not yet processed.",
+  "design_B": "Continue best-effort processing after a loading, moving, or deleting error where possible, count only the items affected by each failed action as failed/unrecovered, and mark the overall recovery FAILED at the end because at least one core action errored.",
+  "why_both_faithful": "The prose requires errors to surface as FAILED and counts to reflect unprocessed items, but does not say whether the flow must stop at the first core-action error or continue processing unaffected items.",
+  "selecting_clause": null
+}

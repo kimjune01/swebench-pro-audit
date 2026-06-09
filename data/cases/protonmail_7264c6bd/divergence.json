@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_7264c6bd",
+ "breadth": {
+  "files": 10,
+  "hunks": 14,
+  "loc": 44,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Functions that retrieve cached link data, including `getCachedChildren`, `getCachedTrashed`, `getCachedSharedByLink`, and `getCachedLinks`, must return an object `{ links: DecryptedLink[]; isDecrypting: boolean }`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

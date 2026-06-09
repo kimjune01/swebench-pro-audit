@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_19c57688",
+ "breadth": {
+  "files": 6,
+  "hunks": 29,
+  "loc": 366,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement the fallback cache as a singleflight-style memoizer: a mutex-guarded map from key to a shared entry holding a channel/sync.Once; concurrent callers for the same key block on that entry, the loader runs in a detached goroutine so caller-context cancellation only unblocks the waiter while loading completes and stores the result, and a time.AfterFunc per entry deletes it after the TTL.",
+   "design_B": "Implement it atop an off-the-shelf expiring cache (e.g. a ttlcache/utils.FnCache with a background janitor goroutine that periodically sweeps expired entries) where each Get takes a per-key lock, computes on miss, and stores with an expiry timestamp; cleanup is periodic rather than per-entry timers, and in-flight loads are tracked via a separate in-progress set.",
+   "why_both_faithful": "The prose specifies the observable behavior (TTL expiry, per-key memoization, blocking concurrent calls, detached loading on cancellation, cleanup to avoid leaks) but names no concrete data structure, eviction mechanism, or cache type, so both a hand-rolled singleflight timer scheme and a janitor-swept expiring cache satisfy every requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Cache only successful resource loads: if the backend call returns an error, do not store it, so the next request after the in-flight call completes retries the backend immediately.",
+   "design_B": "Cache the full call result, including errors, for the TTL: repeated requests for the same key within the TTL receive the same error without another backend call.",
+   "why_both_faithful": "The prose says to memoize and return the same result within the TTL, but does not specify whether a failed load is a cacheable result or whether only successfully loaded resources should be stored.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

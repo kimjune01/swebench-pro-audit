@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_3f9771dd",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 39,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Boundary behavior must be explicit: if `lastSubscriptionEnd` is exactly one calendar month prior to the current moment, the user is considered to have met the \u201cat least one month\u201d condition."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

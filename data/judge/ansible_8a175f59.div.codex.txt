@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "In yum.py, when either rpm or yum bindings are missing, probe candidate interpreters for the specific missing module name first, respawning as soon as an interpreter can import that missing module.",
+  "design_B": "In yum.py, when either rpm or yum bindings are missing, probe candidate interpreters with a combined check that requires both rpm and yum imports to succeed before respawning.",
+  "why_both_faithful": "The prose says the required rpm or yum bindings are not importable and to attempt respawn as in dnf, but never specifies whether compatibility means importing the first missing binding or the full rpm+yum dependency set.",
+  "selecting_clause": null
+}

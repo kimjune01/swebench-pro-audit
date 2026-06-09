@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Update openlibrary/solr/update_work.py so the indexer calls data_provider.get_work_reading_log(w[\"key\"]) while building each work document and merges the returned mapping into the document using doc.update when a result is provided."}

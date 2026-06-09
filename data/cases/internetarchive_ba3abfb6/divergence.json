@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_ba3abfb6",
+ "breadth": {
+  "files": 3,
+  "hunks": 10,
+  "loc": 48,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement publication_year by extracting the first 4-digit year appearing anywhere in publish_date and validate against that year.",
+   "design_B": "Implement publication_year by parsing only recognized common date shapes and, for strings with multiple 4-digit years such as ranges, selecting the final year or returning None if the shape is unsupported.",
+   "why_both_faithful": "The prose requires extracting a 4-digit year from common date formats but does not define which formats are common, how to handle multiple years, or whether to use regex extraction versus stricter parsing.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

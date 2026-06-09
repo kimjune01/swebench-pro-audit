@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "When the input string is empty (\"\"), the function returns an empty string (\"\")."
+}

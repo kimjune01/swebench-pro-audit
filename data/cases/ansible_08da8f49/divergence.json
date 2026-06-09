@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_08da8f49",
+ "breadth": {
+  "files": 5,
+  "hunks": 15,
+  "loc": 269,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Build the multipart body using Python's stdlib email/MIME machinery (e.g. email.mime.multipart / email.generator), letting the library emit headers, encode field values, and format part separators per its conventions.",
+   "design_B": "Manually construct the body by writing each part's `Content-Disposition`/`Content-Type` headers and CRLF-delimited boundaries directly to a buffer with a hand-rolled boundary token and field ordering.",
+   "why_both_faithful": "The prose only requires that prepare_multipart produce a valid multipart/form-data body+Content-Type with the stated metadata, MIME fallback, and error checks, but never specifies the exact serialization mechanism, header casing/ordering, boundary token derivation, or part formatting, so both produce conformant-yet-byte-divergent output.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For a Mapping field that has content and mime_type but no filename, serialize it as a non-file form part: Content-Disposition only has name, and Content-Type uses mime_type.",
+   "design_B": "For a Mapping field that has content and mime_type but no filename, serialize it as a file-like part by adding a filename derived from the field name while using mime_type.",
+   "why_both_faithful": "The prose allows Mapping values with content but no filename and requires mime_type support, but never specifies whether such parts must omit filename or synthesize one.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

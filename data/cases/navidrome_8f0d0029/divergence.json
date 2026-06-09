@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_8f0d0029",
+ "breadth": {
+  "files": 7,
+  "hunks": 19,
+  "loc": 147,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "DecodeArtworkID treats a JWT with a missing or non-string `id` claim as an invalid JWT error after `jwt.Validate(...WithRequiredClaim(\"id\"))` fails or claim extraction fails.",
+   "design_B": "DecodeArtworkID treats a JWT with a missing `id` claim as a distinct missing-claim error and a non-string `id` claim as a distinct malformed-id/type error, while reserving `invalid JWT` for malformed or unauthorized tokens.",
+   "why_both_faithful": "The prose requires validation and says missing `id` claims or incorrect types should return appropriate errors, but only fixes exact behavior for malformed tokens and empty decoded IDs.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_2ad10ffe",
+ "breadth": {
+  "files": 1,
+  "hunks": 19,
+  "loc": 233,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Class: BaseStrategy ... Public Methods: get_current_hostname(self) -> str ... CommandStrategy ... Attributes: COMMAND (str): default command 'hostname' ... FileStrategy ... FILE (str): path to the hostname configuration file (default '/etc/hostname')"
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Reject hostnames longer than 64 characters, treating 64 as the allowed hostname length limit.",
+   "design_B": "Reject hostnames longer than 253 characters, treating 253 as the allowed fully-qualified hostname length limit.",
+   "why_both_faithful": "The prose requires failure for invalid hostnames exceeding allowed length restrictions but never specifies which hostname length rule to enforce.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

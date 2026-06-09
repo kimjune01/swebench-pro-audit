@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The list reload logic should be guarded by a check ensuring that no backend actions are currently pending; `pendingActions` should equal zero."}

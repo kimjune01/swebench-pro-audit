@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_ac1ca40f",
+ "breadth": {
+  "files": 5,
+  "hunks": 18,
+  "loc": 49,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "A distinct marker (`Sentinel`) must be used to represent the absence of a `manifest` configuration, so that this case is not confused with a truthy or falsy dictionary value."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

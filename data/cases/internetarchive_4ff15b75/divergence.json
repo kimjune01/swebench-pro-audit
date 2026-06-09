@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_4ff15b75",
+ "breadth": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 133,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "read_authors must produce a single structured authors array and must never emit the legacy contributions key anywhere in the output JSON."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

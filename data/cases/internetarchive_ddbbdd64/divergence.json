@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_ddbbdd64",
+ "breadth": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 73,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Build db_name by concatenating the author's name with a space and the chosen date string, preferring birth_date/death_date (e.g. 'John Smith 1974-1975') and falling back to the general 'date' field, with name-only when no dates exist.",
+   "design_B": "Build db_name by appending dates in a parenthesized/different-separator form (e.g. 'John Smith (1974)') or by selecting only the general 'date' field over birth/death, again name-only when no dates exist.",
+   "why_both_faithful": "The prose only says the identifier 'concatenates the author\u2019s name with date information' and uses 'birth, death or general date,' without fixing the separator, the date-field precedence, or the exact rendered string, so multiple concatenation formats all satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Set each author's base identifier field to `name + ' (' + birth_date + '-' + death_date + ')'`, falling back to a general `date` field and to just `name` when no dates exist.",
+   "design_B": "Set each author's base identifier field to a space-joined string such as `name + ' ' + birth_date + ' ' + death_date`, falling back to a general `date` field and to just `name` when no dates exist.",
+   "why_both_faithful": "The prose requires combining the name with available dates but never specifies the exact string format, separator, ordering rules among date fields, or canonical field name beyond the conceptual base identifier.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_b8394b3b",
+ "breadth": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 101,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For the local cluster, create the missing Database CA by copying the host CA's TLS certificate and TLS private key; for trusted clusters, copy only public TLS certificate data.",
+   "design_B": "For every cluster including the local cluster, create the missing Database CA by copying only public TLS certificate data from the host CA, never copying any private key.",
+   "why_both_faithful": "The prose explicitly forbids private keys only for trusted clusters, but never states whether the local cluster's copied TLS portion must include or exclude the TLS private key.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

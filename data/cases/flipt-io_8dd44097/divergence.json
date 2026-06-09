@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_8dd44097",
+ "breadth": {
+  "files": 8,
+  "hunks": 32,
+  "loc": 360,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Hold the CredentialsStore mutex across the cache miss/expired check, AWS token request, token extraction, and cache update, so concurrent cache misses for the same serverAddress are serialized and only one fresh token request is made.",
+   "design_B": "Lock only while reading or writing the cache, release the mutex before calling the AWS client and extracting the token, then re-lock to update the cache, so concurrent cache misses may each make their own fresh token request.",
+   "why_both_faithful": "The prose requires all cache access to be mutex-guarded and expired entries to trigger a fresh token request, but never states whether the mutex must be held during the client call or whether concurrent misses must be coalesced.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

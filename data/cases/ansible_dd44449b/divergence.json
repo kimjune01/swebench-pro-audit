@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_dd44449b",
+ "breadth": {
+  "files": 2,
+  "hunks": 9,
+  "loc": 163,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "On stdin write failure, call _winrm_get_command_output(..., try_once=true) once; if that single raw output request does not show command completion, immediately raise a clear timeout/connection exception.",
+   "design_B": "On stdin write failure, call _winrm_get_command_output(..., try_once=true) as one bounded retrieval attempt that may wait until the configured timeout expires before raising if output is still incomplete.",
+   "why_both_faithful": "The prose requires a one-attempt output retrieval with timeout after stdin write failure, but does not specify whether 'try once' means one SOAP/output poll or one timeout-bounded retrieval operation.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

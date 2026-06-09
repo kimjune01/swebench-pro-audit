@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_409914bf",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 38,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When body data is present, prefer the body exclusively; the query string must not be merged."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

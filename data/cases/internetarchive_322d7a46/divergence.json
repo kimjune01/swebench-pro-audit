@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_322d7a46",
+ "breadth": {
+  "files": 4,
+  "hunks": 16,
+  "loc": 419,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement solr_update partial-failure handling by recursively splitting failed batches, retrying sub-batches, applying successful documents, and raising only for isolated bad documents.",
+   "design_B": "Implement solr_update partial-failure handling by treating any batch partial failure as failure of the entire update request, clearing no operations and raising/logging a single batch-level error.",
+   "why_both_faithful": "The prose requires Solr updates to handle partial failures but never specifies whether partial success should be committed, isolated, retried, or rejected atomically.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

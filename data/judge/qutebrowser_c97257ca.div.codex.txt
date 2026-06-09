@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Strip whitespace around the whole string and each comma-separated component, so inputs like \" 13, -42 \" parse successfully to QPoint(13, -42).",
+  "design_B": "Require the strict \"x,y\" syntax with no surrounding or component whitespace, so inputs like \" 13, -42 \" raise ValueError with a clear expected-format message.",
+  "why_both_faithful": "The prose says to handle whitespace gracefully but never specifies whether whitespace-containing coordinate strings must be accepted or rejected.",
+  "selecting_clause": null
+}

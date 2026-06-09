@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_ea02952f",
+ "breadth": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 40,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Reload the backend user record only when WebSessionReq.ReloadUser is true; otherwise renew from the cached session user data.",
+   "design_B": "Always reload the latest backend user record on every session renewal, regardless of the ReloadUser flag.",
+   "why_both_faithful": "The prose requires ReloadUser:true to refresh traits, but never states that ReloadUser:false must preserve cached traits.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

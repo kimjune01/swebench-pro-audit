@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Boundary behavior must be explicit: if `lastSubscriptionEnd` is exactly one calendar month prior to the current moment, the user is considered to have met the “at least one month” condition."
+}

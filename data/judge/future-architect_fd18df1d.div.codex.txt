@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Add end‑of‑life metadata for Ubuntu 20.04 that includes an extended support end date of 1 April 2030"}

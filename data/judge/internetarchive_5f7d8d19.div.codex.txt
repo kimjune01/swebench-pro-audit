@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Classify ASINs only when the normalized input is a 10-character code beginning with B/b; otherwise treat the input as an ISBN candidate.",
+  "design_B": "Classify any non-ISBN 10-character alphanumeric identifier as an ASIN and uppercase it, even if it does not begin with B.",
+  "why_both_faithful": "The prose says ASINs are Amazon codes that begin with B, but the requirements later only validate ASINs by length 10 and require any ASIN input to be uppercased, without explicitly saying whether non-B 10-character ASIN-like inputs must be rejected.",
+  "selecting_clause": null
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_46d7d325",
+ "breadth": {
+  "files": 3,
+  "hunks": 11,
+  "loc": 75,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Calling `autocomplete.direct_get(fq=...)` with any iterable of strings must result in the Solr call receiving an immutable sequence whose contents match the provided iterable in the same order."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

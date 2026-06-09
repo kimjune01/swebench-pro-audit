@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Classify a privilege such as `search:content` as `viewing` in the privilege map and expose that type through `labelData`, `types`, `data-type`, filtering, and copy logic.",
+  "design_B": "Classify the same privilege, `search:content`, as `other` in the privilege map and expose that type through `labelData`, `types`, `data-type`, filtering, and copy logic.",
+  "why_both_faithful": "The prose requires every privilege to have one of the allowed type categories, but does not specify the exact category assignment for each concrete privilege key.",
+  "selecting_clause": null
+}

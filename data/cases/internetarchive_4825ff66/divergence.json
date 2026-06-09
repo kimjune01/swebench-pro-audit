@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_4825ff66",
+ "breadth": {
+  "files": 5,
+  "hunks": 15,
+  "loc": 233,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When `isbn_10` is a non-empty list, choose only the first ISBN-10 as the augmentation lookup identifier; if that lookup finds no staged item, do not try other ISBN-10 values or ASINs.",
+   "design_B": "When `isbn_10` is a non-empty list, try each ISBN-10 value until a staged item is found; only if no ISBN-10 is available at all, use a non-ISBN Amazon ASIN.",
+   "why_both_faithful": "The prose requires preferring `isbn_10` over ASIN but does not specify how to choose among multiple ISBN-10 values or whether to retry alternate ISBN-10s after a miss.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_847d820a",
+ "breadth": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 244,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "parseSSHKeygen returns the key type and key value from the first valid non-comment known_hosts entry in the input.",
+   "design_B": "parseSSHKeygen returns the key type and key value from the last valid non-comment known_hosts entry in the input.",
+   "why_both_faithful": "The prose requires returning a valid key type and key while skipping comments/empty lines, but never specifies which valid entry to choose when the input contains more than one.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

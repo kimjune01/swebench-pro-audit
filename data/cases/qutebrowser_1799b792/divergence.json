@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_1799b792",
+ "breadth": {
+  "files": 2,
+  "hunks": 10,
+  "loc": 45,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Store the global pattern=None entry in _vmap in raw insertion order, and implement iter(values) by returning _vmap.values(), so if the global is added after patterned entries it appears after them.",
+   "design_B": "Store/reorder pattern=None first in _vmap regardless of when it was inserted, so iter(values), repr(values), and str(values) always list the global value before patterned entries.",
+   "why_both_faithful": "The prose requires _vmap/iter to reflect insertion order but also requires normal iteration to list the global value first, without saying how to reconcile those when the global value is inserted after specific values.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

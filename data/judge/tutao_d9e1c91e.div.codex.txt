@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Have LoginController.createSession return a new wrapper object like { credentials, databaseKey }, with credentials storage saving the database key as a separate field alongside credentials.",
+  "design_B": "Extend the existing Credentials object/value to carry the database key, so createSession still returns a credentials-shaped session object containing both credentials fields and database key data.",
+  "why_both_faithful": "The prose requires returning a session data object with credentials and database key information, but does not specify whether that data must be represented as a wrapper object or by extending the existing credentials object.",
+  "selecting_clause": null
+}

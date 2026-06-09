@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat an explicitly configured but empty `ca_cert_bytes` or empty `ca_cert_path` as unset, so it does not conflict with the other CA option and falls through according to the precedence rules.",
+  "design_B": "Treat an explicitly configured empty `ca_cert_bytes` or empty `ca_cert_path` as set, so setting it alongside the other CA option is invalid and setting it alone attempts to use/read it.",
+  "why_both_faithful": "The prose says the options are invalid if both are set/defined/exists, but never specifies whether empty byte content or an empty path counts as present.",
+  "selecting_clause": null
+}

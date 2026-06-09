@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_03a98f4d",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 32,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Queued posts must have their `data.tid` field updated if their topic is merged into another, with the update persisted using `db.setObjectBulk` and the relevant Redis key pattern."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

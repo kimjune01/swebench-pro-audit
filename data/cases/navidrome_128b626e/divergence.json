@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_128b626e",
+ "breadth": {
+  "files": 9,
+  "hunks": 24,
+  "loc": 110,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define GetOrPlaceholder on Artwork as GetOrPlaceholder(ctx context.Context, id string, size int) and convert the URL/Subsonic string into a model.ArtworkID internally.",
+   "design_B": "Define GetOrPlaceholder on Artwork as GetOrPlaceholder(ctx context.Context, id model.ArtworkID, size int) and require callers to pass typed artwork IDs throughout.",
+   "why_both_faithful": "The prose explicitly specifies both a plain string ID signature and a model.ArtworkID signature, while also saying public artwork-ID methods should use model.ArtworkID.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

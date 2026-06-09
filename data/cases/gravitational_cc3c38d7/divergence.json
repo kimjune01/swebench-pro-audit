@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_cc3c38d7",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 39,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The proxy host used for SNI must be taken from the current profile\u2019s proxy address to remain consistent with the logged-in cluster context."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

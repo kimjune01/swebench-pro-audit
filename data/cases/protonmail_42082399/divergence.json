@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_42082399",
+ "breadth": {
+  "files": 32,
+  "hunks": 110,
+  "loc": 1011,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Map the user's time zone to a country (via a tz\u2192country code lookup), find directory calendars whose CountryCode matches, then disambiguate among them by browser language; treat 'a matching holidays calendar already exists' as the user already subscribing to the calendar for that resolved country.",
+   "design_B": "Match directory calendars whose own associated time-zone list contains the user's IANA time zone string directly (no country lookup), break ties by language tag, and treat 'already exists' as exact directory-calendar-ID membership in the user's calendars.",
+   "why_both_faithful": "The prose says to preselect/suggest 'by time zone and then language' and to skip when a matching calendar exists, but never specifies how a time zone resolves to a directory calendar or what counts as a 'match', so both the country-lookup and direct-tz-field strategies satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When several holidays calendars match the user's time zone, choose the first calendar whose language matches the first browser language tag, falling back through browser language tags in order.",
+   "design_B": "When several holidays calendars match the user's time zone, choose the directory's default calendar for that country first, and only use browser language tags to populate/select a language when the country has multiple language options.",
+   "why_both_faithful": "The prose requires selection based on time zone and browser language tags, but does not specify the tie-breaking algorithm when multiple calendars match the time zone and language inputs.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat `conf.aliases['a'].propname` as referencing the full dotted path `aliases.a.propname` and validate that exact key.",
+  "design_B": "Treat `conf.aliases['a'].propname` as referencing the configuration option `aliases`, ignoring lookups/attributes on the option value after the option name is complete.",
+  "why_both_faithful": "The prose requires support for dictionary lookups but never specifies whether lookup/property components after a config option are part of the configuration key or merely access into that option's runtime value.",
+  "selecting_clause": null
+}

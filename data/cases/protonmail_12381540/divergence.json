@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_12381540",
+ "breadth": {
+  "files": 13,
+  "hunks": 30,
+  "loc": 422,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For a below-minimum amount, render a warning alert explaining the minimum Bitcoin amount and no QR/details.",
+   "design_B": "For a below-minimum amount, skip initialization and render neither QR/details nor any alert, leaving the component blank outside any parent UI.",
+   "why_both_faithful": "The prose explicitly requires skipped initialization and no QR/details below the minimum, but only explicitly mandates a warning alert for amounts above the maximum while separately giving a broader invalid-amount warning expectation.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

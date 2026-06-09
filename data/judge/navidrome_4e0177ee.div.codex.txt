@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement (*Error).Error() as `fmt.Sprintf(\"lastfm error %d: %s\", e.Code, e.Message)`.",
+  "design_B": "Implement (*Error).Error() as `fmt.Sprintf(\"Last.fm API error: code=%d message=%q\", e.Code, e.Message)`.",
+  "why_both_faithful": "Both are formatted strings that describe the Last.fm error code and message, and the prose never specifies the exact required string format.",
+  "selecting_clause": null
+}

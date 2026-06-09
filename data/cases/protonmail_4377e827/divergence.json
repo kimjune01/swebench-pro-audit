@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_4377e827",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 37,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement rtlPlacement as middleware named \"rtlPlacement\" that stores the normalized value at data.rtlPlacement = getInvertedRTLPlacement(state.placement, detectedRTL).",
+   "design_B": "Implement rtlPlacement as middleware named \"rtlPlacement\" that stores the normalized value at data.placement = getInvertedRTLPlacement(state.placement, detectedRTL).",
+   "why_both_faithful": "The prose only says the middleware must provide an adjusted placement value through middleware data, but never specifies the middleware data key or exact shape.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

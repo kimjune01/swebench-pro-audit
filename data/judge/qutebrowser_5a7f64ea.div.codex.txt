@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Emit all_downloads_finished(0) synchronously during construction when the URL list is empty.",
+  "design_B": "For an empty URL list, defer all_downloads_finished(0) with a queued Qt call such as QTimer.singleShot(0, ...) so consumers can connect after construction.",
+  "why_both_faithful": "The prose requires emitting the appropriate completion signal for empty URL lists, but does not specify whether that emission must be synchronous or deferred.",
+  "selecting_clause": null
+}

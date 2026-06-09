@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_b6edc5e4",
+ "breadth": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 59,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use MkdirAll on the parent directory with permission 0755 and OpenFile with O_CREATE|O_WRONLY|O_APPEND and file mode 0644.",
+   "design_B": "Use MkdirAll on the parent directory with permission 0700 and OpenFile with O_CREATE|O_RDWR|O_APPEND and file mode 0600.",
+   "why_both_faithful": "The prose requires creating missing parent directories and opening/creating the logfile for append, but never specifies directory/file permissions or whether the opened append handle must be write-only versus read-write.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

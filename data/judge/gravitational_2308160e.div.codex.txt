@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Add a new Teleport configuration field for the top-backend-requests metric limit, defaulting it to 1000 when unset.",
+  "design_B": "Add a new command-line flag or environment-backed setting for the top-backend-requests metric limit, defaulting it to 1000 when unset.",
+  "why_both_faithful": "The prose requires the maximum count to be configurable and default to 1000, but does not specify the configuration surface, name, schema location, or precedence.",
+  "selecting_clause": null
+}

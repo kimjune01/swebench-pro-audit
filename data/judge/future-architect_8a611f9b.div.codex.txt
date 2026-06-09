@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The `Find` method of `LibraryScanners` must filter libraries based on both the file `path` and the library `name` to accurately resolve versions from multiple sources."}

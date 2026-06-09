@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_1aec789f",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 28,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "the new function `tab_focus(info)` must return a completion model limited to the tabs of the active window (`info.win_id`)."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

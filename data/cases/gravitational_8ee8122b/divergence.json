@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_8ee8122b",
+ "breadth": {
+  "files": 9,
+  "hunks": 15,
+  "loc": 95,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Keep `tsh mfa` device-management commands registered in the CLI but gate them behind a hidden/feature-flag constant (e.g. an `isFeatureEnabled` guard or a hidden command attribute) so they don't appear in help output while the code remains wired in.",
+   "design_B": "Leave the multi-device server/struct work in place but simply omit registering the `tsh mfa` management subcommands in the command tree entirely, so the functionality is absent rather than flag-gated.",
+   "why_both_faithful": "The prose only says the MFA device-management functionality 'should remain hidden until the multi-device authentication feature is fully implemented,' which a flag-gated-but-present command and an unregistered/absent command both satisfy.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Populate AuthenticateChallenge with the first generated challenge in Challenges, and have legacy clients continue authenticating against that first registered device.",
+   "design_B": "Populate AuthenticateChallenge with the same single-device challenge the old server-side second_factor selection would have produced, while also putting challenges for all registered devices in Challenges.",
+   "why_both_faithful": "Both designs expose challenges for all registered devices and preserve a legacy single AuthenticateChallenge, but the prose never specifies which challenge must occupy the backward-compatible field when multiple devices exist.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

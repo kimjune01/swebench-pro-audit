@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Read the `TELEPORT_HOME` environment variable during startup in `readTeleportHome` and normalize it with `path.Clean` to remove redundant separators."}

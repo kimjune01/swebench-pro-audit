@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_4d7c51b4",
+ "breadth": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 427,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Have the message's event-deriving method return a slice that, for the 'U' action, always emits the Put for the new key first and conditionally appends the Delete (when the key changed) after it \u2014 i.e. ordering [Put, Delete].",
+   "design_B": "Have the same method emit the Delete for the changed old key first and then the Put \u2014 i.e. ordering [Delete, Put] \u2014 which is equally consistent with 'a Put event ... and a Delete event'.",
+   "why_both_faithful": "The prose for the 'U' action lists both a Put and a conditional Delete but never specifies their order within the returned []backend.Event, so either ordering satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For a key-changing update, return events in order: Put(new key/value), then Delete(old key).",
+   "design_B": "For a key-changing update, return events in order: Delete(old key), then Put(new key/value).",
+   "why_both_faithful": "The prose requires both events for a key-changing update but does not specify their ordering in the returned list.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When a Google Books result lacks an ISBN-13 but has an ISBN-10, normalize and stage the record with isbn_13 omitted or empty while preserving isbn_10.",
+  "design_B": "When a Google Books result lacks an ISBN-13, treat it as unusable and return no normalized result, so nothing is staged.",
+  "why_both_faithful": "The prose requires handling missing ISBN-13 and including isbn_13 among parsed fields, but does not say whether absence of ISBN-13 is fatal or whether a partial record with ISBN-10 is acceptable.",
+  "selecting_clause": null
+}

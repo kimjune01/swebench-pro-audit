@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement topic deletion cleanup by invoking Thumbs.deleteAll(tid) during soft delete as well as purge, so thumbnails are removed immediately when a topic is deleted.",
+  "design_B": "Implement topic deletion cleanup only during purge, leaving thumbnails present after soft delete but removing them when the topic is permanently purged.",
+  "why_both_faithful": "The prose says topics may be deleted or purged and specifically requires purge cleanup, but does not define whether ordinary soft deletion must physically remove thumbnails immediately or only final purge must do so.",
+  "selecting_clause": null
+}

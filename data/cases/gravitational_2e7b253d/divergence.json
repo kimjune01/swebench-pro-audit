@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_2e7b253d",
+ "breadth": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 33,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When a target file path's parent is missing, report `no such file or directory <target-file-path>`.",
+   "design_B": "When a target file path's parent is missing, report `no such file or directory <missing-parent-path>`.",
+   "why_both_faithful": "The prose requires a path-qualified `no such file or directory <path>` error when a required parent is missing, but never specifies whether `<path>` must be the requested target path or the missing parent path.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Resolve `scp_if_ssh` as its own legacy option and let it control transfer selection when `transfer_method` is unset or at its default legacy-compatible value.",
+  "design_B": "Resolve both `transfer_method` and `scp_if_ssh`, but always make `transfer_method` the controlling file-transfer selector, treating `scp_if_ssh` only as deprecated compatibility input that does not override an explicit `transfer_method`.",
+  "why_both_faithful": "The prose requires both options to be resolved and used for runtime decisions, but does not specify their conflict semantics when both are set to incompatible values.",
+  "selecting_clause": null
+}

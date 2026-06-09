@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_6bc4523c",
+ "breadth": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 59,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Provide for liveness updates to occur only through `VoiceBroadcastPlayback.setInfoState(state: VoiceBroadcastInfoState)` by invoking `this.setLiveness(determineVoiceBroadcastLiveness(this.infoState))`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The date range must be inclusive, meaning the start and end dates themselves are considered within the range."}

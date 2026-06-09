@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_034e9b02",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 59,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "`RoleMixin._build_doc(self, role, role_spec, path, collection, entry_point=None)` derives entry points from `role_spec` and builds `fqcn` from `role` plus `collection`.",
+   "design_B": "`RoleMixin._build_doc(self, role, entry_points, path, collection, entry_point=None)` accepts the entry point mapping directly rather than the full role specification object.",
+   "why_both_faithful": "The prose specifies the returned tuple and filtering behavior but never specifies the method signature or exact shape of the input arguments.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

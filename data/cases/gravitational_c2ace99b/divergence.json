@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_c2ace99b",
+ "breadth": {
+  "files": 10,
+  "hunks": 19,
+  "loc": 279,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Register creates a resident WebAuthn credential backed by a Secure Enclave key whose key reference and user/RP metadata are stored in the macOS Keychain; Login discovers that stored credential by RPID when AllowedCredentials is nil.",
+   "design_B": "Register creates a Secure Enclave-backed credential but stores the credential ID, key reference, RPID, and owner mapping in Teleport-managed local storage; Login reads that store to select the matching credential when AllowedCredentials is nil.",
+   "why_both_faithful": "The prose requires valid WebAuthn registration/login behavior using Touch ID/Secure Enclave when available, but never specifies where credential metadata must be persisted or how passwordless credential discovery must be implemented.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

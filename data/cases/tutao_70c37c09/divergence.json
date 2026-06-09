@@ -1,0 +1,30 @@
+{
+ "slug": "tutao_70c37c09",
+ "breadth": {
+  "files": 7,
+  "hunks": 22,
+  "loc": 237,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement OperationProgressTracker with a Map<OperationId, Stream> and a monotonically-incrementing integer counter for IDs; registerOperation() creates a new stream, stores it, and returns {id, progress, done}, where onProgress looks up the operation's stream and pushes the value, done() removes the entry from the map.",
+   "design_B": "Implement OperationProgressTracker backed by a single shared subject/event-emitter keyed by operation, generating IDs via a random/UUID-derived number; registerOperation() returns a filtered progress stream derived from the shared bus, onProgress emits a {operation, value} event onto the bus, and done() emits a terminal marker rather than mutating a map.",
+   "why_both_faithful": "The prose specifies the public method signatures, return shape, and 0-100 percentage semantics but never dictates the internal storage structure, ID-generation scheme, or stream/event mechanism, so multiple internal architectures satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "`registerOperation()` creates an operation-local progress stream in the main process; the UI subscribes to that stream, passes the generated id into `saveImportedCalendarEvents`, and worker/main code forwards `_saveCalendarEvents` percentage callbacks to `OperationProgressTracker.onProgress(id, percent)`.",
+   "design_B": "`saveImportedCalendarEvents` creates or looks up the operation progress channel by the supplied id inside the calendar import layer, forwards `_saveCalendarEvents` callbacks through a per-operation worker bridge, and the UI dialog subscribes by operation id through that bridge rather than holding the stream returned at registration time.",
+   "why_both_faithful": "The prose requires per-operation progress, the `_saveCalendarEvents` callback signature, operation-id association, UI cleanup, and a non-generic runtime forwarding mechanism, but does not specify which layer owns subscription/registration or how the per-operation channel is wired.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

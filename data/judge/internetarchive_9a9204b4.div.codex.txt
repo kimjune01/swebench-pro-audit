@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Normalize the input and candidate labels, then match only by exact equality against canonical name, translated names, alt_labels, identifiers, and 3-character code.",
+  "design_B": "Normalize the input and candidate labels, then match by substring/prefix containment across canonical name, translated names, alt_labels, identifiers, and 3-character code, raising multiple-match when several candidates contain the query.",
+  "why_both_faithful": "The prose requires normalized matching across several language fields and exceptions for zero or multiple matches, but never specifies whether a match must be exact or may use autocomplete-style partial matching.",
+  "selecting_clause": null
+}

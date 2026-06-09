@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Add a method GetFullName() string on config.Image that returns <name>@<digest> when Digest is non-empty; otherwise return <name>:<tag>."}

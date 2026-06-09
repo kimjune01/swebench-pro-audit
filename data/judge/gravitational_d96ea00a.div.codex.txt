@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Persist derived audit, networking, session-recording, and updated auth-preference resources using the legacy ClusterConfig resource's TTL/expiry.",
+  "design_B": "Persist the derived resources using each target resource's existing/default cache TTL policy rather than copying the legacy ClusterConfig TTL.",
+  "why_both_faithful": "The prose requires persisting derived resources with 'appropriate TTLs' but never defines which TTL source is appropriate.",
+  "selecting_clause": null
+}

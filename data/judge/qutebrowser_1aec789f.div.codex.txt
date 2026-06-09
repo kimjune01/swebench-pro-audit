@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"the new function `tab_focus(info)` must return a completion model limited to the tabs of the active window (`info.win_id`)."}

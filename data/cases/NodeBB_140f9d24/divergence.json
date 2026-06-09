@@ -1,0 +1,24 @@
+{
+ "slug": "NodeBB_140f9d24",
+ "breadth": {
+  "files": 7,
+  "hunks": 8,
+  "loc": 50,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": null
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement DirectedGraph.component identification as weakly connected components, treating arcs as undirected for grouping vertices.",
+   "design_B": "Implement DirectedGraph.component identification as strongly connected components, requiring directed reachability between vertices.",
+   "why_both_faithful": "The prose asks for connected components in a DirectedGraph but never specifies whether components are weakly or strongly connected, and both are standard graph interpretations.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

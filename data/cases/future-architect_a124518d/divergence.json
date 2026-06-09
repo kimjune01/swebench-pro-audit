@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_a124518d",
+ "breadth": {
+  "files": 7,
+  "hunks": 12,
+  "loc": 197,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In detectScanDest, sort the deduplicated 'ip:port' scan destinations lexicographically before returning.",
+   "design_B": "In detectScanDest, preserve the order of ServerInfo.IPv4Addrs (the host IP order) when expanding '*' and building the destination slice, without sorting.",
+   "why_both_faithful": "The prose explicitly says ordering may be deterministic via 'either sorted or preserving the order of ServerInfo.IPv4Addrs,' so both produce a faithful, deterministic result with no rule choosing between them.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "detectScanDest returns the deduplicated scan destinations sorted lexicographically by the final \"ip:port\" string.",
+   "design_B": "detectScanDest returns the deduplicated scan destinations in first-seen endpoint order, preserving ServerInfo.IPv4Addrs order when expanding \"*\".",
+   "why_both_faithful": "The prose explicitly allows either sorted ordering or host-IP-order preservation for deterministic scan destination slices.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

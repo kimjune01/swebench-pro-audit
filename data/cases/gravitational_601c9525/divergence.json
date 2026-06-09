@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_601c9525",
+ "breadth": {
+  "files": 4,
+  "hunks": 15,
+  "loc": 63,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When printEnrollOutcome receives a nil device, print a generic success/fallback line such as \"Device enrolled.\" without device-specific fields.",
+   "design_B": "When printEnrollOutcome receives a nil device, print a different fallback line such as \"Device enrolled, but device details are unavailable.\"",
+   "why_both_faithful": "The prose requires nil to be handled gracefully with a fallback format, but never specifies the exact fallback output.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

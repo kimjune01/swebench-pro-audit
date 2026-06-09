@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"When the client CA list would exceed TLS handshake size limits, the per-connection config’s `ClientCAs` must contain **only the current cluster’s Host CA(s)**, reducing the advertised CA subjects to a minimal, valid set."}

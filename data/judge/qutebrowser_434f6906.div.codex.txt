@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Qt 6.4 environments use \"ForegroundBrightnessThreshold\" rather than any other key name when processing the text threshold setting."
+}

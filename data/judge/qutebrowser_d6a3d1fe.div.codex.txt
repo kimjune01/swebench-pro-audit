@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Catch deserialization exceptions in BraveAdBlocker.read_cache, show an error-level user message instructing the user to update adblock filters, leave the corrupted cache file in place, and return with adblock disabled.",
+  "design_B": "Catch deserialization exceptions in BraveAdBlocker.read_cache, show an error-level user message instructing the user to update adblock filters, delete or ignore the corrupted cache file, and return with adblock disabled.",
+  "why_both_faithful": "The prose requires graceful handling, an error message, guidance to update filters, and continued operation, but never specifies whether the corrupted cache file must be retained or removed.",
+  "selecting_clause": null
+}

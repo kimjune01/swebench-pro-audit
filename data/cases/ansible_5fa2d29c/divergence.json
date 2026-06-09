@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_5fa2d29c",
+ "breadth": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 200,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Require pn_password for state=present, since the required user-create CLI format includes a password argument and creation is described as setting an initial password.",
+   "design_B": "Do not require pn_password for state=present, because the requirements explicitly say creation requires pn_name and pn_scope only, generating the password portion only when pn_password is supplied.",
+   "why_both_faithful": "The prose names pn_password as accepted and shows it in the create command, but the creation-specific requirement says only pn_name and pn_scope are required.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "__str__ returns \", \".join(families), e.g. \"One Font, Two Fonts, Arial\".",
+  "design_B": "__str__ returns \",\".join(families), e.g. \"One Font,Two Fonts,Arial\".",
+  "why_both_faithful": "Both outputs are comma-separated strings preserving input order and suitable for serialization/display, and the prose does not specify spacing after commas.",
+  "selecting_clause": null
+}

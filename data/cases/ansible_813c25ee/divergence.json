@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_813c25ee",
+ "breadth": {
+  "files": 5,
+  "hunks": 14,
+  "loc": 35,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Reject `--offline` immediately when any requested collection source is a remote Git repository or remote tarball URL, before dependency resolution.",
+   "design_B": "Allow `--offline` to be passed with mixed inputs, applying offline behavior only to local tarball artifacts while leaving remote Git repositories or remote tarball URLs on the existing non-offline path.",
+   "why_both_faithful": "The prose says offline behavior does not apply to remote Git repositories or remote tarball URLs, but does not specify whether using `--offline` with such sources should be rejected or simply ignored for those sources.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

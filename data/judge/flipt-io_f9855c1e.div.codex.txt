@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Build a YAML AST path-to-position index while decoding the source document, then map each CUE validation error path back to the corresponding YAML node and report that node's line.",
+  "design_B": "Generate CUE source with embedded file/line position metadata derived from the YAML input before validation, then rely on CUE's own error positions to report validation locations.",
+  "why_both_faithful": "Both approaches accept schema extensions, enforce the additional constraints, preserve existing interfaces, and can report accurate source YAML positions for each validation error, but they use incompatible mechanisms for deriving positions.",
+  "selecting_clause": null
+}

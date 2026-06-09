@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Parse EntPhysicalSoftwareRev 'FortiSwitch-108E v6.4.6' as product 'fortiswitch' and version '6.4.6', producing OS/firmware CPEs with fortiswitch and fortiswitch_firmware.",
+  "design_B": "Parse EntPhysicalSoftwareRev 'FortiSwitch-108E v6.4.6' as product 'fortiswitch-108e' and version '6.4.6', producing OS/firmware CPEs with fortiswitch-108e and fortiswitch-108e_firmware.",
+  "why_both_faithful": "The prose says to extract a 'Forti...' product string with version from a revision like 'FortiSwitch-108E v6.4.6' but does not state whether the model suffix is part of the OS/firmware product name.",
+  "selecting_clause": null
+}

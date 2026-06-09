@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_94dc494b",
+ "breadth": {
+  "files": 6,
+  "hunks": 11,
+  "loc": 74,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat any URL whose hostname is a recognized Google or Outlook calendar host as a Google or Outlook URL for warning priority purposes.",
+   "design_B": "Treat any URL containing the substrings \"google\" or \"outlook\" anywhere in the entered URL as a Google or Outlook URL for warning priority purposes.",
+   "why_both_faithful": "The prose requires special handling for \"A Google or Outlook URL\" but does not define how such URLs must be identified.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

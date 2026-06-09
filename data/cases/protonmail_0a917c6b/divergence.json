@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_0a917c6b",
+ "breadth": {
+  "files": 9,
+  "hunks": 13,
+  "loc": 36,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `useMyCountry` hook should return only the country code (e.g., `'US'`) or `undefined` while it is loading."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

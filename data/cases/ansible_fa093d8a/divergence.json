@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_fa093d8a",
+ "breadth": {
+  "files": 5,
+  "hunks": 41,
+  "loc": 520,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Validate ciphers at Ansible argument-processing boundaries for get_url, uri, and lookup('url'), rejecting invalid types or unsupported cipher names before constructing the SSL context with a user-facing AnsibleError.",
+   "design_B": "Propagate the provided cipher string/list through to make_context and rely on SSLContext/PyOpenSSLContext.set_ciphers to reject unsupported values, catching and wrapping the resulting SSL error in a clear user-facing failure.",
+   "why_both_faithful": "The prose requires clear validation and failure messages for invalid ciphers, but does not specify whether validation must happen before SSL context construction or by delegating to the SSL backend.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

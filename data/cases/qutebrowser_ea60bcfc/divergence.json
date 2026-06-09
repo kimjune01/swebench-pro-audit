@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_ea60bcfc",
+ "breadth": {
+  "files": 4,
+  "hunks": 10,
+  "loc": 45,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement `_cleanup_timer` as a `QTimer` owned by `GUIProcess`, set to a 1-hour interval, connected to a cleanup slot, and started only after successful completion.",
+   "design_B": "Implement `_cleanup_timer` as a custom QObject/timer wrapper exposing a `timeout` signal and interval adjustment methods, internally using `QTimer.singleShot` scheduling to trigger cleanup after a successful completion.",
+   "why_both_faithful": "The prose requires the attribute\u2019s observable timer behavior but never specifies the concrete timer class or whether it must be a native `QTimer` instance versus a compatible wrapper.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_16e92a4d",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 33,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Provide for immediate UI feedback by setting the action control to a non-interactive state (`disabled=true` on the rendered button) synchronously with the first activation, and maintain this state until the initiation attempt completes (resolution or rejection of the `start()` call when it returns a Promise; if `start()` is sync, maintain for a single event tick)."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"When invoked with the identity flag the client creation path derives Username ClusterName and ProxyHost from the identity. The corresponding KeyIndex fields are set the key is assigned to Config.PreloadKey and client initialization proceeds without reading or writing the filesystem."}

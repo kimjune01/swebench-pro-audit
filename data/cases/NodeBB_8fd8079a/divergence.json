@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_8fd8079a",
+ "breadth": {
+  "files": 14,
+  "hunks": 19,
+  "loc": 165,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Attach a focusout handler to the quick-search container that checks event.relatedTarget; hide results only when the newly focused element is outside the container.",
+   "design_B": "Attach a focusout handler to the quick-search container that defers one tick and checks container.matches(':focus-within'); hide results when the container no longer contains focus.",
+   "why_both_faithful": "Both manage quick search visibility based on container focus using focusout and avoid blur or mousedown flags, but they use incompatible mechanisms for deciding whether focus left the container.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_79dccb33",
+ "breadth": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 49,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The query processing system should identify and remove all fields with the \"edition.\" prefix from work-level queries before generating Solr parameters."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

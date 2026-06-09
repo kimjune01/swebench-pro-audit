@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_2099c507",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 26,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

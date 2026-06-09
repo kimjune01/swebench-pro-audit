@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Deduplicate ServerNames while preserving the user's comma-list order, so --host=b,a,b yields ServerNames=[\"b\",\"a\"] and CommonName/ServerName=\"b\".",
+  "design_B": "Deduplicate ServerNames by canonicalizing into a sorted unique set, so --host=b,a,b yields ServerNames=[\"a\",\"b\"] and CommonName/ServerName=\"a\".",
+  "why_both_faithful": "The prose requires splitting and deduplicating entries and using the first ServerNames entry as CommonName, but never specifies that deduplication must preserve input order.",
+  "selecting_clause": null
+}

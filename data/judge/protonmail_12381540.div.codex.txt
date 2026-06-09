@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For a below-minimum amount, render a warning alert explaining the minimum Bitcoin amount and no QR/details.",
+  "design_B": "For a below-minimum amount, skip initialization and render neither QR/details nor any alert, leaving the component blank outside any parent UI.",
+  "why_both_faithful": "The prose explicitly requires skipped initialization and no QR/details below the minimum, but only explicitly mandates a warning alert for amounts above the maximum while separately giving a broader invalid-amount warning expectation.",
+  "selecting_clause": null
+}

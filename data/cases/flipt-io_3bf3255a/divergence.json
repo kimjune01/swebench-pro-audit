@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_3bf3255a",
+ "breadth": {
+  "files": 3,
+  "hunks": 8,
+  "loc": 29,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "For cancelled contexts, responses should return gRPC code `Canceled`. For exceeded deadlines, responses should return gRPC code `DeadlineExceeded`. All other authentication and error-handling behavior should remain unchanged."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

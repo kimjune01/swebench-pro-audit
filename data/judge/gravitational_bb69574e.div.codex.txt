@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat bare matcher strings as exact literals unless they contain `*` or are clearly regex-like with anchors/metacharacters, so `Match(\"foo.bar\")` matches only `foo.bar`.",
+  "design_B": "Treat every bare non-template matcher string as a raw regular expression, so `Match(\"foo.bar\")` also matches inputs like `fooXbar`.",
+  "why_both_faithful": "The prose requires support for both literal strings and raw regular expressions but never specifies how `Match(value string)` distinguishes a bare literal from a bare regex when the syntax overlaps.",
+  "selecting_clause": null
+}

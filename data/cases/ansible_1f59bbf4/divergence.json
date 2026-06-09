@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_1f59bbf4",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 30,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `processor_count` fact should be set to a constant value of `1`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

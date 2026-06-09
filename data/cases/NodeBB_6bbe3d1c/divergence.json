@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_6bbe3d1c",
+ "breadth": {
+  "files": 4,
+  "hunks": 5,
+  "loc": 79,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat a single provided bound after keys as min-only, so sortedSetsCardSum(keys, 2) counts scores >= 2.",
+   "design_B": "Treat a single provided bound after keys as max-only, so sortedSetsCardSum(keys, 2) counts scores <= 2.",
+   "why_both_faithful": "The prose requires support for ranges where only min or only max is provided, but with a positional interface and no new interface it never specifies how a lone second argument is disambiguated.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_07e7b69c",
+ "breadth": {
+  "files": 7,
+  "hunks": 11,
+  "loc": 501,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In check mode, classify only commands whose first token is `configure` or `config` as configuration commands and skip those, while executing other commands normally.",
+   "design_B": "In check mode, classify any command containing known mutating ECCLI verbs such as `set`, `delete`, `clear`, `commit`, `rollback`, or `configure` as configuration commands and skip those.",
+   "why_both_faithful": "The prose requires detecting and skipping configuration commands in check mode but never defines the exact detection rule or command vocabulary.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

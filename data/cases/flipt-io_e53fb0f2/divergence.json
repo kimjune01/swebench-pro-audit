@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_e53fb0f2",
+ "breadth": {
+  "files": 12,
+  "hunks": 30,
+  "loc": 349,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Reporter.Start sends a telemetry report immediately on startup, then schedules subsequent flipt.ping events every 4 hours.",
+   "design_B": "Reporter.Start waits for the first 4-hour ticker interval before sending the first flipt.ping event, then continues every 4 hours.",
+   "why_both_faithful": "The prose requires periodic reporting every 4 hours but does not specify whether the first event occurs immediately when telemetry starts or only after the first interval elapses.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement migration with a persisted checkpoint flag under the backend .flags prefix using FlagKey, scanning DynamoDB in batches and resuming from the last processed key.",
+  "design_B": "Implement migration as an idempotent full-table batch scan that conditionally updates only records missing FieldsMap, with no persisted per-record checkpoint beyond the presence of FieldsMap itself.",
+  "why_both_faithful": "Both preserve metadata, use batch operations, are resumable after interruption, support backward compatibility, and satisfy the stated migration requirements.",
+  "selecting_clause": null
+}

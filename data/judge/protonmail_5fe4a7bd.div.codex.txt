@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Show a VERIFIED ProtonBadge only for senders that isProtonSender identifies as Proton-authenticated; external senders receive no badge.",
+  "design_B": "Show a VERIFIED ProtonBadge for Proton-authenticated senders and an explicit non-Proton visual treatment for external senders, such as subdued styling or an external indicator.",
+  "why_both_faithful": "The prose requires clear differentiation between verified Proton senders and external senders but does not specify whether external senders must be marked explicitly or merely lack the Proton badge.",
+  "selecting_clause": null
+}

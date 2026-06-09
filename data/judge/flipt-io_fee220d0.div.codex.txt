@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Apply environment variable substitution during configuration parsing and before other decode hooks, so that substituted values can be correctly converted into their target types (e.g., integer ports)."
+}

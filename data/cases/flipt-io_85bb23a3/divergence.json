@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_85bb23a3",
+ "breadth": {
+  "files": 10,
+  "hunks": 18,
+  "loc": 206,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When ca_cert_path or ca_cert_bytes is provided, create a new root CA pool containing only that provided CA bundle and set it as tls.Config.RootCAs.",
+   "design_B": "When ca_cert_path or ca_cert_bytes is provided, load the system certificate pool, append the provided CA bundle to it, and set the combined pool as tls.Config.RootCAs.",
+   "why_both_faithful": "The prose requires the provided CA data be trusted and says the no-CA case must use system authorities with no custom roots, but it never states whether a provided custom CA should replace or augment the system CA pool.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_5fe4a7bd",
+ "breadth": {
+  "files": 19,
+  "hunks": 60,
+  "loc": 309,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Determine 'Proton sender' from a boolean flag carried on the sender recipient itself (e.g. element.Sender.IsProton / a per-recipient IsProton field), so isProtonSender simply reads that flag for the displayed sender and renders the VERIFIED badge when true.",
+   "design_B": "Determine 'Proton sender' from message-level authentication/verification metadata (e.g. DKIM/SPF auth results or an aggregate isAuthenticated computation derived from the element), independent of any per-recipient flag, rendering the VERIFIED badge based on that computed authentication state.",
+   "why_both_faithful": "The prose only says isProtonSender uses 'more sophisticated logic' to decide if a sender is 'from Proton' and that a VERIFIED badge should show for authenticated Proton senders, but never specifies which signal/field determines Proton authenticity, so either detection source satisfies every requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Show a VERIFIED ProtonBadge only for senders that isProtonSender identifies as Proton-authenticated; external senders receive no badge.",
+   "design_B": "Show a VERIFIED ProtonBadge for Proton-authenticated senders and an explicit non-Proton visual treatment for external senders, such as subdued styling or an external indicator.",
+   "why_both_faithful": "The prose requires clear differentiation between verified Proton senders and external senders but does not specify whether external senders must be marked explicitly or merely lack the Proton badge.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

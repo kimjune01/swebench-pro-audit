@@ -1,0 +1,30 @@
+{
+ "slug": "tutao_a834bd49",
+ "breadth": {
+  "files": 9,
+  "hunks": 33,
+  "loc": 204,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The loading flow (including caching layers like `DefaultEntityRestCache`) should propagate these optional key parameters through to the underlying entity rest client so they are available prior to decryption."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

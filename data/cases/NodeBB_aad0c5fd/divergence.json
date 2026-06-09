@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_aad0c5fd",
+ "breadth": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 43,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "On post purge, the system must delete from disk any uploaded files that are exclusively referenced by the purged post, unless the preserveOrphanedUploads setting is enabled; files still referenced by other posts must not be deleted."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

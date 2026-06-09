@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_8472bc64",
+ "breadth": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 128,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "getHostnameWithRegex strips an optional protocol and leading `www.`, then captures the FIRST dot-delimited label, e.g. /^(?:https?:\\/\\/)?(?:www\\.)?([^.\\/:]+)/ \u2014 so `www.abc.com` \u2192 `abc` and `sub.abc.com` \u2192 `sub`.",
+   "design_B": "getHostnameWithRegex captures the second-level-domain label (the label immediately left of the final TLD), e.g. matching `([^.\\/]+)\\.[^.\\/]+(?:[\\/?#]|$)` after ignoring `www.` \u2014 so `www.abc.com` \u2192 `abc` and `sub.abc.com` \u2192 `abc`.",
+   "why_both_faithful": "The only stated constraint is that `www.abc.com` returns `abc`; both regex strategies produce that exact output but diverge on multi-subdomain, ported, or pathed URLs, and the conflict between the name 'hostname' and the example output `abc` leaves the actual capture rule unspecified.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement punycodeUrl by parsing with the URL API and serializing the full URL, which converts the hostname to punycode and may also normalize or percent-encode other URL components.",
+   "design_B": "Implement punycodeUrl by extracting only the hostname, replacing just that substring with its punycode ASCII form, and leaving the original protocol, pathname, query string, and hash text byte-for-byte except for removing a trailing slash from the pathname.",
+   "why_both_faithful": "The prose requires hostname punycode conversion and preservation of the other components, but does not specify whether standard URL serialization normalization is allowed or whether non-host components must remain textually identical.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

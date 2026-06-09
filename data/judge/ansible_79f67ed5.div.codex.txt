@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When use_netrc is true, preserve existing behavior and allow .netrc credentials to overwrite an explicitly provided Authorization header; when false, skip .netrc entirely.",
+  "design_B": "When use_netrc is true, read .netrc only if no Authorization header was explicitly supplied; when false, skip .netrc entirely.",
+  "why_both_faithful": "The prose requires a use_netrc control and says .netrc is ignored when it is false, but does not explicitly say whether enabled .netrc may still override an explicit Authorization header.",
+  "selecting_clause": null
+}

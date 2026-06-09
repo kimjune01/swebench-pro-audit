@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_63da4324",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 38,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In the `Kube.PublicAddrs`-empty-but-`PublicAddrs`-non-empty branch, always set the port to the default Kubernetes port 3026 regardless of any configured listen address (as the REQUIREMENTS section states three times: '...and the default Kubernetes proxy port (3026)').",
+   "design_B": "In that same branch, derive the port from `Kube.ListenAddr` when it is set, falling back to the default 3026 only when it is not (as the INTERFACE description states: 'the port from `Kube.ListenAddr` or the default Kubernetes port').",
+   "why_both_faithful": "The REQUIREMENTS section says that branch must use port 3026 unconditionally, while the INTERFACE section says it must use the port from `Kube.ListenAddr` or the default, so a solver can faithfully follow either of the two contradictory passages.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When Kube.PublicAddrs is empty, build KubeAddr from the host of the first PublicAddrs entry and always force port 3026.",
+   "design_B": "When Kube.PublicAddrs is empty, build KubeAddr from the host of the first PublicAddrs entry and use the port from Kube.ListenAddr if present, otherwise 3026.",
+   "why_both_faithful": "The requirements repeatedly specify default Kubernetes proxy port 3026, while the interface description explicitly permits using the port from Kube.ListenAddr in the PublicAddrs fallback case.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

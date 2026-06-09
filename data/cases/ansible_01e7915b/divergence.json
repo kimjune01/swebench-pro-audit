@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_01e7915b",
+ "breadth": {
+  "files": 3,
+  "hunks": 12,
+  "loc": 182,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `ansible-galaxy install -r requirements.yml` command should install all roles to `~/.ansible/roles` and all collections to `~/.ansible/collections/ansible_collections` when no custom path is provided."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

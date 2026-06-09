@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "let ttlMs be the remaining TTL, intervalMs = emailConfirmInterval * 60 * 1000, and expiryMs = emailConfirmExpiry * 24 * 60 * 60 * 1000. - Resend should be blocked while pending unless ttlMs + intervalMs < expiryMs; otherwise, it should be allowed."
+}

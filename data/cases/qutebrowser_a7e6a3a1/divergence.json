@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_a7e6a3a1",
+ "breadth": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 52,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "All key-event handling should avoid constructing `Qt.Key` from raw integers and should call `KeyInfo.from_event(e)` instead."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

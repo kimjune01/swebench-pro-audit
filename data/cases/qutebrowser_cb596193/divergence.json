@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_cb596193",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 72,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement `from_str` with Qt's own CSS tokenizer (e.g. `QtGui`/`PyQt`'s stylesheet/CSS font parsing helper) to split the family string, delegating quote and whitespace handling to Qt.",
+   "design_B": "Implement `from_str` with a hand-rolled parser (e.g. `shlex`/regex) that splits on top-level commas and strips matching single/double quotes and surrounding whitespace itself.",
+   "why_both_faithful": "The prose only says it 'parses a CSS-style font list string, handling quotes and whitespace,' which both approaches satisfy for ordinary inputs while diverging on edge cases (collapsing internal whitespace, escapes, trailing commas, mismatched quotes).",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "__str__ returns \", \".join(families), e.g. \"One Font, Two Fonts, Arial\".",
+   "design_B": "__str__ returns \",\".join(families), e.g. \"One Font,Two Fonts,Arial\".",
+   "why_both_faithful": "Both outputs are comma-separated strings preserving input order and suitable for serialization/display, and the prose does not specify spacing after commas.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_1879807d",
+ "breadth": {
+  "files": 6,
+  "hunks": 12,
+  "loc": 139,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When ForwardAgent=yes is configured but SSH_AUTH_SOCK is unset or unusable, fail session creation with a clear error because the requested system agent is unavailable.",
+   "design_B": "When ForwardAgent=yes is configured but SSH_AUTH_SOCK is unset or unusable, create the session without forwarding any agent because there is no system agent available to forward.",
+   "why_both_faithful": "The prose says yes forwards the system agent available at SSH_AUTH_SOCK, but never specifies the required behavior when no such available agent exists.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

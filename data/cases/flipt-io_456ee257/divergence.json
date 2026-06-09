@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_456ee257",
+ "breadth": {
+  "files": 6,
+  "hunks": 16,
+  "loc": 469,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Cache the flag entity (GetFlag) using Protocol Buffer serialization via setProtobuf/getProtobuf, while caching evaluation rules/rollouts via JSON.",
+   "design_B": "Cache the flag entity (GetFlag) using JSON serialization via setJSON/getJSON, reserving protobuf only for evaluation data \u2014 or vice versa across all cached types.",
+   "why_both_faithful": "The prose mandates that both JSON and protobuf helper methods exist and that flags/eval-rules/eval-rollouts be cached, but never maps any specific entity type to a specific serializer, so either assignment satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use Protocol Buffer serialization for cached protobuf model objects such as flags, evaluation rules, and rollouts, via setProtobuf/getProtobuf.",
+   "design_B": "Use JSON serialization for those same cached storage objects via setJSON/getJSON, while still providing protobuf helpers for other cacheable values.",
+   "why_both_faithful": "The prose requires support for both JSON and Protocol Buffer helper methods but never specifies which storage.Store methods or resource types must use which serialization format.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

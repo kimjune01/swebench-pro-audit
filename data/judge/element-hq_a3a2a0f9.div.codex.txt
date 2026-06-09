@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The `LoginWithQRSection` component must only display QR sign-in functionality when the `feature_qr_signin_reciprocate_show` setting in `SettingsStore` is enabled and the homeserver supports MSC3882 and MSC3886 protocols"
+}

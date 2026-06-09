@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_b0317e67",
+ "breadth": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 80,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The file should use two strength-enabled passphrase inputs: a `PassphraseField` minimum strength threshold 3 for \u201cEnter passphrase\u201d, and a PassphraseConfirmField for \u201cConfirm passphrase\u201d, with translatable error messages \u201cPassphrase must not be empty\u201d and \u201cPassphrases must match\u201d."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

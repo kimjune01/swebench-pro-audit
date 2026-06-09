@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Define UserPropsRepository methods as context-free, e.g. Put(key, value), Get(key), Delete(key), with NewUserPropsRepository(ctx, orm) capturing the contextual user once when the repository is created.",
+  "design_B": "Define UserPropsRepository methods as context-taking, e.g. Put(ctx, key, value), Get(ctx, key), Delete(ctx, key), deriving the contextual user independently on each operation.",
+  "why_both_faithful": "The prose requires automatic user derivation from context and a user-scoped repository, but never specifies whether the context is captured at repository construction or passed to every repository method.",
+  "selecting_clause": null
+}

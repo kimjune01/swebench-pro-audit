@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_ebf2993b",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 406,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement getNotificationTextMoved with the existing product-copy style, e.g. Spam moves say items were moved to Spam, Spam-to-non-Trash moves say items were moved and marked as not spam, and unauthorized counts append a separate could-not-be-moved sentence.",
+   "design_B": "Implement getNotificationTextMoved with different but category-correct notification copy for the same cases, e.g. Spam moves say items were marked as spam and moved, Spam-to-non-Trash moves say items were restored from spam, and unauthorized counts append a differently worded failure sentence.",
+   "why_both_faithful": "The prose requires the helper to generate the 'exact texts' for several categories but does not provide those exact strings or a clause requiring reuse of a particular existing string source.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

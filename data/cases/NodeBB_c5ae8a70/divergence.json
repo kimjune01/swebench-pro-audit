@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_c5ae8a70",
+ "breadth": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 35,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The old sort must be the inverse of the existing recent sort over the same topic set, with recent remaining descending by lastposttime."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Sort topics by lastposttime ascending and break equal lastposttime ties by topic id ascending.",
+   "design_B": "Sort topics by lastposttime ascending and break equal lastposttime ties by topic id descending.",
+   "why_both_faithful": "The prose requires deterministic stable tie handling for equal lastposttime values, but does not specify which consistent tie-break must be used.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_5e9872c8",
+ "breadth": {
+  "files": 1,
+  "hunks": 10,
+  "loc": 228,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For the boolean `has_fulltext` facet, yield human-readable display labels like `(\"true\", \"Yes\", count)` / `(\"false\", \"No\", count)`, and for author facets split on a delimiter using the leading segment as key and trailing segment as display.",
+   "design_B": "For `has_fulltext`, yield display labels `(\"true\", \"In eBook\", count)` / `(\"false\", \"Not in eBook\", count)` (or pass the raw value through as display), and split author facets at a different boundary character producing a different key/display partition.",
+   "why_both_faithful": "The prose only says boolean facets are 'handled', author facets are 'split into ID and name', and language codes are 'translated', without specifying the exact display strings, the split delimiter, or the translation mapping, so multiple concrete (key, display, count) outputs satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement process_facet('has_fulltext', ...) so boolean facet values yield display strings identical to the raw values, e.g. ('true', 'true', count) and ('false', 'false', count).",
+   "design_B": "Implement process_facet('has_fulltext', ...) so boolean facet values yield human-readable display strings, e.g. ('true', 'Has full text', count) and ('false', 'No full text', count).",
+   "why_both_faithful": "The prose requires handling boolean facets but never specifies the exact key/display mapping for those yielded triples.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

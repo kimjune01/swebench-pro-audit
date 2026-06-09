@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_61d17c95",
+ "breadth": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 82,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "File upload requests with non-existent folder parameters must be rejected with an error response `[[error:invalid-path]]`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Support only Google Scholar as the external identifier profile, returning Wikipedia when resolvable, always Wikidata, and one Google Scholar entry per valid Google Scholar identifier.",
+  "design_B": "Support Google Scholar plus additional Wikidata identifier properties such as ORCID and VIAF, returning Wikipedia when resolvable, always Wikidata, and one entry per valid identifier for each supported service.",
+  "why_both_faithful": "The prose requires supported external identifiers including examples such as Google Scholar, but never defines the complete supported identifier set or forbids supporting additional ones.",
+  "selecting_clause": null
+}

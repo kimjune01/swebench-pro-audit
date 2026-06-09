@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Sorting must use a stable, case-sensitive lexical comparison of keys to ensure deterministic output when keys collide."
+}

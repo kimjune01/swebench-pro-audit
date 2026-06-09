@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Calls to `paidUserAssistantAddonName` should be replaced with calls to `getScribeAddonNameByPlan` when resolving the addon name in `getAssistantUpsellConfig`."
+}

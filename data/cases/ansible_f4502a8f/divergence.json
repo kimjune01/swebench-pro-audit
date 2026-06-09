@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_f4502a8f",
+ "breadth": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 270,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Validate an out-of-range timeout with fail_json(msg=\"timeout must be between 1 and 4294967294\")",
+   "design_B": "Validate the same out-of-range timeout with fail_json(msg=\"Invalid timeout value\")",
+   "why_both_faithful": "The prose requires appropriate error messages for range violations but does not specify their exact text.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

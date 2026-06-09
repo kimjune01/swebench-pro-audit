@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_bddb9a74",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 96,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `kinit` invocation must read the password from `stdin` on all platforms and not inherit the current TTY, ensuring reliable prompt handling on macOS."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

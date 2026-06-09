@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When createShare omits an expiration date, set the share to expire 7 days after creation.",
+  "design_B": "When createShare omits an expiration date, set the share to expire 30 days after creation.",
+  "why_both_faithful": "The prose requires a reasonable automatic expiration default but never specifies the default duration, and both 7 days and 30 days are reasonable defaults.",
+  "selecting_clause": null
+}

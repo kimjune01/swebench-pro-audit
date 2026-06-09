@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_257ccc5f",
+ "breadth": {
+  "files": 2,
+  "hunks": 13,
+  "loc": 149,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Create os.DirFS(rootFolderPath) in Scan, call walkDirTree with fs root \".\", and rebase discovered entries back onto the configured root path when producing dirStats.",
+   "design_B": "Create an fs.FS rooted above the scan target, such as os.DirFS(\"/\") or a volume root, call walkDirTree with the scan target path relative to that FS, and keep traversal paths relative to that filesystem root.",
+   "why_both_faithful": "The prose requires using fs.FS for filesystem operations but does not specify the rooting/path semantics for the fs.FS argument or whether walker paths are relative to the scan root or a broader filesystem root.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_324b9ed5",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 132,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define a new unmodifiable package sentinel error, have every Store mutating method return that exact error, and rely on errors.Is matching that new package-level sentinel.",
+   "design_B": "Reuse the existing read-only sentinel error already used by declarative storage backends, have every Store mutating method return that existing error, and rely on errors.Is matching the shared backend error.",
+   "why_both_faithful": "The prose requires one consistent errors.Is-comparable sentinel error for database read-only mutations, but never names the sentinel or says it must be newly defined versus shared with existing read-only backends.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

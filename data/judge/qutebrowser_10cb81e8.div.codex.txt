@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "With \"auto\", the flag should be added only when running on Qt 6 with a Chromium major version lower than 111, and omitted otherwise."
+}

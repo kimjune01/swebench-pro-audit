@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Define STAGED_SOURCES as exactly ('amazon', 'idb') and have find_staged_or_pending default to those two sources.",
+  "design_B": "Define STAGED_SOURCES as ('amazon', 'idb', 'google') and have find_staged_or_pending default to all three sources.",
+  "why_both_faithful": "The prose only says the fixed source tuple must include 'amazon' and 'idb', and describes them as examples, so it does not specify the complete default source set.",
+  "selecting_clause": null
+}

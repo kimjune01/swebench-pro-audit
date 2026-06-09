@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_a9cf54af",
+ "breadth": {
+  "files": 7,
+  "hunks": 16,
+  "loc": 73,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Insert `-ss %t` before the FFmpeg input option/path in each command template, so offset seeking is treated as input seeking.",
+   "design_B": "Insert `-ss %t` after the FFmpeg input path in each command template, so offset seeking is treated as output seeking.",
+   "why_both_faithful": "The prose requires templates to include a `-ss %t` segment and requires missing placeholders to be appended after the input path, but does not specify where an existing `-ss %t` placeholder must be placed inside templates.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

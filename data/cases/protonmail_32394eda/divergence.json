@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_32394eda",
+ "breadth": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 30,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "For non-free users, `canMarkItemsAsDone` must be true only when both the user\u2019s subscription and checklist entry align:"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

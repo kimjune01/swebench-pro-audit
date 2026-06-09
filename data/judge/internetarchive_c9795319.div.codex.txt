@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Resolve $6 links by exact occurrence number and append linked 880 alternate-script titles/names into the existing extracted title/name lists as additional values.",
+  "design_B": "Resolve $6 links by exact occurrence number but attach linked 880 alternate-script titles/names as separate alternate-script metadata associated with the original field.",
+  "why_both_faithful": "The prose requires complete alternate titles and names from $6 linkages, but does not specify the output schema or whether linked alternate-script data must be flattened into existing fields or preserved as associated alternate metadata.",
+  "selecting_clause": null
+}

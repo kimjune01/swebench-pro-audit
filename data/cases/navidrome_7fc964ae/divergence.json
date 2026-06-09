@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_7fc964ae",
+ "breadth": {
+  "files": 9,
+  "hunks": 43,
+  "loc": 109,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The client type and all of its methods are unexported (package-private) in each music-service package"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

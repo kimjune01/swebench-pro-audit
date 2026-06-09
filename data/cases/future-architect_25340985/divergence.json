@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_25340985",
+ "breadth": {
+  "files": 7,
+  "hunks": 9,
+  "loc": 37,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Extend ViaHTTP to handle Oracle Linux in the same way as other Red Hat\u2013based distributions (for example: CentOS, Amazon)."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Handle Oracle Linux by adding it to the existing Red Hat\u2013based ViaHTTP branch so it reuses the CentOS/Amazon OVAL fetching path exactly.",
+   "design_B": "Handle Oracle Linux with a separate ViaHTTP branch that uses Oracle-specific distro matching or URL construction while preserving the same external behavior pattern as CentOS/Amazon.",
+   "why_both_faithful": "The prose requires Oracle Linux to be handled like other Red Hat\u2013based distributions but does not require sharing the exact CentOS/Amazon code path versus using a distinct Oracle-specific branch.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

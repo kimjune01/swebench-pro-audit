@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The `ensure_type` function should handle values originating from ini files by applying unquoting when the detected origin type is `ini`."
+}

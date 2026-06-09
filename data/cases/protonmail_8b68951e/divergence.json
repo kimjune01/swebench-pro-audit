@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_8b68951e",
+ "breadth": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 62,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When the cancellation context is active or auto-renew is disabled, the computed expiration must be based on the currently active term only (not any scheduled future term)."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

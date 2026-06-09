@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When both isCustomBilling and isScheduledSubscription are true, compute the next billing date from subscription.periodEnd.",
+  "design_B": "When both isCustomBilling and isScheduledSubscription are true, compute the next billing date from subscription.periodEnd plus the upcoming cycle.",
+  "why_both_faithful": "The prose gives separate rules for custom billing and scheduled subscriptions but never states their precedence or mutual exclusivity when both apply.",
+  "selecting_clause": null
+}

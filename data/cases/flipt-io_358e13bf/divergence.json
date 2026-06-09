@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_358e13bf",
+ "breadth": {
+  "files": 7,
+  "hunks": 38,
+  "loc": 153,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Fixed references cannot be deleted and remain accessible. Non-fixed references can be deleted and are no longer accessible after removal."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

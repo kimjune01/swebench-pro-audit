@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Store optional metadata as {\"poc\": <poc>, \"introduced_in\": <introduced_in>} when those enriched fields are present.",
+  "design_B": "Store optional metadata as {\"proof_of_concept\": <poc>, \"introduced\": <introduced_in>} when those enriched fields are present.",
+  "why_both_faithful": "The prose requires recording the proof-of-concept and introduced-version values in optional metadata, but does not specify the output metadata key names.",
+  "selecting_clause": null
+}

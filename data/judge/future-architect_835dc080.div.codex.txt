@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The `removeInactives` function should return a filtered list of `WordPressPackages`, excluding any packages with a status of `\"inactive\"`."}

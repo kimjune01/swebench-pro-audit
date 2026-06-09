@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Export version: \"1.0\" and reject imports whose document version is anything other than \"1.0\".",
+  "design_B": "Export version: \"v1\" and reject imports whose document version is anything other than \"v1\".",
+  "why_both_faithful": "The prose requires a version field and compatibility validation, but never specifies the canonical exported version value or the set of supported versions.",
+  "selecting_clause": null
+}

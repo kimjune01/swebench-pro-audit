@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_fe3f1b99",
+ "breadth": {
+  "files": 7,
+  "hunks": 8,
+  "loc": 35,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Add a method GetFullName() string on config.Image that returns <name>@<digest> when Digest is non-empty; otherwise return <name>:<tag>."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

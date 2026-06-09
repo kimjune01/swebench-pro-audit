@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_744cd944",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 102,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Ensure `_get_lang_override` applies Chromium-compatible mappings for special cases such as `en`, `en-LR`, `en-PH`, `es-*`, `pt`, `pt-*`, `zh`, `zh-*`, `zh-HK`, and `zh-MO`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

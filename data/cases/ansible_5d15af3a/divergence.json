@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_5d15af3a",
+ "breadth": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 78,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `run` method of the `env` lookup module must obtain each requested environment variable using `os.environ.get()` together with the plugin\u2019s configured default value and return a list with the values obtained."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `run` method of the `env` lookup module must obtain each requested environment variable using `os.environ.get()` together with the plugin\u2019s configured default value and return a list with the values obtained."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

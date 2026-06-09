@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_f2c0c188",
+ "breadth": {
+  "files": 3,
+  "hunks": 9,
+  "loc": 109,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Return HTTP 500 for file-type validation failures with a simple JSON body like `{ \"error\": \"[[error:invalid-image-type, image&#x2F;png&amp;#44;image&#x2F;jpeg]]\" }`.",
+   "design_B": "Return HTTP 500 for file-type validation failures with an API v3-style JSON body like `{ \"status\": { \"message\": \"[[error:invalid-image-type, image&#x2F;png&amp;#44;image&#x2F;jpeg]]\" } }`.",
+   "why_both_faithful": "The prose requires HTTP 500 and the exact error message text, and the client requirement explicitly supports both `status.message` and `error`, but it does not require one response shape for file-type validation failures.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

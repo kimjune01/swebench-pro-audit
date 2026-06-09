@@ -1,0 +1,30 @@
+{
+ "slug": "nodebb_golddefect",
+ "breadth": {
+  "files": 8,
+  "hunks": 13,
+  "loc": 89,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Make `Meta.slugTaken` accept an array by returning a single boolean that is true if ANY of the supplied slugs already exists (logical OR collapse).",
+   "design_B": "Make `Meta.slugTaken` accept an array by returning a per-element result (e.g. an array of booleans, or the subset of slugs that are taken), preserving one answer per input slug.",
+   "why_both_faithful": "The prose only says the check should 'support both single values and arrays' for 'slug existence' but never specifies the return shape or semantics for an array input, so collapsing to one boolean and returning per-element results both satisfy it.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Keep Meta.slugTaken returning a boolean for single slug input, and for array input return an array of booleans aligned by index with the input slugs; make cache consistency by having affected modules import/use the same shared post cache instance.",
+   "design_B": "Keep Meta.slugTaken returning a boolean for single slug input, and for array input return one aggregate boolean indicating whether any supplied slug is already taken; make cache consistency by having affected modules import/use the same shared post cache instance.",
+   "why_both_faithful": "The prose requires array inputs to be supported but never specifies whether multiple-slug checks should return per-slug results or one aggregate existence result.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Enumerate variant package names using Red Hat-style variant placement after the kernel prefix, such as kernel-rt, kernel-rt-core, kernel-rt-modules, kernel-uek, kernel-uek-core, and corresponding debug forms.",
+  "design_B": "Enumerate variant package names by appending the listed suffixes to each base package name, such as kernel-core-rt, kernel-modules-rt, kernel-debug-core-rt, and kernel-tools-uek.",
+  "why_both_faithful": "The prose requires adding '-rt', '-uek', '-64k', and '-zfcpdump' suffix variants but does not specify whether those suffixes attach after 'kernel' or at the end of each package name.",
+  "selecting_clause": null
+}

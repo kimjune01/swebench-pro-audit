@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_0044091a",
+ "breadth": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 22,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The functionality must use the iptables multiport module through the `append_match` and `append_csv` functions."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When destination_ports is nonempty and protocol is not tcp, udp, udplite, dccp, or sctp, explicitly fail validation before constructing the iptables command.",
+   "design_B": "When destination_ports is nonempty, always append the multiport match and CSV destination ports, relying on iptables itself to reject incompatible protocols at execution time.",
+   "why_both_faithful": "The prose requires compatibility only with certain protocols but does not specify whether the module must enforce that constraint itself or may rely on iptables behavior.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

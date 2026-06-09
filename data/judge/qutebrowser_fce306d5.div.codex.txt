@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement KeyInfo as a single dataclass storing `key: Qt.Key` and `modifiers: Qt.KeyboardModifiers`, with `to_qt()` constructing either the legacy combined int or a `QKeyCombination` at the boundary.",
+  "design_B": "Implement KeyInfo as a version-adaptive wrapper storing the native Qt representation internally, an int on Qt5 and a `QKeyCombination` on Qt6, exposing key/modifier accessors and conversion helpers around that native value.",
+  "why_both_faithful": "Both designs replace raw integer handling with a structured KeyInfo abstraction, support parsing/iteration/appending/stripping/mapping, and abstract Qt5 versus Qt6 conversions while preserving identical external key-sequence behavior.",
+  "selecting_clause": null
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_537e2fc0",
+ "breadth": {
+  "files": 9,
+  "hunks": 20,
+  "loc": 163,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The system must implement a new `Metrics` interface with methods `WriteInitialMetrics`, `WriteAfterScanMetrics`, and `GetHandler() http.Handler` that encapsulates metrics-related functionality, with a new struct `metrics` implementing this interface referencing `model.DataStore`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

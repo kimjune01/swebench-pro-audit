@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_f533d465",
+ "breadth": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 61,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The method `is_valid_collection_name` must reject names where either `<namespace>` or `<name>` is a Python keyword, and both segments must be valid Python identifiers under language rules."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

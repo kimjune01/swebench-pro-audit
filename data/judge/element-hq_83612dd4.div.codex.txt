@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The function `isKeyComboMatch` should return true only when the pressed key and modifiers exactly match the combination, and false when extra modifiers are present."
+}

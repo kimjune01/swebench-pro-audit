@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_c97257ca",
+ "breadth": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 106,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement with `parts = s.split(','); if len(parts) != 2: raise ValueError; return QPoint(int(parts[0]), int(parts[1]))` \u2014 since Python's int() strips surrounding whitespace, strings like \"13, -42\" or \" 13 , 42 \" parse successfully into a valid QPoint.",
+   "design_B": "Treat embedded/surrounding whitespace as malformed: strictly validate that components match a digit/sign pattern (e.g. reject if a part is empty after split or contains spaces), so \"13, -42\" raises ValueError rather than parsing.",
+   "why_both_faithful": "The prose says only to 'handle edge cases like whitespace or empty strings gracefully' without defining whether whitespace-bearing input should be accepted (stripped) or rejected, so both lenient and strict whitespace handling satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Strip whitespace around the whole string and each comma-separated component, so inputs like \" 13, -42 \" parse successfully to QPoint(13, -42).",
+   "design_B": "Require the strict \"x,y\" syntax with no surrounding or component whitespace, so inputs like \" 13, -42 \" raise ValueError with a clear expected-format message.",
+   "why_both_faithful": "The prose says to handle whitespace gracefully but never specifies whether whitespace-containing coordinate strings must be accepted or rejected.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

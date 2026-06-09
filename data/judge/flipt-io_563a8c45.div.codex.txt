@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When IfNoMatch matches the manifest digest, Fetch returns a FetchResponse with Digest set, Matched true, and an empty/nil Files slice.",
+  "design_B": "When IfNoMatch matches the manifest digest, Fetch returns a FetchResponse with Digest set, Matched true, and the already-resolved manifest layer files included.",
+  "why_both_faithful": "The prose requires an early return on digest match and a Matched flag, but does not specify whether matched responses should include files or omit them to avoid transfer/work.",
+  "selecting_clause": null
+}

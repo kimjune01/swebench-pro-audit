@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Determine blocking by checking the request host and each successive parent domain (left-stripping one label at a time) against both the runtime blocked set and the config-defined blocked set; the first match blocks the request."}

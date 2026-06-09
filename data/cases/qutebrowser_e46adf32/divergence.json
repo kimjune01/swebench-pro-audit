@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_e46adf32",
+ "breadth": {
+  "files": 5,
+  "hunks": 12,
+  "loc": 50,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement utils.parse_version by directly returning QVersionNumber.fromString(version_string), preserving Qt's native leading-component parsing behavior for strings with suffixes.",
+   "design_B": "Implement utils.parse_version by first normalizing/sanitizing version strings to extract only numeric dot-separated components, then constructing/returning a QVersionNumber from those components.",
+   "why_both_faithful": "The prose requires a Qt-native QVersionNumber result and centralized parsing, but does not specify how non-canonical version strings, suffixes, distro annotations, or invalid inputs must be normalized before comparison.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

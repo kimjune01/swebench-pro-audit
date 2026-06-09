@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_bb69574e",
+ "breadth": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 185,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat bare matcher strings as exact literals unless they contain `*` or are clearly regex-like with anchors/metacharacters, so `Match(\"foo.bar\")` matches only `foo.bar`.",
+   "design_B": "Treat every bare non-template matcher string as a raw regular expression, so `Match(\"foo.bar\")` also matches inputs like `fooXbar`.",
+   "why_both_faithful": "The prose requires support for both literal strings and raw regular expressions but never specifies how `Match(value string)` distinguishes a bare literal from a bare regex when the syntax overlaps.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

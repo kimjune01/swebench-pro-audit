@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Mutate the supplied Luqum query tree in place, replacing each SearchField.name with replacer(name), then return str(query).",
+  "design_B": "Build or deep-copy a transformed Luqum query tree with replaced SearchField names, leave the supplied query object unchanged, and return the serialized transformed copy.",
+  "why_both_faithful": "The prose requires traversal, field replacement, and a returned serialized string, but never specifies whether the input query tree itself must be mutated or preserved.",
+  "selecting_clause": null
+}

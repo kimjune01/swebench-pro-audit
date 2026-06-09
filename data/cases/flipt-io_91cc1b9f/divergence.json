@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_91cc1b9f",
+ "breadth": {
+  "files": 16,
+  "hunks": 28,
+  "loc": 199,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Configure OpenTelemetry sampling with sdktrace.TraceIDRatioBased(SamplingRatio), so the ratio applies directly to every new trace decision regardless of parent context.",
+   "design_B": "Configure OpenTelemetry sampling with sdktrace.ParentBased(sdktrace.TraceIDRatioBased(SamplingRatio)), so existing parent sampling decisions are respected and the ratio applies only to root traces.",
+   "why_both_faithful": "The prose requires a 0-1 sampling ratio controlling sampled traces but never specifies whether parent trace sampling decisions must be honored or ignored.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The logic to extract and validate the 'cover' URL must be implemented in a callable that accepts the edition dictionary and the allowed hosts, returning both the extracted cover URL (or `None`) and the updated edition dictionary with the 'cover' key removed."}

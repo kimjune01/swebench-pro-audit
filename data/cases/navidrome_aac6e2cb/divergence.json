@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_aac6e2cb",
+ "breadth": {
+  "files": 6,
+  "hunks": 13,
+  "loc": 53,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "All existing references to `conf.Server.BaseURL` in the codebase must be updated to use `conf.Server.BasePath`, and `BaseURL` must no longer be used in logic for building routes or absolute URLs."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_0b9ec051",
+ "breadth": {
+  "files": 6,
+  "hunks": 13,
+  "loc": 64,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Update the function DetectCpeURIsCves so that it assigns CpeVendorProductMatch when IsJvn is true, and assigns CpeVersionMatch otherwise."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

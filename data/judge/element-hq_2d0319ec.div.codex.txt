@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement RovingAccessibleButton to render a button with title/aria-label and wrap it in the existing tooltip component whenever title is present and disableTooltip is false.",
+  "design_B": "Implement RovingAccessibleButton to render only the button element, using the native title attribute as the tooltip mechanism, and omit/suppress that title attribute when disableTooltip is true while preserving accessibility via aria-label.",
+  "why_both_faithful": "The prose requires title-based accessibility and disableTooltip-controlled tooltip display, but does not specify whether the tooltip must be a custom wrapper/component or the native title tooltip.",
+  "selecting_clause": null
+}

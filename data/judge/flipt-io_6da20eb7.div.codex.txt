@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat scheme-less OTLP endpoints like `host:port` as OTLP/gRPC endpoints and initialize `otlptracegrpc` with that endpoint and headers.",
+  "design_B": "Treat scheme-less OTLP endpoints like `host:port` as OTLP/HTTP endpoints and initialize `otlptracehttp` with that endpoint and headers.",
+  "why_both_faithful": "The prose requires accepting scheme-less OTLP endpoints and applying headers, but does not specify whether the scheme-less form selects the HTTP or gRPC OTLP transport.",
+  "selecting_clause": null
+}

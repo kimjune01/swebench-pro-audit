@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_39da741a",
+ "breadth": {
+  "files": 10,
+  "hunks": 21,
+  "loc": 149,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Populate Album.Genres ordered alphabetically by genre.name (e.g. SQL JOIN with ORDER BY genre.name when hydrating).",
+   "design_B": "Populate Album.Genres ordered by first appearance across the album's tracks (insertion order of distinct genres as tracks are aggregated in refresh).",
+   "why_both_faithful": "The prose only requires the genres be a unique set 'ordered consistently' and never names a sort key, so any deterministic, repeatable order satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Populate Album.Genres as a deduplicated list sorted alphabetically by genre name whenever albums are refreshed or hydrated.",
+   "design_B": "Populate Album.Genres as a deduplicated list ordered by first occurrence in the album's tracks, preserving that order in album-genre relations and reads.",
+   "why_both_faithful": "The prose requires a unique genre collection that is ordered consistently, but never specifies which ordering rule must be used.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

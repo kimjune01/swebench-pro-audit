@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_3910e77a",
+ "breadth": {
+  "files": 7,
+  "hunks": 16,
+  "loc": 126,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement CollectChunks to allocate a fresh backing array for every yielded chunk.",
+   "design_B": "Implement CollectChunks with a reusable internal buffer and copy each full chunk into a separate slice only at yield time to avoid aliasing.",
+   "why_both_faithful": "The prose only says buffer reuse would be beneficial and warns against aliasing, so both allocation-heavy and buffer-reusing implementations satisfy the stated behavior.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

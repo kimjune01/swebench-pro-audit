@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_19b81d25",
+ "breadth": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 68,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "It is opened with `Modal.createDialog(PollHistoryDialog, { roomId: room.roomId });`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

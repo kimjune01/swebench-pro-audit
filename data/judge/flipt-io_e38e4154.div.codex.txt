@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "release.Is treats only versions ending exactly with '-snapshot', '-rc', or 'dev' as non-release.",
+  "design_B": "release.Is parses prerelease identifiers and treats versions such as '1.2.3-rc.1', '1.2.3-snapshot.4', and '1.2.3-dev.abc' as non-release whenever dev/snapshot/rc appears as a prerelease token.",
+  "why_both_faithful": "The prose mentions both concrete suffixes like '-rc' and broader prerelease identifiers 'dev', 'snapshot', and 'rc', without specifying exact string matching versus prerelease-token parsing.",
+  "selecting_clause": null
+}

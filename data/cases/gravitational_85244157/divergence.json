@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_85244157",
+ "breadth": {
+  "files": 6,
+  "hunks": 9,
+  "loc": 40,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement ReadAtMost by reading limit+1 bytes, returning ErrLimitReached only when an extra byte proves more content exists beyond the limit.",
+   "design_B": "Implement ReadAtMost with io.LimitReader(r, limit), returning ErrLimitReached whenever exactly limit bytes are returned.",
+   "why_both_faithful": "The prose says the limit being reached returns ErrLimitReached, but also says no error when the limit allows all content, without explicitly specifying whether the implementation must probe one byte past the limit to distinguish exact-size content from truncated content.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

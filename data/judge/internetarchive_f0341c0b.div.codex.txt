@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Publication-year enforcement should key off `source_records` prefixes; only entries from `amazon` or `bwb` should trigger the stricter year check."}

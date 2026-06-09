@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "All numeric fields in Subsonic API responses that represent integers, such as `songCount`, `bitRate`, `userRating`, and `year`, should consistently use `int32`, aligning with the official Subsonic API schema."
+}

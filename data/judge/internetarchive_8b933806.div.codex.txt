@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "add_db_name formats dates as `db_name = name + ' (' + date + ')'`, e.g. `Jane Smith (1900-1980)`, and expand_record/title comparisons use that exact generated value.",
+  "design_B": "add_db_name formats dates as `db_name = name + ' ' + date`, e.g. `Jane Smith 1900-1980`, and expand_record/title comparisons use that exact generated value.",
+  "why_both_faithful": "The prose requires combining the author's name with available date information but never specifies the exact string format, even though exact db_name matching is required.",
+  "selecting_clause": null
+}

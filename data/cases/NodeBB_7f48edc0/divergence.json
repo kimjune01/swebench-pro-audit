@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_7f48edc0",
+ "breadth": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 29,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Read the full list, filter out any entry whose value is in the removal array, then write back the filtered list in one replacement operation.",
+   "design_B": "Iterate over the array and invoke the existing single-element removal operation once per requested value, removing each value separately.",
+   "why_both_faithful": "Both remove every requested distinct string that is present, preserve the order of remaining elements, require no new interface, and make later reads reflect the final updated list, while the prose does not require an atomic rewrite or a per-element loop.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

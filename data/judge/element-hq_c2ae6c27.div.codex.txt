@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "During each smoothing pass, compute averaged values centered on odd interior indices, e.g. for centers 1, 3, 5, use (input[i - 1] + input[i + 1]) / 2, then uniformly resample the resulting sequence.",
+  "design_B": "During each smoothing pass, compute averaged values centered on even interior indices, e.g. for centers 2, 4, 6, use (input[i - 1] + input[i + 1]) / 2, then uniformly resample the resulting sequence.",
+  "why_both_faithful": "The prose requires alternating interior positions and neighbor-only averaging, but never specifies which parity of interior positions to start with or how that parity changes across smoothing passes.",
+  "selecting_clause": null
+}

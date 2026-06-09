@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_61ff98d3",
+ "breadth": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 64,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Stream stderr live using error severity while stdout live updates use informational severity, then emit final stdout summary before final stderr summary.",
+   "design_B": "Stream stderr live using the same informational/default severity as stdout, reserving error severity only for the final stderr summary, then emit final stdout summary before final stderr summary.",
+   "why_both_faithful": "The prose requires both streams to be surfaced live and only explicitly assigns informational/error severity to the final summaries, not to live updates.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

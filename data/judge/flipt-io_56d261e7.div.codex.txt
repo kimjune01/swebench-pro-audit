@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For a constraint whose property key is absent from EvaluationRequest.Context, treat the constraint as non-matching for all operators except notpresent.",
+  "design_B": "For a constraint whose property key is absent from EvaluationRequest.Context, treat typed comparison operators such as lt/gte/true/false as invalid input and return an evaluation error.",
+  "why_both_faithful": "The prose defines operator behavior and parsing errors for non-numeric/non-boolean inputs, but never states whether a missing context key is a failed constraint or an error outside present/notpresent.",
+  "selecting_clause": null
+}

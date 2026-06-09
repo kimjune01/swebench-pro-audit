@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The `kinit` invocation must read the password from `stdin` on all platforms and not inherit the current TTY, ensuring reliable prompt handling on macOS."
+}

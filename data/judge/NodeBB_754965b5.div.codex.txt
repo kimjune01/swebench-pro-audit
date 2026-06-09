@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Both `db.getObject` and `db.getObjects` should accept an optional fields parameter. If the field is empty, they should return the entire objects, and if given, return only the requested fields for the given objects."
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_ad9cbe93",
+ "breadth": {
+  "files": 9,
+  "hunks": 11,
+  "loc": 340,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Initialize VoiceBroadcastRecording state by scanning the timeline-set relations for the latest VoiceBroadcastInfoState event and deriving state from it; store recordings keyed only by info event ID and treat the passed-in initial state as a fallback default.",
+   "design_B": "Initialize state directly from the constructor-provided initial state argument, only consulting room-state relations to detect a later Stopped event; resolve conflicting state values by preferring the most recent event timestamp.",
+   "why_both_faithful": "The prose says the class 'must initialize its state by inspecting related events in the room state' and is also constructed 'using the client, info event, and initial state', but never specifies which source wins when the passed initial state and the room-state relations disagree, nor how to pick among multiple related events.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement startNewVoiceBroadcastRecording as returning Promise<VoiceBroadcastRecording>, matching the requirement that it instantiates, stores, and returns the new recording.",
+   "design_B": "Implement startNewVoiceBroadcastRecording as returning Promise<MatrixEvent>, matching the declared public interface output and interface description that it returns the event.",
+   "why_both_faithful": "The prose states two incompatible return contracts for the same public function, with one clause requiring the new recording and another declaring MatrixEvent/the event.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

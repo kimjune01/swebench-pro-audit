@@ -1,0 +1,24 @@
+{
+ "slug": "ansible_35809806",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 88,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": null
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Parse sysctl lines by trying '=' first, then ':', then whitespace, so a line like 'foo: bar = baz' becomes key 'foo: bar' and value 'baz'.",
+   "design_B": "Parse sysctl lines by trying ':' first, then '=', then whitespace, so a line like 'foo: bar = baz' becomes key 'foo' and value 'bar = baz'.",
+   "why_both_faithful": "The prose requires support for '=', ':', and space delimiters but never specifies delimiter precedence when more than one supported delimiter appears in a valid-looking line.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

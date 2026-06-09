@@ -1,0 +1,24 @@
+{
+ "slug": "internetarchive_0180e2ca",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 49,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": null
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Input resolution should follow a defined precedence and enforce stable ordering with deduplication: first treat as full key, then as MARC-3, then as ISO-639-1, and finally as full name or synonym; when multiple entries map to the same language, only the first occurrence should be kept."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_a6171337",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 82,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "If the setting value is `auto`, the browser must disable the accelerated 2D canvas feature only when running with Qt 6 and a Chromium major version below 111; otherwise, it must keep the feature enabled."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

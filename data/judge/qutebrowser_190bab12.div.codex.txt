@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When a setting value is a non-dictionary invalid structure, log/report the validation problem, leave the original malformed value unchanged in autoconfig data, and skip all migration logic for that setting.",
+  "design_B": "When a setting value is a non-dictionary invalid structure, log/report the validation problem, delete that malformed setting from autoconfig data or replace it with the schema default, mark the configuration changed, and continue migration.",
+  "why_both_faithful": "The prose requires robustness, reporting, and avoiding iteration over invalid structures, but does not specify whether invalid non-None structures must be preserved, removed, or defaulted.",
+  "selecting_clause": null
+}

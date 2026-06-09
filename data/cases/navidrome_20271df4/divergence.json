@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_20271df4",
+ "breadth": {
+  "files": 5,
+  "hunks": 7,
+  "loc": 54,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

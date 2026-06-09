@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_142f019c",
+ "breadth": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 63,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use Python's standard mimetypes database to map MIME types and wildcard prefixes to extensions, returning missing extensions such as .jpg and .jpe for image/jpeg.",
+   "design_B": "Use Qt's QMimeDatabase or qutebrowser's existing Qt MIME metadata to map MIME types and wildcard prefixes to extensions, returning whatever aliases that database reports.",
+   "why_both_faithful": "The prose requires adding missing extensions for MIME types and wildcards but never specifies which MIME-extension registry is authoritative, and different registries can produce different extension sets.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

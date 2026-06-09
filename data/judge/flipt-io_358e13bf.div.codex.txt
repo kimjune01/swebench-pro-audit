@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Fixed references cannot be deleted and remain accessible. Non-fixed references can be deleted and are no longer accessible after removal."}

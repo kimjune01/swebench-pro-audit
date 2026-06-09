@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Check the number of arguments after --untrusted-args first, so argv containing --untrusted-args -x foo exits with the multiple-arguments message.",
+  "design_B": "Check each argument after --untrusted-args for a leading dash or colon first, so argv containing --untrusted-args -x foo exits with the invalid-argument message for -x.",
+  "why_both_faithful": "The prose requires both errors but does not specify precedence when both conditions are true for the same invocation.",
+  "selecting_clause": null
+}

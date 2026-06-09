@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement Backup by copying the SQLite database file to a timestamped file in the configured backup directory, Restore by replacing the main database file with the provided backup path, and Prune by deleting oldest files in that directory beyond retention.",
+  "design_B": "Implement Backup using SQLite's online backup/VACUUM INTO mechanism to create a backup file, Restore by importing the backup contents into the existing open database connection, and Prune by deleting oldest matching backup-name files beyond retention.",
+  "why_both_faithful": "The prose requires package-level backup, restore, and prune behavior but does not specify the backup mechanism, filename pattern, restore strategy, or exact pruning selection beyond configured retention count.",
+  "selecting_clause": null
+}

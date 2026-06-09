@@ -1,0 +1,30 @@
+{
+ "slug": "tutao_376d4f29",
+ "breadth": {
+  "files": 9,
+  "hunks": 29,
+  "loc": 263,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "addEntropy only accumulates the chunks and feeds them into the Randomizer buffer; storeEntropy is the sole path that, when called, checks fully-logged-in + leader state and encrypts/persists the accumulated entropy to the server in a single attempt with a fixed retry-on-failure (e.g. catch LockedError and retry once).",
+   "design_B": "addEntropy itself triggers server storage as a side effect once accumulated estimated entropy bits cross an internal threshold, with storeEntropy delegating to the same threshold-gated routine; retry logic is a bounded loop over transient errors with a different policy.",
+   "why_both_faithful": "The prose mandates accumulation, processing, server storage, and 'appropriate error handling and retry logic' but never specifies the storage trigger (threshold-based vs explicit-call vs time-based), the threshold value, or the retry count/policy, so both trigger semantics satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "EntropyFacade.addEntropy feeds each chunk into Randomizer, accumulates estimated entropy bits, and automatically calls storeEntropy once a threshold or timer is reached.",
+   "design_B": "EntropyFacade.addEntropy only records/feeds submitted chunks, while storeEntropy is invoked explicitly by LoginFacade or another existing periodic worker path after login/leader checks.",
+   "why_both_faithful": "The prose requires centralized accumulation and periodic server storage, but never specifies whether EntropyFacade itself triggers storage or merely exposes storeEntropy for existing callers to trigger.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

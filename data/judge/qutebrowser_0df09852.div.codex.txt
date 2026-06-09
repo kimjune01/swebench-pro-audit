@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"For zip/importlib-resources paths, it must assert that the directory exists, iterate its entries, and yield only filenames that end with `ext`, joined as `subdir/<name>` with forward slashes."}

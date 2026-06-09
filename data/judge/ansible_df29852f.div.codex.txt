@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Accept singular and plural full-word units in the predefined mapping, such as megabyte and megabytes, kilobit and kilobits, with case-insensitive matching.",
+  "design_B": "Accept only the singular full-word units explicitly represented by the mapping, such as megabyte and kilobit, rejecting plural forms like megabytes and kilobits.",
+  "why_both_faithful": "The prose requires a predefined mapping supporting abbreviations and full words, but gives only examples and never specifies the complete valid unit vocabulary or whether plural full-word units are valid.",
+  "selecting_clause": null
+}

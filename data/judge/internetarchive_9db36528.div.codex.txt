@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Normalize a string-valued subjects field by wrapping it as a single list element, e.g. \"science, history\" -> [\"Science, history\"].",
+  "design_B": "Normalize a string-valued subjects field by splitting it on common delimiters before capitalization, e.g. \"science, history\" -> [\"Science\", \"History\"].",
+  "why_both_faithful": "The prose requires publishers and subjects to be normalized to lists and subject strings capitalized, but never specifies whether string inputs should be split or treated as one list item.",
+  "selecting_clause": null
+}

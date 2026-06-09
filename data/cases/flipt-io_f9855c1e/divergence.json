@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_f9855c1e",
+ "breadth": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 36,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Accept schema extensions as a variadic list of CUE source strings on the validator (each compiled and unified with the base schema), and report positions by mapping each CUE error's token position back to the YAML source line via the YAML AST node positions.",
+   "design_B": "Accept schema extensions as a single concatenated/combined CUE schema document applied during validation, and report positions by re-deriving line numbers from the field path of the failing constraint against the parsed YAML rather than from CUE token positions.",
+   "why_both_faithful": "The prose mandates that extensions be accepted and applied and that errors carry accurate line numbers plus a reason, but never fixes the extension-input shape, the position-resolution mechanism, or the error-message format, so multiple distinct designs satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Build a YAML AST path-to-position index while decoding the source document, then map each CUE validation error path back to the corresponding YAML node and report that node's line.",
+   "design_B": "Generate CUE source with embedded file/line position metadata derived from the YAML input before validation, then rely on CUE's own error positions to report validation locations.",
+   "why_both_faithful": "Both approaches accept schema extensions, enforce the additional constraints, preserve existing interfaces, and can report accurate source YAML positions for each validation error, but they use incompatible mechanisms for deriving positions.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

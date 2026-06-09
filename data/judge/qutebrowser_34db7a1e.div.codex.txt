@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When multiple partial matches exist, use the first partial match found; if its Chromium bytes fail validation or cannot be expanded to a full version, raise the specified ParseError.",
+  "design_B": "When multiple partial matches exist, iterate over partial matches until finding one whose Chromium bytes validate and can be expanded to a full version, then return that Versions object.",
+  "why_both_faithful": "The prose describes what to do when a partial match is found, but never specifies selection behavior when several partial matches are present in the data.",
+  "selecting_clause": null
+}

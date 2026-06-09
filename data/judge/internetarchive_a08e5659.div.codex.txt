@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When multiple print-disabled editions exist, build `printdisabled_s` by preserving the work/edition iteration order.",
+  "design_B": "When multiple print-disabled editions exist, build `printdisabled_s` by sorting the `OL…M` edition ids lexicographically before joining with `;`.",
+  "why_both_faithful": "The prose requires a semicolon-separated string of print-disabled edition ids but does not specify their order.",
+  "selecting_clause": null
+}

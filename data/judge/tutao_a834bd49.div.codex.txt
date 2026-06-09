@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The loading flow (including caching layers like `DefaultEntityRestCache`) should propagate these optional key parameters through to the underlying entity rest client so they are available prior to decryption."}

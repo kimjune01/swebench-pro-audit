@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Change every news item's visibility predicate to an async function returning Promise<boolean>, await all predicates before rendering news, and gate referral settings/link generation behind an awaited non-business customer-type check.",
+  "design_B": "Keep existing synchronous news predicates unchanged but run all visibility decisions through a Promise.resolve-based async wrapper, add an async customer-type predicate only for referral news, and defer settings rendering until a shared async customer-type lookup completes.",
+  "why_both_faithful": "The prose requires asynchronous visibility behavior and business-customer filtering, but does not require whether existing synchronous rules must be rewritten as async predicates or adapted by an async wrapper.",
+  "selecting_clause": null
+}

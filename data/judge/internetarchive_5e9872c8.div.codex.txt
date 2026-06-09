@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement process_facet('has_fulltext', ...) so boolean facet values yield display strings identical to the raw values, e.g. ('true', 'true', count) and ('false', 'false', count).",
+  "design_B": "Implement process_facet('has_fulltext', ...) so boolean facet values yield human-readable display strings, e.g. ('true', 'Has full text', count) and ('false', 'No full text', count).",
+  "why_both_faithful": "The prose requires handling boolean facets but never specifies the exact key/display mapping for those yielded triples.",
+  "selecting_clause": null
+}

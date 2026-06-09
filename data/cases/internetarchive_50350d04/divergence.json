@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_50350d04",
+ "breadth": {
+  "files": 6,
+  "hunks": 12,
+  "loc": 123,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Serialize the fourth JSON column with json.dumps(extra_fields, cls=InfogamiThingEncoder) using Python's default separators and insertion-order key order.",
+   "design_B": "Serialize the fourth JSON column with json.dumps(extra_fields, cls=InfogamiThingEncoder, sort_keys=True, separators=(\",\", \":\")) using sorted keys and compact JSON.",
+   "why_both_faithful": "The prose requires a fourth column containing a JSON object for extra fields, but never specifies JSON key ordering or whitespace within that JSON object.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

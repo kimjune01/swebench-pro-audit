@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_a2c8576a",
+ "breadth": {
+  "files": 1,
+  "hunks": 12,
+  "loc": 137,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The current `record` struct in `lib/backend/firestore/firestorebk.go` should change the `Value` type to a slice of bytes. On the other hand, a new struct named `legacyRecord` should be created to represent the very same structure as the previous `record` struct."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For OTLP endpoints with http/https schemes, construct the OTLP HTTP exporter with the full configured endpoint URL, preserving any path such as /v1/traces, and configured headers.",
+  "design_B": "For OTLP endpoints with http/https schemes, parse the URL only to choose HTTP vs HTTPS, strip the scheme to pass host:port to the OTLP HTTP exporter, rely on the default trace path, and configured headers.",
+  "why_both_faithful": "The prose requires choosing HTTP(S) based on the endpoint scheme and using configured headers, but never specifies whether the full endpoint URL/path must be preserved or normalized to host:port/default path.",
+  "selecting_clause": null
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Serialize playlist payloads as {\"inPlaylist\":{\"id\":\"playlist123\"}} and {\"notInPlaylist\":{\"id\":\"playlist123\"}}.",
+  "design_B": "Serialize playlist payloads as {\"inPlaylist\":{\"playlistId\":\"playlist123\"}} and {\"notInPlaylist\":{\"playlistId\":\"playlist123\"}}.",
+  "why_both_faithful": "The prose requires a single string field carrying the playlist identifier but gives `id` only as an example, so another identifier field name can satisfy the stated contract.",
+  "selecting_clause": null
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Parse ClientAddr with net.ResolveTCPAddr and make RemoteAddr() return the resulting *net.TCPAddr.",
+  "design_B": "Wrap the connection with a custom net.Addr whose String() returns the raw ClientAddr value from the JSON payload.",
+  "why_both_faithful": "The prose requires the ClientAddr value to be exposed through RemoteAddr(), but does not specify the concrete net.Addr type or whether the value must be parsed as a TCP address.",
+  "selecting_clause": null
+}

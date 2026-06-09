@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_962f8d02",
+ "breadth": {
+  "files": 5,
+  "hunks": 40,
+  "loc": 1325,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Add `exclude_not_found` to `BatchEvaluationRequest` with one available proto field number, for example `bool exclude_not_found = 5;`.",
+   "design_B": "Add `exclude_not_found` to `BatchEvaluationRequest` with a different available proto field number, for example `bool exclude_not_found = 6;`.",
+   "why_both_faithful": "The prose requires the boolean field by name and behavior but does not specify the protobuf tag number, making multiple incompatible wire formats faithful.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

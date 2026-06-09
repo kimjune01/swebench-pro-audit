@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_6ecc791d",
+ "breadth": {
+  "files": 7,
+  "hunks": 10,
+  "loc": 106,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When the `min` and/or `max` parameters are provided, the function must return the count of elements whose scores satisfy the condition `min \u2264 score \u2264 max`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

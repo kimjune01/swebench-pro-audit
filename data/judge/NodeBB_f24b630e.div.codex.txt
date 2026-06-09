@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When an edited post removes a topic link, delete or otherwise suppress the prior backlink event from that referenced topic's timeline, while removing the tid from pid:{pid}:backlinks.",
+  "design_B": "When an edited post removes a topic link, remove only the tid from pid:{pid}:backlinks and leave the previously appended backlink timeline event in place.",
+  "why_both_faithful": "The prose explicitly requires removing stale sorted-set associations, but only says removed references must be reflected in backlink events without specifying whether existing appended timeline events are deleted, hidden by association lookup, or left as historical events.",
+  "selecting_clause": null
+}

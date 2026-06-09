@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Normalize a Twitter vanity handle as `https://twitter.com/TutanotaTeam`.",
+  "design_B": "Normalize a Twitter vanity handle as `https://x.com/TutanotaTeam`.",
+  "why_both_faithful": "The prose requires mapping Twitter to its standard base path but never specifies the exact base URL, and both twitter.com and x.com are plausible faithful interpretations for Twitter links.",
+  "selecting_clause": null
+}

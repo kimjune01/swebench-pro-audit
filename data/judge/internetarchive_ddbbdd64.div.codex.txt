@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Set each author's base identifier field to `name + ' (' + birth_date + '-' + death_date + ')'`, falling back to a general `date` field and to just `name` when no dates exist.",
+  "design_B": "Set each author's base identifier field to a space-joined string such as `name + ' ' + birth_date + ' ' + death_date`, falling back to a general `date` field and to just `name` when no dates exist.",
+  "why_both_faithful": "The prose requires combining the name with available dates but never specifies the exact string format, separator, ordering rules among date fields, or canonical field name beyond the conceptual base identifier.",
+  "selecting_clause": null
+}

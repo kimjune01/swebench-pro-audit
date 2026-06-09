@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_03feb923",
+ "breadth": {
+  "files": 9,
+  "hunks": 20,
+  "loc": 327,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For the coupon cases, render the described content using one concrete phrasing/structure, e.g. one-time coupon: \"Your first period costs {discounted}. After that, your subscription renews at {regular}.\" and multi-redemption: \"{discounted} for the first period, then renews {N} times before resuming {regular}.\"",
+   "design_B": "Render the same required content with a different but equally faithful phrasing/ordering, e.g. \"{discounted} for your first {period} (coupon applies to the first period only); regular price {regular} thereafter.\" and \"First period {discounted}; coupon valid for {N} renewals; {regular} per renewal afterward.\"",
+   "why_both_faithful": "Unlike the cadence messages, the prose only enumerates the required content of the coupon notices (discounted first-period amount, first-period-only scope, allowed renewals count, regular amount thereafter) without quoting any verbatim string, so multiple distinct wordings/structures each satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When both isCustomBilling and isScheduledSubscription are true, compute the next billing date from subscription.periodEnd.",
+   "design_B": "When both isCustomBilling and isScheduledSubscription are true, compute the next billing date from subscription.periodEnd plus the upcoming cycle.",
+   "why_both_faithful": "The prose gives separate rules for custom billing and scheduled subscriptions but never states their precedence or mutual exclusivity when both apply.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

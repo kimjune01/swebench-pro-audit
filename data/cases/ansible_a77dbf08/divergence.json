@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_a77dbf08",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 30,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Parse ansible_winrm_kinit_args with shlex.split, preserving quoted arguments such as '-X \"foo bar\"' as single tokens before appending the principal.",
+   "design_B": "Parse ansible_winrm_kinit_args with simple whitespace splitting, so any spaces always separate tokens before appending the principal.",
+   "why_both_faithful": "The prose only requires that multiple flags separated by spaces become separate tokens, and does not specify shell-style quoting or escaping semantics for argument strings.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

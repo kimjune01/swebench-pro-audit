@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat any non-empty X-Vuls-Kernel-Version value as usable, pass it through runningKernel, and only reset to empty when the header is absent.",
+  "design_B": "Parse X-Vuls-Kernel-Version as a kernel version and reset it to empty for syntactically invalid values such as 'unknown' or 'foo'.",
+  "why_both_faithful": "The prose requires validation and handling of missing or invalid kernel versions, but never defines what makes a provided kernel version invalid.",
+  "selecting_clause": null
+}

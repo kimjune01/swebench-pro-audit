@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_3b48b606",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 32,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When rewriting a proton.black absolute URL and the current proton.local page has no explicit port, preserve any explicit port from the input URL.",
+   "design_B": "When rewriting a proton.black absolute URL and the current proton.local page has no explicit port, remove any explicit port from the input URL so the result matches the current page's absent port.",
+   "why_both_faithful": "The prose requires applying the current page port when present but never states what to do with an input URL's existing port when the current page has no port.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

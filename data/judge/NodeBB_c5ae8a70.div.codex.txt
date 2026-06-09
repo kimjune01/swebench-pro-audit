@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Sort topics by lastposttime ascending and break equal lastposttime ties by topic id ascending.",
+  "design_B": "Sort topics by lastposttime ascending and break equal lastposttime ties by topic id descending.",
+  "why_both_faithful": "The prose requires deterministic stable tie handling for equal lastposttime values, but does not specify which consistent tie-break must be used.",
+  "selecting_clause": null
+}

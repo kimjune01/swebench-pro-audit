@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_8a8ab8cb",
+ "breadth": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 43,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `scanInstalledPackages` method must run and parse both `pkg info` and `pkg version -v`, merge the results, and overwrite any duplicate package entries with the data from `pkg version -v` according to the precedence rule."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

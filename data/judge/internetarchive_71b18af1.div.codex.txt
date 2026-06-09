@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Classify export entries in List.get_export_list() by each loaded Thing's type field, e.g. author/work/edition type records go into authors/works/editions.",
+  "design_B": "Classify export entries in List.get_export_list() by each loaded Thing's key path prefix, e.g. /authors/, /works/, and /books/ determine authors/works/editions.",
+  "why_both_faithful": "The prose requires fully loaded and type-filtered Thing instances but never specifies whether the authoritative discriminator is the Thing type field or the Open Library key namespace.",
+  "selecting_clause": null
+}

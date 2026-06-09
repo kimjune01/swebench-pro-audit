@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement retries with deterministic exponential sleeps such as 100ms, 200ms, 400ms, stopping once total elapsed retry time reaches max_backoff_duration.",
+  "design_B": "Implement retries using exponential backoff with jitter, still stopping once max_backoff_duration is reached.",
+  "why_both_faithful": "The prose requires exponential backoff up to the configured maximum duration but never specifies the initial interval, multiplier, or whether jitter is used.",
+  "selecting_clause": null
+}

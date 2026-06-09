@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement GetEvaluationRollouts by returning the underlying store's rollout slice exactly as fetched, relying on the underlying query/store method to sort by rank before caching.",
+  "design_B": "Implement GetEvaluationRollouts by explicitly sorting the rollout slice by rank in the cached wrapper after fetching from the underlying store and before caching/returning.",
+  "why_both_faithful": "The prose requires ordered-by-rank results but does not specify which layer must enforce the ordering, so either the underlying storage implementation or the cached wrapper can faithfully provide the required behavior.",
+  "selecting_clause": null
+}

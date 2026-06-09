@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"All references to the legacy Solr host key should be replaced with `solr_base_url`, and the resolved value should be stored globally after the first access via `runtime_config['plugin_worksearch']`."}

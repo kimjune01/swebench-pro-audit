@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Ad-hoc and console CLIs must expose a ‘--task-timeout’ option that accepts an integer value in seconds, uses the configured default when unspecified, and displays the exact help text: ‘set task timeout limit in seconds’, ‘must be positive integer’."
+}

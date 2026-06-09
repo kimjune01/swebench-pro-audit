@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Populate `languages` as a de-duplicated list of display_value strings in the same order they appear in Amazon's `display_values`, skipping entries whose type is `Original Language`.",
+  "design_B": "Populate `languages` as a de-duplicated list of display_value strings sorted alphabetically, skipping entries whose type is `Original Language`.",
+  "why_both_faithful": "The prose requires retaining unique non-Original-Language display values but never specifies the ordering of the returned language values.",
+  "selecting_clause": null
+}

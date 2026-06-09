@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_3c6bd204",
+ "breadth": {
+  "files": 5,
+  "hunks": 21,
+  "loc": 1482,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When evaluation fails due to an error, including store errors while fetching rules, encountering out-of-order rules, or errors while fetching distributions, the `reason` field must be set to `ERROR_EVALUATION_REASON`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_07e2ca13",
+ "breadth": {
+  "files": 7,
+  "hunks": 7,
+  "loc": 563,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement native.SignChallenge(chal) to accept the raw MacOSEnrollChallenge bytes, SHA-256 hash them internally, ECDSA-sign the digest, and return DER; RunCeremony passes the received challenge bytes directly to native.SignChallenge.",
+   "design_B": "Implement native.SignChallenge(chal) to accept an already SHA-256-hashed digest and DER-sign it; RunCeremony hashes the exact received challenge bytes before calling native.SignChallenge.",
+   "why_both_faithful": "The prose requires the challenge signature to be over the SHA-256 hash of the exact received value, but does not state whether hashing belongs inside the public native SignChallenge API or in the enrollment flow before calling it.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_c3513362",
+ "breadth": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 85,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Calls to `paidUserAssistantAddonName` should be replaced with calls to `getScribeAddonNameByPlan` when resolving the addon name in `getAssistantUpsellConfig`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_c41f152f",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 43,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Output: <bool> (\"True\" if the finished process exited due to a SIGTERM signal (`status == QProcess.CrashExit` and exit code equals `signal.SIGTERM`); otherwise returns \"False\")"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

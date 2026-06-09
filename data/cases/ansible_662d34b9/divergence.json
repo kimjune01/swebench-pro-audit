@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_662d34b9",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 67,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Parse L() and R() arguments by splitting on the first comma inside the parentheses.",
+   "design_B": "Parse L() and R() arguments by splitting on the last comma inside the parentheses, allowing commas in the displayed text.",
+   "why_both_faithful": "The prose specifies the two-argument shape L(text,url) and R(text,reference) but never says whether commas inside the visible text are possible or how to disambiguate them.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

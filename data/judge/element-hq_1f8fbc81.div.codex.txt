@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"When noise suppression is disabled by the user, the system should record using higher quality settings suitable for complex audio content like music or podcasts."}

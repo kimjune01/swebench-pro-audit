@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_ebf4b987",
+ "breadth": {
+  "files": 1,
+  "hunks": 4,
+  "loc": 32,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Build the consolidated --enable-features value by preserving encounter order: features extracted from argv first, then config.val.qt.args, then QtWebEngine configuration-required features such as OverlayScrollbar when applicable.",
+   "design_B": "Build the consolidated --enable-features value by preserving encounter order within each source but placing QtWebEngine configuration-required features first, followed by features from config.val.qt.args and then argv.",
+   "why_both_faithful": "The prose requires one consolidated entry containing the complete combined feature set and preserving feature strings verbatim, but it never specifies the ordering of features within that comma-separated value.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The validation should prioritize detecting invalid dates first, then pre-1970 dates, then start/end date ordering issues when multiple problems exist in a single event."}

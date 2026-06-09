@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_e0149462",
+ "breadth": {
+  "files": 3,
+  "hunks": 3,
+  "loc": 77,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Generate token strings as UUIDs, e.g. via an existing UUID helper, then persist and index the UUID string.",
+   "design_B": "Generate token strings as cryptographically random hex strings, e.g. 32 random bytes encoded as hex, then persist and index the hex string.",
+   "why_both_faithful": "The prose requires returning and storing a newly created token string but never specifies the token format, length, character set, or generator.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

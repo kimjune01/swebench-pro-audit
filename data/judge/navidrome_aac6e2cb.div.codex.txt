@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "All existing references to `conf.Server.BaseURL` in the codebase must be updated to use `conf.Server.BasePath`, and `BaseURL` must no longer be used in logic for building routes or absolute URLs."
+}

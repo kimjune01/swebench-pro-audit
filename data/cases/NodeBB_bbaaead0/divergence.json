@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_bbaaead0",
+ "breadth": {
+  "files": 9,
+  "hunks": 11,
+  "loc": 44,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat only administrators as privileged users allowed to assign tags listed in meta.config.systemTags.",
+   "design_B": "Treat administrators and moderators as privileged users allowed to assign tags listed in meta.config.systemTags.",
+   "why_both_faithful": "The prose requires 'elevated privileges' but never defines which NodeBB privilege level qualifies as privileged.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When addVisibleEvent moves a pre-existing failure into visibleFailures, preserve the failure's original timestamp so checkFailures may report it immediately if the grace period has already elapsed.",
+  "design_B": "When addVisibleEvent moves a pre-existing failure into visibleFailures, reset the failure timestamp to the visibility time so the grace period starts only once the event is shown.",
+  "why_both_faithful": "The prose requires reporting only visible failures after a grace period, but never specifies whether that grace period is measured from the original decryption failure or from first visibility.",
+  "selecting_clause": null
+}

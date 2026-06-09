@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "If the object format is used and contains only a single segment key, the system must treat it as equivalent to the string format and assign `OR_SEGMENT_OPERATOR` as the operator, regardless of the operator value provided."
+}

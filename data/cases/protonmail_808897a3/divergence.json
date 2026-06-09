@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_808897a3",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 27,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "if the height property is present and its value includes the \u201cvh\u201d unit, replace that value with \"auto\""
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

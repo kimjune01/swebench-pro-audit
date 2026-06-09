@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Update validation so only Drafts-folder descendants are treated as draft-valid locations, and add Trash hierarchy awareness only where existing trash-specific validation already applies.",
+  "design_B": "Generalize special-folder hierarchy checks so every special folder type, including Drafts, Trash, Sent, Spam, Archive, etc., treats all descendants as belonging to that special folder for validation.",
+  "why_both_faithful": "The prose says to recognize subfolders of special folder types 'like Drafts and Trash' but does not specify whether those are the complete set or examples of a generic rule.",
+  "selecting_clause": null
+}

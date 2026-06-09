@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_373580e2",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 86,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement InAppPurchaseModal with platform-specific translated copy, rendering different nonempty text for External.Android and External.iOS.",
+   "design_B": "Implement InAppPurchaseModal with a single generic translated warning shared by both Android and iOS, rendering the same nonempty text for both.",
+   "why_both_faithful": "The prose requires the component and a nonempty text element for Android/iOS, but never specifies the wording or whether the copy must be platform-specific.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

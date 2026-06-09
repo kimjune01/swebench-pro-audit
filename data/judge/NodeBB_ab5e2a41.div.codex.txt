@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The user image layer in `src/user/picture.js` should expose both `User.removeCoverPicture(uid)` and `User.removeProfileImage(uid)` functions to centralize the logic for removing files and clearing associated fields. These functions must ensure exactly 0 image files remain after successful removal operations."
+}

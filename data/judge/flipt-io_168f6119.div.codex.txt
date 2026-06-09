@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat bare `host:port` OTLP endpoints as gRPC OTLP endpoints, using the gRPC metric exporter unless the endpoint explicitly starts with `http://` or `https://`.",
+  "design_B": "Treat bare `host:port` OTLP endpoints as HTTP OTLP endpoints, using the HTTP metric exporter unless the endpoint explicitly starts with `grpc://`.",
+  "why_both_faithful": "The prose requires bare `host:port` endpoints to be supported but never specifies which OTLP transport protocol that form implies.",
+  "selecting_clause": null
+}

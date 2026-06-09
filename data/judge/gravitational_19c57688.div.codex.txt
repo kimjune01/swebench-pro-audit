@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Cache only successful resource loads: if the backend call returns an error, do not store it, so the next request after the in-flight call completes retries the backend immediately.",
+  "design_B": "Cache the full call result, including errors, for the TTL: repeated requests for the same key within the TTL receive the same error without another backend call.",
+  "why_both_faithful": "The prose says to memoize and return the same result within the TTL, but does not specify whether a failed load is a cacheable result or whether only successfully loaded resources should be stored.",
+  "selecting_clause": null
+}

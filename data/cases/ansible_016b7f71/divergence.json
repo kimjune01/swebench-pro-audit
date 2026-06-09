@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_016b7f71",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 108,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Parse the existing space-separated file format as: first token is password, following key=value tokens set salt and ident, treating duplicate identical keys as a parse error.",
+   "design_B": "Parse the existing space-separated file format as: first token is password, following key=value tokens set salt and ident, accepting duplicate identical ident entries by collapsing them to the same stored ident while erroring only on differing duplicate values.",
+   "why_both_faithful": "The prose requires clear parsing errors and conflict detection, but never specifies whether duplicate identical stored ident entries are a conflict or a recoverable legacy artifact.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

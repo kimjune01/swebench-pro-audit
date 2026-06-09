@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_0b192c8d",
+ "breadth": {
+  "files": 7,
+  "hunks": 34,
+  "loc": 466,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement VirtualPathEnvNames by appending parameters cumulatively so the full-specificity name joins ALL params with the kind (e.g. TSH_VIRTUAL_PATH_FOO_A_B_C) and progressively drops the trailing param \u2014 which is exactly what the prose's worked example mandates \u2014 but the broader design freedom is in unspecified areas like how PreloadKey bootstraps the in-memory LocalKeyStore: insert the key into a freshly constructed mem store and wrap it in a new LocalKeyAgent eagerly at NewClient time.",
+   "design_B": "Bootstrap the in-memory key store lazily \u2014 defer LocalKeyStore/LocalKeyAgent construction until the first GetKey/agent access, populating from PreloadKey on demand \u2014 which still satisfies 'bootstraps an in memory LocalKeyStore, inserts the key before first use, and exposes it through a newly initialized LocalKeyAgent' since insertion merely must precede first use.",
+   "why_both_faithful": "The prose fixes observable formats and field names (env-var ordering, IsVirtual semantics, which fields a Key must populate) but leaves construction timing and internal wiring of the preloaded key store unconstrained, permitting both eager and lazy bootstrap.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When invoked with the identity flag the client creation path derives Username ClusterName and ProxyHost from the identity. The corresponding KeyIndex fields are set the key is assigned to Config.PreloadKey and client initialization proceeds without reading or writing the filesystem."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

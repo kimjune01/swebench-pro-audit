@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_9962092e",
+ "breadth": {
+  "files": 12,
+  "hunks": 24,
+  "loc": 77,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "All references to storage size constants across components and shared modules must use the centralized definitions from `@proton/shared/lib/helpers/size`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

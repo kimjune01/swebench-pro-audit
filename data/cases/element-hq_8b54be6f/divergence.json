@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_8b54be6f",
+ "breadth": {
+  "files": 9,
+  "hunks": 16,
+  "loc": 163,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "A new React component file exporting KebabContextMenu, which renders a kebab (three-dot) icon button to open a right-aligned context menu for session actions. The menu accepts options via the options prop (React.ReactNode[]), supports accessibility, and closes automatically after interaction."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

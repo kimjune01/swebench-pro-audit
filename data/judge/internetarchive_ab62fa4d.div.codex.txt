@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat the range as inclusive of both start and end month/day, so within_date_range(12, 1, 2, 28, Feb 28) returns true.",
+  "design_B": "Treat the range as start-inclusive and end-exclusive, so within_date_range(12, 1, 2, 28, Feb 28) returns false.",
+  "why_both_faithful": "The prose says a date must fall within or between a month/day range but never states whether the boundary dates themselves are included.",
+  "selecting_clause": null
+}

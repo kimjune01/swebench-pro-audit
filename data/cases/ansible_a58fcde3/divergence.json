@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_a58fcde3",
+ "breadth": {
+  "files": 2,
+  "hunks": 14,
+  "loc": 117,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When installing an unsafe symlink tar member whose target resolves outside the destination, create a regular file at the member path containing the symlink linkname text.",
+   "design_B": "When installing an unsafe symlink tar member whose target resolves outside the destination, skip symlink creation and extract/write it through the regular-file path as an empty regular file because symlink members carry no file payload.",
+   "why_both_faithful": "The prose requires unsafe symlink members to be handled as regular files but does not specify what file contents should be produced for a tar symlink member with no data stream.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

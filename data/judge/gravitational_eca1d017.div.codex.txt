@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "ParseOSReleaseFromReader stores the last occurrence of a repeated os-release key, so later PRETTY_NAME/NAME/etc. lines overwrite earlier values.",
+  "design_B": "ParseOSReleaseFromReader stores the first occurrence of a repeated os-release key and ignores later duplicates.",
+  "why_both_faithful": "The prose requires parsing key=value lines and storing common fields, but never specifies duplicate-key precedence.",
+  "selecting_clause": null
+}

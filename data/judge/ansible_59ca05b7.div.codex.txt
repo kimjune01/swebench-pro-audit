@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "After json.loads fails, parse key=value tokens into a dict with all keys and values kept as raw strings, e.g. \"k1=1 k2=true\" becomes {\"k1\": \"1\", \"k2\": \"true\"}.",
+  "design_B": "After json.loads fails, parse key=value tokens but apply restricted literal conversion to values, e.g. \"k1=1 k2=true\" becomes {\"k1\": 1, \"k2\": true} or equivalent Python booleans/numbers where accepted.",
+  "why_both_faithful": "The prose requires deterministic non-evaluating parsing of JSON and key=value pairs, but never specifies whether key=value values remain strings or are literal-coerced.",
+  "selecting_clause": null
+}

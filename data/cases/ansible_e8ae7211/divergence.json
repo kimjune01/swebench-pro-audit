@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_e8ae7211",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 37,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "A new `_validate_hosts` method should be introduced in the `Play` class to handle validation of the `hosts` field, and it should perform validation only when the `hosts` key is present in the play\u2019s dataset."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

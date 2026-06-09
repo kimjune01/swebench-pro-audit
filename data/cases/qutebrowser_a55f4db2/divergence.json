@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_a55f4db2",
+ "breadth": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 40,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use percent-encoding via urllib's quote (or QUrl query value encoding) so a space becomes `%20` and the query string is built with strict URL-encoding of the search term.",
+   "design_B": "Use quote_plus / form-style encoding so a space becomes `+`, treating the search parameter as an application/x-www-form-urlencoded value.",
+   "why_both_faithful": "The requirement literally says spaces should be encoded as `%20` *or* converted to appropriate URL-safe formats, so both `%20`-style and `+`-style encodings satisfy the prose.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Percent-encode the search term with `quote(..., safe='')`, producing spaces as `%20` in the query parameter.",
+   "design_B": "Encode the query parameter with `urlencode`/`quote_plus`, producing spaces as `+` while percent-encoding other unsafe characters.",
+   "why_both_faithful": "The prose explicitly allows spaces to be encoded as `%20` or converted to other appropriate URL-safe formats, and both approaches properly encode query parameters across hosts.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

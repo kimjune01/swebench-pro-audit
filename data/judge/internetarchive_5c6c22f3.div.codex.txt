@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For comma-separated no-colon strings with multiple commas, split on the first comma and return everything after it as the sole publisher, e.g. `A, B, C` -> publishers [`B, C`].",
+  "design_B": "For comma-separated no-colon strings with multiple commas, split on the last comma and return only the final portion as the sole publisher, e.g. `A, B, C` -> publishers [`C`].",
+  "why_both_faithful": "The prose says to assign the portion after the comma to publishers, but never specifies which comma controls when more than one comma is present.",
+  "selecting_clause": null
+}

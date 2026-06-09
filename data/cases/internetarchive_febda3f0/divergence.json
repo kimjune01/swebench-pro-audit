@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_febda3f0",
+ "breadth": {
+  "files": 13,
+  "hunks": 37,
+  "loc": 1663,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Sanitize edge cases by removing/neutralizing offending characters \u2014 e.g. strip a trailing hyphen so `Horror-` becomes `Horror`, and backslash-escape Solr reserved operators in place.",
+   "design_B": "Preserve tokens but rewrite them via a parsed query tree \u2014 e.g. quote or luqum-escape the whole problematic term so `Horror-` becomes `\"Horror-\"` (or a field-mapped equivalent), keeping the dash rather than dropping it.",
+   "why_both_faithful": "The prose only demands a 'safely escaped, semantically correct' query free of parse errors for the named edge cases, without specifying the exact normalization rules or output strings, so both strip-and-escape and parse-tree-rewrite approaches produce error-free valid Solr queries.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement process_user_query by parsing recognized advanced search syntax, preserving valid Boolean operators and quoted phrases, mapping fields, and escaping only term-level Solr-reserved characters such as a trailing hyphen.",
+   "design_B": "Implement process_user_query by treating the entire user input as literal search text, escaping operator-like tokens and quotes so they cannot affect Solr syntax, while separately normalizing ISBN-like strings.",
+   "why_both_faithful": "The prose requires safe, normalized, semantically correct queries for edge cases but does not define whether user-entered operators and quotes should be preserved as search syntax or escaped as literal text.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

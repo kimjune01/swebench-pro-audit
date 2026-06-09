@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "A helper `innerNodeLiteral(node)` should walk descendants using the commonmark walker, collect literals only from `text` nodes on `entering` steps, and return the concatenated string."
+}

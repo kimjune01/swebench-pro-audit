@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_bf5511b4",
+ "breadth": {
+  "files": 3,
+  "hunks": 9,
+  "loc": 52,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `DataField` constructor should explicitly require both the parent record (rec) and the XML field element (element: etree._Element) ... All constructor arguments should include type annotations ... The `decode_field` method in `MarcXml` should be updated to return the `DataField` type."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Change DataField.__init__ to def __init__(self, rec: MarcXml, element: etree._Element) -> None, storing the parent MarcXml object as record context.",
+   "design_B": "Change DataField.__init__ to def __init__(self, rec: etree._Element, element: etree._Element) -> None, storing the parent record XML element as record context.",
+   "why_both_faithful": "The prose requires a parent record context named rec and an XML field element, but never specifies whether rec is the MarcXml wrapper object or the underlying record XML element.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

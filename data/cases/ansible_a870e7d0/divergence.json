@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_a870e7d0",
+ "breadth": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 52,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `ensure_type` function should handle values originating from ini files by applying unquoting when the detected origin type is `ini`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

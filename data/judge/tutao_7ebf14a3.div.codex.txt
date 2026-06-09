@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The pricing utility tests should use PriceAndConfigProvider.getInitializedInstance instead of the deprecated getPricesAndConfigProvider function for creating price configuration instances."}

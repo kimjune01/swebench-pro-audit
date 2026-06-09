@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The `readHeaderAndPayload` function should calculate `payloadLength` and return a `BadParameter` error message stating `\"exceeded the maximum message size\"` when size exceeds twice the `defaultMaxMessageSizeBytes`."
+}

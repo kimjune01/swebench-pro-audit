@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_b37b02cd",
+ "breadth": {
+  "files": 8,
+  "hunks": 24,
+  "loc": 112,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement LegacyHandler.IsUnpacked / UnpackChecker by probing the backend storage for a legacy unpacked index object (e.g. checking existence of an index marker file for the sessionID), treating a NotFound as 'not unpacked'; thresholds like the startUpload semaphore-latency log and the CheckUploads grace window are given concrete fixed values (e.g. 1s / a fixed grace duration).",
+   "design_B": "Implement IsUnpacked by listing/scanning the session directory for unpacked event chunks rather than a single index object, and make the various 'reasonable threshold', 'grace window', and 'concise summary' behaviors use different concrete values/formats \u2014 all still satisfying the stated requirements.",
+   "why_both_faithful": "The prose states required outcomes (return early on legacy format, delegate when not unpacked, log a single summary, log latency only past a 'reasonable threshold') but never specifies the detection mechanism for 'unpacked' nor the numeric thresholds/window values, so multiple incompatible concrete implementations all meet every requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Uploader.startUpload logs semaphore acquisition latency only when waiting more than 100ms.",
+   "design_B": "Uploader.startUpload logs semaphore acquisition latency only when waiting more than 1s.",
+   "why_both_faithful": "The prose requires logging only above a \u201creasonable threshold\u201d but never defines the threshold value, so both cutoffs satisfy the stated requirement while producing different observable logs.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

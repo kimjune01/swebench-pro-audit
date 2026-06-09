@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Before slicing each field, add inline bounds checks in ReadLogin7Packet and return the parser's existing invalid-packet error when offset + length*2 exceeds len(pkt.Data).",
+  "design_B": "Introduce a local helper used by ReadLogin7Packet that validates and extracts a Login7 UCS-2 field, returning the same existing invalid-packet error for out-of-bounds ranges before decoding.",
+  "why_both_faithful": "The prose requires boundary validation, rejection, unchanged valid behavior, and standard error propagation, but does not require whether validation is inline or factored into a helper.",
+  "selecting_clause": null
+}

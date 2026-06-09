@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_02f647f7",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 69,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The validation in `validate` must first attempt the full record criterion and, if it fails, attempt the differentiable record criterion."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

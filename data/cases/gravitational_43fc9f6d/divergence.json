@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_43fc9f6d",
+ "breadth": {
+  "files": 1,
+  "hunks": 14,
+  "loc": 102,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The CLI should determine the active cluster according to the following precedence:\n\n1. If the cluster is specified via the CLI flag, use it.\n\n2. Otherwise, if `TELEPORT_CLUSTER` is set in the environment, use it.\n\n3. Otherwise, if the legacy `TELEPORT_SITE` is set, use it.\n\n4. If none of these are set, leave the cluster name empty."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

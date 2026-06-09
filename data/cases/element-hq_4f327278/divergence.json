@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_4f327278",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 36,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": false,
+   "design_A": "Store the previous-space ref and recompute activeIndex inline during the rooms useMemo/render body: when the ref differs from SpaceStore.activeSpace, call getLastSelectedRoomIdForSpace, find its index in rooms, apply the null/fallback logic, then update the ref \u2014 all synchronously within the same render pass.",
+   "design_B": "Implement the same space-change detection and activeIndex recomputation inside a useLayoutEffect (or useEffect) keyed on SpaceStore.activeSpace, updating the ref and activeIndex state there rather than in the render body.",
+   "why_both_faithful": "The prose repeatedly says 'same render pass'/'same render cycle' and 'does not wait for any room-change dispatch', but a layout-effect-based recompute also avoids the dispatch and visually synchronizes before paint, so both satisfy the stated no-flicker, no-dispatch, persistent-ref requirements.",
+   "selecting_clause": "the `activeIndex` must be immediately recalculated in the same render pass. Ensure this logic does not wait for any room-change dispatch"
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "In `useStickyRoomList`, when the `rooms` array is re-evaluated, a persistent ref of the previous space must be compared with `SpaceStore.activeSpace`, so if the value has changed, the `activeIndex` must be immediately recalculated in the same render pass."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

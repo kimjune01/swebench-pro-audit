@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_471ffcf0",
+ "breadth": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 51,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement StrongIdentifierBook so publish_date is required and must be a string, rejecting records where it is missing.",
+   "design_B": "Implement StrongIdentifierBook so publish_date is not required, accepting records with title, source_records, and one non-empty strong identifier.",
+   "why_both_faithful": "The prose both says StrongIdentifierBook requires publish_date and separately defines a minimal strong record without publish_date.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

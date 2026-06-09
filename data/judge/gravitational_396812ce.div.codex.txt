@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "/readyz returns 400 Bad Request while any tracked component is in starting state, treating starting as not-ready but not degraded.",
+  "design_B": "/readyz returns 503 Service Unavailable while any tracked component is in starting state, treating starting as unavailable until heartbeats report ok.",
+  "why_both_faithful": "The prose defines a starting state and says overall priority includes it, but only specifies HTTP status codes for degraded, recovering, and all-ok cases.",
+  "selecting_clause": null
+}

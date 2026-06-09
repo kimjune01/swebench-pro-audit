@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_d7a6e3ec",
+ "breadth": {
+  "files": 7,
+  "hunks": 8,
+  "loc": 82,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement ExternalLink as a thin wrapper that renders the icon via a CSS mask-image background element (e.g. an empty <span> styled by _ExternalLink.scss), with the anchor text as children and the icon appended after via the class-driven ::after or sibling span \u2014 relying on the SCSS partial for the icon and using aria-hidden on the decorative icon element.",
+   "design_B": "Implement ExternalLink rendering an inline <img>/SVG element (e.g. res/img/external-link.svg) as actual markup inside the anchor with aria-hidden, plus an aria-label/title on the anchor, while the _ExternalLink.scss handles sizing/spacing \u2014 putting the icon in the DOM rather than as a CSS mask.",
+   "why_both_faithful": "The prose requires a decorative external-link icon hidden from AT and a SCSS partial using mask-image, but does not specify whether ExternalLink itself emits the icon as DOM markup or delegates icon rendering entirely to CSS, nor exactly how the accessible 'opens in new tab' affordance is exposed (aria-label vs title vs visually-hidden text).",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "ExternalLink renders an anchor with class mx_ExternalLink, uses an SCSS ::after pseudo-element with mask-image: url(res/img/external-link.svg) for the decorative icon, defaults target/rel, and requires callers to provide title or aria-label text that includes the new-tab cue when visible text is insufficient.",
+   "design_B": "ExternalLink renders an anchor with class mx_ExternalLink, appends a real child span for the masked external-link icon marked aria-hidden=true plus a visually hidden '(opens in a new tab)' text node, and defaults target/rel while accepting caller className and anchor props.",
+   "why_both_faithful": "The prose requires a reusable external-link anchor with secure defaults, unified styling, an icon hidden from assistive tech, and an accessible new-tab cue, but does not specify whether the cue/icon must be implemented with pseudo-elements, DOM children, caller-supplied labels, or hidden text.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

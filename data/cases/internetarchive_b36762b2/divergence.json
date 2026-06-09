@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_b36762b2",
+ "breadth": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 104,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "get_external_profiles builds the list by appending Wikipedia/Wikidata profiles first and then the configured social profiles, deriving each `label` from a localized lookup keyed by `language` and `icon_url` from a per-config static field.",
+   "design_B": "get_external_profiles interleaves/orders profiles differently (e.g., social profiles first, or sorted by config order) and derives `label` from a fixed English string or the profile's own title while computing `icon_url` from a URL-template per platform.",
+   "why_both_faithful": "The prose only states the combined list must contain dicts with keys `url`, `icon_url`, and `label`, but never pins the ordering of the profiles, the source/format of each `icon_url`, or how each `label` is derived from `language`.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "get_external_profiles(language) returns Wikipedia/Wikidata profile dictionaries first, followed by configured social profiles.",
+   "design_B": "get_external_profiles(language) returns configured social profile dictionaries first, followed by Wikipedia/Wikidata profile dictionaries.",
+   "why_both_faithful": "The prose requires a combined list including both Wikipedia/Wikidata links and configured social profiles, but never specifies the ordering of that list.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

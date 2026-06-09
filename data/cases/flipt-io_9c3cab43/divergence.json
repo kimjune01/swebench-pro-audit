@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_9c3cab43",
+ "breadth": {
+  "files": 9,
+  "hunks": 13,
+  "loc": 121,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "`AuthenticationMethodTokenConfig` should be updated to include a `Bootstrap` field of type `AuthenticationMethodTokenBootstrapConfig`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

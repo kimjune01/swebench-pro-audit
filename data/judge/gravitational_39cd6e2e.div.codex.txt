@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Confirm only atomically marks the Registration as done/finalized and never deletes or replaces any existing equivalent Touch ID credentials.",
+  "design_B": "Confirm atomically marks the Registration as done/finalized and also replaces/deletes equivalent existing Touch ID credentials in favor of the current registration.",
+  "why_both_faithful": "The interface explicitly says Confirm may replace equivalent keys at the implementation's discretion, while the requirements only require that it finalize the registration and prevent later rollback deletion.",
+  "selecting_clause": null
+}

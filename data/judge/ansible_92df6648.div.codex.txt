@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Make `load_from_file(path, cache='none')` default to no caching unless callers explicitly pass `cache='vaulted'`.",
+  "design_B": "Make `load_from_file(path, cache='vaulted')` default to vaulted-file caching unless callers explicitly pass `cache='none'`.",
+  "why_both_faithful": "The prose specifies behavior when `cache='none'` and `cache='vaulted'` are explicitly used, but never states what omitted `cache` should default to.",
+  "selecting_clause": null
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Normalize only unqualified peer names by prefixing /<partition>/, while preserving peers that are already fully qualified such as /Other/pool1.",
+  "design_B": "Normalize every peer name using the provided partition, stripping any existing partition and returning /<partition>/<name> for all peers.",
+  "why_both_faithful": "The prose requires peers to be normalized to fully qualified names using the provided partition, but does not specify how already fully qualified peer names should be handled.",
+  "selecting_clause": null
+}

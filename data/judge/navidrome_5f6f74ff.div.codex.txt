@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Only the other sessions of the same user receive the event; the session that originated it should not receive it. Sessions belonging to different users should not receive these events."
+}

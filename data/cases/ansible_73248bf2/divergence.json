@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_73248bf2",
+ "breadth": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 215,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define WAIT_TIMEOUT_SEC as 600 seconds and abort polling after 10 minutes.",
+   "design_B": "Define WAIT_TIMEOUT_SEC as 3600 seconds and abort polling after 60 minutes.",
+   "why_both_faithful": "The prose requires a timeout exposed as WAIT_TIMEOUT_SEC but never specifies its value, so both constants satisfy the stated interface while producing incompatible timeout behavior.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

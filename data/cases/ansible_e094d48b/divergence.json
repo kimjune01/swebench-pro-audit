@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_e094d48b",
+ "breadth": {
+  "files": 7,
+  "hunks": 16,
+  "loc": 83,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For lookup failures with errors='warn', emit one warning string that visibly includes the lookup failure short message, exception class name, and exception message, e.g. '<short message>: ValueError: bad value'.",
+   "design_B": "For lookup failures with errors='warn', emit a warning string with the short lookup failure message and attach/preserve the original exception as exception context, while formatting the visible text differently, e.g. '<short message> (bad value)'.",
+   "why_both_faithful": "The prose requires a warning with a short message and original-exception context, but does not specify the exact warning text, formatting, or whether the exception type must appear in the user-visible warning for errors='warn'.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

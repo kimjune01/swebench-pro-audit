@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For package types whose delimiter pattern is absent, return namespace=\"\", name=n, subpath=\"\".",
+  "design_B": "For package types whose delimiter pattern is absent, return namespace=\"\", name=\"\", subpath=\"\".",
+  "why_both_faithful": "The prose specifies required splits only when the relevant colon, slash, or scope prefix is present, but does not state what to return for inputs of those package types that lack the expected delimiter.",
+  "selecting_clause": null
+}

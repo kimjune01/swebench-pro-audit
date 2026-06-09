@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "`LogConfig` should include a new `grpc_level` field (string) that defaults to `\"ERROR\"` when unspecified; the default should be applied by `Default()`."
+}

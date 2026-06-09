@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_98726ad8",
+ "breadth": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 35,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "the generated iptables command must include the `-m set --match-set <setname> <flags>` clause explicitly, even if the user does not specify `match: ['set']`. The clause must appear in the correct order relative to other arguments (such as `-p`, `--destination-port`, `-j`) according to iptables syntax."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Reject configurations that specify only match_set or only match_set_flags by failing the module with a validation error before constructing any iptables command.",
+   "design_B": "Treat configurations that specify only match_set or only match_set_flags as invalid by performing no rule construction and returning without changing the firewall, rather than failing the module.",
+   "why_both_faithful": "The prose says such configurations are invalid and should not generate a rule, but does not specify whether invalid input must raise a module failure or be a no-op.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

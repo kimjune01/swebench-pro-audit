@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_4e1cd363",
+ "breadth": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 34,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "`LogConfig` should include a new `grpc_level` field (string) that defaults to `\"ERROR\"` when unspecified; the default should be applied by `Default()`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

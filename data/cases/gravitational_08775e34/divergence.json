@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_08775e34",
+ "breadth": {
+  "files": 4,
+  "hunks": 71,
+  "loc": 369,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Change Run to accept variadic option functions of type func(*CLIConf) that mutate the parsed CLIConf after argument parsing, including setting mockSSOLogin.",
+   "design_B": "Change Run to accept variadic option functions of type func(*CLIConf) error, applying them after argument parsing and aborting if any option returns an error.",
+   "why_both_faithful": "The prose requires support for one or more option functions applied after argument parsing, but does not specify the option function signature or whether options may fail.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

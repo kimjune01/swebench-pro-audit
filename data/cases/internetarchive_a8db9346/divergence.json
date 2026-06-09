@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_a8db9346",
+ "breadth": {
+  "files": 6,
+  "hunks": 14,
+  "loc": 239,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The legacy `ListMixin` must be fully removed, and all references must use the consolidated `List` class from the core lists model module."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

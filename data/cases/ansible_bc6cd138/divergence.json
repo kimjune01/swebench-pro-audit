@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_bc6cd138",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 266,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Accept the required `name` parameter but do not include it in the Fixed Address lookup or WAPI payload, using only `ipaddr`, `mac`, and `network` as the identifying fields plus optional metadata/options.",
+   "design_B": "Accept the required `name` parameter and include it as a managed WAPI field in the Fixed Address object payload, so changes to `name` update the remote object.",
+   "why_both_faithful": "The prose requires `name` to be a supported required parameter but separately says Fixed Address entries are identified by MAC, IP address, and network, without specifying whether `name` is persisted, ignored, or mapped to any WAPI field.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

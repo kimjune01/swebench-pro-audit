@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Initialize the device-level toggle as enabled only when the current local desktop-notifications setting is enabled, then persist that boolean under a per-device account-data event type.",
+  "design_B": "Initialize the device-level toggle as enabled when any current local session-level notification setting is enabled, then persist that boolean under a per-device account-data event type.",
+  "why_both_faithful": "The prose only says the initial state must be based on current local notification-related settings, without specifying which setting or aggregation rule determines enabled versus disabled.",
+  "selecting_clause": null
+}

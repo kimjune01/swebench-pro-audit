@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The system must forge a proxy URL for remote images that follows the specific format: `\"/api/core/v4/images?Url={encodedUrl}&DryRun=0&UID={uid}\"`."}

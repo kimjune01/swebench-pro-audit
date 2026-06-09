@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "In `useStickyRoomList`, when the `rooms` array is re-evaluated, a persistent ref of the previous space must be compared with `SpaceStore.activeSpace`, so if the value has changed, the `activeIndex` must be immediately recalculated in the same render pass."
+}

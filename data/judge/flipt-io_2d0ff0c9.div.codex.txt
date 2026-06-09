@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For CockroachDB URLs without an explicit sslmode, rewrite cockroach:// or crdb:// to a PostgreSQL-compatible DSN with sslmode=verify-full by default.",
+  "design_B": "For CockroachDB URLs without an explicit sslmode, rewrite cockroach:// or crdb:// to a PostgreSQL-compatible DSN with sslmode=require by default.",
+  "why_both_faithful": "The prose requires secure CockroachDB defaults and proper SSL mode handling but never specifies the exact default sslmode value.",
+  "selecting_clause": null
+}

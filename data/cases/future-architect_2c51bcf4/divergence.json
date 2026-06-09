@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_2c51bcf4",
+ "breadth": {
+  "files": 2,
+  "hunks": 14,
+  "loc": 73,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Populate the three kernel entries with the specific cumulative-update revisions (build numbers / KB IDs) from one data source as of one cutoff date \u2014 e.g. mirroring Microsoft's official update history through a given month.",
+   "design_B": "Populate the same entries with a different concrete set of revisions \u2014 a different cutoff date, a different upstream data source (e.g. an alternate KB-tracking project), or a different set of build numbers per revision.",
+   "why_both_faithful": "The prose only says to add the 'latest known' / 'released after existing entries' KB revisions without enumerating any specific build numbers, dates, or source of truth, so any plausibly-current set of additions satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Add all cumulative KB revisions for 10.0.19045, 10.0.22621, and 10.0.20348 through the latest Microsoft releases known at implementation time.",
+   "design_B": "Add only the then-recent missing cumulative KB revisions after the existing map entries for those three kernels, stopping at the latest releases known when the issue was filed or when the repository snapshot was created.",
+   "why_both_faithful": "The prose requires an up-to-date/latest-known mapping but gives no concrete KB numbers, revision values, release dates, or cutoff date, so different temporal cutoffs can both satisfy the stated wording.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

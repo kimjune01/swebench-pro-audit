@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When server.protocol is https, serve REST/UI over TLS on server.https_port using cert_file/cert_key, but leave gRPC on server.grpc_port as the existing plaintext gRPC endpoint.",
+  "design_B": "When server.protocol is https, serve REST/UI over TLS on server.https_port and also configure the gRPC server on server.grpc_port to use TLS with the same cert_file/cert_key.",
+  "why_both_faithful": "The prose requires HTTPS configuration and credential validation, and mentions gRPC TLS in the problem narrative, but never states whether server.protocol must switch the gRPC listener to TLS or only the REST/UI HTTP listener.",
+  "selecting_clause": null
+}

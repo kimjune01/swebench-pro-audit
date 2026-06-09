@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"For non-free users, `canMarkItemsAsDone` must be true only when both the user’s subscription and checklist entry align:"}

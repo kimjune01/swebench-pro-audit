@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_dbe26396",
+ "breadth": {
+  "files": 9,
+  "hunks": 38,
+  "loc": 816,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Ensure that when a required field is missing, the error message follows the format:  provider \"<provider>\": field \"<field>\": non-empty value is required."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Ensure that when a required field is missing, the error message follows the format:  `provider \"<provider>\": field \"<field>\": non-empty value is required`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

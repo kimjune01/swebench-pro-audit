@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When the user selects unsupported Knock or Restricted and confirms the upgrade, run the upgrade flow and then automatically apply the originally selected join rule to the upgraded room.",
+  "design_B": "When the user selects unsupported Knock or Restricted and confirms the upgrade, run the upgrade flow but leave the join rule unchanged, requiring the user to select the rule again after upgrade.",
+  "why_both_faithful": "The prose requires opening the upgrade flow instead of changing the rule immediately, but never states whether the selected rule must be automatically applied after the upgrade completes.",
+  "selecting_clause": null
+}

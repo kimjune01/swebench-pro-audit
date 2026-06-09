@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "if the height property is present and its value includes the “vh” unit, replace that value with \"auto\""
+}

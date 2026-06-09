@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Apply merging greedily across adjacent results: defer rendering while the overlap condition holds; when the chain ends, render one SearchResultTile for the accumulated merge, then reset mergedTimeline and ourEventsIndexes to start a new chain."}

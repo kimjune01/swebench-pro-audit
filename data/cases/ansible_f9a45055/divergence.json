@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_f9a45055",
+ "breadth": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 310,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define the default directives as a minimal set, e.g. only `global-exclude *.pyc *.retry` plus `recursive-exclude` of VCS/build dirs, relying on broad implicit inclusion of the project tree before applying excludes.",
+   "design_B": "Define the default directives as an explicit allowlist of canonical collection paths (e.g. `include galaxy.yml *.md`, `recursive-include plugins roles meta docs tests changelogs ...`, then `global-exclude *.pyc`), so only enumerated trees are packaged.",
+   "why_both_faithful": "The prose mandates that default directives be applied first when `omit_default_directives` is false and that exclusions come last, but never enumerates what those default directives actually are, so any reasonable default set satisfies every stated requirement while producing a different artifact file list.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When manifest is present and omit_default_directives is false, prepend the existing collection build's default include/exclude rules before applying user directives, so an empty manifest keeps the prior default artifact contents.",
+   "design_B": "When manifest is present and omit_default_directives is false, prepend a broad MANIFEST.in-style default such as recursive-include * * before applying user directives and final exclusions, so an empty manifest includes every non-excluded file under the collection root.",
+   "why_both_faithful": "The prose requires default directives to exist and be ordered before user directives, but never specifies the actual default directive set or whether it must match the previous collection builder's defaults.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

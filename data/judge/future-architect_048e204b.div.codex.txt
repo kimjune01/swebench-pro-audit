@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Fortinet advisory data must be converted to internal `CveContent` entries mapping `Title`, `Summary`, `Cvss3Score`, `Cvss3Vector`, `SourceLink` (advisory URL), `CweIDs`, `References`, `Published`, and `LastModified`."}

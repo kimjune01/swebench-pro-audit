@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_0079a9b9",
+ "breadth": {
+  "files": 11,
+  "hunks": 16,
+  "loc": 89,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "interpreting terms such as \u201cmono\u201d, \u201cstereo\u201d and \u201c5.1\u201d and converting them to the integers 1, 2 and 6 respectively, and store it as an integer value in the metadata map"
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Add a nullable integer channels column to media_file with an index, leaving existing rows as NULL until rescanned.",
+   "design_B": "Add a non-null integer channels column to media_file with default 0 plus an index, representing unknown channel count as 0.",
+   "why_both_faithful": "The prose requires an integer channels column and index to store channel counts, but never specifies nullability, defaults, or how unknown existing values must be represented.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

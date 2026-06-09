@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_5c6de423",
+ "breadth": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 61,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Return an unsupported-method error formatted as `unsupported auth method: saml`.",
+   "design_B": "Return an unsupported-method error formatted as `unsupported auth method \"saml\"`.",
+   "why_both_faithful": "The prose requires the error message `unsupported auth method` and inclusion of the provided value, but does not specify the exact formatting of that combined error string.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

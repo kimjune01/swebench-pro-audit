@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_a1963447",
+ "breadth": {
+  "files": 6,
+  "hunks": 27,
+  "loc": 244,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The command renaming should cover all six identified commands: set-cmd-text, repeat, repeat-command, later, edit-command, and run-with-count with their respective new cmd-prefixed names."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

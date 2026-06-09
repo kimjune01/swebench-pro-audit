@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_6f2f17a7",
+ "breadth": {
+  "files": 2,
+  "hunks": 13,
+  "loc": 78,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `reversetunnel.server` type should hold exactly one `*localSite` in a field named `localSite`, replacing the previous `[]*localSite` slice."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

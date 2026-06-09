@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When album candidates include both front.jpg and cover.png, rank canonical name first and choose front.jpg, using PNG-over-JPG only as a tie-breaker among equally canonical images.",
+  "design_B": "When album candidates include both front.jpg and cover.png, rank format quality first and choose cover.png, using canonical front naming only as a tie-breaker among same-format images.",
+  "why_both_faithful": "The prose says to prefer the canonical “front” image and favor PNG over JPG, but does not specify which preference wins when those criteria conflict.",
+  "selecting_clause": null
+}

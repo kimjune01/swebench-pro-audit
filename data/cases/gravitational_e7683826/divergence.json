@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_e7683826",
+ "breadth": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 118,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Proxy services should include `localhost`, `127.0.0.1` (IPv4 loopback), and `::1` (IPv6 loopback) in the list of additional principals."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Proxy services should include `localhost`, `127.0.0.1` (IPv4 loopback), and `::1` (IPv6 loopback) in the list of additional principals."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

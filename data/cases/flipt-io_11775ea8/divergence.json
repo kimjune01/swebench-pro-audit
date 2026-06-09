@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_11775ea8",
+ "breadth": {
+  "files": 3,
+  "hunks": 10,
+  "loc": 47,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When \u2018path == \"\"\u2019, it must start from default values and then apply environment variable overrides with precedence over those defaults. When \u2018path\u2019 points to a valid configuration file, file values must form the base and environment variables must still take precedence wherever they are defined."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

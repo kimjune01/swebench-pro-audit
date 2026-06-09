@@ -1,0 +1,30 @@
+{
+ "slug": "tutao_409b3583",
+ "breadth": {
+  "files": 3,
+  "hunks": 12,
+  "loc": 140,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Map Twitter to base `https://twitter.com/`, Facebook to `https://www.facebook.com/`, LinkedIn to `https://www.linkedin.com/in/`, Xing to `https://www.xing.com/profile/`, appending the raw handle to that base.",
+   "design_B": "Map the same known types to different-but-equally-'standard' bases (e.g. Twitter `https://www.twitter.com/`, LinkedIn `https://linkedin.com/in/` without `www`, or a trailing-slash-less variant), producing different exact URL strings for the same handle.",
+   "why_both_faithful": "The prose only says to map known types to 'their standard base paths' and to 'add www. if missing' without giving the verbatim base strings, so multiple plausible base-URL constants (www vs no-www, twitter.com vs x.com, with/without trailing path segment like `/in/`) all satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Normalize a Twitter vanity handle as `https://twitter.com/TutanotaTeam`.",
+   "design_B": "Normalize a Twitter vanity handle as `https://x.com/TutanotaTeam`.",
+   "why_both_faithful": "The prose requires mapping Twitter to its standard base path but never specifies the exact base URL, and both twitter.com and x.com are plausible faithful interpretations for Twitter links.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

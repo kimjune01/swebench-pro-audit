@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Convert ignore_proxy with Ansible's standard boolean parser, accepting values such as true, y, yes, on, 1 as true and false, n, no, off, 0 as false.",
+  "design_B": "Convert ignore_proxy with a local parser that only treats the explicitly named strings true and y as true, and treats other strings as false.",
+  "why_both_faithful": "The prose requires common truthy/falsy handling and specifically names true and y, but never gives an exhaustive accepted-value table or selects Ansible's boolean conversion semantics.",
+  "selecting_clause": null
+}

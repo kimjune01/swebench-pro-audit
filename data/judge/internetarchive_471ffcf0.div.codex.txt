@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement StrongIdentifierBook so publish_date is required and must be a string, rejecting records where it is missing.",
+  "design_B": "Implement StrongIdentifierBook so publish_date is not required, accepting records with title, source_records, and one non-empty strong identifier.",
+  "why_both_faithful": "The prose both says StrongIdentifierBook requires publish_date and separately defines a minimal strong record without publish_date.",
+  "selecting_clause": null
+}

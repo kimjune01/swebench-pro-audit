@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_3fffddc1",
+ "breadth": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 26,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Support exactly \"base64\" and \"7or8bit\", raising ValueError for any other string such as \"quoted-printable\".",
+   "design_B": "Support \"base64\" and \"7or8bit\" plus additional email.encoders-backed encodings such as \"quoted-printable\" mapped to encode_quopri.",
+   "why_both_faithful": "The requirements say the function must support at least two encoding types, not only those two, so both an exact two-entry mapping and an expanded mapping satisfy the prose.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"When `context.flags` is absent, the server must list flags for the resolved namespace via an injected store dependency and evaluate only flags of type `BOOLEAN_FLAG_TYPE` and flags of type `VARIANT_FLAG_TYPE` with `Enabled == true`."}

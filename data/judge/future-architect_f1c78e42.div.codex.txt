@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Set Oracle Linux 6, 7, 8, and 9 extended-support EOL values to the first day of the stated month, e.g. 2024-06-01 for Oracle Linux 6.",
+  "design_B": "Set Oracle Linux 6, 7, 8, and 9 extended-support EOL values to the last day of the stated month, e.g. 2024-06-30 for Oracle Linux 6.",
+  "why_both_faithful": "The prose specifies only month and year for the Oracle Linux extended support end dates, so either day choice satisfies the stated dates while producing incompatible GetEOL behavior.",
+  "selecting_clause": null
+}

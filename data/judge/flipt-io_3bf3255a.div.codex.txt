@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"For cancelled contexts, responses should return gRPC code `Canceled`. For exceeded deadlines, responses should return gRPC code `DeadlineExceeded`. All other authentication and error-handling behavior should remain unchanged."}

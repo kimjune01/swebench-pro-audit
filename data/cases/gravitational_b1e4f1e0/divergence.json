@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_b1e4f1e0",
+ "breadth": {
+  "files": 3,
+  "hunks": 25,
+  "loc": 62,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Read the `TELEPORT_HOME` environment variable during startup in `readTeleportHome` and normalize it with `path.Clean` to remove redundant separators."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

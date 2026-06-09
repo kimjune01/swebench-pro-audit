@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_c153a4d3",
+ "breadth": {
+  "files": 8,
+  "hunks": 20,
+  "loc": 52,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

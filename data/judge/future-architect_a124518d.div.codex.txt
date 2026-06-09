@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "detectScanDest returns the deduplicated scan destinations sorted lexicographically by the final \"ip:port\" string.",
+  "design_B": "detectScanDest returns the deduplicated scan destinations in first-seen endpoint order, preserving ServerInfo.IPv4Addrs order when expanding \"*\".",
+  "why_both_faithful": "The prose explicitly allows either sorted ordering or host-IP-order preservation for deterministic scan destination slices.",
+  "selecting_clause": null
+}

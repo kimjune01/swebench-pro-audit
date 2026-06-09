@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_6d0b7cb1",
+ "breadth": {
+  "files": 5,
+  "hunks": 8,
+  "loc": 126,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The file `qtargs.py` should integrate the override into Chromium argument construction by appending a \"--lang=<override>\" argument only when `_get_lang_override(...)` returns a value and make no change when it does not."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

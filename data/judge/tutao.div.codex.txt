@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Have downloadNative reject the returned promise on any non-200 HTTP status after ensuring no file is saved, with the attachment-opening caller catching that rejection and showing the file open failure message.",
+  "design_B": "Have downloadNative resolve with a DownloadNativeResult containing the non-200 status code/message and no downloadedFilePath, with the attachment-opening caller detecting the missing successful path and showing the file open failure message.",
+  "why_both_faithful": "The prose requires non-200 responses not to save a file and to produce a user-visible open failure, but it only explicitly requires promise rejection for HTTP response stream errors, not for non-200 statuses.",
+  "selecting_clause": null
+}

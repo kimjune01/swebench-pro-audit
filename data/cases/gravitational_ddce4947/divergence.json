@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_ddce4947",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 31,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `readHeaderAndPayload` function should calculate `payloadLength` and return a `BadParameter` error message stating `\"exceeded the maximum message size\"` when size exceeds twice the `defaultMaxMessageSizeBytes`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

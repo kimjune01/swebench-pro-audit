@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The `Convert` function in `contrib/trivy/pkg/converter.go` must create separate `CveContent` entries for each source found in Trivy scan results, using keys formatted as `trivy:<source>`"
+}

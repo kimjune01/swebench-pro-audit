@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_bdf53a4e",
+ "breadth": {
+  "files": 13,
+  "hunks": 19,
+  "loc": 778,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "On import, when a variant has no attachment, skip it entirely \u2014 create the variant with an empty/unset attachment field (no JSON written); on export, omit the attachment key.",
+   "design_B": "On import, when a variant has no attachment, substitute a default value \u2014 store the JSON string \"null\" (or \"{}\") as the attachment; on export, render the attachment as an explicit null.",
+   "why_both_faithful": "The requirement literally offers the disjunction 'skipping them or substituting default values' for empty/missing attachments, and the test target files that would pin one (export.yml, import_no_attachment.yml) are not visible to the solver.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When importing a variant with a missing or empty attachment field, omit attachment conversion and create the variant with the zero-value/empty attachment string.",
+   "design_B": "When importing a variant with a missing or empty attachment field, substitute a default JSON value such as \"null\" before creating the variant.",
+   "why_both_faithful": "The prose explicitly allows empty or missing variant attachments to be handled either by skipping them or by substituting default values, without specifying which stored JSON string must result.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "return them in the format \"rgba(255, 0, 0, 255)\" and \"rgba(0, 0, 255, 255)\" respectively"
+}

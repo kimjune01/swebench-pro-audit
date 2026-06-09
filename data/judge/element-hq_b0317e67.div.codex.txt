@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The file should use two strength-enabled passphrase inputs: a `PassphraseField` minimum strength threshold 3 for “Enter passphrase”, and a PassphraseConfirmField for “Confirm passphrase”, with translatable error messages “Passphrase must not be empty” and “Passphrases must match”."}

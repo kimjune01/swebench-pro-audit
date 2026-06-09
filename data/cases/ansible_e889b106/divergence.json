@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_e889b106",
+ "breadth": {
+  "files": 7,
+  "hunks": 10,
+  "loc": 52,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The attribute storing this context in exceptions must be publicly accessible as obj (not _obj)."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Set exception.obj to the vaulted scalar YAML node that directly triggered the vault-format decoding failure, and preserve that same obj through any rethrow.",
+   "design_B": "Set exception.obj to the enclosing task mapping YAML node during task loading, and preserve that same obj through any rethrow.",
+   "why_both_faithful": "The prose requires an originating YAML object with source context but explicitly gives both the task mapping and the vaulted scalar as acceptable examples.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_fc8197e3",
+ "breadth": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 51,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When no executable or virtualenv is provided and pip is importable, use launcher argv [sys.executable, '-m', 'pip']; implement listing as modern 'pip list --format=freeze' with fallback to legacy 'pip freeze'.",
+   "design_B": "When no executable or virtualenv is provided and pip is importable, use launcher argv [sys.executable, '-c', 'import sys, pip; sys.exit(pip.main())']; implement listing as modern 'pip list --format=json' with parsing and fallback to legacy 'pip freeze'.",
+   "why_both_faithful": "The prose requires a current-interpreter-tied argv launcher and a modern listing with legacy fallback, but does not specify the exact launcher invocation or modern listing format.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

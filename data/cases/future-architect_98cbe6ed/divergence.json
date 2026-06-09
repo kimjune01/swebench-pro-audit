@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_98cbe6ed",
+ "breadth": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 191,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In OVAL detection, when a binary package has an associated source package, look up the vulnerability against the source package name (treating the source package as authoritative) and report the binary as affected when the source matches.",
+   "design_B": "In OVAL detection, look up the vulnerability against the binary package name first and only fall back to the source package name when no binary match is found, keeping binary identity primary.",
+   "why_both_faithful": "The prose only says to assess vulnerabilities against source packages 'when appropriate' without defining the precedence or trigger condition between binary-name and source-name matching, so either resolution order satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Add a source package field to each Alpine binary package record, populated from apk list/index parsing, and update Alpine OVAL matching to compare vulnerability package names against that source field when present.",
+   "design_B": "Keep binary package records unchanged but build a separate binary-to-source mapping from the apk index, then have the Alpine OVAL detector consult that mapping during evaluation to translate binary package names to source package names.",
+   "why_both_faithful": "The prose requires parsing source associations and assessing Alpine vulnerabilities against source packages when appropriate, but does not specify whether the association must be stored on package records or in a separate mapping consumed by OVAL logic.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

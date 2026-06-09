@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"‘is_low_quality_book(book_item)’ must return 'True' if any author name in ‘book_item[\"authors\"]’, after lowercasing, appears in a predefined case-insensitive exclusion list consisting of exactly"}

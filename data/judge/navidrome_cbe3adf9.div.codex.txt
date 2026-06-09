@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Call PreCache synchronously after each artist refresh and wait for the cache write to finish before continuing to the next artist.",
+  "design_B": "Start asynchronous cache-warming work after each artist refresh, for example by launching a goroutine or enqueueing a background job using the artist's CoverArtID().",
+  "why_both_faithful": "The prose requires PreCache or equivalent cache warmer logic to be invoked after each refreshed artist, but does not specify whether warming must block the refresh workflow or may run asynchronously.",
+  "selecting_clause": null
+}

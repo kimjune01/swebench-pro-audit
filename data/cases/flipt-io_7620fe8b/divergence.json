@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_7620fe8b",
+ "breadth": {
+  "files": 3,
+  "hunks": 13,
+  "loc": 119,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "During startup, authentication service initialization logic in `authenticationGRPC` must use the value returned by `RequiresDatabase()` to decide whether to establish a database connection for authentication."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

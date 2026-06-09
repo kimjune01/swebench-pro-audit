@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_61903fac",
+ "breadth": {
+  "files": 8,
+  "hunks": 16,
+  "loc": 67,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "the `resizeImage` function processing images to have equal width and height dimensions when `square` is `true` using a new `image.NewRGBA` that creates a square background and overlays the resized image with a new `imaging.OverlayCenter` and force PNG format regardless of source ... the `GetCoverArt` endpoint which must parse the `square` parameter from the request using `p.BoolOr(\"square\", false)` ... the `AlbumGridView` must pass `true` as the third argument"
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When square=true, create a square PNG canvas with a transparent RGBA background and center the resized artwork on it.",
+   "design_B": "When square=true, create a square PNG canvas with an opaque background color, such as black or white, and center the resized artwork on it.",
+   "why_both_faithful": "The prose requires a square background via image.NewRGBA, centered overlay, and PNG output, but never specifies the background fill color or transparency.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

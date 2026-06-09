@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "NewCursor initializes the cursor at the current append tail, so it receives only events appended after the cursor is created.",
+  "design_B": "NewCursor initializes the cursor at the oldest retained item in the buffer/backlog, so it can consume already buffered events that predate cursor creation.",
+  "why_both_faithful": "The prose requires ordered, complete reads for cursors but never specifies whether a newly created cursor should start at the current tail or at the oldest retained event.",
+  "selecting_clause": null
+}

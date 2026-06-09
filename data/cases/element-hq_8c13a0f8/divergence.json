@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_8c13a0f8",
+ "breadth": {
+  "files": 17,
+  "hunks": 41,
+  "loc": 499,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Render the room-replaced notice as a single `<p>` element containing the full replacement message text (e.g. 'This room has been replaced and is no longer active.'), and implement CancelButton's styling via a CSS custom property named like `--cancel-button-size` driving width/height from the `size` prop.",
+   "design_B": "Render the notice as multiple paragraph elements (a bold `<p>` header plus a `<p>` body) with different exact wording (e.g. 'This room has been upgraded.' / 'You cannot send messages here.'), and implement CancelButton sizing by passing `size` directly to inline style/width attributes rather than a named CSS variable.",
+   "why_both_faithful": "The prose only requires 'semantic HTML markup (paragraph elements)' with 'clear, readable text' and a CancelButton with 'consistent styling applied via CSS custom properties,' without fixing the exact element count, the literal notice wording, or the specific custom-property name.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement tombstone UI as a single paragraph saying \"This room has been replaced and is no longer active.\" plus a second paragraph containing the replacement-room link, and implement CancelButton with an aria-label of \"Cancel\" and a CSS custom property like --cancel-button-size.",
+   "design_B": "Implement tombstone UI as one paragraph saying \"This room has moved to <replacement>. You can't send messages here.\" with the replacement link inline, and implement CancelButton with caller-supplied accessibility text and different CSS custom properties for width, height, and icon size.",
+   "why_both_faithful": "The prose requires semantic paragraph-based notices, clear user-friendly status text, and a reusable accessible cancel button, but does not specify the exact copy, paragraph structure, link placement, aria-label policy, or CSS custom property names.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

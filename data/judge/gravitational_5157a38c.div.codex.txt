@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For a parsed full-path display like `/path/to/socket:0`, set HostName to `/path/to/socket` and have `unixSocket` return `/path/to/socket` if that exact file exists.",
+  "design_B": "For a parsed full-path display like `/path/to/socket:0`, treat `/path/to/socket` as a base path and have `unixSocket` also try a display-number-derived path such as `/path/to/socket0` when the base path itself is not a socket.",
+  "why_both_faithful": "The prose says full paths may either point to a valid path or need to be combined with the display number, but never defines the exact combination rule for slash-prefixed HostName values.",
+  "selecting_clause": null
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Use semver.Version{Major: 1, Minor: 0, Patch: 0} as the fallback default whenever the header is missing or invalid.",
+  "design_B": "Use semver.Version{Major: 0, Minor: 0, Patch: 0} as the fallback default whenever the header is missing or invalid.",
+  "why_both_faithful": "The prose requires a predefined safe default version but never specifies which semantic version value that default must be.",
+  "selecting_clause": null
+}

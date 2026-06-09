@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_8ba3ab7d",
+ "breadth": {
+  "files": 9,
+  "hunks": 89,
+  "loc": 269,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Make Poll() start the polling goroutine internally and return immediately; Close() cancels the stored context and waits on an internal WaitGroup/done channel.",
+   "design_B": "Make Poll() run the polling loop synchronously, with SnapshotStore starting it via go poller.Poll(); Close() cancels the stored context and waits for Poll() to exit.",
+   "why_both_faithful": "The prose requires Poller to store the context/update callback and Close() to cancel and wait for the polling goroutine, but never states whether Poll() itself launches that goroutine or is the goroutine body.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

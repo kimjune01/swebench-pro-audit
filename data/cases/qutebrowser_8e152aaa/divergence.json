@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_8e152aaa",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 50,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "For a `QObject`, the output must always start with the original representation of the object, stripping a single pair of leading/trailing angle brackets if present, so that the final result is wrapped in only one pair of angle brackets."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

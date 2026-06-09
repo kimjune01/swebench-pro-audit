@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_b64891e5",
+ "breadth": {
+  "files": 10,
+  "hunks": 22,
+  "loc": 110,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "this reference must be the ETag if available from the file's metadata, otherwise it must be generated from the file's modification time and size, formatted as hex values separated by a hyphen"
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Generate fallback ETags as hex Unix nanoseconds of stat.ModTime() followed by hex file size, e.g. fmt.Sprintf(\"%x-%x\", modTime.UnixNano(), size).",
+   "design_B": "Generate fallback ETags as hex Unix seconds of stat.ModTime() followed by hex file size, e.g. fmt.Sprintf(\"%x-%x\", modTime.Unix(), size).",
+   "why_both_faithful": "Both are based on the file modification time and size and format the two values as hex separated by a hyphen, but they produce different version strings for the same file.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

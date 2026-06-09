@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For a Mapping field that has content and mime_type but no filename, serialize it as a non-file form part: Content-Disposition only has name, and Content-Type uses mime_type.",
+  "design_B": "For a Mapping field that has content and mime_type but no filename, serialize it as a file-like part by adding a filename derived from the field name while using mime_type.",
+  "why_both_faithful": "The prose allows Mapping values with content but no filename and requires mime_type support, but never specifies whether such parts must omit filename or synthesize one.",
+  "selecting_clause": null
+}

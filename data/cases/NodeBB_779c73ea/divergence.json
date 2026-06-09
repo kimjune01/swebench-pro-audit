@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_779c73ea",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 49,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "If any associated category is not readable by the caller, the method must reject with the exact message `[[error:no-privileges]]` and no upvoter data returned."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

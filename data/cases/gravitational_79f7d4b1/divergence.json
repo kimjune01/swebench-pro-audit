@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_79f7d4b1",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 375,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Cache downloaded CA certificates using the Teleport database server name as the local filename.",
+   "design_B": "Cache downloaded CA certificates using the underlying Cloud SQL/RDS/Redshift instance ID as the local filename.",
+   "why_both_faithful": "The prose says the file should be named after the database instance, but does not specify whether that means Teleport's database server name or the cloud provider instance identifier.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement is_nonbook by lowercasing the binding, splitting it into word tokens, and returning true only when a token exactly equals an entry in NONBOOK, with NONBOOK limited to explicit non-book keywords such as dvd, audio, audiobook, cd.",
+  "design_B": "Implement is_nonbook by lowercasing the binding and returning true when any NONBOOK entry appears as a substring or phrase anywhere in the binding, with NONBOOK containing multi-word bindings such as audio cd, dvd-rom, video game, calendar.",
+  "why_both_faithful": "The prose requires excluding non-book formats by comparing the binding against a maintained list, but does not specify exact token matching versus substring or phrase matching, nor the precise NONBOOK entries.",
+  "selecting_clause": null
+}

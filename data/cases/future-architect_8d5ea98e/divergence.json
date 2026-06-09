@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_8d5ea98e",
+ "breadth": {
+  "files": 11,
+  "hunks": 17,
+  "loc": 449,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Sort vulnerabilities by preferred Identifier ascending, then PackageName ascending, then serialize the ScanResult.",
+   "design_B": "Sort vulnerabilities by PackageName ascending, then preferred Identifier ascending, then serialize the ScanResult.",
+   "why_both_faithful": "The prose requires deterministic stable ordering but gives the Identifier-then-package ordering only as an example, so another stable ordering also satisfies the stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

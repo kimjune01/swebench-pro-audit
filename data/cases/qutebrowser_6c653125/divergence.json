@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_6c653125",
+ "breadth": {
+  "files": 5,
+  "hunks": 14,
+  "loc": 48,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "return them in the format \"rgba(255, 0, 0, 255)\" and \"rgba(0, 0, 255, 255)\" respectively"
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "return them in the format \"rgba(255, 0, 0, 255)\" and \"rgba(0, 0, 255, 255)\" respectively"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

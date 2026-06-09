@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_4c598bb9",
+ "breadth": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 50,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Update `parseInstalledPackagesLine` to append warnings for unparseable source RPM filenames, continue processing, produce the binary package (e.g, `wantbp: &models.Package{Name: \"elasticsearch\", Version: \"8.17.0\", Release: \"1\", Arch: \"x86_64\"}`) and skip the source package (`wantsp: nil`)."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

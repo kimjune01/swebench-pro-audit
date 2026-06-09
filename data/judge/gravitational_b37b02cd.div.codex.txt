@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Uploader.startUpload logs semaphore acquisition latency only when waiting more than 100ms.",
+  "design_B": "Uploader.startUpload logs semaphore acquisition latency only when waiting more than 1s.",
+  "why_both_faithful": "The prose requires logging only above a “reasonable threshold” but never defines the threshold value, so both cutoffs satisfy the stated requirement while producing different observable logs.",
+  "selecting_clause": null
+}

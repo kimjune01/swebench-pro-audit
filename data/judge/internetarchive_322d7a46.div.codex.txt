@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement solr_update partial-failure handling by recursively splitting failed batches, retrying sub-batches, applying successful documents, and raising only for isolated bad documents.",
+  "design_B": "Implement solr_update partial-failure handling by treating any batch partial failure as failure of the entire update request, clearing no operations and raising/logging a single batch-level error.",
+  "why_both_faithful": "The prose requires Solr updates to handle partial failures but never specifies whether partial success should be committed, isolated, retried, or rejected atomically.",
+  "selecting_clause": null
+}

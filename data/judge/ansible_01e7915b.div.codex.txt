@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The `ansible-galaxy install -r requirements.yml` command should install all roles to `~/.ansible/roles` and all collections to `~/.ansible/collections/ansible_collections` when no custom path is provided."}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Add exactly the listed example KBs for each Windows branch, using vendor revision numbers for those KBs only.",
+  "design_B": "Add the listed KBs plus additional later vendor KBs for the same Windows branches, also in chronological revision order.",
+  "why_both_faithful": "The prose uses 'e.g.' for the KB lists and asks for 'latest KBs' without defining an exhaustive cutoff date or exact final set, so both an example-only extension and a broader vendor-synced extension can satisfy the stated wording.",
+  "selecting_clause": null
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Render a missing or null verification result as an omitted verification datum while still showing last activity, IP, and device id.",
+  "design_B": "Render a missing or null verification result as an explicit unverified/unknown verification datum while still showing last activity, IP, and device id.",
+  "why_both_faithful": "The prose requires a verification datum and graceful handling of missing info, but does not specify the UI semantics for isDeviceVerified returning null.",
+  "selecting_clause": null
+}

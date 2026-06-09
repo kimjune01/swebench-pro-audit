@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_02e00aba",
+ "breadth": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 36,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Emit the ANSIBLE_DEBUG vars-loader summary as a plain key-value log line such as `host_group_vars=1 require_enabled=2 auto_enabled=4`.",
+   "design_B": "Emit the ANSIBLE_DEBUG vars-loader summary as a structured one-line JSON-style log message with the same three counts.",
+   "why_both_faithful": "The prose requires a one-line summary containing those counts and relative count behavior, but never specifies the exact log format or field ordering.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_4f6f52f8",
+ "breadth": {
+  "files": 1,
+  "hunks": 21,
+  "loc": 187,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When multiple kube_service endpoints are discovered, always select the first constructed kubeClusterEndpoint in the returned GetKubeServices order.",
+   "design_B": "When multiple kube_service endpoints are discovered, select an endpoint by round-robin or random choice before updating sess.kubeAddress and dialing it.",
+   "why_both_faithful": "The prose only requires that endpoints are discovered, one is selected, sess.kubeAddress is updated, and dialEndpoint is used; it never specifies the endpoint selection policy.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

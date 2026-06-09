@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_2e2140e2",
+ "breadth": {
+  "files": 5,
+  "hunks": 15,
+  "loc": 403,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "All references to the legacy Solr host key should be replaced with `solr_base_url`, and the resolved value should be stored globally after the first access via `runtime_config['plugin_worksearch']`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

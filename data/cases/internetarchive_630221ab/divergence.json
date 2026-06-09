@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_630221ab",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 49,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Resolve only ISO-639-1 codes plus one primary English name and one primary native/autonym per language to MARC codes, then deduplicate.",
+   "design_B": "Resolve ISO-639-1 codes plus all known English aliases and native-name variants per language, such as alternate autonyms, exonyms, or legacy names, then deduplicate.",
+   "why_both_faithful": "The prose requires accepting full English and native language names but does not define the source, alias set, spelling variants, or matching rules for those names.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

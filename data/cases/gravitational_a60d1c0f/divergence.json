@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_a60d1c0f",
+ "breadth": {
+  "files": 4,
+  "hunks": 10,
+  "loc": 70,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat the entire `Teleport-Proxy` prefix message (the literal prefix + JSON + null terminator) as a consumed handshake that the multiplexer strips before handing the underlying stream to the SSH server, so the SSH server reads the real SSH bytes that follow the null byte.",
+   "design_B": "Treat `Teleport-Proxy` as a protocol classification marker only: peek/buffer-and-rewind the prefix so the SSH server still sees the prefix bytes, classifying the connection as SSH while leaving the byte stream intact.",
+   "why_both_faithful": "The prose requires only that such connections be detected, classified as SSH, routed, and have `ClientAddr` surfaced via `RemoteAddr()`, without specifying whether the prefix bytes are consumed/stripped or merely peeked before the SSH handshake proceeds.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Parse ClientAddr with net.ResolveTCPAddr and make RemoteAddr() return the resulting *net.TCPAddr.",
+   "design_B": "Wrap the connection with a custom net.Addr whose String() returns the raw ClientAddr value from the JSON payload.",
+   "why_both_faithful": "The prose requires the ClientAddr value to be exposed through RemoteAddr(), but does not specify the concrete net.Addr type or whether the value must be parsed as a TCP address.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

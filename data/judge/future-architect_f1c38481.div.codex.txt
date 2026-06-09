@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"When parsing a single line of `rpm` package output that contains six whitespace-separated fields and the sixth field is a modularity label, parsing must succeed and `Package.ModularityLabel` must be set to that sixth field verbatim"}

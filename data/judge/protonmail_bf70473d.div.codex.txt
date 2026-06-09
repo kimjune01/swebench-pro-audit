@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement applyHOCs with left-to-right reduction so applyHOCs(A, B)(Component) returns B(A(Component)).",
+  "design_B": "Implement applyHOCs with right-to-left composition so applyHOCs(A, B)(Component) returns A(B(Component)).",
+  "why_both_faithful": "The prose requires composing multiple HOCs but never specifies whether the first HOC argument should become the outermost or innermost wrapper.",
+  "selecting_clause": null
+}

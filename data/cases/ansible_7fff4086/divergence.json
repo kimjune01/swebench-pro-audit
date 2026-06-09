@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_7fff4086",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 81,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When no module shebang or configured override exists, fall back to /usr/bin/python.",
+   "design_B": "When no module shebang or configured override exists, fall back to Ansible's configured/default Python discovery result such as /usr/bin/python3.",
+   "why_both_faithful": "The prose requires a default Python interpreter only when no shebang/interpreter can be determined, but gives /usr/bin/python merely as an example rather than mandating the exact default.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

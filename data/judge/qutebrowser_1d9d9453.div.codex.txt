@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The `Values` class should initialize an internal `_vmap` attribute as a `collections.OrderedDict` instead of storing values in a list."}

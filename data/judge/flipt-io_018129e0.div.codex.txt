@@ -1,0 +1,1 @@
+{"determined":false,"design_A":"When both sinks are enabled, emit audit.sinks as [\"log\",\"webhook\"].","design_B":"When both sinks are enabled, emit audit.sinks as [\"webhook\",\"log\"].","why_both_faithful":"The prose requires the sinks array to contain both enabled sink names but never specifies an ordering for that array.","selecting_clause":null}

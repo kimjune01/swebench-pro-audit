@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_e158a480",
+ "breadth": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 32,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The function \u2018custom_headers\u2019 must accept an additional keyword argument named \u2018fallback_accept_language\u2019 (defaulting to \u2018True\u2019) and must exclude the global \u2018Accept-Language\u2019 header if the argument is explicitly set to \u2018False\u2019, unless a domain-specific override is configured."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

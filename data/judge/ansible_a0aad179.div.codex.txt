@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "_valid_time_stamp uses a full regex match plus calendar validation, returning the 1980-01-01 epoch tuple for any malformed timestamp, out-of-range year, invalid month/day, or impossible date such as 19800230.000000.",
+  "design_B": "_valid_time_stamp uses a regex to extract numeric YYYYMMDD.HHMMSS components, enforces only the stated ZIP year bounds and basic field presence, and returns extracted components for values like 19800230.000000 while defaulting only malformed strings or years outside 1980-2107.",
+  "why_both_faithful": "The prose requires regex extraction, ZIP year limits, and defaulting invalid or out-of-range timestamps, but does not define whether validity includes full calendar-date validation beyond the explicitly stated year limits.",
+  "selecting_clause": null
+}

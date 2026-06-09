@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_078178de",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 32,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement Dialog.tsx to always render a native `<dialog>` element forwarding ref/props, and provide environment substitution via a Jest module alias (moduleNameMapper) that swaps in a separate Dialog.test.tsx/mock rendering a `<div role=\"dialog\">` fallback for JSDOM.",
+   "design_B": "Implement a single Dialog.tsx that does runtime feature-detection (e.g. checks `typeof HTMLDialogElement` / `showModal` support) and conditionally renders either a native `<dialog>` or a `<div>` fallback host within the same component, with no build-time aliasing.",
+   "why_both_faithful": "The requirements explicitly leave the substitution mechanism open ('for example via module aliasing or dependency injection') and only constrain observable behavior (children discoverable by role, props/ref forwarded, no throw), so both a build-time-alias approach and a single runtime-detecting component satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement Dialog with runtime feature detection: render a native <dialog> when HTMLDialogElement is sufficiently supported, otherwise render a <div role=\"dialog\"> fallback while forwarding props, children, and ref.",
+   "design_B": "Implement Dialog as a swappable abstraction: the default module renders native <dialog>, while JSDOM/non-browser builds replace it via module aliasing with an alternate implementation that renders a <div role=\"dialog\"> host.",
+   "why_both_faithful": "The prose requires fallback behavior and explicitly permits per-environment substitution but does not choose between runtime fallback and environment-specific replacement.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

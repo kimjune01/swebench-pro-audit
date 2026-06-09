@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_f7234968",
+ "breadth": {
+  "files": 3,
+  "hunks": 3,
+  "loc": 32,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement VarsWithSources.__or__ and __ror__ to return a plain dict created from the two operands, and __ior__ to mutate the VarsWithSources internal data and return self.",
+   "design_B": "Implement VarsWithSources.__or__ and __ror__ to return a new VarsWithSources instance containing the merged data, and __ior__ to mutate the existing VarsWithSources internal data and return self.",
+   "why_both_faithful": "The prose requires a new dict-like mapping with right-hand precedence but does not require a concrete return type for non-in-place VarsWithSources unions.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

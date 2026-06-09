@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_bbf0a917",
+ "breadth": {
+  "files": 5,
+  "hunks": 9,
+  "loc": 123,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement `allowed_teams` as a mapping from organization name to a list of allowed team names, e.g. `allowed_teams: { my-org: [my-team] }`.",
+   "design_B": "Implement `allowed_teams` as a flat list of `ORG:TEAM` strings, e.g. `allowed_teams: [my-org:my-team]`.",
+   "why_both_faithful": "The requirements explicitly demand a mapping structure, while the problem statement and proposed configuration specify the `ORG:TEAM` list convention, and no prose reconciles which representation is authoritative.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_24c785b2",
+ "breadth": {
+  "files": 4,
+  "hunks": 13,
+  "loc": 268,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The hook must call `onBack` when any of the following conditions are met the `elementID` is not defined (i.e., undefined or empty string). The list of `elementIDs` is empty. The `elementID` is not present in the `elementIDs` array. - If `loadingElements` is `true`, the hook must perform no action and skip evaluation. - The `elementID` used by the hook must be derived from either the `messageID` or `conversationID`, based on whether the associated label is considered a message-level label."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The hook should trigger the provided onBack callback only when elements are not loading and the active element is invalid according to that list."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

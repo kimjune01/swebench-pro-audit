@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat same-format, no-bitrate requests as an early raw passthrough, returning format \"raw\" with the media file's original bitrate before considering player MaxBitRate.",
+  "design_B": "Treat player MaxBitRate as the chosen bitrate whenever no explicit bitrate is requested, including same-format requests, then only return raw if that chosen bitrate is greater than or equal to the original bitrate.",
+  "why_both_faithful": "The prose separately requires same-format/no-bitrate raw behavior and player MaxBitRate precedence, but does not state which condition wins when both apply.",
+  "selecting_clause": null
+}

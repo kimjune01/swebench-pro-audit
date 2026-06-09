@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_4a17636a",
+ "breadth": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 46,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The date range must be inclusive, meaning the start and end dates themselves are considered within the range."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

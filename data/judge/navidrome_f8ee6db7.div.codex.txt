@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "When `Register` is called, it must use `FindMatch` to check if a player already exists with the same `userName`, `client`, and `userAgent`."
+}

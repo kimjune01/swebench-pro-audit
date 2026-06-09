@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The `run` method of the `env` lookup module must obtain each requested environment variable using `os.environ.get()` together with the plugin’s configured default value and return a list with the values obtained."}

@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_dccdd8a0",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 28,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Join multiple severities in insertion/encounter order (the order they appear in the Trivy input's vulnerability records), producing e.g. LOW|MEDIUM as they were first seen.",
+   "design_B": "Join multiple severities by a defined severity rank (e.g. NONE<LOW<MEDIUM<HIGH<CRITICAL) or alphabetical sort, normalizing regardless of input order.",
+   "why_both_faithful": "The prose explicitly defers the join order to 'the deterministic order validated by the tests' and its sole example (LOW|MEDIUM) is consistent with insertion order, alphabetical order, and ascending severity rank alike, so it selects none of them.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Join multiple severities for a source in first-seen input order, deduplicated, e.g. LOW then MEDIUM becomes LOW|MEDIUM.",
+   "design_B": "Join multiple severities for a source in canonical severity-rank order, e.g. UNKNOWN|LOW|MEDIUM|HIGH|CRITICAL regardless of input order.",
+   "why_both_faithful": "The prose requires a deterministic pipe-delimited order and gives an example, but does not define the ordering rule for all severity combinations.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_190b3cdc",
+ "breadth": {
+  "files": 11,
+  "hunks": 19,
+  "loc": 259,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "If the object format is used and contains only a single segment key, the system must treat it as equivalent to the string format and assign `OR_SEGMENT_OPERATOR` as the operator, regardless of the operator value provided."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

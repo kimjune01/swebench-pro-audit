@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_4315bbe2",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 28,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Filter out only entries whose type == 'Original Language', then dedupe the remaining display_values while preserving first-seen order (e.g. return ['French'] in the example since all remaining entries are 'French').",
+   "design_B": "Build the language set by collecting display_values for all non-'Original Language' entries into a Python set, returning an unordered/sorted unique list \u2014 order not preserved.",
+   "why_both_faithful": "The prose requires non-repeated languages excluding type 'Original Language' but never specifies whether ordering is preserved or how the unique collection is structured, so both an order-preserving dedup and a set-based dedup satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Populate `languages` as a de-duplicated list of display_value strings in the same order they appear in Amazon's `display_values`, skipping entries whose type is `Original Language`.",
+   "design_B": "Populate `languages` as a de-duplicated list of display_value strings sorted alphabetically, skipping entries whose type is `Original Language`.",
+   "why_both_faithful": "The prose requires retaining unique non-Original-Language display values but never specifies the ordering of the returned language values.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

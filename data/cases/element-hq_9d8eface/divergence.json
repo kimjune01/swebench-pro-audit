@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_9d8eface",
+ "breadth": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 46,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The primary \u201cContinue\u201d button should set \"inProgress\" to true immediately on click, before awaiting the async call to `matrixClient.getCrypto()?.resetEncryption(...)`, ensuring the UI reflects progress without delay and preventing duplicate submissions."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

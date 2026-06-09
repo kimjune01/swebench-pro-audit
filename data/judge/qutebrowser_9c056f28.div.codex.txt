@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The function should compute a Chromium-compatible fallback locale when the original .pak is missing, following these precedence rules: en, en-PH, or en-LR \u2192 en-US; any other en-* \u2192 en-GB; any es-* \u2192 es-419; pt \u2192 pt-BR; any other pt-* \u2192 pt-PT; zh-HK or zh-MO \u2192 zh-TW; zh or any other zh-* \u2192 zh-CN; otherwise the base language before the hyphen."
+}

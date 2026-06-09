@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement LeveledLogger methods by logging the original message and adding a structured field such as level=\"ERROR\"/\"INFO\"/\"DEBUG\"/\"WARN\", followed by the supplied key-value pairs in order.",
+  "design_B": "Implement LeveledLogger methods by prefixing the message text with the uppercase level token, such as \"ERROR: <msg>\", and logging only the supplied key-value pairs as structured fields in order.",
+  "why_both_faithful": "The prose requires the uppercase level token, message text, and structured key-value payload to appear, but does not specify whether the level token must be a structured field or part of the logged message.",
+  "selecting_clause": null
+}

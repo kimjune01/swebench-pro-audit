@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Batch.get_relpath('0008','01', ext='.zip', size='m') returns 'covers_0008/covers_0008_01_m.zip', and database filenames store that item-prefixed relative path.",
+  "design_B": "Batch.get_relpath('0008','01', ext='.zip', size='m') returns 'covers_0008_01_m.zip', and Archive.org item name 'covers_0008' is supplied separately when constructing URLs.",
+  "why_both_faithful": "The prose requires a canonical relative path based on item and batch with optional size and extension, but never specifies whether the Archive.org item identifier is a directory component or only encoded in the filename.",
+  "selecting_clause": null
+}

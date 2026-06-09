@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_a2ebf53b",
+ "breadth": {
+  "files": 9,
+  "hunks": 10,
+  "loc": 324,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For a key with any non-numeric existing field, skip that key's entire update, apply other keys, invalidate only successfully written keys, and resolve void.",
+   "design_B": "For a key with any non-numeric existing field, skip that key's entire update, still apply other keys, invalidate only successfully written keys, then reject the Promise to report the per-key failure.",
+   "why_both_faithful": "The prose says the bad object's update must fail atomically while other keys proceed, but never specifies whether incrObjectFieldByBulk should resolve silently or reject after partial per-key failures.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

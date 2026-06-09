@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Return unsupported flag types as a structured error with errorCode \"Internal\" and the corresponding gRPC Internal status.",
+  "design_B": "Return unsupported flag types as a structured error with a distinct errorCode such as \"Unsupported\" and a corresponding defined unsupported/error status.",
+  "why_both_faithful": "The requirements explicitly allow unsupported flag types to be reported either as Internal or as a defined Unsupported error while forbidding a normal success payload.",
+  "selecting_clause": null
+}

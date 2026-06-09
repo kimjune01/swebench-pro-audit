@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The logic in `lib/ansible/playbook/role/__init__.py` that previously marked the last task block using the `_eor` attribute should be replaced by appending a new block containing a `meta: role_complete` task to the end of the compiled block list."
+}

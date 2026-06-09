@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The function ‘custom_headers’ must accept an additional keyword argument named ‘fallback_accept_language’ (defaulting to ‘True’) and must exclude the global ‘Accept-Language’ header if the argument is explicitly set to ‘False’, unless a domain-specific override is configured."}

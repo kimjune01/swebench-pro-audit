@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For an empty TableOfContents.entries list, TableOfContents.min_level returns 0 and to_markdown emits no lines.",
+  "design_B": "For an empty TableOfContents.entries list, TableOfContents.min_level returns 1 and to_markdown emits no lines.",
+  "why_both_faithful": "The prose specifies that min_level is the smallest level among entries, but gives no behavior for the empty-entry case where no smallest level exists.",
+  "selecting_clause": null
+}

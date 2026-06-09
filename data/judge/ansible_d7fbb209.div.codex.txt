@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The implementation must create a `set_state_for_host` instance method on `PlayIterator` that allows setting a complete `HostState` for a specific host identified by hostname."
+}

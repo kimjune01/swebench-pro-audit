@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Generate `#PLAYLIST:<playlist name>` and track lines as `#EXTINF:<rounded seconds>,<artist> - <title>` followed by the track path.",
+  "design_B": "Generate `#PLAYLIST: <playlist name>` and track lines as `#EXTINF:<rounded seconds>,<title>` followed by the track path, omitting artist when constructing the display metadata.",
+  "why_both_faithful": "The prose requires a `#PLAYLIST` header, duration, artist/title metadata, and path entries, but does not specify the exact header syntax or exact `#EXTINF` metadata string format.",
+  "selecting_clause": null
+}

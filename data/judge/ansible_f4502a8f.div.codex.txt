@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Validate an out-of-range timeout with fail_json(msg=\"timeout must be between 1 and 4294967294\")",
+  "design_B": "Validate the same out-of-range timeout with fail_json(msg=\"Invalid timeout value\")",
+  "why_both_faithful": "The prose requires appropriate error messages for range violations but does not specify their exact text.",
+  "selecting_clause": null
+}

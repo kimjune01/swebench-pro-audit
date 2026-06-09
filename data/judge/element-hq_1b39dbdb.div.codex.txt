@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement value as a getter that returns the internal backing array directly.",
+  "design_B": "Implement value as a getter that returns a shallow copy of the backing array.",
+  "why_both_faithful": "The prose requires value to return a T[] representing the current buffer state, but does not say whether callers receive the live internal array or a defensive copy.",
+  "selecting_clause": null
+}

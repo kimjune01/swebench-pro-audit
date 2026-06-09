@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When sanitize_keys traverses a list, tuple, or set, return the non-mapping container unchanged, so mappings nested inside it are not sanitized.",
+  "design_B": "When sanitize_keys traverses a list, tuple, or set, recreate that container and sanitize any mappings contained inside it recursively.",
+  "why_both_faithful": "The prose says non-mapping values including sets, lists, and tuples are left unmodified, but also says mappings inside lists, sets, or other mappings must be sanitized recursively.",
+  "selecting_clause": null
+}

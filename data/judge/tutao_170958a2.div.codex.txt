@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Add top-level contact fields such as `kind` and `anniversary`, with `KIND:GROUP` recorded as `kind: \"group\"` and `ANNIVERSARY:2020-01-02` recorded as `anniversary: \"2020-01-02\"`.",
+  "design_B": "Store vCard 4.0-only properties in the contact model's generic/custom property collection, e.g. `{ name: \"KIND\", value: \"group\" }` and `{ name: \"ANNIVERSARY\", value: \"2020-01-02\" }`, while leaving the fixed contact schema unchanged.",
+  "why_both_faithful": "The prose requires that KIND and ANNIVERSARY be captured in the resulting contact data, but does not specify the field names, schema location, or representation used to record them.",
+  "selecting_clause": null
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Expose an exported async polling helper that takes eventManager plus optional property/action arguments and returns a Promise that resolves when a matching event is observed or after 5 interval calls.",
+  "design_B": "Implement polling internally in the add-payment-method flow, using the existing eventManager there, with the constants exported but no separately exported polling helper or promise-returning API.",
+  "why_both_faithful": "The prose requires a callable polling mechanism and accessible constants, but gives no function name, location, signature, return value, or whether it must be standalone versus embedded in the existing payment-method flow.",
+  "selecting_clause": null
+}

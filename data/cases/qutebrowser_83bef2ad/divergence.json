@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_83bef2ad",
+ "breadth": {
+  "files": 1,
+  "hunks": 5,
+  "loc": 52,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define SelectionReason as a str Enum with members CLI='commandline', ENV='env', AUTO='auto', DEFAULT='default', FAKE='fake', UNKNOWN='unknown', and have SelectionInfo string output use reason.value.",
+   "design_B": "Define SelectionReason as a plain Enum with members CLI, ENV, AUTO, DEFAULT, FAKE, UNKNOWN using auto() or integer values, and have SelectionInfo string output use reason.name or reason.name.lower().",
+   "why_both_faithful": "The prose requires a typed enum with those reasons and consistent string formatting, but never specifies the enum value type, exact stored values, or exact rendered strings.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Cache get_document results in BetterDataProvider only, with LegacyDataProvider.clear_cache implemented as a no-op compatibility method.",
+  "design_B": "Cache get_document results in both BetterDataProvider and LegacyDataProvider, with each clear_cache clearing its own get_document cache.",
+  "why_both_faithful": "The prose requires the data provider contract to expose clear_cache and make get_document caching observable, but does not state whether LegacyDataProvider must itself cache documents or merely satisfy the interface for compatibility.",
+  "selecting_clause": null
+}

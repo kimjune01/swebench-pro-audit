@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For user WebFinger links, include the self link with type `application/activity+json`.",
+  "design_B": "For user WebFinger links, include the self link to the user actor without a `type` field.",
+  "why_both_faithful": "The prose requires the instance actor self link to have type `application/activity+json`, but for user actors it only says links must contain a profile-page link and a self link to the user actor.",
+  "selecting_clause": null
+}

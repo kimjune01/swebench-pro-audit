@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Validate plugin IDs by accepting only unscoped NodeBB package names matching `^nodebb-plugin-[A-Za-z0-9_-]+$`, rejecting everything else with `[[error:invalid-plugin-id]]` before state changes.",
+  "design_B": "Validate plugin IDs by accepting both unscoped and scoped npm-style NodeBB package names matching `^(@[A-Za-z0-9_-]+/)?nodebb-plugin-[A-Za-z0-9_-]+$`, rejecting everything else with `[[error:invalid-plugin-id]]` before state changes.",
+  "why_both_faithful": "The prose requires validation against expected naming patterns but never states the exact accepted plugin identifier grammar, including whether scoped package identifiers are valid.",
+  "selecting_clause": null
+}

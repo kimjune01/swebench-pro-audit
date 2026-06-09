@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_f0341c0b",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 35,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Publication-year enforcement should key off `source_records` prefixes; only entries from `amazon` or `bwb` should trigger the stricter year check."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

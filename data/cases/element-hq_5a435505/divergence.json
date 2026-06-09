@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_5a435505",
+ "breadth": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 238,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "No buttons or visual actions for accepting, declining, or managing the verification should be rendered; the component must show only static content without interaction."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

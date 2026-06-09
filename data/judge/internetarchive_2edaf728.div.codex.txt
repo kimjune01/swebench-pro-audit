@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat override_validation as true only when the query parameter value is exactly \"true\".",
+  "design_B": "Treat override_validation as true for a broader boolean parser such as case-insensitive \"true\", \"1\", \"yes\", or \"on\".",
+  "why_both_faithful": "The prose requires extracting and interpreting the `override-validation` query parameter as a boolean, and names `override-validation=true`, but never specifies the accepted boolean string grammar.",
+  "selecting_clause": null
+}

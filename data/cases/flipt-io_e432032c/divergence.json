@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_e432032c",
+ "breadth": {
+  "files": 14,
+  "hunks": 26,
+  "loc": 143,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The metadata section should provide a CheckForUpdates option that allows users to enable or disable version checking at application startup."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

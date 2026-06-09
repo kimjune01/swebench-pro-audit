@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_73e4b70a",
+ "breadth": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 76,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Always reflects the most recent value saved via `save_preferences`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

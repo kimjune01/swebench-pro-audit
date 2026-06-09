@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_70487a09",
+ "breadth": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 43,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Failed authentication attempts return appropriate Subsonic error responses with code 40."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Reject a request if any supplied authentication mechanism is invalid, even if another supplied mechanism would be valid.",
+   "design_B": "Accept a request if at least one supported supplied authentication mechanism validates successfully, and reject only when no supplied credential set is valid.",
+   "why_both_faithful": "The prose requires invalid authentication attempts to return Subsonic code 40 but does not specify how to handle requests containing multiple credential forms where one is valid and another is invalid.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_08604f5a",
+ "breadth": {
+  "files": 7,
+  "hunks": 11,
+  "loc": 54,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When the backend is `QtWebEngine` on Qt \u2265 5.11 and the platform is not macOS, setting `scrolling.bar=overlay` must activate overlay scrollbars by including the Chromium flag `--enable-features=OverlayScrollbar` in the generated arguments."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

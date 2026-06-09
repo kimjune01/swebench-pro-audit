@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_8c044b84",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 50,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The implementation must calculate the absolute path of the destination file using `os.path.abspath()` and verify that the parent directory starts with the collection installation directory path plus `os.path.sep`."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Pre-scan every tar member, validate all destination paths first, and only start extraction after the entire archive has passed validation.",
+   "design_B": "Iterate tar members and, for each member, validate its destination path immediately before extracting that member, raising on the first unsafe entry.",
+   "why_both_faithful": "The prose requires validation before extracting files but does not explicitly say whether the whole archive must be validated before any extraction begins or whether per-entry validation immediately before each extraction is sufficient.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For each changed document, emit all keys discovered in the current doc first, then append keys discovered in the matching old_doc that are absent from the current doc.",
+  "design_B": "For each changed document with an old_doc, compute the combined reindex set and emit keys in old_doc discovery order first, then append current-only keys in current doc discovery order.",
+  "why_both_faithful": "The prose requires both current and previous missing keys to be included and discovery order preserved within traversal, but does not specify the relative ordering between current-doc keys and removed prior-version keys.",
+  "selecting_clause": null
+}

@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "A new React component file exporting KebabContextMenu, which renders a kebab (three-dot) icon button to open a right-aligned context menu for session actions. The menu accepts options via the options prop (React.ReactNode[]), supports accessibility, and closes automatically after interaction."
+}

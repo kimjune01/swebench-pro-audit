@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_9281148b",
+ "breadth": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 63,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "On Python 3: validation must use str.isidentifier() in combination with keyword.iskeyword(), after enforcing ASCII-only input. On Python 2: reject identifiers that are keyword.iskeyword() or one of \"True\", \"False\", \"None\"."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "On Python 3: validation must use str.isidentifier() in combination with keyword.iskeyword(), after enforcing ASCII-only input."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For today, compute now + 30 minutes, then round up to the next 0/30-minute boundary even if that resulting Date falls on tomorrow, e.g. at 23:45 return 00:30 tomorrow.",
+  "design_B": "For today, compute now + 30 minutes and round up to the next 0/30-minute boundary only within the selected calendar day, returning undefined or no min when no same-day valid slot remains.",
+  "why_both_faithful": "The prose says other dates have no minimum restriction and today must be at least 30 minutes ahead, but does not specify what to return when the next valid 30-minute interval crosses midnight.",
+  "selecting_clause": null
+}

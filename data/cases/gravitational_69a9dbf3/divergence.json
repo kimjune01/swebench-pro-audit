@@ -1,0 +1,24 @@
+{
+ "slug": "gravitational_69a9dbf3",
+ "breadth": {
+  "files": 4,
+  "hunks": 5,
+  "loc": 1040,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": null
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In NewMatcher, classify any non-braced input containing regex metacharacters such as '.', '+', '?', '[', '(', '^', or '$' as a raw regex and compile it as provided; otherwise treat it as a literal/wildcard pattern.",
+   "design_B": "In NewMatcher, classify all non-braced inputs as plain string or wildcard patterns by quoting every character except '*' and anchoring the result, and only treat explicitly regex-shaped inputs such as strings already wrapped or anchored by a chosen convention as raw regexes.",
+   "why_both_faithful": "The prose says NewMatcher accepts plain strings, glob-like wildcards, and raw regexes, but never specifies how to distinguish those syntaxes for the same unbraced input string.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

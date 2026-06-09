@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_1d550f0c",
+ "breadth": {
+  "files": 3,
+  "hunks": 33,
+  "loc": 243,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Store fixed references as an exact string set captured at SnapshotCache construction, and have Delete compare ref exactly against that set before deleting the same exact key from the snapshot map.",
+   "design_B": "Normalize Git reference aliases at construction and deletion time, so refs like \"main\" and \"refs/heads/main\" are treated as the same fixed reference before checking/deleting cache entries.",
+   "why_both_faithful": "The prose says fixed references are provided at construction time and Delete takes a string ref, but it never specifies whether reference identity is exact-string based or Git-ref-normalized.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

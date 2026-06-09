@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Represent lifecycle with boolean fields such as started=1 and finished=0/1, include timeout context as child_pid, and reflect cleanup policy with cleanup_tmpdir in the immediate JSON response.",
+  "design_B": "Represent lifecycle with a status string such as status='running'|'successful'|'failed', include timeout context as pid, and reflect cleanup policy with cleanup_policy in the immediate JSON response.",
+  "why_both_faithful": "The prose requires structured, consistent, helpful fields and clear lifecycle/timeout/cleanup information, but does not mandate the exact schema or field names for those pieces.",
+  "selecting_clause": null
+}

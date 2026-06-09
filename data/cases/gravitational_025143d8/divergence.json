@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_025143d8",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 77,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When parsing `kube_listen_addr` as host:port, default the missing port to Teleport's standard Kubernetes proxy port 3026.",
+   "design_B": "Default the missing port to a different value (e.g. the web/proxy default 3080, or 8080 as shown in the example) when only a host is supplied.",
+   "why_both_faithful": "The prose only says address parsing must use 'appropriate default port handling for Kubernetes endpoints' without naming the actual default port number, so any reasonable default satisfies the requirement as written.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Parse kube_listen_addr without an explicit port by applying Teleport's Kubernetes proxy listen default port.",
+   "design_B": "Parse kube_listen_addr without an explicit port by applying the standard Kubernetes API port 443.",
+   "why_both_faithful": "The prose requires default port handling for Kubernetes endpoints but never states which default port must be used.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

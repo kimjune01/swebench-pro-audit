@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_eb8da9e7",
+ "breadth": {
+  "files": 1,
+  "hunks": 5,
+  "loc": 24,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Build languages by scanning Amazon DisplayValues in their original order, skipping Type == \"Original Language\", and keeping the first occurrence of each DisplayValue.",
+   "design_B": "Build languages from the same eligible DisplayValue strings but deduplicate via a set and emit them sorted alphabetically.",
+   "why_both_faithful": "The prose requires duplicate removal and preserving the exact language strings, but does not specify the order of the resulting list.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

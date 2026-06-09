@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_20ef733e",
+ "breadth": {
+  "files": 5,
+  "hunks": 19,
+  "loc": 137,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Preserve backward compatibility: callers that don\u2019t pass \u2018ident\u2019 continue to get the same outputs they received previously for all algorithms, including BCrypt."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

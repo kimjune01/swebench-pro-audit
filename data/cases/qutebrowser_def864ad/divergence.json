@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_def864ad",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 30,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "the initial error emission should use the `errorOccurred` signal with the error code, instead of the legacy `error` signal"
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "In the WebKit `NetworkReply` implementation, the initial error emission should use the `errorOccurred` signal with the error code, instead of the legacy `error` signal."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

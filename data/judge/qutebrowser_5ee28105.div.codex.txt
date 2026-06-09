@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement matches_filter as a threshold: filterstr='minor' matches both minor and major changes, filterstr='patch' matches patch/minor/major, and filterstr='major' matches only major.",
+  "design_B": "Implement matches_filter as exact matching: filterstr='minor' matches only VersionChange.minor, filterstr='patch' matches only VersionChange.patch, and filterstr='major' matches only VersionChange.major.",
+  "why_both_faithful": "The prose requires a matches_filter method for changelog_after_upgrade filter values but never defines whether filters are thresholds or exact categories.",
+  "selecting_clause": null
+}

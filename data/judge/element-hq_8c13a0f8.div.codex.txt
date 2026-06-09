@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement tombstone UI as a single paragraph saying \"This room has been replaced and is no longer active.\" plus a second paragraph containing the replacement-room link, and implement CancelButton with an aria-label of \"Cancel\" and a CSS custom property like --cancel-button-size.",
+  "design_B": "Implement tombstone UI as one paragraph saying \"This room has moved to <replacement>. You can't send messages here.\" with the replacement link inline, and implement CancelButton with caller-supplied accessibility text and different CSS custom properties for width, height, and icon size.",
+  "why_both_faithful": "The prose requires semantic paragraph-based notices, clear user-friendly status text, and a reusable accessible cancel button, but does not specify the exact copy, paragraph structure, link placement, aria-label policy, or CSS custom property names.",
+  "selecting_clause": null
+}

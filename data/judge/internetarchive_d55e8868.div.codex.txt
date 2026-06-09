@@ -1,0 +1,1 @@
+{"determined":false,"design_A":"Return None when an input cannot be normalized to a valid LCCN.","design_B":"Return an empty string when an input cannot be normalized to a valid LCCN.","why_both_faithful":"The prose requires invalid inputs to return a falsy value, but does not specify which falsy value.","selecting_clause":null}

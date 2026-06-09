@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_df2b817a",
+ "breadth": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 23,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For Crashed, Timedout, WriteError, and ReadError, emit messages like \"Processname '<command>' crashed:\" / \"timed out:\" / \"write error:\" / \"read error:\" followed by the process error detail.",
+   "design_B": "For Crashed, Timedout, WriteError, and ReadError, emit messages like \"Processname '<command>' crashed\" / \"timed out\" / \"write error\" / \"read error\" without appending the process error detail, while using the specified detailed format only for FailedToStart.",
+   "why_both_faithful": "The prose mandates the exact FailedToStart format and only requires the other listed error codes to have specific type-indicating messages, without requiring whether their process error detail is included.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

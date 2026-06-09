@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_8166306e",
+ "breadth": {
+  "files": 3,
+  "hunks": 3,
+  "loc": 93,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Clicking the header always opens the right panel and sets its card to RightPanelPhases.RoomSummary, even if the panel is already open.",
+   "design_B": "Clicking the header toggles the right panel: if closed it opens to RightPanelPhases.RoomSummary, and if already open it closes.",
+   "why_both_faithful": "The requirements say the click should open the panel by setting RoomSummary, while the expected behavior says it should toggle the panel, leaving both interaction models plausible.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_212233cb",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 22,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "A helper `innerNodeLiteral(node)` should walk descendants using the commonmark walker, collect literals only from `text` nodes on `entering` steps, and return the concatenated string."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "A helper `innerNodeLiteral(node)` should walk descendants using the commonmark walker, collect literals only from `text` nodes on `entering` steps, and return the concatenated string."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

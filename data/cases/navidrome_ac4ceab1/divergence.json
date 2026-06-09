@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_ac4ceab1",
+ "breadth": {
+  "files": 10,
+  "hunks": 23,
+  "loc": 753,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Function `P` should return a pointer to the input value, including when the input is the zero value of its type. ... Function `V` should return the value referenced by the pointer, or the zero value of the type when the pointer is nil."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Function: P\nLocation: utils/gg/gg.go\nSignature: func P[T any](v T) *T\nInput: v of type T\nOutput: pointer to v\nBehavior: returns a pointer to the input value, including when the input is the zero value of its type."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

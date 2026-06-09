@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_e2412a7c",
+ "breadth": {
+  "files": 3,
+  "hunks": 22,
+  "loc": 246,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "New event writes populate only the new 'FieldsMap' map attribute (the legacy 'Fields' JSON string is no longer written), and reads use 'FieldsMap' when present but fall back to decoding 'Fields' for not-yet-migrated records; a one-time migration backfills 'FieldsMap' for old records.",
+   "design_B": "New event writes populate BOTH 'Fields' (JSON string) and 'FieldsMap' (map) during the migration period so older/concurrent nodes can still read the legacy attribute, with the legacy write dropped only after migration completes.",
+   "why_both_faithful": "The prose simultaneously says to 'replace' Fields with FieldsMap (favoring A) and to 'maintain backward compatibility during the migration period to ensure continuous audit log functionality' (which in a multi-node setting favoring dual-writing the legacy attribute, B), and neither clause states whether new writes must still emit the Fields attribute.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement migration with a persisted checkpoint flag under the backend .flags prefix using FlagKey, scanning DynamoDB in batches and resuming from the last processed key.",
+   "design_B": "Implement migration as an idempotent full-table batch scan that conditionally updates only records missing FieldsMap, with no persisted per-record checkpoint beyond the presence of FieldsMap itself.",
+   "why_both_faithful": "Both preserve metadata, use batch operations, are resumable after interruption, support backward compatibility, and satisfy the stated migration requirements.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

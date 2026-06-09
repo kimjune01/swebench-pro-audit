@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When display_name is undefined, compare the submitted name against the fallback visible name device_id, so saving a value equal to device_id performs no API call.",
+  "design_B": "When display_name is undefined, compare the submitted name against the raw previous display_name value, so saving a value equal to device_id still calls saveDeviceName because undefined and device_id differ.",
+  "why_both_faithful": "The prose says to display device_id when display_name is undefined and to persist only if the new name differs from the previous one, but it never states whether 'previous one' means the rendered visible fallback name or the raw display_name field.",
+  "selecting_clause": null
+}

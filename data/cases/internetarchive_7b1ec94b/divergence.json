@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_7b1ec94b",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 36,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Scan the links list for the first entry with rel == IMAGE_REL; if that single chosen URL starts with 'https://' set 'cover', otherwise omit it (only the first image-rel link is ever considered).",
+   "design_B": "Scan the links list for the first entry that BOTH has rel == IMAGE_REL AND starts with 'https://', skipping earlier image-rel links that are non-HTTPS, and use that URL.",
+   "why_both_faithful": "One clause says to take 'the first URL ... whose rel is equal to IMAGE_REL, and this URL must start with https://' (suggesting take-first-then-test), while another says omit cover only when 'no absolute HTTPS cover image is present under the image relation' (suggesting search-for-an-HTTPS-one), so the behavior differs when the first image-rel link is non-HTTPS but a later one is HTTPS.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For entries whose language code does not start with \"en-\", return null/no import record while otherwise mapping valid dictionary entries.",
+   "design_B": "For entries whose language code does not start with \"en-\", raise an explicit exception such as ValueError while otherwise mapping valid dictionary entries.",
+   "why_both_faithful": "The prose says such entries must be rejected, but never specifies whether rejection means silently producing no record or failing with an exception.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

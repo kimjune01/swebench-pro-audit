@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_d96ea00a",
+ "breadth": {
+  "files": 6,
+  "hunks": 21,
+  "loc": 209,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Persist derived audit, networking, session-recording, and updated auth-preference resources using the legacy ClusterConfig resource's TTL/expiry.",
+   "design_B": "Persist the derived resources using each target resource's existing/default cache TTL policy rather than copying the legacy ClusterConfig TTL.",
+   "why_both_faithful": "The prose requires persisting derived resources with 'appropriate TTLs' but never defines which TTL source is appropriate.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_47910d70",
+ "breadth": {
+  "files": 11,
+  "hunks": 23,
+  "loc": 76,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat a privileged target as an administrator or moderator only, so messaging.canMessageUser requires chat:privileged only when the target UID is an admin/mod.",
+   "design_B": "Treat a privileged target as any user who holds a privileged/global staff-style permission or is in any privileged group exposed by NodeBB, so messaging.canMessageUser requires chat:privileged for a broader set than just admins/moderators.",
+   "why_both_faithful": "The prose repeatedly says privileged target/user and gives administrators or moderators as examples, but never defines the exact predicate for determining that a target is privileged.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

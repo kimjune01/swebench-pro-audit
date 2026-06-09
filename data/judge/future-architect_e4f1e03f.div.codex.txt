@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Derive the numeric Cvss3Score from a severity-only CVE by using the lower bound of the mapped CVSS range, e.g. HIGH -> 7.0 and CRITICAL -> 9.0.",
+  "design_B": "Derive the numeric Cvss3Score from a severity-only CVE by using the upper bound of the mapped CVSS range, e.g. HIGH -> 8.9 and CRITICAL -> 10.0.",
+  "why_both_faithful": "The prose requires mapping severity to a CVSS score range and deriving a numeric score from that mapping, but never specifies which point in the range must be used.",
+  "selecting_clause": null
+}

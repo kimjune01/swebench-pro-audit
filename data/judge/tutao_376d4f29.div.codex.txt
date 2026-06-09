@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "EntropyFacade.addEntropy feeds each chunk into Randomizer, accumulates estimated entropy bits, and automatically calls storeEntropy once a threshold or timer is reached.",
+  "design_B": "EntropyFacade.addEntropy only records/feeds submitted chunks, while storeEntropy is invoked explicitly by LoginFacade or another existing periodic worker path after login/leader checks.",
+  "why_both_faithful": "The prose requires centralized accumulation and periodic server storage, but never specifies whether EntropyFacade itself triggers storage or merely exposes storeEntropy for existing callers to trigger.",
+  "selecting_clause": null
+}

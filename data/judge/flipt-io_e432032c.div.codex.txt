@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The metadata section should provide a CheckForUpdates option that allows users to enable or disable version checking at application startup."
+}

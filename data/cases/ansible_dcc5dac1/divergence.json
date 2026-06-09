@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_dcc5dac1",
+ "breadth": {
+  "files": 7,
+  "hunks": 20,
+  "loc": 285,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For bytes passed to string conversion, _ensure_type rejects them by raising an Ansible-specific configuration/type error with a clear message.",
+   "design_B": "For bytes passed to string conversion, _ensure_type rejects them by raising a standard ValueError or TypeError with a clear message.",
+   "why_both_faithful": "The prose requires byte values to produce clear error reporting but does not specify the exception class or exact error-reporting mechanism for ensure_type.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

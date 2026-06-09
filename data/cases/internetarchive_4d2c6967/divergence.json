@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_4d2c6967",
+ "breadth": {
+  "files": 11,
+  "hunks": 37,
+  "loc": 703,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The Solr service definition in `docker-compose.yml` contains `-Dsolr.max.booleanClauses=30000` under the `SOLR_OPTS` environment variable, and the backend defines the same cap in `openlibrary/core/bookshelves.py`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

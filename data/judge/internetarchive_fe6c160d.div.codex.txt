@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Strip exactly one configured honorific from the start of the name, then stop.",
+  "design_B": "Repeatedly strip configured honorifics from the start until no configured honorific remains.",
+  "why_both_faithful": "The prose requires removing a leading honorific but never specifies whether stacked leading honorifics should be normalized by one pass or by repeated stripping.",
+  "selecting_clause": null
+}

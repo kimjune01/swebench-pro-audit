@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Serialize contact key preference fields in the order X-Pm-Encrypt, then X-Pm-Encrypt-Untrusted, then the key material.",
+  "design_B": "Serialize contact key preference fields in the order X-Pm-Encrypt-Untrusted, then X-Pm-Encrypt, then the key material.",
+  "why_both_faithful": "The prose requires predictable vCard field ordering and CRLF formatting, but never specifies the actual relative order of X-Pm-Encrypt and X-Pm-Encrypt-Untrusted.",
+  "selecting_clause": null
+}

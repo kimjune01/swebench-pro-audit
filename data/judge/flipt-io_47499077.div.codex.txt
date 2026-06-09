@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement ECR credentials by calling AWS ECR on every Credential invocation, decoding the returned token each time with no caching.",
+  "design_B": "Implement ECR credentials by caching the decoded ECR token until its AWS-reported expiration time and refreshing only after expiry.",
+  "why_both_faithful": "The prose requires AWS ECR-backed credentials that refresh automatically and specifies response-to-error mapping, but does not require either per-call retrieval or expiration-based caching.",
+  "selecting_clause": null
+}

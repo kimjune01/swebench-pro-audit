@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_3398c102",
+ "breadth": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 88,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "_replace_stderr_clixml accumulates lines after a CLIXML header until it sees the closing XML tag, then parses and replaces the whole multi-line block.",
+   "design_B": "_replace_stderr_clixml treats CLIXML split across multiple lines as incomplete/unparseable and leaves those original bytes unchanged.",
+   "why_both_faithful": "The prose says stderr may include CLIXML split across multiple lines and should be decoded, but also says parsing errors or incomplete blocks should remain unchanged, including cases where the sequence is split across lines.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

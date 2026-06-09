@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_4df7aedf",
+ "breadth": {
+  "files": 4,
+  "hunks": 4,
+  "loc": 48,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Inject the Array.prototype.at polyfill on every page when Array.prototype.at is missing.",
+   "design_B": "Inject the polyfill only on LinkedIn domains and qutebrowser test domains when Array.prototype.at is missing.",
+   "why_both_faithful": "The prose requires the polyfill to be active on LinkedIn and test domains but never says it must be limited to those domains or injected globally for all pages.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

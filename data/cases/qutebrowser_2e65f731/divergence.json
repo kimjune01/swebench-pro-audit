@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_2e65f731",
+ "breadth": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 24,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Accept omitted units and any non-negative integer magnitude per present unit, so `1m60s` is valid and returns `120000`.",
+   "design_B": "Treat `m` and `s` fields as clock-style components that must be below 60 when combined, so `1m60s` is invalid and returns `-1`.",
+   "why_both_faithful": "The prose says units are non-negative integers and gives total millisecond examples, but it never states whether minute/second components may equal or exceed 60 in combined unit strings.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

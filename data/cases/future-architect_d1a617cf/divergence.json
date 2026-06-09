@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_d1a617cf",
+ "breadth": {
+  "files": 9,
+  "hunks": 95,
+  "loc": 470,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Upgrade to Trivy v0.30.0 and the compatible Trivy-DB/dep-parser dependency set for that release while adding PNPM and dotnet-deps analyzers.",
+   "design_B": "Upgrade to a later Trivy 0.30.x patch release, such as v0.30.4, with its compatible newer Trivy-DB/dep-parser dependency set while adding the same analyzers.",
+   "why_both_faithful": "The prose requires Trivy 0.30.x and references versions supposedly specified in an absent diff, so multiple 0.30.x dependency/version sets satisfy every visible requirement but can produce different module resolution and detector behavior.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

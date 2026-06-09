@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_875e9337",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 144,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Each backend detector (e.g. SoftHSM, YubiHSM, CloudHSM, GCP KMS, AWS KMS) is checked in a fixed priority order, and HSMTestConfig returns the first available backend's Config \u2014 e.g. YubiHSM is preferred over SoftHSM when both env vars are set.",
+   "design_B": "HSMTestConfig checks backends in a different priority order (e.g. SoftHSM first, or AWS KMS first), returning a different Config when multiple backends' env vars are simultaneously set.",
+   "why_both_faithful": "The prose says it 'picks an HSM/KMS backend ... based on TELEPORT_TEST_* env vars' and lists the backends but never specifies the precedence/order when more than one backend's environment is available, so any selection order satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "HSMTestConfig checks backends in the listed order: YubiHSM, CloudHSM, AWS KMS, GCP KMS, then SoftHSM, and returns the first available config.",
+   "design_B": "HSMTestConfig checks SoftHSM first as the local/default test backend, then falls back to YubiHSM, CloudHSM, AWS KMS, and GCP KMS.",
+   "why_both_faithful": "The prose requires automatic backend detection and failure when none are available, but does not specify the selection priority when multiple TELEPORT_TEST_* environments are valid.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

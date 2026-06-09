@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_8e08f046",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 102,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The workaround logic should only be triggered if all of the following activation conditions are met"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

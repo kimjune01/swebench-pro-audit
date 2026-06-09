@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_5ee81338",
+ "breadth": {
+  "files": 3,
+  "hunks": 10,
+  "loc": 90,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Fixed retry budget of N attempts (e.g. retry 429 up to 4 times with an exponential/fixed backoff sleep, then raise RateLimitException) and treat 500/502 with the same bounded retry loop raising InternalErrorException on exhaustion",
+   "design_B": "Honor the Meraki 'Retry-After' response header to time each retry and bound the total retry window by wall-clock duration (e.g. keep retrying until a cumulative time budget elapses) rather than a fixed attempt count",
+   "why_both_faithful": "The prose only says retries happen 'for a bounded period' before failing and reports 'how many retries were performed', but never specifies the retry count, backoff strategy, or whether the bound is an attempt count vs. a time window, so both pin-compatible schemes satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Retry HTTP 429 up to 3 attempts with a fixed short delay, then raise RateLimitException if all attempts are 429.",
+   "design_B": "Retry HTTP 429 until a 60-second bounded retry budget is exhausted using exponential backoff, then raise RateLimitException if still 429.",
+   "why_both_faithful": "The prose requires bounded retry behavior and eventual RateLimitException for persistent 429s, but never specifies the retry count, duration, delay strategy, or Retry-After handling.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

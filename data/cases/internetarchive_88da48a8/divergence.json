@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_88da48a8",
+ "breadth": {
+  "files": 3,
+  "hunks": 10,
+  "loc": 106,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In find_threshold_match, allow a no-ISBN incoming record to match an ISBN-only/title candidate when score >= 875 and at least one supporting field matches, such as either an aggregated author match or a publish-date match.",
+   "design_B": "In find_threshold_match, allow a no-ISBN incoming record to match an ISBN-only/title candidate only when score >= 875 and multiple supporting fields match, such as both aggregated authors and publish date.",
+   "why_both_faithful": "The prose says title alone is insufficient and requires the 875 threshold with sufficient supporting metadata, but does not define exactly which supporting fields or how many are sufficient.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

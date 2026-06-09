@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When adding the referral link to an HTML signature, render it as <a href=\"URL\">URL</a> with no extra attributes.",
+  "design_B": "When adding the referral link to an HTML signature, render it as <a href=\"URL\" target=\"_blank\" rel=\"noreferrer\">URL</a>.",
+  "why_both_faithful": "The prose requires the URL to be wrapped in a single <a> tag exactly once, but does not constrain allowed attributes on that tag.",
+  "selecting_clause": null
+}

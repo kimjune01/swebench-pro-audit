@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_4b11dc4a",
+ "breadth": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 38,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When `authPref.GetSecondFactor()` is `SecondFactorOn`, block deletion if it would remove the user\u2019s final remaining MFA device, returning a `trace.BadParameter` error converted with `trail.ToGRPC`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

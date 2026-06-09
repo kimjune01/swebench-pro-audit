@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "NewPortStat parses bracketed IPv6 like `[::1]:22` and stores BindAddress as `::1`, stripping brackets.",
+  "design_B": "NewPortStat parses bracketed IPv6 like `[::1]:22` and stores BindAddress as `[::1]`, preserving brackets.",
+  "why_both_faithful": "The prose requires bracketed IPv6 inputs to parse but never states the normalized representation that must be stored in PortStat.BindAddress.",
+  "selecting_clause": null
+}

@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"A new `_validate_hosts` method should be introduced in the `Play` class to handle validation of the `hosts` field, and it should perform validation only when the `hosts` key is present in the play’s dataset."}

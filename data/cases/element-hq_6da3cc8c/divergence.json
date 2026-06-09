@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_6da3cc8c",
+ "breadth": {
+  "files": 1,
+  "hunks": 8,
+  "loc": 60,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In anonymous mode, make trackPseudonymousEvent a no-op and make trackRoomEvent skip any pseudonymous capture when a roomId is present.",
+   "design_B": "In anonymous mode, allow trackPseudonymousEvent to capture, but redact/pseudonymise URL data according to the anonymous redaction rules; only suppress pseudonymous room-based emissions for trackRoomEvent.",
+   "why_both_faithful": "The prose explicitly forbids pseudonymous room-based events when anonymous, but does not state whether the standalone trackPseudonymousEvent must be suppressed or merely use the current anonymity state for redaction.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

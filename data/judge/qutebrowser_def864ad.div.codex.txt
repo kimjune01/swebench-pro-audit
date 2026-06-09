@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"In the WebKit `NetworkReply` implementation, the initial error emission should use the `errorOccurred` signal with the error code, instead of the legacy `error` signal."}

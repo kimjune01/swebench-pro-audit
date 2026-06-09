@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Load mime_types.yaml from the process working directory during the conf.AddHook startup hook, failing startup if it is absent or invalid.",
+  "design_B": "Load mime_types.yaml from Navidrome's configured application/config resource directory during the conf.AddHook startup hook, failing startup if it is absent or invalid.",
+  "why_both_faithful": "The prose requires using a file named mime_types.yaml during initialization but never specifies the lookup location or configuration-resource resolution rule.",
+  "selecting_clause": null
+}

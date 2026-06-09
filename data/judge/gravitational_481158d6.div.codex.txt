@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Use context.WithoutCancel(r.Context()) for exec, portForward, and catchAll audit emission so request values are preserved but client-disconnect cancellation is ignored.",
+  "design_B": "Use context.Background() for audit emission and explicitly attach only the needed audit identity/session metadata before emitting events.",
+  "why_both_faithful": "Both designs ensure audit events continue to be recorded after client disconnect while the prose does not require preserving the original request context values or using a specific detached-context mechanism.",
+  "selecting_clause": null
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_a91a0258",
+ "breadth": {
+  "files": 7,
+  "hunks": 17,
+  "loc": 160,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `matchesNumber` function in `legacy_evaluator.go` must implement `isoneof` and `isnotoneof` by deserializing the constraint\u2019s value into a slice of numbers (`[]float64`)."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

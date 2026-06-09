@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement ReactRootManager with a Map<Element, Root>, reusing an existing Root when render(children, element) is called again for the same element.",
+  "design_B": "Implement ReactRootManager with an array of {element, root} entries, creating and tracking a new Root for every render(children, element) call even if the same element was used before.",
+  "why_both_faithful": "The prose requires createRoot usage, tracking elements/roots, and later unmounting, but never specifies duplicate-container semantics for ReactRootManager.render.",
+  "selecting_clause": null
+}

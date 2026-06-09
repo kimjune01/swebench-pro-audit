@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement WriterEmitter.Close by closing the underlying writer first, then closing the embedded WriterLog, aggregating errors in that order.",
+  "design_B": "Implement WriterEmitter.Close by closing the embedded WriterLog first, then closing the underlying writer, aggregating errors in that order.",
+  "why_both_faithful": "The prose requires both resources to be closed and errors aggregated, but does not specify close order or aggregation ordering.",
+  "selecting_clause": null
+}

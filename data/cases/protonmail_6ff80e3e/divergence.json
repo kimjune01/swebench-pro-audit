@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_6ff80e3e",
+ "breadth": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 77,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The new helper `getElementsToBypassFilter` in `elementBypassFilters.ts` should return an empty bypass list and a remove list containing all elements when the unread filter already matches the mark-as action, or a bypass list containing all elements and an empty remove list otherwise."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The new helper `getElementsToBypassFilter` in `elementBypassFilters.ts` should return an empty bypass list and a remove list containing all elements when the unread filter already matches the mark-as action, or a bypass list containing all elements and an empty remove list otherwise."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_5064cb2a",
+ "breadth": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 80,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For a compilation with an empty or whitespace-only AlbumArtistIds string, treat it as no sole album artist and return VariousArtists/VariousArtistsID.",
+   "design_B": "For a compilation with an empty or whitespace-only AlbumArtistIds string, treat it as no differing IDs and fall back to the album's existing AlbumArtist/AlbumArtistID or Artist/ArtistID.",
+   "why_both_faithful": "The prose specifies what to do when compilation album_artist_id values are all identical or differ, but does not define the empty/no-values case produced by group_concat over missing IDs.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

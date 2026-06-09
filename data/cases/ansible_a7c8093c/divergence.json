@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_a7c8093c",
+ "breadth": {
+  "files": 3,
+  "hunks": 10,
+  "loc": 70,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When delegation metadata is present under `result._result['_ansible_delegated_vars']['ansible_host']`, it must return `\"primary -> delegated\"` as a plain string."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When delegation metadata is present under `result._result['_ansible_delegated_vars']['ansible_host']`, it must return `\"primary -> delegated\"` as a plain string."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_c40dccc3",
+ "breadth": {
+  "files": 12,
+  "hunks": 36,
+  "loc": 272,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Ensure the Contact Group Details modal renders the count label using \u201cemail address\u201d (singular) and \u201cemail addresses\u201d (plural) according to the number of email addresses in the group."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

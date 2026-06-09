@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_daf93507",
+ "breadth": {
+  "files": 10,
+  "hunks": 32,
+  "loc": 629,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When adding an annotated seed whose thing key already exists, update/replace the existing seed's notes for that key.",
+   "design_B": "When adding an annotated seed whose thing key already exists, treat it as the same seed by key and make add_seed a no-op, with note edits handled only by full list/edit serialization.",
+   "why_both_faithful": "The prose requires logical equality to be based on the key unless notes are used explicitly, but never specifies whether add_seed with the same key and different notes should update the note or preserve the existing seed.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

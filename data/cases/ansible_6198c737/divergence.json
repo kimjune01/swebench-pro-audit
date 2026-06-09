@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_6198c737",
+ "breadth": {
+  "files": 4,
+  "hunks": 12,
+  "loc": 71,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat dump_vault_tags=None as the existing implicit default that emits undecryptable vault values as !vault ciphertext, matching the dump_vault_tags=True path.",
+   "design_B": "Treat dump_vault_tags=None as the existing implicit default that refuses undecryptable vault values and raises AnsibleTemplateError, matching the dump_vault_tags=False path.",
+   "why_both_faithful": "The prose requires explicit True and False behavior, but only says None preserves 'current implicit behavior' without stating what that behavior is.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

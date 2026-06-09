@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "If a `.pak` exists for the derived locale, the browser must include `--lang=<derived-locale>` in the QtWebEngine arguments; if neither the original nor the derived locale has a `.pak`, the browser must include `--lang=en-US`."
+}

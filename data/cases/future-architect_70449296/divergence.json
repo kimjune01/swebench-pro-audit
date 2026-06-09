@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_70449296",
+ "breadth": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 76,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For multi-source prioritized fields, iterate family-specific content types in the order shown by GetCveContentTypes, e.g. Ubuntu then UbuntuAPI, and use the first available title/summary/CVSS/reference value before falling back to non-family sources.",
+   "design_B": "For multi-source prioritized fields, iterate all family-specific content types but merge or aggregate values across them, e.g. return references from both Ubuntu and UbuntuAPI and choose the highest/most complete CVSS score rather than the first available one.",
+   "why_both_faithful": "The prose requires considering all family-specific content types and prioritizing them before other sources, but does not specify whether conflicting or duplicate field values should be first-match priority results or merged/aggregated results.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

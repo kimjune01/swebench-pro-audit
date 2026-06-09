@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"When set, `TELEPORT_KUBE_CLUSTER` must assign its value to `KubernetesCluster` in the CLI configuration, unless a Kubernetes cluster was already specified on the CLI; in that case, the CLI value must take precedence."}

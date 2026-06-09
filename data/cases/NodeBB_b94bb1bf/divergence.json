@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_b94bb1bf",
+ "breadth": {
+  "files": 7,
+  "hunks": 8,
+  "loc": 37,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat groupsExemptFromMaintenanceMode as the complete persisted effective allowlist, seeded/falling back to ['administrators', 'Global Moderators'], with the UI saving that full list plus any selected non-privileged groups.",
+   "design_B": "Treat groupsExemptFromMaintenanceMode as only the admin-selected extra non-privileged exemptions, and always union it at runtime with the built-in administrator and Global Moderators exemptions.",
+   "why_both_faithful": "The prose requires default exemptions for administrators and Global Moderators but does not specify whether those defaults must be stored in the configuration key or applied as implicit runtime exemptions alongside the configured list.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

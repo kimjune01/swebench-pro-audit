@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Build the base Solr query as a boolean OR over exact and prefix clauses for both fields, e.g. title:\"q\" OR name:\"q\" OR title:q* OR name:q*, returning Solr's default ranking.",
+  "design_B": "Build the base Solr query using the same four exact/prefix title/name matches but with explicit boosts or edismax-style field weighting, causing a different result ordering while still honoring the limit.",
+  "why_both_faithful": "The prose requires considering exact and prefix matches on title and name, but never specifies Solr parser, boosting, scoring, or ordering semantics.",
+  "selecting_clause": null
+}

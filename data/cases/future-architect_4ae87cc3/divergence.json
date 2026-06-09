@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_4ae87cc3",
+ "breadth": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 68,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "If the name was found in the map, it should return its corresponding value present in the map; otherwise, it should return an empty string."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_e7f4e98c",
+ "breadth": {
+  "files": 3,
+  "hunks": 12,
+  "loc": 103,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For tolerant parsing, return objects with optional fields omitted entirely, e.g. `{ Common: {} }` for empty or invalid input.",
+   "design_B": "For tolerant parsing, return objects with optional fields explicitly present as `undefined`, e.g. `{ Common: { Size: undefined, BlockSizes: undefined, ModificationTime: undefined } }`.",
+   "why_both_faithful": "The prose says missing optional values must be `undefined`, but does not specify whether the properties must be materialized with `undefined` values or simply omitted so property access yields `undefined`.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

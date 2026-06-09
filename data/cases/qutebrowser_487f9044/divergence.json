@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_487f9044",
+ "breadth": {
+  "files": 6,
+  "hunks": 17,
+  "loc": 89,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": ":tab-select substring matching chooses the first open tab whose title or URL contains the provided index string in global window/tab iteration order.",
+   "design_B": ":tab-select substring matching ranks matches, for example preferring exact title matches over URL substring matches and then shortest match, choosing a different tab when multiple tabs match.",
+   "why_both_faithful": "The prose requires substring matching against tab titles and URLs but does not define how to break ties or what 'best match' means when multiple tabs match.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

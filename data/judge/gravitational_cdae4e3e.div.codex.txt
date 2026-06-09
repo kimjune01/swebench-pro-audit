@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Compute each non-truncated column's maximum width as an equal share of the terminal width, then give the designated truncated column all remaining width and ellipsize its cells.",
+  "design_B": "Compute each non-truncated column's maximum width as a fixed percentage based on column role or header length, then give the designated truncated column the remaining width and ellipsize its cells.",
+  "why_both_faithful": "The prose requires proportional terminal-based widths and a remaining-space truncated column, but does not specify the proportional formula.",
+  "selecting_clause": null
+}

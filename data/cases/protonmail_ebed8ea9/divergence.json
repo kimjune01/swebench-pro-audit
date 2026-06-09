@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_ebed8ea9",
+ "breadth": {
+  "files": 7,
+  "hunks": 21,
+  "loc": 102,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Ensure that when MAILBOX_LABEL_IDS.SENT is repositioned relative to MAILBOX_LABEL_IDS.INBOX with the intent of placing it after Inbox, MAILBOX_LABEL_IDS.ALL_SENT is also moved to immediately follow MAILBOX_LABEL_IDS.INBOX and appear directly before MAILBOX_LABEL_IDS.SENT."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

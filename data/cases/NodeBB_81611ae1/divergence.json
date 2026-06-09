@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_81611ae1",
+ "breadth": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 91,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "On token registration, clean up by token: resolve invitation:token:<token>, remove that token metadata, its inviter/email reference, and that token from the invited-email token set.",
+   "design_B": "On token registration with an entered email, clean up by registrationEmail: delete all invitation tokens associated with that email, not just the submitted token.",
+   "why_both_faithful": "The prose says cleanup may use the email or token used, and separately requires deleteInvitationKey to support both paths, but does not specify which cleanup path registerAndLoginUser must choose when both token and email are present.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

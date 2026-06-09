@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_a51596d8",
+ "breadth": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 738,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define Linear with exactly the listed public fields plus an unexported initial *Config field, and copy Command from that stored initial configuration.",
+   "design_B": "Define Linear with the listed public fields plus a public or embedded Config/Command field, and copy Command from that field on each generated Config.",
+   "why_both_faithful": "The prose requires Command to be copied from the initial configuration but never specifies how that initial configuration is provided or represented in Linear.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

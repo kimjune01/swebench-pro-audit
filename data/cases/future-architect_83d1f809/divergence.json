@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_83d1f809",
+ "breadth": {
+  "files": 6,
+  "hunks": 28,
+  "loc": 207,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When ignore inactive is enabled, filter out only packages with Status == \"inactive\" and keep packages with any other Status value, including \"active\", empty, or unknown.",
+   "design_B": "When ignore inactive is enabled, keep only packages with Status == \"active\" and filter out all other Status values, including \"inactive\", empty, or unknown.",
+   "why_both_faithful": "The prose explicitly says to exclude \"inactive\" and keep \"active\" packages, but never specifies the required behavior for other Status values.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When multiple configured paths match a source file, choose the most specific match, e.g. the longest file/folder path prefix.",
+  "design_B": "When multiple configured paths match a source file, use the first matching configured entry after processing the map into logLevels.",
+  "why_both_faithful": "The prose requires path-specific levels to override the global level, but never specifies precedence among multiple matching configured source files or folders.",
+  "selecting_clause": null
+}

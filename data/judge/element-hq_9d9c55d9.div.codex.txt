@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "While checkUserIsAllowedToChangeEncryption is pending, render the encryption toggle in place but disabled, then update it to the effective enforced/changeable state once the promise resolves.",
+  "design_B": "While checkUserIsAllowedToChangeEncryption is pending, hide or omit the encryption control entirely, then render it only after the promise resolves with the effective enforced/changeable state.",
+  "why_both_faithful": "The prose only requires that the encryption control should not appear interactable while the decision is pending, which permits either a disabled visible control or no visible control.",
+  "selecting_clause": null
+}

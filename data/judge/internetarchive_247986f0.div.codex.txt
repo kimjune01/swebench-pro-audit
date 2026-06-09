@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Return the newly inserted or updated award row ID in the POST add/update response as {\"success\": true, \"award\": 123}.",
+  "design_B": "Return the full persisted award object in the POST add/update response as {\"success\": true, \"award\": {\"username\": \"u\", \"work_id\": \"OL1W\", \"topic\": \"...\", \"comment\": \"...\", \"edition_id\": null}}.",
+  "why_both_faithful": "The prose requires an add/update response containing an \"award\" value but never specifies whether that value is an ID, object, or other representation.",
+  "selecting_clause": null
+}

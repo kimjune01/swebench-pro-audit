@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_68e270d4",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 88,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For Amazon Linux, map ansible_distribution_major_version '2' to 'yum' and '2023' or later to 'dnf'.",
+   "design_B": "For Amazon Linux, ignore the release-number mapping and select whichever default binary exists first, e.g. return 'dnf' if /usr/bin/dnf exists, otherwise 'yum'.",
+   "why_both_faithful": "The prose says Amazon Linux detection depends on release/version and availability, but never specifies the exact Amazon Linux version-to-manager mapping or binary precedence rules.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_29f9ccfb",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 40,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Create the Range with anchorNode/anchorOffset as start and focusNode/focusOffset as end, then removeAllRanges() and addRange().",
+   "design_B": "Compare anchor and focus document positions first, then create the Range from the earlier boundary point to the later boundary point before removeAllRanges() and addRange().",
+   "why_both_faithful": "The prose requires using anchor/focus information to construct and apply a Range, but never states whether reversed anchor/focus inputs must preserve direction, be normalized, or be treated as start/end literally.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

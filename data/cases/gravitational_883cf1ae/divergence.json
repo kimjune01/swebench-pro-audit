@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_883cf1ae",
+ "breadth": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 62,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Grant read-only namespace access only when the user has a rule for some resource in that namespace whose allowed verbs include the requested read verb or `*`.",
+   "design_B": "Grant read-only namespace access when the user has any non-empty permission on any resource in that namespace, regardless of whether that resource rule includes the requested read verb.",
+   "why_both_faithful": "The prose says users with access to any resource in a namespace get read-only namespace access, but does not specify whether that resource access must include the same read verb being requested on the namespace.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

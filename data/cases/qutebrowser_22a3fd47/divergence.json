@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_22a3fd47",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 49,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The existing `from_pyqt` class method must be simplified to no longer accept a `source` argument. It must hardcode `\"PyQt\"` as the `source` value."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

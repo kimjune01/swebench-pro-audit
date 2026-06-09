@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The `_glob(resource_root, subdir, ext)` helper must yield relative POSIX paths of files directly under `subdir` whose names end with `ext`, and must operate correctly when `resource_root` is a `pathlib.Path` (filesystem) and when it is a `zipfile.Path` (zip archive)."}

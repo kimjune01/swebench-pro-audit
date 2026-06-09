@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Parse kube_listen_addr without an explicit port by applying Teleport's Kubernetes proxy listen default port.",
+  "design_B": "Parse kube_listen_addr without an explicit port by applying the standard Kubernetes API port 443.",
+  "why_both_faithful": "The prose requires default port handling for Kubernetes endpoints but never states which default port must be used.",
+  "selecting_clause": null
+}

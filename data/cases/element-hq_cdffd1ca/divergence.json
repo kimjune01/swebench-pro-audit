@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_cdffd1ca",
+ "breadth": {
+  "files": 1,
+  "hunks": 17,
+  "loc": 132,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Track a per-member pending flag in the user info panel/container state, pass it to RoomKickButton, BanToggleButton, and MuteToggleButton, and render any failure as an inline error message in the panel.",
+   "design_B": "Track a per-member pending flag in a shared/global in-flight action map keyed by member id, have each button subscribe/check it, and present any failure as a toast/notification dialog.",
+   "why_both_faithful": "The prose requires the observable lockout, disabled and aria-disabled state, confirmation timing, and failure recovery, but does not specify where pending state must live or how the single clear error message must be rendered.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

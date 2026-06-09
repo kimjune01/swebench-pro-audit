@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_78e30c07",
+ "breadth": {
+  "files": 11,
+  "hunks": 24,
+  "loc": 162,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "forgeImageURL builds the URL by reading the location origin / window context and prefixing, but more concretely: the onError handler is wired so that EVERY remote image failure dispatches loadRemoteProxyFromURL unconditionally (the handler always retries via proxy on first error)",
+   "design_B": "the onError handler guards against infinite retry loops by tracking whether a proxy retry has already been attempted (e.g. only dispatching once per image, or removing the onError handler after the first proxy attempt) so a failing proxy URL does not re-trigger the fallback",
+   "why_both_faithful": "The prose mandates that an onError event dispatches loadRemoteProxyFromURL and updates state to 'loaded', but says nothing about what happens when the forged proxy URL ITSELF fails to load, leaving the retry-guard behavior (one-shot vs. unguarded) entirely unspecified.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The system must forge a proxy URL for remote images that follows the specific format: `\"/api/core/v4/images?Url={encodedUrl}&DryRun=0&UID={uid}\"`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

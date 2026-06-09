@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_f10d11bc",
+ "breadth": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 59,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For `state: absent`, `chain_management: true`, and no rule arguments, treat the request as chain management and delete the named chain if it exists.",
+   "design_B": "For `state: absent`, `chain_management: true`, and no rule arguments, treat the request as having no rule to remove and perform no deletion, only checking chain/rule state as needed.",
+   "why_both_faithful": "The requirements explicitly define empty-chain creation for `state: present` and rule handling when rule arguments are provided, but never specify what `state: absent` with only `chain` and `chain_management: true` must do.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

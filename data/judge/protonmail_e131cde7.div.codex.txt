@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Returns the number of child links stored in the cache for the specified parent link and share ID by retrieving the children from the cache and returning their count."}

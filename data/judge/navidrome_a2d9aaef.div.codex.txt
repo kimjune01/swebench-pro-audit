@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Ensure that the first call to `GetInstance` for a given type executes the constructor exactly once, stores the result, and returns that same instance."
+}

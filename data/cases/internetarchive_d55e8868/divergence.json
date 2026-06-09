@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_d55e8868",
+ "breadth": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 42,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Return None when an input cannot be normalized to a valid LCCN.",
+   "design_B": "Return an empty string when an input cannot be normalized to a valid LCCN.",
+   "why_both_faithful": "The prose requires invalid inputs to return a falsy value, but does not specify which falsy value.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

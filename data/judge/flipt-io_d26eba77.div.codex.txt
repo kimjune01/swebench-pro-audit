@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For SQLite key/value configuration, add and validate a dedicated db.path field as the required filesystem target, while db.name remains the database-name field for other engines.",
+  "design_B": "For SQLite key/value configuration, treat db.name as the SQLite database path and do not add a separate db.path setting, since the listed accepted fields are protocol, host, port, user, password, and name.",
+  "why_both_faithful": "The prose says SQLite requires host \"or path\" but elsewhere lists only protocol, host, port, user, password, and name as the individual fields, so both a dedicated path field and using name as the SQLite path can satisfy the stated behavior.",
+  "selecting_clause": null
+}

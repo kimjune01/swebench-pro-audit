@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The `PresenceService.UpdateRemoteCluster` method should persist the given remote cluster to backend storage by serializing it, storing it under the key `remoteClusters/<cluster-name>`, and preserving its expiry."}

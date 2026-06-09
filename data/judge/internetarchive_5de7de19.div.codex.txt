@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When identifiers.amazon has no B-prefixed value, scan source_records in list order and return the first entry beginning with amazon:B after stripping the amazon: prefix.",
+  "design_B": "When identifiers.amazon has no B-prefixed value, scan all source_records and return the last entry beginning with amazon:B after stripping the amazon: prefix.",
+  "why_both_faithful": "The prose requires the first matching ASIN only for identifiers.amazon, but does not specify which matching source_records entry to return when multiple amazon:B entries exist.",
+  "selecting_clause": null
+}

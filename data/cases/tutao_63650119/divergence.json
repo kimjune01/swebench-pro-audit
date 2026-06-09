@@ -1,0 +1,30 @@
+{
+ "slug": "tutao_63650119",
+ "breadth": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 75,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Parse the SVG as XML, remove executable elements and attributes such as <script> nodes, event-handler attributes, and javascript: URLs, then serialize with the required XML declaration while preserving comments and processing instructions.",
+   "design_B": "Parse the SVG as XML, remove the same executable elements and attributes, but also drop comments, processing instructions, DOCTYPE, and other non-visual/non-essential XML nodes during serialization.",
+   "why_both_faithful": "The prose requires retaining non-script elements and non-executable attributes, but explicitly allows safe normalization and omission of non-essential declarations without saying whether comments or processing instructions must be preserved.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

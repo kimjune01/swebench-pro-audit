@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The SendMailModel test calls should accept Map objects directly as the fourth parameter to initWithDraft instead of wrapping them in Promise.resolve() when the test scenario does not require asynchronous behavior."}

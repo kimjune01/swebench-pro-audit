@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_29aaad40",
+ "breadth": {
+  "files": 6,
+  "hunks": 12,
+  "loc": 52,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "On a failing core action (move/load/delete), mark every still-targeted item that has not yet been recovered as failed \u2014 i.e. set failedItems += all remaining unprocessed items and unrecoveredItems = that same remaining set \u2014 treating the whole outstanding batch as lost.",
+   "design_B": "On a failing core action, increment failed/unrecovered counts only by the specific items involved in the operation that threw (e.g. the single move/load batch), leaving other not-yet-attempted targeted items uncounted as failures.",
+   "why_both_faithful": "The prose only says failure 'should update the counts of failed and unrecovered items to reflect the number of items that could not be processed,' which both the whole-remaining-batch and the single-failing-operation interpretations satisfy without further specifying the scope of 'could not be processed.'",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Abort the recovery immediately on the first loading, moving, or deleting error, mark the overall recovery FAILED, and set failed/unrecovered counts to all still-targeted items not yet processed.",
+   "design_B": "Continue best-effort processing after a loading, moving, or deleting error where possible, count only the items affected by each failed action as failed/unrecovered, and mark the overall recovery FAILED at the end because at least one core action errored.",
+   "why_both_faithful": "The prose requires errors to surface as FAILED and counts to reflect unprocessed items, but does not say whether the flow must stop at the first core-action error or continue processing unaffected items.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

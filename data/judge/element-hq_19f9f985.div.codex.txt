@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Render the Integration Manager section near the top of the Security settings, immediately after the main Security heading and before other security options.",
+  "design_B": "Render the Integration Manager section later in the Security settings, after existing security-related options such as password/session controls.",
+  "why_both_faithful": "The prose requires the section to be under Security with deterministic ordering, but never specifies its exact relative position among the other Security settings.",
+  "selecting_clause": null
+}

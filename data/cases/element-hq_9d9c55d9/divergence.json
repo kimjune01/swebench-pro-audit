@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_9d9c55d9",
+ "breadth": {
+  "files": 5,
+  "hunks": 8,
+  "loc": 112,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "While checkUserIsAllowedToChangeEncryption is pending, render the encryption toggle in place but disabled, then update it to the effective enforced/changeable state once the promise resolves.",
+   "design_B": "While checkUserIsAllowedToChangeEncryption is pending, hide or omit the encryption control entirely, then render it only after the promise resolves with the effective enforced/changeable state.",
+   "why_both_faithful": "The prose only requires that the encryption control should not appear interactable while the decision is pending, which permits either a disabled visible control or no visible control.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

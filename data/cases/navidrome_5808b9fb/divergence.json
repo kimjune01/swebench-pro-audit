@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_5808b9fb",
+ "breadth": {
+  "files": 8,
+  "hunks": 14,
+  "loc": 113,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When an administrator changes another user's password, ignore CurrentPassword entirely and accept any non-empty NewPassword even if CurrentPassword is present and incorrect.",
+   "design_B": "When an administrator changes another user's password, do not require CurrentPassword, but if it is supplied, validate it against the administrator's own password and reject it if incorrect.",
+   "why_both_faithful": "The prose says administrators can reset other users' passwords without requiring CurrentPassword, but never specifies whether an optionally supplied CurrentPassword in that scenario must be ignored or validated.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

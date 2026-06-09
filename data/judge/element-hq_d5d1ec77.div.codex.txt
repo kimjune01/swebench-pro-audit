@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "When building the validated configuration from a discovery result that contains a successful m.authentication block, an optional delegatedAuthentication object must be preserved and exposed with the fields authorizationEndpoint, registrationEndpoint, tokenEndpoint, issuer, and account exactly as received."
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_3684b482",
+ "breadth": {
+  "files": 7,
+  "hunks": 24,
+  "loc": 241,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In `_detach`, open `/dev/null` and `os.dup2` it over fds 0/1/2 (and call `os.setsid()` to create the isolated process group), so the standard streams point to the null device.",
+   "design_B": "In `_detach`, simply `os.close()` the inherited stdin/stdout/stderr file descriptors (after `os.setsid()`), leaving them closed rather than redirected.",
+   "why_both_faithful": "The prose only requires that workers 'not inherit terminal-related file descriptors', 'run independently from inherited standard input and output streams', and run 'in isolated process groups' \u2014 both redirecting-to-/dev/null and closing the fds prevent terminal interaction and satisfy every stated requirement without specifying the mechanism.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In WorkerProcess._detach, call os.setsid() and redirect fd 0, 1, and 2 to /dev/null with os.dup2, so child code has valid but inert standard streams.",
+   "design_B": "In WorkerProcess._detach, call os.setpgrp(), close inherited fd 0, 1, and 2, and replace Python sys.stdin/sys.stdout/sys.stderr with queue-backed or null file-like objects.",
+   "why_both_faithful": "The prose requires isolation from inherited terminal I/O and isolated process groups, but does not specify whether standard descriptors must be redirected to /dev/null, closed, or replaced at the Python stream layer, nor whether setsid or setpgrp is required.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_12cdaed6",
+ "breadth": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 213,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In NewWithClient(), validate NamespaceEnv first, so when both KUBE_NAMESPACE and TELEPORT_REPLICA_NAME are missing it returns an error for KUBE_NAMESPACE.",
+   "design_B": "In NewWithClient(), validate TELEPORT_REPLICA_NAME first, so when both KUBE_NAMESPACE and TELEPORT_REPLICA_NAME are missing it returns an error for TELEPORT_REPLICA_NAME.",
+   "why_both_faithful": "The prose requires returning the specified error if either variable is empty, but does not specify which missing variable must be reported when both are empty.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

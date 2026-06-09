@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_115079a6",
+ "breadth": {
+  "files": 2,
+  "hunks": 18,
+  "loc": 106,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "equality/hash based only on identifier"
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement to_dict() with keys identifier, stage_import, priority, and timestamp, serializing priority as Priority.value and timestamp as an ISO-8601 string.",
+   "design_B": "Implement to_dict() with the same keys, but serialize priority as Priority.name and timestamp as a Unix timestamp number.",
+   "why_both_faithful": "The prose requires complete JSON-compatible serialization with type conversion but does not specify the exact serialized representation for enum or datetime fields.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

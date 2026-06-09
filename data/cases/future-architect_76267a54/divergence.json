@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_76267a54",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 48,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Set OS vulnerability fix state from the presence of a fixed version, e.g. fixed when FixedVersion is non-empty and unfixed otherwise.",
+   "design_B": "Set OS vulnerability fix state from Trivy's explicit vulnerability status field, preserving values such as fixed, affected, will_not_fix, or unknown independently of FixedVersion.",
+   "why_both_faithful": "The prose requires OS package vulnerabilities to include a fix state and fixed version when available, but does not specify how the fix state is derived or normalized.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

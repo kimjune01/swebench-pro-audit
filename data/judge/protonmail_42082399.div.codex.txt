@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When several holidays calendars match the user's time zone, choose the first calendar whose language matches the first browser language tag, falling back through browser language tags in order.",
+  "design_B": "When several holidays calendars match the user's time zone, choose the directory's default calendar for that country first, and only use browser language tags to populate/select a language when the country has multiple language options.",
+  "why_both_faithful": "The prose requires selection based on time zone and browser language tags, but does not specify the tie-breaking algorithm when multiple calendars match the time zone and language inputs.",
+  "selecting_clause": null
+}

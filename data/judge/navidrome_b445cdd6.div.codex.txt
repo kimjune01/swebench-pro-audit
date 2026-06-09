@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat missing reverse-proxy-header users as eligible for reverse proxy authentication by creating the user on first login, then returning the auth payload.",
+  "design_B": "Require the header-indicated user to already exist before reverse proxy authentication returns auth data, so missing users are not authenticated.",
+  "why_both_faithful": "The prose says reverse proxy auth only occurs when the indicated user exists, but also says a nonexistent user is created on first reverse proxy login.",
+  "selecting_clause": null
+}

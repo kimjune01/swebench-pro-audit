@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Return an unsupported-method error formatted as `unsupported auth method: saml`.",
+  "design_B": "Return an unsupported-method error formatted as `unsupported auth method \"saml\"`.",
+  "why_both_faithful": "The prose requires the error message `unsupported auth method` and inclusion of the provided value, but does not specify the exact formatting of that combined error string.",
+  "selecting_clause": null
+}

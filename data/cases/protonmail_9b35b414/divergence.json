@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_9b35b414",
+ "breadth": {
+  "files": 8,
+  "hunks": 9,
+  "loc": 78,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The file `useSmartBanner.ts` should return either a store URL string or null. It should return a URL only when the device is Android or iOS and the user has not previously used the corresponding native app. It should not rely on getOS, isSafari, isStandaloneApp, or any <meta> tag lookups."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

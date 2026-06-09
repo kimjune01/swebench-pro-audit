@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The YAML import must use the YAML v3 decoder so that mappings deserialize into JSON compatible structures and preserve nested ‘metadata’ structures (maps and arrays) without type errors during import."}

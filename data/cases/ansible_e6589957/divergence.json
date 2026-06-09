@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_e6589957",
+ "breadth": {
+  "files": 11,
+  "hunks": 11,
+  "loc": 81,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Replace `_collections_compat` imports in test/support artifacts with `ansible.module_utils.six.moves.collections_abc`, treating them like module/module_utils-adjacent support code.",
+   "design_B": "Replace `_collections_compat` imports in test/support artifacts with `collections.abc`, treating them as controller-side/non-module runtime code.",
+   "why_both_faithful": "The prose explicitly assigns approved sources for modules/module_utils and controller code, but mentions support files/test artifacts without defining which category they belong to.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

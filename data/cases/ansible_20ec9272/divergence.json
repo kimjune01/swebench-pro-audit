@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_20ec9272",
+ "breadth": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 328,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When modifying an existing LAG, generate removal commands for ports first, then addition commands, then exit.",
+   "design_B": "When modifying an existing LAG, generate addition commands for new ports first, then removal commands for old ports, then exit.",
+   "why_both_faithful": "The prose requires separate 'no ports' commands for removed members, 'ports' commands for added members, and 'exit' to terminate context, but never specifies the ordering between additions and removals.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

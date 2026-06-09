@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_1346a7d3",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 47,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "`splitBySeparator` should return a deterministic list of address tokens by treating commas and semicolons as separators, trimming surrounding whitespace, removing any angle brackets, discarding empty tokens (including those from leading/trailing or consecutive separators), and preserving the original order."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Represent each validation error with flat fields such as {\"file\":\"input.yaml\",\"line\":4,\"column\":7,\"path\":\"flags.myflag.ey\",\"message\":\"field not allowed: ey\"} and emit JSON as {\"errors\":[...]}",
+  "design_B": "Represent each validation error with nested location data such as {\"path\":\"flags.myflag.ey\",\"message\":\"field not allowed: ey\",\"location\":{\"file\":\"input.yaml\",\"line\":4,\"column\":7}} and emit JSON as {\"errors\":[...]}",
+  "why_both_faithful": "The prose requires machine-readable JSON with complete error information but never specifies the Error struct fields or JSON shape.",
+  "selecting_clause": null
+}

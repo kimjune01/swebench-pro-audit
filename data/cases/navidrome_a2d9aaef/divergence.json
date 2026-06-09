@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_a2d9aaef",
+ "breadth": {
+  "files": 5,
+  "hunks": 9,
+  "loc": 48,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Ensure that the first call to `GetInstance` for a given type executes the constructor exactly once, stores the result, and returns that same instance."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

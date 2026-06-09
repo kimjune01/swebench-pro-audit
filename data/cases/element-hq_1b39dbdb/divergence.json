@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_1b39dbdb",
+ "breadth": {
+  "files": 4,
+  "hunks": 12,
+  "loc": 132,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement value as a getter that returns the internal backing array directly.",
+   "design_B": "Implement value as a getter that returns a shallow copy of the backing array.",
+   "why_both_faithful": "The prose requires value to return a T[] representing the current buffer state, but does not say whether callers receive the live internal array or a defensive copy.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

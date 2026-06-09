@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Change every UserPropsRepository read/write method to take userId as the first parameter, e.g. Get(userId, key) and Put(userId, key, value), and key storage by (userId, key).",
+  "design_B": "Change every UserPropsRepository read/write method to take userId as the last parameter, e.g. Get(key, userId) and Put(key, value, userId), and key storage by (userId, key).",
+  "why_both_faithful": "The prose requires an explicit userId for all operations and user-scoped behavior, but does not specify the exact method signatures or parameter ordering.",
+  "selecting_clause": null
+}

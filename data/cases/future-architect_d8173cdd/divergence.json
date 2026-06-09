@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_d8173cdd",
+ "breadth": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 52,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "`VulnInfo.Cvss40Scores()` should aggregate CVSS v4.0 entries in the fixed order [Mitre, Nvd], including each source if present."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

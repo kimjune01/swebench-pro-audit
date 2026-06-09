@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_30250d8e",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 38,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Normalize percentages and decimal fractions by multiplying by the channel maximum, then floor/truncate to an integer component value, e.g. hsv(10%,10%,10%) uses hue 35.",
+   "design_B": "Normalize percentages and decimal fractions by multiplying by the channel maximum, then round to the nearest integer component value, e.g. hsv(10%,10%,10%) uses hue 36.",
+   "why_both_faithful": "The prose requires percentages/decimals to be normalized to the per-channel range but never specifies the rounding policy for fractional normalized component values.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

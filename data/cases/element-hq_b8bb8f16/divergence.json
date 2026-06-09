@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_b8bb8f16",
+ "breadth": {
+  "files": 10,
+  "hunks": 29,
+  "loc": 277,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use specific data-testid string values such as `data-testid=\"device-detail-heading\"` for the container, `\"device-heading-rename-cta\"` for the rename trigger, and `\"device-rename-input\"` / `\"device-rename-submit\"` / `\"device-rename-cancel\"` for the edit-form elements.",
+   "design_B": "Use a different but equally reasonable set of testid strings, e.g. `data-testid=\"rename-session-heading\"` for the container, `\"rename-btn\"` for the trigger, and `\"name-field\"` / `\"save-name\"` / `\"cancel-rename\"` for the form elements (and likewise free choice of read-view vs edit-view container markup, button-vs-link for the rename CTA, and whether the 'visible to others' notice is a caption/hint element).",
+   "why_both_faithful": "The prose only requires that 'stable testing hooks (e.g., data-testid attributes)' exist on key elements and that the rename CTA be 'for example' a link or button, explicitly leaving the actual testid strings and exact markup unspecified, so any consistent naming/structure satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When display_name is undefined, compare the submitted name against the fallback visible name device_id, so saving a value equal to device_id performs no API call.",
+   "design_B": "When display_name is undefined, compare the submitted name against the raw previous display_name value, so saving a value equal to device_id still calls saveDeviceName because undefined and device_id differ.",
+   "why_both_faithful": "The prose says to display device_id when display_name is undefined and to persist only if the new name differs from the previous one, but it never states whether 'previous one' means the rendered visible fallback name or the raw display_name field.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

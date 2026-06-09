@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_040ec6d3",
+ "breadth": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 46,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "If an existing table is PROVISIONED while config/default billing_mode is pay_per_request, leave it unchanged and initialize normally because billing_mode only controls table creation.",
+   "design_B": "If an existing table is PROVISIONED while config/default billing_mode is pay_per_request, report a billing-mode mismatch such as NEEDS_MIGRATION or otherwise refuse normal initialization.",
+   "why_both_faithful": "The prose specifies creation behavior and PAY_PER_REQUEST existing-table behavior, but does not say what to do when an existing table's billing mode differs from the configured/default billing_mode.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

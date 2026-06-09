@@ -1,0 +1,24 @@
+{
+ "slug": "internetarchive_afb819f8",
+ "breadth": {
+  "files": 2,
+  "hunks": 11,
+  "loc": 43,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": null
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement urlopen_keep_trying as a thin wrapper around requests.get(url, headers=headers, **kwargs), call response.raise_for_status(), and return the raw Response for callers to use .content or .text.",
+   "design_B": "Implement urlopen_keep_trying using requests.Session().get(url, headers=headers, **kwargs), preserve retry/backoff behavior inside the helper, call response.raise_for_status(), and return the final Response.",
+   "why_both_faithful": "The prose requires requests, headers, kwargs, status validation, and a Response return value, but does not specify whether requests are made through the module-level API or a Session with retained retry behavior.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,24 @@
+{
+ "slug": "NodeBB_3ecbb624",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 53,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": null
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Maintain deterministic ordering such that moving one pinned topic places it exactly at the requested target position and preserves the relative order of all other pinned topics so that only the moved topic changes position."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

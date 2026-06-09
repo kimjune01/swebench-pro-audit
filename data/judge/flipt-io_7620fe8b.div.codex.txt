@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "During startup, authentication service initialization logic in `authenticationGRPC` must use the value returned by `RequiresDatabase()` to decide whether to establish a database connection for authentication."
+}

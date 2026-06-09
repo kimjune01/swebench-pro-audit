@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_57f1225f",
+ "breadth": {
+  "files": 33,
+  "hunks": 86,
+  "loc": 363,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement getHeightValue so DropdownSizeUnit.Anchor returns the anchorRect height as a pixel value when anchorRect is available.",
+   "design_B": "Implement getHeightValue so DropdownSizeUnit.Anchor returns undefined, treating Anchor as unsupported for height because the getHeightValue description only specifies Static, unit strings, Dynamic, and missing rects.",
+   "why_both_faithful": "The prose says DropdownSizeUnit includes Anchor for sizing behavior, but the height resolver never states whether Anchor should use anchorRect height or be ignored.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

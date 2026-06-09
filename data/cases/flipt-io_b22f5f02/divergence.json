@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_b22f5f02",
+ "breadth": {
+  "files": 9,
+  "hunks": 23,
+  "loc": 188,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "DefaultBundleDir returns and creates <flipt data dir>/oci.",
+   "design_B": "DefaultBundleDir returns and creates <flipt data dir>/bundles.",
+   "why_both_faithful": "The prose only requires a filesystem path under Flipt's data directory suitable for storing OCI bundles, without naming the exact subdirectory.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

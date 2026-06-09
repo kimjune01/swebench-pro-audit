@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_e8a7c6b2",
+ "breadth": {
+  "files": 3,
+  "hunks": 15,
+  "loc": 59,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat colors.webpage.darkmode.threshold.text as a true alias of colors.webpage.darkmode.threshold.foreground, so if both are configured the last assignment processed wins.",
+   "design_B": "Treat colors.webpage.darkmode.threshold.text as a legacy fallback/migration source only, so colors.webpage.darkmode.threshold.foreground always takes precedence when both are configured.",
+   "why_both_faithful": "The prose requires legacy text settings to map to foreground but never specifies precedence or conflict behavior when both old and new option names are present.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

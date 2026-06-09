@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Retry only errors explicitly classified as connection-problem/connectivity errors from reverse-tunnel dialing, aborting on other tunnel dial errors.",
+  "design_B": "Retry any error returned while dialing through the reverse tunnel, treating all such dial failures as candidate connectivity failures.",
+  "why_both_faithful": "The prose requires retrying tunnel-related connectivity failures but does not define the exact error predicate or taxonomy for deciding which tunnel dial errors qualify.",
+  "selecting_clause": null
+}

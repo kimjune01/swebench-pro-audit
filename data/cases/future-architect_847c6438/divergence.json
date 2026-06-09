@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_847c6438",
+ "breadth": {
+  "files": 3,
+  "hunks": 12,
+  "loc": 348,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Implement the `pkgPs` function to associate running processes with their owning packages by collecting file paths and mapping them via package ownership."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

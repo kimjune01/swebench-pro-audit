@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_92df6648",
+ "breadth": {
+  "files": 7,
+  "hunks": 7,
+  "loc": 45,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Make `load_from_file(path, cache='none')` default to no caching unless callers explicitly pass `cache='vaulted'`.",
+   "design_B": "Make `load_from_file(path, cache='vaulted')` default to vaulted-file caching unless callers explicitly pass `cache='none'`.",
+   "why_both_faithful": "The prose specifies behavior when `cache='none'` and `cache='vaulted'` are explicitly used, but never states what omitted `cache` should default to.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

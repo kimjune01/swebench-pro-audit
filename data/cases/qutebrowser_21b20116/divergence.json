@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_21b20116",
+ "breadth": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 115,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When an absolute path is typed, glob the directory and sort entries alphabetically (e.g. lexicographic by full path string) before presenting them.",
+   "design_B": "When an absolute path is typed, present directory entries in another deterministic order, e.g. directories-first then files, or case-insensitive sort, or sorted by basename rather than full path.",
+   "why_both_faithful": "The prose only demands a 'deterministic order' for the directory suggestions but never names the sort key, so any reproducible ordering satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For filesystem matches, return all child paths sorted lexicographically by the displayed path, with files and directories intermixed.",
+   "design_B": "For filesystem matches, return directories first and files second, each group sorted lexicographically by the displayed path.",
+   "why_both_faithful": "The prose requires a deterministic order for matching entries but never specifies whether ordering must be pure lexicographic, directory-first, or any other deterministic scheme.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

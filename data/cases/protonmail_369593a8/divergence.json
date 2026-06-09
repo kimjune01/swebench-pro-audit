@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_369593a8",
+ "breadth": {
+  "files": 11,
+  "hunks": 21,
+  "loc": 133,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When a device\u2019s `name` is empty during load, the provider should call `getLink(shareId, linkId)` to obtain the root link\u2019s name and store that resolved name in the cache."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

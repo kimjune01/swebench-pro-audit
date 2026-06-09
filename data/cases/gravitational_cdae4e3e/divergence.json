@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_cdae4e3e",
+ "breadth": {
+  "files": 4,
+  "hunks": 16,
+  "loc": 154,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Compute each non-truncated column's max width as an equal share of the terminal width (e.g. terminalWidth / numberOfColumns), then give the truncated column whatever space remains, truncating with an ellipsis when content exceeds it.",
+   "design_B": "Let each non-truncated column keep its natural content width (capped at some fraction of terminal width), subtract the sum of those from the terminal width, and assign the leftover to the truncated column \u2014 producing different per-column caps and a different remaining-space figure than the equal-share scheme.",
+   "why_both_faithful": "The prose only says non-truncated columns get 'a maximum width calculated in proportion to the terminal size' and the designated column takes the 'remaining space,' without specifying the proportion formula or how leftover width is derived, so multiple width-allocation algorithms satisfy every requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Compute each non-truncated column's maximum width as an equal share of the terminal width, then give the designated truncated column all remaining width and ellipsize its cells.",
+   "design_B": "Compute each non-truncated column's maximum width as a fixed percentage based on column role or header length, then give the designated truncated column the remaining width and ellipsize its cells.",
+   "why_both_faithful": "The prose requires proportional terminal-based widths and a remaining-space truncated column, but does not specify the proportional formula.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

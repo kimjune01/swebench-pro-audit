@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_775da4fe",
+ "breadth": {
+  "files": 8,
+  "hunks": 15,
+  "loc": 366,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "On successful text-format validation, print `Validation successful` to stdout.",
+   "design_B": "On successful text-format validation, print `All files are valid.` to stdout.",
+   "why_both_faithful": "The prose requires a success message when validation passes but does not specify its exact text.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

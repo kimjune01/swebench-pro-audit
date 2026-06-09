@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_6c91b1ad",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 108,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Evaluation constraints using the operator \\\"contains\\\" should match when the evaluated string value includes the constraint value as a substring."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Evaluation constraints using the operator `\"contains\"` should match when the evaluated string value includes the constraint value as a substring."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

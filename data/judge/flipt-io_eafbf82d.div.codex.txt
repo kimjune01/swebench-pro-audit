@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The public structures `Rule` and `RolloutSegment` must include string fields called `SegmentOperator` and `Operator`. These fields must be tagged in JSON as `segment_operator,omitempty` and `operator,omitempty` so that they are serialised only when they have a value."
+}

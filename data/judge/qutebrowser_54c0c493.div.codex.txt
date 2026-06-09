@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Add `compiled` with default `True`, preserving existing mixed-version behavior for existing callers unless they explicitly pass `compiled=False`.",
+  "design_B": "Add `compiled` with default `False`, making existing callers check only runtime Qt unless they explicitly pass `compiled=True`.",
+  "why_both_faithful": "The prose requires a `compiled` parameter and specifies behavior when `compiled=False`, but never states the default value for calls that omit it.",
+  "selecting_clause": null
+}

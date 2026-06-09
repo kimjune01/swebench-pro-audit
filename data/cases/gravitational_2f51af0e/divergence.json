@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_2f51af0e",
+ "breadth": {
+  "files": 3,
+  "hunks": 15,
+  "loc": 544,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define indexTimeSearchV2 with the CreatedAtDate string as the GSI partition (hash) key and the event timestamp/UID as the sort (range) key; range queries call daysBetween and issue one Query per day's partition.",
+   "design_B": "Define indexTimeSearchV2 with a write-sharded composite partition key (e.g., CreatedAtDate concatenated with a fixed-count shard suffix such as date-<0..N>) and a timestamp sort key; range queries call daysBetween and fan out one Query per (day, shard) combination, merging results.",
+   "why_both_faithful": "The prose names the index, the keyDate attribute, and daysBetween, but never specifies the GSI's key schema, so both a plain date partition key and a sharded date+shard partition key satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use a new GSI keyed by CreatedAtDate plus a deterministic shard suffix, with searches querying every shard for each day returned by daysBetween.",
+   "design_B": "Use a new GSI keyed by tenant/server identifier plus CreatedAtDate, with searches querying the relevant tenant/date partitions for each day returned by daysBetween.",
+   "why_both_faithful": "Both store CreatedAtDate, support inclusive multi-day searches across month boundaries, avoid hot partitions, and allow resumable migration, but they require incompatible DynamoDB key/query layouts.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

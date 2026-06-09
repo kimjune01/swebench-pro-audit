@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Return members sorted by score ascending and, for equal scores, by member value lexicographically for deterministic tie ordering.",
+  "design_B": "Return members sorted by score ascending and leave equal-score members in each backend's native/default tie order.",
+  "why_both_faithful": "The prose requires ascending score order but explicitly allows tie order to be backend-defined, so it does not select a single faithful tie-ordering behavior.",
+  "selecting_clause": null
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_08213a50",
+ "breadth": {
+  "files": 8,
+  "hunks": 13,
+  "loc": 262,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Validate the source reference before the destination reference, so when both references lack tags the operation returns ErrReferenceRequired with \"source bundle: reference required\".",
+   "design_B": "Validate the destination reference before the source reference, so when both references lack tags the operation returns ErrReferenceRequired with \"destination bundle: reference required\".",
+   "why_both_faithful": "The prose specifies the required error for each missing-tag case independently, but never states which error takes precedence when both source and destination are missing tags.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement GetEOL with hardcoded StandardSupportUntil and ExtendedSupportUntil dates for Amazon Linux 2023/2025/2027/2029 based on a chosen Amazon Linux lifecycle table.",
+  "design_B": "Implement GetEOL by deriving the dates from a release-year policy, such as fixed support windows for each listed release year, producing different future dates for 2025/2027/2029.",
+  "why_both_faithful": "The prose requires 'accurate' and 'correct' dates but does not state the actual EOL dates or the rule/source to derive future-release dates.",
+  "selecting_clause": null
+}

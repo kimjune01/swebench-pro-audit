@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat configured allowed_headers as a full replacement for the default seven headers.",
+  "design_B": "Treat configured allowed_headers as additional headers to merge with the default seven headers.",
+  "why_both_faithful": "The prose requires seven default headers and user customization, but never states whether customization replaces the default list or extends it.",
+  "selecting_clause": null
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement `allowed_teams` as a mapping from organization name to a list of allowed team names, e.g. `allowed_teams: { my-org: [my-team] }`.",
+  "design_B": "Implement `allowed_teams` as a flat list of `ORG:TEAM` strings, e.g. `allowed_teams: [my-org:my-team]`.",
+  "why_both_faithful": "The requirements explicitly demand a mapping structure, while the problem statement and proposed configuration specify the `ORG:TEAM` list convention, and no prose reconciles which representation is authoritative.",
+  "selecting_clause": null
+}

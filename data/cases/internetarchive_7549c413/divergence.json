@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_7549c413",
+ "breadth": {
+  "files": 8,
+  "hunks": 12,
+  "loc": 146,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Support exactly one external identifier \u2014 Google Scholar (Wikidata property P1960) \u2014 using a hardcoded URL template like https://scholar.google.com/citations?user={id}, a chosen icon_url and the label 'Google Scholar', alongside the Wikipedia and Wikidata entries.",
+   "design_B": "Support a broader registry of identifiers (e.g. Google Scholar plus ORCID P496, VIAF P214, etc.), each with its own property ID, URL template, icon_url, and label, treating Google Scholar as merely one of several mapped services.",
+   "why_both_faithful": "The prose only ever names Google Scholar as an example ('such as Google Scholar') and never enumerates the supported-identifier set, the property IDs, the URL templates, the icon_url values, or the label strings, so any superset including Google Scholar satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Support only Google Scholar as the external identifier profile, returning Wikipedia when resolvable, always Wikidata, and one Google Scholar entry per valid Google Scholar identifier.",
+   "design_B": "Support Google Scholar plus additional Wikidata identifier properties such as ORCID and VIAF, returning Wikipedia when resolvable, always Wikidata, and one entry per valid identifier for each supported service.",
+   "why_both_faithful": "The prose requires supported external identifiers including examples such as Google Scholar, but never defines the complete supported identifier set or forbids supporting additional ones.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

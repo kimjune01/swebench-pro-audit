@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_14e7f053",
+ "breadth": {
+  "files": 1,
+  "hunks": 4,
+  "loc": 122,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use the supplied seed to initialize Python's random.Random and generate passwords with the existing candidate character sequence.",
+   "design_B": "Use the supplied seed as input to a deterministic hash/HMAC-based character selection routine over the same candidate character sequence.",
+   "why_both_faithful": "The prose requires repeated identical inputs with the same seed to be deterministic, but does not specify the deterministic algorithm or exact password bytes.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

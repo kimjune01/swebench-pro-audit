@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_71451483",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 95,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Compare installed and minimum versions using parsed semantic/PEP-440 version ordering before appending `(< min_version, outdated)`.",
+   "design_B": "Compare installed and minimum versions using the existing raw version strings lexicographically before appending `(< min_version, outdated)`.",
+   "why_both_faithful": "The prose requires marking versions below the minimum as outdated but does not specify the version parsing or ordering semantics.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

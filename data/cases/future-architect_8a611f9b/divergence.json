@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_8a611f9b",
+ "breadth": {
+  "files": 7,
+  "hunks": 44,
+  "loc": 222,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `Find` method of `LibraryScanners` must filter libraries based on both the file `path` and the library `name` to accurately resolve versions from multiple sources."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

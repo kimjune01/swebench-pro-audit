@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_1e32ae3e",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 41,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define ROLES as a focused mapping containing the explicitly mentioned common abbreviations and relevant MARC codes, e.g. ed./edt -> Editor, tr./trl -> Translator, comp./com -> Compiler, ill -> Illustrator, and only assign roles for exact keys found after reading $e then overwriting with $4.",
+   "design_B": "Define ROLES as a comprehensive mapping of the full MARC 21 relator-code vocabulary plus many normalized freeform variants, e.g. editor, ed, ed., edt, translated by, tr, tr., trl, etc., with normalization before lookup.",
+   "why_both_faithful": "The prose requires a ROLES dictionary for MARC relator codes and common abbreviations but never specifies the complete key set or normalization rules, so both a focused exact-key map and a comprehensive normalized map satisfy every stated requirement while producing different role fields for some MARC inputs.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When merging languages in read_edition, keep the languages returned by read_languages in their MARC 041 order, then append the first originally saved 008 language only if it is not already present.",
+  "design_B": "When merging languages in read_edition, preserve the first originally saved 008 language at the front, then append the read_languages codes that are not duplicates.",
+  "why_both_faithful": "The prose requires both sources to be included without duplication, but does not specify the final ordering when both 008 and 041 contribute different languages.",
+  "selecting_clause": null
+}

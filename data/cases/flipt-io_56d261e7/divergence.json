@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_56d261e7",
+ "breadth": {
+  "files": 5,
+  "hunks": 9,
+  "loc": 1037,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For a constraint whose property key is absent from EvaluationRequest.Context, treat the constraint as non-matching for all operators except notpresent.",
+   "design_B": "For a constraint whose property key is absent from EvaluationRequest.Context, treat typed comparison operators such as lt/gte/true/false as invalid input and return an evaluation error.",
+   "why_both_faithful": "The prose defines operator behavior and parsing errors for non-numeric/non-boolean inputs, but never states whether a missing context key is a failed constraint or an error outside present/notpresent.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

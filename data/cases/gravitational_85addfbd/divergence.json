@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_85addfbd",
+ "breadth": {
+  "files": 6,
+  "hunks": 11,
+  "loc": 62,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Compute the mask boundary as floor(len*0.75): for a 10-char key, replace the first 7 bytes with '*' and leave 3 visible.",
+   "design_B": "Compute the mask boundary as round(len*0.75) or ceil(len*0.75): for a 10-char key, replace the first 8 bytes with '*' and leave 2 visible.",
+   "why_both_faithful": "The prose says mask 'the initial 75%' and keep 'the final 25% visible' but never specifies how to round when the length is not divisible by 4, so different integer boundaries all honor the stated 75/25 split and preserved length.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement MaskKeyName by masking floor(3*n/4) leading bytes and leaving the remaining ceil(n/4) trailing bytes visible.",
+   "design_B": "Implement MaskKeyName by masking ceil(3*n/4) leading bytes and leaving the remaining floor(n/4) trailing bytes visible.",
+   "why_both_faithful": "For key lengths not divisible by four, the prose says to mask 75% and leave 25% visible but does not specify how to round the byte count.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

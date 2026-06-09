@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_aafd5a95",
+ "breadth": {
+  "files": 1,
+  "hunks": 8,
+  "loc": 83,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The authentication middleware (authenticate) must first attempt reverse-proxy authentication by reading the username from the header defined by ReverseProxyUserHeader when the request IP is within ReverseProxyWhitelist; if the user exists, it must authenticate without performing password, token, or JWT checks."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

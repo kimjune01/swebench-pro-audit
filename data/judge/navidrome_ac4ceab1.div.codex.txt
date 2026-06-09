@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Function: P\nLocation: utils/gg/gg.go\nSignature: func P[T any](v T) *T\nInput: v of type T\nOutput: pointer to v\nBehavior: returns a pointer to the input value, including when the input is the zero value of its type."}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement splitFileName by parsing source filenames from the right, treating the final hyphen-separated token before .rpm as arch, the token before that as release, the token before that as version, and everything before as name, so package-0-1-src.rpm becomes name=package, version=0, release=1, arch=src.",
+  "design_B": "Implement splitFileName using conventional RPM filename structure name-version-release.arch.rpm, allowing hyphens inside release and treating package-0-1-src.rpm as name=package, version=0, release=1-src, arch empty or invalid depending on the dot suffix.",
+  "why_both_faithful": "The prose says examples like package-0-1-src.rpm and package-0--src.rpm must parse into correct components, but never states whether src is an architecture token separated by a hyphen or part of the release under the expected RPM filename grammar.",
+  "selecting_clause": null
+}

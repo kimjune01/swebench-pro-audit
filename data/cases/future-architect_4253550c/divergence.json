@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_4253550c",
+ "breadth": {
+  "files": 1,
+  "hunks": 24,
+  "loc": 113,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "For Windows Server 2022 with kernel 10.0.20348.9999, the scanner must classify the following KBs as Applied (leaving Unapplied empty): 5023705, 5025230, 5026370, 5027225."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

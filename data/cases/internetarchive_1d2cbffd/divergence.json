@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_1d2cbffd",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 212,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Compose `full_title` by joining title and subtitle with a colon-space separator, e.g. `f\"{title}: {subtitle}\"` when subtitle is present (a common OpenLibrary convention).",
+   "design_B": "Compose `full_title` by joining title and subtitle with a plain space, e.g. `f\"{title} {subtitle}\"`, when subtitle is present.",
+   "why_both_faithful": "The prose only says `full_title` is \"composed of the 'title' and optional 'subtitle'\" without specifying the separator or punctuation, so both joining schemes satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Build the base Solr query as a boolean OR over exact and prefix clauses for both fields, e.g. title:\"q\" OR name:\"q\" OR title:q* OR name:q*, returning Solr's default ranking.",
+   "design_B": "Build the base Solr query using the same four exact/prefix title/name matches but with explicit boosts or edismax-style field weighting, causing a different result ordering while still honoring the limit.",
+   "why_both_faithful": "The prose requires considering exact and prefix matches on title and name, but never specifies Solr parser, boosting, scoring, or ordering semantics.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

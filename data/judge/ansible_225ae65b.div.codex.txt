@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When a git repository requirement omits a subdirectory path, scan the cloned repository recursively and install every subdirectory containing galaxy.yml or galaxy.yaml.",
+  "design_B": "When a git repository requirement omits a subdirectory path but includes a collection name, scan the cloned repository recursively and install only the subdirectory whose galaxy.yml metadata matches that requested namespace.collection name.",
+  "why_both_faithful": "The prose requires detecting multiple collections and also carries a collection name in each requirement, but never states whether an omitted path means install all detected collections or select the one matching the requirement name.",
+  "selecting_clause": null
+}

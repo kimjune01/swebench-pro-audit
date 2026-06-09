@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For duplicate operations on the same key/member, return the score after each individual increment in input order, e.g. increments +2 then +3 from 10 returns [12, 15].",
+  "design_B": "Apply all increments in the bulk call, then return the final stored score for each input operation in input order, e.g. increments +2 then +3 from 10 returns [15, 15].",
+  "why_both_faithful": "The prose requires increments to accumulate and results to be ordered like the input, but does not say whether each returned score is the per-operation intermediate score or the final post-bulk score for that key/member.",
+  "selecting_clause": null
+}

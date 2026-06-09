@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Emit a single JSON startup log entry with structured fields named \"version\", \"commit\", \"build_date\", and \"go_version\".",
+  "design_B": "Emit JSON startup log entries using structured fields named \"app_version\", \"commit_hash\", \"built_at\", and \"go_runtime_version\".",
+  "why_both_faithful": "The prose requires structured JSON startup logs containing those pieces of information but does not specify exact JSON field names or entry shape.",
+  "selecting_clause": null
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_490cc129",
+ "breadth": {
+  "files": 10,
+  "hunks": 18,
+  "loc": 854,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The implementation uses `slices.SortStableFunc` with `strings.Compare` for stable sorting; Sorting is case-sensitive; Namespace sorting must only apply when exporting all namespaces; When sortByKey is false, the export order must remain exactly as produced by the underlying list operations"
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Sorting must use a stable, case-sensitive lexical comparison of keys to ensure deterministic output when keys collide."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

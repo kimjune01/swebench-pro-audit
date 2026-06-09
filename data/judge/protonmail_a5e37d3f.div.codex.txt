@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat omitted canEdit as true for backward compatibility, so existing callers remain editable unless they explicitly pass canEdit={false}.",
+  "design_B": "Treat omitted canEdit as false, so permission-changing controls are disabled unless a caller explicitly passes canEdit={true}.",
+  "why_both_faithful": "The prose requires a canEdit boolean prop and behavior for true and false states, but does not specify the default behavior when existing callers omit the prop despite saying no new interfaces are introduced.",
+  "selecting_clause": null
+}

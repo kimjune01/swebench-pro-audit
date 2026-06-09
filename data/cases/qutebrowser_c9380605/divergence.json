@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_c9380605",
+ "breadth": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 51,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use Python's stdlib difflib.get_close_matches(cmd, all_commands) (default cutoff 0.6, ratio-based similarity) and take the first result as the closest match; emit a suggestion only if the list is non-empty.",
+   "design_B": "Compute Levenshtein edit distance from cmd to every command in all_commands and pick the minimum-distance command as the closest match (e.g. with an edit-distance threshold like <=2 to decide whether a 'close match exists').",
+   "why_both_faithful": "The prose only says to suggest the 'closest matching' command 'when one exists' but never specifies the similarity metric or the threshold that decides whether any match is close enough, so different distance algorithms satisfy every stated requirement while yielding different suggestions and different empty/non-empty outcomes.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use Python difflib.get_close_matches(cmd, all_commands, n=1) with its default cutoff of 0.6, suggesting only if it returns a match.",
+   "design_B": "Compute Levenshtein edit distance over all_commands and suggest the minimum-distance command only when distance is at most 2.",
+   "why_both_faithful": "The prose requires a closest-match suggestion when one exists but never defines the similarity algorithm or cutoff for deciding that no close match exists.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

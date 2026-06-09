@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_4c8c40fd",
+ "breadth": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 63,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The returned values from both functions must match the expected strings asserted in the test suite for each platform: \"Darwin\" with version \"19.6.0\", \"Solaris\" with version \"11.4\", and \"Freebsd\" with version \"12.1\"."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The returned values from both functions must match the expected strings asserted in the test suite for each platform: \"Darwin\" with version \"19.6.0\", \"Solaris\" with version \"11.4\", and \"Freebsd\" with version \"12.1\"."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

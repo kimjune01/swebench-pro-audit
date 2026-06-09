@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_96c19724",
+ "breadth": {
+  "files": 5,
+  "hunks": 11,
+  "loc": 43,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Ad-hoc and console CLIs must expose a \u2018--task-timeout\u2019 option that accepts an integer value in seconds, uses the configured default when unspecified, and displays the exact help text: \u2018set task timeout limit in seconds\u2019, \u2018must be positive integer\u2019."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

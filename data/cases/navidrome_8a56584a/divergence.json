@@ -1,0 +1,24 @@
+{
+ "slug": "navidrome_8a56584a",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 86,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": null
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When a full refresh is not indicated, invoke `dataProvider.getOne(resource, { id })` once per `(resource, id)` present in the payload; when `visibleResources` are provided, refetches should be issued only for resources included in `visibleResources`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

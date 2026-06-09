@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Add a nullable integer channels column to media_file with an index, leaving existing rows as NULL until rescanned.",
+  "design_B": "Add a non-null integer channels column to media_file with default 0 plus an index, representing unknown channel count as 0.",
+  "why_both_faithful": "The prose requires an integer channels column and index to store channel counts, but never specifies nullability, defaults, or how unknown existing values must be represented.",
+  "selecting_clause": null
+}

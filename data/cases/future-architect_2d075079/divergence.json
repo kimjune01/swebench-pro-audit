@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_2d075079",
+ "breadth": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 193,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "FilterIgnorePkgs excludes an entire CVE if any affected package name matches any ignore regexp.",
+   "design_B": "FilterIgnorePkgs excludes an entire CVE only if all of its affected package names match ignore regexps, preserving CVEs that still affect at least one non-ignored package.",
+   "why_both_faithful": "The prose says to apply regular expressions to affected package names but does not specify how to handle a CVE with multiple affected packages where only some package names match.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

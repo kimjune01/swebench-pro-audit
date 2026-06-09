@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_6382ea16",
+ "breadth": {
+  "files": 9,
+  "hunks": 21,
+  "loc": 110,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "_extract_tar_dir must pass the incoming dirname unchanged to tar.getmember(dirname) and raise ansible.errors.AnsibleError with the exact message \"Unable to extract '%s' from collection\" if the member is missing"
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Enforce controller Python with `if sys.version_info < (3, 12): raise SystemExit('ERROR: Ansible requires Python 3.12 or newer on the controller')` in each user-facing CLI entry point, and use that exact message everywhere.",
+   "design_B": "Enforce controller Python with a shared helper that checks `sys.version_info[:2] < (3, 12)` and exits with `Ansible requires Python 3.12 or later to run on the controller; found Python X.Y` from all user-facing entry points.",
+   "why_both_faithful": "The prose requires rejecting versions before 3.12 with an appropriate, consistent user-facing message, but never specifies the exact message text or whether it may include the detected version.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

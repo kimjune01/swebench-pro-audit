@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_c2a8ff3e",
+ "breadth": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 44,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Start one idempotent background goroutine that fills a small buffered precomputedKeys channel, and make GenerateKeyPair block until it can receive a precomputed key when mode is enabled.",
+   "design_B": "Start one idempotent background goroutine that fills a larger buffered precomputedKeys channel, and make GenerateKeyPair use a precomputed key when immediately available but fall back to synchronous fresh key generation if the channel is empty.",
+   "why_both_faithful": "The prose requires enabling background precomputation and consuming precomputed keys, but does not specify channel capacity or whether consumers must block versus fall back when precomputation is enabled but temporarily empty.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

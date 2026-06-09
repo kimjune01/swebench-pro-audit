@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat size <= 0 as invalid and return [] to avoid producing zero-length chunks.",
+  "design_B": "Treat size <= 0 as invalid and throw an error while preserving the specified behavior for omitted or undefined size.",
+  "why_both_faithful": "The prose specifies behavior for omitted or undefined size but never defines what should happen when a caller passes 0 or a negative number.",
+  "selecting_clause": null
+}

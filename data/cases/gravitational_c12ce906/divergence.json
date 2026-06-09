@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_c12ce906",
+ "breadth": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 280,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Close cancels the queue immediately: it closes Done, stops accepting input, causes workers/coordinator goroutines to exit, and may drop queued or in-flight results not yet emitted.",
+   "design_B": "Close performs a graceful shutdown: it stops accepting new input but lets already accepted/in-flight items finish and emits their results in order before closing the output and Done channels.",
+   "why_both_faithful": "The prose requires Close to terminate background operations and be repeat-call safe, but never specifies whether already submitted work must be drained or abandoned on Close.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"extra_suffixes_workaround should use `mimetypes.guess_all_extensions` to derive suffixes for each mimetype in `upstream_mimetypes`."}

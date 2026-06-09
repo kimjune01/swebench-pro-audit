@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_d8518f64",
+ "breadth": {
+  "files": 5,
+  "hunks": 41,
+  "loc": 888,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Keep 880 fields as fields tagged '880' and update downstream extractors to explicitly scan 880 subfields, using $6 linkage when present and falling back to unlinked 880 publisher/location/title data when the corresponding Latin field is absent.",
+   "design_B": "Normalize 880 fields during MARC parsing into virtual data fields under their linked or inferred canonical tags such as 260, 264, 245, or 490, so downstream extractors operate only on normal tag lookups while the parser handles 880 linkage and fallback.",
+   "why_both_faithful": "The prose requires 880 data to be parsed and used, including linked and unlinked cases, but does not specify whether that must happen in the parser by materializing canonical fields or in downstream extraction by special-casing 880 fields.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

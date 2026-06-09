@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "getExistingEmails returns emails in source order: all member emails, then invitation emails, then external invitation emails, preserving duplicates.",
+  "design_B": "getExistingEmails returns the same combined email set sorted alphabetically, preserving duplicates.",
+  "why_both_faithful": "The prose requires a flattened array of all email addresses but does not specify the ordering of that array.",
+  "selecting_clause": null
+}

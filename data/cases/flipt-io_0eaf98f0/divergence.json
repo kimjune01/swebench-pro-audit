@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_0eaf98f0",
+ "breadth": {
+  "files": 10,
+  "hunks": 24,
+  "loc": 224,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Only evaluation requests may be cached at the interceptor layer; `GetFlag` requests are excluded from interceptor caching."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

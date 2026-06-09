@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_1bd9924b",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 60,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When ErrorHandler sees an unauthenticated error, inspect r.Cookies() and emit expired Set-Cookie headers only for authentication cookies that were actually present on the request, using their configured path/domain, then delegate to the standard error handler.",
+   "design_B": "When ErrorHandler sees an unauthenticated error and any authentication cookie was present, emit expired Set-Cookie headers for the entire configured cookie-auth set, including related auth cookies that were not present on that request, then delegate to the standard error handler.",
+   "why_both_faithful": "The prose requires clearing relevant authentication cookies when auth-cookie credentials fail, but never defines whether \u201call relevant\u201d means only cookies received on the request or the full configured cookie-auth family.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

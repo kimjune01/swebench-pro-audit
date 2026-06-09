@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Within the catch block of the updated `decrypt` method, if the caught error is an instance of `CryptoError` from the crypto library, the method should rethrow it as a new `TutanotaCryptoError`, including the original error as its cause."
+}

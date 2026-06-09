@@ -1,0 +1,30 @@
+{
+ "slug": "tutao_2e5d877a",
+ "breadth": {
+  "files": 3,
+  "hunks": 8,
+  "loc": 29,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When a user loses membership in a group (i.e., membership change that triggers eviction of that group\u2019s list/element data), the system must delete that group\u2019s entry from the persistent store that tracks the last processed batch per group, so subsequent lookups for that group return `null`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

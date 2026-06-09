@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_472df0e1",
+ "breadth": {
+  "files": 1,
+  "hunks": 5,
+  "loc": 119,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Store optional metadata as {\"poc\": <poc>, \"introduced_in\": <introduced_in>} when those enriched fields are present.",
+   "design_B": "Store optional metadata as {\"proof_of_concept\": <poc>, \"introduced\": <introduced_in>} when those enriched fields are present.",
+   "why_both_faithful": "The prose requires recording the proof-of-concept and introduced-version values in optional metadata, but does not specify the output metadata key names.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

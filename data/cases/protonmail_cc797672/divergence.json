@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_cc797672",
+ "breadth": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 321,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "On paste, distribution begins at the currently-focused field, filling forward from that index and overwriting subsequent fields up to the maximum.",
+   "design_B": "On paste, distribution always begins at the first field (index 0) regardless of which field is focused, filling the whole code from the start.",
+   "why_both_faithful": "The prose says valid characters must 'fill the available fields in order, up to the maximum' and that focus goes to the last affected field, but never specifies whether 'available fields' are counted from the focused field or from the first field, so both filling origins satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Place the visual separator after floor(length / 2) inputs, e.g. for length 5 render it after the second input.",
+   "design_B": "Place the visual separator after ceil(length / 2) inputs, e.g. for length 5 render it after the third input.",
+   "why_both_faithful": "The prose requires a centered separator for more than two fields and gives only the 6-digit example, leaving odd lengths with two equally centered placements.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

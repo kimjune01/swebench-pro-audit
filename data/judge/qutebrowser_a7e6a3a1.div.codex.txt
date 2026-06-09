@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"All key-event handling should avoid constructing `Qt.Key` from raw integers and should call `KeyInfo.from_event(e)` instead."}

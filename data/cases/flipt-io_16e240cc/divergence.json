@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_16e240cc",
+ "breadth": {
+  "files": 7,
+  "hunks": 20,
+  "loc": 54,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The configuration loader must receive a `context.Context` and use that context when accessing configuration sources, including file retrieval via `getConfigFile. getConfigFile` must not use `context.Background()` for configuration retrieval."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Thread the caller's context explicitly through configuration-loading helper function parameters, e.g. add a context.Context parameter to getConfigFile and pass it to configuration source retrieval and parsing calls.",
+   "design_B": "Store or capture the caller's context inside the loader/configuration-loading object and have getConfigFile retrieve and use that stored context without changing helper signatures.",
+   "why_both_faithful": "The prose requires caller context propagation and forbids context.Background() in getConfigFile, but does not specify whether propagation must be by explicit parameters or by stored/captured loader state.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

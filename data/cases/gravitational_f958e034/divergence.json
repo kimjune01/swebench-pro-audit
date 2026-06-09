@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_f958e034",
+ "breadth": {
+  "files": 2,
+  "hunks": 9,
+  "loc": 216,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When a cell exceeds MaxCellLength, keep the first 75 characters and append the FootnoteLabel, producing a displayed value longer than 75.",
+   "design_B": "When a cell exceeds MaxCellLength, keep only enough original characters that the displayed value including the FootnoteLabel is at most 75 characters.",
+   "why_both_faithful": "The prose requires truncating fields over maximum length 75 and annotating them with a footnote label, but does not specify whether the label counts against the maximum displayed length.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

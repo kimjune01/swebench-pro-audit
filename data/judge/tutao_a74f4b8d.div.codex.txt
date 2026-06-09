@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"If not fully logged in, the request must be aborted and a `LoginIncompleteError` must be thrown before the request is sent."}

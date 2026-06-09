@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_d52e03fd",
+ "breadth": {
+  "files": 3,
+  "hunks": 8,
+  "loc": 164,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Cease reporting after 3 consecutive failures (retry threshold = 3), with detection done once at initialization by attempting to create/open the state file",
+   "design_B": "Cease reporting after 5 consecutive failures (retry threshold = 5), with accessibility re-checked on every reporting interval via a stat/probe of the directory",
+   "why_both_faithful": "The prose only says to cease 'after a small, fixed number of consecutive failures' and to 'detect at initialization and during operation' without naming the threshold value or the detection mechanism, so different concrete numbers and probe strategies all satisfy it.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement Reporter.Run with a fixed consecutive failure threshold of 3: after three failed telemetry state/report writes, mark telemetry inactive, log one debug message with path and error, skip write/report attempts while inaccessible, and probe accessibility on each reporting interval to resume when writable.",
+   "design_B": "Implement Reporter.Run with a fixed consecutive failure threshold of 5: after five failed telemetry state/report writes, mark telemetry inactive, log one debug message with path and error, skip write/report attempts while inaccessible, and probe accessibility on each reporting interval to resume when writable.",
+   "why_both_faithful": "The prose requires only a small, fixed retry threshold and bounded behavior, but never specifies the exact threshold value.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When the same normalized subject string would fall into multiple categories, resolve conflicts by a fixed category precedence such as person, org, event, work, subject, place, time, counting the string only in the highest-priority applicable category.",
+  "design_B": "When the same normalized subject string would fall into multiple categories, let the first category encountered while iterating the MARC record own the string, and ignore later cross-category occurrences.",
+  "why_both_faithful": "The prose requires each subject string to appear in only one category but never specifies the tie-breaking rule when the same string is produced by multiple tags or subfields.",
+  "selecting_clause": null
+}

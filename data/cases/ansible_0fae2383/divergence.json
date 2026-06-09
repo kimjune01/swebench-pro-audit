@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_0fae2383",
+ "breadth": {
+  "files": 5,
+  "hunks": 17,
+  "loc": 94,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement FinalQueue as a wrapper around the existing final/results multiprocessing queue, enqueue DisplaySend objects onto that same queue, and have the strategy results loop treat DisplaySend as another queue item type while draining results.",
+   "design_B": "Implement FinalQueue with a separate display-message queue owned by the parent, enqueue DisplaySend objects there, and have the strategy results loop periodically drain that separate queue before/after processing normal result queue items.",
+   "why_both_faithful": "The prose requires queue-based proxying and consumption of pending DisplaySend instances, but does not explicitly require display events to share the existing results queue rather than a dedicated queue.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

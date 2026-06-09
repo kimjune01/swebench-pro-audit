@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "At an exact chunk boundary, findByTime(time) returns the next chunk and skipTo starts that chunk at offset 0.",
+  "design_B": "At an exact chunk boundary, findByTime(time) returns the previous chunk and skipTo seeks to that chunk's end, relying on normal end-of-chunk transition logic.",
+  "why_both_faithful": "The prose requires accurate time-to-chunk mapping and handling start, middle, and end cases, but never specifies which adjacent chunk owns an exact boundary timestamp.",
+  "selecting_clause": null
+}

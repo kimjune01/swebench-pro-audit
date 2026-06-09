@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_2839d2aa",
+ "breadth": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 41,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Equality checks between role collections should succeed only when both represent the same set of roles, regardless of order, treating nil and empty role lists as equal."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

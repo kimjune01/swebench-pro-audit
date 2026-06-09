@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Cache Galaxy API JSON responses on disk keyed by full request URL with a fixed TTL, reject unsafe cache files, add flags such as --no-cache and --clear-cache.",
+  "design_B": "Cache Galaxy API JSON responses on disk keyed by full request URL using HTTP validators such as ETag/Last-Modified for validity, reject unsafe cache files, add flags such as --disable-cache and --purge-cache.",
+  "why_both_faithful": "The prose requires caching, safe cache files, explicit disable/clear flags, and correct detection on fresh requests, but does not specify the validity mechanism, cache key format, or flag names.",
+  "selecting_clause": null
+}

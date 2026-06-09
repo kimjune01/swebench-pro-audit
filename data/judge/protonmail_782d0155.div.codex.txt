@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"must determine whether the `CustomPassword` flag is set in the `flags` property of the input object and return `true` only in that case"}

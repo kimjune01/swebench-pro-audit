@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_8d41b319",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 29,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When the MARC record's publisher is \"s.n.\", the output must include exactly \"[s.n.]\" inside the \"publishers\" list."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When the MARC record\u2019s publisher is \"s.n.\", the output must include exactly \"[s.n.]\" inside the \"publishers\" list."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

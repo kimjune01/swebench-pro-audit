@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_b84ef9b2",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 102,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "If a `.pak` exists for the derived locale, the browser must include `--lang=<derived-locale>` in the QtWebEngine arguments; if neither the original nor the derived locale has a `.pak`, the browser must include `--lang=en-US`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

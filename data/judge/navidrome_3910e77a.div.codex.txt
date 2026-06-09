@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement CollectChunks to allocate a fresh backing array for every yielded chunk.",
+  "design_B": "Implement CollectChunks with a reusable internal buffer and copy each full chunk into a separate slice only at yield time to avoid aliasing.",
+  "why_both_faithful": "The prose only says buffer reuse would be beneficial and warns against aliasing, so both allocation-heavy and buffer-reusing implementations satisfy the stated behavior.",
+  "selecting_clause": null
+}

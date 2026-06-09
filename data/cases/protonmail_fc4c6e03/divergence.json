@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_fc4c6e03",
+ "breadth": {
+  "files": 3,
+  "hunks": 9,
+  "loc": 38,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Return the maximum numeric suffix among all localStorage keys that start with STORAGE_PREFIX.",
+   "design_B": "Return the numeric suffix from the first valid STORAGE_PREFIX key encountered in localStorage iteration order.",
+   "why_both_faithful": "The prose specifies which keys are valid and when to return null, but never states how to choose among multiple valid persisted local IDs.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_473d37b9",
+ "breadth": {
+  "files": 6,
+  "hunks": 11,
+  "loc": 517,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement filterPassAliases to sort aliases by an effective timestamp of alias.lastUseTime ?? alias.revisionTime in descending order.",
+   "design_B": "Implement filterPassAliases to sort aliases primarily by lastUseTime descending, using revisionTime only as a secondary tie-breaker or fallback when lastUseTime is missing.",
+   "why_both_faithful": "The prose only says to sort by \"lastUseTime/revisionTime desc\" or by \"lastUseTime or revisionTime,\" which does not specify fallback semantics versus primary/secondary ordering.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

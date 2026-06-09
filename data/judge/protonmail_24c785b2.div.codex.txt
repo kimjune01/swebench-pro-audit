@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The hook should trigger the provided onBack callback only when elements are not loading and the active element is invalid according to that list."}

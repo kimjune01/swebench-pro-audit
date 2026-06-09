@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_9db36528",
+ "breadth": {
+  "files": 3,
+  "hunks": 8,
+  "loc": 421,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement get_language with a hardcoded Python dict literal mapping a curated set of informal names/ISO 639 variants directly to MARC 21 codes (e.g., {'en_us':'eng','eng':'eng','english':'eng','es':'spa',...}), returning None for anything not in the literal.",
+   "design_B": "Implement get_language by programmatically deriving the mapping from the pymarc/MARC language code table (or an ISO 639-2/639-3 lookup library/data file), normalizing the input and querying that table, so it recognizes a broad ISO 639 range without each token being hand-listed.",
+   "why_both_faithful": "The prose only mandates a minimum required set of mappings ('must include at least en_US\u2192eng, eng\u2192eng, es\u2192spa, afrikaans/afr/af\u2192afr') and says it accepts 'a wide range of ISO 639 variants,' which both a hand-coded dict and a table-driven lookup satisfy identically for the named cases while behaving differently on unlisted inputs.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Normalize a string-valued subjects field by wrapping it as a single list element, e.g. \"science, history\" -> [\"Science, history\"].",
+   "design_B": "Normalize a string-valued subjects field by splitting it on common delimiters before capitalization, e.g. \"science, history\" -> [\"Science\", \"History\"].",
+   "why_both_faithful": "The prose requires publishers and subjects to be normalized to lists and subject strings capitalized, but never specifies whether string inputs should be split or treated as one list item.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

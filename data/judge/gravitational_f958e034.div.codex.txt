@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When a cell exceeds MaxCellLength, keep the first 75 characters and append the FootnoteLabel, producing a displayed value longer than 75.",
+  "design_B": "When a cell exceeds MaxCellLength, keep only enough original characters that the displayed value including the FootnoteLabel is at most 75 characters.",
+  "why_both_faithful": "The prose requires truncating fields over maximum length 75 and annotating them with a footnote label, but does not specify whether the label counts against the maximum displayed length.",
+  "selecting_clause": null
+}

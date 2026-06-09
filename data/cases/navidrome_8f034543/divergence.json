@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_8f034543",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 52,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Serialize playlist payloads as {\"inPlaylist\":{\"id\":\"playlist123\"}} and {\"notInPlaylist\":{\"id\":\"playlist123\"}}.",
+   "design_B": "Serialize playlist payloads as {\"inPlaylist\":{\"playlistId\":\"playlist123\"}} and {\"notInPlaylist\":{\"playlistId\":\"playlist123\"}}.",
+   "why_both_faithful": "The prose requires a single string field carrying the playlist identifier but gives `id` only as an example, so another identifier field name can satisfy the stated contract.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

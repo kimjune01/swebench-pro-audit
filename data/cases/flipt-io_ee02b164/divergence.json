@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_ee02b164",
+ "breadth": {
+  "files": 8,
+  "hunks": 11,
+  "loc": 108,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use a standard CSRF middleware such as gorilla/csrf, wiring authentication.session.csrf.key as the signing key and issuing that middleware's default CSRF cookie when authentication is enabled.",
+   "design_B": "Implement custom session middleware that signs a generated CSRF token with authentication.session.csrf.key and sets a project-defined CSRF cookie name and attributes on authenticated responses.",
+   "why_both_faithful": "The prose requires parsing the key, loading it from env, issuing some CSRF cookie when auth is enabled, and hiding the key from public APIs, but does not specify the CSRF library, cookie name, token format, or cookie attributes.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

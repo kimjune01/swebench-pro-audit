@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_827f2cb8",
+ "breadth": {
+  "files": 6,
+  "hunks": 35,
+  "loc": 339,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

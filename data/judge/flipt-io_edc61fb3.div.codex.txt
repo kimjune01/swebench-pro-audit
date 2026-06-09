@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "A helper function `clientTokenFromMetadata(md)` must first attempt to extract the token from the authorization header. If no valid Bearer token is found, it should fall back to parsing the cookie."
+}

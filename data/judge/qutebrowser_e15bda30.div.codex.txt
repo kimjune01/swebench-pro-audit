@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "prev_result must search in the opposite direction to the current value of `backward`, and `next_result` must respect it, in both cases without modifying the stored state of `_FindFlags`."
+}

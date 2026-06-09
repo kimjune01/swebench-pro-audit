@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_213ceeca",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 59,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Album image selection ranks the 'front' name as the dominant key and image format as the tiebreaker, so given `front.jpg` and `cover.png`, `front.jpg` is selected.",
+   "design_B": "Album image selection ranks the format (PNG > JPG) as the dominant key and the 'front' name as the tiebreaker, so given `front.jpg` and `cover.png`, `cover.png` is selected.",
+   "why_both_faithful": "The prose lists both 'prefer front' and 'favor PNG over JPG' but its only example (`front.png` over `cover.jpg`) has both criteria agreeing, so it never fixes which criterion dominates when name and format point at different files.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When album candidates include both front.jpg and cover.png, rank canonical name first and choose front.jpg, using PNG-over-JPG only as a tie-breaker among equally canonical images.",
+   "design_B": "When album candidates include both front.jpg and cover.png, rank format quality first and choose cover.png, using canonical front naming only as a tie-breaker among same-format images.",
+   "why_both_faithful": "The prose says to prefer the canonical \u201cfront\u201d image and favor PNG over JPG, but does not specify which preference wins when those criteria conflict.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

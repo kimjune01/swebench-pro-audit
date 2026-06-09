@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_a118161e",
+ "breadth": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 41,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "mimeTypeFromFile returns a known extension mapping first when the browser-provided file.type is missing or application/octet-stream, then otherwise trusts file.type.",
+   "design_B": "mimeTypeFromFile always prioritizes extension mappings over file.type whenever the extension is known, even if file.type is a different non-octet MIME type.",
+   "why_both_faithful": "The prose requires removing content analysis and prioritizing file type and extension-based detection, but does not specify the precedence rule when file.type and extension disagree.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

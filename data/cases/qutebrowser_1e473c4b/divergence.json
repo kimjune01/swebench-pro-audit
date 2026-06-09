@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_1e473c4b",
+ "breadth": {
+  "files": 5,
+  "hunks": 11,
+  "loc": 39,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement AbstractTab.set_pinned so it emits pinned_changed only when the new pinned value differs from the current tab data value.",
+   "design_B": "Implement AbstractTab.set_pinned so it always writes the pinned value and emits pinned_changed on every call, even if the value is unchanged.",
+   "why_both_faithful": "The prose requires notification when pinned state changes, but the set_pinned interface description says it sets the data and emits the signal with the new state without specifying no-op behavior.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_2d0ff0c9",
+ "breadth": {
+  "files": 17,
+  "hunks": 28,
+  "loc": 238,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When converting a CockroachDB connection string with no explicit sslmode, default the sslmode query parameter to \"disable\" (matching local/insecure dev clusters and the Postgres driver's permissive behavior), rewriting the scheme to postgres:// and leaving the rest of the DSN intact.",
+   "design_B": "When converting a CockroachDB connection string with no explicit sslmode, default the sslmode query parameter to a secure value such as \"verify-full\" (or \"require\"), reflecting CockroachDB's secure-by-default deployment posture, rewriting the scheme to postgres://.",
+   "why_both_faithful": "The prose only says CockroachDB should default to 'secure connection settings appropriate for its typical deployment patterns, including proper SSL mode handling' without naming a specific sslmode value or precedence, so both an insecure-dev default and a strict-secure default satisfy the requirement as written.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For CockroachDB URLs without an explicit sslmode, rewrite cockroach:// or crdb:// to a PostgreSQL-compatible DSN with sslmode=verify-full by default.",
+   "design_B": "For CockroachDB URLs without an explicit sslmode, rewrite cockroach:// or crdb:// to a PostgreSQL-compatible DSN with sslmode=require by default.",
+   "why_both_faithful": "The prose requires secure CockroachDB defaults and proper SSL mode handling but never specifies the exact default sslmode value.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

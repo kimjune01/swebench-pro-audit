@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_0b8cc812",
+ "breadth": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 44,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Determine blocking by checking the request host and each successive parent domain (left-stripping one label at a time) against both the runtime blocked set and the config-defined blocked set; the first match blocks the request."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

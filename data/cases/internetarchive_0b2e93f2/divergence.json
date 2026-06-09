@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_0b2e93f2",
+ "breadth": {
+  "files": 2,
+  "hunks": 9,
+  "loc": 41,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `update_key` method of the `AuthorSolrUpdater` class should return a tuple `(SolrUpdateRequest, list[str])`, where the first element is a `SolrUpdateRequest` object and the second is a list of new keys."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Return `(existing_solr_update_request, [])` from both `AuthorSolrUpdater.update_key` and `WorkSolrUpdater.update_key`.",
+   "design_B": "Return `(existing_solr_update_request, computed_new_keys)` where `computed_new_keys` contains keys discovered during the update that should be processed later.",
+   "why_both_faithful": "The prose requires a tuple whose second element is a `list[str]`, but does not specify how new keys are identified or whether an empty list is acceptable when the current implementation has no explicit new-key value.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

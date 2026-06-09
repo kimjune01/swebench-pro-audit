@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "If the name was found in the map, it should return its corresponding value present in the map; otherwise, it should return an empty string."
+}

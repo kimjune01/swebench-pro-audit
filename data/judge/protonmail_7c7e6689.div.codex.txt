@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"If `error.status` is greater than or equal to 500, the function should call `metricObserver` with `'5xx'`."}

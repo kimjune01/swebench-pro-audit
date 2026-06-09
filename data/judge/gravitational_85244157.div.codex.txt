@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement ReadAtMost by reading limit+1 bytes, returning ErrLimitReached only when an extra byte proves more content exists beyond the limit.",
+  "design_B": "Implement ReadAtMost with io.LimitReader(r, limit), returning ErrLimitReached whenever exactly limit bytes are returned.",
+  "why_both_faithful": "The prose says the limit being reached returns ErrLimitReached, but also says no error when the limit allows all content, without explicitly specifying whether the implementation must probe one byte past the limit to distinguish exact-size content from truncated content.",
+  "selecting_clause": null
+}

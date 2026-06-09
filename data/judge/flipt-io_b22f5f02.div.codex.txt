@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "DefaultBundleDir returns and creates <flipt data dir>/oci.",
+  "design_B": "DefaultBundleDir returns and creates <flipt data dir>/bundles.",
+  "why_both_faithful": "The prose only requires a filesystem path under Flipt's data directory suitable for storing OCI bundles, without naming the exact subdirectory.",
+  "selecting_clause": null
+}

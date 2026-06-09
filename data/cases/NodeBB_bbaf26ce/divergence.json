@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_bbaf26ce",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 36,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "New function added: lockPosting ... Returns a string key (`posting<id>`) that uniquely identifies the lock for the user/session. Throws an error with the provided `error` message if another posting action is already in progress for the same user/session."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement lockPosting with a module-level in-memory Set keyed by `posting<uid-or-sessionID>`, acquiring before topic/reply creation and deleting the key in a finally block after processing completes.",
+   "design_B": "Implement lockPosting with a Redis-backed per-actor lock using SET NX/TTL keyed by `posting<uid-or-sessionID>`, releasing it after processing completes.",
+   "why_both_faithful": "The prose requires the observable per-actor exclusion behavior and key shape, but does not specify whether the lock must be in-memory, distributed, TTL-based, or process-local.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

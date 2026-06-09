@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Convert each parsed unit to milliseconds and truncate the final decimal total toward zero before returning int, so \"0.0015s\" returns 1.",
+  "design_B": "Convert each parsed unit to milliseconds and round the final decimal total to the nearest integer before returning int, so \"0.0015s\" returns 2.",
+  "why_both_faithful": "The prose requires decimal unit components and an int millisecond return value, but never specifies how fractional milliseconds should be converted to an integer.",
+  "selecting_clause": null
+}

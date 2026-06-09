@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Populate `id_project_runeberg` by preserving all discovered Runeberg identifier strings in source/encounter order, including duplicates.",
+  "design_B": "Populate `id_project_runeberg` as a sorted, de-duplicated list of Runeberg identifier strings.",
+  "why_both_faithful": "The prose requires the field to exist as `list[str]` and be empty when absent, but does not specify ordering or duplicate-handling for available identifiers.",
+  "selecting_clause": null
+}

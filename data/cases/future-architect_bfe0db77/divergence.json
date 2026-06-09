@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_bfe0db77",
+ "breadth": {
+  "files": 8,
+  "hunks": 68,
+  "loc": 1204,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Represent Ubuntu release support status as coarse states such as supported, ESM, and EOL/unsupported, marking historical releases like 6.06 and 22.10 as EOL while keeping recognized release metadata.",
+   "design_B": "Represent Ubuntu release support status with detailed lifecycle phases such as standard, extended-security-maintenance, legacy/infra-only, and unsupported, assigning historical releases to those finer-grained phases.",
+   "why_both_faithful": "The prose requires all official releases from 6.06 through 22.10 to be recognized with a clear support status mapping, but does not define the exact status vocabulary or lifecycle classification rules.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

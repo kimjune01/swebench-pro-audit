@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_d63a71e3",
+ "breadth": {
+  "files": 4,
+  "hunks": 5,
+  "loc": 29,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "It prioritizes the CPU affinity mask, falls back to the nproc binary when available, and finally uses the processor count from /proc/cpuinfo."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

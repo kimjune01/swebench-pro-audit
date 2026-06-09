@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_e2bd7656",
+ "breadth": {
+  "files": 6,
+  "hunks": 16,
+  "loc": 121,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define the in-memory threshold check first: selectMechanismForDownload returns \"memory\" when size is below the threshold even when service workers are unsupported (size check takes precedence), and only consults SW capability for larger files.",
+   "design_B": "Check service-worker support first: when SWs are unsupported return \"memory_fallback\" regardless of size, and only return \"memory\" for small files when SWs are supported.",
+   "why_both_faithful": "The prose gives both a size rule ('below the in-memory threshold ... memory') and a capability rule ('service workers unsupported ... memory_fallback') without stating their precedence, so a small file in a no-SW environment could faithfully resolve to either \"memory\" or \"memory_fallback\".",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement selectMechanismForDownload by prioritizing size: if size is provided and below the in-memory threshold return \"memory\"; otherwise return \"memory_fallback\" when service workers are unsupported, else \"sw\".",
+   "design_B": "Implement selectMechanismForDownload by prioritizing service-worker capability: if service workers are unsupported return \"memory_fallback\" regardless of size; otherwise return \"memory\" for sizes below the in-memory threshold and \"sw\" for larger or omitted sizes.",
+   "why_both_faithful": "The prose separately says below-threshold files return memory and unsupported service workers return memory_fallback, but never states which rule wins when both conditions are true.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

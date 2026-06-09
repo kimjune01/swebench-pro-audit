@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_5ee28105",
+ "breadth": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 138,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "matches_filter uses threshold/ordering semantics: a filter of 'minor' returns True for both minor AND major changes (anything 'at least this significant'), 'patch' returns True for patch/minor/major, etc., reflecting that a user wanting changelogs on minor upgrades also wants them on bigger major upgrades.",
+   "design_B": "matches_filter uses exact-tier matching: a filter of 'minor' returns True only when the change is exactly 'minor', so a major upgrade would not match a 'minor' filter; the filter names a single category that must equal the computed VersionChange.",
+   "why_both_faithful": "The prose only says matches_filter must 'return whether the version change matches a given filter value' and never defines whether a more-significant change satisfies a less-significant filter, so both ordered-threshold and exact-equality interpretations satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement matches_filter as a threshold: filterstr='minor' matches both minor and major changes, filterstr='patch' matches patch/minor/major, and filterstr='major' matches only major.",
+   "design_B": "Implement matches_filter as exact matching: filterstr='minor' matches only VersionChange.minor, filterstr='patch' matches only VersionChange.patch, and filterstr='major' matches only VersionChange.major.",
+   "why_both_faithful": "The prose requires a matches_filter method for changelog_after_upgrade filter values but never defines whether filters are thresholds or exact categories.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

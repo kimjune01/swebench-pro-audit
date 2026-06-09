@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "R128 gain tag values must be interpreted as signed fixed-point numbers (Q7.8 format), normalized to match the loudness reference level expected from ReplayGain tags."
+}

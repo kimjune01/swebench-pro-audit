@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Dispatch Action.RoomLoaded when RoomView's explicit initial timeline/load callback fires, then RoomViewStore recomputes viewRoomOpts from the currently active room state.",
+  "design_B": "Dispatch Action.RoomLoaded from RoomView when its room-loading state transitions from loading to loaded, then RoomViewStore recomputes viewRoomOpts from the currently active room state.",
+  "why_both_faithful": "The prose requires the dispatch after initial load but does not specify which RoomView loading signal or lifecycle boundary defines that moment.",
+  "selecting_clause": null
+}

@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"It prioritizes the CPU affinity mask, falls back to the nproc binary when available, and finally uses the processor count from /proc/cpuinfo."}

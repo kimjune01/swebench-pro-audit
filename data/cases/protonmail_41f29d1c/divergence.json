@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_41f29d1c",
+ "breadth": {
+  "files": 11,
+  "hunks": 18,
+  "loc": 54,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement isFromProton as element.IsProton === 1.",
+   "design_B": "Implement isFromProton as Boolean(element.IsProton).",
+   "why_both_faithful": "The prose only specifies behavior for IsProton values 1 and 0, so both implementations agree on all stated cases while differing on other possible values.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

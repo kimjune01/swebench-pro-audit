@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Import record normalization must remove the `publishers` field when its value is exactly [\"????\"], remove the `authors` field when its value is exactly [{\"name\":\"????\"}], and remove the `publish_date` field when its value is exactly \"????\"."}

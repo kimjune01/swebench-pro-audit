@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "When `authPref.GetSecondFactor()` is `SecondFactorOn`, block deletion if it would remove the user’s final remaining MFA device, returning a `trace.BadParameter` error converted with `trail.ToGRPC`."
+}

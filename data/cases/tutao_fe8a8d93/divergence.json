@@ -1,0 +1,30 @@
+{
+ "slug": "tutao_fe8a8d93",
+ "breadth": {
+  "files": 9,
+  "hunks": 19,
+  "loc": 150,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The validation should prioritize detecting invalid dates first, then pre-1970 dates, then start/end date ordering issues when multiple problems exist in a single event."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

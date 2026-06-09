@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The existing `from_pyqt` class method must be simplified to no longer accept a `source` argument. It must hardcode `\"PyQt\"` as the `source` value."}

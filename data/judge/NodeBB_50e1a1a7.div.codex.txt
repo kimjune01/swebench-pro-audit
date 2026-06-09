@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Tag validation should compare the submitted tag list against the topic’s current tags to derive two sets: `addedTags` and `removedTags`."
+}

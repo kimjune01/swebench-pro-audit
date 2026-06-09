@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Hardcode one built-in shared Last.FM API key constant and use it whenever the configured API key is empty or unset.",
+  "design_B": "Hardcode a different built-in shared Last.FM API key constant and use it whenever the configured API key is empty or unset.",
+  "why_both_faithful": "The prose requires a built-in shared API key fallback but never specifies which key value must be used.",
+  "selecting_clause": null
+}

@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Preserve backward compatibility: callers that don’t pass ‘ident’ continue to get the same outputs they received previously for all algorithms, including BCrypt."}

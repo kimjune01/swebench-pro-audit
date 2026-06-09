@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "In to_py, perform encoding validation before existing FormatString parsing/placeholder validation, so a value containing both a non-ASCII character and a malformed format placeholder reports the encoding error first.",
+  "design_B": "In to_py, run existing FormatString parsing/placeholder validation first, then perform encoding validation only if the format string is otherwise valid, so the same mixed-invalid value reports the format error first.",
+  "why_both_faithful": "The prose requires encoding validation during to_py with clear errors, but does not specify validation ordering or which error must take precedence when multiple validations fail.",
+  "selecting_clause": null
+}

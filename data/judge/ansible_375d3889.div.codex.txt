@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When a server-specific timeout is absent, render its value from GALAXY_SERVER_TIMEOUT and set the timeout option's origin to the origin of GALAXY_SERVER_TIMEOUT, such as the config file path.",
+  "design_B": "When a server-specific timeout is absent, render its value from GALAXY_SERVER_TIMEOUT but set the server timeout option's origin to default because the server-specific option itself was not explicitly configured.",
+  "why_both_faithful": "The prose requires the fallback timeout value to be applied and each option to have an origin, but does not specify whether a derived fallback inherits the fallback setting's origin or is treated as the default origin for the server option.",
+  "selecting_clause": null
+}

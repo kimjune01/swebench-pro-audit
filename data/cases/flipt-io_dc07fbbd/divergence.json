@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_dc07fbbd",
+ "breadth": {
+  "files": 10,
+  "hunks": 24,
+  "loc": 137,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use version string `\"1.0\"` as the value injected into exported YAML and accepted as the sole supported version during import validation.",
+   "design_B": "Use a different version string, e.g. `\"1\"` or `\"v1\"`, as the injected/exported value and the supported version checked on import.",
+   "why_both_faithful": "The prose requires that exports include a version field and that import reject unsupported versions, but it never states the actual version literal, so any consistent version string satisfies every requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Export version: \"1.0\" and reject imports whose document version is anything other than \"1.0\".",
+   "design_B": "Export version: \"v1\" and reject imports whose document version is anything other than \"v1\".",
+   "why_both_faithful": "The prose requires a version field and compatibility validation, but never specifies the canonical exported version value or the set of supported versions.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

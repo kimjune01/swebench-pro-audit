@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_6d34eb88",
+ "breadth": {
+  "files": 7,
+  "hunks": 41,
+  "loc": 467,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use bracketed ASCII tokens for no-color markers and placeholders \u2014 e.g. required options shown as '[REQUIRED]', missing-metadata roles given the placeholder 'UNDOCUMENTED', headers rendered as plain uppercase lines, and relative links resolved to a fixed docs version path like '/latest/'.",
+   "design_B": "Use symbol/equals-style markers and different fixed strings \u2014 e.g. required shown as '=required=', missing-metadata placeholder 'No description provided.', headers rendered with underline dashes, and relative links resolved to a current-release path like '/<version>/' derived differently.",
+   "why_both_faithful": "The prose mandates that markers, placeholders, headers, and link resolution be 'stable', 'unambiguous', 'consistent', and 'standardized' but never specifies the actual token strings, placeholder copy, header styling, or version segment, explicitly disclaiming dependence on 'exact labels or copy' and 'spacing, capitalization, or punctuation'.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement ANSI output with bold cyan section headers, underlined URLs, yellow '[required]' markers, and no-color substitutions such as '== OPTIONS ==' headers and '[required]' text markers.",
+   "design_B": "Implement ANSI output with bold underlined section headers, blue OSC-8/link-styled URLs plus visible URL text, red '* required' markers, and no-color substitutions such as uppercase headers followed by dashed rulers and '* required' text markers.",
+   "why_both_faithful": "The prose requires visual hierarchy, clear required indicators, stable no-color markers, wrapping, indentation, and role/error behavior, but does not specify the exact colors, ANSI attributes, marker strings, or header rendering scheme.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

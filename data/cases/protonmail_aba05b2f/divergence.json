@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_aba05b2f",
+ "breadth": {
+  "files": 9,
+  "hunks": 14,
+  "loc": 241,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Compute encryptToUntrusted by defaulting to encryption ENABLED whenever a WKD/untrusted key is present (preserving today's 'WKD always encrypts' as the default), only flipping it off when a stored X-Pm-Encrypt-Untrusted:false is present; in getContactPublicKeyModel let encryptToUntrusted win over encryptToPinned only when there are no pinned keys, and in extractEncryptionPreferences treat a valid WKD key as encrypt=true unless explicitly disabled.",
+   "design_B": "Compute encryptToUntrusted by defaulting to DISABLED for untrusted/WKD keys (opt-in encryption) and only enabling it when signature verification / trust signals are satisfied; treat the absence of a stored flag as 'do not encrypt to untrusted', and in extractEncryptionPreferences derive encrypt from trust level so an unverified WKD key yields encrypt=false until the user opts in.",
+   "why_both_faithful": "The prose enumerates the inputs (validity, pinning, trust level, contact type, signature, WKD fallback) and says to 'allow users to explicitly disable' but never specifies the default truth value or the boolean combination for the untrusted/WKD case, so both an encrypt-by-default and an opt-in-encryption rule satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Serialize contact key preference fields in the order X-Pm-Encrypt, then X-Pm-Encrypt-Untrusted, then the key material.",
+   "design_B": "Serialize contact key preference fields in the order X-Pm-Encrypt-Untrusted, then X-Pm-Encrypt, then the key material.",
+   "why_both_faithful": "The prose requires predictable vCard field ordering and CRLF formatting, but never specifies the actual relative order of X-Pm-Encrypt and X-Pm-Encrypt-Untrusted.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_e4728e38",
+ "breadth": {
+  "files": 5,
+  "hunks": 14,
+  "loc": 269,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Enumerate the per-source entries by iterating only over the keys of Trivy's VendorSeverity map, creating one `trivy:<source>` CveContent per severity-bearing source and pulling whatever CVSS exists for that same source.",
+   "design_B": "Enumerate the per-source entries over the union of the VendorSeverity map keys and the CVSS map keys, so a source that reports CVSS scores but no severity (or vice versa) still gets its own `trivy:<source>` CveContent.",
+   "why_both_faithful": "The prose mandates one CveContent per source preserving that source's severity and CVSS but never states which Trivy map(s) define the authoritative set of sources, so a source present in only one map is included under B but dropped under A.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `Convert` function in `contrib/trivy/pkg/converter.go` must create separate `CveContent` entries for each source found in Trivy scan results, using keys formatted as `trivy:<source>`"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

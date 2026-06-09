@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Compute ratings_sortable as the same value as the weighted ratings_average derived from ratings_count_1 through ratings_count_5.",
+  "design_B": "Compute ratings_sortable as a popularity-adjusted sortable score derived from ratings_average and ratings_count, while still returning all required keys and zero defaults.",
+  "why_both_faithful": "The prose requires ratings_sortable to be present as a derived ratings field but never specifies its formula or relation to ratings_average/count.",
+  "selecting_clause": null
+}

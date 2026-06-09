@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_74671c16",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 56,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When database major equals USER_VERSION.major but database minor is greater than USER_VERSION.minor, allow initialization because minor changes are compatible and only major-version excess is rejected.",
+   "design_B": "When database major equals USER_VERSION.major but database minor is greater than USER_VERSION.minor, reject initialization as an unsupported future user version.",
+   "why_both_faithful": "The prose explicitly specifies rejection for greater major versions and migration for behind minor versions, but does not state what must happen for a same-major database with a newer minor version.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

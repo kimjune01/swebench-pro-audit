@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement unknown TracingExporter values so String() returns \"jaeger\" and MarshalJSON() serializes \"jaeger\", treating jaeger as the fallback/default.",
+  "design_B": "Implement unknown TracingExporter values so String() returns \"\" or \"unknown\" and MarshalJSON() serializes that value or returns an error, while still returning exact strings for jaeger, zipkin, and otlp.",
+  "why_both_faithful": "The prose specifies exact behavior for the three supported exporter values and the default when no exporter is specified, but does not define behavior for an invalid or unrecognized TracingExporter enum value.",
+  "selecting_clause": null
+}

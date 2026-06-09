@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_270f109b",
+ "breadth": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 61,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When `key` references a string and the value is an empty string without a `default_value`, no group should be generated for that entry."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_a6145ca7",
+ "breadth": {
+  "files": 4,
+  "hunks": 9,
+  "loc": 635,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "`_get_batch_end_id(start_id)` returns the inclusive last cover ID of the 10k batch, i.e. `start_id + 9999` (batch covers start_id .. start_id+9999)",
+   "design_B": "`_get_batch_end_id(start_id)` returns the exclusive boundary / first ID of the next batch, i.e. `start_id + 10000`",
+   "why_both_faithful": "The prose only says it 'computes the end ID of a batch given a start cover ID, using 10k batch sizes', which equally supports an inclusive last-ID or an exclusive next-batch-boundary convention and never states which.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "CoverDB.update_completed_batch sets each filename* field to the full archive.org download URL for that exact cover image inside the batch zip.",
+   "design_B": "CoverDB.update_completed_batch sets each filename* field to the archive-relative zip/member path, such as items/m_covers_0008/m_covers_0008_81.zip/0008812345-M.jpg, leaving URL construction to Cover.get_cover_url.",
+   "why_both_faithful": "The prose requires updating filename* fields to reflect the authoritative remote archived location using the zero-padded schema, but never states whether those database fields must store absolute download URLs or archive-relative paths.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

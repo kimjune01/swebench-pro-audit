@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_01f583bb",
+ "breadth": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 36,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Always emit properties.flipt.experimental as an empty object.",
+   "design_B": "Emit properties.flipt.experimental populated with any configured experimental feature settings.",
+   "why_both_faithful": "The prose only requires an experimental object and explicitly says it may be empty, without specifying whether configured experimental settings must be serialized.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

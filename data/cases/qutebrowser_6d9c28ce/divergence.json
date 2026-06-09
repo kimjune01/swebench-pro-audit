@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_6d9c28ce",
+ "breadth": {
+  "files": 3,
+  "hunks": 9,
+  "loc": 63,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `_glob(resource_root, subdir, ext)` helper must yield relative POSIX paths of files directly under `subdir` whose names end with `ext`, and must operate correctly when `resource_root` is a `pathlib.Path` (filesystem) and when it is a `zipfile.Path` (zip archive)."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

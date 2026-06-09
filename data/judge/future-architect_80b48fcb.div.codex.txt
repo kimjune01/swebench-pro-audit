@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Inside `parseSSHConfiguration`, the helper must be applied to each element of `userKnownHosts` only if the OS is Windows and the entry starts with `~`."}

@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_b1da3b30",
+ "breadth": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 79,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "On context cancellation during password input, restore the terminal, reset the reader state, and return the context cancellation error while suppressing any terminal-restore error unless it is the only error.",
+   "design_B": "On context cancellation during password input, restore the terminal, reset the reader state, and if terminal restoration fails, return the restore error instead of the context cancellation error.",
+   "why_both_faithful": "The prose requires terminal restoration, clean state transition, and that maybeRestoreTerm return restoration errors, but it does not specify error precedence when both password-read cancellation and terminal restoration produce errors.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

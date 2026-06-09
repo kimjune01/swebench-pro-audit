@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_88e891fc",
+ "breadth": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 241,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "when accessing a route that is not `/edit/email` or does not start with `/confirm/`, the middleware must redirect the user to `/register/complete`. The `Location` header must include the application's `relative_path` prefix."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "when accessing a route that is not `/edit/email` or does not start with `/confirm/`, the middleware must redirect the user to `/register/complete`"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

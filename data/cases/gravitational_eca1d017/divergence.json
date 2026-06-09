@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_eca1d017",
+ "breadth": {
+  "files": 3,
+  "hunks": 3,
+  "loc": 169,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "ParseOSReleaseFromReader stores the last occurrence of a repeated os-release key, so later PRETTY_NAME/NAME/etc. lines overwrite earlier values.",
+   "design_B": "ParseOSReleaseFromReader stores the first occurrence of a repeated os-release key and ignores later duplicates.",
+   "why_both_faithful": "The prose requires parsing key=value lines and storing common fields, but never specifies duplicate-key precedence.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

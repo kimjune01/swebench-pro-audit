@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_9ab63986",
+ "breadth": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 653,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When the same mount point appears in multiple sources, the unique `mount_points` dict keeps the FIRST-seen entry (earlier source in the configured order wins), e.g. static-file data takes precedence over the mount binary.",
+   "design_B": "When the same mount point appears in multiple sources, the unique `mount_points` dict keeps the LAST-seen entry (later source overwrites earlier), so the most recently processed source wins.",
+   "why_both_faithful": "The prose only says the dict must contain 'unique entries' and that a warning is issued for duplicates, but never states which of two conflicting entries for the same mount point is the one retained.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When multiple sources report the same mount point, keep the first discovered entry in mount_points and put all entries in aggregate_mounts when requested.",
+   "design_B": "When multiple sources report the same mount point, let the last discovered entry overwrite earlier entries in mount_points and put all entries in aggregate_mounts when requested.",
+   "why_both_faithful": "The prose requires unique mount_points plus optional aggregate_mounts and duplicate warnings, but never specifies which duplicate entry should be selected as the primary unique entry.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

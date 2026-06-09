@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_b479addd",
+ "breadth": {
+  "files": 4,
+  "hunks": 20,
+  "loc": 2028,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Generate redirect shim modules that do `from <redirect_target> import *`, so the original redirected module file re-exports the target module's public symbols.",
+   "design_B": "Generate redirect shim modules that import the redirect target module object and assign it into `sys.modules[__name__]`, so imports of the original name receive the actual target module object.",
+   "why_both_faithful": "The prose requires generated Python shim files that import the redirect target and expose it under the original module name, but does not specify whether exposure means symbol re-export or module-object aliasing.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

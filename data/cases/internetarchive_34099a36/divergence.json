@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_34099a36",
+ "breadth": {
+  "files": 4,
+  "hunks": 10,
+  "loc": 90,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Truncate short_title to the first 25 characters of the normalized title (and build titles/alternative forms via a specific punctuation-stripping regex), matching one concrete numeric/normalization choice.",
+   "design_B": "Truncate short_title to a different fixed length such as 20 or 30 characters (with a different but reasonable normalization for alternative title forms), equally consistent with 'a fixed character length'.",
+   "why_both_faithful": "The prose specifies only that short_title is 'truncated to a fixed character length' and that titles get 'alternative forms (with and without punctuation)' without naming the actual cutoff or the exact normalization rules, so multiple numeric/regex choices satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Move build_titles() into catalog/utils/__init__.py alongside expand_record(), and have expand_record call the local helper.",
+   "design_B": "Leave build_titles() in catalog/merge/merge_marc.py and import it into catalog/utils/__init__.py for expand_record() to use.",
+   "why_both_faithful": "The prose requires expand_record to depend on build_titles but explicitly allows that dependency to be either relocated or imported.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_002cb4ed",
+ "breadth": {
+  "files": 8,
+  "hunks": 28,
+  "loc": 154,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "All numeric fields in Subsonic API responses that represent integers, such as `songCount`, `bitRate`, `userRating`, and `year`, should consistently use `int32`, aligning with the official Subsonic API schema."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

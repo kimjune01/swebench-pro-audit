@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_42beccb2",
+ "breadth": {
+  "files": 4,
+  "hunks": 13,
+  "loc": 114,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement the default shuffle as a method-value/closure created once at config-defaulting time that captures a single `*rand.Rand` (e.g. `rand.New(rand.NewSource(clock.Now().UnixNano()))`) and performs an in-place `r.Shuffle` on a copy of the input slice \u2014 RNG seeded once from the clock at construction.",
+   "design_B": "Implement the default shuffle as a function that re-seeds a fresh RNG from the clock on every call (`rand.New(rand.NewSource(clock.Now().UnixNano()))` inside the Shuffle func body each invocation), shuffling per-call.",
+   "why_both_faithful": "The prose only says the default must be a 'time-seeded random shuffle' sourced from the provided clock, which equally permits seeding once at construction or re-seeding per call, with no clause fixing when the seed is drawn.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Retry only errors explicitly classified as connection-problem/connectivity errors from reverse-tunnel dialing, aborting on other tunnel dial errors.",
+   "design_B": "Retry any error returned while dialing through the reverse tunnel, treating all such dial failures as candidate connectivity failures.",
+   "why_both_faithful": "The prose requires retrying tunnel-related connectivity failures but does not define the exact error predicate or taxonomy for deciding which tunnel dial errors qualify.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

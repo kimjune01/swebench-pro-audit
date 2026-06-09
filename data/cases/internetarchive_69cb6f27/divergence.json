@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_69cb6f27",
+ "breadth": {
+  "files": 4,
+  "hunks": 9,
+  "loc": 95,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "remove the publishers field when its value is exactly [\"????\"], remove the authors field when its value is exactly [{\"name\":\"????\"}], and remove the publish_date field when its value is exactly \"????\""
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Import record normalization must remove the `publishers` field when its value is exactly [\"????\"], remove the `authors` field when its value is exactly [{\"name\":\"????\"}], and remove the `publish_date` field when its value is exactly \"????\"."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

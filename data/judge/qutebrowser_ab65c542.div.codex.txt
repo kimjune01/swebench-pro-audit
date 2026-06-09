@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The number of characters to select backward for deletion must be computed as the cursor position minus the target position minus one."}

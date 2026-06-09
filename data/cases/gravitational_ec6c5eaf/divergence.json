@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_ec6c5eaf",
+ "breadth": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 59,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "IsAvailable uses a 250ms context timeout and accepts only EC2 IDs matching ^i-([0-9a-f]{8}|[0-9a-f]{17})$.",
+   "design_B": "IsAvailable uses a 100ms context timeout and accepts EC2 IDs matching ^i-[0-9a-f]+$.",
+   "why_both_faithful": "The prose requires a short timeout with 250ms only as an example and says to validate the expected EC2 instance ID format using examples, without specifying the exact timeout or regex.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

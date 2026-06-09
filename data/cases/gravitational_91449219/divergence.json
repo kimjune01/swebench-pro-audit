@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_91449219",
+ "breadth": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 70,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When set, `TELEPORT_KUBE_CLUSTER` must assign its value to `KubernetesCluster` in the CLI configuration, unless a Kubernetes cluster was already specified on the CLI; in that case, the CLI value must take precedence."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

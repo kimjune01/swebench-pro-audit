@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_1e137b07",
+ "breadth": {
+  "files": 11,
+  "hunks": 17,
+  "loc": 151,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat a missing confirm:<code> object as neither pending nor expired, so loadUserInfo sets email:pending=false and email:expired=false for that user.",
+   "design_B": "Treat a present confirm:byUid:<uid> pointer whose confirm:<code> object is missing as an expired validation, so loadUserInfo sets email:expired=true.",
+   "why_both_faithful": "The prose requires pending and expired flags from confirm:byUid resolution and confirm:<code> expiry timestamps, but also names a 'missing' ACP state without specifying how missing confirmation objects map onto the two required flags.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

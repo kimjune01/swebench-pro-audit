@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_481158d6",
+ "breadth": {
+  "files": 4,
+  "hunks": 52,
+  "loc": 434,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Cache the obtained user credentials in a TTL cache keyed by the authenticated context, storing the *cert/credentials object*, and serialize concurrent CSR requests using a per-key mutex (e.g. a singleflight-style map of locks) so only one ProcessKubeCSR runs at a time for a given key",
+   "design_B": "Cache credentials in the TTL cache but serialize concurrent same-key requests using a global lock or a channel-based token while computing, or by double-checking the cache under a single shared lock \u2014 a different concurrency-control mechanism with no per-key singleflight structure",
+   "why_both_faithful": "The prose requires that credentials be TTL-cached, keyed by auth context, treated valid only if NotAfter \u2265 1 min out, and that concurrent same-key CSRs be serialized to one at a time, but it does not prescribe the concurrency primitive or data structure used to achieve that serialization, so multiple incompatible locking designs all satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use context.WithoutCancel(r.Context()) for exec, portForward, and catchAll audit emission so request values are preserved but client-disconnect cancellation is ignored.",
+   "design_B": "Use context.Background() for audit emission and explicitly attach only the needed audit identity/session metadata before emitting events.",
+   "why_both_faithful": "Both designs ensure audit events continue to be recorded after client disconnect while the prose does not require preserving the original request context values or using a specific detached-context mechanism.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

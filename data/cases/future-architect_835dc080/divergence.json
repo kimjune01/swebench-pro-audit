@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_835dc080",
+ "breadth": {
+  "files": 5,
+  "hunks": 15,
+  "loc": 52,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `removeInactives` function should return a filtered list of `WordPressPackages`, excluding any packages with a status of `\"inactive\"`."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `removeInactives` function should return a filtered list of `WordPressPackages`, excluding any packages with a status of `\"inactive\"`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement punycodeUrl by parsing with the URL API and serializing the full URL, which converts the hostname to punycode and may also normalize or percent-encode other URL components.",
+  "design_B": "Implement punycodeUrl by extracting only the hostname, replacing just that substring with its punycode ASCII form, and leaving the original protocol, pathname, query string, and hash text byte-for-byte except for removing a trailing slash from the pathname.",
+  "why_both_faithful": "The prose requires hostname punycode conversion and preservation of the other components, but does not specify whether standard URL serialization normalization is allowed or whether non-host components must remain textually identical.",
+  "selecting_clause": null
+}

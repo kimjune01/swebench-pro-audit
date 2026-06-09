@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Serialize the fourth JSON column with json.dumps(extra_fields, cls=InfogamiThingEncoder) using Python's default separators and insertion-order key order.",
+  "design_B": "Serialize the fourth JSON column with json.dumps(extra_fields, cls=InfogamiThingEncoder, sort_keys=True, separators=(\",\", \":\")) using sorted keys and compact JSON.",
+  "why_both_faithful": "The prose requires a fourth column containing a JSON object for extra fields, but never specifies JSON key ordering or whitespace within that JSON object.",
+  "selecting_clause": null
+}

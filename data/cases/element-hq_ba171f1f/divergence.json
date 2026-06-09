@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_ba171f1f",
+ "breadth": {
+  "files": 5,
+  "hunks": 9,
+  "loc": 81,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "DeviceDetails must render DeviceVerificationStatusCard with the device prop immediately after the heading, regardless of metadata presence or verification state."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

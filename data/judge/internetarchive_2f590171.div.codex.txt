@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"type_to_argparse must treat pathlib.Path as a supported simple type; for list annotations whose item type is a supported simple type (Path, int, str, or float), it must configure nargs='*' with the correct type so parsed values are instances of the annotated item type."}

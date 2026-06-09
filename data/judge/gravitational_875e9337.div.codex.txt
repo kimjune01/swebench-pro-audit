@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "HSMTestConfig checks backends in the listed order: YubiHSM, CloudHSM, AWS KMS, GCP KMS, then SoftHSM, and returns the first available config.",
+  "design_B": "HSMTestConfig checks SoftHSM first as the local/default test backend, then falls back to YubiHSM, CloudHSM, AWS KMS, and GCP KMS.",
+  "why_both_faithful": "The prose requires automatic backend detection and failure when none are available, but does not specify the selection priority when multiple TELEPORT_TEST_* environments are valid.",
+  "selecting_clause": null
+}

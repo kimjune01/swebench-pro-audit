@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_103f3de2",
+ "breadth": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 61,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Return a fresh RoleV3 named \"admin\" with OSSMigratedV6 metadata, wildcard labels for nodes/apps/Kubernetes/databases, and only read/list rules for events and sessions.",
+   "design_B": "Return a fresh RoleV3 named \"admin\" with OSSMigratedV6 metadata, wildcard labels for nodes/apps/Kubernetes/databases, read-only events/sessions rules, and additional connect/access permissions needed for SSH/app/Kubernetes/database access.",
+   "why_both_faithful": "The prose requires a downgraded admin role with read-only events/sessions and wildcard resource labels, but never enumerates the exact allow rules, verbs, logins, or access permissions that must be present or absent.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_ba03a119",
+ "breadth": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 58,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement caching in BetterDataProvider using a single dict keyed by document key (e.g. self.cache = {}), and clear_cache() does self.cache.clear(); preload/get_document share that one cache.",
+   "design_B": "Implement caching with separate per-source caches (e.g. distinct dicts for works, editions, authors, plus a metadata/preload cache), and clear_cache() resets each of them individually.",
+   "why_both_faithful": "The prose only requires that repeated same-key get_document calls hit a cache and that clear_cache() resets 'all internal caches' so subsequent fetches are fresh \u2014 it never specifies the cache's internal structure, so both single-dict and multi-cache designs satisfy every stated requirement and the observable call-count behavior.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Cache get_document results in BetterDataProvider only, with LegacyDataProvider.clear_cache implemented as a no-op compatibility method.",
+   "design_B": "Cache get_document results in both BetterDataProvider and LegacyDataProvider, with each clear_cache clearing its own get_document cache.",
+   "why_both_faithful": "The prose requires the data provider contract to expose clear_cache and make get_document caching observable, but does not state whether LegacyDataProvider must itself cache documents or merely satisfy the interface for compatibility.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

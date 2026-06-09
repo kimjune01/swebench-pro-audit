@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When skipExisting is enabled and a flag or segment key already exists, skip importing that entire flag or segment subtree, including nested variants, rules, constraints, or related objects.",
+  "design_B": "When skipExisting is enabled and a flag or segment key already exists, skip only the create call for the flag or segment itself, then continue importing nested or related objects under the preexisting flag or segment.",
+  "why_both_faithful": "The prose requires avoiding creation of existing flags and segments, but does not state whether related child configuration for those existing objects must also be skipped.",
+  "selecting_clause": null
+}

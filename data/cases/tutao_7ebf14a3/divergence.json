@@ -1,0 +1,30 @@
+{
+ "slug": "tutao_7ebf14a3",
+ "breadth": {
+  "files": 6,
+  "hunks": 16,
+  "loc": 56,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The pricing utility tests should use PriceAndConfigProvider.getInitializedInstance instead of the deprecated getPricesAndConfigProvider function for creating price configuration instances."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The pricing utility tests should use PriceAndConfigProvider.getInitializedInstance instead of the deprecated getPricesAndConfigProvider function for creating price configuration instances."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

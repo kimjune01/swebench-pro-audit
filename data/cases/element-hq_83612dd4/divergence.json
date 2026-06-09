@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_83612dd4",
+ "breadth": {
+  "files": 9,
+  "hunks": 21,
+  "loc": 1236,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The function `isKeyComboMatch` should return true only when the pressed key and modifiers exactly match the combination, and false when extra modifiers are present."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

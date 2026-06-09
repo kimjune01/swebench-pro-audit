@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_1c4f2315",
+ "breadth": {
+  "files": 10,
+  "hunks": 27,
+  "loc": 209,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Return requested diff CVEs in scan traversal order, appending current-only '+' entries as encountered in the current scan and previous-only '-' entries as encountered in the previous scan.",
+   "design_B": "Return the same requested diff CVEs with the same '+'/'-' statuses, but sorted lexicographically by CVE ID in one combined result set.",
+   "why_both_faithful": "The prose specifies which CVEs to include, how to mark them, and how to filter by plus/minus flags, but does not specify result ordering.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

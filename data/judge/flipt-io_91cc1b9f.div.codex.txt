@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Configure OpenTelemetry sampling with sdktrace.TraceIDRatioBased(SamplingRatio), so the ratio applies directly to every new trace decision regardless of parent context.",
+  "design_B": "Configure OpenTelemetry sampling with sdktrace.ParentBased(sdktrace.TraceIDRatioBased(SamplingRatio)), so existing parent sampling decisions are respected and the ratio applies only to root traces.",
+  "why_both_faithful": "The prose requires a 0-1 sampling ratio controlling sampled traces but never specifies whether parent trace sampling decisions must be honored or ignored.",
+  "selecting_clause": null
+}

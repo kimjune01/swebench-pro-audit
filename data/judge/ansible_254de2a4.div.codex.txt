@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Reject a handler declared as `meta: flush_handlers` at playbook/handler validation time with a parser/validation error.",
+  "design_B": "Allow the playbook to parse, but when the handler phase reaches a `meta: flush_handlers` handler, raise or fail that handler at runtime.",
+  "why_both_faithful": "The prose says `meta: flush_handlers` must not be usable as a handler, but does not specify whether that prohibition is enforced during parsing/validation or during handler execution.",
+  "selecting_clause": null
+}

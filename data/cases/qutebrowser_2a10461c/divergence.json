@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_2a10461c",
+ "breadth": {
+  "files": 4,
+  "hunks": 12,
+  "loc": 59,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "On QtWebEngine 6.6+, the \"smart\" policy should emit ImagePolicy=2 and ImageClassifierPolicy=0 settings, while \"smart-simple\" should emit ImagePolicy=2 and ImageClassifierPolicy=1."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

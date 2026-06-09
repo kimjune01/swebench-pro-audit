@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Have ansible.module_utils.common.warnings.deprecate(msg, version='X', date='YYYY-MM-DD') record {'msg': msg, 'version': 'X'}, treating the 'otherwise' case as version-based.",
+  "design_B": "Have ansible.module_utils.common.warnings.deprecate(msg, version='X', date='YYYY-MM-DD') raise AssertionError, matching AnsibleModule.deprecate's mutual-exclusion rule.",
+  "why_both_faithful": "The prose explicitly forbids both version and date only for AnsibleModule.deprecate, while common.warnings.deprecate has a date parameter but no stated both-provided error behavior.",
+  "selecting_clause": null
+}

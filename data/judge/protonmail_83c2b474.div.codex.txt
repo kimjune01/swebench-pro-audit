@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Set FAILING_FETCH_BACKOFF_MS to 1000 and evict cached NOT_FOUND/NOT_ALLOWED/INVALID_ID errors after 1 second.",
+  "design_B": "Set FAILING_FETCH_BACKOFF_MS to 60000 and evict cached NOT_FOUND/NOT_ALLOWED/INVALID_ID errors after 60 seconds.",
+  "why_both_faithful": "The prose requires a bounded short-lived backoff constant but never specifies the actual duration in milliseconds.",
+  "selecting_clause": null
+}

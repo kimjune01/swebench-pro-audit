@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"If the finder is an instance of FileFinder (as determined via isinstance() and availability of the FileFinder type in the runtime environment), find_module() must call the finder's find_module() method without passing a path argument."}

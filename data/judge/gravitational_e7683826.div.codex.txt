@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Proxy services should include `localhost`, `127.0.0.1` (IPv4 loopback), and `::1` (IPv6 loopback) in the list of additional principals."
+}

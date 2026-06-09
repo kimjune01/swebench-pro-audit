@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_a67832ba",
+ "breadth": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 60,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For exact MIME entries, resolve extensions with mimetypes.guess_all_extensions(mime_type) and expand wildcard type/* entries by scanning mimetypes.types_map.",
+   "design_B": "Resolve both exact MIME entries and wildcard type/* entries only by scanning mimetypes.types_map for matching MIME values.",
+   "why_both_faithful": "The prose requires Python mimetypes resolution and specifically requires wildcard expansion via mimetypes.types_map, but it does not specify whether exact MIME matches must use guess_all_extensions or the same types_map scan.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

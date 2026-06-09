@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_018129e0",
+ "breadth": {
+  "files": 2,
+  "hunks": 17,
+  "loc": 52,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When both sinks are enabled, emit audit.sinks as [\"log\",\"webhook\"].",
+   "design_B": "When both sinks are enabled, emit audit.sinks as [\"webhook\",\"log\"].",
+   "why_both_faithful": "The prose requires the sinks array to contain both enabled sink names but never specifies an ordering for that array.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

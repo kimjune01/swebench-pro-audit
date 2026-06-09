@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement process_user_query by parsing recognized advanced search syntax, preserving valid Boolean operators and quoted phrases, mapping fields, and escaping only term-level Solr-reserved characters such as a trailing hyphen.",
+  "design_B": "Implement process_user_query by treating the entire user input as literal search text, escaping operator-like tokens and quotes so they cannot affect Solr syntax, while separately normalizing ISBN-like strings.",
+  "why_both_faithful": "The prose requires safe, normalized, semantically correct queries for edge cases but does not define whether user-entered operators and quotes should be preserved as search syntax or escaped as literal text.",
+  "selecting_clause": null
+}

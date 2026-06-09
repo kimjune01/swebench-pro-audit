@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Use a quote-aware fixed-column parser that accepts only lines with exactly the expected repoquery fields, e.g. name, epoch, version, release, arch, repository, and skips every other line.",
+  "design_B": "Use an anchored RPM NEVRA-style parser that accepts package records encoded as a single package/version token with an optional epoch prefix plus optional metadata fields, and skips nonmatching lines.",
+  "why_both_faithful": "The prose requires strict valid-package parsing, quoted-field handling, prompt-line skipping, and epoch-aware versioning, but never specifies the exact repoquery output format or valid package-line grammar.",
+  "selecting_clause": null
+}

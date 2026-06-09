@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_563a8c45",
+ "breadth": {
+  "files": 8,
+  "hunks": 13,
+  "loc": 339,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Resolve a `flipt://` repository to a local OCI image-layout directory (e.g. rooted at `Dir()`/the repo name) and read the manifest + layers via an OCI-layout store (oci-layout/index.json), producing the FetchResponse from the layout's tagged manifest.",
+   "design_B": "Treat a `flipt://` repository as a plain bundle directory whose files are read directly off disk (constructing a manifest/descriptors from the directory contents) rather than from any OCI image-layout index.",
+   "why_both_faithful": "The prose only says the Store must access 'local (`flipt://`)' bundle directories and return the same `FetchResponse` shape, but never specifies the on-disk format or how local manifests/layers are located, so both an OCI-layout reader and a direct-directory reader satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When IfNoMatch matches the manifest digest, Fetch returns a FetchResponse with Digest set, Matched true, and an empty/nil Files slice.",
+   "design_B": "When IfNoMatch matches the manifest digest, Fetch returns a FetchResponse with Digest set, Matched true, and the already-resolved manifest layer files included.",
+   "why_both_faithful": "The prose requires an early return on digest match and a Matched flag, but does not specify whether matched responses should include files or omit them to avoid transfer/work.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,24 @@
+{
+ "slug": "element-hq_29c19321",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 90,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": null
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Upon submission, and if not busy, the view must return to the authentication flow an object containing exactly `type` (the type advertised by the server for this stage) and `token` (the entered value); the `session` is the responsibility of the upper flow."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

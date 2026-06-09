@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_866ba43d",
+ "breadth": {
+  "files": 7,
+  "hunks": 15,
+  "loc": 158,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat the authorization evaluation result as a bare list of namespace names, e.g. OPA returns [\"team-a\", \"team-b\"] and any object-shaped result is malformed.",
+   "design_B": "Treat the authorization evaluation result as an object containing the list, e.g. OPA returns {\"namespaces\": [\"team-a\", \"team-b\"]} and any bare-list result is malformed.",
+   "why_both_faithful": "The prose requires engines to evaluate the specified decision path/query and return accessible namespace lists, but never specifies the exact shape of the OPA evaluation result that should be parsed into []string.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

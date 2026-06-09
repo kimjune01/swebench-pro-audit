@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_fd6d7f64",
+ "breadth": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 56,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Sanitize string HTML with a broad sanitizer such as DOMPurify defaults, then render it as HTML while forcing every anchor to target=\"_blank\" and rel=\"noopener noreferrer\".",
+   "design_B": "Parse string HTML into React nodes using a narrow allowlist that preserves only basic formatting tags and anchors, strips all other tags/attributes, and forces every anchor to target=\"_blank\" and rel=\"noopener noreferrer\".",
+   "why_both_faithful": "The prose requires safe interactive HTML and secure anchor attributes, but does not specify the sanitizer, allowed tag set, or allowed attributes beyond anchors.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

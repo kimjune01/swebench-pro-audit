@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The class QtFont in configtypes.py should resolve tokenized values in the same way as Font and produce a QFont whose family() matches the stored default family and whose point size reflects the resolved size"
+}

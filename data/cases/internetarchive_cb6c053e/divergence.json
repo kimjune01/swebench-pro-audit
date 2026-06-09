@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_cb6c053e",
+ "breadth": {
+  "files": 6,
+  "hunks": 13,
+  "loc": 244,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Add a `get_owner(self)` method on `List` that parses `self.key` and returns the user object or `None`.",
+   "design_B": "Add an `owner(self)` method on `List` that parses `self.key` and returns the user object or `None`.",
+   "why_both_faithful": "The prose requires that `List` include a method returning the owner, but never specifies the method name or callable interface.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

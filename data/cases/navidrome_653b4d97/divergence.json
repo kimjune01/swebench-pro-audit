@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_653b4d97",
+ "breadth": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 82,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Store the seed string per id and compute hashes as maphash(globalSeed, seed + \"\\u0000\" + input).",
+   "design_B": "Store the seed string per id and compute hashes as maphash(globalSeed, input + \"\\u0000\" + seed).",
+   "why_both_faithful": "The prose requires stable per-identifier reseeding behavior but never specifies how the seed string must be combined with the input before hashing.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

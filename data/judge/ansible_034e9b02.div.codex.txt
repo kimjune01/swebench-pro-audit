@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "`RoleMixin._build_doc(self, role, role_spec, path, collection, entry_point=None)` derives entry points from `role_spec` and builds `fqcn` from `role` plus `collection`.",
+  "design_B": "`RoleMixin._build_doc(self, role, entry_points, path, collection, entry_point=None)` accepts the entry point mapping directly rather than the full role specification object.",
+  "why_both_faithful": "The prose specifies the returned tuple and filtering behavior but never specifies the method signature or exact shape of the input arguments.",
+  "selecting_clause": null
+}

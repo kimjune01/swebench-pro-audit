@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Attach audit data by calling span.AddEvent with a fixed audit event name and the OTEL attributes from Event.DecodeToAttributes; the exporter reads span.Events() and decodes matching event attributes.",
+  "design_B": "Attach audit data by setting the OTEL attributes directly on the current span with span.SetAttributes; the exporter reads span.Attributes() and decodes spans containing the complete audit schema.",
+  "why_both_faithful": "The prose says audit events should be represented on spans via OTEL attributes and attached to the current span, but does not explicitly require span events rather than span-level attributes.",
+  "selecting_clause": null
+}

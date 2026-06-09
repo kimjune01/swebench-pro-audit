@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_bf70473d",
+ "breadth": {
+  "files": 7,
+  "hunks": 10,
+  "loc": 180,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement applyHOCs with left-to-right reduction so applyHOCs(A, B)(Component) returns B(A(Component)).",
+   "design_B": "Implement applyHOCs with right-to-left composition so applyHOCs(A, B)(Component) returns A(B(Component)).",
+   "why_both_faithful": "The prose requires composing multiple HOCs but never specifies whether the first HOC argument should become the outermost or innermost wrapper.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

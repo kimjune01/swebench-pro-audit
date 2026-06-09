@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_a0710124",
+ "breadth": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 55,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Render a custom widget value `text:foo` as the visible statusbar text `foo`, stripping the `text:` prefix used only as syntax.",
+   "design_B": "Render a custom widget value `text:foo` as the visible statusbar text `text:foo`, accepting the entire string as the widget's static text.",
+   "why_both_faithful": "The prose specifies validation of the whole `text:$CONTENT` string but never explicitly states whether the displayed custom text excludes or includes the `text:` prefix.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

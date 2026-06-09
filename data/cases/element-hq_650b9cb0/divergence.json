@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_650b9cb0",
+ "breadth": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 57,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement useWindowWidth with useState initialized from UIStore.instance.windowWidth, subscribe to UI_EVENTS.Resize in useEffect, set state from UIStore.instance.windowWidth on each event, and unsubscribe in the cleanup.",
+   "design_B": "Implement useWindowWidth with useSyncExternalStore, using a subscribe function that listens for UI_EVENTS.Resize on UIStore and a snapshot function that returns UIStore.instance.windowWidth.",
+   "why_both_faithful": "The prose specifies the observable hook behavior and cleanup requirement, but does not require a particular React subscription primitive or state-management mechanism.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

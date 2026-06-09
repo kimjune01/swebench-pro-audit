@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Scale hue percentages by computing value * 359 / 100 and truncating to int before passing to QColor.fromHsv, so hsv(50%, 100%, 100%) uses hue 179.",
+  "design_B": "Scale hue percentages by computing value * 359 / 100 and rounding to the nearest int before passing to QColor.fromHsv, so hsv(50%, 100%, 100%) uses hue 180.",
+  "why_both_faithful": "The prose requires hue percentages to scale to the 0-359 range with 100% mapping to 359, but does not specify how fractional scaled values should be rounded to the integer QColor channel.",
+  "selecting_clause": null
+}

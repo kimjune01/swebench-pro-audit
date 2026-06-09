@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For each thread, use only that thread's scoped read receipt as its corresponding receipt; if a thread has no scoped receipt, treat it as having no receipt and mark unread if it contains any relevant event.",
+  "design_B": "For each thread, use a scoped thread receipt when present, but fall back to the room/main-timeline receipt when the thread has no scoped receipt.",
+  "why_both_faithful": "The prose requires honoring thread-targeted receipts but does not specify what receipt, if any, corresponds to a thread when no thread-scoped receipt exists.",
+  "selecting_clause": null
+}

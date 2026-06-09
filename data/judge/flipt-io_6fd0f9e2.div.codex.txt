@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Subscribe immediately fetches on start with previous digest empty, treats the first observed digest as changed, and sends the initial snapshot before later polling.",
+  "design_B": "Subscribe initializes its previous digest from the Source's current digest/current snapshot and only sends snapshots after a later poll observes a different digest.",
+  "why_both_faithful": "The prose requires Subscribe to poll, respect cancellation, compare previous and current digests, and send only when changed, but never states whether the initial observed snapshot counts as a change that must be emitted.",
+  "selecting_clause": null
+}

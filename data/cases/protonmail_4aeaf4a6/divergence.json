@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_4aeaf4a6",
+ "breadth": {
+  "files": 30,
+  "hunks": 89,
+  "loc": 182,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use colon-scoped test IDs for unspecified elements, e.g. banners as `message-banner:error`, `message-banner:auto-reply`, and recipient actions as `recipient:action-compose-<email>`, `recipient:action-contact-details-<email>`.",
+   "design_B": "Use hyphen-scoped test IDs for the same unspecified elements, e.g. banners as `banner-message-error`, `banner-message-auto-reply`, and recipient actions as `recipient-compose-<email>`, `recipient-contact-details-<email>`.",
+   "why_both_faithful": "The prose requires consistent, descriptive, scoped data-testid attributes for banners and recipient actions but does not prescribe exact strings or a single naming convention for those cases.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

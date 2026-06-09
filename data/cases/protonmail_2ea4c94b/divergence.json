@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_2ea4c94b",
+ "breadth": {
+  "files": 14,
+  "hunks": 29,
+  "loc": 813,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement the default-expiration logic so that setting external encryption directly sets the message's expiry to 28 days (writing ExpiresIn/expiration metadata into the draft state) at the moment the password is submitted in the encryption modal.",
+   "design_B": "Implement the default-expiration as UI-only default state in the expiration modal/hook (the 28-day value seeds the expiration picker) without writing an actual expiry onto the message until the user explicitly confirms expiration, while still rendering the 'This message will expire on' banner from the derived default.",
+   "why_both_faithful": "The prose says encryption 'should automatically apply a default expiration of 28 days' and that a banner with 'This message will expire on' must appear, but never specifies whether the 28-day value is committed to the message's stored expiry immediately or only held as a default seed in the expiration UI, so both committing-on-encrypt and seed-only approaches satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Store EO expiration as an absolute expiry timestamp on the draft when encryption or expiration is configured, and render the banner/modal copy from that stored timestamp.",
+   "design_B": "Store EO expiration as a relative duration in days/hours on the draft, recomputing the absolute expiry time for display when the composer/modal is opened.",
+   "why_both_faithful": "The prose requires a 28-day default, days/hours selection, persistence, and specific display text, but never specifies whether expiration state must be stored as an absolute timestamp or a relative duration.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

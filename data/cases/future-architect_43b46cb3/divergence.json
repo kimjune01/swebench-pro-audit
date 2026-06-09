@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_43b46cb3",
+ "breadth": {
+  "files": 9,
+  "hunks": 22,
+  "loc": 243,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For Raspbian results, create a copied ScanResult and remove only packages explicitly marked with family/distro metadata equal to Raspbian.",
+   "design_B": "For Raspbian results, create a copied ScanResult and remove packages whose package name or source identifier matches known Raspbian-specific naming/repository patterns.",
+   "why_both_faithful": "The prose requires excluding all Raspbian-specific packages but never defines how a package is identified as Raspbian-specific.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

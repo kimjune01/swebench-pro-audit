@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_54c0c493",
+ "breadth": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 22,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Add `compiled` with default `True`, preserving existing mixed-version behavior for existing callers unless they explicitly pass `compiled=False`.",
+   "design_B": "Add `compiled` with default `False`, making existing callers check only runtime Qt unless they explicitly pass `compiled=True`.",
+   "why_both_faithful": "The prose requires a `compiled` parameter and specifies behavior when `compiled=False`, but never states the default value for calls that omit it.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

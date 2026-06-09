@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_c72add51",
+ "breadth": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 214,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "On smart playlist retrieval, evaluate the rules, persist the resulting track IDs into the playlist track table through the centralized track-update path, then return the refreshed stored playlist.",
+   "design_B": "On smart playlist retrieval, evaluate the rules and return the matching tracks dynamically without persisting them to the playlist track table; only explicit add/remove/reorder operations use the centralized track-update path.",
+   "why_both_faithful": "The prose requires retrieved smart playlists to contain tracks matching current rules and says they are refreshed when accessed, but does not state whether that refresh must persist updated playlist tracks or may be computed transiently.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_a797a05d",
+ "breadth": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 162,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When a subject string would land in more than one category, keep it in whichever category processes/encounters it first and delete it from the later category (resolution by tag/subfield iteration order).",
+   "design_B": "Resolve cross-category collisions by a fixed category precedence ranking (e.g. person > org > event > work > place > time > subject), keeping the string only in its highest-priority category regardless of processing order.",
+   "why_both_faithful": "The prose only mandates that each subject string ends up in exactly one category and gives the per-tag/subfield mappings, but never specifies which category wins when the same string is produced for two categories, so any deterministic tie-break satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When the same normalized subject string would fall into multiple categories, resolve conflicts by a fixed category precedence such as person, org, event, work, subject, place, time, counting the string only in the highest-priority applicable category.",
+   "design_B": "When the same normalized subject string would fall into multiple categories, let the first category encountered while iterating the MARC record own the string, and ignore later cross-category occurrences.",
+   "why_both_faithful": "The prose requires each subject string to appear in only one category but never specifies the tie-breaking rule when the same string is produced by multiple tags or subfields.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

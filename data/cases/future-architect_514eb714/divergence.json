@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_514eb714",
+ "breadth": {
+  "files": 8,
+  "hunks": 25,
+  "loc": 270,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When the input is exactly an empty string (\"\", length = 0), oval.major should return an empty string (\"\")."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When the input string is empty (\"\"), the function returns an empty string (\"\")."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

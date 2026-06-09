@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When no module shebang or configured override exists, fall back to /usr/bin/python.",
+  "design_B": "When no module shebang or configured override exists, fall back to Ansible's configured/default Python discovery result such as /usr/bin/python3.",
+  "why_both_faithful": "The prose requires a default Python interpreter only when no shebang/interpreter can be determined, but gives /usr/bin/python merely as an example rather than mandating the exact default.",
+  "selecting_clause": null
+}

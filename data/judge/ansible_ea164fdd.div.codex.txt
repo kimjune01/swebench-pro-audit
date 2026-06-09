@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Treat NX-OSv as having L3 interfaces default enabled, so sysdefs.L3_enabled is true for NX-OSv and default_intf_enabled emits shutdown only when requested state differs from that.",
+  "design_B": "Treat NX-OSv like N7K/N9K with L3 interfaces default disabled, so sysdefs.L3_enabled is false for NX-OSv and default_intf_enabled emits no shutdown only when requested state differs from that.",
+  "why_both_faithful": "The prose explicitly specifies L3 defaults for N3K/N6K and N7K/N9K but mentions NX-OSv without stating which platform-family default it must follow.",
+  "selecting_clause": null
+}

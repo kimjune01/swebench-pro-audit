@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_b6360dc5",
+ "breadth": {
+  "files": 6,
+  "hunks": 13,
+  "loc": 201,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Delete login.py and add an early CLI argument check that special-cases `ansible-galaxy role login`, printing the token migration message before normal subcommand parsing.",
+   "design_B": "Delete login.py and leave parser construction as the validation point, adding a removed/hidden `login` subcommand handler under `role` whose only behavior is to raise the token migration error.",
+   "why_both_faithful": "Both remove the login implementation and provide CLI validation with an informative API-token alternative message, while the prose never specifies whether detection must happen before parsing or via a retained parser-level tombstone command.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

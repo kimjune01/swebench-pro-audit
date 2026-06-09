@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_b2086f9b",
+ "breadth": {
+  "files": 2,
+  "hunks": 12,
+  "loc": 141,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Group multi-word field values with parentheses, e.g. process_user_query(\"title:foo bar by:author\") returns 'alternative_title:(foo bar) author_name:(author)'",
+   "design_B": "Group multi-word field values with quoted phrases, e.g. returns 'alternative_title:\"foo bar\" author_name:\"author\"'",
+   "why_both_faithful": "The prose requires that multi-word field values be 'properly grouped to maintain search intent' but never specifies the grouping syntax (parentheses vs quotes vs another delimiter), so both produce a normalized query honoring greedy binding and alias mapping.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Normalize greedy multi-word field values as one grouped field clause, e.g. `title:foo bar by:author` -> `alternative_title:(foo bar) author_name:author`, and zero-pad LCC numeric portions to a chosen fixed width such as 4 digits.",
+   "design_B": "Normalize greedy binding by expanding the field onto each bound term inside a grouped boolean clause, e.g. `title:foo bar by:author` -> `(alternative_title:foo AND alternative_title:bar) author_name:author`, and zero-pad LCC numeric portions to a different sortable fixed width such as 5 digits.",
+   "why_both_faithful": "The prose requires alias mapping, greedy binding, grouping, boolean preservation, and sortable zero-padding, but does not specify the exact normalized query syntax or padding width.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

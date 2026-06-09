@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_50517020",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 36,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When force is provided and a non-expired confirmation already exists, resend an email using the existing confirmation code and existing expires timestamp without replacing confirm:byUid:<uid> or confirm:<code>.",
+   "design_B": "When force is provided and a non-expired confirmation already exists, generate a new confirmation code, replace confirm:byUid:<uid> and confirm:<code>, reset expires, and send the email with the new code.",
+   "why_both_faithful": "The prose only says force permits sending despite an existing non-expired pending validation, but does not specify whether force reuses the existing confirmation object or invalidates it and creates a new one.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

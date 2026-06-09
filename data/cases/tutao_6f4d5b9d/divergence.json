@@ -1,0 +1,30 @@
+{
+ "slug": "tutao_6f4d5b9d",
+ "breadth": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 28,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Mutates the input entity by recursively deleting all properties starting with \"_finalEncrypted\", \"_defaultEncrypted\", or \"_errors\"."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

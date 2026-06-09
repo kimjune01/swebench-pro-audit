@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Check for a `signal` attribute first, treating any object exposing both `signal` and `signatures` as bound and parsing `sig.signal`.",
+  "design_B": "Check for a `signatures` attribute first, treating any object exposing both `signal` and `signatures` as PyQt >= 5.11 unbound and parsing `sig.signatures[0]`.",
+  "why_both_faithful": "The prose defines bound signals as objects exposing `signal` and PyQt >= 5.11 unbound signals as objects exposing `signatures`, but never states precedence for an object exposing both.",
+  "selecting_clause": null
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_02e8f0cc",
+ "breadth": {
+  "files": 1,
+  "hunks": 7,
+  "loc": 90,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "\u2018is_low_quality_book(book_item)\u2019 must return 'True' if any author name in \u2018book_item[\"authors\"]\u2019, after lowercasing, appears in a predefined case-insensitive exclusion list consisting of exactly"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

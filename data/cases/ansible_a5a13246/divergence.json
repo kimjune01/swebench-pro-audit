@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_a5a13246",
+ "breadth": {
+  "files": 5,
+  "hunks": 6,
+  "loc": 31,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When multiple redirected underlying module names have module_defaults for the same option, merge them in redirect_list order with later entries overwriting earlier ones.",
+   "design_B": "When multiple redirected underlying module names have module_defaults for the same option, merge them by effective invoked module priority, so the invoked alias/name overwrites other redirected aliases regardless of redirect_list order.",
+   "why_both_faithful": "The prose requires defaults from redirected names to be incorporated, but only specifies precedence between action-plugin defaults and underlying-module defaults, not among conflicting defaults for multiple redirected underlying names.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_6da20eb7",
+ "breadth": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 201,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For a scheme-less `host:port` OTLP endpoint, treat it as a gRPC OTLP exporter (otlptracegrpc) by default, stripping/normalizing the address as the gRPC endpoint.",
+   "design_B": "For a scheme-less `host:port` OTLP endpoint, treat it as an HTTP OTLP exporter (otlptracehttp) by default, since the requirement lists `http://` first among supported schemes.",
+   "why_both_faithful": "The prose only says OTLP must 'accept' the scheme-less `host:port` form alongside the explicit schemes, but never states which transport/exporter a scheme-less endpoint maps to, so either default satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat scheme-less OTLP endpoints like `host:port` as OTLP/gRPC endpoints and initialize `otlptracegrpc` with that endpoint and headers.",
+   "design_B": "Treat scheme-less OTLP endpoints like `host:port` as OTLP/HTTP endpoints and initialize `otlptracehttp` with that endpoint and headers.",
+   "why_both_faithful": "The prose requires accepting scheme-less OTLP endpoints and applying headers, but does not specify whether the scheme-less form selects the HTTP or gRPC OTLP transport.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

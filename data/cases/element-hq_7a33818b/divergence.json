@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_7a33818b",
+ "breadth": {
+  "files": 9,
+  "hunks": 27,
+  "loc": 137,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Maintain selectedDeviceIds in device-list order whenever toggling, so onSignOutDevices receives selected IDs ordered as displayed.",
+   "design_B": "Maintain selectedDeviceIds in user selection order, appending newly selected devices and removing deselected ones, so onSignOutDevices receives IDs ordered by click history.",
+   "why_both_faithful": "The prose requires selectedDeviceIds to contain selected device IDs and toggle their presence, but never specifies the ordering semantics of that array.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

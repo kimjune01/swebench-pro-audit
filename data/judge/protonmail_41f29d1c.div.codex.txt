@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement isFromProton as element.IsProton === 1.",
+  "design_B": "Implement isFromProton as Boolean(element.IsProton).",
+  "why_both_faithful": "The prose only specifies behavior for IsProton values 1 and 0, so both implementations agree on all stated cases while differing on other possible values.",
+  "selecting_clause": null
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_28f7aac9",
+ "breadth": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 29,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Dispatch Action.RoomLoaded when RoomView's explicit initial timeline/load callback fires, then RoomViewStore recomputes viewRoomOpts from the currently active room state.",
+   "design_B": "Dispatch Action.RoomLoaded from RoomView when its room-loading state transitions from loading to loaded, then RoomViewStore recomputes viewRoomOpts from the currently active room state.",
+   "why_both_faithful": "The prose requires the dispatch after initial load but does not specify which RoomView loading signal or lifecycle boundary defines that moment.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

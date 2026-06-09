@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_6e5fa4b4",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 97,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Validate that request contains required 'id' field and at least one of 'year' or 'data' fields"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

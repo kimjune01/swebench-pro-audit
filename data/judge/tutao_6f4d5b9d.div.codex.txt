@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"Mutates the input entity by recursively deleting all properties starting with \"_finalEncrypted\", \"_defaultEncrypted\", or \"_errors\"."}

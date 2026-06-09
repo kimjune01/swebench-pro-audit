@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_34d99c15",
+ "breadth": {
+  "files": 8,
+  "hunks": 12,
+  "loc": 256,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For accept/reject, check whether the invitation exists before checking whether the authenticated caller is allowed, so a request with both a missing invitation and wrong caller returns `[[error:not-invited]]`.",
+   "design_B": "For accept/reject, check caller authorization before checking whether the invitation exists, so a request with both a missing invitation and wrong caller returns `[[error:not-allowed]]`.",
+   "why_both_faithful": "The prose requires both `[[error:not-invited]]` and `[[error:not-allowed]]` for their respective failure conditions but never specifies precedence when both conditions are true.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

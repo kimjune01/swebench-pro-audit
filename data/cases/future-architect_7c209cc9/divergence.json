@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_7c209cc9",
+ "breadth": {
+  "files": 6,
+  "hunks": 23,
+  "loc": 129,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Represent CentOS Stream 8 internally as release \"stream8\" and pass \"stream8\" through to all OVAL/Gost database and HTTP release lookups.",
+   "design_B": "Represent CentOS Stream 8 internally as release \"stream8\" but convert it to a source-specific identifier such as \"8-stream\" for OVAL/Gost database and HTTP release lookups.",
+   "why_both_faithful": "The prose requires a distinct internal \"streamN\" release and an \"appropriate release identifier\" for OVAL/Gost, but never states the exact external identifier those sources require.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

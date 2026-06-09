@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Build image_files by iterating sorted MediaFiles.Dirs() and, within each directory, preserving the image filenames in the order they were detected/appended during directory scanning.",
+  "design_B": "Build image_files by iterating sorted MediaFiles.Dirs() and, within each directory, sorting the image filenames before joining them into full paths.",
+  "why_both_faithful": "The prose requires sorted de-duplicated media directories and appending detected image names to folder statistics, but never specifies the ordering of image names in the final concatenated image_files string.",
+  "selecting_clause": null
+}

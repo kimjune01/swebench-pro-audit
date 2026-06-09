@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_0018c5df",
+ "breadth": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 24,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Replace string-to-[]string decoding with whitespace-only splitting using strings.Fields, so commas are treated as ordinary characters.",
+   "design_B": "Decode string-to-[]string by splitting on both commas and all whitespace, preserving previous comma-separated behavior while adding whitespace-separated behavior.",
+   "why_both_faithful": "The prose requires whitespace delimiters but never states whether existing comma delimiters must be removed or preserved.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_ae910113",
+ "breadth": {
+  "files": 7,
+  "hunks": 18,
+  "loc": 213,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Single certificate errors should be rendered as paragraph elements while multiple errors should be rendered as unordered lists for clear user presentation."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "html() returns only the escaped error messages wrapped directly as <p>escaped message</p> for one error and <ul><li>escaped message</li>...</ul> for multiple errors.",
+   "design_B": "html() returns escaped error messages with explanatory surrounding text, e.g. <p>Certificate error: escaped message</p> for one error and <p>Certificate errors:</p><ul><li>escaped message</li>...</ul> for multiple errors.",
+   "why_both_faithful": "The prose requires paragraph elements for single errors, unordered lists for multiple errors, and HTML escaping, but does not specify the exact text or surrounding HTML structure.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

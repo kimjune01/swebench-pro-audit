@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The workaround logic should only be triggered if all of the following activation conditions are met"}

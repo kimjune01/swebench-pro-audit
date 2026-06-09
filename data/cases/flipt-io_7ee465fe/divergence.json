@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_7ee465fe",
+ "breadth": {
+  "files": 4,
+  "hunks": 20,
+  "loc": 189,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `flag_key` set in each response must match the `key` property of the evaluated flag object that was provided to the evaluation function"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

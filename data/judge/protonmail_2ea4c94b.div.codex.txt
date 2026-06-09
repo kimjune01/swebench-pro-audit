@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Store EO expiration as an absolute expiry timestamp on the draft when encryption or expiration is configured, and render the banner/modal copy from that stored timestamp.",
+  "design_B": "Store EO expiration as a relative duration in days/hours on the draft, recomputing the absolute expiry time for display when the composer/modal is opened.",
+  "why_both_faithful": "The prose requires a 28-day default, days/hours selection, persistence, and specific display text, but never specifies whether expiration state must be stored as an absolute timestamp or a relative duration.",
+  "selecting_clause": null
+}

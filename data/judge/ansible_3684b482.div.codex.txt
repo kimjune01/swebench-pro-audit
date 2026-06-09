@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "In WorkerProcess._detach, call os.setsid() and redirect fd 0, 1, and 2 to /dev/null with os.dup2, so child code has valid but inert standard streams.",
+  "design_B": "In WorkerProcess._detach, call os.setpgrp(), close inherited fd 0, 1, and 2, and replace Python sys.stdin/sys.stdout/sys.stderr with queue-backed or null file-like objects.",
+  "why_both_faithful": "The prose requires isolation from inherited terminal I/O and isolated process groups, but does not specify whether standard descriptors must be redirected to /dev/null, closed, or replaced at the Python stream layer, nor whether setsid or setpgrp is required.",
+  "selecting_clause": null
+}

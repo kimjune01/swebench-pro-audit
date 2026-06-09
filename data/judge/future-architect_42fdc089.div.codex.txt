@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For IPv6 CIDR enumeration, reject ranges with more than 1024 addresses as too broad; enumerate ranges of 1024 addresses or fewer.",
+  "design_B": "For IPv6 CIDR enumeration, reject ranges with more than 65536 addresses as too broad; enumerate ranges of 65536 addresses or fewer.",
+  "why_both_faithful": "The prose requires overly broad IPv6 masks such as /32 to error and small ranges such as /126, /127, and /128 to enumerate, but never defines the exact feasibility threshold.",
+  "selecting_clause": null
+}

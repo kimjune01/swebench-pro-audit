@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "HostState.__str__ renders enum member names only, e.g. run_state=TASKS and fail_state=SETUP|RESCUE.",
+  "design_B": "HostState.__str__ renders qualified enum strings, e.g. run_state=IteratingStates.TASKS and fail_state=FailedStates.SETUP|FailedStates.RESCUE.",
+  "why_both_faithful": "The prose requires readable state names and names of the new enum members, but does not specify the exact string format for HostState.__str__ output.",
+  "selecting_clause": null
+}

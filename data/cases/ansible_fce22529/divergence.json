@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_fce22529",
+ "breadth": {
+  "files": 6,
+  "hunks": 18,
+  "loc": 102,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When --upgrade is set, upgrade transitive dependencies only when their currently installed versions fail the new constraints, otherwise leave them unchanged.",
+   "design_B": "When --upgrade is set, recompute the full dependency solution and upgrade every transitive dependency to the latest version allowed by its constraints, even if the installed version already satisfies them.",
+   "why_both_faithful": "The prose says dependencies should be upgraded only if required, but also says upgrade-aware dependency resolution should update transitive dependencies as needed when --upgrade is set, without defining whether 'needed' means minimally constraint-satisfying or latest-allowed across the resolved graph.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

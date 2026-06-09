@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When multiple kube_service endpoints are discovered, always select the first constructed kubeClusterEndpoint in the returned GetKubeServices order.",
+  "design_B": "When multiple kube_service endpoints are discovered, select an endpoint by round-robin or random choice before updating sess.kubeAddress and dialing it.",
+  "why_both_faithful": "The prose only requires that endpoints are discovered, one is selected, sess.kubeAddress is updated, and dialEndpoint is used; it never specifies the endpoint selection policy.",
+  "selecting_clause": null
+}

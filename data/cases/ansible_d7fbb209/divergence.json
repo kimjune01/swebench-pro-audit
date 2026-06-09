@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_d7fbb209",
+ "breadth": {
+  "files": 3,
+  "hunks": 12,
+  "loc": 38,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The implementation must create a `set_state_for_host` instance method on `PlayIterator` that allows setting a complete `HostState` for a specific host identified by hostname."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "When evaluation fails due to an error, including store errors while fetching rules, encountering out-of-order rules, or errors while fetching distributions, the `reason` field must be set to `ERROR_EVALUATION_REASON`."
+}

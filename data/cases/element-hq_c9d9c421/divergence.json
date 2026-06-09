@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_c9d9c421",
+ "breadth": {
+  "files": 8,
+  "hunks": 17,
+  "loc": 312,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Render the localized type prefix as a separate span followed by a colon and space, e.g. `<span class=\"mx_EventPreview_prefix\">Image</span>: sunset.jpg`.",
+   "design_B": "Render the localized type prefix as a separate span followed only by spacing, e.g. `<span class=\"mx_EventPreview_prefix\">Image</span> sunset.jpg`.",
+   "why_both_faithful": "The prose requires a localized prefix followed by the generated preview and shared prefix styling, but never specifies the separator or exact text composition between prefix and preview.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

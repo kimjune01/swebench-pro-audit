@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Backend normalizes absent storage.readOnly into an explicit boolean in metadata before sending config to the UI, so frontend readonly state directly reads config.storage.readOnly.",
+  "design_B": "Backend preserves absent storage.readOnly as undefined in metadata, and the frontend selector/state layer computes the default readonly value from storage.type when readOnly is undefined.",
+  "why_both_faithful": "The prose requires the UI to use config.storage.readOnly when present and apply a type-based default when absent, but does not state whether that default must be materialized by backend metadata normalization or computed in frontend state.",
+  "selecting_clause": null
+}

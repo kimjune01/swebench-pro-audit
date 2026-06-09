@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_fd18df1d",
+ "breadth": {
+  "files": 5,
+  "hunks": 35,
+  "loc": 209,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Add end\u2011of\u2011life metadata for Ubuntu\u00a020.04 that includes an extended support end date of 1\u00a0April\u00a02030"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

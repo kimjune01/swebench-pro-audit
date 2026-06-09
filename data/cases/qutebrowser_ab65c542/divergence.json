@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_ab65c542",
+ "breadth": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 47,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The number of characters to select backward for deletion must be computed as the cursor position minus the target position minus one."
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The number of characters to select backward for deletion must be computed as the cursor position minus the target position minus one."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_54085373",
+ "breadth": {
+  "files": 4,
+  "hunks": 9,
+  "loc": 623,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "get_relpath builds the zip path as a flat name like `covers_{item_id}/covers_{item_id}_{batch_id}{size}{ext}` placing all batch zips for an item in one directory, and get_cover_url constructs the Archive.org URL as `https://archive.org/download/covers_{item_id}/covers_{item_id}_{batch_id}{size}.zip/covers_{item_id}_{batch_id}{size}/{cover_id}{size}.jpg`.",
+   "design_B": "get_relpath builds a nested path like `covers_{item_id}/{batch_id}/{cover_id}{size}{ext}` keyed per-batch subdirectory with a different filename token order, and get_cover_url uses a correspondingly different `item/file.zip/inner` segmentation.",
+   "why_both_faithful": "The prose mandates that path/URL helpers exist and that item_id is 4-digit and batch_id is 2-digit zero-padded, but never specifies the concrete filename template, directory nesting, separators, or the exact Archive.org download URL segmentation, so multiple naming schemes all satisfy the requirements.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Batch.get_relpath('0008','01', ext='.zip', size='m') returns 'covers_0008/covers_0008_01_m.zip', and database filenames store that item-prefixed relative path.",
+   "design_B": "Batch.get_relpath('0008','01', ext='.zip', size='m') returns 'covers_0008_01_m.zip', and Archive.org item name 'covers_0008' is supplied separately when constructing URLs.",
+   "why_both_faithful": "The prose requires a canonical relative path based on item and batch with optional size and extension, but never specifies whether the Archive.org item identifier is a directory component or only encoded in the filename.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

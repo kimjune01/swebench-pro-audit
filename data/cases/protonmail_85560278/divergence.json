@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_85560278",
+ "breadth": {
+  "files": 1,
+  "hunks": 5,
+  "loc": 33,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define ELEMENTS_AFTER_BLOCKQUOTES as ['.proton-image-anchor'] only.",
+   "design_B": "Define ELEMENTS_AFTER_BLOCKQUOTES as ['.proton-image-anchor', 'img'] so ordinary image elements after a blockquote also disqualify that blockquote.",
+   "why_both_faithful": "The prose says the selector list should include .proton-image-anchor but does not state it is exhaustive, while the problem also describes images after blockquotes as significant content.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

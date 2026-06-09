@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_4044642a",
+ "breadth": {
+  "files": 3,
+  "hunks": 9,
+  "loc": 89,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement NewSimpleCache[V] as a typed wrapper around the existing third-party ttlcache package.",
+   "design_B": "Implement NewSimpleCache[V] as a custom in-memory cache using a map, mutex, and per-entry expiration timestamps, with no direct ttlcache dependency.",
+   "why_both_faithful": "The prose requires the internal typed interface and observable TTL/cache behavior, but does not require the internal implementation to continue using ttlcache.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

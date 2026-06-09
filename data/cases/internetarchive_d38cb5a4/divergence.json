@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_d38cb5a4",
+ "breadth": {
+  "files": 1,
+  "hunks": 5,
+  "loc": 27,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In read_edition, prevent the saved 008 first-language from duplicating a read_languages code by checking membership and prepending it only if absent: edition['languages'] = ([first] if first not in read_languages else []) + read_languages, preserving 008-first ordering.",
+   "design_B": "Append read_languages first and de-dupe the 008 first-language at the end: build edition['languages'] = read_languages + ([first] if first not in read_languages else []), placing the 008 language last instead of first.",
+   "why_both_faithful": "The prose only says to include read_languages plus the originally-saved first language while preventing repetition, but never specifies the resulting order of languages, so either ordering satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When merging languages in read_edition, keep the languages returned by read_languages in their MARC 041 order, then append the first originally saved 008 language only if it is not already present.",
+   "design_B": "When merging languages in read_edition, preserve the first originally saved 008 language at the front, then append the read_languages codes that are not duplicates.",
+   "why_both_faithful": "The prose requires both sources to be included without duplication, but does not specify the final ordering when both 008 and 041 contribute different languages.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

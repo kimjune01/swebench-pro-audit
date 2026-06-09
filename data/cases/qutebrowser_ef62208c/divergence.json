@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_ef62208c",
+ "breadth": {
+  "files": 5,
+  "hunks": 13,
+  "loc": 77,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When initializing `_DEFINITIONS`, the \"qt_67\" variant should be derived by copying the settings from \"qt_66\" and removing the \"enabled\" setting using a `copy_remove_setting` method."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

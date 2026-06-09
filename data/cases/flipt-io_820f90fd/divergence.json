@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_820f90fd",
+ "breadth": {
+  "files": 5,
+  "hunks": 8,
+  "loc": 63,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define Linux default path as `/etc/flipt/config/default.yml`, macOS as `$HOME/Library/Application Support/flipt/config/default.yml`, and Windows as `%APPDATA%\\flipt\\config\\default.yml`, with build-tagged Go files for each platform.",
+   "design_B": "Define Linux default path as `/etc/flipt/config/default.yml`, macOS/BSD as `/usr/local/etc/flipt/config/default.yml`, and Windows as `C:\\ProgramData\\flipt\\config\\default.yml`, with build-tagged Go files for each platform.",
+   "why_both_faithful": "The prose requires platform-specific default paths via Go build constraints but never specifies the actual non-Linux paths to use.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

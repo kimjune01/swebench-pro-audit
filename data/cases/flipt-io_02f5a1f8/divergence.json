@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_02f5a1f8",
+ "breadth": {
+  "files": 4,
+  "hunks": 9,
+  "loc": 62,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Parse `db.conn_max_lifetime` numeric YAML values as raw `time.Duration` nanoseconds, matching Go's underlying duration representation.",
+   "design_B": "Parse `db.conn_max_lifetime` numeric YAML values as seconds before converting to `time.Duration`.",
+   "why_both_faithful": "The prose requires mapping `db.conn_max_lifetime` to a `time.Duration` but does not specify the accepted config value format or unit for numeric values.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

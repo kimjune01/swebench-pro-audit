@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_854821eb",
+ "breadth": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 30,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "In `shouldDownload`, if `metadata.SchemaVersion` differs from `db.SchemaVersion`, it must return an error when `SkipUpdate` is true and true (force download) when `SkipUpdate` is false."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_048e204b",
+ "breadth": {
+  "files": 8,
+  "hunks": 43,
+  "loc": 270,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Fortinet advisory data must be converted to internal `CveContent` entries mapping `Title`, `Summary`, `Cvss3Score`, `Cvss3Vector`, `SourceLink` (advisory URL), `CweIDs`, `References`, `Published`, and `LastModified`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

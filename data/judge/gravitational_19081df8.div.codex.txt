@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "the YAML template for `db_service` must conditionally render cloud provider-specific sections when corresponding fields are defined. This includes:  An `aws` section with optional `region` and `redshift.cluster_id` fields,  An `ad` section with optional `domain`, `spn`, and `keytab_file` fields, A `gcp` section with optional `project_id` and `instance_id` fields."
+}

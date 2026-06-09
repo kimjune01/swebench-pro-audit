@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_973513cc",
+ "breadth": {
+  "files": 11,
+  "hunks": 27,
+  "loc": 134,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Derive liveness with a precedence/table where info-state takes priority: if the broadcast info is stopped (last chunk) \u2192 'not-live'; else if playback state is Paused \u2192 'grey'; else (Playing/Buffering) \u2192 'live'.",
+   "design_B": "Derive liveness driven primarily by playback state: Buffering or Stopped/ended \u2192 'not-live', Paused \u2192 'grey', Playing \u2192 'live', regardless of a separate info-state stopped check \u2014 folding 'ended' into the playback-state branch instead of an info-state precedence.",
+   "why_both_faithful": "The prose only says liveness is derived from 'both playback state and info state' with paused=grey, but never specifies the exact combination-to-value mapping (e.g. how buffering, ended, or stopped-info-with-playing combos resolve), so multiple incompatible truth tables satisfy it.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Compute liveness as \"live\" whenever the broadcast info state says the broadcast is still live, except return \"grey\" while playback is paused and \"not-live\" only after the info state indicates ended/stopped or the last chunk event is reached.",
+   "design_B": "Compute liveness primarily from playback state: return \"live\" only while actively playing or buffering, \"grey\" while paused, and \"not-live\" whenever playback is stopped/ended, even if the broadcast info state has not yet transitioned to ended.",
+   "why_both_faithful": "The prose requires deriving liveness from playback state and info state, and distinguishing live, paused grey, and not-live, but never specifies the exact precedence or mapping when playback state and info state disagree.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_da2441b9",
+ "breadth": {
+  "files": 5,
+  "hunks": 6,
+  "loc": 63,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Resolve the username portion of the resource by treating it as a user *slug* \u2014 call user.getUidByUserslug(username) to map acct:<slug>@host to a UID, and build aliases/links from that slug-based lookup.",
+   "design_B": "Resolve the username portion as a *userslug via username* path \u2014 call user.getUidByUsername(username) (treating the local part as the raw username) to obtain the UID, then derive the slug from the loaded user record for the alias/link URLs.",
+   "why_both_faithful": "The prose says to resolve 'the username portion of the resource' to a UID and never specifies whether the local part is a slug or a raw username, so both lookup APIs satisfy 'resolve the username portion ... cannot be resolved -> 404' equally.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Return links as [{\"rel\":\"http://webfinger.net/rel/profile-page\",\"type\":\"text/html\",\"href\":\"https://host/user/<slug>\"}].",
+   "design_B": "Return links as [{\"rel\":\"self\",\"href\":\"https://host/user/<slug>\"}] with no type field.",
+   "why_both_faithful": "The prose requires at least one link referencing the HTML profile page but explicitly says the rel and type values are not constrained.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

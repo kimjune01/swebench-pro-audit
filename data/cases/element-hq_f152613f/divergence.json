@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_f152613f",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 28,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "MatrixClientPegClass should attach a listener to the client\u2019s store \u201cclosed\u201d event as part of client assignment"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

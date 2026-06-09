@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_9ed5f2ca",
+ "breadth": {
+  "files": 7,
+  "hunks": 101,
+  "loc": 496,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement CveContents.Sort() by ordering the contents slice for each CVE by the content Type field alphabetically (and leaving secondary fields in insertion order).",
+   "design_B": "Implement CveContents.Sort() by ordering entries by a different key such as CveID, source/Type then CveID, or reverse order \u2014 any other total order that is equally stable run-to-run.",
+   "why_both_faithful": "The prose only demands the sort be 'deterministic so that test snapshots yield consistent results' without naming the sort key, direction, or tie-breaking, so any reproducible ordering satisfies it while producing different concrete output.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Register and process only the specific language analyzers/library result types already needed for the failing library-only Trivy report, ignoring other Trivy ecosystem result types as unsupported.",
+   "design_B": "Register and process every available Trivy language ecosystem analyzer as an explicitly supported library type, producing LibraryScanners for all such Result.Type values.",
+   "why_both_faithful": "The prose requires newly supported language ecosystems and explicitly supported library types, but never enumerates which ecosystems or types are in scope.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

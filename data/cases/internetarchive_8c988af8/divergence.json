@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_8c988af8",
+ "breadth": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 46,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Normalize a parenthesized OR list as a single field-scoped grouped filter such as key:(\"/books/OL1M\" OR \"/books/OL2M\").",
+   "design_B": "Normalize the same parenthesized OR list as explicitly repeated field clauses such as (key:\"/books/OL1M\" OR key:\"/books/OL2M\").",
+   "why_both_faithful": "Both target the key field, use /books/ paths, use unescaped standard double quotes, and preserve the OR grouping semantics, while the prose never specifies the exact canonical Solr string shape.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

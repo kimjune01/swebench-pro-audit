@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_c1f873b3",
+ "breadth": {
+  "files": 14,
+  "hunks": 37,
+  "loc": 983,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Assign each privilege's `type` by one reasonable reading \u2014 e.g. `topics:read`/`read` \u2192 `viewing`, `topics:create`/`topics:reply`/`posting` \u2192 `posting`, `purge`/`mod-related` \u2192 `moderation`, leaving the rest `other`.",
+   "design_B": "Partition the same privileges differently \u2014 e.g. treat `topics:read` and posting-capability privileges all as `posting`, classify `find`/`browse` as `viewing`, and route delete/edit privileges to `other` instead of `moderation`.",
+   "why_both_faithful": "The prose enumerates only the four type buckets and says each privilege must declare one, but never states which specific privilege key maps to which type, so any self-consistent assignment satisfies every requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Classify a privilege such as `search:content` as `viewing` in the privilege map and expose that type through `labelData`, `types`, `data-type`, filtering, and copy logic.",
+   "design_B": "Classify the same privilege, `search:content`, as `other` in the privilege map and expose that type through `labelData`, `types`, `data-type`, filtering, and copy logic.",
+   "why_both_faithful": "The prose requires every privilege to have one of the allowed type categories, but does not specify the exact category assignment for each concrete privilege key.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

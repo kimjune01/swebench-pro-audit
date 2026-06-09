@@ -1,0 +1,30 @@
+{
+ "slug": "gravitational_d45e26ce",
+ "breadth": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 34,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "When the client CA list would exceed TLS handshake size limits, the per-connection config\u2019s `ClientCAs` must contain **only the current cluster\u2019s Host CA(s)**, reducing the advertised CA subjects to a minimal, valid set."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_86d9b8a2",
+ "breadth": {
+  "files": 8,
+  "hunks": 26,
+  "loc": 276,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When multiple authors match via external identifiers, break ties by selecting the author with the lowest/earliest Open Library key (e.g. sort keys ascending and take the first).",
+   "design_B": "When multiple authors match, break ties by selecting the most recently created/modified author record (or the one matching the most remote_ids), which is also deterministic and consistent.",
+   "why_both_faithful": "The prose only requires 'deterministic results ... using consistent tie-breaking criteria' without naming which attribute decides the winner, so any stable ordering satisfies it equally.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When external identifier matching finds multiple authors, score each candidate by the number of matching remote_ids and choose the highest score, breaking ties by lexicographically smallest Open Library author key.",
+   "design_B": "When external identifier matching finds multiple authors, choose the first candidate found by a fixed identifier-type priority order such as VIAF, Goodreads, Amazon, then LibriVox, breaking ties by lexicographically smallest Open Library author key.",
+   "why_both_faithful": "The prose requires deterministic tie-breaking and priority between matching phases, but does not specify how to rank or choose among multiple external-identifier matches within the same phase.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

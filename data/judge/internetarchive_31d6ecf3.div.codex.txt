@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Classify ISBNs by stripping surrounding whitespace only, then using the remaining string length exactly; split publisher/place strings on the first colon.",
+  "design_B": "Classify ISBNs by removing internal spaces and hyphens before using length, returning the cleaned ISBNs; split publisher/place strings on the last colon.",
+  "why_both_faithful": "The prose requires robustness to whitespace and splitting `Place: Publisher` / ISBN-10 vs ISBN-13 by length, but does not specify separator canonicalization for ISBNs or which colon controls parsing when more than one is present.",
+  "selecting_clause": null
+}

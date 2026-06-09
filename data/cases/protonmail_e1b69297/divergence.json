@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_e1b69297",
+ "breadth": {
+  "files": 6,
+  "hunks": 15,
+  "loc": 134,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `getCreatePaymentToken` function should return a new function that invokes `createPaymentToken` with verify pre-bound, using the call shape: `createPaymentToken({ mode, api, params }, amountAndCurrency?)`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

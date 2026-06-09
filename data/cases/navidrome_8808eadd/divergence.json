@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_8808eadd",
+ "breadth": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 257,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Return the three JSON extension entries in the order `transcodeOffset`, `formPost`, `songLyrics`.",
+   "design_B": "Return the same three JSON extension entries in a different order, such as `songLyrics`, `formPost`, `transcodeOffset`.",
+   "why_both_faithful": "The prose requires exactly those three extensions but never specifies the ordering of the JSON list.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

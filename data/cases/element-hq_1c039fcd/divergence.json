@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_1c039fcd",
+ "breadth": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 488,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Back LruCache with a single JS Map and implement promotion as delete-then-set, so values() yields entries in least-recent\u2192most-recent recency order (insertion order mutated by every get/has hit)",
+   "design_B": "Back LruCache with a Map for storage plus a separate recency list/structure tracking usage, leaving the Map untouched on get/has, so values() yields entries in stable insertion order regardless of access recency",
+   "why_both_faithful": "The spec only says values() iterates 'the cache's internal order; stable across iteration' and never defines whether that internal order reflects recency-of-use or insertion order, so both orderings satisfy every stated requirement while producing different value sequences.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement LruCache internal order as least-recently-used to most-recently-used, so values() yields oldest-to-newest.",
+   "design_B": "Implement LruCache internal order as most-recently-used to least-recently-used, so values() yields newest-to-oldest.",
+   "why_both_faithful": "The prose requires values() to iterate in the cache's internal order and requires promotion/eviction behavior, but never specifies which direction that internal order must expose.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

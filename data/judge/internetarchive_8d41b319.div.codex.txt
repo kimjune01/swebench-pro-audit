@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"When the MARC record’s publisher is \"s.n.\", the output must include exactly \"[s.n.]\" inside the \"publishers\" list."}

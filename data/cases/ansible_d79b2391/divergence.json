@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_d79b2391",
+ "breadth": {
+  "files": 8,
+  "hunks": 25,
+  "loc": 286,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement Display.get_deprecation_message using the existing Ansible-style wording, e.g. '[DEPRECATION WARNING]: <message>. This feature will be removed from <collection> in version <version>.'",
+   "design_B": "Implement Display.get_deprecation_message with a different standardized wording/order, e.g. '[DEPRECATED] <collection>: <message> (removal version: <version>).'",
+   "why_both_faithful": "The prose requires a consistent formatted message with contextual fields, but never specifies the exact text, ordering, punctuation, or legacy-compatible wording.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

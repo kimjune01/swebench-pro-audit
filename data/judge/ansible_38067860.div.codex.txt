@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"In `results_thread_main`, upon receiving a `DisplaySend` object, the corresponding attribute of the `display` object must be dynamically obtained via `getattr(display, result.method)` and that method executed with `*result.args` and `**result.kwargs`."}

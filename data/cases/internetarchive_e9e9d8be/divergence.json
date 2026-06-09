@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_e9e9d8be",
+ "breadth": {
+  "files": 9,
+  "hunks": 24,
+  "loc": 330,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In process_google_book, build source_records as a list containing a google_books-prefixed identifier string (e.g. [\"google_books:{isbn}\"]) and pass publish_date through verbatim from the API's publishedDate field.",
+   "design_B": "Build source_records as a list keyed off the staging URL / batch identifier (e.g. [\"idb:{isbn}\"] or the raw Google volume id), and normalize publishedDate (e.g. coerce \"2020-05\" to a full/standardized date string) before assigning publish_date.",
+   "why_both_faithful": "The prose mandates that the parsed record merely *include* fields like source_records and publish_date and 'match the data structure expected by Open Library's import system', but never specifies the concrete value/format of source_records or how to normalize the Google Books publishedDate, so multiple field-formatting schemes satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When a Google Books result lacks an ISBN-13 but has an ISBN-10, normalize and stage the record with isbn_13 omitted or empty while preserving isbn_10.",
+   "design_B": "When a Google Books result lacks an ISBN-13, treat it as unusable and return no normalized result, so nothing is staged.",
+   "why_both_faithful": "The prose requires handling missing ISBN-13 and including isbn_13 among parsed fields, but does not say whether absence of ISBN-13 is fatal or whether a partial record with ISBN-10 is acceptable.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

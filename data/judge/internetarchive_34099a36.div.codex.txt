@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Move build_titles() into catalog/utils/__init__.py alongside expand_record(), and have expand_record call the local helper.",
+  "design_B": "Leave build_titles() in catalog/merge/merge_marc.py and import it into catalog/utils/__init__.py for expand_record() to use.",
+  "why_both_faithful": "The prose requires expand_record to depend on build_titles but explicitly allows that dependency to be either relocated or imported.",
+  "selecting_clause": null
+}

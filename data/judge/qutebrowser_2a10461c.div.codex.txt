@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"On QtWebEngine 6.6+, the \"smart\" policy should emit ImagePolicy=2 and ImageClassifierPolicy=0 settings, while \"smart-simple\" should emit ImagePolicy=2 and ImageClassifierPolicy=1."}

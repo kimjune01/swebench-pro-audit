@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_c2ae6c27",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 82,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "must build its smoothed intermediate sequence by averaging neighbor pairs around alternating interior positions and excluding endpoints; each produced value is the average of its two immediate neighbors, not including the center point itself. The smoothing stage must repeat until the intermediate length is no greater than twice the requested output length, after which a deterministic, uniformly spaced resampling over that intermediate sequence must produce exactly the target number of points without synthesizing extra endpoint values."
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "During each smoothing pass, compute averaged values centered on odd interior indices, e.g. for centers 1, 3, 5, use (input[i - 1] + input[i + 1]) / 2, then uniformly resample the resulting sequence.",
+   "design_B": "During each smoothing pass, compute averaged values centered on even interior indices, e.g. for centers 2, 4, 6, use (input[i - 1] + input[i + 1]) / 2, then uniformly resample the resulting sequence.",
+   "why_both_faithful": "The prose requires alternating interior positions and neighbor-only averaging, but never specifies which parity of interior positions to start with or how that parity changes across smoothing passes.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

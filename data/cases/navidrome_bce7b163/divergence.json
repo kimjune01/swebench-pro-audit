@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_bce7b163",
+ "breadth": {
+  "files": 6,
+  "hunks": 14,
+  "loc": 221,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When multiple MbzAlbumArtistID values are tied for highest frequency, choose the first tied ID encountered while iterating the albums.",
+   "design_B": "When multiple MbzAlbumArtistID values are tied for highest frequency, choose the lexicographically smallest tied ID.",
+   "why_both_faithful": "The prose requires choosing the most frequently occurring MbzAlbumArtistID but does not specify tie-breaking when more than one value shares the maximum frequency.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

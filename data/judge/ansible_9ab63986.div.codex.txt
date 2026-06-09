@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When multiple sources report the same mount point, keep the first discovered entry in mount_points and put all entries in aggregate_mounts when requested.",
+  "design_B": "When multiple sources report the same mount point, let the last discovered entry overwrite earlier entries in mount_points and put all entries in aggregate_mounts when requested.",
+  "why_both_faithful": "The prose requires unique mount_points plus optional aggregate_mounts and duplicate warnings, but never specifies which duplicate entry should be selected as the primary unique entry.",
+  "selecting_clause": null
+}

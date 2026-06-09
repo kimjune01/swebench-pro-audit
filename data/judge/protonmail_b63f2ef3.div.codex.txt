@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "Maintain a single authoritative module for calendar categorical values at packages/shared/lib/calendar/constants.ts covering calendar categories (CALENDAR_TYPE, CALENDAR_TYPE_EXTENDED, EXTENDED_CALENDAR_TYPE), visibility states (CALENDAR_DISPLAY), view settings (SETTINGS_VIEW, VIEWS), operational flags and limits (CALENDAR_FLAGS, MAX_CALENDARS_FREE, MAX_CALENDARS_PAID, MAX_SUBSCRIBED_CALENDARS), and related fixed values (DEFAULT_EVENT_DURATION), so that these are not redeclared elsewhere."
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Cache downloaded CA certificates using the Teleport database server name as the local filename.",
+  "design_B": "Cache downloaded CA certificates using the underlying Cloud SQL/RDS/Redshift instance ID as the local filename.",
+  "why_both_faithful": "The prose says the file should be named after the database instance, but does not specify whether that means Teleport's database server name or the cloud provider instance identifier.",
+  "selecting_clause": null
+}

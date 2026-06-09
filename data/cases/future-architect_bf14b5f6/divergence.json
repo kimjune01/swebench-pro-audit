@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_bf14b5f6",
+ "breadth": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 34,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The `PURL` field must be extracted from the `Identifier.PURL` field in Trivy JSON results."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

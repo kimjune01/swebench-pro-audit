@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_836221ec",
+ "breadth": {
+  "files": 4,
+  "hunks": 5,
+  "loc": 34,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Mark hidden settings by emitting them with a distinguishing inline comment/annotation in the dump (e.g. each hidden line suffixed or prefixed with a `# hidden`/`(hidden)` marker) while keeping the same `key = value` form.",
+   "design_B": "Mark hidden settings by grouping them into a separate labeled section/header block (e.g. a '# Hidden settings' heading) appended after the user-customized settings, with no per-line annotation.",
+   "why_both_faithful": "The prose only says hidden settings must be 'clearly distinguishable in the output format while maintaining consistency with the existing display format' without specifying the marking mechanism, so both per-line annotation and a separate section satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Render hidden/internal settings inline with the normal config diff entries, adding a per-entry marker such as a comment or suffix indicating the setting is hidden/internal.",
+   "design_B": "Render hidden/internal settings in a separate clearly labeled section after the normal user-customized config diff entries.",
+   "why_both_faithful": "Both include user-customized and hidden/internal settings when requested, preserve existing behavior otherwise, and make hidden settings clearly distinguishable while staying consistent with a diff-style output.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

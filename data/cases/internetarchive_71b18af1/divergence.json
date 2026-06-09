@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_71b18af1",
+ "breadth": {
+  "files": 6,
+  "hunks": 40,
+  "loc": 269,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "subject_key_to_seed splits the key on '/' and takes the last path segment, then strips/normalizes by replacing commas and '__' with '_' and applies the place:/person:/time: vs subject: prefix rule",
+   "design_B": "subject_key_to_seed strips a known leading prefix (e.g. '/subjects/') from the full key, then replaces commas and '__' with '_' on the remainder and applies the same prefix rule",
+   "why_both_faithful": "The prose says to parse the subject key 'by splitting the key and replacing commas and double underscores with simple underscores' but never specifies the split delimiter or which resulting segment becomes the value, so multiple extraction strategies all satisfy the stated output rule.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Classify export entries in List.get_export_list() by each loaded Thing's type field, e.g. author/work/edition type records go into authors/works/editions.",
+   "design_B": "Classify export entries in List.get_export_list() by each loaded Thing's key path prefix, e.g. /authors/, /works/, and /books/ determine authors/works/editions.",
+   "why_both_faithful": "The prose requires fully loaded and type-filtered Thing instances but never specifies whether the authoritative discriminator is the Thing type field or the Open Library key namespace.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

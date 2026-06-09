@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_94cc2b2a",
+ "breadth": {
+  "files": 14,
+  "hunks": 22,
+  "loc": 219,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When no expiration is provided, set the share to expire one year (365 days) from creation time",
+   "design_B": "When no expiration is provided, set the share to expire 30 days from creation time (or never expire / expire at a far-future sentinel)",
+   "why_both_faithful": "The prose only says expiration should 'apply reasonable defaults' without naming any concrete duration, so any plausible default interval equally satisfies the requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When createShare omits an expiration date, set the share to expire 7 days after creation.",
+   "design_B": "When createShare omits an expiration date, set the share to expire 30 days after creation.",
+   "why_both_faithful": "The prose requires a reasonable automatic expiration default but never specifies the default duration, and both 7 days and 30 days are reasonable defaults.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

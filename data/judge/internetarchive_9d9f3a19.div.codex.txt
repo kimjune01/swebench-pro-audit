@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Read the current hostname with os.environ.get(\"HOSTNAME\") inside limit_server before matching allowed_hosts.",
+  "design_B": "Read the current hostname with os.environ.get(\"SERVER_HOSTNAME\") or another deployment-specific environment key inside limit_server before matching allowed_hosts.",
+  "why_both_faithful": "The prose requires using os.environ.get(...) for the current host name but never specifies which environment variable name must be queried.",
+  "selecting_clause": null
+}

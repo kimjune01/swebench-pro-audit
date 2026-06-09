@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_ec6bb880",
+ "breadth": {
+  "files": 3,
+  "hunks": 13,
+  "loc": 163,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Make addDecryptionFailure store failures in the general `failures` Map keyed by event ID, and only when the event ID is already in `visibleEvents` also insert into `visibleFailures`; addVisibleEvent migrates any pre-existing general failure into `visibleFailures`. checkFailures iterates `visibleFailures`.",
+   "design_B": "Make addDecryptionFailure insert into `visibleFailures` only, treating the general `failures` Map as a staging buffer that is never consulted by checkFailures except through addVisibleEvent promotion, with different grace-period/timer constants and a different ordering of the visibility check vs. trackedEvents short-circuit.",
+   "why_both_faithful": "The prose names the methods, the Map/Set fields, and the broad behavior (only visible failures counted, reported once, removed on success) but never fixes the exact grace-period timing, the precise insertion conditions, or the internal control flow, so multiple consistent wirings of the same named structures satisfy every requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When addVisibleEvent moves a pre-existing failure into visibleFailures, preserve the failure's original timestamp so checkFailures may report it immediately if the grace period has already elapsed.",
+   "design_B": "When addVisibleEvent moves a pre-existing failure into visibleFailures, reset the failure timestamp to the visibility time so the grace period starts only once the event is shown.",
+   "why_both_faithful": "The prose requires reporting only visible failures after a grace period, but never specifies whether that grace period is measured from the original decryption failure or from first visibility.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

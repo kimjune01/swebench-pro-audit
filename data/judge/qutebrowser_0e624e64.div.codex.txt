@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"The `get_status_color` method in the `DownloadItem` class of `qutebrowser.browser.downloads` should import and use `qtutils.interpolate_color` instead of `utils.interpolate_color`"}

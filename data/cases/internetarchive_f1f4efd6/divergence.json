@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_f1f4efd6",
+ "breadth": {
+  "files": 7,
+  "hunks": 13,
+  "loc": 120,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Populate `id_project_runeberg` only from the work-level identifier metadata and always emit it as a list, using `[]` when absent.",
+   "design_B": "Populate `id_project_runeberg` from edition-level Project Runeberg identifiers when the work-level value is absent, and always emit it as a list.",
+   "why_both_faithful": "The prose requires the search document to expose a multi-valued `id_project_runeberg` field but does not specify the exact metadata source or fallback order for Runeberg identifiers.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

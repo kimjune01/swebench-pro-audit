@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_38067860",
+ "breadth": {
+  "files": 4,
+  "hunks": 10,
+  "loc": 38,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "In `results_thread_main`, upon receiving a `DisplaySend` object, the corresponding attribute of the `display` object must be dynamically obtained via `getattr(display, result.method)` and that method executed with `*result.args` and `**result.kwargs`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

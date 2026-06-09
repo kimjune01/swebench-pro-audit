@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_8775b5ef",
+ "breadth": {
+  "files": 5,
+  "hunks": 11,
+  "loc": 144,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Remove the Optional field from the ScanResult struct and update Trivy parsing code to populate only ServerName and Release.",
+   "design_B": "Keep the Optional field in ScanResult but set it to nil for Trivy scan results, ensuring it never contains the \"trivy-target\" key.",
+   "why_both_faithful": "The prose explicitly allows either removing Optional or setting it to nil, and both satisfy the stated metadata requirements while producing incompatible API/data-shape behavior.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

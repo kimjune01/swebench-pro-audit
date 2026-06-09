@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When SIGTERM occurs without --verbose, suppress all user-visible messages; with --verbose, show `terminated with SIGTERM See :process {pid} for details.`",
+  "design_B": "When SIGTERM occurs without --verbose, show a non-error informational message while still setting state to `terminated`; with --verbose, show `terminated with SIGTERM See :process {pid} for details.`",
+  "why_both_faithful": "The prose forbids a non-verbose error message for SIGTERM but does not forbid non-error informational messages.",
+  "selecting_clause": null
+}

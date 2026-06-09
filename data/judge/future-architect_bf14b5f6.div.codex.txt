@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The `PURL` field must be extracted from the `Identifier.PURL` field in Trivy JSON results."
+}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Apply filters sequentially to the current remaining CVE set and log each filter's marginal exclusions after earlier filters have already removed matching CVEs.",
+  "design_B": "Compute each enabled filter's exclusion count independently against the original detected CVE set, while still applying the filters to produce the final filtered result.",
+  "why_both_faithful": "The prose asks for counts excluded by each filter but never specifies whether overlapping CVEs should be counted only by the first applied filter or by every rule they match.",
+  "selecting_clause": null
+}

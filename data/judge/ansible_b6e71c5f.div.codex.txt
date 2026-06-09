@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "For aggregate configurations, generate commands in the exact order the aggregate entries are supplied, interleaving facility, host, console, buffered, persistence, and RFC5424 commands as encountered.",
+  "design_B": "For aggregate configurations, normalize/group entries by destination type and generate commands in a fixed canonical order, such as global/facility first, then hosts, then console/buffered/persistence/RFC5424.",
+  "why_both_faithful": "The prose requires aggregate configurations and idempotent necessary commands, but never specifies the ordering of independent commands in the returned commands list.",
+  "selecting_clause": null
+}

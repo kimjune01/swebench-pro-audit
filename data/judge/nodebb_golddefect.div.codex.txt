@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Keep Meta.slugTaken returning a boolean for single slug input, and for array input return an array of booleans aligned by index with the input slugs; make cache consistency by having affected modules import/use the same shared post cache instance.",
+  "design_B": "Keep Meta.slugTaken returning a boolean for single slug input, and for array input return one aggregate boolean indicating whether any supplied slug is already taken; make cache consistency by having affected modules import/use the same shared post cache instance.",
+  "why_both_faithful": "The prose requires array inputs to be supported but never specifies whether multiple-slug checks should return per-slug results or one aggregate existence result.",
+  "selecting_clause": null
+}

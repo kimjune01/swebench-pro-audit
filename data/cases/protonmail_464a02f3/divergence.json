@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_464a02f3",
+ "breadth": {
+  "files": 6,
+  "hunks": 18,
+  "loc": 129,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Schedule via setInterval so the first eventManager.call() fires at t=5000ms and subsequent calls at each 5000ms boundary, yielding 5 calls at t=5000,10000,...,25000.",
+   "design_B": "Fire eventManager.call() immediately at t=0 (leading call) and then once per 5000ms interval, yielding 5 calls at t=0,5000,...,20000.",
+   "why_both_faithful": "The prose only requires 'call() is executed once per interval, up to a maximum of 5 attempts' and exposes interval/maxPollingSteps, but never states whether the first poll happens immediately or after the first interval elapses.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Expose an exported async polling helper that takes eventManager plus optional property/action arguments and returns a Promise that resolves when a matching event is observed or after 5 interval calls.",
+   "design_B": "Implement polling internally in the add-payment-method flow, using the existing eventManager there, with the constants exported but no separately exported polling helper or promise-returning API.",
+   "why_both_faithful": "The prose requires a callable polling mechanism and accessible constants, but gives no function name, location, signature, return value, or whether it must be standalone versus embedded in the existing payment-method flow.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

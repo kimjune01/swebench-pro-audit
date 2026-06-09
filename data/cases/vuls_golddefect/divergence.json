@@ -1,0 +1,30 @@
+{
+ "slug": "vuls_golddefect",
+ "breadth": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 55,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Distinguish valid package lines by structural field count after CSV/quote-aware splitting (e.g. a line must yield exactly N quoted fields name/epoch/version/release/arch); any line like 'Is this ok [y/N]:' fails the field-count check and is skipped, and epoch is folded into version as 'epoch:version-release'.",
+   "design_B": "Distinguish valid package lines by regex-matching each field against expected token patterns (name matches a package-name charset, version/release/arch match their patterns), skipping prompt/extraneous lines that don't match, and representing epoch as a separate stored field rather than concatenating it into the version string.",
+   "why_both_faithful": "The prose only states that prompt/extraneous lines must be ignored, quoted fields handled, and epoch accounted for \u2014 it never fixes the discrimination mechanism (field-count vs regex) nor the exact format in which epoch is combined with the version.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Use a quote-aware fixed-column parser that accepts only lines with exactly the expected repoquery fields, e.g. name, epoch, version, release, arch, repository, and skips every other line.",
+   "design_B": "Use an anchored RPM NEVRA-style parser that accepts package records encoded as a single package/version token with an optional epoch prefix plus optional metadata fields, and skips nonmatching lines.",
+   "why_both_faithful": "The prose requires strict valid-package parsing, quoted-field handling, prompt-line skipping, and epoch-aware versioning, but never specifies the exact repoquery output format or valid package-line grammar.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

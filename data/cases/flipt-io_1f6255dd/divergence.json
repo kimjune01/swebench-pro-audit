@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_1f6255dd",
+ "breadth": {
+  "files": 4,
+  "hunks": 11,
+  "loc": 70,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The YAML import must use the YAML v3 decoder so that mappings deserialize into JSON compatible structures and preserve nested \u2018metadata\u2019 structures (maps and arrays) without type errors during import."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

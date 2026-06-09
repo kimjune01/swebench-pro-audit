@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_5d8318f7",
+ "breadth": {
+  "files": 10,
+  "hunks": 24,
+  "loc": 180,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Format each track's #EXTINF line as `#EXTINF:<duration>,<artist> - <title>` (artist first, hyphen separator, matching the conventional Extended M3U layout) followed by the track path on the next line.",
+   "design_B": "Format each track's #EXTINF line as `#EXTINF:<duration>,<title> - <artist>` (or another separator/ordering such as `<artist>: <title>`), still emitting duration, artist, title, and path.",
+   "why_both_faithful": "The prose only says each #EXTINF entry must 'contain duration (rounded to nearest second), artist and title information' without fixing the ordering or separator between artist and title, so multiple exact output strings satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Generate `#PLAYLIST:<playlist name>` and track lines as `#EXTINF:<rounded seconds>,<artist> - <title>` followed by the track path.",
+   "design_B": "Generate `#PLAYLIST: <playlist name>` and track lines as `#EXTINF:<rounded seconds>,<title>` followed by the track path, omitting artist when constructing the display metadata.",
+   "why_both_faithful": "The prose requires a `#PLAYLIST` header, duration, artist/title metadata, and path entries, but does not specify the exact header syntax or exact `#EXTINF` metadata string format.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "A distinct marker (`Sentinel`) must be used to represent the absence of a `manifest` configuration, so that this case is not confused with a truthy or falsy dictionary value."
+}

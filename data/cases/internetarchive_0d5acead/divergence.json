@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_0d5acead",
+ "breadth": {
+  "files": 2,
+  "hunks": 9,
+  "loc": 483,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement `to_solr_requests_json()` to emit a single JSON object whose keys are Solr commands \u2014 e.g. `{\"add\": {\"doc\": ...}, \"delete\": [...], \"commit\": {}}` \u2014 building a Python dict and calling json.dumps once with the given indent/sep.",
+   "design_B": "Implement `to_solr_requests_json()` to emit a sequence of separate Solr command fragments (one `\"add\"` entry per document, plus delete/commit entries) concatenated/assembled into the command body, with each add serialized individually rather than as one aggregate object.",
+   "why_both_faithful": "The prose only says the method must 'produce valid Solr command JSON with consistent handling of separators, indentation, and field ordering, as validated in tests' \u2014 it names no concrete key layout, per-doc vs aggregate grouping, or command ordering, and the validating tests are not visible.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For an edition without a works field, create one synthetic work Solr document whose key is derived from the edition key, for example /works/OL123M from /books/OL123M, and add it directly.",
+   "design_B": "For an edition without a works field, create one synthetic work Solr document using the edition's own key as the synthetic work key and add it directly.",
+   "why_both_faithful": "The prose requires a synthetic work document and says it should populate fields such as key, type, title, editions, and authors from edition data, but never specifies how the synthetic work key must be chosen.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

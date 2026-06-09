@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_3677dd20",
+ "breadth": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 146,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Build contributor names by joining the non-empty first_name/middle_name/last_name parts with a single space separator (e.g. 'John Q Public').",
+   "design_B": "Build contributor names by literal string concatenation with no separator (e.g. 'JohnQPublic').",
+   "why_both_faithful": "The prose says names are 'constructed by concatenating non-empty first_name, middle_name, and last_name values' without specifying a separator, and 'concatenating' literally implies no delimiter while conventional name formatting implies spaces \u2014 both satisfy the wording.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Set source_records to [\"open_textbook_library:\" + str(id)].",
+   "design_B": "Set source_records to [\"open_textbook_library\" + str(id)].",
+   "why_both_faithful": "The prose requires the open_textbook_library prefix followed by the id but never specifies whether a separator such as ':' is part of that prefix.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

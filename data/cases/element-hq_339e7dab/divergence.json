@@ -1,0 +1,30 @@
+{
+ "slug": "element-hq_339e7dab",
+ "breadth": {
+  "files": 1,
+  "hunks": 4,
+  "loc": 43,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Populate `oldUnverifiedDeviceIds: Set<string>` with unverified `deviceId`s that are members of `ourDeviceIdsAtStart`, and populate `newUnverifiedDeviceIds: Set<string>` with unverified `deviceId`s that are not members of `ourDeviceIdsAtStart`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

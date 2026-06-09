@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_e4f1e03f",
+ "breadth": {
+  "files": 6,
+  "hunks": 12,
+  "loc": 267,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Map each severity to a CVSS range and derive the range's LOWER bound as the numeric score (e.g., HIGH \u2192 \"7.0-8.9\" yielding 7.0, MEDIUM \u2192 \"4.0-6.9\" yielding 4.0, CRITICAL \u2192 \"9.0-10.0\" yielding 9.0).",
+   "design_B": "Map each severity to the same ranges but derive the range's UPPER bound (or midpoint) as the numeric score (e.g., HIGH \u2192 8.9, CRITICAL \u2192 10.0), and/or choose different boundary cut points for non-Critical severities (e.g., HIGH as 7.0-10.0).",
+   "why_both_faithful": "The prose only fixes the Critical range as 9.0\u201310.0 and requires HIGH to clear a `>= 7.0` filter, but never specifies which numeric value within each range is the derived score nor the exact boundaries for HIGH/MEDIUM/LOW/NONE, so multiple boundary-and-pick schemes all satisfy every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Derive the numeric Cvss3Score from a severity-only CVE by using the lower bound of the mapped CVSS range, e.g. HIGH -> 7.0 and CRITICAL -> 9.0.",
+   "design_B": "Derive the numeric Cvss3Score from a severity-only CVE by using the upper bound of the mapped CVSS range, e.g. HIGH -> 8.9 and CRITICAL -> 10.0.",
+   "why_both_faithful": "The prose requires mapping severity to a CVSS score range and deriving a numeric score from that mapping, but never specifies which point in the range must be used.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

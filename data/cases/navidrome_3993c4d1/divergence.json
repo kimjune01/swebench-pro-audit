@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_3993c4d1",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 47,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement evictExpired so it scans and removes expired entries on every Add, AddWithTTL, Get, GetWithLoader, Keys, and Values call, with evictionDeadline always permitting immediate eviction.",
+   "design_B": "Implement evictExpired so it only scans when evictionDeadline has passed, then advances evictionDeadline by a chosen short interval, while Keys and Values also filter out expired entries during iteration so public results contain only active entries.",
+   "why_both_faithful": "The prose requires an evictionDeadline-controlled opportunistic eviction mechanism and active-only public results, but never specifies the eviction cadence or whether Keys/Values must rely solely on deletion versus filtering during iteration.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

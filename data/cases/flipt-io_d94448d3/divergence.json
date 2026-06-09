@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_d94448d3",
+ "breadth": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 53,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The function `callbackURL(host, provider string)` must construct and return the string `<host>/auth/v1/method/oidc/<provider>/callback`. Before concatenation, it must remove only a single trailing slash (`/`) from the `host` parameter, if present, and must preserve any scheme (`http://`, `https://`) and port contained in `host`."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

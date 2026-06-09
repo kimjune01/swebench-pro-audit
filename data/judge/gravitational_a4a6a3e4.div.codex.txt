@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When selecting SSH/TLS/JWT signing material from a CertAuthority, scan entries in order and return the first RAW entry for each purpose.",
+  "design_B": "When selecting SSH/TLS/JWT signing material from a CertAuthority, scan all entries and return the last RAW entry for each purpose.",
+  "why_both_faithful": "The prose only requires using a RAW entry when RAW and PKCS11 entries are both present, but does not specify which RAW entry to choose if multiple RAW entries exist.",
+  "selecting_clause": null
+}

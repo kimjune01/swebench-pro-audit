@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_d42dfafa",
+ "breadth": {
+  "files": 9,
+  "hunks": 14,
+  "loc": 260,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Encrypt with AES-GCM using a random nonce and return Base64(nonce || ciphertext), with Decrypt splitting the nonce from the prefix.",
+   "design_B": "Encrypt with AES-GCM using a random nonce and return Base64(ciphertext || nonce), with Decrypt splitting the nonce from the suffix.",
+   "why_both_faithful": "The prose requires AES-GCM and Base64 reversible encryption but never specifies how the nonce is generated, stored, or laid out in the encoded payload.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

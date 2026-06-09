@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_53d376b1",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 54,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Treat birth/death year as 'matching' only when the year is present on BOTH input and candidate; if either side lacks a given year, that field is skipped and does not block the match (lenient \u2014 `(if present)` means compare only fields present on both).",
+   "design_B": "Treat a match as requiring that, for any year present on the input, the candidate must have an equal extracted year; if the input has a birth/death year and the candidate has none, that is a non-match (strict \u2014 `(if present)` keys off the input's fields).",
+   "why_both_faithful": "The clause 'only succeed if the input and candidate author have matching extracted birth and death years (if present)' never specifies how the one-sided case (year present on one party but absent on the other) resolves, so both the lenient-skip and strict-require readings satisfy it.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "For exact and alternate-name matches, compare birth/death years only when both the input and candidate have an extracted year for that field; missing years on either side do not block the match.",
+   "design_B": "For exact and alternate-name matches, if the input has an extracted birth or death year, require the candidate to also have the same extracted year; a missing candidate year blocks the match.",
+   "why_both_faithful": "The phrase requiring matching extracted birth and death years \"if present\" does not specify whether presence is evaluated independently on both records or from the input record as the constraint source.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_1a6a284b",
+ "breadth": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 94,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "In `log()`, resolve a message's source path against `logLevels` by selecting the entry whose path is the longest matching prefix (most-specific folder/file wins), and store/sort `logLevels` by descending path length so nested overrides beat parent-folder overrides.",
+   "design_B": "Resolve by walking `logLevels` in insertion/iteration order and using the first entry that prefix-matches the source path, with no longest-match precedence, so a broad parent-folder entry can shadow a more specific file entry depending on map ordering.",
+   "why_both_faithful": "The prose only says a message originating from a defined path should respect that path's level overriding the global level, but never specifies how to break ties when a source path matches multiple configured paths (file vs enclosing folder) or how `logLevels` is ordered/matched.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When multiple configured paths match a source file, choose the most specific match, e.g. the longest file/folder path prefix.",
+   "design_B": "When multiple configured paths match a source file, use the first matching configured entry after processing the map into logLevels.",
+   "why_both_faithful": "The prose requires path-specific levels to override the global level, but never specifies precedence among multiple matching configured source files or folders.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

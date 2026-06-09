@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Set source_records to [\"open_textbook_library:\" + str(id)].",
+  "design_B": "Set source_records to [\"open_textbook_library\" + str(id)].",
+  "why_both_faithful": "The prose requires the open_textbook_library prefix followed by the id but never specifies whether a separator such as ':' is part of that prefix.",
+  "selecting_clause": null
+}

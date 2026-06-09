@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Update test calls to pass nil or a no-op stub as the new playback server argument when constructing the Subsonic router.",
+  "design_B": "Update test calls to construct and pass a real PlaybackServer instance through the new dependency-injection wiring.",
+  "why_both_faithful": "The prose requires test instantiation to match the updated constructor and says playback should integrate when provided, but does not require tests to provide a real playback server rather than nil or a stub.",
+  "selecting_clause": null
+}

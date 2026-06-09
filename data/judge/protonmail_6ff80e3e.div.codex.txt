@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "The new helper `getElementsToBypassFilter` in `elementBypassFilters.ts` should return an empty bypass list and a remove list containing all elements when the unread filter already matches the mark-as action, or a bypass list containing all elements and an empty remove list otherwise."
+}

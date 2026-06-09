@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Parse subfield d only as hyphen-delimited dates, e.g. `1900-1980.` -> `birth_date: \"1900\"`, `death_date: \"1980\"`, trimming a final period.",
+  "design_B": "Parse subfield d with a broader label-aware/date-pattern parser, e.g. handling `born 1900`, `died 1980`, `1900?–1980`, and other textual forms into birth/death fields.",
+  "why_both_faithful": "The prose requires parsing subfield d for birth and/or death years and removing trailing periods, but does not specify the accepted date grammar or how ambiguous textual date forms must be interpreted.",
+  "selecting_clause": null
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_0d13e6b4",
+ "breadth": {
+  "files": 4,
+  "hunks": 11,
+  "loc": 59,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "`find_entity(author)` returns a newly constructed author candidate dictionary preserving input fields when no existing match is found.",
+   "design_B": "`find_entity(author)` delegates to `find_author(author)` and returns an existing author record when found, otherwise `None`.",
+   "why_both_faithful": "The requirements separately state both no-match behaviors for `find_entity`, so either implementation can point to an explicit clause in the prose.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

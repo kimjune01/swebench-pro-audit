@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"When supported, `luqum_replace_child` should rebuild the children sequence preserving order and type, replacing occurrences equal to `old_child` with `new_child`, and reassign it to the parent."}

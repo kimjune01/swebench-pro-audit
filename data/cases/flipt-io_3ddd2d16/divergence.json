@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_3ddd2d16",
+ "breadth": {
+  "files": 5,
+  "hunks": 14,
+  "loc": 368,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Validate incoming Kubernetes service account JWT bearer tokens locally by using IssuerURL/CAPath to fetch the Kubernetes OIDC discovery document and JWKS, then checking issuer, signature, expiry, and relevant claims.",
+   "design_B": "Validate incoming Kubernetes service account bearer tokens by calling the Kubernetes TokenReview API at IssuerURL, using CAPath for TLS trust and ServiceAccountTokenPath as Flipt's reviewer credential.",
+   "why_both_faithful": "The prose requires validation against the configured Kubernetes cluster and provides issuer/CA/token-path configuration, but does not specify whether validation must be local OIDC/JWKS verification or delegated to the Kubernetes API TokenReview endpoint.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

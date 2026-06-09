@@ -1,0 +1,30 @@
+{
+ "slug": "NodeBB_09f3ac65",
+ "breadth": {
+  "files": 8,
+  "hunks": 14,
+  "loc": 135,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": false,
+   "design_A": "getValidationExpiry returns the raw store TTL via pttl on the confirmation key (e.g. db.pttl('confirm:'+code)), and canSendValidation derives ttlMs from that same store TTL each call; expiring deletes the confirm record and per-user marker so pttl returns null.",
+   "design_B": "getValidationExpiry computes remaining TTL arithmetically from a stored absolute issue/expiry timestamp (expiryMs - (now - issuedAt)) persisted on the user object, rather than reading the store's live TTL; canSendValidation uses that computed value.",
+   "why_both_faithful": "The prose says TTL must be 'derived from the store's live TTL so it decreases over time' but never pins which key/data structure stores it or whether expiry is tracked by a key TTL versus a stored timestamp, so both a pttl-backed and a timestamp-arithmetic implementation satisfy every stated bound and behavior.",
+   "selecting_clause": "derived from the store\u2019s live TTL so it decreases over time"
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "let ttlMs be the remaining TTL, intervalMs = emailConfirmInterval * 60 * 1000, and expiryMs = emailConfirmExpiry * 24 * 60 * 60 * 1000. - Resend should be blocked while pending unless ttlMs + intervalMs < expiryMs; otherwise, it should be allowed."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -1,0 +1,30 @@
+{
+ "slug": "navidrome_5f6f74ff",
+ "breadth": {
+  "files": 10,
+  "hunks": 28,
+  "loc": 174,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Only the other sessions of the same user receive the event; the session that originated it should not receive it. Sessions belonging to different users should not receive these events."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

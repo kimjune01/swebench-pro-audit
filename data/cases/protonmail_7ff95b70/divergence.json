@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_7ff95b70",
+ "breadth": {
+  "files": 6,
+  "hunks": 14,
+  "loc": 56,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "useSelectionControls must compute a `selectionState` value based on `selectedItemIds` and `itemIds`, returning `NONE` when no items are selected, `SOME` when some items are selected, and `ALL` when all items are selected."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

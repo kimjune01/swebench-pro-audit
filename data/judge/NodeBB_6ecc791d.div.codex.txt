@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"When the `min` and/or `max` parameters are provided, the function must return the count of elements whose scores satisfy the condition `min ≤ score ≤ max`."}

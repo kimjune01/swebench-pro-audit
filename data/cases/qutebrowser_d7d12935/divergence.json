@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_d7d12935",
+ "breadth": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 46,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When SIGTERM occurs without --verbose, suppress all user-visible messages; with --verbose, show `terminated with SIGTERM See :process {pid} for details.`",
+   "design_B": "When SIGTERM occurs without --verbose, show a non-error informational message while still setting state to `terminated`; with --verbose, show `terminated with SIGTERM See :process {pid} for details.`",
+   "why_both_faithful": "The prose forbids a non-verbose error message for SIGTERM but does not forbid non-error informational messages.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

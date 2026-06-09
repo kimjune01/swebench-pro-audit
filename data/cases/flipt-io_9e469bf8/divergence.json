@@ -1,0 +1,30 @@
+{
+ "slug": "flipt-io_9e469bf8",
+ "breadth": {
+  "files": 6,
+  "hunks": 18,
+  "loc": 239,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement DefaultConfig to allocate and return a fresh *Config populated with the canonical defaults on every call.",
+   "design_B": "Implement DefaultConfig to return a pointer to a package-level default Config singleton that is reused across calls.",
+   "why_both_faithful": "The prose requires a public DefaultConfig returning a complete *Config that decodes and validates, but never specifies whether callers receive a fresh mutable copy or a shared canonical instance.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

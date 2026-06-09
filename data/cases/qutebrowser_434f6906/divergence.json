@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_434f6906",
+ "breadth": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 38,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "the dark mode configuration should generate an entry with the key \"ForegroundBrightnessThreshold\" and the numeric value converted to string format"
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "Qt 6.4 environments use \"ForegroundBrightnessThreshold\" rather than any other key name when processing the text threshold setting."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

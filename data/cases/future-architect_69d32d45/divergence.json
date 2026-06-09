@@ -1,0 +1,30 @@
+{
+ "slug": "future-architect_69d32d45",
+ "breadth": {
+  "files": 8,
+  "hunks": 16,
+  "loc": 378,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Populate the canonical EOL mapping with one specific set of standard/extended support end dates per family/version drawn from one source (e.g. endoflife.date), and treat the 'within three months' boundary as inclusive of the exact day (>= now and <= now+3mo emits the near-EOL warning).",
+   "design_B": "Populate the mapping with a different but equally plausible set of end dates per family/version (vendor pages and distro sources disagree on exact days, and some releases have no published extended-support date), and treat the boundary as exclusive (strictly before now+3mo), producing different warning text and different EOL date strings for the same scanned release.",
+   "why_both_faithful": "The prose mandates the message templates, interface signatures, and YYYY-MM-DD formatting but never enumerates the actual per-family/version EOL dates nor pins the inclusivity of the three-month boundary, so the concrete date strings and boundary cases each scan emits are left open.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement the near-EOL window as calendar-month based: emit the three-month warning when StandardSupportUntil is on or before now.AddDate(0, 3, 0), using a hardcoded canonical table keyed by normalized family plus release/major release.",
+   "design_B": "Implement the near-EOL window as duration-based: emit the three-month warning when StandardSupportUntil.Sub(now) is less than or equal to 90*24h, using the same public API and deterministic canonical table.",
+   "why_both_faithful": "The prose requires a deterministic warning when standard support ends within three months, but never defines whether three months means calendar months or a fixed 90-day duration.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

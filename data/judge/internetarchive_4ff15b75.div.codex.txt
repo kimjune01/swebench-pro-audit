@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"read_authors must produce a single structured authors array and must never emit the legacy contributions key anywhere in the output JSON."}

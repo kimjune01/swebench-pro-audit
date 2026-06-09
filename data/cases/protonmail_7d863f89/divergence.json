@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_7d863f89",
+ "breadth": {
+  "files": 6,
+  "hunks": 22,
+  "loc": 94,
+  "flagged": true
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Define MAX_BLOCK_VERIFICATION_RETRIES as 1, so encryptBlock performs the initial verification attempt and at most one retry before throwing.",
+   "design_B": "Define MAX_BLOCK_VERIFICATION_RETRIES as 3, so encryptBlock performs the initial verification attempt and up to three retries before throwing.",
+   "why_both_faithful": "The prose requires retry behavior to be governed by a configurable constant named MAX_BLOCK_VERIFICATION_RETRIES, but never specifies the constant's value.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

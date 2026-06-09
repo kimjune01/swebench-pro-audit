@@ -1,0 +1,1 @@
+{"determined":true,"design_A":null,"design_B":null,"why_both_faithful":null,"selecting_clause":"When initializing `_DEFINITIONS`, the \"qt_67\" variant should be derived by copying the settings from \"qt_66\" and removing the \"enabled\" setting using a `copy_remove_setting` method."}

@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "When external identifier matching finds multiple authors, score each candidate by the number of matching remote_ids and choose the highest score, breaking ties by lexicographically smallest Open Library author key.",
+  "design_B": "When external identifier matching finds multiple authors, choose the first candidate found by a fixed identifier-type priority order such as VIAF, Goodreads, Amazon, then LibriVox, breaking ties by lexicographically smallest Open Library author key.",
+  "why_both_faithful": "The prose requires deterministic tie-breaking and priority between matching phases, but does not specify how to rank or choose among multiple external-identifier matches within the same phase.",
+  "selecting_clause": null
+}

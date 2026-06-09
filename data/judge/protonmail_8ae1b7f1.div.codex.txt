@@ -1,0 +1,7 @@
+{
+  "determined": false,
+  "design_A": "Implement `calendar/recurrence` as a barrel module that re-exports the listed symbols from existing or newly moved submodules, preserving each helper's existing behavior.",
+  "design_B": "Implement `calendar/recurrence` as a new consolidated module/file that directly defines or imports-and-wraps the listed symbols behind the same public import path.",
+  "why_both_faithful": "The prose requires the module path to expose specific symbols and improve domain grouping, but does not require a particular file topology or whether exports come from barrels, wrappers, or direct implementations.",
+  "selecting_clause": null
+}

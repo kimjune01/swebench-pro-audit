@@ -1,0 +1,30 @@
+{
+ "slug": "qutebrowser_b9920503",
+ "breadth": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 96,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "The filtering logic should first match the source using glob patterns in `levels` and confirm the level is enabled, then check for a matching source in `excludes`, and finally, if present, match the message `msg` against the exclusion patterns for that source; if a match occurs, the message should not be shown in the UI."
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

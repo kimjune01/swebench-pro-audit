@@ -1,0 +1,7 @@
+{
+  "determined": true,
+  "design_A": null,
+  "design_B": null,
+  "why_both_faithful": null,
+  "selecting_clause": "If any associated category is not readable by the caller, the method must reject with the exact message `[[error:no-privileges]]` and no upvoter data returned."
+}

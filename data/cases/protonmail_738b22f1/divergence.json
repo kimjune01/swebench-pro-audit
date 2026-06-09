@@ -1,0 +1,30 @@
+{
+ "slug": "protonmail_738b22f1",
+ "breadth": {
+  "files": 7,
+  "hunks": 11,
+  "loc": 111,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": "returning \"custom\" for user-defined labels/folders and returning the original built-in label ID for system mailboxes"
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

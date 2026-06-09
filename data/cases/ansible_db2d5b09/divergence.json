@@ -1,0 +1,30 @@
+{
+ "slug": "ansible_db2d5b09",
+ "breadth": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 148,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When direction is both, emit separate route-target import <rt> and route-target export <rt> commands, and remove them separately with no route-target import/export <rt>.",
+   "design_B": "When direction is both, emit the NX-OS shorthand route-target both <rt> command, and remove it with no route-target both <rt>.",
+   "why_both_faithful": "The prose requires direction both to affect both import and export route-targets but does not specify whether that must be represented as two direction-specific commands or a single both command.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

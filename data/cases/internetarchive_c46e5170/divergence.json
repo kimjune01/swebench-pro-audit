@@ -1,0 +1,30 @@
+{
+ "slug": "internetarchive_c46e5170",
+ "breadth": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 208,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Populate NONBOOK with a specific small set of keywords (e.g. ['dvd', 'video', 'cd', 'audio', 'audiobook']) and have is_nonbook split the binding into words and return True if any word appears in that set",
+   "design_B": "Populate NONBOOK with a different/larger set of full binding phrases (e.g. ['DVD', 'DVD-ROM', 'Audio Cassette', 'Audio CD', 'MP3 CD', 'Board book maybe excluded', 'Game']) and have is_nonbook do a case-insensitive substring match of each entry against the whole binding string",
+   "why_both_faithful": "The prose only requires NONBOOK to be a 'maintained list' of non-book bindings with 'DVD or audio' as illustrative examples and says is_nonbook compares 'words in the binding string' against it, so the exact membership of the list and whether matching is word-level or substring-level are both left open and any reasonable choice satisfies every stated requirement.",
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "Implement is_nonbook by lowercasing the binding, splitting it into word tokens, and returning true only when a token exactly equals an entry in NONBOOK, with NONBOOK limited to explicit non-book keywords such as dvd, audio, audiobook, cd.",
+   "design_B": "Implement is_nonbook by lowercasing the binding and returning true when any NONBOOK entry appears as a substring or phrase anywhere in the binding, with NONBOOK containing multi-word bindings such as audio cd, dvd-rom, video game, calendar.",
+   "why_both_faithful": "The prose requires excluding non-book formats by comparing the binding against a maintained list, but does not specify exact token matching versus substring or phrase matching, nor the precise NONBOOK entries.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": true
+}

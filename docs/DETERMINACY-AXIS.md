@@ -62,38 +62,70 @@ So the determinacy-failing union, overlap-corrected and tier-honest: **~12% per-
 net-new design-divergent (single-rater hypothesis) ≈ ~18%**, with a looser prose-literal-silence
 diagnostic at ~69%. Not a sum; not a concurrence; not yet panel-proven.
 
-## Scoring implication: float, not pass/fail
+## Scoring: the aspiration, what binary measures, what we propose
 
-Divergence is *why binary scoring misleads.* A `resolved` boolean throws the whole instance away over a
-single missed pluralistic convention: a patch that satisfies 11 of 12 graded behaviors scores the same as
-one that fixed nothing. Recommended instead, per instance:
+**The aspiration, for a harness, is full automation.** The point of an agent harness is to resolve an
+issue end to end with no human in the loop. Underspecified prose is the structural ceiling on that goal.
+Where the prose determines the fix, automation can in principle reach it, and the residual is a capability
+gap that shrinks as models improve. Where the prose does not determine it, no model closes the gap from the
+prose alone, because the missing choice is not information the agent can derive; it has to come from a
+human. So the divergent fraction is not a capability gap better agents erase. It is the part of the
+benchmark that cannot be fully automated by construction, because the specification is not there to
+automate against. A score should make that distinction visible, not bury it under a boolean.
 
-> **score = clamp₀₁( (FAIL_TO_PASS passed − PASS_TO_PASS regressed) / FAIL_TO_PASS introduced )**
+**What the binary score measures today.** SWE-bench Pro collapses the question to a coin flip: an instance
+counts as resolved only if the patch reproduces one maintainer's opinionated choices closely enough that
+every held-out assertion fires. Three moves hide inside that boolean. It treats a merged commit as ground
+truth, when a merge is one fallible opinion shaped by taste, time pressure, and the occasional plain
+mistake, and the bench has no channel to notice when the maintainer was wrong. It is all or nothing, so a
+patch that satisfies eleven of twelve graded behaviors scores the same as one that fixed nothing. And it
+fabricates a finish line at one hundred percent that the maintainer's own workflow never contains, since a
+careful reviewer reads even a fully passing PR for everything the tests did not check. Together these
+amplify the specification lottery: a single underdetermined assertion, where the maintainer's unstated
+preference might itself be the worse option, sends an otherwise correct fix to zero.
 
-computable today from the grader's per-test `_output.json`. It decouples the determinate majority from the
-divergent minority — a divergent assertion costs only its `1/N` share instead of the whole instance.
+**What we propose.** Score each instance as a float in [0, 1], the fraction of the new behaviors a task
+introduces that the patch achieves, net of regressions:
 
-**What the float means: residual maintainer work.** `1 − score` is the fraction of the task still left for
-a repo maintainer to reach a mergeable state — which is precisely the production value a coding agent
-provides (distance closed toward done), and exactly what a binary `resolved` discards. Pass/fail only
-answers "did you hand me a zero-touch merge-ready PR"; a maintainer actually feels the *marginal* effort to
-finish what the agent started. And the residual is heterogeneous: a determinate gap leaves *implementation*
-work, but a **divergent** gap leaves only a one-line *clarification* ("I wanted 404 here") — the cheapest
-residual there is. Binary scores that 11/12-done, needs-one-clarification PR identically to garbage; the
-float scores it as the near-complete work it is. (Caveat: a regression is residual work too, arguably
-costlier than an un-done behavior — the `−r` term penalizes it only linearly; a maintainer-effort-faithful
-variant would weight regressions heavier.)
+> score = clamp₀₁( (FAIL_TO_PASS passed − PASS_TO_PASS regressed) / FAIL_TO_PASS introduced )
 
-**No premium for 100%.** `1 − score` is a *lower bound* on residual work — it counts only what the existing
-tests can see. A careful maintainer reviews even a fully-passing PR for what the suite never checked
-(design, security, untested edges), so a perfect score means "no test caught anything," not "correct" or
-"merge-ready, zero touch." The held-out suite is a partial oracle; the maintainer is the fuller one. This
-is itself an argument for the float over binary: pass/fail invents a discontinuity at 100% — worthless
-below, done at — that the maintainer's workflow does not contain. They review both the 11/12 and the 12/12;
-the only difference is how much they fix, which falls *continuously* with the residual. The float matches
-that gradient; the binary fabricates a finish line that isn't there.
-**Imperfect** (it weights all assertions equally and does not *resolve* the underdetermination — mitigation,
-not cure), but strictly **less** imperfect than binary. Canonical case: `qutebrowser-e34dfc68` passes
-233/248 and loses on a 15-case DNS matrix the prose never specifies — binary `0`, float ≈ the determinate
-work done. Report the determinacy-weighted mean of these per-instance floats, and publish the divergent
-set so consumers can score on the determinate subset when they want a reasoning signal.
+computable today from the grader's per-test `_output.json`. Read one minus the score as residual work: how
+much a maintainer must still do to reach a mergeable state, which is the production value the agent
+provided. For a harness builder the residual splits in the way that matters most: on a determinate task it
+is **capability residual**, which a better model erases; on a divergent task it is **specification
+residual**, which no model erases, because the spec is missing and a human must supply the choice. The
+float together with the divergence label tells you which wall you are against. The reading stays honest
+about its limits. It is a lower bound, since it counts only the residual the tests can see and a careful
+review survives even a perfect score (one hundred percent means "no test caught anything," not "correct").
+It weights every assertion equally, though a regression can cost more than an un-done behavior and a
+divergent gap can cost only a one-line clarification. It does not resolve the underdetermination, so it is
+mitigation, not cure. But it is strictly less imperfect than a binary that discards the determinate
+majority over one pluralistic convention, and it matches the workflow it models: the maintainer reviews
+regardless, and their effort falls continuously with the gap instead of dropping to zero at a finish line
+the binary invents. Canonical case: `qutebrowser-e34dfc68` passes 233/248 and loses on a 15-case DNS matrix
+the prose never specifies; binary reads `0`, the float reads the determinate work done. Report the
+determinacy-weighted mean of these per-instance floats, and publish the divergent set so consumers can
+score on the determinate subset, or at least know which residual is spec-missing rather than
+capability-missing.
+
+**What the score actually measures: automation afforded.** Put the pieces together and the float reads as
+one quantity, the level of automation a task admits, which factors as *the determinacy the prose affords
+times the capability of the model and harness.* A fully determinate task has an automation ceiling of one,
+so the score is pure capability. A divergent task has a ceiling below one, so even a perfect harness tops
+out short of full automation, and the remainder is not failure but **elicitation**. The natural, correct
+behavior of an automated agent against underspecified prose is to implement everything the spec determines
+and leave the unstated choice for the maintainer to resolve at review time. An incomplete implementation
+there is the specification working as written, surfacing its own gap for human elicitation, not the agent
+falling short. So the score measures how far prose-times-capability got, and the divergence label says
+whether the gap that remains is waiting on a better model or on a human to finish specifying. That is the
+right target for anyone building a harness: full automation is the aspiration, and this number reports the
+fraction of it the prose actually permitted.
+
+**And you cannot factor it from the score alone.** Automation-afforded is a product, and a product hides
+its factors. A low float could be an underspecified task or an underpowered harness, and the number by
+itself cannot tell you which. Separating them requires measuring one factor independently, which is what a
+determinacy audit does: the per-instance determinacy label supplies the prose term, so the score's
+shortfall can be attributed to the prose or to the harness. Without it, every reported Pro number conflates
+the two, crediting the harness with whatever determinacy the prose happened to supply and faulting it for
+whatever the prose withheld. That confound, unfactorable from the leaderboard and visible only once the
+audit is done, is the reason this repo exists.

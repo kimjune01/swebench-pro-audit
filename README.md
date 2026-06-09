@@ -119,6 +119,30 @@ preregistered instrument with a proven spine, not a population rate. Full table:
 - **Don't game the denominator.** Editing test files, weakening assertions, or excluding your own losses
   inflates nothing real. Forbid test-file edits; capture source-only patches; grade on the official harness.
 
+### If you build or maintain a bench
+Every failure mode above inverts into a construction rule:
+- **Admit by convergence, not by gold-passes-grader.** Before a task ships, check that competent
+  from-prose solvers (a decontaminated panel) converge on the test-passing behavior; if they scatter, the
+  task is divergent — tighten the prose until it converges, or cut it. The gold patch is *an* answer, not
+  *the* answer.
+- **Score each instance as a float in [0, 1], not pass/fail.** A binary `resolved` throws the whole
+  instance away over a single missed pluralistic convention — a model that nails 11 of 12 graded behaviors
+  scores identically to one that fixed nothing. A partial-credit score decouples the determinate majority
+  from the divergent minority:
+
+  > **score(instance) = clamp₀₁( (new tests passed − tests regressed) / new tests introduced )**
+
+  i.e. of the `FAIL_TO_PASS` tests a task adds, the fraction the patch passes, penalized by any
+  `PASS_TO_PASS` regression, clamped to [0, 1]. It's computable today from the grader's per-test output
+  (`_output.json`). This is **imperfect** — it weights all assertions equally, and a divergent assertion
+  still costs its `1/N` share (mitigation, not cure) — but it is *strictly less imperfect* than binary,
+  which sends the whole instance down the drain for one underdetermined check. On `qutebrowser-e34dfc68`,
+  binary reads `0` (233/248 passing, lost on a 15-case DNS matrix the prose never pins); the float reads
+  the determinate work actually done. Report the determinacy-weighted mean of these floors.
+- **Separate the divergent set.** Publish which instances are design-divergent (see
+  [`docs/DETERMINACY-AXIS.md`](docs/DETERMINACY-AXIS.md)) so consumers can score on the determinate subset
+  when they want a reasoning signal.
+
 ## Interpretation — where the harness lift comes from
 
 These are **mechanism checks, not population estimates**: small oracle-free ablations that show the tested

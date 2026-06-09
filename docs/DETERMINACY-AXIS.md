@@ -61,3 +61,19 @@ Reported as a **separate** number, never merged into the per-behavior 4.9% / 12.
 So the determinacy-failing union, overlap-corrected and tier-honest: **~12% per-behavior PROVEN + ~6%
 net-new design-divergent (single-rater hypothesis) ≈ ~18%**, with a looser prose-literal-silence
 diagnostic at ~69%. Not a sum; not a concurrence; not yet panel-proven.
+
+## Scoring implication: float, not pass/fail
+
+Divergence is *why binary scoring misleads.* A `resolved` boolean throws the whole instance away over a
+single missed pluralistic convention: a patch that satisfies 11 of 12 graded behaviors scores the same as
+one that fixed nothing. Recommended instead, per instance:
+
+> **score = clamp₀₁( (FAIL_TO_PASS passed − PASS_TO_PASS regressed) / FAIL_TO_PASS introduced )**
+
+computable today from the grader's per-test `_output.json`. It decouples the determinate majority from the
+divergent minority — a divergent assertion costs only its `1/N` share instead of the whole instance.
+**Imperfect** (it weights all assertions equally and does not *resolve* the underdetermination — mitigation,
+not cure), but strictly **less** imperfect than binary. Canonical case: `qutebrowser-e34dfc68` passes
+233/248 and loses on a 15-case DNS matrix the prose never specifies — binary `0`, float ≈ the determinate
+work done. Report the determinacy-weighted mean of these per-instance floats, and publish the divergent
+set so consumers can score on the determinate subset when they want a reasoning signal.

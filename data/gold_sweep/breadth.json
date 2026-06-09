@@ -1,0 +1,4388 @@
+{
+ "protonmail_7264c6bd": {
+  "files": 10,
+  "hunks": 14,
+  "loc": 44,
+  "flagged": true
+ },
+ "flipt-io_b6edc5e4": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 59,
+  "flagged": false
+ },
+ "flipt-io_25a5f278": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 69,
+  "flagged": false
+ },
+ "qutebrowser_54c0c493": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 22,
+  "flagged": false
+ },
+ "internetarchive_c9795319": {
+  "files": 5,
+  "hunks": 27,
+  "loc": 143,
+  "flagged": true
+ },
+ "flipt-io_ee02b164": {
+  "files": 8,
+  "hunks": 11,
+  "loc": 108,
+  "flagged": true
+ },
+ "NodeBB_f2c0c188": {
+  "files": 3,
+  "hunks": 9,
+  "loc": 109,
+  "flagged": false
+ },
+ "internetarchive_9d9f3a19": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 251,
+  "flagged": false
+ },
+ "flipt-io_266e5e14": {
+  "files": 8,
+  "hunks": 16,
+  "loc": 155,
+  "flagged": true
+ },
+ "internetarchive_a8db9346": {
+  "files": 6,
+  "hunks": 14,
+  "loc": 239,
+  "flagged": false
+ },
+ "navidrome_537e2fc0": {
+  "files": 9,
+  "hunks": 20,
+  "loc": 163,
+  "flagged": true
+ },
+ "NodeBB_d9c42c00": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 37,
+  "flagged": false
+ },
+ "gravitational_43fc9f6d": {
+  "files": 1,
+  "hunks": 14,
+  "loc": 102,
+  "flagged": false
+ },
+ "internetarchive_471ffcf0": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 51,
+  "flagged": false
+ },
+ "future-architect_e4728e38": {
+  "files": 5,
+  "hunks": 14,
+  "loc": 269,
+  "flagged": false
+ },
+ "flipt-io_bbf0a917": {
+  "files": 5,
+  "hunks": 9,
+  "loc": 123,
+  "flagged": false
+ },
+ "flipt-io_32864671": {
+  "files": 11,
+  "hunks": 26,
+  "loc": 352,
+  "flagged": true
+ },
+ "protonmail_2099c507": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 26,
+  "flagged": false
+ },
+ "ansible_59ca05b7": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 28,
+  "flagged": false
+ },
+ "gravitational_2e7b253d": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 33,
+  "flagged": false
+ },
+ "flipt-io_5c6de423": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 61,
+  "flagged": false
+ },
+ "ansible_a77dbf08": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 30,
+  "flagged": false
+ },
+ "navidrome_a5dfd2d4": {
+  "files": 2,
+  "hunks": 11,
+  "loc": 62,
+  "flagged": false
+ },
+ "tutao_2e5d877a": {
+  "files": 3,
+  "hunks": 8,
+  "loc": 29,
+  "flagged": false
+ },
+ "ansible_fc8197e3": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 51,
+  "flagged": false
+ },
+ "gravitational_cdae4e3e": {
+  "files": 4,
+  "hunks": 16,
+  "loc": 154,
+  "flagged": false
+ },
+ "navidrome_7fc964ae": {
+  "files": 9,
+  "hunks": 43,
+  "loc": 109,
+  "flagged": true
+ },
+ "qutebrowser_bf65a1db": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 37,
+  "flagged": false
+ },
+ "navidrome_128b626e": {
+  "files": 9,
+  "hunks": 24,
+  "loc": 110,
+  "flagged": true
+ },
+ "future-architect_4c598bb9": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 50,
+  "flagged": false
+ },
+ "gravitational_07e2ca13": {
+  "files": 7,
+  "hunks": 7,
+  "loc": 563,
+  "flagged": false
+ },
+ "gravitational_883cf1ae": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 62,
+  "flagged": false
+ },
+ "qutebrowser_30570a5c": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 314,
+  "flagged": false
+ },
+ "protonmail_fc4c6e03": {
+  "files": 3,
+  "hunks": 9,
+  "loc": 38,
+  "flagged": false
+ },
+ "internetarchive_b2086f9b": {
+  "files": 2,
+  "hunks": 12,
+  "loc": 141,
+  "flagged": false
+ },
+ "qutebrowser_e158a480": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 32,
+  "flagged": false
+ },
+ "navidrome_28f7ef43": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 166,
+  "flagged": false
+ },
+ "internetarchive_84cc4ed5": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 119,
+  "flagged": false
+ },
+ "nodebb_golddefect": {
+  "files": 8,
+  "hunks": 13,
+  "loc": 89,
+  "flagged": true
+ },
+ "NodeBB_779c73ea": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 49,
+  "flagged": false
+ },
+ "ansible_254de2a4": {
+  "files": 10,
+  "hunks": 58,
+  "loc": 719,
+  "flagged": true
+ },
+ "qutebrowser_cb596193": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 72,
+  "flagged": false
+ },
+ "ansible_6198c737": {
+  "files": 4,
+  "hunks": 12,
+  "loc": 71,
+  "flagged": false
+ },
+ "protonmail_c40dccc3": {
+  "files": 12,
+  "hunks": 36,
+  "loc": 272,
+  "flagged": true
+ },
+ "gravitational_19c57688": {
+  "files": 6,
+  "hunks": 29,
+  "loc": 366,
+  "flagged": true
+ },
+ "ansible_d79b2391": {
+  "files": 8,
+  "hunks": 25,
+  "loc": 286,
+  "flagged": true
+ },
+ "future-architect_7c209cc9": {
+  "files": 6,
+  "hunks": 23,
+  "loc": 129,
+  "flagged": true
+ },
+ "ansible_f4502a8f": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 270,
+  "flagged": false
+ },
+ "qutebrowser_d6a3d1fe": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 44,
+  "flagged": false
+ },
+ "qutebrowser_c97257ca": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 106,
+  "flagged": false
+ },
+ "qutebrowser_03fa9383": {
+  "files": 2,
+  "hunks": 9,
+  "loc": 43,
+  "flagged": false
+ },
+ "NodeBB_f24b630e": {
+  "files": 9,
+  "hunks": 13,
+  "loc": 73,
+  "flagged": true
+ },
+ "navidrome_68f03d01": {
+  "files": 7,
+  "hunks": 17,
+  "loc": 181,
+  "flagged": false
+ },
+ "internetarchive_9db36528": {
+  "files": 3,
+  "hunks": 8,
+  "loc": 421,
+  "flagged": false
+ },
+ "flipt-io_0eaf98f0": {
+  "files": 10,
+  "hunks": 24,
+  "loc": 224,
+  "flagged": true
+ },
+ "future-architect_8775b5ef": {
+  "files": 5,
+  "hunks": 11,
+  "loc": 144,
+  "flagged": false
+ },
+ "qutebrowser_3ae5cc96": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 53,
+  "flagged": false
+ },
+ "flipt-io_eafbf82d": {
+  "files": 2,
+  "hunks": 27,
+  "loc": 61,
+  "flagged": true
+ },
+ "ansible_1f59bbf4": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 30,
+  "flagged": false
+ },
+ "ansible_92df6648": {
+  "files": 7,
+  "hunks": 7,
+  "loc": 45,
+  "flagged": false
+ },
+ "navidrome_8808eadd": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 257,
+  "flagged": false
+ },
+ "element-hq_212233cb": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 22,
+  "flagged": false
+ },
+ "ansible_9281148b": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 63,
+  "flagged": false
+ },
+ "future-architect_78b52d6a": {
+  "files": 9,
+  "hunks": 18,
+  "loc": 473,
+  "flagged": true
+ },
+ "ansible_0fae2383": {
+  "files": 5,
+  "hunks": 17,
+  "loc": 94,
+  "flagged": false
+ },
+ "protonmail_e2bd7656": {
+  "files": 6,
+  "hunks": 16,
+  "loc": 121,
+  "flagged": false
+ },
+ "flipt-io_490cc129": {
+  "files": 10,
+  "hunks": 18,
+  "loc": 854,
+  "flagged": true
+ },
+ "internetarchive_eb8da9e7": {
+  "files": 1,
+  "hunks": 5,
+  "loc": 24,
+  "flagged": false
+ },
+ "qutebrowser_d7d12935": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 46,
+  "flagged": false
+ },
+ "ansible_813c25ee": {
+  "files": 5,
+  "hunks": 14,
+  "loc": 35,
+  "flagged": false
+ },
+ "ansible_a870e7d0": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 52,
+  "flagged": false
+ },
+ "future-architect_2c51bcf4": {
+  "files": 2,
+  "hunks": 14,
+  "loc": 73,
+  "flagged": false
+ },
+ "internetarchive_53d376b1": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 54,
+  "flagged": false
+ },
+ "NodeBB_ab5e2a41": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 84,
+  "flagged": false
+ },
+ "ansible_f7234968": {
+  "files": 3,
+  "hunks": 3,
+  "loc": 32,
+  "flagged": false
+ },
+ "gravitational_44b89c75": {
+  "files": 11,
+  "hunks": 29,
+  "loc": 572,
+  "flagged": true
+ },
+ "ansible_0044091a": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 22,
+  "flagged": false
+ },
+ "NodeBB_81611ae1": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 91,
+  "flagged": false
+ },
+ "internetarchive_4d2c6967": {
+  "files": 11,
+  "hunks": 37,
+  "loc": 703,
+  "flagged": true
+ },
+ "element-hq_9d8eface": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 46,
+  "flagged": false
+ },
+ "future-architect_8a611f9b": {
+  "files": 7,
+  "hunks": 44,
+  "loc": 222,
+  "flagged": true
+ },
+ "gravitational_c2a8ff3e": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 44,
+  "flagged": false
+ },
+ "flipt-io_3ddd2d16": {
+  "files": 5,
+  "hunks": 14,
+  "loc": 368,
+  "flagged": false
+ },
+ "flipt-io_b64891e5": {
+  "files": 10,
+  "hunks": 22,
+  "loc": 110,
+  "flagged": true
+ },
+ "internetarchive_d55e8868": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 42,
+  "flagged": false
+ },
+ "element-hq_16e92a4d": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 33,
+  "flagged": false
+ },
+ "protonmail_5fe4a7bd": {
+  "files": 19,
+  "hunks": 60,
+  "loc": 309,
+  "flagged": true
+ },
+ "protonmail_94dc494b": {
+  "files": 6,
+  "hunks": 11,
+  "loc": 74,
+  "flagged": false
+ },
+ "element-hq_2f8e9824": {
+  "files": 7,
+  "hunks": 37,
+  "loc": 209,
+  "flagged": true
+ },
+ "NodeBB_b94bb1bf": {
+  "files": 7,
+  "hunks": 8,
+  "loc": 37,
+  "flagged": false
+ },
+ "NodeBB_61d17c95": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 82,
+  "flagged": false
+ },
+ "NodeBB_6bbe3d1c": {
+  "files": 4,
+  "hunks": 5,
+  "loc": 79,
+  "flagged": false
+ },
+ "element-hq_6bc4523c": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 59,
+  "flagged": false
+ },
+ "internetarchive_1e32ae3e": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 41,
+  "flagged": false
+ },
+ "NodeBB_47910d70": {
+  "files": 11,
+  "hunks": 23,
+  "loc": 76,
+  "flagged": true
+ },
+ "flipt-io_d94448d3": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 53,
+  "flagged": false
+ },
+ "ansible_3fffddc1": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 26,
+  "flagged": false
+ },
+ "gravitational_4b11dc4a": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 38,
+  "flagged": false
+ },
+ "tutao_a834bd49": {
+  "files": 9,
+  "hunks": 33,
+  "loc": 204,
+  "flagged": true
+ },
+ "ansible_f533d465": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 61,
+  "flagged": false
+ },
+ "future-architect_d1a617cf": {
+  "files": 9,
+  "hunks": 95,
+  "loc": 470,
+  "flagged": true
+ },
+ "future-architect_fe3f1b99": {
+  "files": 7,
+  "hunks": 8,
+  "loc": 35,
+  "flagged": false
+ },
+ "element-hq_53415bfd": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 39,
+  "flagged": false
+ },
+ "tutao_376d4f29": {
+  "files": 9,
+  "hunks": 29,
+  "loc": 263,
+  "flagged": true
+ },
+ "qutebrowser_ea60bcfc": {
+  "files": 4,
+  "hunks": 10,
+  "loc": 45,
+  "flagged": false
+ },
+ "flipt-io_168f6119": {
+  "files": 14,
+  "hunks": 42,
+  "loc": 336,
+  "flagged": true
+ },
+ "ansible_20ec9272": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 328,
+  "flagged": false
+ },
+ "gravitational_b1e4f1e0": {
+  "files": 3,
+  "hunks": 25,
+  "loc": 62,
+  "flagged": true
+ },
+ "internetarchive_d8518f64": {
+  "files": 5,
+  "hunks": 41,
+  "loc": 888,
+  "flagged": true
+ },
+ "element-hq_e6fe7b7e": {
+  "files": 6,
+  "hunks": 20,
+  "loc": 238,
+  "flagged": true
+ },
+ "tutao_1919cee2": {
+  "files": 8,
+  "hunks": 12,
+  "loc": 263,
+  "flagged": true
+ },
+ "qutebrowser_a1963447": {
+  "files": 6,
+  "hunks": 27,
+  "loc": 244,
+  "flagged": true
+ },
+ "internetarchive_34099a36": {
+  "files": 4,
+  "hunks": 10,
+  "loc": 90,
+  "flagged": false
+ },
+ "internetarchive_73e4b70a": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 76,
+  "flagged": false
+ },
+ "gravitational_189d41a9": {
+  "files": 7,
+  "hunks": 25,
+  "loc": 414,
+  "flagged": true
+ },
+ "qutebrowser_6e7bb038": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 542,
+  "flagged": false
+ },
+ "future-architect_426eb53a": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 56,
+  "flagged": false
+ },
+ "navidrome_e434ca93": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 46,
+  "flagged": false
+ },
+ "internetarchive_322d7a46": {
+  "files": 4,
+  "hunks": 16,
+  "loc": 419,
+  "flagged": false
+ },
+ "NodeBB_bbaf26ce": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 36,
+  "flagged": false
+ },
+ "tutao_26c98dd3": {
+  "files": 8,
+  "hunks": 61,
+  "loc": 460,
+  "flagged": true
+ },
+ "future-architect_f1c38481": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 146,
+  "flagged": false
+ },
+ "element-hq_973513cc": {
+  "files": 11,
+  "hunks": 27,
+  "loc": 134,
+  "flagged": true
+ },
+ "navidrome_61903fac": {
+  "files": 8,
+  "hunks": 16,
+  "loc": 67,
+  "flagged": true
+ },
+ "protonmail_464a02f3": {
+  "files": 6,
+  "hunks": 18,
+  "loc": 129,
+  "flagged": false
+ },
+ "navidrome_5808b9fb": {
+  "files": 8,
+  "hunks": 14,
+  "loc": 113,
+  "flagged": true
+ },
+ "protonmail_078178de": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 32,
+  "flagged": false
+ },
+ "future-architect_8a8ab8cb": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 43,
+  "flagged": false
+ },
+ "qutebrowser_2e65f731": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 24,
+  "flagged": false
+ },
+ "future-architect_847c6438": {
+  "files": 3,
+  "hunks": 12,
+  "loc": 348,
+  "flagged": false
+ },
+ "future-architect_2d075079": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 193,
+  "flagged": false
+ },
+ "qutebrowser_fce306d5": {
+  "files": 1,
+  "hunks": 8,
+  "loc": 59,
+  "flagged": false
+ },
+ "NodeBB_6ecc791d": {
+  "files": 7,
+  "hunks": 10,
+  "loc": 106,
+  "flagged": false
+ },
+ "NodeBB_a3e1a666": {
+  "files": 106,
+  "hunks": 172,
+  "loc": 620,
+  "flagged": true
+ },
+ "qutebrowser_5a7f64ea": {
+  "files": 3,
+  "hunks": 8,
+  "loc": 42,
+  "flagged": false
+ },
+ "ansible_016b7f71": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 108,
+  "flagged": false
+ },
+ "internetarchive_cb6c053e": {
+  "files": 6,
+  "hunks": 13,
+  "loc": 244,
+  "flagged": false
+ },
+ "gravitational_a2c8576a": {
+  "files": 1,
+  "hunks": 12,
+  "loc": 137,
+  "flagged": false
+ },
+ "internetarchive_409914bf": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 38,
+  "flagged": false
+ },
+ "ansible_b6e71c5f": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 582,
+  "flagged": false
+ },
+ "flipt-io_9e469bf8": {
+  "files": 6,
+  "hunks": 18,
+  "loc": 239,
+  "flagged": false
+ },
+ "flipt-io_1bd9924b": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 60,
+  "flagged": false
+ },
+ "internetarchive_ba03a119": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 58,
+  "flagged": false
+ },
+ "internetarchive_b70f9aba": {
+  "files": 7,
+  "hunks": 13,
+  "loc": 120,
+  "flagged": false
+ },
+ "internetarchive_9a9204b4": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 104,
+  "flagged": false
+ },
+ "flipt-io_b22f5f02": {
+  "files": 9,
+  "hunks": 23,
+  "loc": 188,
+  "flagged": true
+ },
+ "navidrome_cbe3adf9": {
+  "files": 6,
+  "hunks": 17,
+  "loc": 67,
+  "flagged": false
+ },
+ "element-hq_dd912501": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 27,
+  "flagged": false
+ },
+ "ansible_02e00aba": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 36,
+  "flagged": false
+ },
+ "qutebrowser_a55f4db2": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 40,
+  "flagged": false
+ },
+ "protonmail_78e30c07": {
+  "files": 11,
+  "hunks": 24,
+  "loc": 162,
+  "flagged": true
+ },
+ "internetarchive_cbfef314": {
+  "files": 3,
+  "hunks": 29,
+  "loc": 226,
+  "flagged": true
+ },
+ "gravitational_42beccb2": {
+  "files": 4,
+  "hunks": 13,
+  "loc": 114,
+  "flagged": false
+ },
+ "internetarchive_71b18af1": {
+  "files": 6,
+  "hunks": 40,
+  "loc": 269,
+  "flagged": true
+ },
+ "internetarchive_8b933806": {
+  "files": 4,
+  "hunks": 10,
+  "loc": 148,
+  "flagged": false
+ },
+ "qutebrowser_1547a48e": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 29,
+  "flagged": false
+ },
+ "qutebrowser_e545faaf": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 95,
+  "flagged": false
+ },
+ "qutebrowser_d283e225": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 38,
+  "flagged": false
+ },
+ "internetarchive_02f647f7": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 69,
+  "flagged": false
+ },
+ "qutebrowser_1aec789f": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 28,
+  "flagged": false
+ },
+ "internetarchive_a08e5659": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 123,
+  "flagged": false
+ },
+ "qutebrowser_a6171337": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 82,
+  "flagged": false
+ },
+ "qutebrowser_ebf4b987": {
+  "files": 1,
+  "hunks": 4,
+  "loc": 32,
+  "flagged": false
+ },
+ "navidrome_213ceeca": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 59,
+  "flagged": false
+ },
+ "ansible_fafb2309": {
+  "files": 6,
+  "hunks": 14,
+  "loc": 89,
+  "flagged": false
+ },
+ "tutao_70c37c09": {
+  "files": 7,
+  "hunks": 22,
+  "loc": 237,
+  "flagged": true
+ },
+ "flipt-io_e38e4154": {
+  "files": 3,
+  "hunks": 8,
+  "loc": 205,
+  "flagged": false
+ },
+ "navidrome_db11b6b8": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 32,
+  "flagged": false
+ },
+ "ansible_5d15af3a": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 78,
+  "flagged": false
+ },
+ "qutebrowser_0b8cc812": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 44,
+  "flagged": false
+ },
+ "flipt-io_edc61fb3": {
+  "files": 1,
+  "hunks": 4,
+  "loc": 93,
+  "flagged": false
+ },
+ "element-hq_b0317e67": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 80,
+  "flagged": false
+ },
+ "navidrome_c72add51": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 214,
+  "flagged": false
+ },
+ "flipt-io_3c6bd204": {
+  "files": 5,
+  "hunks": 21,
+  "loc": 1482,
+  "flagged": true
+ },
+ "element-hq_1b39dbdb": {
+  "files": 4,
+  "hunks": 12,
+  "loc": 132,
+  "flagged": false
+ },
+ "protonmail_3f9771dd": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 39,
+  "flagged": false
+ },
+ "protonmail_01b4c826": {
+  "files": 15,
+  "hunks": 36,
+  "loc": 106,
+  "flagged": true
+ },
+ "qutebrowser_21b20116": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 115,
+  "flagged": false
+ },
+ "qutebrowser_c41f152f": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 43,
+  "flagged": false
+ },
+ "NodeBB_8fd8079a": {
+  "files": 14,
+  "hunks": 19,
+  "loc": 165,
+  "flagged": true
+ },
+ "ansible_1503805b": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 116,
+  "flagged": false
+ },
+ "flipt-io_1d550f0c": {
+  "files": 3,
+  "hunks": 33,
+  "loc": 243,
+  "flagged": true
+ },
+ "element-hq_19b81d25": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 68,
+  "flagged": false
+ },
+ "navidrome_5360283b": {
+  "files": 5,
+  "hunks": 14,
+  "loc": 109,
+  "flagged": false
+ },
+ "element-hq_90801eb3": {
+  "files": 6,
+  "hunks": 11,
+  "loc": 55,
+  "flagged": false
+ },
+ "element-hq_d7a6e3ec": {
+  "files": 7,
+  "hunks": 8,
+  "loc": 82,
+  "flagged": false
+ },
+ "qutebrowser_0df09852": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 38,
+  "flagged": false
+ },
+ "protonmail_32394eda": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 30,
+  "flagged": false
+ },
+ "element-hq_4f327278": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 36,
+  "flagged": false
+ },
+ "ansible_a6e671db": {
+  "files": 3,
+  "hunks": 31,
+  "loc": 136,
+  "flagged": true
+ },
+ "ansible_fa093d8a": {
+  "files": 5,
+  "hunks": 41,
+  "loc": 520,
+  "flagged": true
+ },
+ "protonmail_c3513362": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 85,
+  "flagged": false
+ },
+ "internetarchive_72593efe": {
+  "files": 4,
+  "hunks": 12,
+  "loc": 51,
+  "flagged": false
+ },
+ "flipt-io_d26eba77": {
+  "files": 8,
+  "hunks": 23,
+  "loc": 203,
+  "flagged": true
+ },
+ "NodeBB_f8cfe64c": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 35,
+  "flagged": false
+ },
+ "protonmail_bf575a52": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 30,
+  "flagged": false
+ },
+ "qutebrowser_73f93008": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 47,
+  "flagged": false
+ },
+ "ansible_14e7f053": {
+  "files": 1,
+  "hunks": 4,
+  "loc": 122,
+  "flagged": false
+ },
+ "internetarchive_ab62fa4d": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 33,
+  "flagged": false
+ },
+ "flipt-io_3bf3255a": {
+  "files": 3,
+  "hunks": 8,
+  "loc": 29,
+  "flagged": false
+ },
+ "internetarchive_7fab050b": {
+  "files": 1,
+  "hunks": 4,
+  "loc": 35,
+  "flagged": false
+ },
+ "flipt-io_dbe26396": {
+  "files": 9,
+  "hunks": 38,
+  "loc": 816,
+  "flagged": true
+ },
+ "element-hq_8b54be6f": {
+  "files": 9,
+  "hunks": 16,
+  "loc": 163,
+  "flagged": true
+ },
+ "qutebrowser_6c653125": {
+  "files": 5,
+  "hunks": 14,
+  "loc": 48,
+  "flagged": false
+ },
+ "vuls_golddefect": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 55,
+  "flagged": false
+ },
+ "ansible_df29852f": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 35,
+  "flagged": false
+ },
+ "future-architect_43b46cb3": {
+  "files": 9,
+  "hunks": 22,
+  "loc": 243,
+  "flagged": true
+ },
+ "future-architect_25340985": {
+  "files": 7,
+  "hunks": 9,
+  "loc": 37,
+  "flagged": false
+ },
+ "gravitational_9c25440e": {
+  "files": 6,
+  "hunks": 16,
+  "loc": 207,
+  "flagged": false
+ },
+ "gravitational_e0c9b35a": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 423,
+  "flagged": false
+ },
+ "ansible_9b0d2dec": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 54,
+  "flagged": false
+ },
+ "gravitational_8ee8122b": {
+  "files": 9,
+  "hunks": 15,
+  "loc": 95,
+  "flagged": true
+ },
+ "gravitational_103f3de2": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 61,
+  "flagged": false
+ },
+ "gravitational_7b8bfe4f": {
+  "files": 4,
+  "hunks": 9,
+  "loc": 63,
+  "flagged": false
+ },
+ "flipt-io_dc07fbbd": {
+  "files": 10,
+  "hunks": 24,
+  "loc": 137,
+  "flagged": true
+ },
+ "NodeBB_565ca3cc": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 30,
+  "flagged": false
+ },
+ "ansible_662d34b9": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 67,
+  "flagged": false
+ },
+ "qutebrowser_83bef2ad": {
+  "files": 1,
+  "hunks": 5,
+  "loc": 52,
+  "flagged": false
+ },
+ "navidrome_d42dfafa": {
+  "files": 9,
+  "hunks": 14,
+  "loc": 260,
+  "flagged": true
+ },
+ "protonmail_a5e37d3f": {
+  "files": 8,
+  "hunks": 28,
+  "loc": 128,
+  "flagged": true
+ },
+ "navidrome_aafd5a95": {
+  "files": 1,
+  "hunks": 8,
+  "loc": 83,
+  "flagged": false
+ },
+ "qutebrowser_487f9044": {
+  "files": 6,
+  "hunks": 17,
+  "loc": 89,
+  "flagged": false
+ },
+ "future-architect_8d5ea98e": {
+  "files": 11,
+  "hunks": 17,
+  "loc": 449,
+  "flagged": true
+ },
+ "internetarchive_64c18604": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 32,
+  "flagged": false
+ },
+ "ansible_8c044b84": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 50,
+  "flagged": false
+ },
+ "internetarchive_f0341c0b": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 35,
+  "flagged": false
+ },
+ "flipt-io_0c6e9b3f": {
+  "files": 12,
+  "hunks": 22,
+  "loc": 511,
+  "flagged": true
+ },
+ "qutebrowser_b84ef9b2": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 102,
+  "flagged": false
+ },
+ "navidrome_3993c4d1": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 47,
+  "flagged": false
+ },
+ "internetarchive_5de7de19": {
+  "files": 3,
+  "hunks": 9,
+  "loc": 74,
+  "flagged": false
+ },
+ "gravitational_d05df372": {
+  "files": 2,
+  "hunks": 9,
+  "loc": 68,
+  "flagged": false
+ },
+ "element-hq_d5d1ec77": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 22,
+  "flagged": false
+ },
+ "protonmail_9b35b414": {
+  "files": 8,
+  "hunks": 9,
+  "loc": 78,
+  "flagged": true
+ },
+ "ansible_f10d11bc": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 59,
+  "flagged": false
+ },
+ "future-architect_42fdc089": {
+  "files": 7,
+  "hunks": 13,
+  "loc": 145,
+  "flagged": false
+ },
+ "internetarchive_daf93507": {
+  "files": 10,
+  "hunks": 32,
+  "loc": 629,
+  "flagged": true
+ },
+ "element-hq_2d0319ec": {
+  "files": 8,
+  "hunks": 29,
+  "loc": 116,
+  "flagged": true
+ },
+ "gravitational_eca1d017": {
+  "files": 3,
+  "hunks": 3,
+  "loc": 169,
+  "flagged": false
+ },
+ "flipt-io_165ba79a": {
+  "files": 11,
+  "hunks": 19,
+  "loc": 172,
+  "flagged": true
+ },
+ "flipt-io_19fe7a3e": {
+  "files": 9,
+  "hunks": 61,
+  "loc": 152,
+  "flagged": true
+ },
+ "internetarchive_4315bbe2": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 28,
+  "flagged": false
+ },
+ "qutebrowser_a7e6a3a1": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 52,
+  "flagged": false
+ },
+ "protonmail_4377e827": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 37,
+  "flagged": false
+ },
+ "element-hq_28f7aac9": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 29,
+  "flagged": false
+ },
+ "protonmail_a118161e": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 41,
+  "flagged": false
+ },
+ "qutebrowser_1e473c4b": {
+  "files": 5,
+  "hunks": 11,
+  "loc": 39,
+  "flagged": false
+ },
+ "internetarchive_2f590171": {
+  "files": 14,
+  "hunks": 31,
+  "loc": 288,
+  "flagged": true
+ },
+ "future-architect_61c39637": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 70,
+  "flagged": false
+ },
+ "ansible_35809806": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 88,
+  "flagged": false
+ },
+ "flipt-io_e53fb0f2": {
+  "files": 12,
+  "hunks": 30,
+  "loc": 349,
+  "flagged": true
+ },
+ "protonmail_4d0ef1ed": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 138,
+  "flagged": false
+ },
+ "protonmail_1346a7d3": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 47,
+  "flagged": false
+ },
+ "internetarchive_c46e5170": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 208,
+  "flagged": false
+ },
+ "gravitational_ad00c6c7": {
+  "files": 4,
+  "hunks": 12,
+  "loc": 177,
+  "flagged": false
+ },
+ "gravitational_cc3c38d7": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 39,
+  "flagged": false
+ },
+ "flipt-io_85bb23a3": {
+  "files": 10,
+  "hunks": 18,
+  "loc": 206,
+  "flagged": true
+ },
+ "internetarchive_86d9b8a2": {
+  "files": 8,
+  "hunks": 26,
+  "loc": 276,
+  "flagged": true
+ },
+ "gravitational_ddce4947": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 31,
+  "flagged": false
+ },
+ "tutao_409b3583": {
+  "files": 3,
+  "hunks": 12,
+  "loc": 140,
+  "flagged": false
+ },
+ "protonmail_0a917c6b": {
+  "files": 9,
+  "hunks": 13,
+  "loc": 36,
+  "flagged": true
+ },
+ "future-architect_4253550c": {
+  "files": 1,
+  "hunks": 24,
+  "loc": 113,
+  "flagged": true
+ },
+ "ansible_79f67ed5": {
+  "files": 5,
+  "hunks": 27,
+  "loc": 70,
+  "flagged": true
+ },
+ "ansible_d5a740dd": {
+  "files": 2,
+  "hunks": 9,
+  "loc": 61,
+  "flagged": false
+ },
+ "element-hq_ec6bb880": {
+  "files": 3,
+  "hunks": 13,
+  "loc": 163,
+  "flagged": false
+ },
+ "future-architect_e07b6a91": {
+  "files": 4,
+  "hunks": 17,
+  "loc": 104,
+  "flagged": false
+ },
+ "protonmail_369593a8": {
+  "files": 11,
+  "hunks": 21,
+  "loc": 133,
+  "flagged": true
+ },
+ "future-architect_472df0e1": {
+  "files": 1,
+  "hunks": 5,
+  "loc": 119,
+  "flagged": false
+ },
+ "ansible_3684b482": {
+  "files": 7,
+  "hunks": 24,
+  "loc": 241,
+  "flagged": true
+ },
+ "internetarchive_02e8f0cc": {
+  "files": 1,
+  "hunks": 7,
+  "loc": 90,
+  "flagged": false
+ },
+ "ansible_585ef6c5": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 28,
+  "flagged": false
+ },
+ "element": {
+  "files": 5,
+  "hunks": 11,
+  "loc": 516,
+  "flagged": false
+ },
+ "internetarchive_afb819f8": {
+  "files": 2,
+  "hunks": 11,
+  "loc": 43,
+  "flagged": false
+ },
+ "gravitational_b58ad484": {
+  "files": 5,
+  "hunks": 32,
+  "loc": 495,
+  "flagged": true
+ },
+ "gravitational_d96ea00a": {
+  "files": 6,
+  "hunks": 21,
+  "loc": 209,
+  "flagged": true
+ },
+ "element-hq_b03433ef": {
+  "files": 3,
+  "hunks": 17,
+  "loc": 212,
+  "flagged": false
+ },
+ "element-hq_29c19321": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 90,
+  "flagged": false
+ },
+ "flipt-io_5d544c91": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 30,
+  "flagged": false
+ },
+ "future-architect_4a28722e": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 277,
+  "flagged": false
+ },
+ "ansible_5ee81338": {
+  "files": 3,
+  "hunks": 10,
+  "loc": 90,
+  "flagged": false
+ },
+ "internetarchive_6e5fa4b4": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 97,
+  "flagged": false
+ },
+ "future-architect_984debe9": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 145,
+  "flagged": false
+ },
+ "ansible_6382ea16": {
+  "files": 9,
+  "hunks": 21,
+  "loc": 110,
+  "flagged": true
+ },
+ "flipt-io_190b3cdc": {
+  "files": 11,
+  "hunks": 19,
+  "loc": 259,
+  "flagged": true
+ },
+ "flipt-io_7620fe8b": {
+  "files": 3,
+  "hunks": 13,
+  "loc": 119,
+  "flagged": false
+ },
+ "flipt-io_22ce5e88": {
+  "files": 4,
+  "hunks": 13,
+  "loc": 117,
+  "flagged": false
+ },
+ "future-architect_0b9ec051": {
+  "files": 6,
+  "hunks": 13,
+  "loc": 64,
+  "flagged": false
+ },
+ "future-architect_80b48fcb": {
+  "files": 6,
+  "hunks": 11,
+  "loc": 181,
+  "flagged": false
+ },
+ "qutebrowser_08604f5a": {
+  "files": 7,
+  "hunks": 11,
+  "loc": 54,
+  "flagged": false
+ },
+ "navidrome_1bf94531": {
+  "files": 6,
+  "hunks": 19,
+  "loc": 174,
+  "flagged": false
+ },
+ "NodeBB_a592ebd1": {
+  "files": 7,
+  "hunks": 14,
+  "loc": 87,
+  "flagged": false
+ },
+ "protonmail_52ada034": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 32,
+  "flagged": false
+ },
+ "navidrome_5d8318f7": {
+  "files": 10,
+  "hunks": 24,
+  "loc": 180,
+  "flagged": true
+ },
+ "navidrome_0079a9b9": {
+  "files": 11,
+  "hunks": 16,
+  "loc": 89,
+  "flagged": true
+ },
+ "ansible_08da8f49": {
+  "files": 5,
+  "hunks": 15,
+  "loc": 269,
+  "flagged": false
+ },
+ "internetarchive_4825ff66": {
+  "files": 5,
+  "hunks": 15,
+  "loc": 233,
+  "flagged": false
+ },
+ "navidrome_002cb4ed": {
+  "files": 8,
+  "hunks": 28,
+  "loc": 154,
+  "flagged": true
+ },
+ "gravitational_396812ce": {
+  "files": 5,
+  "hunks": 16,
+  "loc": 169,
+  "flagged": false
+ },
+ "tutao_9dfb7c23": {
+  "files": 1,
+  "hunks": 13,
+  "loc": 121,
+  "flagged": false
+ },
+ "element-hq_f34c1609": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 61,
+  "flagged": false
+ },
+ "flipt-io_47499077": {
+  "files": 15,
+  "hunks": 24,
+  "loc": 346,
+  "flagged": true
+ },
+ "element-hq_1c039fcd": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 488,
+  "flagged": false
+ },
+ "future-architect_05330694": {
+  "files": 4,
+  "hunks": 4,
+  "loc": 248,
+  "flagged": false
+ },
+ "future-architect_854821eb": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 30,
+  "flagged": false
+ },
+ "qutebrowser_96b99780": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 44,
+  "flagged": false
+ },
+ "gravitational_6f2f17a7": {
+  "files": 2,
+  "hunks": 13,
+  "loc": 78,
+  "flagged": false
+ },
+ "ansible_034e9b02": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 59,
+  "flagged": false
+ },
+ "ansible_43300e22": {
+  "files": 8,
+  "hunks": 40,
+  "loc": 259,
+  "flagged": true
+ },
+ "flipt-io_0018c5df": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 24,
+  "flagged": false
+ },
+ "flipt-io_fddcf20f": {
+  "files": 6,
+  "hunks": 13,
+  "loc": 108,
+  "flagged": false
+ },
+ "navidrome_d0ce0303": {
+  "files": 5,
+  "hunks": 5,
+  "loc": 477,
+  "flagged": false
+ },
+ "qutebrowser_ef62208c": {
+  "files": 5,
+  "hunks": 13,
+  "loc": 77,
+  "flagged": false
+ },
+ "ansible_b479addd": {
+  "files": 4,
+  "hunks": 20,
+  "loc": 2028,
+  "flagged": true
+ },
+ "ansible_2ad10ffe": {
+  "files": 1,
+  "hunks": 19,
+  "loc": 233,
+  "flagged": false
+ },
+ "internetarchive_0b2e93f2": {
+  "files": 2,
+  "hunks": 9,
+  "loc": 41,
+  "flagged": false
+ },
+ "element-hq_372720ec": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 35,
+  "flagged": false
+ },
+ "flipt-io_f3421c14": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 90,
+  "flagged": false
+ },
+ "protonmail_ebed8ea9": {
+  "files": 7,
+  "hunks": 21,
+  "loc": 102,
+  "flagged": true
+ },
+ "gravitational_875e9337": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 144,
+  "flagged": false
+ },
+ "element-hq_339e7dab": {
+  "files": 1,
+  "hunks": 4,
+  "loc": 43,
+  "flagged": false
+ },
+ "qutebrowser_9c056f28": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 102,
+  "flagged": false
+ },
+ "gravitational_601c9525": {
+  "files": 4,
+  "hunks": 15,
+  "loc": 63,
+  "flagged": false
+ },
+ "qutebrowser_8e152aaa": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 50,
+  "flagged": false
+ },
+ "future-architect_827f2cb8": {
+  "files": 6,
+  "hunks": 35,
+  "loc": 339,
+  "flagged": true
+ },
+ "flipt-io_6fd0f9e2": {
+  "files": 6,
+  "hunks": 15,
+  "loc": 150,
+  "flagged": false
+ },
+ "qutebrowser_7691556e": {
+  "files": 3,
+  "hunks": 15,
+  "loc": 87,
+  "flagged": false
+ },
+ "gravitational_025143d8": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 77,
+  "flagged": false
+ },
+ "qutebrowser_04c65bb2": {
+  "files": 2,
+  "hunks": 10,
+  "loc": 76,
+  "flagged": false
+ },
+ "internetarchive_e0e34eb4": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 100,
+  "flagged": false
+ },
+ "tutao_a74f4b8d": {
+  "files": 5,
+  "hunks": 14,
+  "loc": 49,
+  "flagged": false
+ },
+ "flipt-io_08213a50": {
+  "files": 8,
+  "hunks": 13,
+  "loc": 262,
+  "flagged": true
+ },
+ "protonmail_fd6d7f64": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 56,
+  "flagged": false
+ },
+ "protonmail_1c1b09fb": {
+  "files": 17,
+  "hunks": 38,
+  "loc": 328,
+  "flagged": true
+ },
+ "flipt-io_4e066b8b": {
+  "files": 28,
+  "hunks": 51,
+  "loc": 289,
+  "flagged": true
+ },
+ "element-hq_8c13a0f8": {
+  "files": 17,
+  "hunks": 41,
+  "loc": 499,
+  "flagged": true
+ },
+ "internetarchive_0d5acead": {
+  "files": 2,
+  "hunks": 9,
+  "loc": 483,
+  "flagged": false
+ },
+ "qutebrowser_836221ec": {
+  "files": 4,
+  "hunks": 5,
+  "loc": 34,
+  "flagged": false
+ },
+ "tutao_cf4bcf0b": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 24,
+  "flagged": false
+ },
+ "internetarchive_31d6ecf3": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 82,
+  "flagged": false
+ },
+ "internetarchive_5f7d8d19": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 88,
+  "flagged": false
+ },
+ "future-architect_048e204b": {
+  "files": 8,
+  "hunks": 43,
+  "loc": 270,
+  "flagged": true
+ },
+ "flipt-io_91cc1b9f": {
+  "files": 16,
+  "hunks": 28,
+  "loc": 199,
+  "flagged": true
+ },
+ "future-architect_5af1a227": {
+  "files": 5,
+  "hunks": 22,
+  "loc": 547,
+  "flagged": true
+ },
+ "navidrome_20271df4": {
+  "files": 5,
+  "hunks": 7,
+  "loc": 54,
+  "flagged": false
+ },
+ "NodeBB_c5ae8a70": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 35,
+  "flagged": false
+ },
+ "navidrome_8f0d0029": {
+  "files": 7,
+  "hunks": 19,
+  "loc": 147,
+  "flagged": false
+ },
+ "internetarchive_0c5d154d": {
+  "files": 9,
+  "hunks": 27,
+  "loc": 121,
+  "flagged": true
+ },
+ "internetarchive_0180e2ca": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 49,
+  "flagged": false
+ },
+ "internetarchive_bf5511b4": {
+  "files": 3,
+  "hunks": 9,
+  "loc": 52,
+  "flagged": false
+ },
+ "ansible_d63a71e3": {
+  "files": 4,
+  "hunks": 5,
+  "loc": 29,
+  "flagged": false
+ },
+ "protonmail_41f29d1c": {
+  "files": 11,
+  "hunks": 18,
+  "loc": 54,
+  "flagged": true
+ },
+ "gravitational_a51596d8": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 738,
+  "flagged": false
+ },
+ "future-architect_a124518d": {
+  "files": 7,
+  "hunks": 12,
+  "loc": 197,
+  "flagged": false
+ },
+ "internetarchive_46d7d325": {
+  "files": 3,
+  "hunks": 11,
+  "loc": 75,
+  "flagged": false
+ },
+ "NodeBB_aad0c5fd": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 43,
+  "flagged": false
+ },
+ "gravitational_49ab2a7b": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 80,
+  "flagged": false
+ },
+ "navidrome_b445cdd6": {
+  "files": 6,
+  "hunks": 10,
+  "loc": 130,
+  "flagged": false
+ },
+ "NodeBB_da2441b9": {
+  "files": 5,
+  "hunks": 6,
+  "loc": 63,
+  "flagged": false
+ },
+ "flipt-io_456ee257": {
+  "files": 6,
+  "hunks": 16,
+  "loc": 469,
+  "flagged": false
+ },
+ "ansible_a7c8093c": {
+  "files": 3,
+  "hunks": 10,
+  "loc": 70,
+  "flagged": false
+ },
+ "element-hq_f97cef80": {
+  "files": 6,
+  "hunks": 15,
+  "loc": 109,
+  "flagged": false
+ },
+ "future-architect_9ed5f2ca": {
+  "files": 7,
+  "hunks": 101,
+  "loc": 496,
+  "flagged": true
+ },
+ "internetarchive_0d13e6b4": {
+  "files": 4,
+  "hunks": 11,
+  "loc": 59,
+  "flagged": false
+ },
+ "protonmail_3b48b606": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 32,
+  "flagged": false
+ },
+ "flipt-io_1f6255dd": {
+  "files": 4,
+  "hunks": 11,
+  "loc": 70,
+  "flagged": false
+ },
+ "element-hq_1f8fbc81": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 40,
+  "flagged": false
+ },
+ "element-hq_a3a2a0f9": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 32,
+  "flagged": false
+ },
+ "qutebrowser_f8692cb1": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 50,
+  "flagged": false
+ },
+ "qutebrowser": {
+  "files": 1,
+  "hunks": 8,
+  "loc": 58,
+  "flagged": false
+ },
+ "protonmail_7c7e6689": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 20,
+  "flagged": false
+ },
+ "gravitational_4f6f52f8": {
+  "files": 1,
+  "hunks": 21,
+  "loc": 187,
+  "flagged": true
+ },
+ "future-architect_dce83795": {
+  "files": 8,
+  "hunks": 40,
+  "loc": 408,
+  "flagged": true
+ },
+ "future-architect_dccdd8a0": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 28,
+  "flagged": false
+ },
+ "gravitational_85244157": {
+  "files": 6,
+  "hunks": 9,
+  "loc": 40,
+  "flagged": false
+ },
+ "element-hq_cdffd1ca": {
+  "files": 1,
+  "hunks": 17,
+  "loc": 132,
+  "flagged": false
+ },
+ "ansible_f9a45055": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 310,
+  "flagged": false
+ },
+ "navidrome_39da741a": {
+  "files": 10,
+  "hunks": 21,
+  "loc": 149,
+  "flagged": true
+ },
+ "gravitational_8bca6e20": {
+  "files": 3,
+  "hunks": 8,
+  "loc": 79,
+  "flagged": false
+ },
+ "ansible_fce22529": {
+  "files": 6,
+  "hunks": 18,
+  "loc": 102,
+  "flagged": false
+ },
+ "internetarchive_20e8fee0": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 553,
+  "flagged": false
+ },
+ "future-architect_fa3c08bd": {
+  "files": 3,
+  "hunks": 14,
+  "loc": 443,
+  "flagged": false
+ },
+ "qutebrowser_e46adf32": {
+  "files": 5,
+  "hunks": 12,
+  "loc": 50,
+  "flagged": false
+ },
+ "qutebrowser_ab65c542": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 47,
+  "flagged": false
+ },
+ "internetarchive_1d2cbffd": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 212,
+  "flagged": false
+ },
+ "ansible_e1daaae4": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 38,
+  "flagged": false
+ },
+ "navidrome_257ccc5f": {
+  "files": 2,
+  "hunks": 13,
+  "loc": 149,
+  "flagged": false
+ },
+ "flipt-io_f9855c1e": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 36,
+  "flagged": false
+ },
+ "qutebrowser_6d9c28ce": {
+  "files": 3,
+  "hunks": 9,
+  "loc": 63,
+  "flagged": false
+ },
+ "gravitational_0a61c9e8": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 455,
+  "flagged": false
+ },
+ "navidrome_23bebe4e": {
+  "files": 12,
+  "hunks": 29,
+  "loc": 273,
+  "flagged": true
+ },
+ "gravitational_85addfbd": {
+  "files": 6,
+  "hunks": 11,
+  "loc": 62,
+  "flagged": false
+ },
+ "ansible_38067860": {
+  "files": 4,
+  "hunks": 10,
+  "loc": 38,
+  "flagged": false
+ },
+ "gravitational_b054261b": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 56,
+  "flagged": false
+ },
+ "ansible_07e7b69c": {
+  "files": 7,
+  "hunks": 11,
+  "loc": 501,
+  "flagged": false
+ },
+ "navidrome_3910e77a": {
+  "files": 7,
+  "hunks": 16,
+  "loc": 126,
+  "flagged": false
+ },
+ "internetarchive_80f511d3": {
+  "files": 7,
+  "hunks": 9,
+  "loc": 204,
+  "flagged": false
+ },
+ "navidrome_aac6e2cb": {
+  "files": 6,
+  "hunks": 13,
+  "loc": 53,
+  "flagged": false
+ },
+ "internetarchive_630221ab": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 49,
+  "flagged": false
+ },
+ "gravitational_ea02952f": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 40,
+  "flagged": false
+ },
+ "gravitational_dafcf377": {
+  "files": 5,
+  "hunks": 14,
+  "loc": 1123,
+  "flagged": false
+ },
+ "protonmail_782d0155": {
+  "files": 11,
+  "hunks": 35,
+  "loc": 798,
+  "flagged": true
+ },
+ "ansible_e889b106": {
+  "files": 7,
+  "hunks": 10,
+  "loc": 52,
+  "flagged": false
+ },
+ "NodeBB_754965b5": {
+  "files": 8,
+  "hunks": 10,
+  "loc": 42,
+  "flagged": true
+ },
+ "qutebrowser_09925f74": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 41,
+  "flagged": false
+ },
+ "flipt-io_d38a357b": {
+  "files": 6,
+  "hunks": 7,
+  "loc": 100,
+  "flagged": false
+ },
+ "future-architect_bfe0db77": {
+  "files": 8,
+  "hunks": 68,
+  "loc": 1204,
+  "flagged": true
+ },
+ "ansible_golddefect": {
+  "files": 4,
+  "hunks": 23,
+  "loc": 254,
+  "flagged": true
+ },
+ "future-architect_835dc080": {
+  "files": 5,
+  "hunks": 15,
+  "loc": 52,
+  "flagged": false
+ },
+ "flipt-io_866ba43d": {
+  "files": 7,
+  "hunks": 15,
+  "loc": 158,
+  "flagged": false
+ },
+ "qutebrowser_e8a7c6b2": {
+  "files": 3,
+  "hunks": 15,
+  "loc": 59,
+  "flagged": false
+ },
+ "NodeBB_7800016f": {
+  "files": 12,
+  "hunks": 20,
+  "loc": 188,
+  "flagged": true
+ },
+ "ansible_341a6be7": {
+  "files": 6,
+  "hunks": 14,
+  "loc": 83,
+  "flagged": false
+ },
+ "protonmail_a1a9b965": {
+  "files": 9,
+  "hunks": 32,
+  "loc": 95,
+  "flagged": true
+ },
+ "future-architect_2d369d0c": {
+  "files": 1,
+  "hunks": 9,
+  "loc": 38,
+  "flagged": false
+ },
+ "NodeBB_be86d8ef": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 28,
+  "flagged": false
+ },
+ "NodeBB_50517020": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 36,
+  "flagged": false
+ },
+ "gravitational_e7683826": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 118,
+  "flagged": false
+ },
+ "gravitational_c12ce906": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 280,
+  "flagged": false
+ },
+ "ansible_db2d5b09": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 148,
+  "flagged": false
+ },
+ "NodeBB_140f9d24": {
+  "files": 7,
+  "hunks": 8,
+  "loc": 50,
+  "flagged": false
+ },
+ "navidrome_a2d9aaef": {
+  "files": 5,
+  "hunks": 9,
+  "loc": 48,
+  "flagged": false
+ },
+ "ansible_bc6cd138": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 266,
+  "flagged": false
+ },
+ "flipt-io_324b9ed5": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 132,
+  "flagged": false
+ },
+ "gravitational_ec6c5eaf": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 59,
+  "flagged": false
+ },
+ "protonmail_e131cde7": {
+  "files": 10,
+  "hunks": 18,
+  "loc": 207,
+  "flagged": true
+ },
+ "element-hq_8b8d24c2": {
+  "files": 7,
+  "hunks": 16,
+  "loc": 66,
+  "flagged": false
+ },
+ "qutebrowser_6d0b7cb1": {
+  "files": 5,
+  "hunks": 8,
+  "loc": 126,
+  "flagged": false
+ },
+ "navidrome_bce7b163": {
+  "files": 6,
+  "hunks": 14,
+  "loc": 221,
+  "flagged": false
+ },
+ "internetarchive_4ff15b75": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 133,
+  "flagged": false
+ },
+ "ansible_ea164fdd": {
+  "files": 5,
+  "hunks": 18,
+  "loc": 294,
+  "flagged": false
+ },
+ "internetarchive_79dccb33": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 49,
+  "flagged": false
+ },
+ "gravitational_bb69574e": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 185,
+  "flagged": false
+ },
+ "protonmail_9962092e": {
+  "files": 12,
+  "hunks": 24,
+  "loc": 77,
+  "flagged": true
+ },
+ "protonmail": {
+  "files": 11,
+  "hunks": 39,
+  "loc": 114,
+  "flagged": true
+ },
+ "NodeBB_bbaaead0": {
+  "files": 9,
+  "hunks": 11,
+  "loc": 44,
+  "flagged": true
+ },
+ "flipt-io_3e8ab3fd": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 89,
+  "flagged": false
+ },
+ "navidrome_ac4ceab1": {
+  "files": 10,
+  "hunks": 23,
+  "loc": 753,
+  "flagged": true
+ },
+ "internetarchive_2edaf728": {
+  "files": 3,
+  "hunks": 11,
+  "loc": 48,
+  "flagged": false
+ },
+ "navidrome_29bc17ac": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 51,
+  "flagged": false
+ },
+ "future-architect_83d1f809": {
+  "files": 6,
+  "hunks": 28,
+  "loc": 207,
+  "flagged": true
+ },
+ "flipt-io_bdf53a4e": {
+  "files": 13,
+  "hunks": 19,
+  "loc": 778,
+  "flagged": true
+ },
+ "element-hq_8ebdcab7": {
+  "files": 1,
+  "hunks": 8,
+  "loc": 40,
+  "flagged": false
+ },
+ "gravitational_a4a6a3e4": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 167,
+  "flagged": false
+ },
+ "element-hq_c9d9c421": {
+  "files": 8,
+  "hunks": 17,
+  "loc": 312,
+  "flagged": true
+ },
+ "flipt-io_11775ea8": {
+  "files": 3,
+  "hunks": 10,
+  "loc": 47,
+  "flagged": false
+ },
+ "ansible_a58fcde3": {
+  "files": 2,
+  "hunks": 14,
+  "loc": 117,
+  "flagged": false
+ },
+ "navidrome_4044642a": {
+  "files": 3,
+  "hunks": 9,
+  "loc": 89,
+  "flagged": false
+ },
+ "flipt-io_56d261e7": {
+  "files": 5,
+  "hunks": 9,
+  "loc": 1037,
+  "flagged": false
+ },
+ "NodeBB_f0d989e4": {
+  "files": 6,
+  "hunks": 8,
+  "loc": 120,
+  "flagged": false
+ },
+ "flipt-io_d52e03fd": {
+  "files": 3,
+  "hunks": 8,
+  "loc": 164,
+  "flagged": false
+ },
+ "navidrome_94cc2b2a": {
+  "files": 14,
+  "hunks": 22,
+  "loc": 219,
+  "flagged": true
+ },
+ "navidrome_4e0177ee": {
+  "files": 3,
+  "hunks": 10,
+  "loc": 77,
+  "flagged": false
+ },
+ "tutao_6f4d5b9d": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 28,
+  "flagged": false
+ },
+ "ansible_d7fbb209": {
+  "files": 3,
+  "hunks": 12,
+  "loc": 38,
+  "flagged": false
+ },
+ "navidrome_2f90fc9b": {
+  "files": 6,
+  "hunks": 16,
+  "loc": 87,
+  "flagged": false
+ },
+ "flipt-io_9c3cab43": {
+  "files": 9,
+  "hunks": 13,
+  "loc": 121,
+  "flagged": true
+ },
+ "navidrome_69e0a266": {
+  "files": 5,
+  "hunks": 8,
+  "loc": 112,
+  "flagged": false
+ },
+ "future-architect_70449296": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 76,
+  "flagged": false
+ },
+ "qutebrowser_71451483": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 95,
+  "flagged": false
+ },
+ "gravitational_040ec6d3": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 46,
+  "flagged": false
+ },
+ "protonmail_2ea4c94b": {
+  "files": 14,
+  "hunks": 29,
+  "loc": 813,
+  "flagged": true
+ },
+ "gravitational_2308160e": {
+  "files": 15,
+  "hunks": 21,
+  "loc": 1352,
+  "flagged": true
+ },
+ "gravitational_12cdaed6": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 213,
+  "flagged": false
+ },
+ "flipt-io_2d0ff0c9": {
+  "files": 17,
+  "hunks": 28,
+  "loc": 238,
+  "flagged": true
+ },
+ "navidrome_653b4d97": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 82,
+  "flagged": false
+ },
+ "protonmail_12381540": {
+  "files": 13,
+  "hunks": 30,
+  "loc": 422,
+  "flagged": true
+ },
+ "internetarchive_54085373": {
+  "files": 4,
+  "hunks": 9,
+  "loc": 623,
+  "flagged": false
+ },
+ "future-architect_83bcca6e": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 53,
+  "flagged": false
+ },
+ "tutao_63650119": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 75,
+  "flagged": false
+ },
+ "qutebrowser_b9920503": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 96,
+  "flagged": false
+ },
+ "gravitational_1879807d": {
+  "files": 6,
+  "hunks": 12,
+  "loc": 139,
+  "flagged": false
+ },
+ "element-hq_5a435505": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 238,
+  "flagged": false
+ },
+ "ansible_cd64e0b0": {
+  "files": 4,
+  "hunks": 36,
+  "loc": 295,
+  "flagged": true
+ },
+ "element-hq_29f9ccfb": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 40,
+  "flagged": false
+ },
+ "flipt-io_0ed96dc5": {
+  "files": 7,
+  "hunks": 7,
+  "loc": 53,
+  "flagged": false
+ },
+ "qutebrowser_a67832ba": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 60,
+  "flagged": false
+ },
+ "qutebrowser_a0710124": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 55,
+  "flagged": false
+ },
+ "navidrome_8f034543": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 52,
+  "flagged": false
+ },
+ "ansible_68e270d4": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 88,
+  "flagged": false
+ },
+ "protonmail_e1b69297": {
+  "files": 6,
+  "hunks": 15,
+  "loc": 134,
+  "flagged": false
+ },
+ "ansible_ac1ca40f": {
+  "files": 5,
+  "hunks": 18,
+  "loc": 49,
+  "flagged": false
+ },
+ "protonmail_ebf2993b": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 406,
+  "flagged": false
+ },
+ "ansible_73248bf2": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 215,
+  "flagged": false
+ },
+ "gravitational_19081df8": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 61,
+  "flagged": false
+ },
+ "gravitational_481158d6": {
+  "files": 4,
+  "hunks": 52,
+  "loc": 434,
+  "flagged": true
+ },
+ "gravitational_79f7d4b1": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 375,
+  "flagged": false
+ },
+ "NodeBB_e0149462": {
+  "files": 3,
+  "hunks": 3,
+  "loc": 77,
+  "flagged": false
+ },
+ "ansible_17332532": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 108,
+  "flagged": false
+ },
+ "NodeBB_163c977d": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 102,
+  "flagged": false
+ },
+ "qutebrowser_4df7aedf": {
+  "files": 4,
+  "hunks": 4,
+  "loc": 48,
+  "flagged": false
+ },
+ "internetarchive_7549c413": {
+  "files": 8,
+  "hunks": 12,
+  "loc": 146,
+  "flagged": true
+ },
+ "ansible_6d34eb88": {
+  "files": 7,
+  "hunks": 41,
+  "loc": 467,
+  "flagged": true
+ },
+ "qutebrowser_0e624e64": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 164,
+  "flagged": false
+ },
+ "internetarchive_ba3abfb6": {
+  "files": 3,
+  "hunks": 10,
+  "loc": 48,
+  "flagged": false
+ },
+ "ansible_7fff4086": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 81,
+  "flagged": false
+ },
+ "tutao_e5b2d146": {
+  "files": 1,
+  "hunks": 4,
+  "loc": 317,
+  "flagged": false
+ },
+ "protonmail_aba05b2f": {
+  "files": 9,
+  "hunks": 14,
+  "loc": 241,
+  "flagged": true
+ },
+ "element-hq_7a33818b": {
+  "files": 9,
+  "hunks": 27,
+  "loc": 137,
+  "flagged": true
+ },
+ "flipt-io_6c91b1ad": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 108,
+  "flagged": false
+ },
+ "gravitational_e9b7a25d": {
+  "files": 3,
+  "hunks": 9,
+  "loc": 46,
+  "flagged": false
+ },
+ "internetarchive_a797a05d": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 162,
+  "flagged": false
+ },
+ "ansible_8a175f59": {
+  "files": 12,
+  "hunks": 28,
+  "loc": 556,
+  "flagged": true
+ },
+ "internetarchive_ddbbdd64": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 73,
+  "flagged": false
+ },
+ "protonmail_bf70473d": {
+  "files": 7,
+  "hunks": 10,
+  "loc": 180,
+  "flagged": false
+ },
+ "gravitational_2839d2aa": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 41,
+  "flagged": false
+ },
+ "qutebrowser_1799b792": {
+  "files": 2,
+  "hunks": 10,
+  "loc": 45,
+  "flagged": false
+ },
+ "ansible_a0aad179": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 28,
+  "flagged": false
+ },
+ "navidrome_27875ba2": {
+  "files": 1,
+  "hunks": 7,
+  "loc": 51,
+  "flagged": false
+ },
+ "NodeBB_d9e2190a": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 25,
+  "flagged": false
+ },
+ "navidrome_265f33ed": {
+  "files": 9,
+  "hunks": 15,
+  "loc": 224,
+  "flagged": true
+ },
+ "navidrome_5064cb2a": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 80,
+  "flagged": false
+ },
+ "flipt-io_77e21fd6": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 63,
+  "flagged": false
+ },
+ "gravitational_0b192c8d": {
+  "files": 7,
+  "hunks": 34,
+  "loc": 466,
+  "flagged": true
+ },
+ "element-hq_650b9cb0": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 57,
+  "flagged": false
+ },
+ "flipt-io_87952052": {
+  "files": 4,
+  "hunks": 12,
+  "loc": 223,
+  "flagged": false
+ },
+ "flipt-io_02f5a1f8": {
+  "files": 4,
+  "hunks": 9,
+  "loc": 62,
+  "flagged": false
+ },
+ "protonmail_b63f2ef3": {
+  "files": 17,
+  "hunks": 21,
+  "loc": 118,
+  "flagged": true
+ },
+ "internetarchive_e9e9d8be": {
+  "files": 9,
+  "hunks": 24,
+  "loc": 330,
+  "flagged": true
+ },
+ "gravitational_e2412a7c": {
+  "files": 3,
+  "hunks": 22,
+  "loc": 246,
+  "flagged": true
+ },
+ "internetarchive_bd9d2a04": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 62,
+  "flagged": false
+ },
+ "internetarchive_4a17636a": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 46,
+  "flagged": false
+ },
+ "future-architect_4ae87cc3": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 68,
+  "flagged": false
+ },
+ "qutebrowser_ae910113": {
+  "files": 7,
+  "hunks": 18,
+  "loc": 213,
+  "flagged": false
+ },
+ "internetarchive_50350d04": {
+  "files": 6,
+  "hunks": 12,
+  "loc": 123,
+  "flagged": false
+ },
+ "ansible_a5a13246": {
+  "files": 5,
+  "hunks": 6,
+  "loc": 31,
+  "flagged": false
+ },
+ "flipt-io_2cdbe9ca": {
+  "files": 8,
+  "hunks": 11,
+  "loc": 50,
+  "flagged": true
+ },
+ "element-hq_19f9f985": {
+  "files": 5,
+  "hunks": 13,
+  "loc": 49,
+  "flagged": false
+ },
+ "protonmail_738b22f1": {
+  "files": 7,
+  "hunks": 11,
+  "loc": 111,
+  "flagged": false
+ },
+ "protonmail_42082399": {
+  "files": 32,
+  "hunks": 110,
+  "loc": 1011,
+  "flagged": true
+ },
+ "flipt-io_6da20eb7": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 201,
+  "flagged": false
+ },
+ "ansible_8502c230": {
+  "files": 2,
+  "hunks": 10,
+  "loc": 99,
+  "flagged": false
+ },
+ "tutao_cc335e9f": {
+  "files": 6,
+  "hunks": 17,
+  "loc": 88,
+  "flagged": false
+ },
+ "navidrome_8a56584a": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 86,
+  "flagged": false
+ },
+ "ansible_c819c172": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 44,
+  "flagged": false
+ },
+ "ansible_b6360dc5": {
+  "files": 6,
+  "hunks": 13,
+  "loc": 201,
+  "flagged": false
+ },
+ "element-hq_ad9cbe93": {
+  "files": 9,
+  "hunks": 11,
+  "loc": 340,
+  "flagged": true
+ },
+ "internetarchive_facafbe7": {
+  "files": 6,
+  "hunks": 8,
+  "loc": 54,
+  "flagged": false
+ },
+ "element-hq_64733e59": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 52,
+  "flagged": false
+ },
+ "ansible_375d3889": {
+  "files": 4,
+  "hunks": 26,
+  "loc": 230,
+  "flagged": true
+ },
+ "element-hq_c2ae6c27": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 82,
+  "flagged": false
+ },
+ "protonmail_8b68951e": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 62,
+  "flagged": false
+ },
+ "qutebrowser_22a3fd47": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 49,
+  "flagged": false
+ },
+ "protonmail_e7f4e98c": {
+  "files": 3,
+  "hunks": 12,
+  "loc": 103,
+  "flagged": false
+ },
+ "future-architect_847d820a": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 244,
+  "flagged": false
+ },
+ "NodeBB_03a98f4d": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 32,
+  "flagged": false
+ },
+ "internetarchive_d38cb5a4": {
+  "files": 1,
+  "hunks": 5,
+  "loc": 27,
+  "flagged": false
+ },
+ "NodeBB_50e1a1a7": {
+  "files": 4,
+  "hunks": 5,
+  "loc": 27,
+  "flagged": false
+ },
+ "future-architect_bf14b5f6": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 34,
+  "flagged": false
+ },
+ "internetarchive_90475fb6": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 92,
+  "flagged": false
+ },
+ "tutao_7ebf14a3": {
+  "files": 6,
+  "hunks": 16,
+  "loc": 56,
+  "flagged": false
+ },
+ "element-hq_ba171f1f": {
+  "files": 5,
+  "hunks": 9,
+  "loc": 81,
+  "flagged": false
+ },
+ "internetarchive_3677dd20": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 146,
+  "flagged": false
+ },
+ "element-hq_526645c7": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 45,
+  "flagged": false
+ },
+ "flipt-io_54e188b6": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 222,
+  "flagged": false
+ },
+ "protonmail_24c785b2": {
+  "files": 4,
+  "hunks": 13,
+  "loc": 268,
+  "flagged": false
+ },
+ "protonmail_7d863f89": {
+  "files": 6,
+  "hunks": 22,
+  "loc": 94,
+  "flagged": true
+ },
+ "internetarchive_8d41b319": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 29,
+  "flagged": false
+ },
+ "tutao": {
+  "files": 2,
+  "hunks": 9,
+  "loc": 219,
+  "flagged": false
+ },
+ "internetarchive_46bcf7c3": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 53,
+  "flagged": false
+ },
+ "flipt-io_a91a0258": {
+  "files": 7,
+  "hunks": 17,
+  "loc": 160,
+  "flagged": false
+ },
+ "qutebrowser_e15bda30": {
+  "files": 1,
+  "hunks": 7,
+  "loc": 74,
+  "flagged": false
+ },
+ "future-architect_69d32d45": {
+  "files": 8,
+  "hunks": 16,
+  "loc": 378,
+  "flagged": true
+ },
+ "element-hq_c153a4d3": {
+  "files": 8,
+  "hunks": 20,
+  "loc": 52,
+  "flagged": true
+ },
+ "internetarchive_fe6c160d": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 75,
+  "flagged": false
+ },
+ "navidrome_1a6a284b": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 94,
+  "flagged": false
+ },
+ "element-hq_f152613f": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 28,
+  "flagged": false
+ },
+ "protonmail_373580e2": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 86,
+  "flagged": false
+ },
+ "future-architect_0cdc7a3a": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 76,
+  "flagged": false
+ },
+ "future-architect_d8173cdd": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 52,
+  "flagged": false
+ },
+ "element-hq_5583d07f": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 101,
+  "flagged": false
+ },
+ "gravitational_63da4324": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 38,
+  "flagged": false
+ },
+ "NodeBB_34d99c15": {
+  "files": 8,
+  "hunks": 12,
+  "loc": 256,
+  "flagged": true
+ },
+ "internetarchive_247986f0": {
+  "files": 6,
+  "hunks": 12,
+  "loc": 328,
+  "flagged": false
+ },
+ "protonmail_6ff80e3e": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 77,
+  "flagged": false
+ },
+ "future-architect_54dae08f": {
+  "files": 6,
+  "hunks": 12,
+  "loc": 435,
+  "flagged": false
+ },
+ "future-architect_d02535d0": {
+  "files": 7,
+  "hunks": 12,
+  "loc": 147,
+  "flagged": false
+ },
+ "future-architect_514eb714": {
+  "files": 8,
+  "hunks": 25,
+  "loc": 270,
+  "flagged": true
+ },
+ "gravitational_4d7c51b4": {
+  "files": 4,
+  "hunks": 14,
+  "loc": 427,
+  "flagged": false
+ },
+ "protonmail_7ff95b70": {
+  "files": 6,
+  "hunks": 14,
+  "loc": 56,
+  "flagged": false
+ },
+ "ansible_57596edc": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 553,
+  "flagged": false
+ },
+ "internetarchive_a6145ca7": {
+  "files": 4,
+  "hunks": 9,
+  "loc": 635,
+  "flagged": false
+ },
+ "tutao_fe8a8d93": {
+  "files": 9,
+  "hunks": 19,
+  "loc": 150,
+  "flagged": true
+ },
+ "flipt-io_e432032c": {
+  "files": 14,
+  "hunks": 26,
+  "loc": 143,
+  "flagged": true
+ },
+ "protonmail_cc797672": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 321,
+  "flagged": false
+ },
+ "ansible_dd44449b": {
+  "files": 2,
+  "hunks": 9,
+  "loc": 163,
+  "flagged": false
+ },
+ "gravitational_e3a8fb7a": {
+  "files": 2,
+  "hunks": 7,
+  "loc": 104,
+  "flagged": false
+ },
+ "qutebrowser_2a10461c": {
+  "files": 4,
+  "hunks": 12,
+  "loc": 59,
+  "flagged": false
+ },
+ "ansible_e80f8048": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 38,
+  "flagged": false
+ },
+ "flipt-io_4914fdf3": {
+  "files": 4,
+  "hunks": 11,
+  "loc": 91,
+  "flagged": false
+ },
+ "internetarchive_115079a6": {
+  "files": 2,
+  "hunks": 18,
+  "loc": 106,
+  "flagged": false
+ },
+ "flipt-io_16e240cc": {
+  "files": 7,
+  "hunks": 20,
+  "loc": 54,
+  "flagged": true
+ },
+ "tutao_170958a2": {
+  "files": 1,
+  "hunks": 5,
+  "loc": 30,
+  "flagged": false
+ },
+ "navidrome_f8ee6db7": {
+  "files": 11,
+  "hunks": 20,
+  "loc": 137,
+  "flagged": true
+ },
+ "future-architect_aeaf3086": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 145,
+  "flagged": false
+ },
+ "flipt-io_5069ba6f": {
+  "files": 12,
+  "hunks": 19,
+  "loc": 588,
+  "flagged": true
+ },
+ "future-architect_2cd2d1a9": {
+  "files": 2,
+  "hunks": 23,
+  "loc": 174,
+  "flagged": true
+ },
+ "protonmail_29aaad40": {
+  "files": 6,
+  "hunks": 12,
+  "loc": 52,
+  "flagged": false
+ },
+ "gravitational_6e16ad66": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 42,
+  "flagged": false
+ },
+ "navidrome_a9cf54af": {
+  "files": 7,
+  "hunks": 16,
+  "loc": 73,
+  "flagged": false
+ },
+ "flipt-io_01f583bb": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 36,
+  "flagged": false
+ },
+ "internetarchive_5e9872c8": {
+  "files": 1,
+  "hunks": 10,
+  "loc": 228,
+  "flagged": false
+ },
+ "internetarchive_69cb6f27": {
+  "files": 4,
+  "hunks": 9,
+  "loc": 95,
+  "flagged": false
+ },
+ "ansible_4c8c40fd": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 63,
+  "flagged": false
+ },
+ "gravitational_c2ace99b": {
+  "files": 10,
+  "hunks": 19,
+  "loc": 279,
+  "flagged": true
+ },
+ "NodeBB_3ecbb624": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 53,
+  "flagged": false
+ },
+ "internetarchive_5c6c22f3": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 170,
+  "flagged": false
+ },
+ "element-hq_b8bb8f16": {
+  "files": 10,
+  "hunks": 29,
+  "loc": 277,
+  "flagged": true
+ },
+ "flipt-io_7ee465fe": {
+  "files": 4,
+  "hunks": 20,
+  "loc": 189,
+  "flagged": true
+ },
+ "tutao_d9e1c91e": {
+  "files": 7,
+  "hunks": 21,
+  "loc": 100,
+  "flagged": true
+ },
+ "flipt-io_8d72418b": {
+  "files": 5,
+  "hunks": 7,
+  "loc": 53,
+  "flagged": false
+ },
+ "internetarchive_7b1ec94b": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 36,
+  "flagged": false
+ },
+ "NodeBB_88e891fc": {
+  "files": 4,
+  "hunks": 6,
+  "loc": 241,
+  "flagged": false
+ },
+ "gravitational_31b8f157": {
+  "files": 1,
+  "hunks": 8,
+  "loc": 62,
+  "flagged": false
+ },
+ "ansible_bddb9a74": {
+  "files": 2,
+  "hunks": 6,
+  "loc": 96,
+  "flagged": false
+ },
+ "qutebrowser_def864ad": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 30,
+  "flagged": false
+ },
+ "qutebrowser_1d9d9453": {
+  "files": 2,
+  "hunks": 10,
+  "loc": 43,
+  "flagged": false
+ },
+ "navidrome_6ff7ab52": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 95,
+  "flagged": false
+ },
+ "internetarchive_188a7677": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 56,
+  "flagged": false
+ },
+ "internetarchive_de903b95": {
+  "files": 1,
+  "hunks": 4,
+  "loc": 29,
+  "flagged": false
+ },
+ "element-hq_6da3cc8c": {
+  "files": 1,
+  "hunks": 8,
+  "loc": 60,
+  "flagged": false
+ },
+ "internetarchive_2e2140e2": {
+  "files": 5,
+  "hunks": 15,
+  "loc": 403,
+  "flagged": false
+ },
+ "internetarchive_f1f4efd6": {
+  "files": 7,
+  "hunks": 13,
+  "loc": 120,
+  "flagged": false
+ },
+ "flipt-io_8dd44097": {
+  "files": 8,
+  "hunks": 32,
+  "loc": 360,
+  "flagged": true
+ },
+ "NodeBB_09f3ac65": {
+  "files": 8,
+  "hunks": 14,
+  "loc": 135,
+  "flagged": true
+ },
+ "future-architect_fd18df1d": {
+  "files": 5,
+  "hunks": 35,
+  "loc": 209,
+  "flagged": true
+ },
+ "qutebrowser_744cd944": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 102,
+  "flagged": false
+ },
+ "navidrome_a1551074": {
+  "files": 6,
+  "hunks": 14,
+  "loc": 68,
+  "flagged": false
+ },
+ "ansible_225ae65b": {
+  "files": 10,
+  "hunks": 37,
+  "loc": 647,
+  "flagged": true
+ },
+ "ansible_e6589957": {
+  "files": 11,
+  "hunks": 11,
+  "loc": 81,
+  "flagged": true
+ },
+ "protonmail_21b45bd4": {
+  "files": 12,
+  "hunks": 12,
+  "loc": 49,
+  "flagged": true
+ },
+ "internetarchive_1a3fab3f": {
+  "files": 1,
+  "hunks": 5,
+  "loc": 30,
+  "flagged": false
+ },
+ "flipt-io_962f8d02": {
+  "files": 5,
+  "hunks": 40,
+  "loc": 1325,
+  "flagged": true
+ },
+ "gravitational_2f51af0e": {
+  "files": 3,
+  "hunks": 15,
+  "loc": 544,
+  "flagged": false
+ },
+ "ansible_270f109b": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 61,
+  "flagged": false
+ },
+ "qutebrowser_30250d8e": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 38,
+  "flagged": false
+ },
+ "qutebrowser_df2b817a": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 23,
+  "flagged": false
+ },
+ "tutao_5f770409": {
+  "files": 5,
+  "hunks": 19,
+  "loc": 44,
+  "flagged": false
+ },
+ "gravitational_39cd6e2e": {
+  "files": 8,
+  "hunks": 23,
+  "loc": 171,
+  "flagged": true
+ },
+ "ansible_25268509": {
+  "files": 6,
+  "hunks": 15,
+  "loc": 55,
+  "flagged": false
+ },
+ "protonmail_57f1225f": {
+  "files": 33,
+  "hunks": 86,
+  "loc": 363,
+  "flagged": true
+ },
+ "protonmail_4aeaf4a6": {
+  "files": 30,
+  "hunks": 89,
+  "loc": 182,
+  "flagged": true
+ },
+ "future-architect_e1152352": {
+  "files": 8,
+  "hunks": 14,
+  "loc": 438,
+  "flagged": true
+ },
+ "element-hq_04bc8fb7": {
+  "files": 6,
+  "hunks": 20,
+  "loc": 259,
+  "flagged": true
+ },
+ "gravitational_b37b02cd": {
+  "files": 8,
+  "hunks": 24,
+  "loc": 112,
+  "flagged": true
+ },
+ "NodeBB_84dfda59": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 97,
+  "flagged": false
+ },
+ "gravitational_b1da3b30": {
+  "files": 3,
+  "hunks": 7,
+  "loc": 79,
+  "flagged": false
+ },
+ "internetarchive_88da48a8": {
+  "files": 3,
+  "hunks": 10,
+  "loc": 106,
+  "flagged": false
+ },
+ "protonmail_8472bc64": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 128,
+  "flagged": false
+ },
+ "qutebrowser_690813e1": {
+  "files": 1,
+  "hunks": 4,
+  "loc": 32,
+  "flagged": false
+ },
+ "internetarchive_b36762b2": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 104,
+  "flagged": false
+ },
+ "flipt-io_899e567d": {
+  "files": 7,
+  "hunks": 47,
+  "loc": 270,
+  "flagged": true
+ },
+ "flipt-io_8ba3ab7d": {
+  "files": 9,
+  "hunks": 89,
+  "loc": 269,
+  "flagged": true
+ },
+ "qutebrowser_142f019c": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 63,
+  "flagged": false
+ },
+ "ansible_5fa2d29c": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 200,
+  "flagged": false
+ },
+ "qutebrowser_10cb81e8": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 79,
+  "flagged": false
+ },
+ "gravitational_5157a38c": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 24,
+  "flagged": false
+ },
+ "ansible_98726ad8": {
+  "files": 2,
+  "hunks": 5,
+  "loc": 35,
+  "flagged": false
+ },
+ "flipt-io_c2c0f776": {
+  "files": 8,
+  "hunks": 15,
+  "loc": 71,
+  "flagged": true
+ },
+ "flipt-io_fa8f302a": {
+  "files": 12,
+  "hunks": 25,
+  "loc": 881,
+  "flagged": true
+ },
+ "flipt-io_4e1cd363": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 34,
+  "flagged": false
+ },
+ "flipt-io_563a8c45": {
+  "files": 8,
+  "hunks": 13,
+  "loc": 339,
+  "flagged": true
+ },
+ "flipt-io_358e13bf": {
+  "files": 7,
+  "hunks": 38,
+  "loc": 153,
+  "flagged": true
+ },
+ "gravitational_9c041361": {
+  "files": 5,
+  "hunks": 6,
+  "loc": 68,
+  "flagged": false
+ },
+ "gravitational_b8394b3b": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 101,
+  "flagged": false
+ },
+ "navidrome_70487a09": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 43,
+  "flagged": false
+ },
+ "NodeBB_a2ebf53b": {
+  "files": 9,
+  "hunks": 10,
+  "loc": 324,
+  "flagged": true
+ },
+ "ansible_f05bcf56": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 72,
+  "flagged": false
+ },
+ "NodeBB_1e137b07": {
+  "files": 11,
+  "hunks": 17,
+  "loc": 151,
+  "flagged": true
+ },
+ "future-architect_1c4f2315": {
+  "files": 10,
+  "hunks": 27,
+  "loc": 209,
+  "flagged": true
+ },
+ "internetarchive_febda3f0": {
+  "files": 13,
+  "hunks": 37,
+  "loc": 1663,
+  "flagged": true
+ },
+ "future-architect_76267a54": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 48,
+  "flagged": false
+ },
+ "protonmail_83c2b474": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 33,
+  "flagged": false
+ },
+ "flipt-io_775da4fe": {
+  "files": 8,
+  "hunks": 15,
+  "loc": 366,
+  "flagged": true
+ },
+ "NodeBB_88aee439": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 51,
+  "flagged": false
+ },
+ "gravitational_f958e034": {
+  "files": 2,
+  "hunks": 9,
+  "loc": 216,
+  "flagged": false
+ },
+ "ansible_70948496": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 46,
+  "flagged": false
+ },
+ "navidrome_768160b0": {
+  "files": 5,
+  "hunks": 13,
+  "loc": 454,
+  "flagged": false
+ },
+ "gravitational_be52cd32": {
+  "files": 8,
+  "hunks": 43,
+  "loc": 393,
+  "flagged": true
+ },
+ "ansible_dcc5dac1": {
+  "files": 7,
+  "hunks": 20,
+  "loc": 285,
+  "flagged": true
+ },
+ "ansible_bf98f031": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 105,
+  "flagged": false
+ },
+ "ansible_96c19724": {
+  "files": 5,
+  "hunks": 11,
+  "loc": 43,
+  "flagged": false
+ },
+ "qutebrowser_74671c16": {
+  "files": 1,
+  "hunks": 2,
+  "loc": 56,
+  "flagged": false
+ },
+ "ansible_9ab63986": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 653,
+  "flagged": false
+ },
+ "future-architect_98cbe6ed": {
+  "files": 3,
+  "hunks": 6,
+  "loc": 191,
+  "flagged": false
+ },
+ "flipt-io_29d3f9db": {
+  "files": 9,
+  "hunks": 46,
+  "loc": 351,
+  "flagged": true
+ },
+ "qutebrowser_434f6906": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 38,
+  "flagged": false
+ },
+ "qutebrowser_c9380605": {
+  "files": 4,
+  "hunks": 8,
+  "loc": 51,
+  "flagged": false
+ },
+ "qutebrowser_8e08f046": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 102,
+  "flagged": false
+ },
+ "qutebrowser_34db7a1e": {
+  "files": 1,
+  "hunks": 1,
+  "loc": 41,
+  "flagged": false
+ },
+ "element-hq_83612dd4": {
+  "files": 9,
+  "hunks": 21,
+  "loc": 1236,
+  "flagged": true
+ },
+ "element-hq_8166306e": {
+  "files": 3,
+  "hunks": 3,
+  "loc": 93,
+  "flagged": false
+ },
+ "qutebrowser_ebfe9b7a": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 64,
+  "flagged": false
+ },
+ "gravitational_d45e26ce": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 34,
+  "flagged": false
+ },
+ "qutebrowser_190bab12": {
+  "files": 1,
+  "hunks": 8,
+  "loc": 31,
+  "flagged": false
+ },
+ "ansible_e8ae7211": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 37,
+  "flagged": false
+ },
+ "gravitational_69a9dbf3": {
+  "files": 4,
+  "hunks": 5,
+  "loc": 1040,
+  "flagged": false
+ },
+ "qutebrowser_5ee28105": {
+  "files": 5,
+  "hunks": 10,
+  "loc": 138,
+  "flagged": false
+ },
+ "gravitational_a60d1c0f": {
+  "files": 4,
+  "hunks": 10,
+  "loc": 70,
+  "flagged": false
+ },
+ "NodeBB_7f48edc0": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 29,
+  "flagged": false
+ },
+ "future-architect_e4f1e03f": {
+  "files": 6,
+  "hunks": 12,
+  "loc": 267,
+  "flagged": false
+ },
+ "ansible_20ef733e": {
+  "files": 5,
+  "hunks": 19,
+  "loc": 137,
+  "flagged": false
+ },
+ "flipt-io_820f90fd": {
+  "files": 5,
+  "hunks": 8,
+  "loc": 63,
+  "flagged": false
+ },
+ "ansible_01e7915b": {
+  "files": 3,
+  "hunks": 12,
+  "loc": 182,
+  "flagged": false
+ },
+ "element-hq_9d9c55d9": {
+  "files": 5,
+  "hunks": 8,
+  "loc": 112,
+  "flagged": false
+ },
+ "qutebrowser_61ff98d3": {
+  "files": 1,
+  "hunks": 3,
+  "loc": 64,
+  "flagged": false
+ },
+ "qutebrowser_d1164925": {
+  "files": 6,
+  "hunks": 12,
+  "loc": 560,
+  "flagged": false
+ },
+ "element-hq_97f6431d": {
+  "files": 1,
+  "hunks": 12,
+  "loc": 114,
+  "flagged": false
+ },
+ "NodeBB_60680876": {
+  "files": 2,
+  "hunks": 2,
+  "loc": 61,
+  "flagged": false
+ },
+ "protonmail_473d37b9": {
+  "files": 6,
+  "hunks": 11,
+  "loc": 517,
+  "flagged": false
+ },
+ "NodeBB_c1f873b3": {
+  "files": 14,
+  "hunks": 37,
+  "loc": 983,
+  "flagged": true
+ },
+ "gravitational_08775e34": {
+  "files": 4,
+  "hunks": 71,
+  "loc": 369,
+  "flagged": true
+ },
+ "ansible_e094d48b": {
+  "files": 7,
+  "hunks": 16,
+  "loc": 83,
+  "flagged": false
+ },
+ "ansible_3398c102": {
+  "files": 3,
+  "hunks": 4,
+  "loc": 88,
+  "flagged": false
+ },
+ "protonmail_8ae1b7f1": {
+  "files": 80,
+  "hunks": 97,
+  "loc": 541,
+  "flagged": true
+ },
+ "element-hq_1a0dbbf1": {
+  "files": 6,
+  "hunks": 19,
+  "loc": 163,
+  "flagged": false
+ },
+ "protonmail_03feb923": {
+  "files": 9,
+  "hunks": 20,
+  "loc": 327,
+  "flagged": true
+ },
+ "protonmail_808897a3": {
+  "files": 2,
+  "hunks": 3,
+  "loc": 27,
+  "flagged": false
+ },
+ "internetarchive_77c16d53": {
+  "files": 6,
+  "hunks": 12,
+  "loc": 123,
+  "flagged": false
+ },
+ "internetarchive_8c988af8": {
+  "files": 2,
+  "hunks": 8,
+  "loc": 46,
+  "flagged": false
+ },
+ "gravitational_91449219": {
+  "files": 1,
+  "hunks": 6,
+  "loc": 70,
+  "flagged": false
+ },
+ "protonmail_85560278": {
+  "files": 1,
+  "hunks": 5,
+  "loc": 33,
+  "flagged": false
+ },
+ "ansible_de01db08": {
+  "files": 3,
+  "hunks": 5,
+  "loc": 26,
+  "flagged": false
+ },
+ "protonmail_7fb29b60": {
+  "files": 4,
+  "hunks": 17,
+  "loc": 311,
+  "flagged": false
+ },
+ "navidrome_3853c331": {
+  "files": 3,
+  "hunks": 13,
+  "loc": 149,
+  "flagged": false
+ },
+ "navidrome_a0290587": {
+  "files": 8,
+  "hunks": 22,
+  "loc": 107,
+  "flagged": true
+ },
+ "protonmail_8f58c5dd": {
+  "files": 4,
+  "hunks": 7,
+  "loc": 138,
+  "flagged": false
+ },
+ "future-architect_f1c78e42": {
+  "files": 5,
+  "hunks": 27,
+  "loc": 242,
+  "flagged": true
+ },
+ "navidrome_5f6f74ff": {
+  "files": 10,
+  "hunks": 28,
+  "loc": 174,
+  "flagged": true
+ },
+ "flipt-io_fee220d0": {
+  "files": 2,
+  "hunks": 4,
+  "loc": 28,
+  "flagged": false
+ },
+ "future-architect_d3bf2a6f": {
+  "files": 1,
+  "hunks": 7,
+  "loc": 33,
+  "flagged": false
+ },
+ "flipt-io_018129e0": {
+  "files": 2,
+  "hunks": 17,
+  "loc": 52,
+  "flagged": false
+ },
+ "navidrome_9c3b4561": {
+  "files": 9,
+  "hunks": 14,
+  "loc": 147,
+  "flagged": true
+ }
+}

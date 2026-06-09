@@ -1,0 +1,30 @@
+{
+ "slug": "element",
+ "breadth": {
+  "files": 5,
+  "hunks": 11,
+  "loc": 516,
+  "flagged": false
+ },
+ "opus": {
+  "underdetermined": false,
+  "raw": {
+   "determined": true,
+   "design_A": null,
+   "design_B": null,
+   "why_both_faithful": null,
+   "selecting_clause": null
+  }
+ },
+ "codex": {
+  "underdetermined": true,
+  "raw": {
+   "determined": false,
+   "design_A": "When both type and url are provided but disagree, treat the explicit type prop as authoritative, using the url only as the raw identifier/href.",
+   "design_B": "When both type and url are provided but disagree, infer the effective type from the Matrix sigil in url, except for explicit @room mentions.",
+   "why_both_faithful": "The prose requires inference from both type and url and specifies sigil-based URL detection, but never states precedence when the two inputs conflict.",
+   "selecting_clause": null
+  }
+ },
+ "rater_assessed_underdetermined": false
+}

@@ -18,12 +18,20 @@ already carries all five files.
 
   tools/materialize.py [--batch 50] [--offset 0]
 """
-import sys, json, ast, pathlib
+import sys, os, json, ast, pathlib
 
 AUDIT = pathlib.Path(__file__).resolve().parent.parent
-COMPANION = pathlib.Path("/Users/junekim/Documents/swebench-pro")
 CASES = AUDIT / "data" / "cases"
-FIELDS = json.load(open(COMPANION / "tasks" / "pro_repl_fields.json"))
+# Canonical 728-task solver-prose. Vendored at data/pro_repl_fields.json so the audit repo is
+# self-contained; falls back to the companion repo (env SWEBENCH_PRO_REPO or the default path) if the
+# vendored copy is absent.
+DATASET_REVISION = "7ab5114912baf22bb098818e604c02fe7ad2c11f"  # ScaleAI/SWE-bench_Pro, frozen 2026-02-23
+_VENDORED = AUDIT / "data" / "pro_repl_fields.json"
+if _VENDORED.exists():
+    FIELDS = json.load(open(_VENDORED))
+else:
+    COMPANION = pathlib.Path(os.environ.get("SWEBENCH_PRO_REPO", "/Users/junekim/Documents/swebench-pro"))
+    FIELDS = json.load(open(COMPANION / "tasks" / "pro_repl_fields.json"))
 
 # instance_ids that already have a hand-built short dir (preserve as-is, do not regenerate)
 EXISTING = {
@@ -77,7 +85,7 @@ def main():
     batch = int(a[a.index("--batch") + 1]) if "--batch" in a else 100000
     offset = int(a[a.index("--offset") + 1]) if "--offset" in a else 0
     from datasets import load_dataset
-    ds = load_dataset("ScaleAI/SWE-bench_Pro", split="test")
+    ds = load_dataset("ScaleAI/SWE-bench_Pro", split="test", revision=DATASET_REVISION)
     byid = {r["instance_id"]: r for r in ds}
 
     ids = list(FIELDS.keys())[offset:offset + batch]

@@ -1,0 +1,7 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "fix_commit": "a25e8a09873838ca9efefd36ea8a45170bbeb95c",
+ "pr_number": 7741,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/7741",
+ "pr_title": "Resolve remaining Qt wrapper selection UX issues"
+}

@@ -1,0 +1,7 @@
+{
+ "repo": "ansible/ansible",
+ "fix_commit": "83909bfa22573777e3db5688773bda59721962ad",
+ "pr_number": 72288,
+ "pr_url": "https://github.com/ansible/ansible/pull/72288",
+ "pr_title": "Remove ansible-galaxy login"
+}

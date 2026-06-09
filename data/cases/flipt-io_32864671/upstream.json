@@ -1,0 +1,7 @@
+{
+ "repo": "flipt-io/flipt",
+ "fix_commit": "56a620b8fc9ef7a0819b47709aa541cdfdbba00b",
+ "pr_number": 2087,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/2087",
+ "pr_title": "feat: Add webhook configuration for sending event payloads"
+}

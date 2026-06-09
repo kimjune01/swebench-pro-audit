@@ -1,0 +1,7 @@
+{
+ "repo": "ansible/ansible",
+ "fix_commit": "ea04e0048dbb3b63f876aad7020e1de8eee9f362",
+ "pr_number": 68177,
+ "pr_url": "https://github.com/ansible/ansible/pull/68177",
+ "pr_title": "Allow to deprecate options and aliases by date"
+}

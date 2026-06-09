@@ -1,0 +1,7 @@
+{
+ "repo": "internetarchive/openlibrary",
+ "fix_commit": "3f7db6bbbcc7c418b3db72d157c6aed1d45b2ccf",
+ "pr_number": 8511,
+ "pr_url": "https://github.com/internetarchive/openlibrary/pull/8511",
+ "pr_title": "imports: add importer for ISBNdb"
+}

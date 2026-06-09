@@ -1,0 +1,7 @@
+{
+ "repo": "flipt-io/flipt",
+ "fix_commit": "72d06db14d58692bfb4d07b1aa745a37b35956f3",
+ "pr_number": 2295,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/2295",
+ "pr_title": "fix: Audit log path fixes"
+}

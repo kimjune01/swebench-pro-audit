@@ -1,0 +1,7 @@
+{
+ "repo": "internetarchive/openlibrary",
+ "fix_commit": "a48fd6ba9482c527602bc081491d9e8ae6e8226c",
+ "pr_number": 6466,
+ "pr_url": "https://github.com/internetarchive/openlibrary/pull/6466",
+ "pr_title": "Replace XML solr requests with json solr request"
+}

@@ -1,0 +1,7 @@
+{
+ "repo": "flipt-io/flipt",
+ "fix_commit": "02e21636c58e86c51119b63e0fb5ca7b813b07b1",
+ "pr_number": 3107,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/3107",
+ "pr_title": "feat(cache/redis): support ca certificate and insecure tls options"
+}

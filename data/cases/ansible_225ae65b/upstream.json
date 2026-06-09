@@ -1,0 +1,7 @@
+{
+ "repo": "ansible/ansible",
+ "fix_commit": "e40889e7112ae00a21a2c74312b330e67a766cc0",
+ "pr_number": 69154,
+ "pr_url": "https://github.com/ansible/ansible/pull/69154",
+ "pr_title": "Add support to install collections from git repositories"
+}

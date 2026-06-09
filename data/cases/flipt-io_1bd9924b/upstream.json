@@ -1,0 +1,7 @@
+{
+ "repo": "flipt-io/flipt",
+ "fix_commit": "b6cef5cdc0daff3ee99e5974ed60a1dc6b4b0d67",
+ "pr_number": 1336,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/1336",
+ "pr_title": "test(auth): ensure failed cookie auth attempt instructs user-agent to clear cookie"
+}

@@ -1,0 +1,7 @@
+{
+ "repo": "flipt-io/flipt",
+ "fix_commit": "b2cd6a6dd73ca91b519015fd5924fde8d17f3f06",
+ "pr_number": 1156,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/1156",
+ "pr_title": "fix: refactor telemetry, dont log warning if not able to report"
+}

@@ -1,0 +1,7 @@
+{
+ "repo": "flipt-io/flipt",
+ "fix_commit": "ebb3f84c74d61eee4d8c6875140b990eee62e146",
+ "pr_number": 1350,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/1350",
+ "pr_title": "feat: enable ability to specify bootstrap token"
+}

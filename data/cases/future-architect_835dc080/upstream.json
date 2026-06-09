@@ -1,0 +1,7 @@
+{
+ "repo": "future-architect/vuls",
+ "fix_commit": "8d5ea98e50cf616847f4e5a2df300395d1f719e9",
+ "pr_number": 974,
+ "pr_url": "https://github.com/future-architect/vuls/pull/974",
+ "pr_title": "add -wp-ignore-inactive flag which ignores inactive plugin or themes "
+}

@@ -1,0 +1,7 @@
+{
+ "repo": "internetarchive/openlibrary",
+ "fix_commit": "5fb312632097be7e9ac6ab657964af115224d15d",
+ "pr_number": 9991,
+ "pr_url": "https://github.com/internetarchive/openlibrary/pull/9991",
+ "pr_title": "add Wikipedia links from Wikidata"
+}

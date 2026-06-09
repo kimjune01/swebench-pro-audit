@@ -1,0 +1,7 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "fix_commit": "fcfa069a06ade76d91bac38127f3235c13d78eb1",
+ "pr_number": 6019,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/6019",
+ "pr_title": "History/SQL cleanups for v2.0.0"
+}

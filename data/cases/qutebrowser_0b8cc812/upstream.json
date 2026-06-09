@@ -1,0 +1,7 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "fix_commit": "c580ebf0801e5a3ecabc54f327498bb753c6d5f2",
+ "pr_number": 6372,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/6372",
+ "pr_title": "Block sub-domains with host blocker"
+}

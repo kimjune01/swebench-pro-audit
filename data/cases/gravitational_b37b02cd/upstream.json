@@ -1,0 +1,7 @@
+{
+ "repo": "gravitational/teleport",
+ "fix_commit": "c1b1c6a1541c478d7777a48fca993cc8206c73b9",
+ "pr_number": 4435,
+ "pr_url": "https://github.com/gravitational/teleport/pull/4435",
+ "pr_title": "Improves logging and error handling in filesessions."
+}

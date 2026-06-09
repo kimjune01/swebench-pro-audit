@@ -1,0 +1,7 @@
+{
+ "repo": "gravitational/teleport",
+ "fix_commit": "4e1c39639edf1ab494dd7562844c8b277b5cfa18",
+ "pr_number": 18988,
+ "pr_url": "https://github.com/gravitational/teleport/pull/18988",
+ "pr_title": "Implement client-side device enrollment"
+}

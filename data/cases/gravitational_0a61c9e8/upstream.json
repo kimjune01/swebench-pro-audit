@@ -1,0 +1,7 @@
+{
+ "repo": "gravitational/teleport",
+ "fix_commit": "4f771403dc4177dc26ee0370f7332f3fe54bee0f",
+ "pr_number": 34938,
+ "pr_url": "https://github.com/gravitational/teleport/pull/34938",
+ "pr_title": "Add `resumption.managedConn`"
+}

@@ -39,6 +39,11 @@ def receipts(slug, wf, r2=False):
     links = [f"[witness]({d}/{wf})", f"[spec]({d}/spec.md)", f"[gold]({d}/gold.diff)", f"[test]({d}/hidden_test.diff)"]
     if r2:
         links += [f"[R2]({d}/r2.diff)", f"[grade]({d}/r2_grade.json)"]
+    up = CASES / slug / "upstream.json"
+    if up.exists():
+        u = json.loads(up.read_text())
+        if u.get("pr_url"):
+            links.append(f"[PR #{u['pr_number']}]({u['pr_url']})")
     return " · ".join(links)
 
 

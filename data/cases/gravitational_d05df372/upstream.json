@@ -1,0 +1,7 @@
+{
+ "repo": "gravitational/teleport",
+ "fix_commit": "96019ce0be7a2c8e36363f359eb7c943b41dde70",
+ "pr_number": 5166,
+ "pr_url": "https://github.com/gravitational/teleport/pull/5166",
+ "pr_title": "Make k8s errors responses decode-able by kubectl"
+}

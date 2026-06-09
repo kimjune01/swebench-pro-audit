@@ -1,0 +1,7 @@
+{
+ "repo": "ansible/ansible",
+ "fix_commit": "b5e0293645570f3f404ad1dbbe5f006956ada0df",
+ "pr_number": 83847,
+ "pr_url": "https://github.com/ansible/ansible/pull/83847",
+ "pr_title": "powershell - Improve CLIXML parsing"
+}

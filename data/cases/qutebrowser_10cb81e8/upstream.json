@@ -1,0 +1,7 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "fix_commit": "2e961080a85d660148937ee8f0f6b3445a8f2c01",
+ "pr_number": 7934,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/7934",
+ "pr_title": "Add setting to disable accelerated 2d canvas"
+}

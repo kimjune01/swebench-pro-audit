@@ -1,0 +1,7 @@
+{
+ "repo": "flipt-io/flipt",
+ "fix_commit": "6fd0f9e2587f14ac1fdd1c229f0bcae0468c8daa",
+ "pr_number": 2332,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/2332",
+ "pr_title": "feat(oci): add new package with store implementation"
+}

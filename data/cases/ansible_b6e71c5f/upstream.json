@@ -1,0 +1,7 @@
+{
+ "repo": "ansible/ansible",
+ "fix_commit": "b6290e1d156af608bd79118d209a64a051c55001",
+ "pr_number": 60036,
+ "pr_url": "https://github.com/ansible/ansible/pull/60036",
+ "pr_title": "icx: new module icx_logging"
+}

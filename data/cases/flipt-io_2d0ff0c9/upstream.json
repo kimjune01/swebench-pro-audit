@@ -1,0 +1,7 @@
+{
+ "repo": "flipt-io/flipt",
+ "fix_commit": "9f8127f225a86245fa35dca4885c2daef824ee55",
+ "pr_number": 1064,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/1064",
+ "pr_title": "CockroachDB Support"
+}

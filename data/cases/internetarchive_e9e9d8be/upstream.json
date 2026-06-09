@@ -1,0 +1,7 @@
+{
+ "repo": "internetarchive/openlibrary",
+ "fix_commit": "910b08570210509f3bcfebf35c093a48243fe754",
+ "pr_number": 9588,
+ "pr_url": "https://github.com/internetarchive/openlibrary/pull/9588",
+ "pr_title": "Fetch metadata from Google Books by ISBN + stage"
+}

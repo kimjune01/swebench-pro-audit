@@ -1,0 +1,7 @@
+{
+ "repo": "NodeBB/NodeBB",
+ "fix_commit": "4327a09d76f10a79109da9d91c22120428d3bdb9",
+ "pr_number": 9385,
+ "pr_url": "https://github.com/NodeBB/NodeBB/pull/9385",
+ "pr_title": "feat: allow optional fields argument on db.getObject(s)"
+}

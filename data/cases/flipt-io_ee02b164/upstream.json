@@ -1,0 +1,7 @@
+{
+ "repo": "flipt-io/flipt",
+ "fix_commit": "a42d38a1bb1df267c53d9d4a706cf34825ae3da9",
+ "pr_number": 1253,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/1253",
+ "pr_title": "feat(http): support CSRF provention"
+}

@@ -1,0 +1,7 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "fix_commit": "70248f256f93ed9b1984494d0a1a919ddd774892",
+ "pr_number": 5947,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/5947",
+ "pr_title": "Time units added to :later command"
+}

@@ -1,0 +1,7 @@
+{
+ "repo": "flipt-io/flipt",
+ "fix_commit": "ea9a2663b176da329b3f574da2ce2a664fc5b4a1",
+ "pr_number": 3692,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/3692",
+ "pr_title": "fix(authz): support namespaces filtering"
+}

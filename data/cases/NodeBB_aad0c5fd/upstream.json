@@ -1,0 +1,7 @@
+{
+ "repo": "NodeBB/NodeBB",
+ "fix_commit": "84dfda59e6a0e8a77240f939a7cb8757e6eaf945",
+ "pr_number": 10271,
+ "pr_url": "https://github.com/NodeBB/NodeBB/pull/10271",
+ "pr_title": "delete uploads on post purge"
+}

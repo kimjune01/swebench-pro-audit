@@ -1,0 +1,7 @@
+{
+ "repo": "NodeBB/NodeBB",
+ "fix_commit": "04998908ba6721d64eba79ae3b65a351dcfbc5b5",
+ "pr_number": 11677,
+ "pr_url": "https://github.com/NodeBB/NodeBB/pull/11677",
+ "pr_title": "Fixes for \"validate email\" & \"send validation email\" in ACP"
+}

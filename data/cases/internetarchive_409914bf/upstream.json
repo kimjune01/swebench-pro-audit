@@ -1,0 +1,7 @@
+{
+ "repo": "internetarchive/openlibrary",
+ "fix_commit": "dbbd9d539c6d4fd45d5be9662aa19b6d664b5137",
+ "pr_number": 8463,
+ "pr_url": "https://github.com/internetarchive/openlibrary/pull/8463",
+ "pr_title": "Fix 500 when saving /lists/add with URL parameters + fix global lists editing"
+}

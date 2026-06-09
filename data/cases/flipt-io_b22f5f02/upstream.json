@@ -1,0 +1,7 @@
+{
+ "repo": "flipt-io/flipt",
+ "fix_commit": "84806a178447e766380cc66b14dee9c6eeb534f4",
+ "pr_number": 2359,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/2359",
+ "pr_title": "feat(oci): integrate new FS backend into Flipt"
+}

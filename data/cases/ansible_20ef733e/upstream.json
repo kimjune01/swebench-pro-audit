@@ -1,0 +1,7 @@
+{
+ "repo": "ansible/ansible",
+ "fix_commit": "1bd7dcf339dd8b6c50bc16670be2448a206f4fdb",
+ "pr_number": 74595,
+ "pr_url": "https://github.com/ansible/ansible/pull/74595",
+ "pr_title": "encrypt: add new parameter `ident`"
+}

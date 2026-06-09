@@ -1,0 +1,7 @@
+{
+ "repo": "future-architect/vuls",
+ "fix_commit": "e3c27e1817d68248043bd09d63cc31f3344a6f2c",
+ "pr_number": 1180,
+ "pr_url": "https://github.com/future-architect/vuls/pull/1180",
+ "pr_title": "fix(saas): Don't overwrite config.toml if UUID already set"
+}

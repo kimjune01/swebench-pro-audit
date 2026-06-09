@@ -1,0 +1,7 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "fix_commit": "85b867fe8d4378c8e371f055c70452f546055854",
+ "pr_number": 7096,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/7096",
+ "pr_title": "Specify elements for `:click-element` via CSS, position and currently focused"
+}

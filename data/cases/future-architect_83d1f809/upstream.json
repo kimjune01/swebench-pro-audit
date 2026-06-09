@@ -1,0 +1,7 @@
+{
+ "repo": "future-architect/vuls",
+ "fix_commit": "aaea15e516ece43978cf98e09e52080478b1d39f",
+ "pr_number": 1105,
+ "pr_url": "https://github.com/future-architect/vuls/pull/1105",
+ "pr_title": "refactor(report): remove Integration.apply"
+}

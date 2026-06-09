@@ -1,0 +1,7 @@
+{
+ "repo": "future-architect/vuls",
+ "fix_commit": "030b2e03525d68d74cb749959aac2d7f3fc0effa",
+ "pr_number": 2051,
+ "pr_url": "https://github.com/future-architect/vuls/pull/2051",
+ "pr_title": "feat(scanner/windows): support Windows 11 24H2"
+}

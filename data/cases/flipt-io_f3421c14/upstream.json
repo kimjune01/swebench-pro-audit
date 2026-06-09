@@ -1,0 +1,7 @@
+{
+ "repo": "flipt-io/flipt",
+ "fix_commit": "2ce8a0331e8a8f63f2c1b555db8277ffe5aa2e63",
+ "pr_number": 2791,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/2791",
+ "pr_title": "feat: add ability to check known flipt server verison"
+}

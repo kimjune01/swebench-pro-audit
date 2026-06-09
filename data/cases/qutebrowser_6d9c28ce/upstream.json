@@ -1,0 +1,7 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "fix_commit": "3d01c201b8aa54dd71d4f801b1dd12feb4c0a08a",
+ "pr_number": 6234,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/6234",
+ "pr_title": "Add utils/resources.py"
+}

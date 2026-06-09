@@ -1,0 +1,7 @@
+{
+ "repo": "ansible/ansible",
+ "fix_commit": "d33bedc48fdd933b5abd65a77c081876298e2f07",
+ "pr_number": 85119,
+ "pr_url": "https://github.com/ansible/ansible/pull/85119",
+ "pr_title": "Misc config type coercion fixes"
+}

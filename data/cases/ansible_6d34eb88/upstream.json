@@ -1,0 +1,7 @@
+{
+ "repo": "ansible/ansible",
+ "fix_commit": "bec27fb4c0a40c5f8bbcf26a475704227d65ee73",
+ "pr_number": 75116,
+ "pr_url": "https://github.com/ansible/ansible/pull/75116",
+ "pr_title": "prettyfy ansible-doc"
+}

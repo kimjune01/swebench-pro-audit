@@ -1,0 +1,7 @@
+{
+ "repo": "gravitational/teleport",
+ "fix_commit": "3587cca7840f636489449113969a5066025dd5bf",
+ "pr_number": 4282,
+ "pr_url": "https://github.com/gravitational/teleport/pull/4282",
+ "pr_title": "Always collect metrics about top backend requests"
+}

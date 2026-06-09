@@ -1,0 +1,7 @@
+{
+ "repo": "gravitational/teleport",
+ "fix_commit": "0cb341c926713bdfcbb490c69659a9b101df99eb",
+ "pr_number": 4194,
+ "pr_url": "https://github.com/gravitational/teleport/pull/4194",
+ "pr_title": "Fix Roles.Equals with duplicate role entries"
+}

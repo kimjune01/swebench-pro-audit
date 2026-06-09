@@ -1,0 +1,7 @@
+{
+ "repo": "gravitational/teleport",
+ "fix_commit": "dd3977957a67bedaf604ad6ca255ba8c7b6704e9",
+ "pr_number": 4805,
+ "pr_url": "https://github.com/gravitational/teleport/pull/4805",
+ "pr_title": "Register a kubernetes cluster from proxy_service"
+}

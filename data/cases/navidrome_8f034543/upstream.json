@@ -1,0 +1,7 @@
+{
+ "repo": "navidrome/navidrome",
+ "fix_commit": "dfa453cc4ab772928686838dc73d0130740f054e",
+ "pr_number": 1884,
+ "pr_url": "https://github.com/navidrome/navidrome/pull/1884",
+ "pr_title": "feat: Add playlist field to smart playlists - #1417"
+}

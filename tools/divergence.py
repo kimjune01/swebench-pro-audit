@@ -105,7 +105,10 @@ def main():
         flagged = sum(1 for v in out.values() if v["flagged"])
         print(f"breadth: {len(out)} cases, {flagged} flagged (>= {FLAG_FILES} files or {FLAG_HUNKS} hunks)")
         return
-    if "--flagged" in a:
+    if "--all" in a:  # unbiased: rater-assess every task (small tasks can be divergent too), resumable
+        slugs = sorted(s.name for s in CASES.iterdir() if s.is_dir() and (s / "gold.diff").exists()
+                       and not (s / "divergence.json").exists())
+    elif "--flagged" in a:
         slugs = sorted(s.name for s in CASES.iterdir() if s.is_dir() and (s / "gold.diff").exists()
                        and breadth(s.name)["flagged"] and not (s / "divergence.json").exists())
     else:

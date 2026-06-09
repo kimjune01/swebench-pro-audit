@@ -1,236 +1,170 @@
-# swebench-pro-audit
+# A Determinacy Audit of SWE-bench Pro: How Much of the Public Set Pins the Behavior It Grades
 
-A construct-validity audit of **SWE-bench Pro**, a contamination-resistant successor tier to SWE-bench
-Verified. The question is not "is Pro contaminated" (it is resistant by design, and that holds up). The
-question is **how much of the public set is determinate enough that passing the hidden test means solving
-the problem as stated** — and, relatedly, where a harness's score comes from.
+**June Kim** · [`kimjune01`](https://github.com/kimjune01) · 2026-06-09
 
-**All 728 public tasks are labeled.** Every verdict is mechanical and re-derivable from committed
-receipts — the graded behavior is in [`hidden_test.diff`], its anchor verifies in [`gold.diff`], and you
-can check whether any clause covers it in [`spec.md`]. Rebuild the tables from gold + test + prose —
-two ways, in [`docs/REPRODUCE.md`](docs/REPRODUCE.md): **verify it yourself** (no deps) or **reproduce the
-data yourself** (the full recipe).
+A construct-validity audit of **SWE-bench Pro**, the contamination-resistant benchmark OpenAI now recommends in place of Verified. The question is not whether Pro is contaminated (it is resistant by design, and that holds up). The question is **how much of the public set is determinate enough that passing the hidden test means solving the problem as stated.**
 
-## Motivation
+## Abstract
 
-A benchmark number is only as meaningful as the determinacy of its tasks. If the problem statement does
-not pin the behavior the hidden test checks, then passing that test is not evidence of *solving the
-problem as stated* — it is evidence of recovering the author's unstated choice, by reading the test
-(oracle), recalling the merged PR (contamination), or guessing. Pro is contamination-resistant, which
-removes recall — so on Pro the open question is **prose-underdetermination**: how often is the graded
-behavior simply not in the materials the solver receives?
+A benchmark score is only as meaningful as the determinacy of its tasks: if the problem statement a solver receives does not pin the behavior the hidden test grades, then passing that test is not evidence of solving the stated problem, but of recovering an unstated choice by some other means. SWE-bench Pro is contamination-resistant by construction, which removes recall as that other means and leaves the open question squarely on construct validity. We audit all **728 public SWE-bench Pro tasks** for determinacy: a task's graded behavior is *determinate* when the materials a solver actually receives (problem statement, requirements, interface, and the repository source at the base commit) select it, and *underdetermined* otherwise. We report a deliberately two-tier result. A mechanically provable tier of **36 tasks (4.9%)** carries receipts a hostile reader reproduces without trusting us: an arbitrary graded constant absent from prose and codebase alike, a prose-faithful alternative implementation the official grader rejects, or a verbatim prose clause the test contradicts. A second tier of **29 tasks (4.0%, cumulative 8.9%)** meets a *two-expert standard*: two competent engineers, given only the prose and the source, would both produce a requirement-faithful implementation that the hidden test splits. These splits are adversarially verified by two model families (one constructs the existence proof, an independent one tries to refute it; 29 of 41 candidates survived, and a symmetric pass over the determined cases recovered no missed splits; Cohen's κ = 0.52). We additionally confirm three gold-fails-grader defects and at least one feature mismatch, where the prose describes one feature and the gold and test grade another. Every verdict is re-derivable from committed per-case receipts. We do not claim a population rate beyond the proven floor; 185 further screen-flagged candidates remain rater-pending and are excluded from both bars. The practical implication: a raw Pro percentage conflates solving the stated problem with recovering the author's unstated choice, and should be reported against a determinacy-aware denominator.
 
-This audit answers that for the whole public set, and separates what's *provable today* from what needs a
-rater panel. It exists because we built a Pro harness whose oracle-free arms produced a null we couldn't
-explain from outside — see COI below.
+## How to read this
 
-## Terms
+This is a GitHub-native artifact, not a linear PDF. This README is the paper, self-contained for a first read; the data-heavy sections link to the canonical, regenerable documents rather than duplicating them, so numbers cannot drift between the paper and its receipts. The reading graph:
 
-| term | meaning |
-|---|---|
-| **oracle** | the held-out test. "Oracle-free" = the solver never sees it; it only grades afterward. |
-| **prose** | what the solver receives: problem statement + requirements + interface (no test). |
-| **gold** | the accepted reference patch for a task. |
-| **GAP** | a behavior the gold implements and the hidden test checks, but **no prose requirement states**. |
-| **ENTAILED** | every graded behavior has a covering requirement (no GAP) — prose determines the fix. |
-| **AMBIGUOUS (screen)** | ≥1 GAP — a *candidate*, not yet a claim. |
-| **witness** | the per-tier evidence that upgrades a candidate to a claim (see the grid below). |
-| **mechanical spine** | the claims that need no rater: airtight + graded-patch + hand. |
-| **R2** | an alternative implementation that follows the prose but takes the *other* reading; used in the graded-patch proof. |
-| **two-expert standard** | would two world-class engineers, given only the prose and the source, both write a requirement-faithful implementation that the hidden test splits? If yes — via prose plurality (≥2 faithful readings) or source plurality (≥2 live conventions) — the test grades an unstated choice → ambiguous. |
-| **hypothesis** | screen-flagged but lacking a qualifying witness — raters-pending, **not counted**. |
-| **KNOWN_BAD** | the gold patch fails its own grader (a mechanical defect). |
+- **The standard and how every task is labeled** → §4, full specification in [`docs/ADMISSIBILITY-SPEC.md`](docs/ADMISSIBILITY-SPEC.md).
+- **The headline numbers** → §6, regenerated table in [`SUMMARY.md`](SUMMARY.md).
+- **Every claim, one row** (inspect, don't trust) → [`CLAIMS.md`](CLAIMS.md); all 728 task verdicts → [`COVERAGE.md`](COVERAGE.md).
+- **Related work** → §2, annotated and confidence-flagged in [`docs/PRIOR-ART.md`](docs/PRIOR-ART.md).
+- **Exploratory mechanism checks** → §8, underlying runs in [`docs/FINDINGS.md`](docs/FINDINGS.md).
+- **The quarantined design-divergence axis (~20% candidate)** → [`docs/DETERMINACY-AXIS.md`](docs/DETERMINACY-AXIS.md), deliberately out of the headline.
+- **Reproduce** → [`docs/REPRODUCE.md`](docs/REPRODUCE.md); **cite** → [`CITATION.cff`](CITATION.cff); **repository layout** → end of this page.
 
-## Classification — how every task is labeled
+A skeptic can start at any row of `CLAIMS.md`, open that case's `spec.md` / `gold.diff` / `hidden_test.diff`, and check the verdict without reading the prose here at all.
 
-We mark a task **AMBIGUOUS** only when the hidden test checks a behavior the prompt does not require, and
-the claim carries an auditable witness: an absent arbitrary constant, a rejected prose-faithful patch, an
-explicit prose contradiction, or multiple live codebase conventions. The coverage screen
-([`tools/judge_pool.py`](tools/judge_pool.py)) labels every tested behavior against prose+gold; a **GAP**
-is a behavior the gold implements and the test checks but no requirement states. Verdict: **ENTAILED** (no
-GAP) or **AMBIGUOUS-screen** (≥1 GAP). The screen only flags; a candidate is *claimed* only with a witness
-whose burden its tier defines:
+## 1. Introduction
 
-| tier | claim | witness (the burden) | claimable without raters? |
+Benchmarks for autonomous software engineering grade a candidate patch by running a held-out test suite. The implicit assumption is that the test encodes the task: if the patch passes, the problem was solved. That holds only when the task's materials determine the behavior the test checks. When they do not, a passing patch has three other explanations: the solver read the held-out test (oracle access), recalled the merged pull request (contamination), or guessed and matched. The first two are mechanisms a harness or a frontier model can exploit without understanding the problem.
+
+SWE-bench Verified suffers from the first two. OpenAI's February 2026 audit found a majority of audited Verified tasks have flawed tests that reject functionally correct submissions, and that frontier models reproduce exact gold patches; OpenAI stopped reporting Verified and recommended SWE-bench Pro. Pro is built to resist contamination, and on our own gold-overlap check that resistance holds. So on Pro the open question moves off recall and onto construct validity: independent of contamination, how often is the graded behavior simply not present in the materials the solver receives?
+
+Consider `flipt-io_358e13bf`. Its problem statement asks for controlled deletion of references in a snapshot cache: "Fixed references cannot be deleted and remain accessible. Non-fixed references can be deleted." The gold patch and hidden test instead modify `internal/config/authentication.go` and assert a CSRF configuration default. The graded feature and the described feature are disjoint; no reading of the prose produces the behavior the test checks. An extreme case, but it makes the general point: passing the test and solving the stated problem can come apart, and the gap is measurable.
+
+We measure it conservatively, separating what is provable from committed receipts with no methodological buy-in from what rests on a stated standard, and excluding everything that needs a rater panel we have not yet run. The contribution is the determinacy classification over the whole public set, the two-expert standard and its adversarial verification, and the resulting guidance for anyone who runs, reports, or builds on Pro.
+
+## 2. Background and Related Work
+
+Full annotations and confidence flags: [`docs/PRIOR-ART.md`](docs/PRIOR-ART.md).
+
+- **SWE-bench** (Jimenez et al., ICLR 2024) builds tasks from public issues and PRs, the contamination surface later work exploits.
+- **SWE-Bench+** (Aleithan et al., 2024) manually audited tasks: 32.67% solution leakage, 31% weak tests; filtering dropped a representative agent from 12.47% to 3.97%.
+- **OpenAI, *Why SWE-bench Verified no longer measures frontier coding capabilities*** (Feb 2026): a majority of audited Verified tasks have flawed tests, plus exact-gold reproduction; recommends Pro.
+- **Wang, Pradel, Liu** (ICSE 2026) use differential testing to show plausible patches pass tests yet diverge from developer intent. Adjacent to us: their axis is patches that pass but are wrong; ours is tasks whose materials do not determine which passing behavior is intended.
+- **SWE-agent** (Yang et al., NeurIPS 2024): scaffold design materially moves scores, so a raw number conflates model and harness.
+- **SWE-bench Pro** (Deng et al., Scale AI, 2025): the benchmark we audit; long-horizon, multi-file, contamination-resistant. Not an external audit of its own construct validity.
+- **Our DeepSWE audit** (june.kim/auditing-deepswe, 2026): on a different benchmark, established the techniques reused here (gold-passes-own-verifier with isolation, denominator hygiene, retrievable per-case receipts, the per-task specification-lottery case).
+
+OpenAI debunked Verified, not Pro, and recommends Pro; the contamination story is Verified's and does not transfer. The construct-validity question on Pro is thinly examined; this audit addresses it over the whole public set and needs no contamination claim.
+
+## 3. The Benchmark and Audit Object
+
+The audit covers the **public** set: tasks with retrievable problem statement, requirements, interface, gold patch, and tests. Pro's held-out private set is not auditable from outside, so every claim is scoped to the public set. We pin a dataset revision and freeze receipts at a release tag; Pro tasks can change after publication, a comparability caveat we record.
+
+Solver materials per task are the problem statement, requirements, and interface (jointly, the *prose*) plus the repository source at the base commit. The grader runs a held-out suite; a task declares `FAIL_TO_PASS` (must pass after the fix) and `PASS_TO_PASS` (must stay passing). The accepted reference patch is the *gold*.
+
+**Denominators.** The determinacy denominator is **N = 728**, the public prose-set. Three further tasks are gold-fails-grader defects (§6), carried from a pre-run audit, frozen before any scored run; they sit outside the 728 and are reported alongside. The gold sweep (§5) graded 731 bundles (the 728 plus those 3) and re-confirmed exactly the 3. Where 731 or 727 appears in the receipts it refers to sweep coverage, not the determinacy denominator.
+
+## 4. The Determinacy Standard
+
+We label a task by whether the materials determine the behavior the hidden test grades. Full specification, witness burdens, and integrity rules: [`docs/ADMISSIBILITY-SPEC.md`](docs/ADMISSIBILITY-SPEC.md).
+
+**Terms.** *prose* = problem + requirements + interface (no test). *gold* = the reference patch. *GAP* = a behavior the gold implements and the test checks but no requirement states. *ENTAILED* = no GAP (prose determines the fix). *AMBIGUOUS-by-screen* = at least one GAP, a candidate not yet a claim. *witness* = the per-tier evidence that upgrades a candidate to a claim.
+
+**The screen.** A coverage step labels every tested behavior against prose and gold, yielding ENTAILED or AMBIGUOUS-by-screen. The screen flags; it does not by itself establish a defect.
+
+**From candidate to claim.** A flagged task becomes a claim only with a witness, and the witness burden defines the tier, in decreasing order of how little it asks the reader to accept:
+
+| tier | the claim | the witness | needs a rater? |
 |---|---|---|---|
-| **airtight** | the choice is an arbitrary constant present **nowhere a solver reads** | constant absent from prose **and** the codebase at base_commit (grep) | **yes** — mechanical |
-| **graded-patch** | a prose-faithful alternative impl exists and the bench rejects it | R2 both opus & codex (blind, no gold/test) call prose-faithful, then the official grader fails R2 on the discriminating test while PASS_TO_PASS stays green | **yes** — mechanical |
-| **prose-affirmative (hand)** | the prose explicitly describes the alternative the test rejects | the verbatim clause (tutao) | **yes** — mechanical |
-| **two-expert split** | two world-class engineers, given only prose+source, both write a faithful impl the hidden test splits — via **prose** plurality (≥2 faithful readings) or **source** plurality (≥2 live, comparable, prose-silent conventions at base_commit) | codex constructs the existence proof on either axis; an independent cross-family refuter (opus) tries to kill it and fails; a symmetric advocate pass over the determined cases recovers none (κ=0.52, all disagreement skeptic-stricter) | **under the two-expert standard** — verified by two models, not asserted (a reader can still contest the standard itself) |
-| **hypothesis** | screen-flagged, no qualifying witness | — | **no** — raters-pending, **not counted** |
-| **KNOWN_BAD** | gold fails its own grader | reference patch scores reward≠1 at the pinned commit | **yes** — mechanical, results-independent |
+| **airtight** | the graded value is an arbitrary constant present nowhere a solver reads | absent from prose **and** the codebase at base commit (grep), present only in gold and test | **no** |
+| **graded-patch** | a prose-faithful alternative implementation exists and the grader rejects it | two models, blind and independent, judge an alternative patch prose-faithful; the official grader then fails it on the discriminating test while regressions stay green | **no** |
+| **hand-verified** | the prose explicitly describes the reading the test rejects | the verbatim clause | **no** |
+| **two-expert split** | two competent engineers given only prose and source both write a faithful implementation the test splits | an existence proof on a prose- or source-plurality axis, constructed by one model family and surviving refutation by another (§5) | a stated standard, two-model verified |
+| **hypothesis** | screen-flagged, no qualifying witness | none yet | yes, rater-pending; **not counted** |
 
-Integrity rules (full spec: [`docs/ADMISSIBILITY-SPEC.md`](docs/ADMISSIBILITY-SPEC.md)): labels are built
-**blind to our harness's win/loss**; ambiguity is claimed only on **positive evidence** (an absent
-constant, a shown contradiction/drift, a graded failure) — never on failure-to-find (that is UNKNOWN); and
-a passing patch never proves DETERMINED, symmetric to a failing patch never proving AMBIGUOUS.
+**The two-expert standard, precisely.** A benchmark instance is determinate only if the supplied materials select the behavior being graded. If two independent expert implementations are each faithful to the prose and to live source conventions, and the hidden test accepts one while rejecting the other, the test is not measuring whether the stated task was solved; it is measuring recovery of an unstated authorial choice. This holds even when the chosen branch is reasonable, conventional, or in hindsight preferable. The flaw is not that experts can disagree; it is that the benchmark assigns one branch a zero without having supplied the information that selects it. A split is proven on either of two axes: **prose plurality** (the requirement text licenses ≥2 faithful readings) or **source plurality** (the codebase already makes the same decision ≥2 live, comparable, prose-silent ways at the base commit).
 
-## Results (n = 728)
+**Integrity rules.** Labels are built blind to our own harness's win or loss. Ambiguity is claimed only on positive evidence (an absent constant, a graded rejection, a shown contradiction or plurality), never on failure to find a convention; where neither determined nor underdetermined can be established, the label is UNKNOWN and no claim is made. Symmetrically, a passing patch never proves a task determinate.
+
+## 5. Methods
+
+**Coverage screen.** Each task's tested behaviors are enumerated against the fixed test set and labeled covered or GAP relative to prose and gold.
+
+**Mechanical-spine witnesses.** Airtight cases are settled by grep (the discriminating constant is absent from prose and base-commit source). Graded-patch cases construct an alternative implementation taking the other reading, pass it through a blind two-rater prose-conformance gate (two families each see only prose and patch, never gold, test, or each other), then grade it officially; the witness is the two faithful judgments plus a mechanical rejection with no regressions. The single hand-verified case cites the contradicting clause.
+
+**Two-expert splits: construct, refute, advocate.** For each plurality candidate, one model family (GPT-5.5) constructs an existence proof on the prose or source axis (the two faithful readings, or the ≥2 live conventions, with verbatim spans or snippets). An independent family (Claude Opus) then attempts to refute each split: one reading is not in fact faithful, the prose or interface does select, or the cited precedents are lookalikes rather than the same decision. A split is retained only if it survives. To bound the opposite error, the same independent family runs an advocate pass over the cases the constructor called determined, attempting to find a missed split. We report inter-rater agreement and treat the surviving set as a floor.
+
+**Gold-passes-grader sweep.** Every gold is graded by the official evaluator at the pinned commit under a two-pass isolation protocol (grade all in parallel, then re-run every non-passing task alone, so a transient failure is never logged as a defect). All patches are source-only (test-file edits stripped); no bespoke grader is used.
+
+## 6. Results
+
+Over the public set (N = 728). Regenerated table: [`SUMMARY.md`](SUMMARY.md).
 
 ```mermaid
 pie showData title SWE-bench Pro public set (n=728) by determinacy
     "ENTAILED — prose determines" : 478
-    "Hypothesis — raters-pending (not counted)" : 185
+    "Hypothesis — rater-pending (not counted)" : 185
     "PROVEN two-expert split (codex builds, opus refutes)" : 29
     "PROVEN mechanical spine" : 36
 ```
 
-(KNOWN_BAD = 3 gold-fails-grader defects sit alongside, frozen and sweep-confirmed.)
-
 | label | count | of N |
 |---|---:|---:|
-| ENTAILED | 478 | 66% |
-| AMBIGUOUS — screen (≥1 GAP) | 250 | 34% |
-| &nbsp;&nbsp;**PROVEN — mechanical spine** (airtight 30 + graded-patch 5 + hand 1) | **36** | **4.9%** |
-| &nbsp;&nbsp;**PROVEN — two-expert split** (codex builds, opus refutes; κ=0.52) | **29** | **4.0%** |
-| &nbsp;&nbsp;hypothesis (raters-pending, not counted) | 185 | 25% |
-| KNOWN_BAD (gold fails grader; full 731 sweep, 0 new beyond the frozen 3) | 3 | — |
+| ENTAILED (prose determines the graded behavior) | 478 | 66% |
+| AMBIGUOUS by screen (≥1 GAP) | 250 | 34% |
+| &nbsp;&nbsp;**proven — mechanical spine** (airtight 30 + graded-patch 5 + hand 1) | **36** | **4.9%** |
+| &nbsp;&nbsp;**proven — two-expert split** (codex builds, opus refutes; κ=0.52) | **29** | **4.0%** |
+| &nbsp;&nbsp;hypothesis (rater-pending, not counted) | 185 | 25% |
+| KNOWN_BAD (gold fails grader; outside the 728 denominator) | 3 | — |
 | KNOWN_MISMATCH (prose describes one feature, gold+test grade another) | ≥1 | — |
 
-**Two honest bars.** The headline **8.9%** is **4.9% mechanical + 4.0% two-expert**: the first term
-needs no methodological buy-in (a hostile reader reproduces each from the receipts); the second rests on
-the **two-expert standard** — but is *verified, not asserted*. For each of 53 plurality candidates, codex
-constructs an existence proof (two faithful readings the prose licenses, or two live conventions the
-codebase follows) and an independent cross-family refuter (Claude opus) tries to kill it: **29 of 41
-survived**, 12 fell to a hostile reading. A symmetric advocate pass over the 12 codex-*determined* cases
-recovered **0** missed splits, so the disagreement is entirely skeptic-stricter and **29 is the
-both-raters-agree floor** (Cohen's κ=0.52). The 185 hypotheses are in **neither** number. A separate
-**design-level divergence** axis (see [`docs/DETERMINACY-AXIS.md`](docs/DETERMINACY-AXIS.md)) raises the
-*candidate* union to **~20%**, but its mass is single-rater (panel-pending), so 20% is a candidate
-ceiling, not yet receipt-defensible. A preregistered instrument with a proven spine, not a population
-rate. Full table: [`COVERAGE.md`](COVERAGE.md).
+The proven floor is **65 of 728 (8.9%)**: 4.9% provable with no methodological buy-in, plus 4.0% under the two-expert standard.
 
-## Recommendations
+**The two-expert verification.** Of 41 candidate splits the constructor produced, the independent refuter killed 12 and 29 survived; the advocate pass over the 12 determined cases recovered 0 missed splits. Confusion over the 53 plurality candidates (split vs not): both-split 29; constructor-split, refuter-killed 12; constructor-determined, advocate-split 0; both-determined 12. Raw agreement 41/53 = 77%, Cohen's κ = 0.52 (moderate). Every disagreement is conservative (the skeptic prunes, the advocate adds nothing), so **29 is a both-raters-agree floor**, not a midpoint.
 
-### If you run, report, or cite a Pro score
-- **A raw % can over-credit reasoning when reported as problem-solving.** At least 4.9% of the public set
-  is provably underdetermined (8.9% under the two-expert standard, two-model verified; ~20% candidate union
-  with the single-rater design-divergence axis) and 3 tasks have broken gold; passing
-  those is oracle/guess, not solving. Report a **determinacy-weighted** denominator, or at minimum
-  disclose that the headline mixes prose-determined and prose-underdetermined tasks.
-- **The closest reasoning-only signal is the ENTAILED subset, scored oracle-free.** (Even there, residual
-  implementation difficulty, localization artifacts, and flaky tests remain — it's the *closest* clean
-  signal, not a pure one.) If you want a number that means "the model solved the stated problem," report
-  that separately from a held-out-test score an agent can iterate against.
-- **Don't compare harnesses by raw Pro %** when one uses an oracle-gated loop and another doesn't — you're
-  comparing oracle access, not capability.
+**Inspect the claims.** All 65 claimable cases are tabulated one per row in [`CLAIMS.md`](CLAIMS.md) (tier, axis, the split, witness file, refuter outcome), followed by the **12 refuted candidates as negative controls** so the refuter's discrimination is itself inspectable, not asserted.
 
-### If you optimize against Pro (harness builders)
-- **In our oracle-free arms, reasoning did not recover the middle band** — diagnosis, cross-family
-  diagnosis, and self-audit were inert or false-confident (see Interpretation). Treat the lift as
-  iterate-to-green; don't mistake it for understanding.
-- **A plausible oracle-free heuristic is convention-matching**, not deeper diagnosis: for a discrete choice
-  the prose leaves open, match the nearest *comparable live* codebase convention rather than guessing (the
-  companion's [`craft-convention`](https://github.com/kimjune01/swebench-pro) skill). It raises *lottery
-  odds*, not reasoning — ceiling is the dominant-convention base rate — but it aligns with real-world craft
-  (local consistency), so it's a reasonable default, not an overfit. (Measured lift: in progress.)
-- **Don't game the denominator.** Editing test files, weakening assertions, or excluding your own losses
-  inflates nothing real. Forbid test-file edits; capture source-only patches; grade on the official harness.
+## 7. Case Studies
 
-### If you build or maintain a bench
-Every failure mode above inverts into a construction rule:
-- **Admit by convergence, not by gold-passes-grader.** Before a task ships, check that competent
-  from-prose solvers (a decontaminated panel) converge on the test-passing behavior; if they scatter, the
-  task is divergent — tighten the prose until it converges, or cut it. The gold patch is *an* answer, not
-  *the* answer.
-- **Score each instance as a float in [0, 1], not pass/fail.** A binary `resolved` throws the whole
-  instance away over a single missed pluralistic convention — a model that nails 11 of 12 graded behaviors
-  scores identically to one that fixed nothing. A partial-credit score decouples the determinate majority
-  from the divergent minority:
+Each links straight to its receipts: click through to the `spec.md`, `gold.diff`, `hidden_test.diff`, and witness, and check the verdict yourself.
 
-  > **score(instance) = clamp₀₁( (new tests passed − tests regressed) / new tests introduced )**
+- **Airtight** — [`ansible_20ef733e`](data/cases/ansible_20ef733e/) ([witness](data/cases/ansible_20ef733e/AMBIGUITY_WITNESS.md) · [spec](data/cases/ansible_20ef733e/spec.md) · [test](data/cases/ansible_20ef733e/hidden_test.diff)). The test asserts bcrypt hashing of a fixed input returns the exact digest `$2$12$1234…GLImm`. That literal appears nowhere in prose or base-commit source; a prose-faithful implementation honoring the requested ident produces a `$2$`-prefixed hash without matching it. The test pins a constant obtainable only by reading the test.
+- **Graded-patch** — [`ansible_bf98f031`](data/cases/ansible_bf98f031/) ([witness](data/cases/ansible_bf98f031/AMBIGUITY_WITNESS.md) · [R2](data/cases/ansible_bf98f031/r2.diff) · [grade](data/cases/ansible_bf98f031/r2_grade.json)). The prose describes `atomic_move()` chmod behavior on replacing a file. An alternative taking the other faithful reading was judged prose-faithful by two blind raters; the grader resolves the gold but fails this alternative on three `FAIL_TO_PASS` with no regressions.
+- **Hand-verified** — [`tutao`](data/cases/tutao/) ([witness](data/cases/tutao/AMBIGUITY_WITNESS.md)). On HTTP 404 the test demands a reject with message "404", while the prose explicitly describes returning a result object carrying the status code. Two faithful readings; the test pins one.
+- **Two-expert split** — [`ansible_225ae65b`](data/cases/ansible_225ae65b/) ([witness](data/cases/ansible_225ae65b/AMBIGUITY_WITNESS.md) · [spec](data/cases/ansible_225ae65b/spec.md)). The prose asks for git-repo collection installs and names SSH/HTTPS; the test installs from a `git+file://` URL. One faithful engineer implements only the named transports; another follows the repo's existing role-requirement convention that strips a generic `git+` prefix and would accept `git+file://`. The codebase makes this input-classification decision two live ways; the split survived refutation on both axes.
+- **Mechanism, not split** — `qutebrowser-e34dfc68` ([autopsy](data/craft_autopsy/)). Diagnosis localized all eight gold regions (recall 1.0) and the implementation rebuilt the gold's concept, passing 233/248; the 15 failures pin when to consult DNS across URL forms the prose never specifies. After perfect localization and the correct concept, the residual is a matrix only the held-out test enumerates.
+- **Feature mismatch** — [`flipt-io_358e13bf`](data/cases/flipt-io_358e13bf/) ([spec](data/cases/flipt-io_358e13bf/spec.md) · [gold](data/cases/flipt-io_358e13bf/gold.diff) · [test](data/cases/flipt-io_358e13bf/hidden_test.diff)). Prose asks for snapshot-cache deletion; gold and test grade a CSRF config default — disjoint subsystems. See [`KNOWN_MISMATCH.md`](KNOWN_MISMATCH.md).
 
-  i.e. of the `FAIL_TO_PASS` tests a task adds, the fraction the patch passes, penalized by any
-  `PASS_TO_PASS` regression, clamped to [0, 1]. It's computable today from the grader's per-test output
-  (`_output.json`). This is **imperfect** — it weights all assertions equally, and a divergent assertion
-  still costs its `1/N` share (mitigation, not cure) — but it is *strictly less imperfect* than binary,
-  which sends the whole instance down the drain for one underdetermined check. On `qutebrowser-e34dfc68`,
-  binary reads `0` (233/248 passing, lost on a 15-case DNS matrix the prose never pins); the float reads
-  the determinate work actually done. Report the determinacy-weighted mean of these floors.
-- **Separate the divergent set.** Publish which instances are design-divergent (see
-  [`docs/DETERMINACY-AXIS.md`](docs/DETERMINACY-AXIS.md)) so consumers can score on the determinate subset
-  when they want a reasoning signal.
+## 8. Exploratory Mechanism Checks
 
-## Interpretation — where the harness lift comes from
+These are small oracle-free ablations on a handful of pre-selected cases. They motivate the audit and are qualitative; no headline number rests on them. Underlying runs: [`docs/FINDINGS.md`](docs/FINDINGS.md).
 
-These are **mechanism checks, not population estimates**: small oracle-free ablations that show the tested
-interventions did not explain the lift. They motivate the audit; the audit (above) is the population claim.
+In these cases, test-free prose diagnosis handed to an implementer changed nothing (recon-then-craft matched craft-only, 0/6 discordant, same model both arms); cross-family diagnosis rescued 0/4, with blind-craft run-to-run variance exceeding the diagnosis effect; an oracle-free self-authored verification loop declared 4/4 fixed while 0/4 actually resolved; and on the one case with deterministic localization scoring, recall was 1.0 yet the task was lost. The narrow, sufficient reading: in these cases the tested oracle-free interventions did not recover the score, and at least one loss sits downstream of solved localization. We do not claim a population decomposition.
 
-A Pro score plausibly decomposes into three bands (the floor is a contaminated estimate; the structure is
-interpretive, not an audited label):
+## 9. Implications and Recommendations
 
-| band | what it is | reachable by |
-|---|---|---|
-| floor (~50%, contaminated est.) | the prose **determines** the fix; a capable model implements it directly | reasoning alone |
-| +45 (floor → ~95%) | the prose **under**determines the fix; the held-out test determines it | the oracle (iterate-to-green), recall, or a lucky guess |
-| ~5% (~95% → 100%) | irreducibly hard implementation + bench defects | nothing, within budget |
+**If you run, report, or cite a Pro score.** A raw percentage mixes prose-determined tasks (passing means solving the stated problem) with underdetermined ones (passing means recovering an unstated choice). At least 4.9% of the public set is provably underdetermined, 8.9% under the two-expert standard, and three tasks have broken gold. At minimum, disclose that the headline mixes these; better, weight the denominator by determinacy. The closest reasoning-only signal is the ENTAILED subset scored oracle-free. Do not compare two harnesses by raw Pro % when one uses an oracle-gated loop and the other does not; that compares oracle access, not capability.
 
-The middle band is where our oracle-free arms drowned, and the audit shows a concrete lower bound of
-underdetermination underneath it. What the ablations found (agent never sees the held-out tests; graded after):
+**If you optimize against Pro.** In our oracle-free ablations, reasoning did not recover the underdetermined band; treat the lift as iterate-to-green, not understanding. A defensible oracle-free heuristic for a discrete choice the prose leaves open is to match the nearest comparable live codebase convention rather than guess; it raises lottery odds, not reasoning, but aligns with real craft. Do not game the denominator: editing test files, weakening assertions, or excluding your own losses inflates nothing real.
 
-- **Diagnosis is inert.** Test-free prose diagnosis → implementer changes nothing: recon→craft ≡
-  craft-only, **0/6 discordant** (codex/gpt-5.5, same model both arms — contamination-clean delta).
-- **Cross-family diagnosis is also inert.** Opus-4.8 diagnosis → codex craft rescued **0/4**; blind-craft
-  run-to-run variance exceeds the diagnosis effect.
-- **Self-authored verification is false-confident.** Oracle-free self-repro + iterate: **4/4 self-declared
-  "AUDIT GREEN", 0/4 actually resolved.**
-- **Losses are downstream of *solved* localization.** On `qutebrowser-e34dfc68`, diagnosis recall vs gold
-  is **1.0 (8/8 regions)** and it still loses — craft rebuilt the gold's concept, passed 233/248, lost on
-  a 15-case DNS matrix the prose never specifies. Recall tracks fix-*breadth*, not inquiry quality.
+**If you build or maintain a benchmark.** Each failure mode inverts into a construction rule. (1) *Admit by convergence, not by gold-passes-grader*: before a task ships, check that decontaminated from-prose solvers converge on the test-passing behavior; if they scatter, tighten the prose or cut the task. The gold is *an* answer, not *the* answer. (2) *Score each instance as a float in [0,1]*, the fraction of newly introduced `FAIL_TO_PASS` passed net of `PASS_TO_PASS` regressions, computable today from the grader's per-test output; it is a lower bound and weights assertions equally (a mitigation, not a cure), but strictly less lossy than a boolean that sends a determinate majority to zero over one pluralistic convention. (3) *Publish the divergent set* so consumers can score on the determinate subset, and so a harness builder can tell a capability residual (a better model closes it) from a specification residual (no model closes it, because the choice is not in the materials).
 
-## What this is NOT
+## 10. Threats to Validity
 
-- **Not a contamination claim about Pro.** Pro is contamination-*resistant*; a gold-overlap audit puts the
-  frontier pair at ~2%. The recall story is **Verified's** and does not transfer. This audit needs no
-  contamination claim.
-- **Not "benchmarks have flawed tests."** That's established for Verified (OpenAI; Aleithan 2024;
-  Wang/Pradel/Liu 2025). The contribution is the determinacy classification over the whole public set, plus
-  the causal mechanism checks. See [`docs/PRIOR-ART.md`](docs/PRIOR-ART.md).
-- **Not a rescue of any harness.** Oracle-free *everything* failed in our arms.
+- **Model adjudication of the two-expert tier.** The splits are adjudicated by models, not humans. Mitigations: cross-family construction and refutation, a symmetric advocate pass, reported κ, published negative controls, and treating the survivors as a conservative floor. The standard remains a stated proxy for two human experts; a reader may grant it or contest it. The 4.9% mechanical tier needs no such grant.
+- **One model is both constructor and an authoring tool.** GPT-5.5 constructs the splits and is used elsewhere in the broader project; the refuter and advocate are a different family precisely to break that dependence, and the mechanical tier is model-independent. We name the overlap rather than hide it.
+- **Scope of solver materials.** We check prose plus base-commit source; where issue threads or repo docs are delivered and could resolve a choice, a claim scoped to prose-plus-source would over-count. The airtight tier is immune; the two-expert tier carries this risk and is scoped accordingly.
+- **The private set is unauditable.** All claims are scoped to the public set.
+- **Excluded mass.** 185 screen-flagged candidates are rater-pending and excluded from both bars; the floor is not a population rate. A separate design-divergence axis suggests a ~20% candidate ceiling, but its mass is single-rater and not receipt-grade, so it is quarantined to [`docs/DETERMINACY-AXIS.md`](docs/DETERMINACY-AXIS.md).
+- **Small-n mechanism checks** (§8) are exploratory and support no population decomposition.
+- **Conflict of interest.** We authored a Pro harness and paper whose oracle-free results raised the question this audit investigates. Disclosed as provenance. Mitigations: blind-to-our-result construction, whole-set coverage, committed receipts, an independent adversarial pass. A reader who suspects motivated reasoning can ignore our prose and reproduce the tables from gold, test, and prompt.
 
-## Honest limits
+## 11. Limitations and Future Work
 
-- **n = 728 is done** (the whole public set), so sampling bias no longer binds the spine. What remains
-  gated is the **hypothesis tier (185)**: codebase-vs-borderline is interpretive and needs ≥2 independent
-  raters + κ before any of it counts — reported separately, excluded from both headline bars.
-- **The two-expert tier rests on the two-expert standard** — but is two-model verified, not asserted: codex
-  constructs each split, opus tries to refute it (29/41 survive), and a symmetric advocate pass recovers no
-  missed splits (κ=0.52, all disagreement skeptic-stricter). A reader can still contest the *standard*
-  (whether two reasonable experts splitting = a defect); the 4.9% mechanical spine needs no such buy-in.
-- **The ablations are mechanism checks, small n**; they show the tested oracle-free interventions did not
-  recover the lift, not that none could. The ~50% floor is a contaminated estimate; the clean
-  prose-determined floor (oracle-free + post-cutoff) is unmeasured.
+In priority order: (1) replace the model-adjudicated two-expert tier, on a stratified subset, with a decontaminated expert panel (≥3 families with cutoffs predating the task, or human raters) solving blind from prose, with clustered statistics; (2) upgrade more two-expert cases to graded-patch receipts, the strongest witness; (3) run a systematic feature-mismatch scan, since the current count is incidental; (4) refresh the design-divergence union against the re-grounded spine; (5) measure the clean prose-determined floor with an oracle-free, post-cutoff run.
 
-## Position / conflict of interest
+## 12. Conclusion
 
-We authored a Pro harness and paper ([swebench-pro](https://github.com/kimjune01/swebench-pro),
-[the methodeutic harness](https://june.kim/the-methodeutic-harness-on-swebench-pro)) whose oracle-free arms
-produced the null this audit investigates. That is a conflict of interest, and also the source of the
-question — a disinterested party never reads a task's requirements against its hidden test line by line. We
-disclose it as provenance, not penance, and ask for no trust on the verdicts: to reduce discretion, labels
-are built **blind to our harness's win/loss**, cover the **whole** public set, and are backed by committed
-receipts (`spec.md`, `gold.diff`, `hidden_test.diff`, and per-case witness files). A reader who suspects
-motivated reasoning can ignore the prose and reproduce the tables from gold + test + prompt. Methodology
-reuses our [DeepSWE audit](https://june.kim/auditing-deepswe) (gold-passes-verifier, denominator hygiene,
-the cold second read, the specification-lottery pattern).
+SWE-bench Pro is not debunked, and this audit needs no contamination claim. The finding is narrower and more useful: on the benchmark OpenAI now recommends, a measurable floor of the public set does not pin the behavior it grades. At least 4.9% is provably underdetermined from committed receipts, and 8.9% under a two-expert standard verified by two independent model families, with three broken golds and at least one feature mismatch alongside. A raw Pro score therefore conflates solving the stated problem with recovering the author's unstated choice. Reporting against a determinacy-aware denominator, and publishing which instances are underdetermined, separates the part of the benchmark that measures capability from the part that measures a coin flip.
 
-## Layout
+## Repository layout
 
-- [`SUMMARY.md`](SUMMARY.md) — the two-bar headline + coverage table. [`CLAIMS.md`](CLAIMS.md) — every claimable case as one row (tier, axis, the split, witness, refuter outcome) + the 12 refuted negative controls. [`COVERAGE.md`](COVERAGE.md) — all 728 rows.
-- [`KNOWN_BAD.md`](KNOWN_BAD.md) · [`KNOWN_AMBIGUOUS.md`](KNOWN_AMBIGUOUS.md) (PROVEN tier + hypothesis count) · [`OUR_CAPABILITY_GAPS.md`](OUR_CAPABILITY_GAPS.md) (we lost, prose determines). Regenerated by [`tools/build_ledgers.py`](tools/build_ledgers.py).
-- [`docs/REPRODUCE.md`](docs/REPRODUCE.md) — verify-it-yourself (no deps) + reproduce-the-data-yourself (recipe), with the pinned dataset revision.
-- [`docs/DETERMINACY-AXIS.md`](docs/DETERMINACY-AXIS.md) — design-level divergence (the second axis): ~16% opus single-rater, ~69% prose-literal-silence diagnostic, the rater-asymmetry, and the no-double-count union with the per-behavior spine.
-- [`docs/ADMISSIBILITY-SPEC.md`](docs/ADMISSIBILITY-SPEC.md) — label grid, witness burdens, blind-construction + positive-evidence rules. [`docs/PRIOR-ART.md`](docs/PRIOR-ART.md), [`docs/FINDINGS.md`](docs/FINDINGS.md), [`docs/AUDIT-CHECKLIST.md`](docs/AUDIT-CHECKLIST.md).
-- `data/pro_repl_fields.json` — vendored canonical 728-task solver-prose (so regeneration is self-contained).
-- `data/cases/<id>/` — receipts: `spec.md`, `gold.diff`, `hidden_test.diff`, `fail_to_pass.txt`, and where present `AMBIGUITY_WITNESS.md` / `r2.diff` / `r2_grade.json` / `codebase_ambiguity.json`. `data/attribution/<id>.md` — coverage table. `data/judge/<id>.json` — raw rows. `data/gold_sweep/` — the full-731 gold-sweep result.
-- Tools: `materialize.py`, `judge_pool.py`, `witness.py`, `r2_promote.py` + `grade_r2.py` + `grade_r2_fleet.py`, `codebase_ambiguity.py`, `diag_oracle.py`, `build_ledgers.py`.
-
-Harness, drivers, fleet, and the `craft-convention` skill live in the companion repo
-[`swebench-pro`](https://github.com/kimjune01/swebench-pro).
+- [`SUMMARY.md`](SUMMARY.md) — regenerated headline + coverage table. [`CLAIMS.md`](CLAIMS.md) — every claimable case as one row + the 12 negative controls. [`COVERAGE.md`](COVERAGE.md) — all 728 rows.
+- [`KNOWN_BAD.md`](KNOWN_BAD.md) · [`KNOWN_MISMATCH.md`](KNOWN_MISMATCH.md) · [`KNOWN_AMBIGUOUS.md`](KNOWN_AMBIGUOUS.md) · [`OUR_CAPABILITY_GAPS.md`](OUR_CAPABILITY_GAPS.md). Regenerated by [`tools/build_ledgers.py`](tools/build_ledgers.py) and [`tools/build_claims.py`](tools/build_claims.py).
+- [`docs/REPRODUCE.md`](docs/REPRODUCE.md) — verify-it-yourself (no deps) + reproduce-the-data (recipe), with the pinned dataset revision. [`docs/ADMISSIBILITY-SPEC.md`](docs/ADMISSIBILITY-SPEC.md) — label grid, witness burdens, integrity rules. [`docs/DETERMINACY-AXIS.md`](docs/DETERMINACY-AXIS.md) — the quarantined design-divergence axis. [`docs/PRIOR-ART.md`](docs/PRIOR-ART.md), [`docs/FINDINGS.md`](docs/FINDINGS.md), [`docs/AUDIT-CHECKLIST.md`](docs/AUDIT-CHECKLIST.md).
+- `data/cases/<id>/` — receipts: `spec.md`, `gold.diff`, `hidden_test.diff`, `fail_to_pass.txt`, and where present `AMBIGUITY_WITNESS.md`, `r2.diff`, `r2_grade.json`, `codebase_ambiguity.json` (with the `two_expert` / `refutation` / `advocate` verdicts). `data/judge/` — raw rows and the construct/refute/advocate receipts. `data/gold_sweep/` — the full sweep result.
+- Tools: `materialize.py`, `judge_pool.py`, `witness.py`, `r2_promote.py` + `grade_r2*.py`, `codebase_ambiguity.py`, `comparability_check.py`, `plurality_proof.py`, `diag_oracle.py`, `build_ledgers.py`, `build_claims.py`. Harness, drivers, and fleet live in the companion repo [`swebench-pro`](https://github.com/kimjune01/swebench-pro).
 
 ## License
 
-Dual-licensed (copyleft): code (`tools/`) under [AGPL-3.0](LICENSE-CODE.txt); everything else (prose,
-findings, `data/` receipts) under **CC BY-SA-NS** (CC BY-SA 4.0 + a Network Services clause). See
-[`LICENSE.md`](LICENSE.md) and [june.kim/cc-by-sa-ns](https://june.kim/cc-by-sa-ns). Build a service on
-this and source flows back to users; no paywall, no gated access.
+Dual-licensed (copyleft): code (`tools/`) under [AGPL-3.0](LICENSE-CODE.txt); everything else (prose, findings, `data/` receipts) under **CC BY-SA 4.0** (see [`LICENSE.md`](LICENSE.md)). Cite via [`CITATION.cff`](CITATION.cff).

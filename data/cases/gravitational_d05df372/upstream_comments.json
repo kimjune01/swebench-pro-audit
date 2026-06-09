@@ -1,0 +1,40 @@
+{
+ "repo": "gravitational/teleport",
+ "pr_number": 5166,
+ "pr_url": "https://github.com/gravitational/teleport/pull/5166",
+ "n_review": 6,
+ "n_convo": 0,
+ "review_comments": [
+  {
+   "body": "nit: Can you link to the code where kubectl does this so we might have an anchor for future updates.",
+   "url": "https://github.com/gravitational/teleport/pull/5166#discussion_r545752882",
+   "user": "a-palchikov"
+  },
+  {
+   "body": "`panic` seems a bit extreme here given that we support passing a list of `ErrorWriter` - can we just take the first one instead? Is there something I missed?",
+   "url": "https://github.com/gravitational/teleport/pull/5166#discussion_r545883169",
+   "user": "webvictim"
+  },
+  {
+   "body": "Ditto above",
+   "url": "https://github.com/gravitational/teleport/pull/5166#discussion_r545883476",
+   "user": "webvictim"
+  },
+  {
+   "body": "Yes, I agree. If one wanted to solve this in Go, one option is using two APIs instead of abusing the slice arguments:\r\n```go\r\nfunc MakeHandler(fn HandlerFunc) { ... }\r\nfunc MakeHandlerWithErrorWriter(fn HandlerFunc, errWriter ErrorWriter) { ... }\r\n```\r\nand just have `MakeHandler` invoke the other with `trace.WriteError`.",
+   "url": "https://github.com/gravitational/teleport/pull/5166#discussion_r545889865",
+   "user": "a-palchikov"
+  },
+  {
+   "body": "Good idea, better to enforce this at compile time rather than runtime.",
+   "url": "https://github.com/gravitational/teleport/pull/5166#discussion_r545972505",
+   "user": "awly"
+  },
+  {
+   "body": "`kubectl` code was inscrutable to me, due to a thick layer of abstractions and libraries. I don't know where this is handled.\r\nI figured out this behavior after several hours of reverse-engineering the behavior.",
+   "url": "https://github.com/gravitational/teleport/pull/5166#discussion_r545973477",
+   "user": "awly"
+  }
+ ],
+ "conversation_comments": []
+}

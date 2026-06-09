@@ -1,0 +1,120 @@
+{
+ "repo": "internetarchive/openlibrary",
+ "pr_number": 8511,
+ "pr_url": "https://github.com/internetarchive/openlibrary/pull/8511",
+ "n_review": 22,
+ "n_convo": 0,
+ "review_comments": [
+  {
+   "body": "https://github.com/search?q=repo%3Ainternetarchive%2Folsystem%20manage-import&type=code\r\n```suggestion\r\nscripts/manage_imports.py --config \"$OL_CONFIG\" import-all\r\n```",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1393395666",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "Can we move this query to a function in core/imports.py as `find_staged_imports(identifiers)`\r\n```suggestion\r\n        query = (\r\n            # \"SELECT id, ia_id, status, data \"\r\n            \"SELECT * \"\r\n            \"FROM import_item \"\r\n            \"WHERE status IN ('staged', 'pending') \"\r\n            \"AND ia_id IN $identifiers\"\r\n```",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1393404349",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "Sorry, this suggestion should include \r\n\r\n```\r\n        identifiers = [f\"{prefix}:{isbn13}\" for prefix in ('amazon', 'idb')]\r\n        result = db_query(query, vars={'identifiers': identifiers})\r\n```",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1393404899",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "We may want to move `'amazon', 'idb'` into a DRY'd variable that we can update in one place, const at top of file for `STAGED_SOURCES`",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1393407363",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "rm debug",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1393407788",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "Instead of renaming, let's please perform a `load` instead of `do_import` as this (a) avoids a network request, (b) has a return value, (c) avoids renaming file, and (d) avoids define and calling web.ctc.get inner-function (because `load` should return the imported record and block).",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1393413456",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "We still have bug #2643 ",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1393415785",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "```\r\nisbns = [record['data']['isbn'] for record in olbooks if 'isbn_13' in record['data']['identifiers']]\r\nImportItem.bulk_mark_pending(isbns, sources=[\"idb\", \"amazon\"]\r\n```\r\n\r\n```suggestion\r\n    jit_candidates = get_jit_candidates(books)\r\n    ImportItem.bulk_mark_pending(jit_candidates)\r\n```",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1393423248",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "@scottbarnes, what are you doing???? Get these out of here! Learn to use `git`!",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1393436215",
+   "user": "scottbarnes"
+  },
+  {
+   "body": "With respect to `ImportItem.find_staged_imports()`, the query I am using finds `staged` and `pending`, as my thinking was we want to import from any available source before hitting the AMZ API; if this is correct I can use `ImportItem.find_staged_or_pending()`, but I just want to double check.",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1393743955",
+   "user": "scottbarnes"
+  },
+  {
+   "body": "Autofilled?",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1394411430",
+   "user": "tfmorris"
+  },
+  {
+   "body": "An aboriginal art calendar isn't a book",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1394413773",
+   "user": "tfmorris"
+  },
+  {
+   "body": "Why is an inspirational speaker authoring an art calendar with the subject of \"mushrooms\"?",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1394415033",
+   "user": "tfmorris"
+  },
+  {
+   "body": "The synopsis is the name of an Italian renaissance humanist? (and when the Japanese title references bridal gown trends)",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1394418930",
+   "user": "tfmorris"
+  },
+  {
+   "body": "It's in English, but has a Japanese title?",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1394421829",
+   "user": "tfmorris"
+  },
+  {
+   "body": "are we using this?",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1394761745",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "BLOCKER: This code needs to get out of the generic models and the /api/import path and needs to be contained either in **catalog/addbook/__init__.py** (or w/e) or in core/imports (which seems less relevant because that really deals with the batch import system, not imports generally)\r\nhttps://github.com/internetarchive/openlibrary/blob/master/openlibrary/plugins/importapi/code.py#L132-L142\r\n\r\nWe have other such functions here, e.g.:\r\nhttps://github.com/internetarchive/openlibrary/blob/master/openlibrary/catalog/add_book/__init__.py#L805-L828",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1394770002",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "@cdrini, @scottbarnes mentioned we may want to turn these creds for localhost which are also used in copydocs and make them environment variables in docker rather than coding them here. (for another PR)",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1394785077",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "This should get moved into some shared function for language mapping in one of the `utils/` dirs that may be hopefully used across providers",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1394787461",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "These docs aren't right",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1394788393",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "unfortunately that's what the data showed :( \r\n\r\nThe benefit of this approach is we're only **staging** items from idb and not setting them as pending to be auto-imported so the only time we should be seeing imports is when a book is directly requested by API or isbn (which should reduce bad data significantly, we hope)",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1394790532",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "Instead of reducing bad data, why not just eliminate it altogether? Just reject any data source which doesn't meet some minimum quality standards. The example data entries all (3/3) are complete fiction with an amalgamation of facts which never occurred together for a single book in real life. All three are completely bogus invented entries.",
+   "url": "https://github.com/internetarchive/openlibrary/pull/8511#discussion_r1394961759",
+   "user": "tfmorris"
+  }
+ ],
+ "conversation_comments": []
+}

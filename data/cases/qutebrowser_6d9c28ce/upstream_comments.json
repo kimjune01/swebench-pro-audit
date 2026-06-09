@@ -1,0 +1,51 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "pr_number": 6234,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/6234",
+ "n_review": 4,
+ "n_convo": 4,
+ "review_comments": [
+  {
+   "body": "Many of those imports are unused - not sure why the linters don't detect that...",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6234#discussion_r589350269",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Nitpick:\r\n\r\n```suggestion\r\n\"\"\"Resources related utilities.\"\"\"\r\n```",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6234#discussion_r589350540",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Nitpick: Remove the blank line",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6234#discussion_r589350678",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "I think it'd make sense to rename this to `preload` now that it's namespaced in `resources.py`.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6234#discussion_r589351339",
+   "user": "The-Compiler"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "Oh, as for the failing tests - I tried reproducing with a German locale, found two failing tests and fixed them in 45387d18a514103c686be559087420199cb49995.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6234#issuecomment-792690611",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Yeah I was hoping the linters would spare me some more manual work but I guess it can't be helped, the test suite seems to be working on my french locale now nice !",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6234#issuecomment-794440923",
+   "user": "ghost"
+  },
+  {
+   "body": "Thanks! Merged with some small adjustments:\r\n\r\n- 01b57a33b Merge remote-tracking branch 'origin/pr/6234'\r\n- 822239b12 Make private things private again\r\n\r\n(When I mentioned dropping the `resource` prefix, I meant keeping the initial `_` which marks the functions/variables as \"private\".)",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6234#issuecomment-796865878",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Yeah I know about the private marker, was just a brain fart",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6234#issuecomment-796931164",
+   "user": "ghost"
+  }
+ ]
+}

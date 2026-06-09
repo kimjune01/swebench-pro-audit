@@ -1,0 +1,106 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "pr_number": 5947,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/5947",
+ "n_review": 16,
+ "n_convo": 3,
+ "review_comments": [
+  {
+   "body": "I don't know if anybody cares for this functionality, but supporting it is pretty simple, so maybe it should be done? (This seems nice for `1.5h` instead of `1h30m`)",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r537737683",
+   "user": "fluix-dev"
+  },
+  {
+   "body": "You can use `str.isdigit` here:\r\n\r\n```python\r\n>>> \"12345\".isdigit()\r\nTrue\r\n>>> \"1h2m\".isdigit()\r\nFalse\r\n```",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r537738265",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "For backwards compatibility, those should be milliseconds, not seconds, right? Why not just `return int(duration)` here? Then you can also dedent the rest of the function by one.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r537739134",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Maybe this could allow for spaces too, if someone would run `:later \"1m 30s\"`? I think the rest of the function would handle that case just fine, from a (rather quick) look.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r537740176",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "I wonder if it'd be simpler to match everything with one big regex? Something like:\r\n\r\n```\r\n(?P<hours>[0-9]+h)?\\s+(?P<minutes>[0-9]+m)?\\s+(?P<seconds>[0-9]+s)?\r\n```\r\n\r\nThis would then also take care of validating the string automatically, and you can access the groups via `match.group('hours')` (would need to call `int(hours_string.rstrip('h'))` or so to get the value then).\r\n\r\nThis would probably break using `10s 5m`, but I don't think that matters much.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r537742397",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "You're mixing a match group (typically str or None) with an int from above - but this error should probably go away with the change above anyways.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r537743153",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Please don't use `-1` as a way to signal errors here. If someone starts using `parse_duration` for some other purpose and they aren't careful to check this return value, they could accidentally end up with a \"valid\" result, but one that makes little sense.\r\n\r\nInstead, do something like:\r\n\r\n```python\r\nraise ValueError(f\"Invalid duration: {duration} - expected XhYmZs or a number of milliseconds\")\r\n```\r\n\r\nWhich then can be used in `utilcmds.py` like:\r\n\r\n```python\r\ntry:\r\n    utils.parse_duration(duration)\r\nexcept ValueError as e:\r\n    raise cmdutils.CommandError(e)\r\n```\r\n\r\nNote you'll need to split up the invalid tests then, into something like:\r\n\r\n```python\r\n@pytest.mark.parametrize('duration', ['...', '...'])\r\ndef test_parse_duration_invalid(duration):\r\n    with pytest.raises(ValueError, match='Invalid duration'):\r\n        utils.parse_duration(duration)\r\n```",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r537748834",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "```suggestion\r\ndef test_parse_duration(duration, out):\r\n```\r\n\r\nsince we're dealing with a single duration for every test run, not multiple of them.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r537751239",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "If you feel like it, it'd be great if you could also add a simple fuzzing test using [hypothesis](https://hypothesis.readthedocs.io/en/latest/index.html#). Something like:\r\n\r\n```python\r\n@hypothesis.given(strategies.text())\r\ndef test_parse_duration_hypothesis(duration):\r\n    try:\r\n        utils.parse_duration(duration)\r\n    except ValueError:\r\n        pass\r\n```\r\n\r\nthat then tests that we don't accidentally crash with an unexpected error when `parse_duration` is being fed garbage.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r537752426",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "If it's as straightforward as we suspect (replacing `int` -> `float` and also looking for `\\.` in the regex), I'm all for it.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r537753038",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Don't forget to include periods `[0-9.]` for decimal parsing, assuming it's as easy as we think.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r537852950",
+   "user": "fluix-dev"
+  },
+  {
+   "body": "```suggestion\r\n        duration: Duration to wait in format XhYmZs or a number for milliseconds.\r\n```\r\n\r\n(milliseconds, not seconds, right?)",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r538692272",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "If you use\r\n\r\n```suggestion\r\n    match = re.fullmatch(\r\n```\r\n\r\nhere, you can get rid of the `^` and `$` in the regex.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r538693811",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "This allows something like `1.1.1s` as well - it happens to not crash because `float()` raises `ValueError` which we already handle, but I'd still prefer to handle it correctly in the regex here. Wouldn't something like:\r\n\r\n```suggestion\r\n        r'^(?P<hours>[0-9]+(\\.[0-9]+)?h)?\\s*'\r\n        r'(?P<minutes>[0-9]+(\\.[0-9]+)?m)?\\s*'\r\n        r'(?P<seconds>[0-9]+(\\.[0-9]+)?s)?$',\r\n```\r\n\r\nbe more correct?",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r538697629",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Some more ideas for test values, all of which I'd consider invalid:\r\n\r\n- Just `h` without any digit\r\n- `1.1.1s`\r\n- `1.s`\r\n- `.1s`\r\n- `.s`\r\n- Empty string\r\n- `10e5s`\r\n- `5s10m`",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r538700612",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "You don't need the `out` parameter here at all - so you can remove it (both here and in the decorator), then remove all the `-1` values and the parentheses.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#discussion_r538701201",
+   "user": "The-Compiler"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "Thanks a lot for the comments!\r\nI think this should cover most of the issues, one thing that remains outstanding is that when I try to pass a duration in format `\"1m 30s\"` the `duration` value that is passed to the `later` function is broken: `\"1m \"`.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#issuecomment-740810907",
+   "user": "m-zat"
+  },
+  {
+   "body": "> I think this should cover most of the issues, one thing that remains outstanding is that when I try to pass a duration in format `\"1m 30s\"` the `duration` value that is passed to the `later` function is broken: `\"1m \"`.\r\n\r\nAh, right - this is actually because how `:later` handles its commandline arguments - everything after the first argument is taken literally so that you can pass a command to it without escaping. It's okay for this to be broken for now - at some point we'll get rid of that special casing, see #2017.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#issuecomment-740827061",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Great work, thank you, @m-zat! Also, thanks @fluix-dev for the idea regarding floating-point values.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/5947#issuecomment-740963574",
+   "user": "The-Compiler"
+  }
+ ]
+}

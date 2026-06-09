@@ -1,0 +1,26 @@
+{
+ "repo": "flipt-io/flipt",
+ "pr_number": 3692,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/3692",
+ "n_review": 2,
+ "n_convo": 1,
+ "review_comments": [
+  {
+   "body": "```suggestion\r\nconst NamespacesKey contextKey = \"namespaces\"\r\n```\r\n\r\nwhat about just shortening it to `namespaces` everywhere instead of `viewable_namespace`?",
+   "url": "https://github.com/flipt-io/flipt/pull/3692#discussion_r1890554462",
+   "user": "markphelps"
+  },
+  {
+   "body": "I've updated it",
+   "url": "https://github.com/flipt-io/flipt/pull/3692#discussion_r1890723682",
+   "user": "erka"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "## [Codecov](https://app.codecov.io/gh/flipt-io/flipt/pull/3692?dropdown=coverage&src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) Report\nAttention: Patch coverage is `84.33735%` with `13 lines` in your changes missing coverage. Please review.\n> Project coverage is 64.63%. Comparing base [(`866ba43`)](https://app.codecov.io/gh/flipt-io/flipt/commit/866ba43dd49c238c97831362cdab50630b0b9aa7?dropdown=coverage&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) to head [(`a237959`)](https://app.codecov.io/gh/flipt-io/flipt/commit/a2379590f39015d6d370f828a881630106f1c6a3?dropdown=coverage&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io).\n> Report is 1 commits behind head on main.\n\n| [Files with missing lines](https://app.codecov.io/gh/flipt-io/flipt/pull/3692?dropdown=coverage&src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) | Patch % | Lines |\n|---|---|---|\n| [internal/server/authz/engine/rego/engine.go](https://app.codecov.io/gh/flipt-io/flipt/pull/3692?src=pr&el=tree&filepath=internal%2Fserver%2Fauthz%2Fengine%2Frego%2Fengine.go&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc2VydmVyL2F1dGh6L2VuZ2luZS9yZWdvL2VuZ2luZS5nbw==) | 72.97% | [7 Missing and 3 partials :warning: ](https://app.codecov.io/gh/flipt-io/flipt/pull/3692?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) |\n| [internal/server/authz/engine/bundle/engine.go](https://app.codecov.io/gh/flipt-io/flipt/pull/3692?src=pr&el=tree&filepath=internal%2Fserver%2Fauthz%2Fengine%2Fbundle%2Fengine.go&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc2VydmVyL2F1dGh6L2VuZ2luZS9idW5kbGUvZW5naW5lLmdv) | 82.35% | [2 Missing and 1 partial :warning: ](https://app.codecov.io/gh/flipt-io/flipt/pull/3692?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) |\n\n<details><summary>Additional details and impacted files</summary>\n\n\n```diff\n@@            Coverage Diff             @@\n##             main    #3692      +/-   ##\n==========================================\n+ Coverage   64.55%   64.63%   +0.08%     \n==========================================\n  Files         170      170              \n  Lines       17163    17233      +70     \n==========================================\n+ Hits        11079    11139      +60     \n- Misses       5393     5399       +6     \n- Partials      691      695       +4     \n```\n\n| [Flag](https://app.codecov.io/gh/flipt-io/flipt/pull/3692/flags?src=pr&el=flags&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) | Coverage \u0394 | |\n|---|---|---|\n| [unittests](https://app.codecov.io/gh/flipt-io/flipt/pull/3692/flags?src=pr&el=flag&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) | `64.63% <84.33%> (+0.08%)` | :arrow_up: |\n\nFlags with carried forward coverage won't be shown. [Click here](https://docs.codecov.io/docs/carryforward-flags?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#carryforward-flags-in-the-pull-request-comment) to find out more.\n\n</details>\n\n[:umbrella: View full report in Codecov by Sentry](https://app.codecov.io/gh/flipt-io/flipt/pull/3692?dropdown=coverage&src=pr&el=continue&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io).   \n:loudspeaker: Have feedback on the report? [Share it here](https://about.codecov.io/codecov-pr-comment-feedback/?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io).\n",
+   "url": "https://github.com/flipt-io/flipt/pull/3692#issuecomment-2526213767",
+   "user": "codecov[bot]"
+  }
+ ]
+}

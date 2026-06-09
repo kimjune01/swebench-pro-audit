@@ -1,0 +1,21 @@
+{
+ "repo": "flipt-io/flipt",
+ "pr_number": 1156,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/1156",
+ "n_review": 1,
+ "n_convo": 1,
+ "review_comments": [
+  {
+   "body": "```suggestion\r\n// report sends a ping event to the analytics service.\r\n```",
+   "url": "https://github.com/flipt-io/flipt/pull/1156#discussion_r1032520311",
+   "user": "GeorgeMac"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "# [Codecov](https://codecov.io/gh/flipt-io/flipt/pull/1156?src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) Report\n> Merging [#1156](https://codecov.io/gh/flipt-io/flipt/pull/1156?src=pr&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (e755d39) into [main](https://codecov.io/gh/flipt-io/flipt/commit/1efd882a077be0775b8c0e3353e56b80655a41b7?el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (1efd882) will **decrease** coverage by `1.05%`.\n> The diff coverage is `42.85%`.\n\n```diff\n@@            Coverage Diff             @@\n##             main    #1156      +/-   ##\n==========================================\n- Coverage   80.08%   79.03%   -1.06%     \n==========================================\n  Files          36       36              \n  Lines        2465     2518      +53     \n==========================================\n+ Hits         1974     1990      +16     \n- Misses        394      430      +36     \n- Partials       97       98       +1     \n```\n\n\n| [Impacted Files](https://codecov.io/gh/flipt-io/flipt/pull/1156?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) | Coverage \u0394 | |\n|---|---|---|\n| [internal/telemetry/telemetry.go](https://codecov.io/gh/flipt-io/flipt/pull/1156/diff?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvdGVsZW1ldHJ5L3RlbGVtZXRyeS5nbw==) | `53.62% <42.85%> (-14.62%)` | :arrow_down: |\n\n:mega: We\u2019re building smart automated test selection to slash your CI/CD build times. [Learn more](https://about.codecov.io/iterative-testing/?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io)\n",
+   "url": "https://github.com/flipt-io/flipt/pull/1156#issuecomment-1327597049",
+   "user": "codecov-commenter"
+  }
+ ]
+}

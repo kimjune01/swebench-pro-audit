@@ -1,0 +1,211 @@
+{
+ "repo": "navidrome/navidrome",
+ "pr_number": 1884,
+ "pr_url": "https://github.com/navidrome/navidrome/pull/1884",
+ "n_review": 15,
+ "n_convo": 25,
+ "review_comments": [
+  {
+   "body": "An alternative would be\r\n```sql\r\nmedia_file.id IN (\r\n  SELECT media_file_id\r\n  FROM playlist_tracks\r\n  LEFT JOIN playlist\r\n  ON playlist_tracks.playlist_id = playlist.id\r\n  WHERE playlist.name = \"<name>\"\r\n)\r\n```\r\n\r\nI'm not an SQL expert so I can't tell definitively whether it would be better, but my gut feeling is that it should be easier to optimize for the database.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1103792566",
+   "user": "upsuper"
+  },
+  {
+   "body": "Also maybe we need to check the owner id of the playlist?\r\n\r\nOn the one hand, a user shouldn't be able to hijack tracks into another user's smart playlist just by giving their playlist a conflicting name. On the other hand, a user should also not be able to snoop on other users' playlists by creating a smart playlist.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1104276837",
+   "user": "upsuper"
+  },
+  {
+   "body": "Do note that there is no constraint in the names being unique, so you should definitely check for the user ownership. \r\nIt is possible for one user to have multiple playlists of the same name as well, so you should give the option of providing the ID instead",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121137062",
+   "user": "kgarner7"
+  },
+  {
+   "body": "Adding on here: This is **significantly** faster. Here's what I used to replicate your results\r\n```go\r\n// Subquery to check if media_file.id matches with the playlist name in playlist_tracks table\r\nsubQuery := squirrel.Select(\"media_file_id\").\r\n\tFrom(\"playlist_tracks pl\").\r\n\tLeftJoin(\"playlist on pl.playlist_id = playlist.id\").\r\n\tWhere(squirrel.Eq{\"playlist.name\": playlistname})\r\nsubQText, subQArgs, err := subQuery.PlaceholderFormat(squirrel.Question).ToSql()\r\nif err != nil {\r\n\treturn \"\", nil, err\r\n}\r\nif negate {\r\n\treturn \"media_file.id NOT IN (\" + subQText + \")\", subQArgs, nil\r\n} else {\r\n\treturn \"media_file.id IN (\" + subQText + \")\", subQArgs, nil\r\n}\r\n```\r\n\r\nPerformance:\r\nOLD: 947.9 ms\r\n```\r\nPM GO.1 |  TRAC[0216] SQL: `INSERT INTO playlist_tracks (id,playlist_id,media_file_id) SELECT row_number() over (order by random()) as id, '...' as playlist_id, media_file.id as media_file_id FROM media_file LEFT JOIN annotation on (annotation.item_id = media_file.id AND annotation.item_type = 'media_file' AND annotation.user_id = '...') LEFT JOIN media_file_genres ag on media_file.id = ag.media_file_id LEFT JOIN genre on ag.genre_i\r\n8:58:23 PM GO.1 |  >  d = genre.id WHERE (EXISTS(SELECT 1 FROM playlist_tracks pl LEFT JOIN playlist on pl.playlist_id = playlist.id WHERE (pl.media_file_id = media_file.id AND playlist.name = ?))) GROUP BY media_file.id ORDER BY random()`  args=\"[[...],<nil>]\" elapsedTime=947.9ms requestId=ok/0AOnerGlUd-000103 rowsAffected=4282\r\n```\r\nNEW: 34 ms\r\n```\r\nPM GO.1 |  TRAC[0004] SQL: `INSERT INTO playlist_tracks (id,playlist_id,media_file_id) SELECT row_number() over (order by random()) as id, '...' as playlist_id, media_file.id as media_file_id FROM media_file LEFT JOIN annotation on (annotation.item_id = media_file.id AND annotation.item_type = 'media_file' AND annotation.user_id = '...') LEFT JOIN media_file_genres ag on media_file.id = ag.media_file_id LEFT JOIN genre on ag.genre_i\r\n8:59:14 PM GO.1 |  >  d = genre.id WHERE (media_file.id IN (SELECT media_file_id FROM playlist_tracks pl LEFT JOIN playlist on pl.playlist_id = playlist.id WHERE playlist.name = ?)) GROUP BY media_file.id ORDER BY random()`  args=\"[[...],<nil>]\" elapsedTime=33.4ms  rowsAffected=4282\r\n```",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121150257",
+   "user": "kgarner7"
+  },
+  {
+   "body": "In the current interface of adding smart playlist, there is no way that user can specify the id of a playlist, but on the other hand, in the future when we have UI to add smart playlist, it's unlikely we want to support using name matching. So maybe in this case we want to translate name to id when importing, and only persist the id-form in the database?\r\n\r\nBut the same issue probably applies to most of other criteria, so maybe it's not a big issue.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121150800",
+   "user": "upsuper"
+  },
+  {
+   "body": "That first point isn't entirely true. You can definitely reference the ID of an existing playlist, you would just need to add that SQL in the rule, so you could have something like\r\n```json\r\n{\r\n    \"all\":  [\r\n        {\"inPlaylist\": {\"id\": \"guid\" }}\r\n    ],  \r\n    \"sort\": \"random\"\r\n}\r\n```\r\nOf course, this could run into the problem if you're referencing other playlists, and suppose you migrate to a new system but /shrug/. You could still support both.\r\nAlso I guess it is worth point out that smart playlists (currently) are created for the first admin user, so idk how permissions would really shake out.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121153631",
+   "user": "kgarner7"
+  },
+  {
+   "body": "Playlist JSON used for testing:\r\n```json\r\n{\r\n    \"all\":  [\r\n        {\"inPlaylist\": {\"name\": \"...\" }}\r\n    ],  \r\n    \"sort\": \"random\"\r\n}\r\n```",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121154115",
+   "user": "kgarner7"
+  },
+  {
+   "body": "But how can a user be expected to know what the playlist id is? I don't think everyone knows how to do SQL \ud83d\ude04 ",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121154979",
+   "user": "upsuper"
+  },
+  {
+   "body": "You don't need SQL for that, it's part of the page URL (for example):\r\n`http://localhost:4533/#/playlist/7b425f26-4659-4d4b-9a8c-9321866e8a2c/show` ID: \"7b425f26-4659-4d4b-9a8c-9321866e8a2c\"",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121156237",
+   "user": "kgarner7"
+  },
+  {
+   "body": "Oh okay, that's easier then.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121156789",
+   "user": "upsuper"
+  },
+  {
+   "body": "In that case I think we should only support id.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121159522",
+   "user": "upsuper"
+  },
+  {
+   "body": "There is one benefit I can think of for also supporting names:\r\n\r\nSuppose you are creating multiple playlists at once, and at least one of them is a smart playlist. \r\nYou know what all their names are going to be (by the file name), but the ID is unknown until creation. \r\nSo, suppose you had files A, B, C, and D depending on A, and E depending on D and B (this is a contrived example).\r\nIf you support by name, Navidrome will _eventually_ figure out the relationships and all playlists will be filled.\r\nBy contrast, if you need an ID, then you couldn't create D or E until A, and C are created.\r\n\r\nIs that worth it? I don't know. But it is a use case. Regardless, I definitely think ID should be a possible field",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121164568",
+   "user": "kgarner7"
+  },
+  {
+   "body": "As I mentioned before, when we have UI to create playlist, I think it's more likely we would just let user pick a playlist for existing ones, so unlikely name would be useful at that point.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121181116",
+   "user": "upsuper"
+  },
+  {
+   "body": "Regarding the playlist owner, I'd love to be able to combine playlists of different users.\r\n\r\nA use case would be that person A, B and C create their own playlist \"roadtrip\". And when the three go on a roadtrip, they create a smart playlist to merge the three playlists dynamically into one.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121472629",
+   "user": "flyingOwl"
+  },
+  {
+   "body": "The playlist should at least be shared I guess.\r\n\r\nBut if we use id rather than name, it is less of a concern to accidentally include or leak tracks of a playlist.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#discussion_r1121523362",
+   "user": "upsuper"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "Unfortunately, it works only in the \"positive\" direction. Adding two (or more) lists together works.\r\nSubtracting playlists does not work:\r\n\r\n```\r\nList 1: Song A, Song B, Song C, Song D\r\nList 2: Song A, Song C, Song E\r\n\r\nSmart Playlist:\r\nis: playlist: List 1\r\nisNot: playlist: List 2\r\n\r\nexpected: Song B, Song D\r\ncurrent result: Song A, Song B, Song C, Song D (List 1)\r\n```\r\nI'm looking at the sql query again before un-drafting this PR.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1257148017",
+   "user": "flyingOwl"
+  },
+  {
+   "body": "To support all kinds of smart filtering, (I believe) there is no way around a subquery.\r\n\r\nThis change introduces two new operators: `inPlaylist` and `notInPlaylist` which allow only the `name` key. A smart playlist could look like this:\r\n\r\n```\r\n{\r\n\t\"all\": [\r\n\t\t{\"inPlaylist\": {\"name\": \"Birthday playlist\"}},\r\n\t\t{\"notInPlaylist\": {\"name\": \"List of songs Matt doesnt like\"}}\r\n\t]\r\n}\r\n```\r\n\r\nTo combine playlists:\r\n\r\n```\r\n{\r\n\t\"any\": [\r\n\t\t{\"inPlaylist\": {\"name\": \"List 1\"}},\r\n\t\t{\"inPlaylist\": {\"name\": \"List 2\"}}\r\n\t]\r\n}\r\n```\r\n\r\nThe code could be extended to support more fields from the `playlist` table, like `song_count` or the `owner`.\r\n\r\nThis is the first time I've ever used Go. Please tell me if something is terribly wrong!",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1257175459",
+   "user": "flyingOwl"
+  },
+  {
+   "body": "Hey, thanks for taking a look at this. I'm not sure if a subquery will be fast enough though.. Can you please rebase this so I can test it with my own library? Thanks!",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1260062173",
+   "user": "deluan"
+  },
+  {
+   "body": "I was also thinking about the performance when adding this. Using another `WHERE` clause with a new `LEFT JOIN` was not enough (this was my first try). Regarding the performance of the new subquery, I could swap the `EXISTS (SELECT 1 ...` with a `IN (SELECT media_file.id ...`.\r\n\r\nI don't know if sqlite is smart enough to not do a string comparison for every row. If it is not, it would be better to precache the playlist IDs and get rid of the `LEFT JOIN` in the subquery. It could look like this:\r\n\r\n```go\r\nsubQuery := squirrel.Select(\"pl.media_file_id\").\r\n\t\tFrom(\"playlist_tracks pl\").\r\n\t\tWhere(squirrel.Eq{\"pl.playlist_id\": name_to_id_cache[playlistname]})\r\n# ...\r\nreturn \"IN (\" + subQText + \")\", subQArgs, nil\r\n```\r\n\r\nBut nonetheless, I'm curious to see how fast the subqueries actually are with large databases.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1260517809",
+   "user": "flyingOwl"
+  },
+  {
+   "body": "I compared results of\r\n```sql\r\nEXPLAIN SELECT id\r\nFROM media_file\r\nWHERE id IN (\r\n  SELECT media_file_id\r\n  FROM playlist_tracks\r\n  LEFT JOIN playlist\r\n  ON playlist_tracks.playlist_id = playlist.id\r\n  WHERE playlist.name = '<name>'\r\n);\r\n```\r\nand\r\n```sql\r\nEXPLAIN SELECT id\r\nFROM media_file\r\nWHERE EXISTS (\r\n  SELECT 1\r\n  FROM playlist_tracks\r\n  LEFT JOIN playlist\r\n  ON playlist_tracks.playlist_id = playlist.id\r\n  WHERE playlist.name = '<name>'\r\n  AND playlist_tracks.media_file_id = media_file.id\r\n);\r\n```\r\n\r\nThe former (my proposed one) gives:\r\n```\r\naddr  opcode         p1    p2    p3    p4             p5  comment      \r\n----  -------------  ----  ----  ----  -------------  --  -------------\r\n0     Init           0     33    0                    0   \r\n1     OpenRead       3     16    0     k(1,)          2   \r\n2     BeginSubrtn    0     2     0                    0   \r\n3       Once           0     22    0                    0   \r\n4       OpenEphemeral  4     1     0     k(1,B)         0   \r\n5       OpenRead       2     106   0     2              0   \r\n6       OpenRead       5     46    0     k(2,,)         2   \r\n7       OpenRead       1     63    0     3              0   \r\n8       OpenRead       6     61    0     k(2,,)         2   \r\n9       String8        0     3     0     <name>         0   \r\n10      SeekGE         5     22    3     1              0   \r\n11        IdxGT          5     22    3     1              0   \r\n12        DeferredSeek   5     0     2                    0   \r\n13        Column         2     0     4                    0   \r\n14        SeekGE         6     21    4     1              0   \r\n15          IdxGT          6     21    4     1              0   \r\n16          DeferredSeek   6     0     1                    0   \r\n17          Column         1     2     5                    0   \r\n18          MakeRecord     5     1     6     A              0   \r\n19          IdxInsert      4     6     5     1              0   \r\n20        Next           6     15    0                    0   \r\n21      Next           5     11    1                    0   \r\n22    Return         2     3     1                    0   \r\n23    Rewind         4     32    0                    0   \r\n24      Column         4     0     1                    0   \r\n25      IsNull         1     31    0                    0   \r\n26      SeekGE         3     31    1     1              0   \r\n27        IdxGT          3     31    1     1              0   \r\n28        Column         3     0     7                    0   \r\n29        ResultRow      7     1     0                    0   \r\n30      Next           3     27    0                    0   \r\n31    Next           4     24    0                    0   \r\n32    Halt           0     0     0                    0   \r\n33    Transaction    0     0     236   0              1   \r\n34    Goto           0     1     0                    0   \r\n```\r\nand the latter (this PR) gives\r\n```\r\naddr  opcode         p1    p2    p3    p4             p5  comment      \r\n----  -------------  ----  ----  ----  -------------  --  -------------\r\n0     Init           0     31    0                    0   \r\n1     OpenRead       3     16    0     k(1,)          0   \r\n2     Rewind         3     30    1     0              0   \r\n3       BeginSubrtn    0     2     0                    0   \r\n4         Integer        0     3     0                    0   \r\n5         Integer        1     4     0                    0   \r\n6         OpenRead       2     106   0     2              0   \r\n7         OpenRead       4     46    0     k(2,,)         2   \r\n8         OpenRead       1     63    0     3              0   \r\n9         OpenRead       5     61    0     k(2,,)         2   \r\n10        String8        0     5     0     <name>         0   \r\n11        SeekGE         4     25    5     1              0   \r\n12          IdxGT          4     25    5     1              0   \r\n13          DeferredSeek   4     0     2                    0   \r\n14          Column         2     0     6                    0   \r\n15          SeekGE         5     24    6     1              0   \r\n16            IdxGT          5     24    6     1              0   \r\n17            DeferredSeek   5     0     1                    0   \r\n18            Column         1     2     7                    0   \r\n19            Column         3     0     8                    0   \r\n20            Ne             8     23    7     BINARY-8       81  \r\n21            Integer        1     3     0                    0   \r\n22            DecrJumpZero   4     25    0                    0   \r\n23          Next           5     16    0                    0   \r\n24        Next           4     12    1                    0   \r\n25      Return         2     4     1                    0   \r\n26      IfNot          3     29    1                    0   \r\n27      Column         3     0     10                   0   \r\n28      ResultRow      10    1     0                    0   \r\n29    Next           3     3     0                    1   \r\n30    Halt           0     0     0                    0   \r\n31    Transaction    0     0     236   0              1   \r\n32    Goto           0     1     0                    0   \r\n```\r\n\r\nI'm not very familiar with SQLite bytecode, but my naive interpretation is that the former runs the subquery once to construct an ephemeral table containing all `media_file_id` of playlists satisfying the condition, and then goes through that table to return all the ids, and the latter has to run the subquery for each item in `media_file`, so I tend to believe that the former should be faster.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1427026468",
+   "user": "upsuper"
+  },
+  {
+   "body": "@deluan Have you been able to try this and see how it performs in a large database?",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1427713185",
+   "user": "upsuper"
+  },
+  {
+   "body": "(crossposting from discord)\r\nTesting this with local dev environment, I have a few cursory thoughts:\r\n- for one check involving isInPlaylist of size 4300, getting and refreshing takes 1-2 seconds\r\n- I made chained smart playlists off of this one (original -> test -> test2 -> test3), and it takes up to ~6 seconds on the first fetch\r\n- the navidrome web ui just kinda stops responding when I do a playlist refresh (Firefox). No idea what could be causing this\r\nThe nested playlist is _noticeably_ slower, at least when comparing the `/tracks` performance (Example below: 44ms vs 1s)\r\n```\r\n# Taken from regular\r\nPM GO.1 |  DEBU[0827] HTTP: GET http://localhost:4633/api/playlist/.../tracks?_end=100&_order=ASC&_sort=id&_start=0&playlist_id=...  elapsedTime=44ms\r\n# Taken from nested\r\nPM GO.1 |  DEBU[0840] HTTP: GET http://localhost:4633/api/playlist/.../tracks?_end=100&_order=ASC&_sort=id&_start=0&playlist_id=...  elapsedTime=1.03s\r\n```",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1449331463",
+   "user": "kgarner7"
+  },
+  {
+   "body": "Sorry for being late to the party. I'm kinda lost in the back and forth of comments here. What is the consensus? \r\n\r\nRe: Performance:\r\n@upsuper / @kgarner7 Is there a way to make it fast? \r\n@flyingOwl Can you take a look at any suggestions?\r\n\r\nRe: Using names vs ids\r\nI think we should only support IDs, and the query has to make sure the playlist is owned by the user, or the playlist is shared.\r\n@kgarner7 , the use case you mentioned is an extreme edge case. Once we add the UI for playlists (that will only use IDs from a Select), we can think of a way to support multiple smart playlists in one .NSP document. I think this would be a better way to solve the use case you mentioned.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1491055018",
+   "user": "deluan"
+  },
+  {
+   "body": "@deluan given https://github.com/navidrome/navidrome/pull/1884#discussion_r1121150257 I think using `id in` should make it fast enough, and also I believe using playlist id only should make it even faster.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1491074371",
+   "user": "upsuper"
+  },
+  {
+   "body": "Another thing worth thinking about is what should we do with cycle dependency between playlists I guess.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1491076872",
+   "user": "upsuper"
+  },
+  {
+   "body": "With just the playlist id, using my modification would be quite fast. If you want to check user, you would also need to add a way for the filter to know the user of the current playlist.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1491226299",
+   "user": "kgarner7"
+  },
+  {
+   "body": "> Another thing worth thinking about is what should we do with cycle dependency between playlists I guess.\r\n\r\nWe need a way to detect this...\r\n\r\n> With just the playlist id, using my modification would be quite fast. If you want to check user, you would also need to add a way for the filter to know the user of the current playlist.\r\n\r\nHey @flyingOwl, can you try to implement these changes? Do you need any guidance?",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1526818131",
+   "user": "deluan"
+  },
+  {
+   "body": "Sure! I will take a look at this. Hopefully, I'll find some time in the next few days.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1528985112",
+   "user": "flyingOwl"
+  },
+  {
+   "body": "The subquery is now evaluating the playlist ids  and checks if the playlist is public.\r\n\r\nIs there a way to get the owner of the playlist being processed? Currently, it can only combine public playlists.\r\n\r\nHow bad are circular dependencies? And is it worth the effort to completely eliminate all cases? The worst I can imagine is a set of playlists, excluding and including each other, that might play ping pong on each sync.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1537366669",
+   "user": "flyingOwl"
+  },
+  {
+   "body": "I think the only way to avoid cycle dependency is to read all playlists that depend on other playlists, and do a check as a graph. And that can probably be done when updating the criteria of a playlist.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1537379821",
+   "user": "upsuper"
+  },
+  {
+   "body": "> The subquery is now evaluating the playlist ids and checks if the playlist is public.\r\n\r\nThanks for that!\r\n\r\n> Is there a way to get the owner of the playlist being processed? Currently, it can only combine public playlists.\r\n\r\nThe owner should be determined by the `owner_id` playlist field.\r\n\r\n> How bad are circular dependencies? And is it worth the effort to completely eliminate all cases? The worst I can imagine is a set of playlists, excluding and including each other, that might play ping pong on each sync.\r\n\r\nYeah, that makes sense. I'll test it and see if there's no other side-effects. Thanks!\r\n",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1551794879",
+   "user": "deluan"
+  },
+  {
+   "body": "Download the artifacts for this pull request:\n\n* [binaries.zip](https://nightly.link/navidrome/navidrome/actions/artifacts/1179965612.zip)\n* [js-bundle.zip](https://nightly.link/navidrome/navidrome/actions/artifacts/1179965614.zip)",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1551808508",
+   "user": "github-actions[bot]"
+  },
+  {
+   "body": "> The owner should be determined by the `owner_id` playlist field.\r\n\r\nThis is the field I'm trying to access in the scope of the `inList` function. Not for the playlist referenced by the playlist id, but for the smart playlist that uses the `inPlaylist` operator.\r\n\r\nTake `playlistA` which somehow references `playlistB` by `{\"inPlaylist\": {\"id\": \"playlistB-id\"}}`. The `inList` function generates the query to include songs from `playlistB` and can evaluate the owner of `playlistB`. But how can I get the owner of `playlistA` which wants to include `playlistB`? Is it possible to get the smart playlist which caused the lookup of another playlist with the `inList` function?\r\n\r\nIn other words, what should replace the `TODO` placeholder here: https://github.com/navidrome/navidrome/pull/1884/files#diff-0d3777fa1584c406daa9ba2874f8c6520a54ff900ffe58dd30e915e323ca9cd6R266\r\n ",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1551995300",
+   "user": "flyingOwl"
+  },
+  {
+   "body": "> In other words, what should replace the `TODO` placeholder here: https://github.com/navidrome/navidrome/pull/1884/files#diff-0d3777fa1584c406daa9ba2874f8c6520a54ff900ffe58dd30e915e323ca9cd6R266\r\n\r\nThis is the place where the criteria is applied:\r\nhttps://github.com/navidrome/navidrome/blob/2f9b90f78955d80e5b40d9188d846ddcc615c2a6/persistence/playlist_repository.go#L229-L236\r\n\r\nAs you can see, we don't currently join with the playlist itself, which would give us its `owner_id`. Unfortunately I don't have time to try to solve this, so I suggest we make it a requirement for the playlist to be public to be used in the `inPlaylistList` operator. What dou you think?",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1554756352",
+   "user": "deluan"
+  },
+  {
+   "body": "> Unfortunately I don't have time to try to solve this, so I suggest we make it a requirement for the playlist to be public to be used in the `inPlaylistList` operator. What dou you think?\r\n\r\nI think that is the best solution for now. I had some ideas on how to access the owner of the smart playlist, but they would need non-trivial changes to other parts of the code. Regarding my use case, making the playlists public is not an issue.\r\n\r\nI have rebased my changes and dropped the `todo` part.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1555871414",
+   "user": "flyingOwl"
+  },
+  {
+   "body": "Hey @flyingOwl , sorry for the delay. This looks good now. Can you please add a few tests?",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1595098627",
+   "user": "deluan"
+  },
+  {
+   "body": "> Hey @flyingOwl , sorry for the delay. This looks good now. Can you please add a few tests?\r\n\r\nI'm very sorry for not responding sooner and mostly abandoning this pull request.\r\n\r\n\r\nIt will probably take until the Christmas holidays before I can work on this feature again. Could you give me some pointers on where and how to add tests? That would be much appreciated and the hurdle to continue here would be a bit lower",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1836886480",
+   "user": "flyingOwl"
+  },
+  {
+   "body": "\r\n> I'm very sorry for not responding sooner and mostly abandoning this pull request.\r\n\r\nNo problem!\r\n\r\n> Could you give me some pointers on where and how to add tests\r\n\r\nBasically we want to be sure that the new operator converts correctly to SQL and to JSON. You just need to add both checks in the two `DescribeTable` sections of the `operators_test.go` file: https://github.com/navidrome/navidrome/blob/bbd3882a752c956a8891938973f653e08a947710/model/criteria/operators_test.go\r\n\r\nTake a look and let me know if you still have any questions.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1837018523",
+   "user": "deluan"
+  },
+  {
+   "body": "Alright. I've added tests for the operators. Actually, I expected some full-grown database test setup where I would have to add all kinds of tests for various cases. So I'm glad it was that easy :smiley: \r\n\r\n",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-1890422229",
+   "user": "flyingOwl"
+  },
+  {
+   "body": "This pull request has been automatically locked since there has not been any recent activity after it was closed. Please open a new issue for related bugs.",
+   "url": "https://github.com/navidrome/navidrome/pull/1884#issuecomment-2121546824",
+   "user": "github-actions[bot]"
+  }
+ ]
+}

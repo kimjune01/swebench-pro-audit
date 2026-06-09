@@ -1,0 +1,176 @@
+{
+ "repo": "gravitational/teleport",
+ "pr_number": 4435,
+ "pr_url": "https://github.com/gravitational/teleport/pull/4435",
+ "n_review": 27,
+ "n_convo": 6,
+ "review_comments": [
+  {
+   "body": "```suggestion\r\n\t\t\t\t// for the next several resumes, lose checkpoint file for the stream\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498925523",
+   "user": "webvictim"
+  },
+  {
+   "body": "```suggestion\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498926265",
+   "user": "webvictim"
+  },
+  {
+   "body": "if `err` is `NotFound`, the above `if err != nil` will catch it first and return",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498960593",
+   "user": "awly"
+  },
+  {
+   "body": "what's the total runtime with the race detector?\r\nif it's >10s and there's no way to speed it up, maybe it should be an integration test instead?\r\n\r\ndisabling this test when race detector is active means it will never run in CI and will bitrot.",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498963188",
+   "user": "awly"
+  },
+  {
+   "body": "https://github.com/gravitational/teleport/blob/master/lib/utils/testlog/log.go#L31 may be better here",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498963611",
+   "user": "awly"
+  },
+  {
+   "body": "```suggestion\r\n\t\t\treturn streamer.CreateAuditStream(ctx, sid)\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498964643",
+   "user": "awly"
+  },
+  {
+   "body": "```suggestion\r\n\t\t\t} else if resumed >= 5 && resumed < 8 {\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498964884",
+   "user": "awly"
+  },
+  {
+   "body": "```suggestion\r\n\t\t\t\tfor _, fi := range files {\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498965168",
+   "user": "awly"
+  },
+  {
+   "body": "```suggestion\r\n\t\t\treturn streamer.ResumeAuditStream(ctx, sid, uploadID)\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498965571",
+   "user": "awly"
+  },
+  {
+   "body": "```suggestion\r\n\tassert.NoError(t, err)\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498965707",
+   "user": "awly"
+  },
+  {
+   "body": "```suggestion\r\n\tassert.NoError(t, err)\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498965798",
+   "user": "awly"
+  },
+  {
+   "body": "```suggestion\r\n\t\t\t\t\t\tassert.NoError(t, err)\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498965923",
+   "user": "awly"
+  },
+  {
+   "body": "```suggestion\r\n\tassert.NoError(t, err)\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498966112",
+   "user": "awly"
+  },
+  {
+   "body": "```suggestion\r\n\tassert.NoError(t, err)\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498966361",
+   "user": "awly"
+  },
+  {
+   "body": "```suggestion\r\n\t\t\t\tscansCh <- trace.Wrap(err)\r\n\t\t\t\treturn\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498967233",
+   "user": "awly"
+  },
+  {
+   "body": "This seems to be unused",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r498969361",
+   "user": "awly"
+  },
+  {
+   "body": "We run integration test with race detector as well. I think we should have a separate class of tests we run without race detector.\r\n\r\nI would like to have tests that run for a while and try to break the system in different ways. ",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r499166210",
+   "user": "klizhentas"
+  },
+  {
+   "body": "I think`InitLoggerForTests` should modify global logger in tests to use `FailureOnly` handler.",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r499166325",
+   "user": "klizhentas"
+  },
+  {
+   "body": "Because right now `FailureOnly` has to be passed manually everywhere",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r499166350",
+   "user": "klizhentas"
+  },
+  {
+   "body": "@webvictim can we add a line to run `go test -test.run=TestChaos ./lib/....` to activate those tests?",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r499167398",
+   "user": "klizhentas"
+  },
+  {
+   "body": "I stand corrected, integration tests are running without `-race` flag, however I think it will be good to have `TestChaos` step that is local, but does not activate `-race` detector.",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r499169186",
+   "user": "klizhentas"
+  },
+  {
+   "body": "@webvictim @awly I've added another build target `make chaos` and `make -C build.assets chaos` alongside extra drone step. What do you folks think? Take a look and let me know please.",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r499170623",
+   "user": "klizhentas"
+  },
+  {
+   "body": "Modifying the global logger messes up tests running in parallel.\r\nWe already pass logger objects via most `*Config` structs, let's stick with that pattern?",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r499751557",
+   "user": "awly"
+  },
+  {
+   "body": "This pulls in matches from `vendor` and non-go directories.  Probably more future-proof to do something like this:\r\n\r\n```suggestion\r\nchaos: FOLDERS := $(shell find . -type f -name '*chaos*.go' -not -path \"*/vendor/*\" | xargs dirname | uniq)\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r499769693",
+   "user": "fspmarshall"
+  },
+  {
+   "body": "For others' reference, `TestChaosUpload` takes:\r\n- 0.3s without race detector\r\n- 12.4s with race detector\r\n12s is slow enough to be annoying, although we have much slower unit tests.\r\n\r\nI'd prefer to either add it to `make test` without race detector or `make integration` with (eventually).\r\n\r\nIf we're going to add a new category of tests, it could be based on how they are used:\r\n- `make test` - \"fast\" tests for local dev iteration\r\n- `make integration` - \"slow\" tests for each PR running in CI\r\n- `make stress` - \"infinite\" tests that hammer at the code for a fixed period of time, running as a cronjob\r\n  - fuzzers also fit here\r\n\r\nP.S. integration tests don't run with the race detector because we didn't get to fixing all the races yet. They should eventually run with the race detector.",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r499775000",
+   "user": "awly"
+  },
+  {
+   "body": "The biggest problem with adding this as a completely separate step to Drone is the fact that the tests take 0.3 seconds to run but the setup (downloading the buildbox image, starting the Docker container etc) takes 22 seconds. Given that our unit test runs are already taking ~4-5 minutes and integration tests ~4-5 minutes, I don't think it's a huge problem to add them to one of the other runs.\r\n\r\nI agree with @awly's idea of saying that ultimately, all unit tests should be 'quick' tests you can run locally for iterative development. Anything that takes a long time should be part of integration.",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r499860208",
+   "user": "webvictim"
+  },
+  {
+   "body": "optional: convert this to the new test style",
+   "url": "https://github.com/gravitational/teleport/pull/4435#discussion_r500424403",
+   "user": "awly"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "@awly @fspmarshall please take a look again folks, I've added `Chaos` tests to run without data race here. I've also found another unrelated bug with playback with legacy sessions and added it as a separate commit to the same branch.",
+   "url": "https://github.com/gravitational/teleport/pull/4435#issuecomment-703178909",
+   "user": "klizhentas"
+  },
+  {
+   "body": "@awly @webvictim @fspmarshall take another look please:\r\n\r\n* I did not change the logging in tests for now, consider it a minor future improvement\r\n* Added `chaos` tests to run as the same `test` run as recommended by Gus\r\n* Improved run to exclude potential matches in vendor",
+   "url": "https://github.com/gravitational/teleport/pull/4435#issuecomment-703958082",
+   "user": "klizhentas"
+  },
+  {
+   "body": "@awly also made `make test` to run all tests except integration.",
+   "url": "https://github.com/gravitational/teleport/pull/4435#issuecomment-703962678",
+   "user": "klizhentas"
+  },
+  {
+   "body": "retest this",
+   "url": "https://github.com/gravitational/teleport/pull/4435#issuecomment-704456085",
+   "user": "klizhentas"
+  },
+  {
+   "body": "retest this **please**",
+   "url": "https://github.com/gravitational/teleport/pull/4435#issuecomment-704464683",
+   "user": "webvictim"
+  },
+  {
+   "body": "retest this please",
+   "url": "https://github.com/gravitational/teleport/pull/4435#issuecomment-704533718",
+   "user": "klizhentas"
+  }
+ ]
+}

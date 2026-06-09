@@ -1,0 +1,50 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "pr_number": 6372,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/6372",
+ "n_review": 0,
+ "n_convo": 8,
+ "review_comments": [],
+ "conversation_comments": [
+  {
+   "body": "If it's now used in multiple places, `_widened_hosts` should be public, but also not in `configutils`. Unfortunately, moving it elsewhere will potentially lead to circular imports... See 608a1ead410607c6fd7394dcf75d55495448b4ea.\r\n\r\nHowever, I tried moving it back, and it seems to work fine - so that's what I'd recommend doing:\r\n\r\n<details>\r\n\r\n```diff\r\n\r\ndiff --git a/qutebrowser/config/configutils.py b/qutebrowser/config/configutils.py\r\nindex d619eb21f..28d4a3fe3 100644\r\n--- a/qutebrowser/config/configutils.py\r\n+++ b/qutebrowser/config/configutils.py\r\n@@ -32,22 +32,13 @@\r\n from PyQt5.QtGui import QFontDatabase\r\n from PyQt5.QtWidgets import QApplication\r\n \r\n-from qutebrowser.utils import utils, urlmatch, usertypes, qtutils\r\n+from qutebrowser.utils import utils, urlmatch, urlutils, usertypes, qtutils\r\n from qutebrowser.config import configexc\r\n \r\n if TYPE_CHECKING:\r\n     from qutebrowser.config import configdata\r\n \r\n \r\n-def _widened_hostnames(hostname: str) -> Iterable[str]:\r\n-    \"\"\"A generator for widening string hostnames.\r\n-\r\n-    Ex: a.c.foo -> [a.c.foo, c.foo, foo]\"\"\"\r\n-    while hostname:\r\n-        yield hostname\r\n-        hostname = hostname.partition(\".\")[-1]\r\n-\r\n-\r\n class ScopedValue:\r\n \r\n     \"\"\"A configuration value which is valid for a UrlPattern.\r\n@@ -231,7 +222,7 @@ def get_for_url(self, url: QUrl = None, *, fallback: bool = True) -> Any:\r\n         candidates: List[ScopedValue] = []\r\n         # Urls trailing with '.' are equivalent to non-trailing types.\r\n         # urlutils strips them, so in order to match we will need to as well.\r\n-        widened_hosts = _widened_hostnames(url.host().rstrip('.'))\r\n+        widened_hosts = urlutils.widened_hostnames(url.host().rstrip('.'))\r\n         # We must check the 'None' key as well, in case any patterns that\r\n         # did not have a domain match.\r\n         for host in itertools.chain(widened_hosts, [None]):\r\ndiff --git a/qutebrowser/utils/urlutils.py b/qutebrowser/utils/urlutils.py\r\nindex 045981680..002f10411 100644\r\n--- a/qutebrowser/utils/urlutils.py\r\n+++ b/qutebrowser/utils/urlutils.py\r\n@@ -26,7 +26,7 @@\r\n import posixpath\r\n import urllib.parse\r\n import mimetypes\r\n-from typing import Optional, Tuple, Union\r\n+from typing import Optional, Tuple, Union, Iterable\r\n \r\n from PyQt5.QtCore import QUrl\r\n from PyQt5.QtNetwork import QHostInfo, QHostAddress, QNetworkProxy\r\n@@ -619,3 +619,12 @@ def parse_javascript_url(url: QUrl) -> str:\r\n         raise Error(\"Resulted in empty JavaScript code\")\r\n \r\n     return code\r\n+\r\n+\r\n+def widened_hostnames(hostname: str) -> Iterable[str]:\r\n+    \"\"\"A generator for widening string hostnames.\r\n+\r\n+    Ex: a.c.foo -> [a.c.foo, c.foo, foo]\"\"\"\r\n+    while hostname:\r\n+        yield hostname\r\n+        hostname = hostname.partition(\".\")[-1]\r\ndiff --git a/tests/unit/config/test_configutils.py b/tests/unit/config/test_configutils.py\r\nindex 4d3082a92..725a38c28 100644\r\n--- a/tests/unit/config/test_configutils.py\r\n+++ b/tests/unit/config/test_configutils.py\r\n@@ -300,29 +300,6 @@ def test_domain_lookup_sparse_benchmark(url, values, benchmark):\r\n     benchmark(lambda: values.get_for_url(url))\r\n \r\n \r\n-class TestWiden:\r\n-\r\n-    @pytest.mark.parametrize('hostname, expected', [\r\n-        ('a.b.c', ['a.b.c', 'b.c', 'c']),\r\n-        ('foobarbaz', ['foobarbaz']),\r\n-        ('', []),\r\n-        ('.c', ['.c', 'c']),\r\n-        ('c.', ['c.']),\r\n-        ('.c.', ['.c.', 'c.']),\r\n-        (None, []),\r\n-    ])\r\n-    def test_widen_hostnames(self, hostname, expected):\r\n-        assert list(configutils._widened_hostnames(hostname)) == expected\r\n-\r\n-    @pytest.mark.parametrize('hostname', [\r\n-        'test.qutebrowser.org',\r\n-        'a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.s.t.u.v.w.z.y.z',\r\n-        'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq.c',\r\n-    ])\r\n-    def test_bench_widen_hostnames(self, hostname, benchmark):\r\n-        benchmark(lambda: list(configutils._widened_hostnames(hostname)))\r\n-\r\n-\r\n class TestFontFamilies:\r\n \r\n     @pytest.mark.parametrize('family_str, expected', [\r\ndiff --git a/tests/unit/utils/test_urlutils.py b/tests/unit/utils/test_urlutils.py\r\nindex a5599c6c9..97ff268ca 100644\r\n--- a/tests/unit/utils/test_urlutils.py\r\n+++ b/tests/unit/utils/test_urlutils.py\r\n@@ -778,3 +778,26 @@ def test_hypothesis(self, source):\r\n             pass\r\n         else:\r\n             assert parsed == source\r\n+\r\n+\r\n+class TestWiden:\r\n+\r\n+    @pytest.mark.parametrize('hostname, expected', [\r\n+        ('a.b.c', ['a.b.c', 'b.c', 'c']),\r\n+        ('foobarbaz', ['foobarbaz']),\r\n+        ('', []),\r\n+        ('.c', ['.c', 'c']),\r\n+        ('c.', ['c.']),\r\n+        ('.c.', ['.c.', 'c.']),\r\n+        (None, []),\r\n+    ])\r\n+    def test_widen_hostnames(self, hostname, expected):\r\n+        assert list(urlutils.widened_hostnames(hostname)) == expected\r\n+\r\n+    @pytest.mark.parametrize('hostname', [\r\n+        'test.qutebrowser.org',\r\n+        'a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.s.t.u.v.w.z.y.z',\r\n+        'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq.c',\r\n+    ])\r\n+    def test_bench_widen_hostnames(self, hostname, benchmark):\r\n+        benchmark(lambda: list(urlutils.widened_hostnames(hostname)))\r\n\r\n```\r\n\r\n</details>\r\n",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6372#issuecomment-815549551",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "I'm trying to understand if someone might want to have previous behvior and do we want to make this behavior configurable. I'm thinking that people, who come from Adblock, UBO, Brave etc, expect this kind of behavior, but existing QB users might not. Maybe they are not just aware of this \"restriction\"?\r\n\r\nBlocking every subdomain of blocked host makes default hosts blocking list (Steven Black) much more effective, because it contains lots of entries where only main domain is defined, but ads and trackers are served from subdomains, which change from time to time.\r\n\r\nFor example, Steven Black's list (or rather pgl.yoyo.org, because Steven's list is compilation) only defines main domain `realsrv.com`, but all the unwanted stuff is served from `a.`, `ads.` and `syndication.` subdomains.\r\n\r\nMy vote goes to not make this behavior configurable, but default and only behavior of hostblocking.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6372#issuecomment-816950750",
+   "user": "4nd3r"
+  },
+  {
+   "body": "some more data. recently I scanned all third party requests made by web sites in `.ee` zone. that gave me 34415 unique hosts. if someone's interested, I can share raw data.\r\n\r\nand when I compare old and proposed hostblocking behavior, I get following:\r\n```\r\n$ wc -l ee3phosts.list.uniq\r\n34415 ee3phosts.list.uniq\r\n$ ./adblock_simulator.py -s example.com -d ee3phosts.list.uniq -h steven_black_hosts -b | wc -l\r\n2080\r\n$ ./ee3phosts.list.blocked_by_hostblock.py | wc -l\r\n1177\r\n```\r\n\r\nof course, you can't judge or evaluate the effectiveness of hosts list by number of blocked hosts, so add some salt to this data.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6372#issuecomment-816971115",
+   "user": "4nd3r"
+  },
+  {
+   "body": "Thanks for the data, that definitely is convincing! I guess it's okay to have it by default, I struggle to think of a case where `example.org` should be blocked but `*.example.org` is legit.\r\n\r\nPlease ignore the GitHub code scanning comments - I've played around with that a bit yesterday, but tuned it down again now. This mostly looks good to me otherwise, but I want to take a closer look at a couple of things. Will get back to it soon-ish, though I'm busy with other stuff in the next couple of days.\r\n\r\nIs there anything left to be done from your point of view?",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6372#issuecomment-817093499",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "> I struggle to think of a case where `example.org` should be blocked but `*.example.org` is legit.\r\n\r\none can use whitelisting then? sounds like rare edge case to me, which definetly can happen.\r\n\r\n> Is there anything left to be done from your point of view?\r\n\r\nnot really. I'm dogfooding it currently and I haven't experienced any issues, yet and hopefully stays like this.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6372#issuecomment-817105287",
+   "user": "4nd3r"
+  },
+  {
+   "body": "Sorry for the radio silence here, I've had a very stressful time in April. I plan to get back to this either this or next week.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6372#issuecomment-831516762",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "No worries, take your time - mental health first, then everything else.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6372#issuecomment-831823623",
+   "user": "4nd3r"
+  },
+  {
+   "body": "Thanks for your PR and your patience! :+1: Merged with a small cleanup in 4899d1d10f612fa9f0477cd7e7d1f30db746fc89.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6372#issuecomment-867849194",
+   "user": "The-Compiler"
+  }
+ ]
+}

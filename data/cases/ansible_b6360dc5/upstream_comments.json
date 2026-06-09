@@ -1,0 +1,50 @@
+{
+ "repo": "ansible/ansible",
+ "pr_number": 72288,
+ "pr_url": "https://github.com/ansible/ansible/pull/72288",
+ "n_review": 8,
+ "n_convo": 0,
+ "review_comments": [
+  {
+   "body": "This should be under `breaking_changes`",
+   "url": "https://github.com/ansible/ansible/pull/72288#discussion_r509851487",
+   "user": "jborean93"
+  },
+  {
+   "body": "I don't believe `ANSIBLE_GALAXY_TOKEN` is used for authentication to Galaxy itself. This config option is meant to be your GitHub PAT used by `ansible-galaxy login` to then retrieve your Galaxy token. Very poorly named unfortunately but it was added when `login` was originally.\r\n\r\nSo the workarounds that I know of are:\r\n\r\n* `~/.ansible/galaxy_token`\r\n* `ansible.cfg` under the Galaxy server list configuration as documented at https://docs.ansible.com/ansible/latest/user_guide/collections_using.html#configuring-the-ansible-galaxy-client\r\n* Via `--token` to `ansible-galaxy`",
+   "url": "https://github.com/ansible/ansible/pull/72288#discussion_r509852072",
+   "user": "jborean93"
+  },
+  {
+   "body": "Wouldn't `ansible-galaxy role -v login` be an issue here? It seems like we should just be checking if `login` was set, or maybe displaying the error in `self.execute_login`.",
+   "url": "https://github.com/ansible/ansible/pull/72288#discussion_r509852669",
+   "user": "jborean93"
+  },
+  {
+   "body": "Ah right, I forgot we had that now!\r\n",
+   "url": "https://github.com/ansible/ansible/pull/72288#discussion_r509863019",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "Nice- thanks for the clarification. I'll clean those up.",
+   "url": "https://github.com/ansible/ansible/pull/72288#discussion_r509863634",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "While we are at it we may as well deprecate/remove or at least put a comment on that config entry saying it isn't used anymore.",
+   "url": "https://github.com/ansible/ansible/pull/72288#discussion_r509864522",
+   "user": "jborean93"
+  },
+  {
+   "body": "No worse than it was before- it'll just show the usage dump in that case with an invalid ROLE_ACTION (as it did prior to this change), since the subparser seems to require that the subcommand be first. I just didn't want to create any future trip hazards by globally blacklisting `login` as an arg value without using the parser. I tried doing this as a hidden option first, but it doesn't seem that you can do hidden subparsers in argparse. :(",
+   "url": "https://github.com/ansible/ansible/pull/72288#discussion_r509864938",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "What if we were to keep the code here the same but move the error to `execute_login`. That way we are still relying on argparse to resolve the args like it does today and we don't have to complicate this already complicated bit of code.",
+   "url": "https://github.com/ansible/ansible/pull/72288#discussion_r509867676",
+   "user": "jborean93"
+  }
+ ],
+ "conversation_comments": []
+}

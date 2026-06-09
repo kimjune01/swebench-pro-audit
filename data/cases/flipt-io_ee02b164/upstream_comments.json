@@ -1,0 +1,31 @@
+{
+ "repo": "flipt-io/flipt",
+ "pr_number": 1253,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/1253",
+ "n_review": 3,
+ "n_convo": 1,
+ "review_comments": [
+  {
+   "body": "wonder if we should add an IT that verifies that this key is never exposed (if configured) when curling `/meta/config` ?",
+   "url": "https://github.com/flipt-io/flipt/pull/1253#discussion_r1060799253",
+   "user": "markphelps"
+  },
+  {
+   "body": "That is a good idea. To avoid this regressing.",
+   "url": "https://github.com/flipt-io/flipt/pull/1253#discussion_r1060813622",
+   "user": "GeorgeMac"
+  },
+  {
+   "body": "I updated the test to both look for the key that was configured in the meta config response and ensure that the CSRF `Set-Cookie` header was supplied appropriately.",
+   "url": "https://github.com/flipt-io/flipt/pull/1253#discussion_r1061534280",
+   "user": "GeorgeMac"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "# [Codecov](https://codecov.io/gh/flipt-io/flipt/pull/1253?src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) Report\n> Merging [#1253](https://codecov.io/gh/flipt-io/flipt/pull/1253?src=pr&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (f431062) into [main](https://codecov.io/gh/flipt-io/flipt/commit/ee02b164f6728d3227c42671028c67a4afd36918?el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (ee02b16) will **not change** coverage.\n> The diff coverage is `n/a`.\n\n```diff\n@@           Coverage Diff           @@\n##             main    #1253   +/-   ##\n=======================================\n  Coverage   79.91%   79.91%           \n=======================================\n  Files          42       42           \n  Lines        3187     3187           \n=======================================\n  Hits         2547     2547           \n  Misses        515      515           \n  Partials      125      125           \n```\n\n\n| [Impacted Files](https://codecov.io/gh/flipt-io/flipt/pull/1253?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) | Coverage \u0394 | |\n|---|---|---|\n| [internal/config/authentication.go](https://codecov.io/gh/flipt-io/flipt/pull/1253/diff?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvY29uZmlnL2F1dGhlbnRpY2F0aW9uLmdv) | `86.51% <\u00f8> (\u00f8)` | |\n\n:mega: We\u2019re building smart automated test selection to slash your CI/CD build times. [Learn more](https://about.codecov.io/iterative-testing/?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io)\n",
+   "url": "https://github.com/flipt-io/flipt/pull/1253#issuecomment-1369843072",
+   "user": "codecov-commenter"
+  }
+ ]
+}

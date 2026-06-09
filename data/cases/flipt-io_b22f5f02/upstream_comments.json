@@ -1,0 +1,31 @@
+{
+ "repo": "flipt-io/flipt",
+ "pr_number": 2359,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/2359",
+ "n_review": 2,
+ "n_convo": 2,
+ "review_comments": [
+  {
+   "body": "do we need to update the JSON and cue schemas as well for this?",
+   "url": "https://github.com/flipt-io/flipt/pull/2359#discussion_r1388473977",
+   "user": "markphelps"
+  },
+  {
+   "body": "Ah yes, thank you!",
+   "url": "https://github.com/flipt-io/flipt/pull/2359#discussion_r1389237775",
+   "user": "GeorgeMac"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "Uffizzi Preview `deployment-40493` was deleted.",
+   "url": "https://github.com/flipt-io/flipt/pull/2359#issuecomment-1803850965",
+   "user": "github-actions[bot]"
+  },
+  {
+   "body": "## [Codecov](https://app.codecov.io/gh/flipt-io/flipt/pull/2359?src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) Report\n> Merging [#2359](https://app.codecov.io/gh/flipt-io/flipt/pull/2359?src=pr&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (6392ef8) into [gm/fs-oci](https://app.codecov.io/gh/flipt-io/flipt/commit/b22f5f02e40b225b6b93fff472914973422e97c6?el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (b22f5f0) will **decrease** coverage by `0.13%`.\n> The diff coverage is `28.00%`.\n\n```diff\n@@              Coverage Diff              @@\n##           gm/fs-oci    #2359      +/-   ##\n=============================================\n- Coverage      70.70%   70.58%   -0.13%     \n=============================================\n  Files             81       81              \n  Lines           7941     7956      +15     \n=============================================\n+ Hits            5615     5616       +1     \n- Misses          1982     1996      +14     \n  Partials         344      344              \n```\n\n\n| [Files](https://app.codecov.io/gh/flipt-io/flipt/pull/2359?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) | Coverage \u0394 | |\n|---|---|---|\n| [internal/oci/file.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2359?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvb2NpL2ZpbGUuZ28=) | `63.49% <80.00%> (+1.14%)` | :arrow_up: |\n| [internal/config/storage.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2359?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvY29uZmlnL3N0b3JhZ2UuZ28=) | `81.03% <52.63%> (-5.84%)` | :arrow_down: |\n| [internal/cmd/grpc.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2359?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvY21kL2dycGMuZ28=) | `8.31% <0.00%> (-0.37%)` | :arrow_down: |\n\n... and [1 file with indirect coverage changes](https://app.codecov.io/gh/flipt-io/flipt/pull/2359/indirect-changes?src=pr&el=tree-more&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io)\n\n:mega: Codecov offers a browser extension for seamless coverage viewing on GitHub. Try it in [Chrome](https://chrome.google.com/webstore/detail/codecov/gedikamndpbemklijjkncpnolildpbgo) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/codecov/) today!\n",
+   "url": "https://github.com/flipt-io/flipt/pull/2359#issuecomment-1803859465",
+   "user": "codecov[bot]"
+  }
+ ]
+}

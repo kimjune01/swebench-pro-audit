@@ -1,0 +1,20 @@
+{
+ "repo": "internetarchive/openlibrary",
+ "pr_number": 9588,
+ "pr_url": "https://github.com/internetarchive/openlibrary/pull/9588",
+ "n_review": 0,
+ "n_convo": 2,
+ "review_comments": [],
+ "conversation_comments": [
+  {
+   "body": "For now, while we're testing, let's hit amazon first (we need prices for rendering affiliate links), then google next (serially) and if we need further restriction, only hit google after amazon in the case where we see high_priority flag (not a requirement, just an option).\r\n\r\nIn the future we could fetch these async",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9588#issuecomment-2261393764",
+   "user": "mekarpeles"
+  },
+  {
+   "body": "This PR should be tested with the import source for https://openlibrary.org/books/OL36405325M/Yoga_Made_Easy. The work is deleted, the editions are not, but can be found if by searching the ISBN. See also https://openlibrary.org/works/OL26818467W?v=1. CC @seabelis.\r\n\r\nUpdate: it looks as if Google Books would add nothing useful to this record, if it were still imported from BWB, as BookWorm would only populate empty fields, and although the `publish_date` of 2050 would be removed now, Google Books has no publication date, and the record already has a title, author, and publication date: https://www.googleapis.com/books/v1/volumes?q=isbn:9781685397753.",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9588#issuecomment-2299292934",
+   "user": "scottbarnes"
+  }
+ ]
+}

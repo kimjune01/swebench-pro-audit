@@ -1,0 +1,15 @@
+{
+ "repo": "ansible/ansible",
+ "pr_number": 83847,
+ "pr_url": "https://github.com/ansible/ansible/pull/83847",
+ "n_review": 0,
+ "n_convo": 1,
+ "review_comments": [],
+ "conversation_comments": [
+  {
+   "body": "Backport PRs\r\n\r\n+ stable-2.16 - https://github.com/ansible/ansible/pull/83848\r\n+ stable-2.17 - https://github.com/ansible/ansible/pull/83849",
+   "url": "https://github.com/ansible/ansible/pull/83847#issuecomment-2305998030",
+   "user": "jborean93"
+  }
+ ]
+}

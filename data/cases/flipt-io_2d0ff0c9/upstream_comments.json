@@ -1,0 +1,15 @@
+{
+ "repo": "flipt-io/flipt",
+ "pr_number": 1064,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/1064",
+ "n_review": 0,
+ "n_convo": 1,
+ "review_comments": [],
+ "conversation_comments": [
+  {
+   "body": "# [Codecov](https://codecov.io/gh/flipt-io/flipt/pull/1064?src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) Report\n> Merging [#1064](https://codecov.io/gh/flipt-io/flipt/pull/1064?src=pr&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (531df7b) into [main](https://codecov.io/gh/flipt-io/flipt/commit/976d19ef53a5619e7ba4f03db49b3901f5ee73d7?el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (976d19e) will **decrease** coverage by `0.13%`.\n> The diff coverage is `66.66%`.\n\n> :exclamation: Current head 531df7b differs from pull request most recent head 6df2bd2. Consider uploading reports for the commit 6df2bd2 to get more accurate results\n\n```diff\n@@            Coverage Diff             @@\n##             main    #1064      +/-   ##\n==========================================\n- Coverage   80.83%   80.69%   -0.14%     \n==========================================\n  Files          17       17              \n  Lines        1915     1922       +7     \n==========================================\n+ Hits         1548     1551       +3     \n- Misses        283      287       +4     \n  Partials       84       84              \n```\n\n\n| [Impacted Files](https://codecov.io/gh/flipt-io/flipt/pull/1064?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) | Coverage \u0394 | |\n|---|---|---|\n| [internal/config/config.go](https://codecov.io/gh/flipt-io/flipt/pull/1064/diff?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvY29uZmlnL2NvbmZpZy5nbw==) | `89.25% <\u00f8> (\u00f8)` | |\n| [internal/storage/sql/migrator.go](https://codecov.io/gh/flipt-io/flipt/pull/1064/diff?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc3RvcmFnZS9zcWwvbWlncmF0b3IuZ28=) | `27.14% <0.00%> (-1.65%)` | :arrow_down: |\n| [internal/storage/sql/db.go](https://codecov.io/gh/flipt-io/flipt/pull/1064/diff?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc3RvcmFnZS9zcWwvZGIuZ28=) | `94.78% <100.00%> (+0.13%)` | :arrow_up: |\n\n:mega: We\u2019re building smart automated test selection to slash your CI/CD build times. [Learn more](https://about.codecov.io/iterative-testing/?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io)\n",
+   "url": "https://github.com/flipt-io/flipt/pull/1064#issuecomment-1273778392",
+   "user": "codecov-commenter"
+  }
+ ]
+}

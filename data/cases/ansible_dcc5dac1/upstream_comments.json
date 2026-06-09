@@ -1,0 +1,20 @@
+{
+ "repo": "ansible/ansible",
+ "pr_number": 85119,
+ "pr_url": "https://github.com/ansible/ansible/pull/85119",
+ "n_review": 2,
+ "n_convo": 0,
+ "review_comments": [
+  {
+   "body": "The 'default' type is 'string', so unspecified should be forced to string, though that was not exactly what was happening (passthrough!). \r\n\r\nSo while this departs from what we documented, it is probably 'more correct' reflection of what was happening. ",
+   "url": "https://github.com/ansible/ansible/pull/85119#discussion_r2080347711",
+   "user": "bcoca"
+  },
+  {
+   "body": "Yeah, we were torn on that issue and ended up sticking with the existing behavior.\r\n\r\nThat's why we added the FIXME comment, so we can come back later and make an explicit pass-through option. We'd like to deprecate and eventually make it an error to provide an unknown type. Right now a typo in config just passes the value through unmodified with no warning.",
+   "url": "https://github.com/ansible/ansible/pull/85119#discussion_r2080382567",
+   "user": "mattclay"
+  }
+ ],
+ "conversation_comments": []
+}

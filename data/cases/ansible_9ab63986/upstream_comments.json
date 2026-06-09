@@ -1,0 +1,366 @@
+{
+ "repo": "ansible/ansible",
+ "pr_number": 83508,
+ "pr_url": "https://github.com/ansible/ansible/pull/83508",
+ "n_review": 64,
+ "n_convo": 7,
+ "review_comments": [
+  {
+   "body": "Since anyone using this in gather_facts will need to opt-in anyway, would it be better to make the default the full list of choices for convenience?\r\n\r\nShould I add tmpfs to the list of choices?",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661136663",
+   "user": "s-hertel"
+  },
+  {
+   "body": "maybe 0/none should be the default, most users of this module should not have too many issues and this should only be set if they do encounter them.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661155957",
+   "user": "bcoca"
+  },
+  {
+   "body": "bike shed should be orange! on_timeout?",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661157555",
+   "user": "bcoca"
+  },
+  {
+   "body": "maybe instead of an enum a filters/patterns so even if new mount types appear user can use module w/o code update?",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661161294",
+   "user": "bcoca"
+  },
+  {
+   "body": "i.e i have vfat from my usb drive, but also hfs from a friend's mac drive i was 'rescuing', trying to keep up with the list will can be daunting",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661172578",
+   "user": "bcoca"
+  },
+  {
+   "body": "no need for 'ifs', since get_file_content already checks:\r\n```\r\n    if os.path.exists(path) and os.access(path, os.R_OK):\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661175137",
+   "user": "bcoca"
+  },
+  {
+   "body": "same here, just `if not mtab_entries:` ",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661176107",
+   "user": "bcoca"
+  },
+  {
+   "body": "or just a for loop on the files and escape once we have mtab entries?",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661177277",
+   "user": "bcoca"
+  },
+  {
+   "body": "check rc/err to warn user in case calling mount fails",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661179258",
+   "user": "bcoca"
+  },
+  {
+   "body": "+1, renamed",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661231101",
+   "user": "s-hertel"
+  },
+  {
+   "body": "good spotting, refactored this function",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661231555",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Fixed",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661231774",
+   "user": "s-hertel"
+  },
+  {
+   "body": "I made the module default 0, which internally times out after .01 seconds.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661231932",
+   "user": "s-hertel"
+  },
+  {
+   "body": "fixed",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661235030",
+   "user": "s-hertel"
+  },
+  {
+   "body": "why i was thinking None was better default, only pass/call timeout when `is not None`, can do same with 0 but I think `None` makes a better sentinel here.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661245148",
+   "user": "bcoca"
+  },
+  {
+   "body": "should we check OS/platform first in case some weird fs driver can match 'other platforms'?",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661247716",
+   "user": "bcoca"
+  },
+  {
+   "body": "for each mount, not mount type",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661249948",
+   "user": "bcoca"
+  },
+  {
+   "body": "Only calling timeout when timeout `is not None/0` allows a hang, which means anyone enabling this module for gather_facts will also need to set the timeout. I think it should error after a short period of time by default instead (which is what I've done).",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661253178",
+   "user": "s-hertel"
+  },
+  {
+   "body": "we might want to add timeout here too as calling mount when there is a bad/unresponsive mount point can also hang for a long time",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661253416",
+   "user": "bcoca"
+  },
+  {
+   "body": "good spotting, wrote the docs before I wrote the code\r\n```suggestion\r\n    description: The maximum number of seconds to query for each mount.\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661258053",
+   "user": "s-hertel"
+  },
+  {
+   "body": "ok, i was just thinking most users won't have hangs but can have long waits for network items, since this is an explicit choice we could default to waiting, unlike 'default fact gathering' in which waiting can become too cumbersome.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661259470",
+   "user": "bcoca"
+  },
+  {
+   "body": "I guess I misunderstood the request. I thought 20 seconds was erring on an unreasonable amount of time to wait since it's per mount, but could make it longer too \u00af\\_(\u30c4)_/\u00af Making `timeout(seconds)` conditional introduces what I'd consider to be a bug.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661267479",
+   "user": "s-hertel"
+  },
+  {
+   "body": ">  ... unlike 'default fact gathering' in which waiting can become too cumbersome.\r\n\r\nI am specifically thinking of people who are going to enable this as a FACTS_MODULE.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1661282880",
+   "user": "s-hertel"
+  },
+  {
+   "body": "The timeout now applies to executing mount too.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1662563177",
+   "user": "s-hertel"
+  },
+  {
+   "body": "I added a check for sys.platform, but made it kind of lenient (allowing 'linux' to match) since it seems there is no standardization.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1662566070",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Let's bail out early ... \r\n\r\n```\r\nmounts = []\r\nif mount_path is None:\r\n   return mounts\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1662567939",
+   "user": "Akasurde"
+  },
+  {
+   "body": "I replaced this option with `devices` and `fstypes` to filter using fnmatch. This makes the module much easier to test too. Let me know what you think.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1662571897",
+   "user": "s-hertel"
+  },
+  {
+   "body": "sorry, it was a bad idea on my part, it would need to include the distro lib (we do vendor) and a lot of complicated and fallback heavy querying. I forgot that 'platform detection' is a mess.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1662572183",
+   "user": "bcoca"
+  },
+  {
+   "body": "I circled back around to this, and fixed using no timeout, thanks for pointing it out.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1662575636",
+   "user": "s-hertel"
+  },
+  {
+   "body": "I wanted to have 1 return statement, but yeah I just added a second...",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1662577578",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Nit: `Optional` is considered confusing, so many linters recommend being explicit about its actual semantics:\r\n```suggestion\r\n) -> tuple[dict | None, str | None]:\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1662712739",
+   "user": "webknjaz"
+  },
+  {
+   "body": "Thanks, I forgot about that.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1662720160",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Fixed",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1662735391",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Hopefully I've captured this pretty well in the documentation, but wanted to add a note on the implementation, since type `raw` is out of the ordinary. This gets used implicitly as a dynamic source only for hosts that don't have a file-based alternative, which is why it's configurable alongside sources. This is type `raw` to allow `mount_binary: ~` (to opt out of the fallback) since `~` is not a valid choice for a str/path type unless it is the default value. The default isn't `~` to allow BSD and AIX to collect the current mounts by default.\r\n\r\nThe mount_binary can also be configured explicitly in sources so it always runs, but this would be redundant for Linux (only really makes sense as the only dynamic source in that case, but the mount output is non-standardized, and parsing it is best-effort, so using a file-based source is superior).",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1752573722",
+   "user": "s-hertel"
+  },
+  {
+   "body": "It would be good to minimize the dependencies on (and changes to) the existing module_utils facts code. Instead of importing `_replace_octal_escapes`, a simple one-line function will suffice:\r\n\r\n```python\r\ndef _replace_octal_escapes(value: str) -> str:\r\n    return re.sub(r'(\\\\[0-7]{3})', lambda m: codecs.decode(m.group(0), 'unicode_escape'), value)\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1752939716",
+   "user": "mattclay"
+  },
+  {
+   "body": "Since this is a bug fix, it should go into a separate PR. That will allow it to be backported.\r\n\r\nThat will also have the benefit of removing the last change to module_utils from this PR (taking into account my other comment on `_replace_octal_escapes`).",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1752940635",
+   "user": "mattclay"
+  },
+  {
+   "body": "Since none of our unit test code is user facing, there's no need to use `_` imports to mark anything private.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1752944532",
+   "user": "mattclay"
+  },
+  {
+   "body": "This test should be marked `destructive` since it makes changes to the system.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1752967119",
+   "user": "mattclay"
+  },
+  {
+   "body": "`strip()` already works both ends of the string, so all the chained `rstrip()`s are seemingly superfluous.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1752977416",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "Good point, fixed. I removed the dependency on LinuxHardware for the UUIDs too.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1758121226",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Fixed, I have opened this as https://github.com/ansible/ansible/pull/83945.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1758122158",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Fixed",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1758122372",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Thanks, good catch. I had written this test non-destructive initially.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1758122900",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Fixed",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1758123548",
+   "user": "s-hertel"
+  },
+  {
+   "body": "```suggestion\r\n      - Additional mounts to the same mount point are available from C(aggregate_mounts) (if enabled).\r\n```\r\n(remove extra space)",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1763583577",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "It'd be good to include which module sourced the warning (especially when running with other stuff under `gather_facts`), eg:\r\n\r\n```suggestion\r\n                    module.warn(f'mount_facts: ignoring repeat mounts for {mount_point}. \"\r\n```\r\n\r\nAlso (not a merge blocker), but it might be good to collapse to a single warning that lists them all to cut down on the boilerplate parts.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1763593496",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "```suggestion\r\n      - When this is V(null), a warning will be emitted if multiple mounts for the same mount point are found.\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1763600815",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "```suggestion\r\n      - The action to take when gathering mount information exceeds O(timeout).\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1763601534",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "```suggestion\r\n      - This is the maximum number of seconds to wait for each mount to complete. When this is V(null), wait indefinitely.\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1763602378",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "```suggestion\r\n      - Configure in conjunction with O(on_timeout) to skip unresponsive mounts.\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1763603003",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "(since the argspec says `float`):\r\n```suggestion\r\n        module.fail_json(msg=\"argument 'timeout' must be a positive number or null, not {seconds}\")\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1763604990",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "IIUC the way this works, the mount binary wouldn't be able to accept args, since the value of `mount_binary` is also the \"name\" of its associated source. I'm wondering if it would make more sense to always use a fixed key like `mount` or `mount_binary` to refer to that in sources- then `mount_binary` could include args if needed?",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1763614321",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "Thanks, good catch.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1763633555",
+   "user": "s-hertel"
+  },
+  {
+   "body": "I could change sources to include a fixed key for the mount_binary instead, but mount_binary is looked up using `get_bin_path` so args aren't supported for that reason. Should I just run the mount_binary as a command instead of looking up the binary? I was hesitant to support args, since it can impact the output format (like dragonflybsd has a -p option to format like fstab instead), which would not match the supported regexes for mount output.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1763641518",
+   "user": "s-hertel"
+  },
+  {
+   "body": "I committed your suggestion, but I will add an update to collapse it to a single warning.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1763646915",
+   "user": "s-hertel"
+  },
+  {
+   "body": "I ran into an issue with symlinked sources, so if it's not a blocker, I'm going to leave this as-is. For example /etc/mtab is symlinked to /proc/mounts and since the module collects from both, if I include the source in the warning, the same warning for the same mount points is given twice. Here's what I was attempting:\r\n\r\n```python\r\n    duplicates_msg = \"\"\r\n    # FIXME: would need to deduplicate by os.path.realpath(src)\r\n    for src, mnts in file_source_mount_points.items():\r\n        if len(set(mnts)) == len(mnts):\r\n            continue\r\n        duplicates = [mnt for mnt in mnts if mnts.count(mnt) > 1]\r\n        duplicates_msg += f\"{src}: {', '.join(duplicates)}\\n\"\r\n\r\n    if module.params[\"include_aggregate_mounts\"] is None and duplicates_msg:\r\n        module.warn(f\"mount_facts: ignoring repeat mounts for the following sources with duplicates:\\n{duplicates_msg}\"\r\n                    \"You can disable this warning by configuring the 'include_aggregate_mounts' option as True or False.\")\r\n\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1763721872",
+   "user": "s-hertel"
+  },
+  {
+   "body": "I collapsed this to a single warning in the latest commit, and fixed the symlinks issue so the aggregate_mounts don't contain duplicates.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1765301738",
+   "user": "s-hertel"
+  },
+  {
+   "body": "I updated sources to use the fixed key \"mount\" in the latest commit. I haven't added a way to pass args to the mount_binary.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1765305120",
+   "user": "s-hertel"
+  },
+  {
+   "body": "If different symlinks refer to the same source, then the `source in seen` check above won't detect the duplicate. Checking the real source here would protect against that:\r\n\r\n```suggestion\r\n            if (real_source := os.path.realpath(source)) in seen:\r\n                continue\r\n                \r\n            seen.add(real_source)\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1765924656",
+   "user": "mattclay"
+  },
+  {
+   "body": "I just realized the change I suggested doesn't resolve the issue I pointed out, since it would result in skipping a path that isn't a symlink. The seen check needs to be done in one place, or a separate set used for real paths.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1766879161",
+   "user": "mattclay"
+  },
+  {
+   "body": "I have a warning above if non-symlink duplicates are given, so I think skipping those too is correct. How does https://github.com/ansible/ansible/pull/83508/commits/ef1f410f02f0a78de307cb9f403791b9241ebb55 look?",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1767064720",
+   "user": "s-hertel"
+  },
+  {
+   "body": "This does have the side-effect of turning `mount` into a path even though it's not. For the purposes of this check it should be fine, unless one of the actual sources happens to be a `mount` file in the current directory.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1767068076",
+   "user": "mattclay"
+  },
+  {
+   "body": "Oh, good catch. let me fix that",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1767069320",
+   "user": "s-hertel"
+  },
+  {
+   "body": "WFM- that at least opens more possibilities for passing args in the future- agreed you wouldn't want to pass anything that might change the format, but there are a crapton of args that can filter/expand what it can see and otherwise change things that could potentially be useful/needed at some point.",
+   "url": "https://github.com/ansible/ansible/pull/83508#discussion_r1767076994",
+   "user": "nitzmahone"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "bikeshed: extended_mount_facts",
+   "url": "https://github.com/ansible/ansible/pull/83508#issuecomment-2200333769",
+   "user": "bcoca"
+  },
+  {
+   "body": "The test `ansible-test sanity --test ansible-doc` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/ansible-doc.html)] failed with the error:\n```\nOutput on stderr from ansible-doc is considered an error.\n\nCommand \"ansible-doc -t module extended_mount_facts\" returned exit status 0.\n>>> Standard Error\n[WARNING]: While constructing a mapping from\n/root/ansible/lib/ansible/modules/extended_mount_facts.py, line 9, column 3,\nfound a duplicate dict key (timeout). Using last defined value only.\n```\n\nThe test `ansible-test sanity --test pylint` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/pylint.html)] failed with 1 error:\n```\nlib/ansible/modules/extended_mount_facts.py:97:0: unused-import: Unused import os\n```\n\nThe test `ansible-test sanity --test validate-modules` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/validate-modules.html)] failed with 5 errors:\n```\nlib/ansible/modules/extended_mount_facts.py:0:0: doc-choices-do-not-match-spec: Argument 'on_timeout' in argument_spec defines choices as (['error', 'warn', 'ignore']) but documentation defines choices as ([])\nlib/ansible/modules/extended_mount_facts.py:0:0: doc-default-does-not-match-spec: Argument 'on_timeout' in argument_spec defines default as ('error') but documentation defines default as (None)\nlib/ansible/modules/extended_mount_facts.py:0:0: doc-default-incompatible-type: Argument 'timeout' in documentation defines default as ('error') but this is incompatible with parameter type 'int'\nlib/ansible/modules/extended_mount_facts.py:0:0: doc-missing-type: Argument 'on_timeout' in argument_spec uses default type ('str') but documentation doesn't define type\nlib/ansible/modules/extended_mount_facts.py:0:0: undocumented-parameter: Argument 'on_timeout' is listed in the argument_spec, but not documented in the module documentation\n```\n\nThe test `ansible-test sanity --test yamllint` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/yamllint.html)] failed with 1 error:\n```\nlib/ansible/modules/extended_mount_facts.py:35:3: key-duplicates: DOCUMENTATION: duplication of key \"timeout\" in mapping\n```\n\n\n<!-- r_hash: 1a850be5836c8de5d5b1b5f4dfda5a8e -->\n[click here for bot help](https://github.com/ansible/ansibotmini#ansibotmini)\n<!--- boilerplate: ci_test_result --->\n",
+   "url": "https://github.com/ansible/ansible/pull/83508#issuecomment-2200474578",
+   "user": "ansibot"
+  },
+  {
+   "body": "The test `ansible-test sanity --test mypy --python 3.10` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/mypy.html)] failed with 1 error:\n```\nlib/ansible/modules/extended_mount_facts.py:204:24: assignment: Incompatible types in assignment (expression has type \"list[Never]\", variable has type \"str\")\n```\n\nThe test `ansible-test sanity --test mypy --python 3.11` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/mypy.html)] failed with 1 error:\n```\nlib/ansible/modules/extended_mount_facts.py:204:24: assignment: Incompatible types in assignment (expression has type \"list[Never]\", variable has type \"str\")\n```\n\nThe test `ansible-test sanity --test mypy --python 3.12` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/mypy.html)] failed with 1 error:\n```\nlib/ansible/modules/extended_mount_facts.py:204:24: assignment: Incompatible types in assignment (expression has type \"list[Never]\", variable has type \"str\")\n```\n\nThe test `ansible-test sanity --test mypy --python 3.13` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/mypy.html)] failed with 1 error:\n```\nlib/ansible/modules/extended_mount_facts.py:204:24: assignment: Incompatible types in assignment (expression has type \"list[Never]\", variable has type \"str\")\n```\n\nThe test `ansible-test sanity --test mypy --python 3.8` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/mypy.html)] failed with 1 error:\n```\nlib/ansible/modules/extended_mount_facts.py:204:24: assignment: Incompatible types in assignment (expression has type \"List[Never]\", variable has type \"str\")\n```\n\nThe test `ansible-test sanity --test mypy --python 3.9` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/mypy.html)] failed with 1 error:\n```\nlib/ansible/modules/extended_mount_facts.py:204:24: assignment: Incompatible types in assignment (expression has type \"list[Never]\", variable has type \"str\")\n```\n\n\n<!-- r_hash: 8974dfa94c17b2c3f914dcedd4d17299 -->\n[click here for bot help](https://github.com/ansible/ansibotmini#ansibotmini)\n<!--- boilerplate: ci_test_result --->\n",
+   "url": "https://github.com/ansible/ansible/pull/83508#issuecomment-2203346413",
+   "user": "ansibot"
+  },
+  {
+   "body": "The test `ansible-test sanity --test pylint` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/pylint.html)] failed with 1 error:\n```\ntest/units/modules/test_mount_facts.py:18:0: unused-import: Unused CalledProcessError imported from subprocess\n```\n\n\n<!-- r_hash: 225c1a7a6b960bb4995ff7ec07bc2ee6 -->\n[click here for bot help](https://github.com/ansible/ansibotmini#ansibotmini)\n<!--- boilerplate: ci_test_result --->\n",
+   "url": "https://github.com/ansible/ansible/pull/83508#issuecomment-2347960076",
+   "user": "ansibot"
+  },
+  {
+   "body": "> I assume we're going for rough compatibility with the existing mount facts, hence not providing further processing of some composite or conditionally-available values (e.g. options: \"rw,nosuid...\", uuid: N/A)?\r\n\r\n@nitzmahone I did leave `options` as the raw string for compatibility. I was thinking a new key could be added for parsed options. On a related note, I ended up adding a dictionary of options for AIX /etc/filesystems fields (under the key \"attributes\" since \"options\" is taken), because one of the AIX attributes is \"mount\" (which would clobber the mount point). I'm wondering if I should change that to a list, if it would be more compatible for Linux mount options (without a corresponding =value).\r\n\r\nI could omit `uuid` instead of setting it to `N/A`.  The format is closer to default fact-gathering now (I had overlooked that some mount points have multiple devices, so I changed it to a list of dictionaries), but it's not identical. The options get munged here https://github.com/ansible/ansible/blob/devel/lib/ansible/module_utils/facts/hardware/linux.py#L600, and I left that out because it seemed like if I was using the options to create or modify mounts, the munged value would be an inconvenience.\r\n\r\nI took at stab at the points you brought up around maintainability :crossed_fingers: There's probably more to do, but please let me know how it looks to you. I added a couple dataclasses to simplify type hints, removed the most of the reliance on module_utils, and tried to tighten up the regex matching by ensuring all lines match excluding the ones I know don't, instead of checking if any match.",
+   "url": "https://github.com/ansible/ansible/pull/83508#issuecomment-2348006717",
+   "user": "s-hertel"
+  },
+  {
+   "body": "The test `ansible-test sanity --test compile --python 3.10` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/compile.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:33: SyntaxError: module.warn(f'mount_facts: ignoring repeat mounts for {mount_point}. \"\n```\n\nThe test `ansible-test sanity --test compile --python 3.11` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/compile.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:33: SyntaxError: module.warn(f'mount_facts: ignoring repeat mounts for {mount_point}. \"\n```\n\nThe test `ansible-test sanity --test compile --python 3.12` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/compile.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:33: SyntaxError: module.warn(f'mount_facts: ignoring repeat mounts for {mount_point}. \"\n```\n\nThe test `ansible-test sanity --test compile --python 3.13` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/compile.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:33: SyntaxError: module.warn(f'mount_facts: ignoring repeat mounts for {mount_point}. \"\n```\n\nThe test `ansible-test sanity --test compile --python 3.8` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/compile.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:91: SyntaxError: module.warn(f'mount_facts: ignoring repeat mounts for {mount_point}. \"\n```\n\nThe test `ansible-test sanity --test compile --python 3.9` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/compile.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:91: SyntaxError: module.warn(f'mount_facts: ignoring repeat mounts for {mount_point}. \"\n```\n\nThe test `ansible-test sanity --test import --python 3.10` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/import.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:33: traceback: SyntaxError: unterminated string literal (at test/lib/ansible_test/_util/target/sanity/import/importer.py:296:0)\n```\n\nThe test `ansible-test sanity --test import --python 3.11` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/import.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:33: traceback: SyntaxError: unterminated string literal (at test/lib/ansible_test/_util/target/sanity/import/importer.py:296:0)\n```\n\nThe test `ansible-test sanity --test import --python 3.12` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/import.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:33: traceback: SyntaxError: unterminated f-string literal (at test/lib/ansible_test/_util/target/sanity/import/importer.py:296:0)\n```\n\nThe test `ansible-test sanity --test import --python 3.13` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/import.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:33: traceback: SyntaxError: unterminated f-string literal (at test/lib/ansible_test/_util/target/sanity/import/importer.py:296:0)\n```\n\nThe test `ansible-test sanity --test import --python 3.8` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/import.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:91: traceback: SyntaxError: EOL while scanning string literal (at test/lib/ansible_test/_util/target/sanity/import/importer.py:296:0)\n```\n\nThe test `ansible-test sanity --test import --python 3.9` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/import.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:91: traceback: SyntaxError: EOL while scanning string literal (at test/lib/ansible_test/_util/target/sanity/import/importer.py:296:0)\n```\n\nThe test `ansible-test sanity --test mypy` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/mypy.html)] failed with the error:\n```\nCommand \"/root/.ansible/test/venv/sanity.mypy/3.12/b28f1209/bin/python /root/ansible/test/sanity/code-smell/mypy.py\" returned exit status 1.\n>>> Standard Error\nTraceback (most recent call last):\n  File \"/root/ansible/test/sanity/code-smell/mypy.py\", line 228, in <module>\n    main()\n  File \"/root/ansible/test/sanity/code-smell/mypy.py\", line 47, in main\n    unfiltered_messages.extend(test_context(python_version, context, paths))\n                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/ansible/test/sanity/code-smell/mypy.py\", line 155, in test_context\n    completed_process = subprocess.run(cmd, env=env, capture_output=True, check=True, text=True)\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/root/.ansible/test/venv/sanity.mypy/3.12/b28f1209/bin/python', '-m', 'mypy', '--show-column-numbers', '--show-error-codes', '--no-error-summary', '--allow-redefinition', '--follow-imports', 'normal', '--no-incremental', '--cache-dir', '/dev/null', '--platform', 'linux', '--python-executable', '/root/.ansible/test/venv/sanity.mypy/3.12/b28f1209/bin/python', '--python-version', '3.13', '--config-file', PosixPath('/root/ansible/test/sanity/code-smell/mypy/ansible-core.ini'), 'lib/ansible/modules/mount_facts.py']' returned non-zero exit status 2.\n```\n\nThe test `ansible-test sanity --test yamllint` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/yamllint.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:33: python-syntax-error: unterminated f-string literal (detected at line 563) (<unknown>, line 563)\n```\n\nThe test `ansible-test sanity --test ansible-doc` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/ansible-doc.html)] failed with the error:\n```\nCommand \"ansible-doc -t module mount_facts\" returned exit status 1.\n>>> Standard Error\nERROR! module mount_facts missing documentation (or could not parse documentation): mount_facts did not contain a DOCUMENTATION attribute (/root/ansible/lib/ansible/modules/mount_facts.py). ('unterminated f-string literal (detected at line 563)', (563, 33))\n```\n\nThe test `ansible-test sanity --test pep8` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/pep8.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:34: E901: TokenError: unterminated f-string literal (detected at line 563)\n```\n\nThe test `ansible-test sanity --test pylint` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/pylint.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:563:33: syntax-error: Parsing failed: 'unterminated f-string literal (detected at line 563) (ansible.modules.mount_facts, line 563)'\n```\n\nThe test `ansible-test sanity --test validate-modules` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/validate-modules.html)] failed with 1 error:\n```\nlib/ansible/modules/mount_facts.py:0:0: python-syntax-error: Python SyntaxError while parsing module\n```\n\n\n<!-- r_hash: f2eb8e61ed3daf49f0644ba0655e9a29 -->\n[click here for bot help](https://github.com/ansible/ansibotmini#ansibotmini)\n<!--- boilerplate: ci_test_result --->\n",
+   "url": "https://github.com/ansible/ansible/pull/83508#issuecomment-2356556632",
+   "user": "ansibot"
+  },
+  {
+   "body": "Glad I requested additional reviews on the UX, thanks for the feedback :smile:",
+   "url": "https://github.com/ansible/ansible/pull/83508#issuecomment-2361593704",
+   "user": "s-hertel"
+  }
+ ]
+}

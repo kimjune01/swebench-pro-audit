@@ -1,0 +1,46 @@
+{
+ "repo": "internetarchive/openlibrary",
+ "pr_number": 6466,
+ "pr_url": "https://github.com/internetarchive/openlibrary/pull/6466",
+ "n_review": 6,
+ "n_convo": 1,
+ "review_comments": [
+  {
+   "body": "Optional: Remove leading and trailing whitespace...\r\n```suggestion\r\n    \"\"\"\r\n    >>> read_author_facet(\"OL26783A Leo Tolstoy\")\r\n    ('OL26783A', 'Leo Tolstoy')\r\n    \"\"\"\r\n    key, name = author_facet.strip().split(' ', 1)\r\n```",
+   "url": "https://github.com/internetarchive/openlibrary/pull/6466#discussion_r855942563",
+   "user": "cclauss"
+  },
+  {
+   "body": "Added the doctest :+1: There shouldn't be a need to strip here; the value coming from solr should not have any leading whitespace :+1:",
+   "url": "https://github.com/internetarchive/openlibrary/pull/6466#discussion_r856561979",
+   "user": "cdrini"
+  },
+  {
+   "body": "`None` case is not handled here.  This is causing my local instance's homepage to error on first load, resulting in no content (aside from the page header and footer).",
+   "url": "https://github.com/internetarchive/openlibrary/pull/6466#discussion_r886149529",
+   "user": "jimchamp"
+  },
+  {
+   "body": "Those pesky `None`s are more risk than they are worth.  `reply.get(\"response\") or \"\"`",
+   "url": "https://github.com/internetarchive/openlibrary/pull/6466#discussion_r886173519",
+   "user": "cclauss"
+  },
+  {
+   "body": "This sort of worked:\r\n`response = reply.get('response', '') if reply else ''`\r\n\r\nThe issue with this is that `response` is being subscripted like a `dict` later in this function, leading to more errors.\r\n\r\n@cdrini, what are sensible defaults for `response.get('numFound')` and `response.get('docs')`?  Using `0` and `{}` respectively causes the homepage to render locally without the classics carousel:\r\n\r\n![Screenshot from 2022-05-31 19-27-20](https://user-images.githubusercontent.com/28732543/171299983-3cc304c9-73d8-4ce3-b888-b1617e837542.png)",
+   "url": "https://github.com/internetarchive/openlibrary/pull/6466#discussion_r886204358",
+   "user": "jimchamp"
+  },
+  {
+   "body": "#6616",
+   "url": "https://github.com/internetarchive/openlibrary/pull/6466#discussion_r886258953",
+   "user": "cclauss"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "Thanks @cclauss :+1:",
+   "url": "https://github.com/internetarchive/openlibrary/pull/6466#issuecomment-1110232375",
+   "user": "cdrini"
+  }
+ ]
+}

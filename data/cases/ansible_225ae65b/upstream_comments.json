@@ -1,0 +1,521 @@
+{
+ "repo": "ansible/ansible",
+ "pr_number": 69154,
+ "pr_url": "https://github.com/ansible/ansible/pull/69154",
+ "n_review": 90,
+ "n_convo": 12,
+ "review_comments": [
+  {
+   "body": "Won't this add another heading `Installing collections from a git repository from the shared segment?",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423361244",
+   "user": "jborean93"
+  },
+  {
+   "body": "Might be a good idea to note that this isn't valid for actually published collections and just for local development.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423361996",
+   "user": "jborean93"
+  },
+  {
+   "body": "Should we add the `scm` key or have something like `type: git|file|url|galaxy`?",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423362137",
+   "user": "jborean93"
+  },
+  {
+   "body": "It's been a while since I last looked at this code. From my understanding `from_path` was used to identify collections which is why we unconditionally set `skip=True` so we never tried to install it again.\r\n\r\nAm I understanding the code right where now `from_path` can be called against a cloned repo and that's why we may want to install it (not skip). If that's the case it seems like we may want to have the caller decide whether it's something to skip or not instead of using the is SCM like logic that's currently here.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423367731",
+   "user": "jborean93"
+  },
+  {
+   "body": "Why is this when `not force`? It seems like it is saying skip a SCM collection that contains a `MANIFEST.json` only when `--force` is not set. It seems like we want to still install those collections and `--force` is only for reinstalling collections that are currently installed which is logic outside this function.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423368417",
+   "user": "jborean93"
+  },
+  {
+   "body": "Would this even be set when `stdout`/`stderr` are only really set on the last call in the try block? It seems like if it's going to raise an exception then they will always be an empty string.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423369880",
+   "user": "jborean93"
+  },
+  {
+   "body": "Do we automatically cleanup `DEFAULT_LOCAL_TMP` on exit?",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423370207",
+   "user": "jborean93"
+  },
+  {
+   "body": "We should probably update https://github.com/ansible/ansible/blob/devel/docs/docsite/rst/shared_snippets/installing_multiple_collections.txt to list the keys that are supported in a collection requirements and what they can be set to.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423371413",
+   "user": "jborean93"
+  },
+  {
+   "body": "Currently the code is appending `galaxy.yml` to both files and folders so we should probably skip each entry if it's not a directory.\r\n\r\nI just tested this against `ansible-galaxy collection install git+https://github.com/chocolatey/chocolatey-ansible` and it failed due to it not finding the `galaxy.yml` when I expected it to find it at `chocolatey/galaxy.yml`.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423378072",
+   "user": "jborean93"
+  },
+  {
+   "body": "Should we only fail if `reqs` is an empty list, i.e. no `galaxy.yml` was found in any sub dirs? The way the docs are written is that this will only install dirs in SCM that contain the `galaxy.yml` one level deep. Right now it will fail unless either the root contains `galaxy.yml` or all the subdirs one level deep contain a `galaxy.yml`.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423378726",
+   "user": "jborean93"
+  },
+  {
+   "body": "I don't know whether we should add a note saying this is the path to the collection that contains the `galaxy.yml` and not the `galaxy.yml` itself. This tripped me up when testing and I only realised when stepping through the code and the reading this again.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423379960",
+   "user": "jborean93"
+  },
+  {
+   "body": "That example fails for me too, but it seems like it's because the galaxy.yml is not valid for yaml.safe_loads rather than because the `galaxy.yml` can't be found.\r\n```\r\nERROR! Failed to parse the galaxy.yml at '/home/user/.ansible/tmp/ansible-local-307040vg8x42it/tmpkah0w9xu/chocolatey-ansible/chocolatey/galaxy.yml' with the following error:\r\nwhile constructing a mapping\r\n  in \"b'/home/user/.ansible/tmp/ansible-local-307040vg8x42it/tmpkah0w9xu/chocolatey-ansible/chocolatey/galaxy.yml'\", line 12, column 10\r\nfound unhashable key\r\n  in \"b'/home/user/.ansible/tmp/ansible-local-307040vg8x42it/tmpkah0w9xu/chocolatey-ansible/chocolatey/galaxy.yml'\", line 12, column 11\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423746086",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Somehow I entirely misread that the first time. That definitely seems wrong, thanks for catching it.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423754139",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Yeah, I've thought that before. This file is pretty much just code moved from lib/ansible/playbook/role/requirement.py and I decided not to refactor. I'll remove these couple lines though.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423756875",
+   "user": "s-hertel"
+  },
+  {
+   "body": "yes, `_tempdir()` removes it",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423765326",
+   "user": "s-hertel"
+  },
+  {
+   "body": "I'm not sure what I was thinking here. This was to require --force to reinstall a collection from SCM when there was an installed artifact already. The if/elif should probably just change to:\r\n```\r\nif fallback_metadata:\r\n    skip = False\r\nelse:\r\n    skip = True\r\n```\r\n\r\nor pass a `skip` variable to this function and keep it separate from whether or not we're falling back to galaxy.yml - that seems better",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423777781",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Looking for a better way of doing that.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423781187",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Hm... I like `type:` better I think...",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423782687",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Yea I came across that after explicitly setting the path but it still fails to find the galaxy.yml without it due to the current logic.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423950174",
+   "user": "jborean93"
+  },
+  {
+   "body": "Maybe we just need to add a note/warning to the docs saying that the galaxy.yml also needs to be valid for this to load. It might be overkill with all these warnings but I\u2019m trying to cover use cases that people will try and then subsequently raise issues for where hopefully a note will stop some of that.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r423953799",
+   "user": "jborean93"
+  },
+  {
+   "body": "Sounds good, I'll add one",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r424004345",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Updated in d841de9c69f24d8fc433e6787c7071e68b7f28a2",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r424559652",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Don't we also support `hg`?",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r425379313",
+   "user": "jborean93"
+  },
+  {
+   "body": "hg?",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r425379382",
+   "user": "jborean93"
+  },
+  {
+   "body": "I think I saw someone talk about how this could expose someone's credentials if they are embedding it in the git URL Personally I think they should be using SSH keys instead but it might inadvertently expose info we don't want so worth a thought.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r425382143",
+   "user": "jborean93"
+  },
+  {
+   "body": "No, `hg` works for roles. I initially included it and was told to limit it to `git` for collections.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r425389931",
+   "user": "s-hertel"
+  },
+  {
+   "body": "I think credentials embedded in the git URL could be exposed multiple places, just as in the `Processing requirement collection ...` debug output (as well as already for roles installed from repositories). I don't know if I should change that in this PR or let it be a follow-up decision. Should I add a warning to the documentation?",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r425395774",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Fair enough, works for me.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r425398466",
+   "user": "jborean93"
+  },
+  {
+   "body": "Yea a warning sounds good to me. I'm sure you are right where we output the URL specified in multiple places.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r425398808",
+   "user": "jborean93"
+  },
+  {
+   "body": "```suggestion\r\nThe supported keys for collection requirement entries are ``name``, ``version``, ``source``, and ``type``.\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431161132",
+   "user": "samdoran"
+  },
+  {
+   "body": "This may not be necessary since it may already be encoded on line 1171.\r\n```suggestion\r\n        src_file = os.path.join(b_collection_path, to_bytes(file_info['name'], errors='surrogate_or_strict'))\r\n        dest_file = os.path.join(b_collection_output, to_bytes(file_info['name'], errors='surrogate_or_strict'))\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431172157",
+   "user": "samdoran"
+  },
+  {
+   "body": "Not a big deal now, but I can see hard coding `galaxy.yml` in places making it slightly harder in the future to support `galaxy.yaml` when someone inevitably asks for it to be supported.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431174231",
+   "user": "samdoran"
+  },
+  {
+   "body": "```suggestion\r\n                        collection_input.startswith('git+') or \\:\r\n                        collection_input.startswith('git@'):\r\n```\r\nOtherwise `ansible-galaxy collection install git@github.com:ansible-collections/community.azure.git` does not work:\r\n```\r\nERROR! - command /usr/bin/git clone git@github.com git@github.com failed in directory /.../tmp/ansible-local-329971lp8my187/tmpi20ny9am (rc=128) - fatal: repository 'git@github.com' does not exist\r\n```\r\n(It does work when prepending `git+`. But just using the clone URL github spits out is nicer :) )",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431323806",
+   "user": "felixfontein"
+  },
+  {
+   "body": "You can't install more than one collection from a repo, can you?\r\n```suggestion\r\nInstalling a collection from a git repository\r\n---------------------------------------------\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431376213",
+   "user": "webknjaz"
+  },
+  {
+   "body": "Looks like using commit-ish here is a bit more accurate: https://stackoverflow.com/a/23303550/595220.\r\n\r\nAlso, it's probably worth adding a link to https://git-scm.com/docs/gitglossary#def_commit-ish.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431380701",
+   "user": "webknjaz"
+  },
+  {
+   "body": "@s-hertel this copyright statement looks inaccurate. Is it copied over as is?",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431383877",
+   "user": "webknjaz"
+  },
+  {
+   "body": "@s-hertel why use comma? It's quite unconventional. Is `@` already taken by something else?",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431384935",
+   "user": "webknjaz"
+  },
+  {
+   "body": "Why didn't you use urllib split?",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431385798",
+   "user": "webknjaz"
+  },
+  {
+   "body": "Looks like applying a guard-check style would make it simpler and reduce nesting:\r\n```suggestion\r\n    if collection_name not in dep_map:\r\n        return collection\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431387793",
+   "user": "webknjaz"
+  },
+  {
+   "body": "It'd be great for readability if this clause was in a named var like\r\n```suggestion\r\n    IS_FILE = (\r\n        req_type == 'file' or\r\n        (not req_type and os.path.isfile(to_bytes(collection, errors='surrogate_or_strict')))\r\n    )\r\n    if IS_FILE:\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431388846",
+   "user": "webknjaz"
+  },
+  {
+   "body": "Yes, you can. Either by having multiple directories with galaxy.yml files in the root of the repo or by adding a fragment to the URI.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431389533",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Usually, I discourage using EOL escaping because things like\r\n```python\r\nst = 'some words' \\\r\n\r\n'separate'\r\n```\r\nare valid. And `'separate'` in this example wouldn't be a part of `st`.  One accidentally added or removed empty line makes a lot of difference.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431390188",
+   "user": "webknjaz"
+  },
+  {
+   "body": "It's the syntax supported by roles and was just there for similarity.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431391190",
+   "user": "s-hertel"
+  },
+  {
+   "body": "```suggestion\r\n    :raises AnsibleError: if nothing found\r\n    :return: List of CollectionRequirement objects\r\n    :rtype: list\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431391430",
+   "user": "webknjaz"
+  },
+  {
+   "body": "Mostly for similarity with roles. If you have a recommendation for a better way I'd update this.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431391736",
+   "user": "s-hertel"
+  },
+  {
+   "body": "If it's meant to be compliant w/ PEP257, it should be:\r\n```suggestion\r\n    \"\"\"Return a list of collections found in the repo.\r\n\r\n    If there is a galaxy.yml in the collection then just return\r\n    the specific collection. Otherwise, check each top-level\r\n    directory for a galaxy.yml.\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431392075",
+   "user": "webknjaz"
+  },
+  {
+   "body": "good point",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431392219",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Creating in-memory throw-away lists can be avoided when using functions that support iterables. Besides saving some memory, it's also faster because the generator is not necessarily looped over completely:\r\n```suggestion\r\n        if any(src_file.startswith(directory) for directory in base_directories):\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431393828",
+   "user": "webknjaz"
+  },
+  {
+   "body": "BytesIO is also a file-like object, so use it with CM. Otherwise, you'll end up with the `ResourceWarning: unclosed file <BytesIO(...)>...` (it's not printed out w/o smth like `-Xdev` but it's there):\r\n```suggestion\r\n        with open(b_path, 'wb') as file_obj, BytesIO(b) as b_io:\r\n            shutil.copyfileobj(b_io, file_obj)\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431395969",
+   "user": "webknjaz"
+  },
+  {
+   "body": "TIL. :+1:",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431396724",
+   "user": "s-hertel"
+  },
+  {
+   "body": "(I don't remember if Py 2.7 can do two CMs in one `with`, if not \u2014 change it to two nested blocks)",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431397912",
+   "user": "webknjaz"
+  },
+  {
+   "body": "```suggestion\r\n    \"\"\"Build a tar.gz collection artifact from the manifest data.\"\"\"\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431402292",
+   "user": "webknjaz"
+  },
+  {
+   "body": "```suggestion\r\n    \"\"\"Build a collection directory from the manifest data.\r\n\r\n    This should follow the same pattern as _build_collection_tar.\r\n    \"\"\"\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431402760",
+   "user": "webknjaz"
+  },
+  {
+   "body": "I went ahead and added a function in 0e703ca44050eebd7468d29043dfc4c09df3f151 to get the galaxy.yml/galaxy.yaml path and updated the changelog to note that both are supported now.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431410612",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Thanks, glad you spotted that",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431410815",
+   "user": "s-hertel"
+  },
+  {
+   "body": "```suggestion\r\n        \"\"\"Install collection from source control into given dir.\r\n\r\n        Generates the Ansible collection artifact data from a galaxy.yml and installs\r\n         the artifact to a directory.\r\n        This should follow the same pattern as build_collection, but instead of creating\r\n        an artifact, install it.\r\n\r\n        :param bytes b_collection_output_path: The installation directory for the collection artifact.\r\n\r\n        :raises AnsibleError: If no collection metadata found.\r\n        \"\"\"\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431415111",
+   "user": "webknjaz"
+  },
+  {
+   "body": "Less assigns?\r\n```suggestion\r\n        if info or not fallback_metadata:\r\n            return info\r\n\r\n        return CollectionRequirement.galaxy_metadata(b_path)\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431416493",
+   "user": "webknjaz"
+  },
+  {
+   "body": "```suggestion\r\n    b_collection_path = os.path.join(b_temp_path, b_repo_root)\r\n    if fragment:\r\n        b_fragment = to_bytes(fragment, errors='surrogate_or_strict')\r\n        b_collection_path = os.path.join(b_collection_path, b_fragment)\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431422745",
+   "user": "webknjaz"
+  },
+  {
+   "body": "I'm going to keep this as-is unless you feel very strongly about it. It's just my preference, but I generally like to have one return statement for readability. This would let me remove the `else` line but is mostly stylistic.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431424002",
+   "user": "s-hertel"
+  },
+  {
+   "body": "It's semantically better to use a set:\r\n```suggestion\r\n        if requirement not in {\"*\", \"\"} and requirement != version:\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431425113",
+   "user": "webknjaz"
+  },
+  {
+   "body": "Nitpick: inconsistent interpolation style. Sometimes it's `str.format()` and sometimes it's `%`. It's better to stick with one option everywhere.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431426371",
+   "user": "webknjaz"
+  },
+  {
+   "body": "Ah, I see. I haven't used it so it looks weird based on the experience with other ecosystems. But in this case, consistency makes sense.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431427796",
+   "user": "webknjaz"
+  },
+  {
+   "body": "I didn't know the detail about roles. It just looked like a lot of manual processing which may be error-prone. ",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431428416",
+   "user": "webknjaz"
+  },
+  {
+   "body": "You have only one variant in many places hardcoded. I'm expecting this to cause bugs... How about having at least a module-global constant for these? Or maybe a structure (namedtuple?) that holds both filename and its contents.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431431564",
+   "user": "webknjaz"
+  },
+  {
+   "body": "URL and URI seem to be used inconsistently across the docs.\r\n\r\nP.S. Nitpick: it's better to split paragraphs into multiple shorter lines in order to make the rst source more readable.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431434522",
+   "user": "webknjaz"
+  },
+  {
+   "body": "AFAIR one may put creds (access token) into `~/.netrc` and it'd work just fine.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431436384",
+   "user": "webknjaz"
+  },
+  {
+   "body": "I'd mark folders `ls -F` style:\r\n```suggestion\r\n   \u251c\u2500\u2500 plugins/\r\n   \u2502\u00a0\u00a0 \u251c\u2500\u2500 lookup/\r\n   \u2502\u00a0\u00a0 \u251c\u2500\u2500 modules/\r\n   \u2502\u00a0\u00a0 \u2514\u2500\u2500 module_utils/\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431437673",
+   "user": "webknjaz"
+  },
+  {
+   "body": "```suggestion\r\n   directory/\r\n   \u251c\u2500\u2500 docs/\r\n   \u251c\u2500\u2500 galaxy.yml\r\n   \u251c\u2500\u2500 plugins/\r\n   \u2502\u00a0\u00a0 \u251c\u2500\u2500 inventory/\r\n   \u2502\u00a0\u00a0 \u2514\u2500\u2500 modules/\r\n   \u2514\u2500\u2500 roles/\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431437970",
+   "user": "webknjaz"
+  },
+  {
+   "body": "```suggestion\r\n   namespace/\r\n   \u2514\u2500\u2500 name/\r\n       \u251c\u2500\u2500 docs/\r\n       \u251c\u2500\u2500 galaxy.yml\r\n       \u251c\u2500\u2500 plugins/\r\n       \u2502\u00a0\u00a0 \u251c\u2500\u2500 README.md\r\n       \u2502\u00a0\u00a0 \u2514\u2500\u2500 modules/\r\n       \u251c\u2500\u2500 README.md\r\n       \u2514\u2500\u2500 roles/\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431438161",
+   "user": "webknjaz"
+  },
+  {
+   "body": "Is trailing splash mandatory? If yes \u2014 document this.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431438947",
+   "user": "webknjaz"
+  },
+  {
+   "body": "@webknjaz Where is that? Can you give me an example? We've only supported `galaxy.yml` in the past. If this looks invasive I'll just remove this supporting both for now, and it can be addressed in a follow-up PR.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431439438",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Roles support URLs. Collections support URIs.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431439785",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Ok, I can reword that to just say not to embed credentials instead of listing secure options.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431440209",
+   "user": "s-hertel"
+  },
+  {
+   "body": "It works the same with and without the trailing slash.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431440554",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Also, controller dropped python 2.6 a while back anyway",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431440928",
+   "user": "webknjaz"
+  },
+  {
+   "body": "Pro tip: you can often get rid of escaping when using YAML blocks:\r\n```suggestion\r\n      - >-\r\n        'namespace_1.collection_1' in installed_collections.stdout\r\n      - >-\r\n        'namespace_2.collection_2' in installed_collections.stdout\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431443686",
+   "user": "webknjaz"
+  },
+  {
+   "body": ":+1: I like the escaping better than the extra lines though in this case.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431445716",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Well, removing isn't necessary but you could add something like \"Make sure to use safe auth options for security reasons. For example, use SSH, netrc or [`http.extraHeader`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-httpextraHeader)/[`url.<base>.pushInsteadOf`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-urlltbasegtinsteadOf) in Git config to prevent your creds from being exposed in logs.\"",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431448138",
+   "user": "webknjaz"
+  },
+  {
+   "body": "I think I saw mentions of URLs below in this document",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431448750",
+   "user": "webknjaz"
+  },
+  {
+   "body": "@s-hertel this is one of the hardcoded places that I mentioned in the comment below. Probably the last one...",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431450522",
+   "user": "webknjaz"
+  },
+  {
+   "body": "okay, this function is not that complex atm",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431450919",
+   "user": "webknjaz"
+  },
+  {
+   "body": "Line 1211",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431451190",
+   "user": "webknjaz"
+  },
+  {
+   "body": "@webknjaz Oh, oops. I grepped, but somehow missed that one.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431472768",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Done for all three like this. I made the vars lowercase though.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431477957",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Looks like it works on Py 2.7.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431478305",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Fixed.",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431478658",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Fixed, thanks",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431478829",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Fixed",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431482111",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Fixed",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431482198",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Very nice!",
+   "url": "https://github.com/ansible/ansible/pull/69154#discussion_r431984613",
+   "user": "samdoran"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "The test `ansible-test sanity --test docs-build` [[explain](https://docs.ansible.com/ansible/devel/dev_guide/testing/sanity/docs-build.html)] failed with 1 error:\n```\ndocs/docsite/rst/user_guide/collections_using.rst:46:0: duplicate-label: duplicate label collections_scm_install, other instance in /root/ansible/docs/docsite/rst/dev_guide/developing_collections.rst\n```\n<!-- job_id: 5ea30c0b8f754d000ac2488e -->\n<!-- job_id: 5ea30c0c0d11080007cf7538 -->\n<!-- job_id: /testresults/ansible-test-sanity-docs-build.json -->\n\n[click here for bot help](https://github.com/ansible/ansibullbot/blob/master/ISSUE_HELP.md)\n<!--- boilerplate: shippable_test_result --->",
+   "url": "https://github.com/ansible/ansible/pull/69154#issuecomment-619115893",
+   "user": "ansibot"
+  },
+  {
+   "body": "cc @geerlingguy (since I can't request your review)",
+   "url": "https://github.com/ansible/ansible/pull/69154#issuecomment-626888282",
+   "user": "s-hertel"
+  },
+  {
+   "body": "Does this support the `-g` flag like also for roles? (To keep the `.git` dir.)",
+   "url": "https://github.com/ansible/ansible/pull/69154#issuecomment-630498280",
+   "user": "jamescassell"
+  },
+  {
+   "body": "@jamescassell No, it doesn't. .git directories are [not included](https://github.com/ansible/ansible/blob/devel/lib/ansible/galaxy/collection.py#L869) in collection artifact build process and this PR installs collections from the built artifact data using the galaxy.yml file(s).",
+   "url": "https://github.com/ansible/ansible/pull/69154#issuecomment-630507371",
+   "user": "s-hertel"
+  },
+  {
+   "body": "rebased again due to the test added in https://github.com/ansible/ansible/pull/69541",
+   "url": "https://github.com/ansible/ansible/pull/69154#issuecomment-631430974",
+   "user": "s-hertel"
+  },
+  {
+   "body": "@s-hertel - I finally got time to fully test this and see if there were any weird edge cases, and I'm happy to report there didn't seem to be any.\r\n\r\nThere were two things that tripped me up (though not directly related to this PR's changes):\r\n\r\n  1. For `role` installs, the `name` parameter reflects what will end up on the filesystem after an install, whereas for `collection` installs, the `name` can be one of galaxy namespace+collection name, or git path, or file tar.gz path (which is a little confusing coming from the roles perspective). For roles, the `src` was where you specified a filepath, git repo URL, or other source for the role. This is just a weird inconsistency between how collections and roles work, but since all collections _must_ be namespaced... I'm not sure if we can make any more consistency between roles/collections (roles don't have to be namespaced, something I like for playbook-local roles).\r\n  2. If a collection doesn't have a valid `version` explicitly listed in its `galaxy.yml` (many don't currently) then installation fails. Also a number of collections I tested with had dependencies that didn't exist, so those installs failed (would've happened even installing from galaxy!).\r\n\r\nAnyways, here's a test `requirements.yml` file I ended up with after testing a number of different permutations:\r\n\r\n```yaml\r\n---\r\nroles:\r\n  # Install a role from Ansible Galaxy.\r\n  - name: geerlingguy.java\r\n    version: 1.9.7\r\n\r\n  # Install a role from GitHub, but specify a custom name for the local env.\r\n  - name: homebrew\r\n    src: https://github.com/geerlingguy/ansible-role-homebrew.git\r\n    version: 3.1.0\r\n\r\ncollections:\r\n  # Install a collection from Ansible Galaxy.\r\n  - name: geerlingguy.php_roles\r\n    version: 0.9.5\r\n    source: https://galaxy.ansible.com\r\n\r\n  # Install a collection from Git.\r\n  - name: https://github.com/ansible-collections/community.kubernetes.git\r\n    type: git\r\n    version: 0.10.0\r\n\r\n  # This doesn't work\u2014depends on ansible.netcommon >=0.1.0 which doesn't exist.\r\n  # - name: git+https://github.com/ansible-collections/community.crypto.git\r\n  #   version: 0.1.0\r\n\r\n  # This doesn't work\u2014netcommon galaxy.yml doesn't contain a `version` key.\r\n  # - name: git+https://github.com/ansible-collections/ansible.netcommon.git\r\n  #   version: 0.0.2\r\n\r\n  # Install from git+https (don't have to specify 'type'), at commit hash.\r\n  - name: git+https://github.com/ansible-collections/community.zabbix.git\r\n    version: b247fcf\r\n```\r\n\r\nI ended up with the following dir structure:\r\n\r\n<img width=\"288\" alt=\"Screen Shot 2020-05-20 at 2 31 31 PM\" src=\"https://user-images.githubusercontent.com/481677/82489071-a1eaf500-9aa6-11ea-81cf-4d4bfaa83e81.png\">\r\n",
+   "url": "https://github.com/ansible/ansible/pull/69154#issuecomment-631679808",
+   "user": "geerlingguy"
+  },
+  {
+   "body": "@geerlingguy Thanks for testing this.\r\n\r\n> For role installs, the name parameter reflects what will end up on the filesystem after an install,\r\n\r\nI thought about how this feature might work for collections if `src` was supported and `name` was allowed as a destination instead, but content in a collection could need to be edited to remain functional (some plugins refer to their own namespace, for example).\r\n\r\n> If a collection doesn't have a valid version explicitly listed in its galaxy.yml (many don't currently) then installation fails.\r\n\r\nJust to clarify, version is a [mandatory metadata key](https://docs.ansible.com/ansible/devel/dev_guide/collections_galaxy_meta.html#collections-galaxy-meta) and it needs to be valid YAML, but it doesn't need to be compatible with semantic versioning until built+published. It could just be a variable, for instance.",
+   "url": "https://github.com/ansible/ansible/pull/69154#issuecomment-631761233",
+   "user": "s-hertel"
+  },
+  {
+   "body": "> it doesn't need to be compatible with semantic versioning until built+published\r\n\r\nAh, perfect! So if you build your collection and use a placeholder in the git repository (e.g. `version: '{{ build_version_here }}'`), that should work?",
+   "url": "https://github.com/ansible/ansible/pull/69154#issuecomment-631762941",
+   "user": "geerlingguy"
+  },
+  {
+   "body": "@geerlingguy Yes!",
+   "url": "https://github.com/ansible/ansible/pull/69154#issuecomment-631763038",
+   "user": "s-hertel"
+  },
+  {
+   "body": "It's the same requirement for `ansible-galaxy collection build`, the content of the key is only validated when attempting to publish (the server does the validation), the build doesn't care about the value, only that it's there and set.",
+   "url": "https://github.com/ansible/ansible/pull/69154#issuecomment-631766610",
+   "user": "jborean93"
+  },
+  {
+   "body": "The test `ansible-test sanity --test compile --python 2.6` [[explain](https://docs.ansible.com/ansible/devel/dev_guide/testing/sanity/compile.html)] failed with 1 error:\n```\nlib/ansible/galaxy/collection.py:1077:44: SyntaxError: with open(b_path, 'wb') as file_obj, BytesIO(b) as b_io:\n```\n<!-- job_id: 5eceeb9d23ad00000608ad9c -->\n<!-- job_id: 5eceeb9e4892b40007ee5c93 -->\n<!-- job_id: /testresults/ansible-test-sanity-compile-python-2.6.json -->\n\n[click here for bot help](https://github.com/ansible/ansibullbot/blob/master/ISSUE_HELP.md)\n<!--- boilerplate: shippable_test_result --->",
+   "url": "https://github.com/ansible/ansible/pull/69154#issuecomment-635000029",
+   "user": "ansibot"
+  },
+  {
+   "body": "That linter error should probably be suppressed because this module runs on the controller AFAIU",
+   "url": "https://github.com/ansible/ansible/pull/69154#issuecomment-635218347",
+   "user": "webknjaz"
+  }
+ ]
+}

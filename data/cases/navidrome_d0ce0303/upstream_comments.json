@@ -1,0 +1,15 @@
+{
+ "repo": "navidrome/navidrome",
+ "pr_number": 1403,
+ "pr_url": "https://github.com/navidrome/navidrome/pull/1403",
+ "n_review": 0,
+ "n_convo": 1,
+ "review_comments": [],
+ "conversation_comments": [
+  {
+   "body": "This pull request has been automatically locked since there has not been any recent activity after it was closed. Please open a new issue for related bugs.",
+   "url": "https://github.com/navidrome/navidrome/pull/1403#issuecomment-1465070759",
+   "user": "github-actions[bot]"
+  }
+ ]
+}

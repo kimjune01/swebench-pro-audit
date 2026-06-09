@@ -1,0 +1,26 @@
+{
+ "repo": "flipt-io/flipt",
+ "pr_number": 1350,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/1350",
+ "n_review": 1,
+ "n_convo": 2,
+ "review_comments": [
+  {
+   "body": "A clarifying comment here might be nice. e.g.\r\n```suggestion\r\n\t// ClientToken is an (optional) explicit client token to be associated with the authentication.\r\n\t// When it is not supplied a random token will be generated and returned instead.\r\n\tClientToken string\r\n```",
+   "url": "https://github.com/flipt-io/flipt/pull/1350#discussion_r1112942641",
+   "user": "GeorgeMac"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "# [Codecov](https://codecov.io/gh/flipt-io/flipt/pull/1350?src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) Report\n> Merging [#1350](https://codecov.io/gh/flipt-io/flipt/pull/1350?src=pr&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (1d3883c) into [main](https://codecov.io/gh/flipt-io/flipt/commit/9c3cab439846ad339a0a9aa73574f0d05849246e?el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (9c3cab4) will **decrease** coverage by `0.58%`.\n> The diff coverage is `28.57%`.\n\n:mega: This organization is not using Codecov\u2019s [GitHub App Integration](https://github.com/apps/codecov). We recommend you install it so Codecov can continue to function properly for your repositories. [Learn more](https://about.codecov.io/blog/codecov-is-updating-its-github-integration/?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io)\n\n```diff\n@@            Coverage Diff             @@\n##             main    #1350      +/-   ##\n==========================================\n- Coverage   80.27%   79.70%   -0.58%     \n==========================================\n  Files          45       45              \n  Lines        3524     3552      +28     \n==========================================\n+ Hits         2829     2831       +2     \n- Misses        553      577      +24     \n- Partials      142      144       +2     \n```\n\n\n| [Impacted Files](https://codecov.io/gh/flipt-io/flipt/pull/1350?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) | Coverage \u0394 | |\n|---|---|---|\n| [internal/config/authentication.go](https://codecov.io/gh/flipt-io/flipt/pull/1350?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvY29uZmlnL2F1dGhlbnRpY2F0aW9uLmdv) | `79.71% <\u00f8> (\u00f8)` | |\n| [internal/storage/auth/auth.go](https://codecov.io/gh/flipt-io/flipt/pull/1350?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc3RvcmFnZS9hdXRoL2F1dGguZ28=) | `19.23% <\u00f8> (\u00f8)` | |\n| [internal/storage/auth/bootstrap.go](https://codecov.io/gh/flipt-io/flipt/pull/1350?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc3RvcmFnZS9hdXRoL2Jvb3RzdHJhcC5nbw==) | `0.00% <0.00%> (\u00f8)` | |\n| [internal/storage/auth/memory/store.go](https://codecov.io/gh/flipt-io/flipt/pull/1350?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc3RvcmFnZS9hdXRoL21lbW9yeS9zdG9yZS5nbw==) | `77.77% <100.00%> (+0.67%)` | :arrow_up: |\n| [internal/storage/auth/sql/store.go](https://codecov.io/gh/flipt-io/flipt/pull/1350?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc3RvcmFnZS9hdXRoL3NxbC9zdG9yZS5nbw==) | `88.79% <100.00%> (+0.18%)` | :arrow_up: |\n| [internal/storage/oplock/sql/sql.go](https://codecov.io/gh/flipt-io/flipt/pull/1350?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc3RvcmFnZS9vcGxvY2svc3FsL3NxbC5nbw==) | `90.82% <0.00%> (-5.51%)` | :arrow_down: |\n\n:mega: We\u2019re building smart automated test selection to slash your CI/CD build times. [Learn more](https://about.codecov.io/iterative-testing/?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io)\n",
+   "url": "https://github.com/flipt-io/flipt/pull/1350#issuecomment-1437522081",
+   "user": "codecov-commenter"
+  },
+  {
+   "body": "@GeorgeMac one thing we could do is make `bootstrap` a config object and give it an optional `token` and `expiration`? This would allow users to make the bootstrap process more secure by being able to use the token to create new tokens and then have the bootstrap token automatically expire. WYT?\r\n\r\nSomething like:\r\n\r\n```yaml\r\n  methods:\r\n    token:\r\n      enabled: true\r\n      bootstrap:\r\n        token: \"$3cr$t\"\r\n        expiration: 2h\r\n```\r\n\r\n`token` and `expiration` could be mutually exclusive too, as we could have a random generated bootstrap token (like we have today) also have the ability to set an expiration date in the future.",
+   "url": "https://github.com/flipt-io/flipt/pull/1350#issuecomment-1437522941",
+   "user": "markphelps"
+  }
+ ]
+}

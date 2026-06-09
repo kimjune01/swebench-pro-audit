@@ -1,0 +1,256 @@
+{
+ "repo": "ansible/ansible",
+ "pr_number": 68177,
+ "pr_url": "https://github.com/ansible/ansible/pull/68177",
+ "n_review": 34,
+ "n_convo": 15,
+ "review_comments": [
+  {
+   "body": "instead of having 2 params allow version to be overloaded ?",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398605145",
+   "user": "bcoca"
+  },
+  {
+   "body": "I would really prefer not to do that. Having two separate parameters makes it easier to validate, since it is clear from the parameter name what the contents must look like.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398608326",
+   "user": "felixfontein"
+  },
+  {
+   "body": "i would at least make them mutually exclusive, really don't want people complaining about precedence of date ><>= version",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398614276",
+   "user": "bcoca"
+  },
+  {
+   "body": "the main reason for using as overload is that we don't backport features, and this clearly is a feature.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398615055",
+   "user": "bcoca"
+  },
+  {
+   "body": "I agree we should keep 2 args so that we can validate in CI that they are formatted correctly. Making the mutually exclusive also sounds like a good plan.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398615748",
+   "user": "sivel"
+  },
+  {
+   "body": "Indeed! And: lines 724 and 725 above raise `AssertionError(\"implementation error -- version and date must not both be set\")` if both are set :)",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398649091",
+   "user": "felixfontein"
+  },
+  {
+   "body": "haha, was that already there? I didn't look, I just commented on a comment :) ",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398697769",
+   "user": "sivel"
+  },
+  {
+   "body": "Hehe :) Github's excerpt is unfortunately hiding all the interesting parts and comments explaining these few lines ;)",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398722718",
+   "user": "felixfontein"
+  },
+  {
+   "body": "Unfortunately PowerShell does not handle kwargs in C# methods very well, we cannot do `$module.Deprecate('msg', date='date')` we would have to do `$module.Deprecate('msg', $null, 'date')` which isn't ideal. An alternative is to create an overloaded method\r\n\r\n```\r\npublic void Deprecate(string message, string version)\r\n{\r\n    Existing logic\r\n}\r\n\r\npublic void Deprecate(string message, DateTime date)\r\n{\r\n    New logic\r\n}\r\n```\r\n\r\nThat way a module can differentiate between the 2 with `$module.Deprecate('msg', [DateTime]'2020-03-27')`  or use whatever other date format it wants and the C# method can format that date into a common output format, preferably ISO 8601 `yyyy-mm-dd`.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398837204",
+   "user": "jborean93"
+  },
+  {
+   "body": "Would be better as `typeof(DateTime)`. The only downside here is that a user must use the `[DateTime]` cast in PowerShell to ensure the type is DateTime, otherwise it will probably fail when the C# code goes to parse it.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398837259",
+   "user": "jborean93"
+  },
+  {
+   "body": "How do I convert a `DateTime` object to ISO 8601? (Sorry for asking, I had to write that code essentially blind since I have neither C# nor PowerShell available for testing...)",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398840439",
+   "user": "felixfontein"
+  },
+  {
+   "body": "No need to apologise for asking :) A DateTime object's [ToString](https://docs.microsoft.com/en-us/dotnet/api/system.datetime.tostring?view=netframework-4.8#System_DateTime_ToString_System_String_) method can take in a string that provides how to format the date as a string. In this case you want to do `date.ToString(\"yyyy-MM-dd\")`.\r\n\r\nThe format can be either a known [standard format](https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings?view=netframework-4.8) or a [custom format](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings?view=netframework-4.8).",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398845683",
+   "user": "jborean93"
+  },
+  {
+   "body": "@jborean93 what happens in the validate-modules test, when a argument spec containing `DateTime` objects is exported? Will they be converted properly?",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398883978",
+   "user": "felixfontein"
+  },
+  {
+   "body": "On PowerShell Core (which we use for validate-modules) it will be exported as a structured object that contains the ISO 8601 string and other values\r\n\r\n```\r\nPS /home/jborean> @{a = (Get-Date) } | ConvertTo-Json\r\n{\r\n  \"a\": {\r\n    \"value\": \"2020-03-27T07:02:17.147412+10:00\",\r\n    \"DisplayHint\": 2,\r\n    \"DateTime\": \"Friday, 27 March 2020 7:02:17 am\"\r\n  }\r\n}\r\n```\r\n\r\nBut even if we wanted to follow a similar structure to python or were unhappy with how the defaults look we can add our own custom formatting for a DateTime type here https://github.com/ansible/ansible/blob/devel/test/lib/ansible_test/_data/sanity/validate-modules/validate_modules/ps_argspec.ps1#L35.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398891687",
+   "user": "jborean93"
+  },
+  {
+   "body": "Does the following look correct?\r\n```\r\n        } elseif ($value -is [DateTime]) {\r\n            $Hash[$key] = $value.ToString(\"yyyy-MM-dd\")\r\n        }\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398894225",
+   "user": "felixfontein"
+  },
+  {
+   "body": "yep if you want it to be a string in that format that's how it would look.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398896975",
+   "user": "jborean93"
+  },
+  {
+   "body": "Yep. The validation should work the same for both Python and PowerShell modules.\r\n\r\nOne point though: if a different type than `DateTime` is used, `validate-module` will not detect that correctly. In particular, if a user uses `string` instead of `DateTime`, `validate-module` cannot detect that.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398906807",
+   "user": "felixfontein"
+  },
+  {
+   "body": "That may be the case but IIRC the AnsibleModule parsing will fail to cast that type to a DateTime so the module wouldn't actually work.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398908757",
+   "user": "jborean93"
+  },
+  {
+   "body": "Except for `deprecatedAliases`, since there no check is done. I've added one in ed1da9be147048bf752e9900fe2bd515b687fbf1 (and hope it is correct).",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r398912471",
+   "user": "felixfontein"
+  },
+  {
+   "body": "Ok, at least the tests do now pass again :)",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r399060945",
+   "user": "felixfontein"
+  },
+  {
+   "body": "```suggestion\r\n                        string msg = \"One of version or date is required in a deprecated_aliases entry\";\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430668360",
+   "user": "jborean93"
+  },
+  {
+   "body": "Should we state that it will be removed in a major release after x like?\r\n\r\n```suggestion\r\n                new_msg = \"[DEPRECATION WARNING]: %s. This feature will be removed in a major release after %s.\" % (msg, date)\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430669245",
+   "user": "jborean93"
+  },
+  {
+   "body": "I'm not sure if we can actually have this sanity check enabled just by checking the date. I unfortunately don't have a good alternative but this will be problematic for a few reasons.\r\n\r\n* The dep by date is meant to enforce that deprecations will have a minimum of 2 years before they are removed, it's not to say that this will be removed at exactly 2 years time\r\n* To remove a feature we would typically need to increase the major version of the collection, doing this at random times just because a dep period has been reached won't paint the best picture of stability of the collection\r\n\r\nIn short having a sanity test fail when we don't have any immediate plans to actually remove the feature means either we need to ignore the error and defeat the purpose of the check or just live with the error, making CI failures harder to diagnose.\r\n\r\nAn example scenario of this problem would be the maintenance releases of a certified collection. These collections are currently set to have a rolling release and a 24 month maintenance release. The latter is a bug fix only release with no features being added or removed so it could potentially have a deprecated feature 6 months into it's lifecycle and we need to ignore this sanity check for that branch entirely.\r\n\r\nAnother scenario is for the rolling release, say we have 2 dep by dates set\r\n\r\n1. module x has a `removed_at_date: 2020-06-01`\r\n2. module y has a `removed_at_date: 2020-08-01`\r\n\r\nIn this scenario we would effectively have to remove the feature at the start of June **and** August to silence the ansible-test sanity checks and in the meantime we either release 2 major bumps in that timeframe or wait the 2 months before doing the next release.\r\n\r\nMaybe the best option here is to have this as a manual check, i.e. it's run before creating the release to ensure that all deprecations that can be removed are removed rather than something done in CI.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430682139",
+   "user": "jborean93"
+  },
+  {
+   "body": "That's true for collections. But is 2.11.0 a minor or a major release of Ansible-base?",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430712215",
+   "user": "felixfontein"
+  },
+  {
+   "body": "This test is part of the optional tests, i.e. you explicitly have to run `ansible-test sanity` with `--enable-optional-errors` for it to be a (reported) error. So it will only have an impact if people explicitly request this. (This might change in the future to a non-failing warning, but the result will still be the same: this won't make tests fail from a date on until these tests are explicitly requested. This definitely won't happen for 2.10 though.)",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430714746",
+   "user": "felixfontein"
+  },
+  {
+   "body": "(Optional errors were introduced in #66920, though not used there yet. This would be the first use of that feature.)",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430715071",
+   "user": "felixfontein"
+  },
+  {
+   "body": "Ah that's fantastic, solves this problem quite nicely. Having a quick skim of #66920 it seems like `--enable-optional-errors` is a true/false switch so by setting it you would enable all the optional errors. Is it mean to work in conjuction with the test name like `ansible-test sanity --test ansible-deprecated-date --enable-optional-errors` or is that not possible right now?",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430718061",
+   "user": "jborean93"
+  },
+  {
+   "body": "`--test` only works with tests like `validate-modules` or `pylint`, not with explicit error codes returned by one of the tests. So you can only enable all of them, or none. @mattclay and me were discussing about that last week, I think the plan is to improve the interface eventually, but not for 2.10. Since it would probably be the only optional error for 2.10 it should be ok for now :)",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430719816",
+   "user": "felixfontein"
+  },
+  {
+   "body": "Technically from a semver perspective it's a minor release but Ansible doesn't strictly follow semver as we consider the minor part of 2.x being a \"major\" release. Others might disagree with me here though. I guess it's a question as to whether we see this particular deprecation being done within Ansible itself or only for collections.\r\n\r\nMaybe for now we just leave it as is and revisit the message in the future when we don't have a deadline coming up.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430720159",
+   "user": "jborean93"
+  },
+  {
+   "body": "Fair enough.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430720795",
+   "user": "jborean93"
+  },
+  {
+   "body": "With #69680 (adjusted for dates) we would be able to distinguish between ansible-base versions and collection versions. But yeah, let's revisit this somewhen after the freeze :)",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430723728",
+   "user": "felixfontein"
+  },
+  {
+   "body": "This logic appears to be redundant. The exception handler below should catch the same cases the regex does and return the same exception.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430771846",
+   "user": "mattclay"
+  },
+  {
+   "body": "Same as previous comment about redundant logic.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430772266",
+   "user": "mattclay"
+  },
+  {
+   "body": "The code below also accepts `2020-1-1`, which is not ISO 8601. It does catch invalid dates such as `2019-02-29` though, which this regex won't catch.",
+   "url": "https://github.com/ansible/ansible/pull/68177#discussion_r430870737",
+   "user": "felixfontein"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "cc @gundalow @jborean93 @mattclay @nitzmahone @sivel\n[click here for bot help](https://github.com/ansible/ansibullbot/blob/master/ISSUE_HELP.md)\n<!--- boilerplate: notify --->",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-597870776",
+   "user": "ansibot"
+  },
+  {
+   "body": "(The remaining CI failures are package download timeouts, i.e. unrelated :) )\r\n\r\nready_for_review",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-598408003",
+   "user": "felixfontein"
+  },
+  {
+   "body": "TODO next:\r\n- [x] make more compatible with #67684\r\n- [x] don't validate at runtime\r\n- [x] validate dates in sanity checks",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-600268445",
+   "user": "felixfontein"
+  },
+  {
+   "body": "@felixfontein What's the intended workflow for this feature? Deprecation by version seems obvious to me, but I'm not immediately coming up with a scenario for deprecation by date.",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-604151481",
+   "user": "mattclay"
+  },
+  {
+   "body": "@mattclay I heared some time ago from @sivel (IIRC) that the idea was that especially in collections, it is easier to deprecate by date then by version, since it is easier to understand for users when something is actually removed. Especially since there no longer is the \"regular\" 6 month Ansible release cycle. (Also people might have no clue what \"removed in version x.yz\" means when they don't really know in which collection the module is, and how that collection does versioning - I guess that will be common for modules from stable-2.9 that users will continue to use with the ACD, which allows users to ignore the whole collection business.)",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-604261945",
+   "user": "felixfontein"
+  },
+  {
+   "body": "> @mattclay I heared some time ago from @sivel (IIRC) that the idea was that especially in collections, it is easier to deprecate by date then by version, since it is easier to understand for users when something is actually removed\r\n\r\nThis is correct, and this mirrors what is being done in https://github.com/ansible/ansible/pull/67684\r\n\r\nCollections will deprecate everything by date.",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-604461318",
+   "user": "sivel"
+  },
+  {
+   "body": "> Collections will deprecate everything by date.\r\n\r\nIs this a guideline, an assumption by ansible-core, or something we want to enforce? Right now (and also with both this PR and #66920), collections can also deprecate by (their own) version. This isn't so great for end-users, but there's no technical reason they should not be able to do that.",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-604488280",
+   "user": "felixfontein"
+  },
+  {
+   "body": "> Is this a guideline, an assumption by ansible-core, or something we want to enforce\r\n\r\n@felixfontein in the end, we cannot enforce this for everyone. It's more of a general recommendation or guideline. Any random collection can do whatever they want. However this is a rule that we will follow for collections that we are responsible for in some way.  \r\n\r\n",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-604522580",
+   "user": "sivel"
+  },
+  {
+   "body": "@sivel sounds good. I mainly wanted to make sure that we don't actively want to sabotage people trying to deprecate by collection version, i.e. don't add some of the collection changes from #66920 :)",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-604538030",
+   "user": "felixfontein"
+  },
+  {
+   "body": "@felixfontein Before we go farther on the implementation here (specifically for the sanity tests) I'd like to finish working through https://github.com/ansible/ansible/pull/66920 since they're so closely related.",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-604629521",
+   "user": "mattclay"
+  },
+  {
+   "body": "I've updated the PR, extended/improved/fixed the tests, and changed the behavior so that deprecation by dates in the past are only reported as errors when `--enable-optional-errors` is specified.\r\n\r\nready_for_review",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-628448537",
+   "user": "felixfontein"
+  },
+  {
+   "body": "/rebuild_failed",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-628773508",
+   "user": "felixfontein"
+  },
+  {
+   "body": "(Rebased so that the branch includes the changes from the routing PR, and changed behavior of `Display.deprecated()` if both `version` and `date` are specified: prefer `date` in that case. This behavior is now the same as in #69712.)",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-634317810",
+   "user": "felixfontein"
+  },
+  {
+   "body": "rebuild_merge",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-634342088",
+   "user": "nitzmahone"
+  },
+  {
+   "body": "@mattclay @bcoca @sivel @jborean93 @nitzmahone thanks a lot for reviewing and merging! :)",
+   "url": "https://github.com/ansible/ansible/pull/68177#issuecomment-634441659",
+   "user": "felixfontein"
+  }
+ ]
+}

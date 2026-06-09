@@ -1,0 +1,71 @@
+{
+ "repo": "flipt-io/flipt",
+ "pr_number": 2791,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/2791",
+ "n_review": 5,
+ "n_convo": 7,
+ "review_comments": [
+  {
+   "body": "wondering if i should make this more clear as a header key, like `X-Flipt-Accept-Server-Version`?",
+   "url": "https://github.com/flipt-io/flipt/pull/2791#discussion_r1496521841",
+   "user": "markphelps"
+  },
+  {
+   "body": "I like your thinking here calling it accept server version. Feels more intentional.",
+   "url": "https://github.com/flipt-io/flipt/pull/2791#discussion_r1497609392",
+   "user": "GeorgeMac"
+  },
+  {
+   "body": "One thing you could do is skip returning the presence boolean and instead just hardcode `FliptServerVersionFromContext` to return the last stable release that did not support the trust accept header (v1.37.1).\r\n\r\nThen you don't have to do the `!hasSupportServerVersion ||` everywhere.",
+   "url": "https://github.com/flipt-io/flipt/pull/2791#discussion_r1497617212",
+   "user": "GeorgeMac"
+  },
+  {
+   "body": "Perhaps include the namespace in here to avoid confusion.",
+   "url": "https://github.com/flipt-io/flipt/pull/2791#discussion_r1497619145",
+   "user": "GeorgeMac"
+  },
+  {
+   "body": "Same here, incl. namespace",
+   "url": "https://github.com/flipt-io/flipt/pull/2791#discussion_r1497621313",
+   "user": "GeorgeMac"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "I tried to simulate this and can't repo any problem with flipt client sdk. \r\n\r\nI do expect that https://github.com/flipt-io/flipt-client-sdks/blob/f4a19ad4d11849903eddfaf7e05df41775eeb682/flipt-evaluation/src/lib.rs#L526-L534 will handle the case. Maybe I miss something. Is it any example which show the problem?\r\n",
+   "url": "https://github.com/flipt-io/flipt/pull/2791#issuecomment-1955194987",
+   "user": "erka"
+  },
+  {
+   "body": "@erka I think the problem is with the deserialization into the enum value\r\n\r\n```\r\nthread '<unnamed>' panicked at flipt-engine-ffi/src/lib.rs:212:79:\r\ncalled `Result::unwrap()` on an `Err` value: InvalidJSON(Error(\"unknown variant `ENTITY_ID_CONSTRAINT_COMPARISON_TYPE`, expected one of `UNKNOWN_CONSTRAINT_COMPARISON_TYPE`, `STRING_CONSTRAINT_COMPARISON_TYPE`, `NUMBER_CONSTRAINT_COMPARISON_TYPE`, `BOOLEAN_CONSTRAINT_COMPARISON_TYPE`, `DATETIME_CONSTRAINT_COMPARISON_TYPE`\", line: 1, column: 500))\r\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\r\nfatal runtime error: failed to initiate panic, error 5\r\n```\r\n\r\nThis example is from @yquansah , I admittedly have not reproduced it myself. Will try that now",
+   "url": "https://github.com/flipt-io/flipt/pull/2791#issuecomment-1955209132",
+   "user": "markphelps"
+  },
+  {
+   "body": "Actually, I cant seem to reproduce it either.. checking with @yquansah \r\n",
+   "url": "https://github.com/flipt-io/flipt/pull/2791#issuecomment-1955214204",
+   "user": "markphelps"
+  },
+  {
+   "body": "Ah now I can reproduce it (my segment was in the non-default namespace)\r\n\r\nclient: `flipt-java-client-0.1.1`\r\nserver: `main`\r\n\r\nadded a constraint to a segment with an `entityID` type\r\n\r\nRun the following code with the client:\r\n\r\n```java\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        try {\r\n            FliptEvaluationClient fliptClient = FliptEvaluationClient.builder()\r\n                    .url(\"http://localhost:8080\")\r\n                    .build();\r\n\r\n            Map<String, String> context = new HashMap<>();\r\n            context.put(\"fizz\", \"buzz\");\r\n\r\n            Result<VariantEvaluationResponse> result =\r\n                    fliptClient.evaluateVariant(\"flag1\", \"entity\", context);\r\n        } catch (Exception e) {\r\n            System.out.println(e.getMessage());\r\n        }\r\n    }\r\n}\r\n```\r\n\r\nResult:\r\n\r\n```\r\nthread '<unnamed>' panicked at flipt-engine-ffi/src/lib.rs:212:79:\r\ncalled `Result::unwrap()` on an `Err` value: InvalidJSON(Error(\"unknown variant `ENTITY_ID_CONSTRAINT_COMPARISON_TYPE`, expected one of `UNKNOWN_CONSTRAINT_COMPARISON_TYPE`, `STRING_CONSTRAINT_COMPARISON_TYPE`, `NUMBER_CONSTRAINT_COMPARISON_TYPE`, `BOOLEAN_CONSTRAINT_COMPARISON_TYPE`, `DATETIME_CONSTRAINT_COMPARISON_TYPE`\", line: 1, column: 1650))\r\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\r\nfatal runtime error: failed to initiate panic, error 5\r\n\r\nFAILURE: Build failed with an exception.\r\n\r\n* What went wrong:\r\nExecution failed for task ':Main.main()'.\r\n> Process 'command '/opt/homebrew/Cellar/openjdk@11/11.0.22/libexec/openjdk.jdk/Contents/Home/bin/java'' finished with non-zero exit value 134\r\n```",
+   "url": "https://github.com/flipt-io/flipt/pull/2791#issuecomment-1955229023",
+   "user": "markphelps"
+  },
+  {
+   "body": "Tested locally with client-side-eval without the header provided in the request\r\n\r\nclient:\r\n```\r\n9:37:47\u202fAM: Executing ':Main.main()'...\r\n\r\n> Task :compileJava UP-TO-DATE\r\n> Task :processResources NO-SOURCE\r\n> Task :classes UP-TO-DATE\r\n> Task :Main.main()\r\n\r\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.\r\n\r\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\r\n\r\nFor more on this, please refer to https://docs.gradle.org/8.4/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\r\n\r\nBUILD SUCCESSFUL in 665ms\r\n2 actionable tasks: 1 executed, 1 up-to-date\r\n9:37:47\u202fAM: Execution finished ':Main.main()'.\r\n```\r\n\r\nserver: \r\n```\r\n2024-02-21T09:37:47-05:00\tWARN\tskipping `entity_id` constraint type to support older client; upgrade client to allow `entity_id` constraint type\t{\"server\": \"grpc\", \"namespace\": \"default\", \"flag\": \"asdfdas\"}\r\n2024-02-21T09:37:47-05:00\tINFO\tfinished unary call with code OK\t{\"server\": \"grpc\", \"grpc.start_time\": \"2024-02-21T09:37:47-05:00\", \"system\": \"grpc\", \"span.kind\": \"server\", \"grpc.service\": \"flipt.evaluation.DataService\", \"grpc.method\": \"EvaluationSnapshotNamespace\", \"peer.address\": \"127.0.0.1:59097\", \"grpc.code\": \"OK\", \"grpc.time_ms\": 6.698}\r\n```",
+   "url": "https://github.com/flipt-io/flipt/pull/2791#issuecomment-1956796647",
+   "user": "markphelps"
+  },
+  {
+   "body": "> ```\r\n> thread '<unnamed>' panicked at flipt-engine-ffi/src/lib.rs:212:79:\r\n>```\r\n\r\nThank you @markphelps, that helps to understand the issue better. That `unwrap` could panic in many cases if  there is an connection or configuration issue. It would be great if `initialize_engine` could return an error to upstream instead of panic. Don't know if that is possible with FFI.\r\n",
+   "url": "https://github.com/flipt-io/flipt/pull/2791#issuecomment-1956813987",
+   "user": "erka"
+  },
+  {
+   "body": "> > ```\r\n> > thread '<unnamed>' panicked at flipt-engine-ffi/src/lib.rs:212:79:\r\n> > ```\r\n> \r\n> Thank you @markphelps, that helps to understand the issue better. That `unwrap` could panic in many cases if there is an connection or configuration issue. It would be great if `initialize_engine` could return an error to upstream instead of panic. Don't know if that is possible with FFI.\r\n\r\nYeah agreed. We should see if we can recover from `panic` in FFI/Flipt Evaluation layer and always return an error instead of crashing the client. Will create an issue for this in the `flipt-client-sdk` repo",
+   "url": "https://github.com/flipt-io/flipt/pull/2791#issuecomment-1956875106",
+   "user": "markphelps"
+  }
+ ]
+}

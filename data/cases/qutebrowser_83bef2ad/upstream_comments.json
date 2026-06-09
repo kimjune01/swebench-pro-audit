@@ -1,0 +1,46 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "pr_number": 7741,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/7741",
+ "n_review": 6,
+ "n_convo": 1,
+ "review_comments": [
+  {
+   "body": "Nit: :w",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7741#discussion_r1229212306",
+   "user": "toofar"
+  },
+  {
+   "body": "in isolation this seems a bit error prone. It'll just create new attributes based on strings you passed in, seems to conflict with the principle behind all the classes and enums and type hints about.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7741#discussion_r1229416807",
+   "user": "toofar"
+  },
+  {
+   "body": "without reading the code that calls this (which I haven't yet) this seems surprising to me, the two wrapper related attributes being None doesn't imply autoselection was used to me. Should this be checking the reason instead?\r\n\r\nAlso the hardcoding of wrapper names (with a different case) is a bit smelly, doesn't really matter for now since there are only two. But we already have the WRAPPERS list that we could probably use a bit more around here.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7741#discussion_r1229419242",
+   "user": "toofar"
+  },
+  {
+   "body": "Hmm, why do we need this check? I think if we import both wrappers then as long as we don't do anything like create a QApplication with the one we don't want to use then things should keep working fine with the one we do want to use?",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7741#discussion_r1229425830",
+   "user": "toofar"
+  },
+  {
+   "body": "Right, using attributes definitely wasn't the right fit here. I think it worked differently in my head initially and then I didn't see the forest for the trees at some point. Changed in 69c21a57512ab4913319341f5f0139aac88515db which also fixes the next comment (and hopefully makes things a bit clearer too).",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7741#discussion_r1229928097",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Hmm. It just seemed like a strange unexpected thing that could happen (if we directly import from Qt somewhere before things are initialized). But I'm not sure. I changed it to show a warning instead.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7741#discussion_r1229932134",
+   "user": "The-Compiler"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "> And some rambling non-committal comments while I sign off: I don't fully understand the implicit vs explicit init thing and the NameError if init() isn't called first thing. Like there is error messaging in the machinery module that tells you you did something wrong in the init module, which seems like a bit of coupling. There's probably a good reason for it but it's not in my head at the moment. Same for the implicit init thing. Not quite getting why that is needed and what alternatives there are. It seems like there is copypasta being added to every qt module just for tests, which makes me feel a bit suspicious that maybe it isn't the perfect solution.\r\n\r\nThe idea there was that there is basically two ways that an `import qutebrowser.[...]` (which in turn most likely will import `qutebrowser.qt.[...]`) can happen:\r\n\r\n- When using qutebrowser normally as an application, where we can have a controlled initialization sequence, and take things like `--qt-wrapper` into account\r\n- Anywhere else. That includes tests, but also things like using the REPL and doing:\r\n\r\n```python\r\n>>> from qutebrowser.utils import utils\r\n>>> utils.format_seconds(123)\r\n'2:03'\r\n```\r\n\r\nto try something out.\r\n\r\nFor the latter case, I'd still like that to work, without having to carefully do `from qutebrowser.qt import machinery` and `machinery.init()` manually every time something imports a qutebrowser module.\r\n\r\nThus, importing anything without an explicit init first will implicitly ensure that things are initialized - but if that happens in qutebrowser as an application, that would be a bug, because it's not supposed to import anything from `qutebrowser.qt.*` before we can call `machinery.init()` and take things like `--qt-wrapper` into account.\r\n\r\nDoes that make things clearer? Thanks for the review! Going to look at the things you commented on and then merge this, but not sure if I'll get around to it today.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7741#issuecomment-1591599873",
+   "user": "The-Compiler"
+  }
+ ]
+}

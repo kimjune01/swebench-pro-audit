@@ -1,0 +1,15 @@
+{
+ "repo": "NodeBB/NodeBB",
+ "pr_number": 11677,
+ "pr_url": "https://github.com/NodeBB/NodeBB/pull/11677",
+ "n_review": 0,
+ "n_convo": 1,
+ "review_comments": [],
+ "conversation_comments": [
+  {
+   "body": "## \ud83d\udca1 Friendly Note\n\nThis pull request was made against the `develop` branch, which is reserved for commits destined for a **minor** or **major** release.If your commits simply fixes a bug, please rebase this PR against the `master` instead.\n\n* **patch** releases \u2014 bug fixes only\n* **minor** releases \u2014 new features, enhancements, and bug fixes\n* **major** releases \u2014 breaking changes, including all of the above\n\nThanks!",
+   "url": "https://github.com/NodeBB/NodeBB/pull/11677#issuecomment-1577033818",
+   "user": "nodebb-misty"
+  }
+ ]
+}

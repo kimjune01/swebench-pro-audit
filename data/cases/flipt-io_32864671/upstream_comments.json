@@ -1,0 +1,66 @@
+{
+ "repo": "flipt-io/flipt",
+ "pr_number": 2087,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/2087",
+ "n_review": 10,
+ "n_convo": 1,
+ "review_comments": [
+  {
+   "body": "I wonder if we should probably also be adding the URL to this payload.\r\nJust wondering, given we're concerned with signing event payload, if we should also be concerned about where they're being signed. So that folks couldn't replay signed events to different sources and them still be deemed valid.",
+   "url": "https://github.com/flipt-io/flipt/pull/2087#discussion_r1319653341",
+   "user": "GeorgeMac"
+  },
+  {
+   "body": "I would wrap this all in a function and defer both reading the entire body to EOF, as well as closing it afterwards.\r\nI've seen some nasty memory leaks in the past when response bodies are not read.\r\nThe leak is probably plugged these days (this was like Go 1.6), but I still do it out of an abundence of caution.\r\n\r\nParticularly in like these error conditions where sometimes the body is like a large 500 error page.\r\nFrom the net/http client docs:\r\n```\r\nIf the Body is not both read to EOF and closed, the Client's underlying RoundTripper (typically Transport) may not be able to re-use a persistent TCP connection to the server for a subsequent \"keep-alive\" request. \r\n```\r\nSomething like:\r\n```go\r\ndefer func(){\r\n  _, _ = io.Copy(io.Discard, resp.Body)\r\n  _ = resp.Body.Close()\r\n}()\r\n```",
+   "url": "https://github.com/flipt-io/flipt/pull/2087#discussion_r1319659731",
+   "user": "GeorgeMac"
+  },
+  {
+   "body": "since this is actually the maxBackOff time that will be allowed in total, should we change the name of this field and it's configuration values to `maxBackoffDuration`?",
+   "url": "https://github.com/flipt-io/flipt/pull/2087#discussion_r1319975454",
+   "user": "markphelps"
+  },
+  {
+   "body": "```suggestion\r\n\tmaxBackoffDuration time.Duration\r\n```",
+   "url": "https://github.com/flipt-io/flipt/pull/2087#discussion_r1319975748",
+   "user": "markphelps"
+  },
+  {
+   "body": "```suggestion\r\n\tMaxBackoffDuration time.Duration `json:\"maxbackoffDuration,omitempty\" mapstructure:\"max_backoff_duration\"`\r\n```",
+   "url": "https://github.com/flipt-io/flipt/pull/2087#discussion_r1319976075",
+   "user": "markphelps"
+  },
+  {
+   "body": "@GeorgeMac That is a great idea. So basically adding the URL in the event payload?",
+   "url": "https://github.com/flipt-io/flipt/pull/2087#discussion_r1320203639",
+   "user": "yquansah"
+  },
+  {
+   "body": "@GeorgeMac I did this in line with the http request within the for loop here: https://github.com/flipt-io/flipt/pull/2087/commits/152cf2b0797a8ca22d9003a516b1d9a699a69b39\r\n\r\nTo avoid deferring within the for loop.",
+   "url": "https://github.com/flipt-io/flipt/pull/2087#discussion_r1320226047",
+   "user": "yquansah"
+  },
+  {
+   "body": "Bit of debugging left here\r\n```suggestion\r\n```",
+   "url": "https://github.com/flipt-io/flipt/pull/2087#discussion_r1321299805",
+   "user": "GeorgeMac"
+  },
+  {
+   "body": "was thinking we might want to modify the signature of this method to add `ctx` as the first parameter, that way we could pass it down to `http.NewRequestWithContext` below, and cancel any inflight requests if Flipt were to shutdown potentially ",
+   "url": "https://github.com/flipt-io/flipt/pull/2087#discussion_r1321586001",
+   "user": "markphelps"
+  },
+  {
+   "body": "we should probably set the request headers for `content-type: application/json`",
+   "url": "https://github.com/flipt-io/flipt/pull/2087#discussion_r1321590003",
+   "user": "markphelps"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "## [Codecov](https://app.codecov.io/gh/flipt-io/flipt/pull/2087?src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) Report\n> Merging [#2087](https://app.codecov.io/gh/flipt-io/flipt/pull/2087?src=pr&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (86ac309) into [main](https://app.codecov.io/gh/flipt-io/flipt/commit/3c8d12f465c3a8b86ea7ec8b5a39ce60ab3368ba?el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (3c8d12f) will **increase** coverage by `0.14%`.\n> Report is 6 commits behind head on main.\n> The diff coverage is `76.92%`.\n\n```diff\n@@            Coverage Diff             @@\n##             main    #2087      +/-   ##\n==========================================\n+ Coverage   70.61%   70.75%   +0.14%     \n==========================================\n  Files          70       73       +3     \n  Lines        6823     6997     +174     \n==========================================\n+ Hits         4818     4951     +133     \n- Misses       1727     1761      +34     \n- Partials      278      285       +7     \n```\n\n\n| [Files Changed](https://app.codecov.io/gh/flipt-io/flipt/pull/2087?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) | Coverage \u0394 | |\n|---|---|---|\n| [internal/cmd/grpc.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2087?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvY21kL2dycGMuZ28=) | `0.00% <0.00%> (\u00f8)` | |\n| [internal/server/audit/checker.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2087?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc2VydmVyL2F1ZGl0L2NoZWNrZXIuZ28=) | `68.96% <68.96%> (\u00f8)` | |\n| [internal/server/audit/webhook/webhook.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2087?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc2VydmVyL2F1ZGl0L3dlYmhvb2svd2ViaG9vay5nbw==) | `78.94% <78.94%> (\u00f8)` | |\n| [internal/server/audit/webhook/client.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2087?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc2VydmVyL2F1ZGl0L3dlYmhvb2svY2xpZW50Lmdv) | `91.42% <91.42%> (\u00f8)` | |\n| [internal/config/audit.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2087?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvY29uZmlnL2F1ZGl0Lmdv) | `94.28% <100.00%> (+1.42%)` | :arrow_up: |\n| [internal/config/config.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2087?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvY29uZmlnL2NvbmZpZy5nbw==) | `87.04% <100.00%> (+0.03%)` | :arrow_up: |\n| [internal/server/audit/audit.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2087?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc2VydmVyL2F1ZGl0L2F1ZGl0Lmdv) | `86.46% <100.00%> (\u00f8)` | |\n| [internal/server/middleware/grpc/middleware.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2087?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc2VydmVyL21pZGRsZXdhcmUvZ3JwYy9taWRkbGV3YXJlLmdv) | `62.97% <100.00%> (+0.78%)` | :arrow_up: |\n\n:mega: We\u2019re building smart automated test selection to slash your CI/CD build times. [Learn more](https://about.codecov.io/iterative-testing/?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io)\n",
+   "url": "https://github.com/flipt-io/flipt/pull/2087#issuecomment-1710195708",
+   "user": "codecov[bot]"
+  }
+ ]
+}

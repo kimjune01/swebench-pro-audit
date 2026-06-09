@@ -1,0 +1,30 @@
+{
+ "repo": "gravitational/teleport",
+ "pr_number": 4805,
+ "pr_url": "https://github.com/gravitational/teleport/pull/4805",
+ "n_review": 4,
+ "n_convo": 0,
+ "review_comments": [
+  {
+   "body": "I notice that previously heartbeat would be initialized with `process.ExitContext()`, and now it seems like it'll basically be `context.TODO()` after CheckAndSetDefaults since the context doesn't seem to be passed to ForwarderConfig where this server is created. Not sure what it would affect, but all other services in lib/service seem to be initialized with that context.",
+   "url": "https://github.com/gravitational/teleport/pull/4805#discussion_r522589190",
+   "user": "r0mant"
+  },
+  {
+   "body": "Nit: Not sure if this name is used anywhere but I wonder if an underscore or a dash instead of a slash would be a safer choice for a suffix in case this name is gonna be used in cli/path somewhere.",
+   "url": "https://github.com/gravitational/teleport/pull/4805#discussion_r522589890",
+   "user": "r0mant"
+  },
+  {
+   "body": "Updated to `-proxy_service`.",
+   "url": "https://github.com/gravitational/teleport/pull/4805#discussion_r523262342",
+   "user": "russjones"
+  },
+  {
+   "body": "Propagated exit context here.",
+   "url": "https://github.com/gravitational/teleport/pull/4805#discussion_r523262430",
+   "user": "russjones"
+  }
+ ],
+ "conversation_comments": []
+}

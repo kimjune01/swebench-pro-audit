@@ -1,0 +1,41 @@
+{
+ "repo": "future-architect/vuls",
+ "pr_number": 974,
+ "pr_url": "https://github.com/future-architect/vuls/pull/974",
+ "n_review": 2,
+ "n_convo": 4,
+ "review_comments": [
+  {
+   "body": "This code looks like it does not work well. Slice index will change after `removeAt`.\r\nPlease add testcase to contain 2 or more `inactive` status packages.\r\n\r\nMaybe following code works well.\r\n\r\n```\r\nvar removed []models.WpPackage\r\nfor _, p := range pkgs {\r\n  if p.Status == \"inactive\" {\r\n    continue\r\n  }\r\n  removed = append(removed, p)\r\n}\r\nreturn removed\r\n```",
+   "url": "https://github.com/future-architect/vuls/pull/974#discussion_r424587009",
+   "user": "tomoyamachi"
+  },
+  {
+   "body": "fix it.\r\n",
+   "url": "https://github.com/future-architect/vuls/pull/974#discussion_r427777620",
+   "user": "kazuminn"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "@tomoyamachi I actually tested it with wp in action.\r\n\r\n I have a conflict, but I don't know the correct way to write it. Could you fix it?\r\n\r\n",
+   "url": "https://github.com/future-architect/vuls/pull/974#issuecomment-631274762",
+   "user": "kazuminn"
+  },
+  {
+   "body": "Go Module is (sometimes) smart. It is easy.\r\n\r\n1. `git fetch (upstream or origin) master`\r\n2. `git merge (upstream or origin)/master`\r\n3. delete conflict lines from go.mod and go.sum\r\n4. `go mod tidy`\r\n5. resolve merge conflict\r\n\r\nhttps://stackoverflow.com/questions/16955980/git-merge-master-into-feature-branch",
+   "url": "https://github.com/future-architect/vuls/pull/974#issuecomment-633569928",
+   "user": "tomoyamachi"
+  },
+  {
+   "body": "@tomoyamachi I fixed conflict . and pass ci.",
+   "url": "https://github.com/future-architect/vuls/pull/974#issuecomment-634647801",
+   "user": "kazuminn"
+  },
+  {
+   "body": "LGTM",
+   "url": "https://github.com/future-architect/vuls/pull/974#issuecomment-634665961",
+   "user": "kotakanbe"
+  }
+ ]
+}

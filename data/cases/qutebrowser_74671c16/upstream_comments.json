@@ -1,0 +1,61 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "pr_number": 6019,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/6019",
+ "n_review": 9,
+ "n_convo": 1,
+ "review_comments": [
+  {
+   "body": "Do you actually have a major change on the radar, or is this just future-proofing?",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6019#discussion_r552565978",
+   "user": "rcorre"
+  },
+  {
+   "body": "Not at the moment - I first wanted to rename `CompletionMetainfo` to `Metainfo` but decided it really wasn't worth the trouble. So it's just future-proofing, if we e.g. need to change the database format in a backwards-incompatible way for #2815 or #601/#5481.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6019#discussion_r552955669",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "When can `self` be falsy? Is it from the `__len__()` of SqlTable? Surprising to see it in `__init__()`.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6019#discussion_r554223087",
+   "user": "toofar"
+  },
+  {
+   "body": "nit: these lists could be sets for faster checking (not that they are long enough to matter)",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6019#discussion_r554232588",
+   "user": "toofar"
+  },
+  {
+   "body": "doesn't look to be used anymore",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6019#discussion_r554237964",
+   "user": "toofar"
+  },
+  {
+   "body": "Yep, Python [falls back on `__len__` if there is no `__bool__`](https://docs.python.org/3/reference/datamodel.html#object.__bool__):\r\n\r\n> When [a `__bool__`] method is not defined, `__len__()` is called, if it is defined, and the object is considered true if its result is nonzero. \r\n\r\nIn 4d893e7 I added a `SqlQuery.__bool__` to make this more explicit (and also a tiny bit faster).\r\n\r\nAs for calling it in `__init__`, I suppose it'd be a bit cleaner to do `if not self: return` in `_cleanup_history()` instead, so it's a bit more self-contained (no pun intended). I'll do that once I get back to this, need to take care of something else right now.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6019#discussion_r557295221",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "You're right - removed in fb5e105c1998350cd89512323c641be0d5d9d1b5.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6019#discussion_r557315566",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Why not, done in 5526dce6c36042f711cdb80f6b1b342cd6b0628c.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6019#discussion_r557315577",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Turns out this actually isn't needed at all because of some other changes I did in the meantime... I removed it in 23847d5e0e36feeb6ecc4acd6e5e7500441a887a.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6019#discussion_r557315598",
+   "user": "The-Compiler"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "Thanks @toofar and @rcorre for the reviews! :+1: ",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/6019#issuecomment-761044956",
+   "user": "The-Compiler"
+  }
+ ]
+}

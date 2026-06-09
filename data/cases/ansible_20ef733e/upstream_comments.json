@@ -1,0 +1,66 @@
+{
+ "repo": "ansible/ansible",
+ "pr_number": 74595,
+ "pr_url": "https://github.com/ansible/ansible/pull/74595",
+ "n_review": 6,
+ "n_convo": 5,
+ "review_comments": [
+  {
+   "body": "```suggestion\r\n- password - add new parameter ``ident`` to specify version of BCrypt algorithm to be used (https://github.com/ansible/ansible/issues/74571).\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/74595#discussion_r632610593",
+   "user": "samccann"
+  },
+  {
+   "body": "```suggestion\r\nHash type 'blowfish' (BCrypt) provides the facility to specify the version of the BCrypt algorithm::\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/74595#discussion_r632610890",
+   "user": "samccann"
+  },
+  {
+   "body": "please change this to code-blocks. Translation doesn't work well with the :: option.",
+   "url": "https://github.com/ansible/ansible/pull/74595#discussion_r632611177",
+   "user": "samccann"
+  },
+  {
+   "body": "I think this is a new feature rather than a bugfix.\r\n```suggestion\r\nminor_changes:\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/74595#discussion_r634514495",
+   "user": "samdoran"
+  },
+  {
+   "body": "Should this default to using `2b` since it doesn't suffer from \"rare security flaws\" like `2a`?",
+   "url": "https://github.com/ansible/ansible/pull/74595#discussion_r634528010",
+   "user": "samdoran"
+  },
+  {
+   "body": "I think this will break backward compatability. I suggest we do this change in separate PR with porting guide entry.",
+   "url": "https://github.com/ansible/ansible/pull/74595#discussion_r635806701",
+   "user": "Akasurde"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "The test `ansible-test sanity --test rstcheck` [[explain](https://docs.ansible.com/ansible/devel/dev_guide/testing/sanity/rstcheck.html)] failed with 1 error:\n```\ndocs/docsite/rst/user_guide/playbooks_filters.rst:1344:0: (rst) Link is formatted in Markdown style.\n```\n<!-- job_id: 14197 -->\n<!-- job_id: b8cd07cd6b388627ffccb674cda50917 -->\n<!-- job_id: None -->\n\n[click here for bot help](https://github.com/ansible/ansibullbot/blob/master/ISSUE_HELP.md)\n<!--- boilerplate: shippable_test_result --->",
+   "url": "https://github.com/ansible/ansible/pull/74595#issuecomment-833562638",
+   "user": "ansibot"
+  },
+  {
+   "body": "The test `ansible-test sanity --test ansible-doc` [[explain](https://docs.ansible.com/ansible/devel/dev_guide/testing/sanity/ansible-doc.html)] failed with the error:\n```\nCommand \"ansible-doc -t lookup config csvfile dict env file fileglob first_found indexed_items ini inventory_hostnames items lines list nested password pipe random_choice sequence subelements template together unvault url varnames vars\" returned exit status 1.\n>>> Standard Error\nERROR! Unable to retrieve documentation from 'password' due to: Expected string in description of ident at index 4, got <class 'ansible.parsing.yaml.objects.AnsibleMapping'>. Expected string in description of ident at index 4, got <class 'ansible.parsing.yaml.objects.AnsibleMapping'>\n```\n<!-- job_id: 14259 -->\n<!-- job_id: 5e441b202260a0ee7f6697fb4ab2287c -->\n<!-- job_id: None -->\n\n[click here for bot help](https://github.com/ansible/ansibullbot/blob/master/ISSUE_HELP.md)\n<!--- boilerplate: shippable_test_result --->",
+   "url": "https://github.com/ansible/ansible/pull/74595#issuecomment-834185032",
+   "user": "ansibot"
+  },
+  {
+   "body": "recheck",
+   "url": "https://github.com/ansible/ansible/pull/74595#issuecomment-841996943",
+   "user": "Akasurde"
+  },
+  {
+   "body": "@samdoran @samccann Thanks for the review and merge. ",
+   "url": "https://github.com/ansible/ansible/pull/74595#issuecomment-847153033",
+   "user": "Akasurde"
+  },
+  {
+   "body": "@Akasurde No problem! Thanks for all the work you did on this. Dealing with crypto libraries can be tricky.",
+   "url": "https://github.com/ansible/ansible/pull/74595#issuecomment-847194490",
+   "user": "samdoran"
+  }
+ ]
+}

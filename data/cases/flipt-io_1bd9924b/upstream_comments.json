@@ -1,0 +1,20 @@
+{
+ "repo": "flipt-io/flipt",
+ "pr_number": 1336,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/1336",
+ "n_review": 0,
+ "n_convo": 2,
+ "review_comments": [],
+ "conversation_comments": [
+  {
+   "body": "# [Codecov](https://codecov.io/gh/flipt-io/flipt/pull/1336?src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) Report\n> Merging [#1336](https://codecov.io/gh/flipt-io/flipt/pull/1336?src=pr&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (9695460) into [main](https://codecov.io/gh/flipt-io/flipt/commit/582a5186ebf2d6bb03461a1ef6a2e3928f581b3e?el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (582a518) will **increase** coverage by `0.07%`.\n> The diff coverage is `100.00%`.\n\n> :exclamation: Current head 9695460 differs from pull request most recent head 9c1023f. Consider uploading reports for the commit 9c1023f to get more accurate results\n\n:mega: This organization is not using Codecov\u2019s [GitHub App Integration](https://github.com/apps/codecov). We recommend you install it so Codecov can continue to function properly for your repositories. [Learn more](https://about.codecov.io/blog/codecov-is-updating-its-github-integration/?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io)\n\n```diff\n@@            Coverage Diff             @@\n##             main    #1336      +/-   ##\n==========================================\n+ Coverage   80.81%   80.88%   +0.07%     \n==========================================\n  Files          43       43              \n  Lines        3336     3349      +13     \n==========================================\n+ Hits         2696     2709      +13     \n  Misses        512      512              \n  Partials      128      128              \n```\n\n\n| [Impacted Files](https://codecov.io/gh/flipt-io/flipt/pull/1336?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) | Coverage \u0394 | |\n|---|---|---|\n| [internal/server/auth/http.go](https://codecov.io/gh/flipt-io/flipt/pull/1336?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvc2VydmVyL2F1dGgvaHR0cC5nbw==) | `88.57% <100.00%> (+6.75%)` | :arrow_up: |\n\n:mega: We\u2019re building smart automated test selection to slash your CI/CD build times. [Learn more](https://about.codecov.io/iterative-testing/?utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io)\n",
+   "url": "https://github.com/flipt-io/flipt/pull/1336#issuecomment-1429465907",
+   "user": "codecov-commenter"
+  },
+  {
+   "body": "Example of the test failing earlier when I pushed it up:\r\n```\r\nPUT http://0.0.0.0:8080/auth/v1/self/expire\r\n \u2714 Set-Cookie: flipt_client_token=.*Max-Age=0\r\n \u2714 status 200\r\n\r\nGET http://0.0.0.0:8080/auth/v1/self\r\n \u2714 status 401\r\n\r\nGET http://0.0.0.0:8080/auth/v1/self\r\n \u2718 Set-Cookie: flipt_client_token=.*Max-Age=0 (actual: Set-Cookie: _gorilla_csrf=<redacted>; Path=/; Expires=Tue, 14 Feb 2023 22:24:50 GMT; Max-Age=43200; HttpOnly; Secure; SameSite=Lax)\r\n \u2714 status 401\r\n```\r\n\r\nIt ensures that an expired token _cookie_ is cleared when presented to an endpoint other than the explicit expire one.\r\nThe only cookie being set before this change was the CSRF one.\r\nNow it sets the appropriate token(s) with max age of <=0.",
+   "url": "https://github.com/flipt-io/flipt/pull/1336#issuecomment-1429545618",
+   "user": "GeorgeMac"
+  }
+ ]
+}

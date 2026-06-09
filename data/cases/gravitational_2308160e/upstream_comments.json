@@ -1,0 +1,25 @@
+{
+ "repo": "gravitational/teleport",
+ "pr_number": 4282,
+ "pr_url": "https://github.com/gravitational/teleport/pull/4282",
+ "n_review": 0,
+ "n_convo": 3,
+ "review_comments": [],
+ "conversation_comments": [
+  {
+   "body": "@klizhentas Any reason we might only want this available in debug mode?",
+   "url": "https://github.com/gravitational/teleport/pull/4282#issuecomment-685116665",
+   "user": "russjones"
+  },
+  {
+   "body": "Chatted with @klizhentas, this can result in high memory usage on especially large clusters (with lots of nodes and/or remote clusters).\r\nNeed to think about this more, maybe there's a clever way to only record the slowest requests.",
+   "url": "https://github.com/gravitational/teleport/pull/4282#issuecomment-689161885",
+   "user": "awly"
+  },
+  {
+   "body": "OK, added an LRU cache for the top requests alongside with the metric. On every cache eviction we'll delete the matching metric entry.\r\nAs a result, we will report at most 1000 backend keys. Infrequent keys will disappear while very busy keys will always be tracked.\r\n\r\nPTAL",
+   "url": "https://github.com/gravitational/teleport/pull/4282#issuecomment-693108937",
+   "user": "awly"
+  }
+ ]
+}

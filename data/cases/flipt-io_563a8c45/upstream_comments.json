@@ -1,0 +1,41 @@
+{
+ "repo": "flipt-io/flipt",
+ "pr_number": 2332,
+ "pr_url": "https://github.com/flipt-io/flipt/pull/2332",
+ "n_review": 4,
+ "n_convo": 2,
+ "review_comments": [
+  {
+   "body": "i wonder if we should have a helper func that we use to get the `flipt` state dir, since we do it here now and i think in a couple other places",
+   "url": "https://github.com/flipt-io/flipt/pull/2332#discussion_r1381668843",
+   "user": "markphelps"
+  },
+  {
+   "body": "Hmm when would this line happen? This is if they were to point towards an image that isnt flipt related I guess?",
+   "url": "https://github.com/flipt-io/flipt/pull/2332#discussion_r1381689599",
+   "user": "yquansah"
+  },
+  {
+   "body": "This would be if the OCI image was malformed. Someone had written a layer in that we dont currently expect.\r\nWe're only going to support this kind of layer for now in an OCI artifact.",
+   "url": "https://github.com/flipt-io/flipt/pull/2332#discussion_r1381721242",
+   "user": "GeorgeMac"
+  },
+  {
+   "body": "I just pushed a commit for this. See what you think.",
+   "url": "https://github.com/flipt-io/flipt/pull/2332#discussion_r1381721625",
+   "user": "GeorgeMac"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "## Uffizzi Ephemeral Environment `deployment-40049`\n\n:cloud: https://app.uffizzi.com/github.com/flipt-io/flipt/pull/2332\n\n:page_facing_up: [View Application Logs etc.](https://app.uffizzi.com/projects/9206/deployments/40049/containers)\n\n:alarm_clock: This Preview will be destroyed in 1 hours at: Fri Nov  3 15:52:49 UTC 2023\n\nWhat is Uffizzi? [Learn more](https://www.uffizzi.com)!",
+   "url": "https://github.com/flipt-io/flipt/pull/2332#issuecomment-1792295813",
+   "user": "github-actions[bot]"
+  },
+  {
+   "body": "## [Codecov](https://app.codecov.io/gh/flipt-io/flipt/pull/2332?src=pr&el=h1&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) Report\n> Merging [#2332](https://app.codecov.io/gh/flipt-io/flipt/pull/2332?src=pr&el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (3e248ef) into [gm/fs-oci](https://app.codecov.io/gh/flipt-io/flipt/commit/563a8c4593610e431f0c3db55e88a679c4386991?el=desc&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) (563a8c4) will **decrease** coverage by `0.12%`.\n> The diff coverage is `65.60%`.\n\n```diff\n@@              Coverage Diff              @@\n##           gm/fs-oci    #2332      +/-   ##\n=============================================\n- Coverage      70.94%   70.83%   -0.12%     \n=============================================\n  Files             78       79       +1     \n  Lines           7456     7613     +157     \n=============================================\n+ Hits            5290     5393     +103     \n- Misses          1865     1906      +41     \n- Partials         301      314      +13     \n```\n\n\n| [Files](https://app.codecov.io/gh/flipt-io/flipt/pull/2332?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io) | Coverage \u0394 | |\n|---|---|---|\n| [internal/config/config.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2332?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvY29uZmlnL2NvbmZpZy5nbw==) | `86.74% <50.00%> (-0.65%)` | :arrow_down: |\n| [internal/config/storage.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2332?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvY29uZmlnL3N0b3JhZ2UuZ28=) | `82.56% <40.00%> (-4.30%)` | :arrow_down: |\n| [internal/oci/file.go](https://app.codecov.io/gh/flipt-io/flipt/pull/2332?src=pr&el=tree&utm_medium=referral&utm_source=github&utm_content=comment&utm_campaign=pr+comments&utm_term=flipt-io#diff-aW50ZXJuYWwvb2NpL2ZpbGUuZ28=) | `68.08% <68.08%> (\u00f8)` | |\n\n:mega: Codecov offers a browser extension for seamless coverage viewing on GitHub. Try it in [Chrome](https://chrome.google.com/webstore/detail/codecov/gedikamndpbemklijjkncpnolildpbgo) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/codecov/) today!\n",
+   "url": "https://github.com/flipt-io/flipt/pull/2332#issuecomment-1792302223",
+   "user": "codecov[bot]"
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "pr_number": 7934,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/7934",
+ "n_review": 5,
+ "n_convo": 0,
+ "review_comments": [
+  {
+   "body": "While we have the always/auto/never convention elsewhere, we could pick better names here to avoid the double negative.\r\n\r\nAn obvious choice would be `enable` / `auto` / `disable`, but that's also ambiguous because it's not clear if we enable accelerated 2d canvas, or if we enable the workaround.\r\n\r\nI suppose it's also okay to keep it as is.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7934#discussion_r1335061048",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "I don't think it makes sense to pass `special_flags` here, as that's only used to handle stuff like `--enable-features` in the other code.\r\n\r\nWe also don't need `namespace` currently. I'm not sure if I'd keep it. It might make sense in the future, but then again, we might just want to leave it off if it's not needed now?",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7934#discussion_r1335061464",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Seems like a bit of a hack... but okay, I can't think of anything that's just as simple, so I suppose it's okay.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7934#discussion_r1335061583",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Could you keep this as `==` and adjust the `reduce_args` fixture instead?",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7934#discussion_r1335061639",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Could use `qt_version.startswith(\"6.\")` instead. Then again, tests should avoid being too smart, so this is fine in my book too.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7934#discussion_r1335061705",
+   "user": "The-Compiler"
+  }
+ ],
+ "conversation_comments": []
+}

@@ -1,0 +1,101 @@
+{
+ "repo": "ansible/ansible",
+ "pr_number": 75116,
+ "pr_url": "https://github.com/ansible/ansible/pull/75116",
+ "n_review": 9,
+ "n_convo": 9,
+ "review_comments": [
+  {
+   "body": "Shouldn't the link title be formatted as well, so it's more clear what exactly is the link title?",
+   "url": "https://github.com/ansible/ansible/pull/75116#discussion_r771135616",
+   "user": "felixfontein"
+  },
+  {
+   "body": "```suggestion\r\n    sample: '0644'\r\n```\r\nDouble quotes would simply be wrong, since the module does not have quotes in its output.",
+   "url": "https://github.com/ansible/ansible/pull/75116#discussion_r771136305",
+   "user": "felixfontein"
+  },
+  {
+   "body": "possibly, any recommendations?",
+   "url": "https://github.com/ansible/ansible/pull/75116#discussion_r774046914",
+   "user": "bcoca"
+  },
+  {
+   "body": "I'd go for underlining.",
+   "url": "https://github.com/ansible/ansible/pull/75116#discussion_r774048810",
+   "user": "felixfontein"
+  },
+  {
+   "body": "There is an extra space for the first line of the description\r\n```suggestion\r\n        text.append(\"%s\\n\" % textwrap.fill(DocCLI.tty_ify(desc), limit, initial_indent=opt_indent, subsequent_indent=opt_indent))\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/75116#discussion_r993743873",
+   "user": "s-hertel"
+  },
+  {
+   "body": "he, had not seen this but already made similar change",
+   "url": "https://github.com/ansible/ansible/pull/75116#discussion_r993791169",
+   "user": "bcoca"
+  },
+  {
+   "body": "Should this really be removed? I don't think that's a good idea.",
+   "url": "https://github.com/ansible/ansible/pull/75116#discussion_r996415821",
+   "user": "felixfontein"
+  },
+  {
+   "body": "```suggestion\r\n    # avoid header that has full path and won't work across random paths for tests\r\n```",
+   "url": "https://github.com/ansible/ansible/pull/75116#discussion_r996415941",
+   "user": "felixfontein"
+  },
+  {
+   "body": "not removed, it appears on higher verbosity now .. makes it a lot less cluttered in some modules, specially those that added many options after initial version\r\n\r\nI might move more things behind verbosity levels, trying to figure out what the good line is",
+   "url": "https://github.com/ansible/ansible/pull/75116#discussion_r997335620",
+   "user": "bcoca"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "The test `ansible-test sanity --test pep8` [[explain](https://docs.ansible.com/ansible/devel/dev_guide/testing/sanity/pep8.html)] failed with 1 error:\n```\ntest/units/cli/test_doc.py:40:1: E302: expected 2 blank lines, found 1\n```\n<!-- job_id: 18927 -->\n<!-- job_id: 713482925b3d66ba53746df841b4765d -->\n<!-- job_id: None -->\n\n[click here for bot help](https://github.com/ansible/ansibullbot/blob/master/ISSUE_HELP.md)\n<!--- boilerplate: shippable_test_result --->",
+   "url": "https://github.com/ansible/ansible/pull/75116#issuecomment-868816398",
+   "user": "ansibot"
+  },
+  {
+   "body": "The test `ansible-test sanity --test ansible-doc` [[explain](https://docs.ansible.com/ansible/devel/dev_guide/testing/sanity/ansible-doc.html)] failed with the error:\n```\nCommand \"ansible-doc -t become runas su sudo\" returned exit status 1.\n>>> Standard Error\nERROR! Unable to retrieve documentation from 'runas' due to: name 'COLOR_CODES' is not defined. name 'COLOR_CODES' is not defined\n```\n<!-- job_id: 19199 -->\n<!-- job_id: d72a1e6954a33153f6743eac730e2e59 -->\n<!-- job_id: None -->\nThe test `ansible-test sanity --test pylint` [[explain](https://docs.ansible.com/ansible/devel/dev_guide/testing/sanity/pylint.html)] failed with 1 error:\n```\nlib/ansible/cli/doc.py:370:22: undefined-variable: Undefined variable 'COLOR_CODES'\n```\n<!-- job_id: 19199 -->\n<!-- job_id: 82b032c8bffeff59ef82f6f9f479ede7 -->\n<!-- job_id: None -->\n\n[click here for bot help](https://github.com/ansible/ansibullbot/blob/master/ISSUE_HELP.md)\n<!--- boilerplate: shippable_test_result --->",
+   "url": "https://github.com/ansible/ansible/pull/75116#issuecomment-869962281",
+   "user": "ansibot"
+  },
+  {
+   "body": "!waffling core_review",
+   "url": "https://github.com/ansible/ansible/pull/75116#issuecomment-871579568",
+   "user": "samdoran"
+  },
+  {
+   "body": "@bcoca is this targeted for 2.12 or sometime later?",
+   "url": "https://github.com/ansible/ansible/pull/75116#issuecomment-921867874",
+   "user": "samccann"
+  },
+  {
+   "body": "@samccann no specific timeline, in any case this should not change any content for the docs team, only the presentation for the console",
+   "url": "https://github.com/ansible/ansible/pull/75116#issuecomment-921880330",
+   "user": "bcoca"
+  },
+  {
+   "body": "Some general comments:\r\n\r\n- color selection - I find the gray used for 'copy` in the example above (and locally) hard to see in dark mode. \r\n- docs update - we should document how to change/turn off the color (unless that's obvious to everyone but me). \r\n- new attributes - I'd love to see some color there :-) Maybe the same color scheme as you use for parameters? . I also find the options much easier to read than the attributes. Consider if overall the attributes should use similar formatting and spacing as the options do. (so yellow on the name, drop down a line and indent for description (and remove the term description) and drop down again and bold **support**: `<value>`",
+   "url": "https://github.com/ansible/ansible/pull/75116#issuecomment-922001273",
+   "user": "samccann"
+  },
+  {
+   "body": "- The colors will be configurable as we do for others already (callbacks, warnings, errors, etc). Also i develop in \"dark mode ... had expected those in 'light mode' to complain first, but config will be there for all to tweak.\r\n\r\n- We already have a global swicth, ANSIBLE_NOCOLOR, as we do have colors in normal output, just didn't for ansible-doc . We also respect the commonly used NO_COLOR env var (i.e screen readers for the blind).",
+   "url": "https://github.com/ansible/ansible/pull/75116#issuecomment-922053496",
+   "user": "bcoca"
+  },
+  {
+   "body": "!waffling needs_revision",
+   "url": "https://github.com/ansible/ansible/pull/75116#issuecomment-1006412101",
+   "user": "mkrizek"
+  },
+  {
+   "body": "The test `ansible-test sanity --test pep8` [[explain](https://docs.ansible.com/ansible-core/devel/dev_guide/testing/sanity/pep8.html)] failed with 1 error:\n```\nlib/ansible/cli/doc.py:1270:30: E222: multiple spaces after operator\n```\n<!-- job_id: 57060 -->\n<!-- job_id: 46eec7bce135c7f837c1593858212887 -->\n<!-- job_id: None -->\n\n[click here for bot help](https://github.com/ansible/ansibullbot/blob/devel/ISSUE_HELP.md)\n<!--- boilerplate: shippable_test_result --->",
+   "url": "https://github.com/ansible/ansible/pull/75116#issuecomment-1277851969",
+   "user": "ansibot"
+  }
+ ]
+}

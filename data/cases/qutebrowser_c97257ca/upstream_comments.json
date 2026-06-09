@@ -1,0 +1,111 @@
+{
+ "repo": "qutebrowser/qutebrowser",
+ "pr_number": 7096,
+ "pr_url": "https://github.com/qutebrowser/qutebrowser/pull/7096",
+ "n_review": 14,
+ "n_convo": 6,
+ "review_comments": [
+  {
+   "body": "Would be good to move this to `utils/utils.py` and write a test or two for it - see `parse_rect` in there (and `TestParseRect` in `tests/unit/utils/test_utils.py`) for some examples.\r\n\r\nShould probably also handle `OverflowError` and verify that `.isNull()` on the resulting point is `False`.\r\n\r\nI suppose this wrapper would still be needed though, in order to handle the `ValueError` and convert it into a `message.error` to be shown.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r844145865",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "```suggestion\r\n    except ValueError as e::\r\n        message.error(f\"'{value}' is not a valid point: {e}\")\r\n```\r\n\r\nTo make it clearer what the culprit is.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r844146450",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Maybe switch this dict to storing lambdas instead, so that keyword arguments can be used where appropriate? Something like: `lambda: tab.elements.find_css(selector=value, callback=single_cb, error_cb=message.error)`.\r\n\r\nOr go the KISS route and just convert this to an `if`, I suppose.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r844152455",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "```suggestion\r\n               Specify `value` as 'x,y'.\r\n```",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r844153274",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Yeah, that's definitely better, I will do that. \r\n\r\nRegarding `.isNull()`: I don't see a particular problem with clicking at `0,0`, do you have a specific reason for disallowing that?",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r844194039",
+   "user": "Nicholas42"
+  },
+  {
+   "body": "Note that I do also allow negative positions at the moment, these are valid in HTML as far as I know, they only would be hidden in most browsers. But I do not see that as a reason do disallow clicking them, if wanted.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r844245895",
+   "user": "Nicholas42"
+  },
+  {
+   "body": "Ah, right. I was thinking about it as a \"make sure that the Qt object is valid\" kind of thing (like e.g. `.isNull()` on a `QPixmap` after loading a file). You're entirely correct that such a check doesn't make sense in this context - my bad!",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r844347025",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "The exception message already contains the value, so I suppose we could remove it here?",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r845950754",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "```suggestion\r\n    ).map(\",\".join)\r\n```\r\n\r\nshould do the same, I think?",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r845951822",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Some other tests:\r\n\r\n- String with two commas\r\n- Only `1` (valid int) with no commas",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r845952594",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Should this have a \"Then\" of some sorts?",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r845954049",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Maybe add a dict above with the message after \"No element found\" and \"Multiple elements found\"? That way, we could have a better error message than \"matching focused=None\" or so, e.g.:\r\n\r\n- \"No element found with ID '{value}'\"\r\n- \"No element found with CSS selector '{value}'\"\r\n- \"No element found with focus\"\r\n- \"No element found at position {value}\"",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r845958573",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Yes, thx.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r846044257",
+   "user": "Nicholas42"
+  },
+  {
+   "body": "Yes, I will just message `str(e)` now, that should be good enough.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#discussion_r846046041",
+   "user": "Nicholas42"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "I don't think that those CI-fails result from the changes of this pull request. Could you have a look at it @The-Compiler ?",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#issuecomment-1090791591",
+   "user": "Nicholas42"
+  },
+  {
+   "body": "Yup, was an issue with flaky tests - sorry about that! I triggered a rerun and they are green now.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#issuecomment-1092037107",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "No hurry, but I think I changed everything you remarked on. So you can merge this before it gets forgotten again ;-)",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#issuecomment-1112109995",
+   "user": "Nicholas42"
+  },
+  {
+   "body": "Noted! I'm mostly focused on #5395 right now, but I hope to finish that next week or so (see https://github.com/qutebrowser/qutebrowser/issues/5395#issuecomment-1113681474) and then I plan to get back to PRs.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#issuecomment-1116473944",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "Well, turns out it took me a bit longer, but there I am! Great work, thanks @Nicholas42! Merged with minor changes in d45e35d5811dac3464a6dce1370d51f3e4d63c61.",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#issuecomment-1153758152",
+   "user": "The-Compiler"
+  },
+  {
+   "body": "~~Two~~ Three more follow-ups after I saw mypy failing on master:\r\n\r\n- f8433aa85 click-element: Unpack lambda dict into if\r\n- c4fb367c6 click-element: Fix typing\r\n- 06587ea43 Fix lint",
+   "url": "https://github.com/qutebrowser/qutebrowser/pull/7096#issuecomment-1153877628",
+   "user": "The-Compiler"
+  }
+ ]
+}

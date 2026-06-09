@@ -1,0 +1,86 @@
+{
+ "repo": "gravitational/teleport",
+ "pr_number": 34938,
+ "pr_url": "https://github.com/gravitational/teleport/pull/34938",
+ "n_review": 13,
+ "n_convo": 2,
+ "review_comments": [
+  {
+   "body": "Any explanation to explain the values? Random pick?",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1408251400",
+   "user": "jakule"
+  },
+  {
+   "body": "How big the buffer will be? For bigger buffers we probably should use smaller multipliers to not over-allocate too much.",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1419620150",
+   "user": "jakule"
+  },
+  {
+   "body": "nit: I'm not sure if we care, but you will get better alignment if you move this field above `bool`s.",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1419631836",
+   "user": "jakule"
+  },
+  {
+   "body": "nit:\r\n```suggestion\r\n\tt.Parallel()\r\n\r\n\tvar mu sync.Mutex\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1419639887",
+   "user": "jakule"
+  },
+  {
+   "body": "nit:\r\n```suggestion\r\n\tt.Parallel()\r\n\r\n\tvar b buffer\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1419641564",
+   "user": "jakule"
+  },
+  {
+   "body": "nit: I think it's easier to read\r\n```suggestion\r\n// It's possible for the second slice to be empty if the first slice is\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1419646721",
+   "user": "jakule"
+  },
+  {
+   "body": "I'm not getting better alignment but I'm getting fewer bytes that the gc needs to check (24 vs 16). Thank you for making me aware of this additional tidbit, now I'll spend time obsessing over my struct layout even more. \ud83d\ude14\r\n\r\n(`managedConn` itself is going to go from 224 to 184 pointer bytes after some rearrangement)",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1433160916",
+   "user": "espadolini"
+  },
+  {
+   "body": "The buffer is up to 2MiB for the send buffer. Is 1 to 2 MiB too big of a jump?",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1433171574",
+   "user": "espadolini"
+  },
+  {
+   "body": "Theres a tool for that. `go vet -vettool=fieldalignment`",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1433172594",
+   "user": "rosstimothy"
+  },
+  {
+   "body": "Yep, I used that one; I wasn't sure of the CLI usage, but it can be added to squigglies in vscode with\r\n```json\r\n    \"gopls\": {\r\n        \"ui.diagnostic.analyses\": {\r\n            \"fieldalignment\": true,\r\n        }\r\n    },\r\n```",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1433175882",
+   "user": "espadolini"
+  },
+  {
+   "body": "That's different tho! What I failed to explain in a clear way is that it's either two nonempty slices, or, if it's only one nonempty slice, it's going to be the first of the two. I'll try to reword it in a way that's more obvious and doesn't have as many negatives.",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1433177641",
+   "user": "espadolini"
+  },
+  {
+   "body": "Manual testing; added a TODO about finding some more sensible way to pick values.",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1433187266",
+   "user": "espadolini"
+  },
+  {
+   "body": "As per slack convo, we'll reconsider the buffer allocation strategy if memory consumption becomes a problem in the future.",
+   "url": "https://github.com/gravitational/teleport/pull/34938#discussion_r1434075337",
+   "user": "espadolini"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "The PR changelog entry failed validation: Changelog entry not found in the PR body. Please add a \"no-changelog\" label to the PR, or changelog lines starting with `changelog: ` followed by the changelog entries for the PR.",
+   "url": "https://github.com/gravitational/teleport/pull/34938#issuecomment-1824880424",
+   "user": "github-actions[bot]"
+  },
+  {
+   "body": "@fheinecke @jakule friendly ping",
+   "url": "https://github.com/gravitational/teleport/pull/34938#issuecomment-1843511703",
+   "user": "espadolini"
+  }
+ ]
+}

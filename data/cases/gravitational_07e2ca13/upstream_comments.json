@@ -1,0 +1,96 @@
+{
+ "repo": "gravitational/teleport",
+ "pr_number": 18988,
+ "pr_url": "https://github.com/gravitational/teleport/pull/18988",
+ "n_review": 15,
+ "n_convo": 2,
+ "review_comments": [
+  {
+   "body": "Why not have these just implemented as part of the correct native package instead? What's the trampoline for?",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039678056",
+   "user": "espadolini"
+  },
+  {
+   "body": "Why not take a `*testing.T`, fail the test on error and add a cleanup as appropriate? Are we ever going to use this outside of a go test environment?",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039680684",
+   "user": "espadolini"
+  },
+  {
+   "body": "Isn't this just a very roundabout way to get GOOS? Why not a GOOS to `devicepb.OSType` function instead?",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039682704",
+   "user": "espadolini"
+  },
+  {
+   "body": "What's the advantage of using a _test package here?",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039683894",
+   "user": "espadolini"
+  },
+  {
+   "body": "```suggestion\r\n\treturn nil, trace.NotImplemented(\"platform not supported\")\r\n```\r\n\r\nor something along those lines.",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039684754",
+   "user": "espadolini"
+  },
+  {
+   "body": "Add an otherwise useless t.SetEnv so we don't accidentally make tests that use this Parallel?",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039689170",
+   "user": "espadolini"
+  },
+  {
+   "body": "The trampoline helps me ensure all build tags are equivalent. It's also an attempt at making the APIs easier to visualize, by having them explained/documented in a single file. (Also godocs are only written once.)",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039846327",
+   "user": "codingllama"
+  },
+  {
+   "body": "Force of habit - I prefer writing \"normal Go\" to \"testing Go\" as much as I can. Same results in the end.",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039847271",
+   "user": "codingllama"
+  },
+  {
+   "body": "Build tags are logic-free, but I suppose a GOOS solution is easier to read. Changed.",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039857753",
+   "user": "codingllama"
+  },
+  {
+   "body": "I use `_test` packages by default, as it's a clear signal that we only test via public APIs. I tend to ask myself the opposite question, \"why not a _test package?\".",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039859058",
+   "user": "codingllama"
+  },
+  {
+   "body": "I've been purposefully avoiding trace.NotImplemented because tsh seem to show some extra messages when it sees it. Also, I plan on using trace.NotImplemented to detect the absence of a server-side Device Trust impl (OSS Teleport / old Enterprise).\r\n\r\nChanged messages and added a comment.",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039865305",
+   "user": "codingllama"
+  },
+  {
+   "body": "Done.",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039870995",
+   "user": "codingllama"
+  },
+  {
+   "body": "Should we include the detected OS in the error message, just to help with troubleshooting if people run in to this error?",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039939056",
+   "user": "zmb3"
+  },
+  {
+   "body": "Agreed, we really should default to _test.",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1039940793",
+   "user": "zmb3"
+  },
+  {
+   "body": "Done.",
+   "url": "https://github.com/gravitational/teleport/pull/18988#discussion_r1040024180",
+   "user": "codingllama"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "Friendly ping @EdwardDowling @espadolini ?",
+   "url": "https://github.com/gravitational/teleport/pull/18988#issuecomment-1337435914",
+   "user": "codingllama"
+  },
+  {
+   "body": "Thanks @espadolini !",
+   "url": "https://github.com/gravitational/teleport/pull/18988#issuecomment-1337768074",
+   "user": "codingllama"
+  }
+ ]
+}

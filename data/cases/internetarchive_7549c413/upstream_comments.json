@@ -1,0 +1,86 @@
+{
+ "repo": "internetarchive/openlibrary",
+ "pr_number": 9991,
+ "pr_url": "https://github.com/internetarchive/openlibrary/pull/9991",
+ "n_review": 12,
+ "n_convo": 3,
+ "review_comments": [
+  {
+   "body": "Move this to a separate file; might want to make `openlibrary/core/wikidata/` a directory to house all these wikidata-related things. Maybe.\r\n\r\nTo make this easier to type, having a dataclass for `SocialProfile` would be useful.",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1831389959",
+   "user": "cdrini"
+  },
+  {
+   "body": "Note: We'll want to self-host these images before we go to prod; as a user privacy concern, and also wikimedia commons frown upon direct linking like we're doing now. Or fetch and cache to server from our domain.\r\n\r\nThis might get a bit complicated, so let's draw a line in the sand that for this PR we will only have a fixed set of self-hosted images.",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1831397392",
+   "user": "cdrini"
+  },
+  {
+   "body": "I decided not to move this to a separate file for now because we only have one. Likewise with the dataclass. I think we can do that when we add more profiles if it looks better that way.",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1831593017",
+   "user": "RayBB"
+  },
+  {
+   "body": "Done",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1831593094",
+   "user": "RayBB"
+  },
+  {
+   "body": "```suggestion\r\n    <a href=\"$url\" title=\"$_('View on %(site)s', site=title)\">\r\n        <img class=\"profile-icon\" src=\"$icon_url\" alt=\"\">\r\n```\r\n\r\nI think the title is more common `<a>` since that helps screen readers.\r\n\r\nThen on the image, you can set `alt=\"\"` to make the image essentially presentation, since the actual info is the `title` (+ remove the title from the image).",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1850711289",
+   "user": "cdrini"
+  },
+  {
+   "body": "```suggestion\r\n                        \"icon_url\": f\"/static/images/identifier_icons/{profile_config['icon_name']}\",\r\n```\r\n?",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1851426707",
+   "user": "Freso"
+  },
+  {
+   "body": "I know this is from a different PR, but would it make sense to call this `_fetched` or `_last_fetched` instead to avoid the ambiguity and need of the comment? (Probably also something for a different PR since, either way, it\u2019s unrelated to adding Wikipedia links.)",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1851437101",
+   "user": "Freso"
+  },
+  {
+   "body": "```suggestion\r\n$def render_social_icon(url, icon_url, label):\r\n    <a href=\"$url\" title=\"$_('View on %(site)s', site=label)\">\r\n        <img class=\"profile-icon\" src=\"$icon_url\" alt=\"$label\">\r\n```\r\nThe `alt` property should describe/be a stand\u2010in for the image, so the social\u2019s `label` is probably a good fit. (Also, changing the `title` to `label` to be consistent with how it\u2019s named in the dict, since my first iteration of this had the function signature take an addition `label` property\u2026)",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1851445537",
+   "user": "Freso"
+  },
+  {
+   "body": "In python 3.12+, this is actually ok! They rewrote the parser to make f-strings more resilient :) https://peps.python.org/pep-0701/",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1852868899",
+   "user": "cdrini"
+  },
+  {
+   "body": "Oooh. Neat!",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1852896494",
+   "user": "Freso"
+  },
+  {
+   "body": "```suggestion\r\n    <a href=\"$url\" title=\"$_('View on %(site)s', site=title)\" data-ol-link-track=\"AuthorSocialLink|$title\">\r\n```\r\n\r\nFor another PR: it would be nice to have analytics on this; can $title have spaces/etc we might need to strip?",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1854401774",
+   "user": "cdrini"
+  },
+  {
+   "body": "In this case, because we have the `title` tag on the above anchor element, the image can be seen as purely presentational, and doesn't require an alt tag (or more specifically requires an `alt=\"\"` tag to denote it's presentational). E.g. screen readers will read the `title` tag, I believe. But this is a bit of an edge case, so not entirely sure.",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1854406264",
+   "user": "cdrini"
+  }
+ ],
+ "conversation_comments": [
+  {
+   "body": "Dropping a bunch of profiles here we decided to leave out  for the first version.\r\n```\r\n\r\n    {\r\n        \"icon_url\": \"https://upload.wikimedia.org/wikipedia/commons/5/5e/ResearchGate_icon_SVG.svg\",\r\n        \"wikidata_property\": \"P2038\",\r\n        \"label\": \"ResearchGate\",\r\n        \"base_url\": \"https://www.researchgate.net/profile/\",\r\n    },\r\n    {\r\n        \"icon_url\": \"https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg\",\r\n        \"wikidata_property\": \"P496\",\r\n        \"label\": \"ORCID\",\r\n        \"base_url\": \"https://orcid.org/\",\r\n    },\r\n    {\r\n        \"icon_url\": \"https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg\",\r\n        \"wikidata_property\": \"P1960\",\r\n        \"label\": \"Google Scholar\",\r\n        \"base_url\": \"https://scholar.google.com/citations?user=\",\r\n    },\r\n    {\r\n        \"icon_url\": \"https://upload.wikimedia.org/wikipedia/commons/6/66/Academia-logo-2021.svg\",\r\n        \"wikidata_property\": \"P5715\",\r\n        \"label\": \"Academia.edu\",\r\n        \"base_url\": \"\",\r\n    },\r\n    {\r\n        \"icon_url\": \"https://avatars.githubusercontent.com/u/2212508\",\r\n        \"wikidata_property\": \"P6005\",\r\n        \"label\": \"Muck Rack\",\r\n        \"base_url\": \"https://muckrack.com/\",\r\n    },\r\n    {\r\n        \"icon_url\": \"https://upload.wikimedia.org/wikipedia/commons/d/d5/Mastodon_logotype_%28simple%29_new_hue.svg\",\r\n        \"wikidata_property\": \"P4033\",\r\n        \"label\": \"Mastodon\",\r\n        \"base_url\": \"https://fedirect.toolforge.org/?id=\",\r\n    },\r\n    {\r\n        \"icon_url\": \"https://play-lh.googleusercontent.com/XXqfqs9irPSjphsMPcC-c6Q4-FY5cd8klw4IdI2lof_Ie-yXaFirqbNDzK2kJ808WXJk\",\r\n        \"wikidata_property\": \"P4985\",\r\n        \"label\": \"TMDB\",\r\n        \"base_url\": \"https://www.themoviedb.org/person/\",\r\n    },\r\n    {\r\n        \"icon_url\": \"https://upload.wikimedia.org/wikipedia/commons/c/cb/Cib-imdb_%28CoreUI_Icons_v1.0.0%29.svg\",\r\n        \"wikidata_property\": \"P345\",\r\n        \"label\": \"IMDb\",\r\n        \"base_url\": \"https://www.imdb.com/name/\",\r\n    },\r\n    {\r\n        \"icon_url\": \"https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg\",\r\n        \"wikidata_property\": \"P2002\",\r\n        \"label\": \"X (Twitter)\",\r\n        \"base_url\": \"https://twitter.com/\",\r\n    },\r\n```",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#issuecomment-2460441478",
+   "user": "RayBB"
+  },
+  {
+   "body": "El mi\u00e9., 20 de noviembre de 2024 11:17 a. m., Drini Cami <\r\n***@***.***> escribi\u00f3:\r\n\r\n> ***@***.**** commented on this pull request.\r\n> ------------------------------\r\n>\r\n> In openlibrary/templates/authors/infobox.html\r\n> <https://github.com/internetarchive/openlibrary/pull/9991#discussion_r1850711289>\r\n> :\r\n>\r\n> > +    <a href=\"$url\">\r\n> +        <img class=\"profile-icon\" src=\"$icon_url\" title=\"$title\">\r\n>\r\n> \u2b07\ufe0f Suggested change\r\n>\r\n> -    <a href=\"$url\">\r\n> -        <img class=\"profile-icon\" src=\"$icon_url\" title=\"$title\">\r\n> +    <a href=\"$url\" title=\"$_('View on %(site)s', site=title)\">\r\n> +        <img class=\"profile-icon\" src=\"$icon_url\" alt=\"\">\r\n>\r\n> I think the title is more common <a> since that helps screen readers.\r\n>\r\n> Then on the image, you can set alt=\"\" to make the image essentially\r\n> presentation, since the actual info is the title (+ remove the title from\r\n> the image).\r\n>\r\n> \u2014\r\n> Reply to this email directly, view it on GitHub\r\n> <https://github.com/internetarchive/openlibrary/pull/9991#pullrequestreview-2449263008>,\r\n> or unsubscribe\r\n> <https://github.com/notifications/unsubscribe-auth/BHO4HIRQ6RSAPRQEOTTLQF32BS72FAVCNFSM6AAAAABRFYVIVGVHI2DSMVQWIX3LMV43YUDVNRWFEZLROVSXG5CSMV3GSZLXHMZDINBZGI3DGMBQHA>\r\n> .\r\n> You are receiving this because you commented.Message ID:\r\n> ***@***.***>\r\n>\r\n",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#issuecomment-2495792103",
+   "user": "alanvalenciagonzalez936"
+  },
+  {
+   "body": "This is (mostly) a duplicate of #2814 ",
+   "url": "https://github.com/internetarchive/openlibrary/pull/9991#issuecomment-3523960458",
+   "user": "tfmorris"
+  }
+ ]
+}

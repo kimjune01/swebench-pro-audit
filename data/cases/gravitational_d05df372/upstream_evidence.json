@@ -1,0 +1,1 @@
+{"slug":"gravitational_d05df372","found":false,"comment_url":"","author":"","verbatim":"","addresses":"No reviewer discusses whether an unsupported auth.ContextUser type yields AccessDenied vs BadParameter; threads cover ErrorWriter/panic and kubectl linking only."}

@@ -1,0 +1,1 @@
+{"slug":"ansible_20ef733e","found":false,"comment_url":"","author":"","verbatim":"","addresses":"Comments discuss the ident parameter and 2a-vs-2b default, but none addresses the exact full bcrypt digest the test pins for ident='2'."}

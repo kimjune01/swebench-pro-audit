@@ -1,0 +1,1 @@
+{"slug":"qutebrowser_83bef2ad","found":false,"comment_url":"","author":"","verbatim":"","addresses":"Comments critique the attribute-based design and None-implies-autoselection inference, but none decides __str__ omitting the PyQt5 line vs emitting 'not tried'."}

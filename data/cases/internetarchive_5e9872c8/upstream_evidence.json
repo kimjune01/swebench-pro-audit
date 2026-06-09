@@ -1,0 +1,1 @@
+{"slug":"internetarchive_5e9872c8","found":false,"comment_url":"","author":"","verbatim":"","addresses":"No reviewer discusses the has_fulltext boolean-facet special-casing (true/yes before false/no ordering and relabeling); threads cover author_facet stripping and None handling only."}

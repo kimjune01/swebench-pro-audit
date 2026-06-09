@@ -1,0 +1,1 @@
+{"slug":"qutebrowser_74671c16","found":false,"comment_url":"","author":"","verbatim":"","addresses":"Comments cover future-proofing the version scheme and __len__/__bool__ semantics; none debates the 0..0x7FFF_FFFF range rejecting 0x8000_0000."}

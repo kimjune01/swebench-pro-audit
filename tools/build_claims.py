@@ -44,6 +44,11 @@ def receipts(slug, wf, r2=False):
         u = json.loads(up.read_text())
         if u.get("pr_url"):
             links.append(f"[PR #{u['pr_number']}]({u['pr_url']})")
+    ev = CASES / slug / "upstream_evidence.json"
+    if ev.exists():
+        e = json.loads(ev.read_text())
+        if e.get("found") and e.get("comment_url"):
+            links.append(f"[**debated**]({e['comment_url']})")  # a human treated this choice as a live decision
     return " · ".join(links)
 
 
@@ -117,6 +122,25 @@ def main():
             "|---|---|---|---|---|---|"]
     for slug, iid, axis, claim, wf, ref in r["two-expert"]:
         out.append(f"| `{slug}` | `{short_iid(iid)}` | {axis} | {cell(claim, 240)} | {ref} | {receipts(slug, wf)} |")
+    # ---- upstream debate: the choice was litigated on the real PR (human receipt, deep-linked) ----
+    ev = []
+    for d in sorted(CASES.iterdir()):
+        f = d / "upstream_evidence.json"
+        if f.exists():
+            e = json.loads(f.read_text())
+            if e.get("found"):
+                ev.append(e)
+    out += ["",
+            f"## Upstream debate — the choice was discussed on the real PR ({len(ev)})",
+            "",
+            "The strongest receipt the audit offers: a human maintainer or reviewer, on the actual pull "
+            "request, treating the test-pinned choice as a live decision the task prose never settled. If it "
+            "was worth a comment, it was not determined. Each links straight to the comment — read the human's "
+            "own words. (Located mechanically from the fetched threads; the verdict is the human's, not a model's.)",
+            "", "| case | who | the comment (deep-linked) | what it settles |", "|---|---|---|---|"]
+    for e in ev:
+        q = cell(e.get("verbatim", ""), 160)
+        out.append(f"| `{e['slug']}` | {e.get('author','')} | [{q}]({e['comment_url']}) | {cell(e.get('addresses',''),120)} |")
     out += ["",
             "## Negative controls — codex-proposed splits the refuter KILLED (not claimed)",
             "",

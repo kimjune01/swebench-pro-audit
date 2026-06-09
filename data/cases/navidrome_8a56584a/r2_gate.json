@@ -1,0 +1,9 @@
+{
+ "opus": false,
+ "codex": false,
+ "opus_unmet": "In useResourceRefresh, the hook must avoid issuing duplicate getOne calls for the same (resource, id) during a single processing pass (repeated ids within a resource should be fetched at most once); the patch iterates resources[r].forEach without deduplicating ids, so repeated ids trigger duplicate getOne calls.",
+ "codex_unmet": "RefreshResource.With/Data do not ensure that when Any is passed as an id, that resource serializes as [\"*\"]; the implementation can emit additional ids alongside \"*\".",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

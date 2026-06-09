@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "The `cleanOrphans` method must return an empty array if `meta.config.orphanExpiryDays` is non-numeric; this patch only checks falsiness, so truthy non-numeric values still proceed through orphan lookup/stat filtering instead of explicitly returning empty.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

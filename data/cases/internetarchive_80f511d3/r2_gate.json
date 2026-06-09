@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "In plugins/upstream/addbook.py, when table_of_contents arrives empty from the form, Edition.set_toc_text(None) must be called instead of an empty string; the patch still calls set_toc_text('') when the field is present but empty.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

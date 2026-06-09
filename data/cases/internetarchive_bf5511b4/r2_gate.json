@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "The DataField constructor's rec argument is not type-annotated, violating the requirement that all constructor arguments include type annotations.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

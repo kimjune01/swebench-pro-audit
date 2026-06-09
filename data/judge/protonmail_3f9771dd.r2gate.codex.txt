@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "Boundary behavior is not satisfied: if lastSubscriptionEnd is exactly one calendar month prior to the current moment, the patch uses isBefore(...) and therefore treats the user as not meeting the condition."}

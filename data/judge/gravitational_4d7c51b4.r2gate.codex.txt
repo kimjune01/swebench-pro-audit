@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "Column parsing methods must return the specific error message \"got NULL\" for unexpected NULL values; Bytea returns \"expected bytea, got NULL\" instead."}

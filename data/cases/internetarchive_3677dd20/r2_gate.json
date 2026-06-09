@@ -1,0 +1,9 @@
+{
+ "opus": false,
+ "codex": false,
+ "opus_unmet": "The import_job function should print JSON-serialized records in dry-run mode: because `import_objects` is a lazy `map` iterator that is exhausted by the earlier `len(list(import_objects))` call, the dry-run `for record in import_objects` loop iterates over an already-consumed iterator and prints nothing (and in normal mode `create_import_jobs(list(import_objects))` receives an empty list), so feed entries are not actually processed/printed as required.",
+ "codex_unmet": "The map_data function should treat contributors explicitly designated as Authors as authors; the patch only checks for contribution == 'Author' and would not include contributors whose role is 'Authors'.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

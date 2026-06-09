@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "When chain_management is true and state is absent, the module should delete the specified chain only if it exists and contains no rules; the patch attempts deletion based only on chain existence and does not distinguish an empty chain from one containing rules."}

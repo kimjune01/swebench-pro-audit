@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "getNotificationTextMoved does not append the \"could not be moved\" sentence for single-item success messages when messagesNotAuthorizedToMove is nonzero.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

@@ -1,0 +1,1 @@
+{"conforms":false,"unmet":"Inputs that already include `www` must be preserved as-is, but `getSocialUrl` prepends `https://` to `www...` values."}

@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "Batch does not implement the required _norm_ids method returning zero-padded 4-digit item_id and 2-digit batch_id strings, nor does it represent a batch instance holding item_id, batch_id, and optional size."}

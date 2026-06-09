@@ -1,0 +1,9 @@
+{
+ "opus": false,
+ "codex": false,
+ "opus_unmet": "The function `RenameKernelSourcePackageName` (and `IsKernelSourcePackage`) must be defined in models/packages.go per the INTERFACE; the patch only references models.RenameKernelSourcePackageName / models.IsKernelSourcePackage but contains no diff adding these new public functions to models/packages.go.",
+ "codex_unmet": "Kernel binary reporting is not limited to binaries whose names contain the running kernel release string; for Debian the patch appends all BinaryNames for a running kernel source package, and for Ubuntu it keeps linux-image-* binaries without checking that they match uname -r.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

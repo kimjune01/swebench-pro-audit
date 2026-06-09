@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "When determining if isTagAllowed, it should ensure the tag to evaluate isn't one of the system tags; this patch returns true for privileged users even when data.tag is a system tag."}

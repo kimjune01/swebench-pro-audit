@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "DeviceDetailHeading displays device.device_id when display_name is an empty string because it uses device.display_name || device.device_id, but the spec requires falling back to device_id only when display_name is undefined.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

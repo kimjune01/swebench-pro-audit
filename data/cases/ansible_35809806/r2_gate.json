@@ -1,0 +1,9 @@
+{
+ "opus": false,
+ "codex": false,
+ "opus_unmet": "If the sysctl command cannot be found or executed because the binary is missing, a ValueError must be raised. The patch's get_uptime_facts uses module.get_bin_path('sysctl') (which returns None silently when missing) and get_sysctl only catches IOError/OSError to issue a warning \u2014 neither path raises a ValueError when the binary is missing.",
+ "codex_unmet": "If the sysctl command cannot be found or executed because the binary is missing, a ValueError must be raised; the patch does not check for a missing sysctl binary or raise ValueError.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

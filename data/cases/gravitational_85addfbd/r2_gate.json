@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "ProvisioningService.DeleteToken does not preserve masking when propagating non-NotFound errors; it returns trace.Wrap(err) unchanged, which can still include the plaintext token.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

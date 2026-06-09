@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "The patch does not create internal/storage/fs/oci/source.go with the required Source struct and related functions/methods specified in the INTERFACE section.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

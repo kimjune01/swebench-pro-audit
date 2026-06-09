@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "When configured with input/output buffers whose sizes exceed or consume the configured capacity, sends via Push() can still accept more than the configured capacity before blocking, so backpressure is not applied when the number of submitted/in-flight items reaches capacity.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

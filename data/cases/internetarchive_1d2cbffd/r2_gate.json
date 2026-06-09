@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "olid_to_key must raise a ValueError for OLIDs with unsupported suffixes, but this implementation raises KeyError from the suffix lookup.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

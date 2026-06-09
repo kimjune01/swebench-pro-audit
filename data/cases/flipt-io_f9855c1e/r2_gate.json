@@ -1,0 +1,9 @@
+{
+ "opus": false,
+ "codex": false,
+ "opus_unmet": "The validator must support applying additional schema extensions to validate optional fields and constraints beyond the base schema \u2014 the patch only adds a CUE extension file and edits test YAML, with no validator code changes to accept/apply extensions or to report accurate line numbers.",
+ "codex_unmet": "The validator must support applying additional schema extensions to validate optional fields and constraints beyond the base schema.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

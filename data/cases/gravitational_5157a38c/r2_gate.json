@@ -1,0 +1,9 @@
+{
+ "opus": false,
+ "codex": false,
+ "opus_unmet": "The display parsing must support multiple formats including full socket paths like \"/path/to/socket:N\" (and ParseDisplay must handle full socket paths by checking file existence and extracting hostname/display number) \u2014 the patch only modifies unixSocket and tcpSocket and does not touch ParseDisplay or the display-parsing logic.",
+ "codex_unmet": "The tcpSocket method does not construct or resolve the TCP address as hostname:port for valid hostnames; it uses net.ParseIP(d.HostName), which fails to preserve non-IP hostnames like \"hostname\".",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

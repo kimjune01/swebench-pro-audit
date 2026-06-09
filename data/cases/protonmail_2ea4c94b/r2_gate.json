@@ -1,0 +1,9 @@
+{
+ "opus": false,
+ "codex": false,
+ "opus_unmet": "When external encryption is set for the first time, the system should automatically apply a default expiration of 28 days, defined by a constant named `DEFAULT_EO_EXPIRATION_DAYS` with value 28 \u2014 the patch contains no such constant or default-expiration logic, and several required pieces (PasswordInnerModalForm, useExternalExpiration, EORedesign feature flag, encryption modal password-input testid, 'This message will expire on' banner) are absent.",
+ "codex_unmet": "The expiration entry's visible label must be exactly \"Expiration time\", but ComposerMoreActions renders \"Set expiration time\" when isExpiration is true.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

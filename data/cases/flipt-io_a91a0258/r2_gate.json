@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "The CreateConstraintRequest.Validate and UpdateConstraintRequest.Validate methods must call validateArrayValue whenever the operator is isoneof or isnotoneof; in the patch the new check is added as an else-if after existing type-based validation, so numeric isoneof/isnotoneof constraints can be parsed as a single number before validateArrayValue is reached.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

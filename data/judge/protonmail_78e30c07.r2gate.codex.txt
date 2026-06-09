@@ -1,0 +1,1 @@
+{"conforms":false,"unmet":"Dispatching the loadRemoteProxyFromURL action does not always clear previous error states; when adding a new image entry it spreads inputImage and never sets error to undefined."}

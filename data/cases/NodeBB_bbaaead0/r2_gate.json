@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "When determining if isTagAllowed, it should ensure the tag to evaluate isn't one of the system tags; this patch returns true for privileged users even when data.tag is a system tag.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

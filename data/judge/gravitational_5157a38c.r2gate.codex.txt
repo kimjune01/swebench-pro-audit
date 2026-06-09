@@ -1,0 +1,1 @@
+{"conforms":false,"unmet":"The tcpSocket method does not construct or resolve the TCP address as hostname:port for valid hostnames; it uses net.ParseIP(d.HostName), which fails to preserve non-IP hostnames like \"hostname\"."}

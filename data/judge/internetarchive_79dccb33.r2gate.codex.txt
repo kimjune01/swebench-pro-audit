@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "The luqum_remove_field function does not ensure that removing fields which leaves the query tree empty raises EmptyTreeError; it only delegates to luqum_remove_child and has no explicit empty-tree handling after removals."}

@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "If dump_vault_tags=True, any undecryptable vault value must be emitted as a YAML scalar with tag !vault and its ciphertext; the patched represent_ansible_tagged_object no longer checks ciphertext before converting tagged vault values to native/decrypted form."}

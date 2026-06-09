@@ -1,0 +1,9 @@
+{
+ "opus": false,
+ "codex": false,
+ "opus_unmet": "The changes should maintain backward compatibility for existing folder validation behavior \u2014 the original mailStateAllowedInsideFolderType allowed draft mails in TRASH folders (folderType === MailFolderType.TRASH), but the patch removes the TRASH allowance, so drafts can no longer be placed in Trash.",
+ "codex_unmet": "The validation system is required to support hierarchical folder checking for special folder types like Drafts and Trash, but the patch only adds hierarchy awareness for Drafts and removes the previous allowance for draft mails in Trash.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

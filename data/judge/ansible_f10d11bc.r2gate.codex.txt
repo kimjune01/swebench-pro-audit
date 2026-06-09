@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "When chain_management is false, operations on non-existent chains should fail appropriately; this patch's no-rule state: present path only reports changed=True and exits without creating or failing."}

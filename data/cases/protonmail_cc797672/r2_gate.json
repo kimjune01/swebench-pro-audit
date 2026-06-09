@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "When a user enters or pastes multiple characters, valid characters must fill the available fields in order up to the maximum; the patch slices the pasted/input string to the remaining field count before filtering invalid characters, so valid characters after invalid ones can be dropped instead of filling available fields.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

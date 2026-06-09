@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "During streaming responses, the patch does not use an AsynchronousTokenCounter or track streaming usage; parsePlanningOutput buffers the entire stream and uses NewSynchronousTokenCounter instead of counting streamed tokens with Add()."}

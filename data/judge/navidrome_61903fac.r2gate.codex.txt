@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "The patch does not create internal/storage/fs/oci/source.go with the required Source struct and related functions/methods specified in the INTERFACE section."}

@@ -1,0 +1,9 @@
+{
+ "opus": false,
+ "codex": false,
+ "opus_unmet": "Subcommands that target servers by name should accept both the original 'BaseName' (to select all derived entries) and any individual expanded 'BaseName(IP)' entry. The patched scan.go/configtest.go only match `info.BaseName == arg`, so selecting an individual expanded entry by its full 'BaseName(IP)' ServerName fails to match.",
+ "codex_unmet": "isCIDRNotation(host string) must return true only when the input is a valid IP/prefix CIDR, but this patch returns true for strings with an IP prefix and invalid CIDR suffixes such as 192.168.1.1/foo or 192.168.1.1/999.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

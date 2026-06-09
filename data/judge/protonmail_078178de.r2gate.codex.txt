@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "In environments where HTMLDialogElement is unavailable or limited, the Dialog component should fall back to a compatible host element without throwing, while preserving aria attributes and keeping children present and accessible."}

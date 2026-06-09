@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "Inputs that already include `www` must be preserved as-is, but `getSocialUrl` prepends `https://` to `www...` values.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

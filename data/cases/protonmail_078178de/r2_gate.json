@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "In environments where HTMLDialogElement is unavailable or limited, the Dialog component should fall back to a compatible host element without throwing, while preserving aria attributes and keeping children present and accessible.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

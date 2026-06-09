@@ -1,0 +1,9 @@
+{
+ "opus": false,
+ "codex": false,
+ "opus_unmet": "The scanner should register the macOS detector (detectMacOS) in Scanner.detectOS so Apple hosts are recognized before falling back to \"unknown\" \u2014 no modification to Scanner.detectOS is present in the patch.",
+ "codex_unmet": "The scanner should register the macOS detector in Scanner.detectOS so Apple hosts are recognized before falling back to unknown.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

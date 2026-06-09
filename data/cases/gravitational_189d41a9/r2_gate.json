@@ -1,0 +1,9 @@
+{
+ "opus": false,
+ "codex": false,
+ "opus_unmet": "Chat.Complete may return a streaming message and the accompanying *model.TokenCount must reflect completion usage for that call \u2014 the patch deletes the StreamingMessage/finalResponseHeader streaming branch in parsePlanningOutput, buffering the entire stream and counting it synchronously, so it never returns a streaming message and never uses AsynchronousTokenCounter to track streaming usage as the spec requires.",
+ "codex_unmet": "During streaming responses, the patch does not use an AsynchronousTokenCounter or track streaming usage; parsePlanningOutput buffers the entire stream and uses NewSynchronousTokenCounter instead of counting streamed tokens with Add().",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

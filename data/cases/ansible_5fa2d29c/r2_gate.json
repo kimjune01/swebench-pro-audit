@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "All operations should return a result dictionary containing a changed boolean and the cli_cmd string showing the exact command executed; the patch does not return cli_cmd and skipped idempotent paths omit changed/cli_cmd.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

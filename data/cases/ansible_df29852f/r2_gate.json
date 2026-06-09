@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": false,
+ "opus_unmet": null,
+ "codex_unmet": "Whitespace handling is not robust: the regex uses Python \\s, which can accept non-ASCII whitespace such as ogham space marks instead of rejecting them as required.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

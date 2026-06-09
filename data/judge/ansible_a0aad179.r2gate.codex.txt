@@ -1,0 +1,1 @@
+{"conforms":false,"unmet":"The method must provide default date values (epoch: 1980,1,1,0,0,0,0,0,0) for invalid timestamps; this patch only checks the year and format, so timestamps like '19800000.000000' match the regex and are passed to mktime instead of defaulting to the epoch."}

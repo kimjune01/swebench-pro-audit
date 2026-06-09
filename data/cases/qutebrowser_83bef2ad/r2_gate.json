@@ -1,0 +1,9 @@
+{
+ "opus": true,
+ "codex": true,
+ "opus_unmet": null,
+ "codex_unmet": null,
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": true
+}

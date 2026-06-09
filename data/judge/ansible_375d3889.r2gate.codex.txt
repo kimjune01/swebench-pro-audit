@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "The patch does not implement ConfigManager.load_galaxy_server_defs, so the configuration system is not shown to recognize and register the dynamic Galaxy server list defined by GALAXY_SERVER_LIST."}

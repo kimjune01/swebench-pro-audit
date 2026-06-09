@@ -1,0 +1,9 @@
+{
+ "opus": false,
+ "codex": false,
+ "opus_unmet": "The `editBodyDiffToHtml` diff renderer should treat all formatted messages as HTML (via `getSanitizedHtmlBody`) and prefer `formatted_body` with fallback to `body` \u2014 the patch leaves `getSanitizedHtmlBody` unmodified and does not address this behavior.",
+ "codex_unmet": "The diffTreeToDOM function should cast and clone HTMLElement descriptors safely to create valid DOM subtrees.",
+ "opus_ok": true,
+ "codex_ok": true,
+ "both": false
+}

@@ -1,0 +1,1 @@
+{"conforms":false,"unmet":"The map_data function should treat contributors explicitly designated as Authors as authors; the patch only checks for contribution == 'Author' and would not include contributors whose role is 'Authors'."}

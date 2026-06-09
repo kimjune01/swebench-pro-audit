@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "When configured with input/output buffers whose sizes exceed or consume the configured capacity, sends via Push() can still accept more than the configured capacity before blocking, so backpressure is not applied when the number of submitted/in-flight items reaches capacity."}

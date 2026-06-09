@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "The validator must support applying additional schema extensions to validate optional fields and constraints beyond the base schema."}

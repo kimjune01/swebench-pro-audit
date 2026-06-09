@@ -1,0 +1,1 @@
+{"conforms":false,"unmet":"EvaluatorStorage does not evaluate rules ordered by rank: it loads rows with ORDER BY r.rank ASC but stores rules in a map and iterates over the map, making rule evaluation order nondeterministic."}

@@ -1,0 +1,1 @@
+{"conforms": false, "unmet": "The Convert function does not initialize vulnInfo.CveContents before assigning to vulnInfo.CveContents[ctype], so it cannot reliably create the required separate CveContent entries."}

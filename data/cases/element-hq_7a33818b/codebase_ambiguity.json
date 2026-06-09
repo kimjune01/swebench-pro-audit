@@ -47,5 +47,14 @@
   "two_expert_split": false,
   "verdict": "determined",
   "why": "For the discriminating choice as stated, the prose determines the answer. A reasonable implementation that keeps the selected-session count out of the list header would fail the explicit Expected Behavior and the concrete requirement to pass selectedDeviceIds.length as selectedDeviceCount to FilteredDeviceListHeader. The hidden test's expectation for '2 sessions selected' follows the selected header-count path rather than grading a prose-silent location choice."
+ },
+ "advocate": {
+  "slug": "element-hq_7a33818b",
+  "verdict": "determined-confirmed",
+  "axis": "none",
+  "reading_A": "",
+  "reading_B": "",
+  "receipt": "gold.diff: pre-existing `-            <FilteredDeviceListHeader selectedDeviceCount={0}>` plus i18n `\"%(selectedDeviceCount)s sessions selected\"`; requirement `FilteredDeviceListHeader should receive a selectedDeviceCount prop (set to selectedDeviceIds.length)`",
+  "why": "FilteredDeviceListHeader already rendered '%(selectedDeviceCount)s sessions selected' from a pre-existing selectedDeviceCount prop; the change only wires selectedDeviceIds.length into the existing slot, so the header text is fixed by live code. The exhaustive requirement list (exact data-testids, labels, prop names) leaves no prose-silent decision to two-expert-split."
  }
 }

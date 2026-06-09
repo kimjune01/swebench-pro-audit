@@ -47,5 +47,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test pins an ordering choice that the prose never states: proxy loopbacks must appear after Proxy.PublicAddrs and before reversetunnel.LocalKubernetes. A reasonable implementation could instead group the new fixed loopback principals before configured public addresses, matching the existing kube-role construction in the same function. Because both satisfy the stated inclusion requirements and the base source contains comparable live precedents for both orderings, the hidden test grades an unstated choice."
+ },
+ "refutation": {
+  "slug": "gravitational_e7683826",
+  "verdict": "survives",
+  "axis_attacked": "none",
+  "attack": "Prose only says proxy 'should include' localhost/127.0.0.1/::1 and 'include all configured public addresses'; it never states relative ordering. Certificate principal lists are semantically sets, so both orderings are equally requirement-faithful. The same getAdditionalPrincipals function orders fixed-vs-configured principals both ways at base (proxy puts PublicAddrs before LocalKubernetes; kube puts fixed loopbacks before Kube.PublicAddrs).",
+  "why": "Both readings emit every required principal and differ only on an unstated, semantically-irrelevant list order that the hidden test nonetheless asserts; same-function precedents exist both ways."
  }
 }

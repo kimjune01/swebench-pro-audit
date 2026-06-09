@@ -58,5 +58,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test asserts exact dict equality and requires missing `subtitle` and `description` to be present with value None. The task prose asks for missing-field handling and an Open Library-shaped normalized record, but does not specify the missing-scalar sentinel. A reasonable expert could use None; another could use the empty string, as existing import code does for a missing publish_date, or omit unavailable optional scalar keys, as existing Amazon/Open Textbook normalization does. Those implementations would differ only on an unstated representation choice, and the hidden test passes one while failing the other."
+ },
+ "refutation": {
+  "slug": "internetarchive_e9e9d8be",
+  "verdict": "survives",
+  "axis_attacked": "none",
+  "attack": "Prose 'must include at minimum: isbn_10, ..., subtitle, ..., description' rules out the omit-the-key variant, but it never picks the missing-scalar sentinel between None and the empty string. The codebase has a live both-ways precedent: promise_batch_imports emits a missing publish_date as '' while Amazon/Open-Textbook normalization omits absent keys. An expert could include subtitle/description as '' (matching promise import) and satisfy 'include at minimum' and 'match the data structure', yet the hidden test asserts exact dict equality with None.",
+  "why": "Key-presence is pinned, but None-vs-empty-string for the present-but-empty scalar is unstated and has a live '' precedent in the same import pipeline."
  }
 }

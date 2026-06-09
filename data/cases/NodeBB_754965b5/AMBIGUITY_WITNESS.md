@@ -42,3 +42,7 @@ Two of the world's best engineers, given only the prose and the source, both wri
    ```
 
 _Guard: prose readings checked against the task's own spec.md; source precedents are the pre-verified set (grep'd verbatim at base_commit, non-test/non-vendor). Two-expert standard supersedes the opus-convergence demotion: existence of the split, not likelihood of convergence._
+
+## Survived adversarial refutation
+An independent hostile refuter (Claude opus, cross-family from codex) tried to kill this split on the selection axis and could not: The hidden test pins getObjectsFields(keys,[])===full objects, a method the prose explicitly steers callers away from; the base source itself diverges (Mongo/Redis return full objects on empty fields, Postgres passes the empty array into the SQL projection), so normalizing getObjectsFields vs only routing getObjects is an unstated source-convention choice.
+

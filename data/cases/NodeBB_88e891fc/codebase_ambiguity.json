@@ -58,5 +58,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test keeps asserting `res.statusCode === 307` while the task prose only requires a redirect to `/register/complete` with the application's `relative_path` in the Location header. A solver using `res.redirect(`${relative_path}/register/complete`)` would satisfy the stated prose but fail the hidden status assertion. The codebase also contains live non-test precedents for the same registration-completion redirect destination using both `controllers.helpers.redirect` and bare `res.redirect`, so the 307-vs-default-status choice is an unstated implementation convention rather than a specified requirement."
+ },
+ "refutation": {
+  "slug": "NodeBB_88e891fc",
+  "verdict": "refuted",
+  "axis_attacked": "selection",
+  "attack": "The 307 is not a choice the solver makes. The bug lives in src/middleware/user.js, which ALREADY redirects to /register/complete via controllers.helpers.redirect(res, '/register/complete') (\u2192307). The gold fix only edits the allowed-path logic and leaves that exact helper call intact; any competent fix to this middleware bug preserves the in-file redirect that yields 307.",
+  "why": "The bare res.redirect precedents are in a different module (authentication.js), not the governing convention for this middleware; the test's 307 grades pre-existing untouched code, so no two experts diverge on it \u2014 split refuted on selection/mislocated grounds."
  }
 }

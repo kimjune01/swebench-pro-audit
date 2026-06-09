@@ -69,5 +69,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test asserts not only that parseSSHKeygen(\"invalid\") returns an error, but also that keyType and key are empty. The prose requires a non-nil error when no valid key type/key is found, but never states the accompanying string values on the error path. The base code also contains live parser precedents in both directions, so two reasonable experts could implement the same stated contract differently and only one would pass the hidden assertion."
+ },
+ "refutation": {
+  "slug": "future-architect_847d820a",
+  "verdict": "refuted",
+  "axis_attacked": "prose",
+  "attack": "The test input on the error path is the single token \"invalid\". The requirement says \"Only lines in the format `<host> <keyType> <key>` should be parsed... return a non-nil error if no valid key type and key are found.\" A faithful parser validates before assigning, so for \"invalid\" no keyType/key is ever assigned \u2014 every reasonable implementation returns \"\",\"\" plus the error. Reading B's \"partial accumulated value\" is fictional here: there is no valid field to accumulate, and assigning keyType=\"invalid\" would directly violate the format requirement.",
+  "why": "No faithful parser produces non-empty keyType/key for input \"invalid\"; reading B requires a strained anti-spec assignment, so both experts converge on empty strings + error."
  }
 }

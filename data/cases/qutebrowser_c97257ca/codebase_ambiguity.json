@@ -47,5 +47,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden tests assert exact string equality for malformed parse_point inputs such as \"String 1x1 does not match X,Y\", but the task prose only requires descriptive, user-friendly ValueError messages that indicate the expected format. A reasonable expert following parse_rect-style structured geometry parsing would emit the pinned message; another reasonable expert following parse_duration-style user-input parsing would emit an \"Invalid point ... expected X,Y\" message. Both are professionally acceptable under the prose, so the hidden test grades an unstated wording choice."
+ },
+ "refutation": {
+  "slug": "qutebrowser_c97257ca",
+  "verdict": "survives",
+  "axis_attacked": "source",
+  "attack": "The nearest-neighbor parse_rect in the same file uses 'String {s} does not match {FORMAT}', which could be argued as the governing convention. But the prose only requires messages that are 'descriptive', 'user-friendly', and 'clearly indicate what format is expected'; the parse_duration precedent in the same module uses 'Invalid <thing>: <value> - expected <format>'. Consistency with one sibling is a preference, not a pin, yet the test asserts exact equality 'String 1x1 does not match X,Y'.",
+  "why": "Exact error-string equality on wording the prose never fixes; in-module precedents exist both ways, so it grades an unstated wording choice."
  }
 }

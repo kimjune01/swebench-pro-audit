@@ -58,5 +58,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test asserts the exact repr string with vmap=odict_values(...). The task prose only says repr must use _vmap instead of _values, which leaves both exposing the new storage name and preserving the old logical values representation professionally reasonable. Base-commit source also contains comparable repr naming precedents pointing both ways, including the same Values class using values=self._values and other reprs using either stripped private names or semantic public collection names."
+ },
+ "refutation": {
+  "slug": "qutebrowser_1d9d9453",
+  "verdict": "survives",
+  "axis_attacked": "selection",
+  "attack": "The prose 'should be updated to use the new internal _vmap structure instead of the old _values list' constrains the data source, not the repr keyword. 'No new interfaces are introduced' plus the base class itself using values=self._values arguably favors keeping values=, yet the test pins the exact string vmap=odict_values(...).",
+  "why": "Exact repr string equality on a keyword name the prose never specifies; both vmap= and values= are defensible repr labels sourced from _vmap."
  }
 }

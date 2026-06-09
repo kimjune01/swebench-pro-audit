@@ -58,5 +58,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test directly asserts db.getObjectsFields(keys, []) returns full objects. The prose clearly requires empty fields to return full objects for the newly extended getObject/getObjects calls, but it does not unambiguously say that direct calls to existing getObjectsFields must also be normalized; indeed it says callers should not need to choose getObjectsFields. Independently, the base source has live comparable backend implementations that already diverge on the exact getObjectsFields empty-array decision: Mongo and Redis treat it as full-object retrieval, while Postgres sends the empty array into the SQL projection. Thus two reasonable experts could either normalize getObjectsFields itself or only make getObjects(keys, []) route to full objects, and the hidden test grades that unstated choice."
+ },
+ "refutation": {
+  "slug": "NodeBB_754965b5",
+  "verdict": "survives",
+  "axis_attacked": "selection",
+  "attack": "Tried selection: 'The behavior of fields selection must be consistent across all backends and input variations, including empty fields' could be read to force getObjectsFields(keys,[]) to return full objects too. But the prose scopes the empty-fields rule to getObject/getObjects ('they should return the entire objects') and tells callers to use getObjects and 'let the database layer decide', leaving direct getObjectsFields([]) unspecified.",
+  "why": "The hidden test pins getObjectsFields(keys,[])===full objects, a method the prose explicitly steers callers away from; the base source itself diverges (Mongo/Redis return full objects on empty fields, Postgres passes the empty array into the SQL projection), so normalizing getObjectsFields vs only routing getObjects is an unstated source-convention choice."
  }
 }

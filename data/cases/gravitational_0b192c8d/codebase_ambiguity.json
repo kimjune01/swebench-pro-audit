@@ -58,5 +58,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test requires VirtualPathCAParams(types.DatabaseCA) to produce TSH_VIRTUAL_PATH_CA_DB. The task prose never states the CA parameter spelling rule, and base source contains live, comparable precedents for both the short `db` spelling and the full `database` spelling for database CA identifiers/paths. A reasonable implementation following the full-word path precedent would satisfy the written requirements but fail this hidden assertion."
+ },
+ "refutation": {
+  "slug": "gravitational_0b192c8d",
+  "verdict": "refuted",
+  "axis_attacked": "selection",
+  "attack": "The interface gives `VirtualPathCAParams(input: caType types.CertAuthType)`, and `DatabaseCA CertAuthType = \"db\"` \u2014 its value IS \"db\". The test's sibling case settles it: `VirtualPathCAParams(types.HostCA)` yields `CA_HOST`, and HostCA's value is \"host\". So the helper uniformly serializes the CertAuthType value verbatim; `db`->CA_DB, `host`->CA_HOST. Reading B's \"database\" requires inventing an undocumented CertAuthType->fullname map that special-cases only database, leaving host inconsistent. The `teleport-database-ca.crt` precedent is a hardcoded filename literal in tbot, not a serialization of a CertAuthType.",
+  "why": "Interface input type's own value is the spelling, and the HostCA->CA_HOST sibling case proves verbatim serialization is the only coherent reading; the `database` precedent is an unrelated filename, not the same decision."
  }
 }

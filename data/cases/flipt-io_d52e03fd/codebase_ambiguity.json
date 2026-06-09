@@ -47,5 +47,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test changes TestNewReporter to call NewReporter(cfg, logger, \"foo\", info.Flipt{}) and expect (*Reporter, error), so it enforces internal analytics-client construction from key/config material. But the task's declared new public interfaces are only Run and Shutdown, and the requirements never state that NewReporter must change signature or own client creation. A reasonable expert could preserve the existing injected-client constructor and still implement Run, Shutdown, bounded retries, quiet logging, and third-party log suppression. The source also contains live comparable constructor precedents for both dependency injection and internal backing-object construction, so the hidden test grades an unstated API-boundary choice."
+ },
+ "refutation": {
+  "slug": "flipt-io_d52e03fd",
+  "verdict": "survives",
+  "axis_attacked": "none",
+  "attack": "Tried PROSE: the declared INTERFACE lists only `Run` and `Shutdown` as new public functions and never mentions `NewReporter`'s signature; the test however rewrites `NewReporter(cfg, logger, \"foo\", info.Flipt{})` returning `(*Reporter, error)` plus renames `report`->`ping`/`Close`->`Shutdown`. Tried SOURCE: both constructor shapes are live in-repo \u2014 `NewCache(cfg, r *redis.Cache)` (injected) and `NewCache(cfg)` (builds internally) \u2014 genuinely the same wrapper-ownership decision.",
+  "why": "Interface declares only Run/Shutdown; injected-client constructor (reading A) implements every requirement yet fails to compile against the test, and both ownership shapes have live in-repo precedent."
  }
 }

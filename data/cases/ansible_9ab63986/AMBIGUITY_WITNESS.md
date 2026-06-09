@@ -43,3 +43,7 @@ Two of the world's best engineers, given only the prose and the source, both wri
    ```
 
 _Guard: prose readings checked against the task's own spec.md; source precedents are the pre-verified set (grep'd verbatim at base_commit, non-test/non-vendor). Two-expert standard supersedes the opus-convergence demotion: existence of the split, not likelihood of convergence._
+
+## Survived adversarial refutation
+An independent hostile refuter (Claude opus, cross-family from codex) tried to kill this split on the prose axis and could not: The module's own internal test (test_gen_mounts_by_source_timeout) treats timeout:0 as a valid zero-second timeout that fires immediately and is handled by on_timeout — exactly Reading B; with console.py/galaxy/wait_for all accepting 0 with defined meaning, rejecting 0 at the module boundary is an unstated choice and both readings are defensible.
+

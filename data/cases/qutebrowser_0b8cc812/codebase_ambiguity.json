@@ -48,5 +48,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-prose",
   "why": "The hidden test adds `urlutils.widened_hostnames(None) == []`, but the task prose never specifies `None`. The declared input is `hostname: str`, and every explicit widening example is a string, so an expert implementation that raises on `None` is professionally acceptable. Another expert can reasonably preserve the existing widening helper's falsy behavior and return an empty sequence. The hidden test therefore grades an unstated out-of-domain choice."
+ },
+ "refutation": {
+  "slug": "qutebrowser_0b8cc812",
+  "verdict": "survives",
+  "axis_attacked": "none",
+  "attack": "Tried to pin None handling: prose says 'For an empty string, the sequence is empty' and interface declares 'Input: hostname: str' \u2014 but neither specifies None. The test asserts widened_hostnames(None) == [], an out-of-contract input the str signature never covers.",
+  "why": "Test grades None behavior the prose/interface never specify; raising on None (per str contract) is equally defensible to the existing falsy-tolerant generator."
  }
 }

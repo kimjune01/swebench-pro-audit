@@ -69,5 +69,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test requires Router.New to grow a core.Share argument, but the task prose and listed interface do not mention Router.New or any DI requirement. At base commit, comparable production code supports both choices: public/native routers inject core.Share explicitly, while existing Subsonic endpoints commonly use api.ds repositories directly. Two reasonable implementations could therefore differ only on this constructor-wiring choice while both satisfying the stated Subsonic share requirements."
+ },
+ "refutation": {
+  "slug": "navidrome_94cc2b2a",
+  "verdict": "survives",
+  "axis_attacked": "none",
+  "attack": "The INTERFACE section explicitly enumerates the new public interfaces (sharing.go, Share, Shares, ShareURL, MockPlaylistRepo) and conspicuously does NOT list any change to server/subsonic Router.New. Existing Subsonic handlers in the same package obtain functionality via the existing DataStore (bookmarks.go: 'api.ds.MediaFile(r.Context())', radio.go: 'api.ds.Radio(ctx)'), a live in-package precedent for NOT growing the constructor. The hidden test nonetheless requires Router.New to accept a core.Share argument.",
+  "why": "The spec lists new interfaces exhaustively and omits the constructor change; the same package shows handlers using api.ds directly, so the DI-via-constructor choice is unstated and the test pins it."
  }
 }

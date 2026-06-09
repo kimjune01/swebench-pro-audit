@@ -47,3 +47,7 @@ Two of the world's best engineers, given only the prose and the source, both wri
    ```
 
 _Guard: prose readings checked against the task's own spec.md; source precedents are the pre-verified set (grep'd verbatim at base_commit, non-test/non-vendor). Two-expert standard supersedes the opus-convergence demotion: existence of the split, not likelihood of convergence._
+
+## Survived adversarial refutation
+An independent hostile refuter (Claude opus, cross-family from codex) tried to kill this split on the prose axis and could not: Interface signature genuinely says keys: string[] and never licenses falsy inputs, and the base code itself splits (getObjectsFields/sortedSetsScore guard with Array.isArray; sortedSetScores/isSortedSetMembers don't) — both readings are professionally defensible and nothing pins the lenient one.
+

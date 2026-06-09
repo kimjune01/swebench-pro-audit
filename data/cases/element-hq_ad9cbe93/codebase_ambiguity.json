@@ -69,5 +69,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test explicitly requires `recordings.setCurrent(recording)` called a second time to not emit `CurrentChanged`. The prose requires `setCurrent` to set current and emit `CurrentChanged`, but never states whether repeated same-value calls are idempotent no-ops. Existing non-test code also contains live comparable precedents on both sides: some setters/store updates suppress events on unchanged values, while others emit after a setter call even when no underlying value changes. Thus two reasonable experts could implement either behavior and only one passes the hidden test."
+ },
+ "refutation": {
+  "slug": "element-hq_ad9cbe93",
+  "verdict": "survives",
+  "axis_attacked": "prose",
+  "attack": "The interface text for setCurrent reads 'Sets the current recording in the store and emits a CurrentChanged event' with no equality guard, which literally licenses unconditional emit (reading B); the test instead pins no-op suppression on a repeat same-value call (reading A). Same-codebase setters split both ways: SpaceStore.setActiveSpace guards `space === this.activeSpace`, while ActiveWidgetStore and MediaDeviceHandler emit unconditionally.",
+  "why": "Interface prose says 'sets and emits' with no idempotency clause; the change-event name hints at A but the literal contract supports B, and live precedents go both ways."
  }
 }

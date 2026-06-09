@@ -47,5 +47,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-source",
   "why": "The hidden test pins the PostgreSQL-style choice by expecting SQL Server validation to complete under the caller's `10*time.Second` context, and the golden patch uses `db.PingContext(ctx)`. But at base commit the same package and same `DatabasePinger.Ping(ctx, params)` role already has two live production precedents: PostgreSQL validates with `Exec(ctx, ...)`, while MySQL validates with non-context `conn.Ping()` after context-aware connection setup. A reasonable expert implementing SQL Server could follow either existing pinger pattern; the prose does not state that the validation operation itself must be bound to the context deadline. Thus the test grades an unstated source-precedent choice."
+ },
+ "refutation": {
+  "slug": "gravitational_49ab2a7b",
+  "verdict": "refuted",
+  "axis_attacked": "prose",
+  "attack": "The interface lists `context.Context` as a `Ping` input and SQL Server is driven through Go's stdlib `database/sql`, whose Ping has a context-aware variant `db.PingContext(ctx)`. Idiomatic Go (and `noctx`/`contextcheck` lint) requires propagating a handed-in context when the API supports it; the MySQL precedent used non-context `conn.Ping()` only because that third-party client lacked a context ping, so it is a lookalike, not a free choice for a stdlib SQL Server pinger.",
+  "why": "A world-class Go engineer handed a context and using database/sql writes PingContext(ctx); the non-context reading is a lint smell, not a defensible co-equal."
  }
 }

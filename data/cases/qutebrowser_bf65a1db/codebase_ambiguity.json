@@ -74,5 +74,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test asserts `pytest.raises(ValueError, match='Invalid duration')`, but the task prose only requires raising ValueError for invalid or unrecognized input. A reasonable expert could include the domain label and pass; another could raise the required ValueError with a precise reason-only message and fail. The base code also contains live comparable parser/input error precedents on both sides, including qutebrowser's existing :later negative-delay reason-only message, so the test grades an unstated message-format choice."
+ },
+ "refutation": {
+  "slug": "qutebrowser_bf65a1db",
+  "verdict": "survives",
+  "axis_attacked": "none",
+  "attack": "Searched the prose for the message text: it only says 'raise a ValueError when the input is negative, empty... or lacks any valid time components' and 'If the input is invalid... raises a ValueError'. No sentence requires the word 'Invalid duration', yet the test does pytest.raises(ValueError, match='Invalid duration').",
+  "why": "Test asserts message content the prose never constrains; a reason-only ValueError ('Empty duration') complies fully but fails the regex; in-repo precedents (incl. existing :later reason-only error) go both ways."
  }
 }

@@ -47,5 +47,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-prose",
   "why": "The hidden test requires the exact error string \"opening log file: error opening file\". The task prose requires clear, explicit, distinguishable file-open errors, but it does not select the literal prefix \"opening log file\" or state that the underlying OpenFile error must be wrapped with %w. Therefore a professionally reasonable implementation with different descriptive wording, or a path-focused file-open error, can satisfy the written requirement while failing the hidden test. The proposed source plurality does not independently prove ambiguity because its two snippets occur at different abstraction layers."
+ },
+ "refutation": {
+  "slug": "flipt-io_b6edc5e4",
+  "verdict": "survives",
+  "axis_attacked": "prose",
+  "attack": "The hidden test demands the exact string 'opening log file: error opening file', but the prose only requires 'distinguishable, descriptive errors for each failing operation: directory check, directory creation, and file open' \u2014 it never fixes the literal prefix 'opening log file' nor mandates %w wrapping. A faithful sink returning 'open log file: <err>' or a path-focused open error indicates the same operation yet fails the exact-match test. codex rightly rejects the source plurality (grpc.go is a different abstraction layer), so nothing pins the wording.",
+  "why": "Prose underspecifies the exact error string; there is no governing same-file precedent for the file-open wording, so two experts pick different faithful phrasings."
  }
 }

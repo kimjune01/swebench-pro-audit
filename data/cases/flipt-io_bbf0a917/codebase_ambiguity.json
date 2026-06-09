@@ -36,5 +36,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-prose",
   "why": "The benchmark pins exact error-message wording that the task prose does not determine. A reasonable implementation can return an internal error whose message names the failing operation as `/user/orgs` or `/user/teams`; another can name it as organization/team membership verification. Both satisfy the stated requirement to indicate the failing operation and status code, but the hidden test accepts only the endpoint/path wording. The proposed source plurality is not needed and is weaker because the closest GitHub source precedent points toward endpoint-style wording."
+ },
+ "refutation": {
+  "slug": "flipt-io_bbf0a917",
+  "verdict": "refuted",
+  "axis_attacked": "source",
+  "attack": "The new team-membership fetch is added into the very same file (internal/server/authn/method/github/server.go) that already formats every GitHub non-OK response with the endpoint string: `fmt.Errorf(\"github %s info response status: %q\", endpoint, resp.Status)`. A world-class engineer extending this file reuses that established same-file helper/format for the new /user/orgs and /user/teams calls \u2014 the local governing convention pins the endpoint/path wording (reading A). codex itself concedes the GitHub precedent 'points toward endpoint-style wording' and that the OIDC/Kubernetes example is too distant.",
+  "why": "The exact file under edit already standardizes endpoint-string error formatting; reusing it is the obvious choice, so reading B is not what a competent engineer extending this code would write."
  }
 }

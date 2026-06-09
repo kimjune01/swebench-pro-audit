@@ -46,3 +46,7 @@ Two of the world's best engineers, given only the prose and the source, both wri
    ```
 
 _Guard: prose readings checked against the task's own spec.md; source precedents are the pre-verified set (grep'd verbatim at base_commit, non-test/non-vendor). Two-expert standard supersedes the opus-convergence demotion: existence of the split, not likelihood of convergence._
+
+## Survived adversarial refutation
+An independent hostile refuter (Claude opus, cross-family from codex) tried to kill this split on the none axis and could not: Key-presence is pinned, but None-vs-empty-string for the present-but-empty scalar is unstated and has a live '' precedent in the same import pipeline.
+

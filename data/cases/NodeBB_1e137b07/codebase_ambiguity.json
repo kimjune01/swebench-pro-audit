@@ -69,5 +69,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-source",
   "why": "The prose does not require accepting false/null for db.mget because it specifies keys: string[]. However, the base code already has live, comparable database batch getters that disagree on this exact defensive-normalization choice. One expert could implement db.mget with the lenient Array.isArray guard used by getObjectsFields/sortedSetsScore and pass the hidden test. Another could implement the typed array contract and preserve the strict/unguarded convention used by sortedSetScores/isSortedSetMembers, failing only the hidden false/null assertions. Both are professionally reasonable from source precedent, so the hidden test grades an unstated source-convention choice."
+ },
+ "refutation": {
+  "slug": "NodeBB_1e137b07",
+  "verdict": "survives",
+  "axis_attacked": "prose",
+  "attack": "Tried prose-pins: the interface declares 'Input: keys: string[]', so a typed-contract expert could argue false/null are out of contract and need not be normalized; the hidden test asserts db.mget(false)===[] and db.mget(null)===[], which that expert would fail.",
+  "why": "Interface signature genuinely says keys: string[] and never licenses falsy inputs, and the base code itself splits (getObjectsFields/sortedSetsScore guard with Array.isArray; sortedSetScores/isSortedSetMembers don't) \u2014 both readings are professionally defensible and nothing pins the lenient one."
  }
 }

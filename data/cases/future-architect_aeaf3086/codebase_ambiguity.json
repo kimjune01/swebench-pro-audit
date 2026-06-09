@@ -42,5 +42,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-prose",
   "why": "The hidden test directly calls `ensure(tt.args.servers, tt.args.path, tt.args.scanResults, tt.args.generateFunc)` and therefore fails any otherwise-correct implementation that keeps the logic inside `EnsureUUIDs`, uses a different helper name, or uses concrete `uuid.GenerateUUID` in production-shaped code. The task prose requires behavioral outcomes and a `needsOverwrite` decision, but it does not select the internal symbol name `ensure` or the exact injectable-generator signature. That creates a two-expert split: one reasonable expert writes the hidden-test-shaped helper, another reasonable expert preserves the existing public surface and still satisfies every stated behavioral requirement."
+ },
+ "refutation": {
+  "slug": "future-architect_aeaf3086",
+  "verdict": "survives",
+  "axis_attacked": "none",
+  "attack": "Tried PROSE: the prose does hint at the shape \u2014 \"a new UUID must be generated using a provided function\"/\"the supplied generator\" (the injected generateFunc) and \"must produce a flag (needsOverwrite)\" (the bool return) \u2014 but it pins only the shape, not the literal unexported symbol name `ensure` nor the exact arg order `(servers, path, scanResults, generateFunc)` that the test calls (`ensure(...)`, `Test_ensure`). With INTERFACE stating \"No new interfaces are introduced,\" an expert reasonably keeps the existing exported `EnsureUUIDs` surface and names any internal helper `ensureUUIDs`/`assignUUIDs`, failing the test.",
+  "why": "Test calls an unexported helper by exact name/signature `ensure(...)`; prose specifies behavior and the needsOverwrite/generator shape but cannot pin that arbitrary internal symbol name, so a faithful refactor fails."
  }
 }

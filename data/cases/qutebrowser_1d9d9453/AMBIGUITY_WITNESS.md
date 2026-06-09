@@ -42,3 +42,7 @@ Two of the world's best engineers, given only the prose and the source, both wri
    ```
 
 _Guard: prose readings checked against the task's own spec.md; source precedents are the pre-verified set (grep'd verbatim at base_commit, non-test/non-vendor). Two-expert standard supersedes the opus-convergence demotion: existence of the split, not likelihood of convergence._
+
+## Survived adversarial refutation
+An independent hostile refuter (Claude opus, cross-family from codex) tried to kill this split on the selection axis and could not: Exact repr string equality on a keyword name the prose never specifies; both vmap= and values= are defensible repr labels sourced from _vmap.
+

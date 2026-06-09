@@ -47,5 +47,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test requires direct installation from `git+file://.../.git`. The task prose never states local file-protocol git URLs must be supported and explicitly names SSH/HTTPS, so an expert who implements only those transports and requirements.yml parsing is faithful to the written requirements. Another expert can reasonably follow the role SCM precedent and the `git+` parse_scm interface and accept `git+file://`. The base source also contains live, comparable precedents pointing both ways, so the hidden test grades an unstated choice."
+ },
+ "refutation": {
+  "slug": "ansible_225ae65b",
+  "verdict": "survives",
+  "axis_attacked": "prose",
+  "attack": "Tried prose-pins: 'Using SSH or HTTPS URLs' and 'All Git operations must support both SSH and HTTPS repository URLs' enumerate only those two transports, while the hidden integration test installs from git+file:// repos exclusively. An expert who gates scheme detection on ssh/https (faithful to the explicit transport list) would fail the file:// tests.",
+  "why": "The parse_scm interface accepts a 'git+ prefix' transport-agnostically and the role precedent (requirement.py) strips git+ then hands to git which natively supports file://, so accepting git+file:// is equally defensible; the CLI precedent gates on http/https only \u2014 both readings are live and the prose never names file://."
  }
 }

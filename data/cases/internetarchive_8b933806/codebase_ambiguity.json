@@ -58,5 +58,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-source",
   "why": "The hidden test pins add_db_name({}) to leave the dict exactly unchanged, but the task prose never states whether a missing authors key must remain absent or may be materialized. The source already contains live, comparable import-record precedents for both approaches: some code treats missing authors as absent/no-op or only defaults during read, while another production normalization step writes rec['authors'] from rec.get('authors', []). A reasonable expert following the no-op precedent passes the hidden assertion; a reasonable expert following the normalization precedent could set {'authors': []} and fail despite satisfying the stated behavioral requirement to handle missing/incomplete author data without errors."
+ },
+ "refutation": {
+  "slug": "internetarchive_8b933806",
+  "verdict": "refuted",
+  "axis_attacked": "source",
+  "attack": "add_db_name's stated contract is 'Adds a db_name field to each author'; with no authors there is nothing to add, so a no-op is the obvious least-surprise reading, and 'handle cases where authors is empty or None without errors' only means don't crash, not materialize keys. The cited materializing precedent `rec['authors'] = uniq(rec.get('authors', []), dicthash)` lives in a *deduplication* step whose job is to rewrite the authors list, a different decision in a different context; it is a lookalike, not the governing convention for an enrichment function.",
+  "why": "The materializing precedent is a dedup function, not an enrichment one; for a function defined as 'add db_name to each author', emptiness is a no-op, so reading B is strained."
  }
 }

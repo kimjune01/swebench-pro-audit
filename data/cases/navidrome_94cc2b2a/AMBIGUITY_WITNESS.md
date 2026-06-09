@@ -43,3 +43,7 @@ Two of the world's best engineers, given only the prose and the source, both wri
    ```
 
 _Guard: prose readings checked against the task's own spec.md; source precedents are the pre-verified set (grep'd verbatim at base_commit, non-test/non-vendor). Two-expert standard supersedes the opus-convergence demotion: existence of the split, not likelihood of convergence._
+
+## Survived adversarial refutation
+An independent hostile refuter (Claude opus, cross-family from codex) tried to kill this split on the none axis and could not: The spec lists new interfaces exhaustively and omits the constructor change; the same package shows handlers using api.ds directly, so the DI-via-constructor choice is unstated and the test pins it.
+

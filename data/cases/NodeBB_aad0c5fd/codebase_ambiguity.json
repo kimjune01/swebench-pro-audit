@@ -47,5 +47,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test asserts the exact message [[error:wrong-parameter-type, filePaths, object, array]], but the task prose only requires that non-string/non-array input throw an error. A reasonable implementation using [[error:invalid-data]] would satisfy the prose and follows the closely analogous src/topics/thumbs.js string-or-array path deletion precedent. A reasonable implementation using the detailed wrong-parameter-type form also fits NodeBB's live validation style, as shown in src/api/chats.js, and is the one the hidden test pins. Therefore the benchmark grades an unstated error-message choice."
+ },
+ "refutation": {
+  "slug": "NodeBB_aad0c5fd",
+  "verdict": "survives",
+  "axis_attacked": "prose",
+  "attack": "Tried prose/mislocated: the interface says only 'Throws an error if the input is neither a string nor an array' with no message; the hidden test asserts the exact err.message '[[error:wrong-parameter-type, filePaths, object, array]]' inside its catch, so a generic [[error:invalid-data]] throw would fail the strictEqual.",
+  "why": "The nearest in-repo precedent for the identical operation \u2014 string-or-array path deletion in src/topics/thumbs.js \u2014 rejects with the generic [[error:invalid-data]], while src/api/chats.js uses the detailed wrong-parameter-type form; both are live NodeBB conventions and the prose pins no message, so the exact error-key is an unstated choice."
  }
 }

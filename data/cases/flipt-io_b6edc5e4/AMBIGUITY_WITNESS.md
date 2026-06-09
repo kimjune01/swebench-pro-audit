@@ -20,3 +20,7 @@ Two of the world's best engineers, given only the prose and the source, both wri
   ```
 
 _Guard: prose readings checked against the task's own spec.md; source precedents are the pre-verified set (grep'd verbatim at base_commit, non-test/non-vendor). Two-expert standard supersedes the opus-convergence demotion: existence of the split, not likelihood of convergence._
+
+## Survived adversarial refutation
+An independent hostile refuter (Claude opus, cross-family from codex) tried to kill this split on the prose axis and could not: Prose underspecifies the exact error string; there is no governing same-file precedent for the file-open wording, so two experts pick different faithful phrasings.
+

@@ -47,5 +47,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test asserts exact dictionary equality and therefore fails any implementation that includes an extra valid import field. The prose requires listed fields but does not state they are exhaustive, and the base code contains live comparable import mappers using both narrow fixed-shape and expansive optional-field styles. Two reasonable experts could follow different accepted precedents or readings and produce professionally valid implementations, with the hidden test passing only the narrow one."
+ },
+ "refutation": {
+  "slug": "internetarchive_7b1ec94b",
+  "verdict": "refuted",
+  "axis_attacked": "prose",
+  "attack": "The requirements are exhaustively prescriptive about this mapper's output and even fix values ('publishers' must be exactly ['Standard Ebooks'], 'languages' must always be ['eng']), describing a closed Standard Ebooks feed schema. The expansive precedent (import_open_textbook_library) adds ISBN10/ISBN13/language because that source carries those fields; the spec names no Standard Ebooks feed field that maps to an extra import key, so reading B has no concrete field to add and is hypothetical, not a defensible alternative implementation.",
+  "why": "The named fields plus pinned values describe a closed output for a fixed feed schema; no concrete extra source field exists to justify the superset reading."
  }
 }

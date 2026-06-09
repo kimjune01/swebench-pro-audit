@@ -58,5 +58,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test asserts HTTP 500 for the new non-existent folder upload case, but the task prose only pins rejection and the [[error:invalid-path]] message, not status code or error-dispatch mechanism. Two expert implementations can reasonably differ: one follows the nearby admin uploads precedent and calls next(new Error(...)), passing the hidden test; another treats the invalid folder parameter as client input and returns an explicit 4xx invalid-path API response, matching other live invalid-path filesystem checks. Since both satisfy the stated requirements and existing source provides comparable precedents for both error-reporting styles, the benchmark grades an unstated choice."
+ },
+ "refutation": {
+  "slug": "NodeBB_61d17c95",
+  "verdict": "survives",
+  "axis_attacked": "prose",
+  "attack": "Tried prose-pins: 'rejected immediately with a clear error message' plus 'error response [[error:invalid-path]]' could be read to require a 4xx client-error response, but the hidden test asserts statusCode===500. No quote in the prose names any HTTP status.",
+  "why": "Prose pins only the error token and that rejection happens, not the status; the same admin uploads controller forwards plain invalid-path Errors via next() (\u2192500) while assert.js returns explicit 404/403 for path checks, so both error-dispatch styles are live precedent and 500 is unstated."
  }
 }

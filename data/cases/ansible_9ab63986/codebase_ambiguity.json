@@ -58,5 +58,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test pins `timeout: 0` as invalid: `test_invalid_timeout` expects `AnsibleFailJson` matching `argument 'timeout' must be a positive number or null`, and the gold implementation fails when `seconds <= 0`. The task prose never says the timeout must be positive or nonzero; it only calls it an optional float maximum wait and defines `on_timeout` behavior. Thus one reasonable expert can reject zero as not a positive wait duration, while another can accept zero as a valid zero-second timeout. The source receipts reinforce that accepting zero is not exotic in this codebase: multiple live Ansible timeout paths accept zero with defined behavior rather than validation failure."
+ },
+ "refutation": {
+  "slug": "ansible_9ab63986",
+  "verdict": "survives",
+  "axis_attacked": "prose",
+  "attack": "Tried prose-pins: 'maximum time in seconds to wait' might be read to imply a positive duration, and the hidden test_invalid_timeout sets {'timeout':0} and expects AnsibleFailJson 'argument timeout must be a positive number or null'. But the prose offers on_timeout actions error/warn/ignore, which only make sense if a timeout event can fire and be tolerated.",
+  "why": "The module's own internal test (test_gen_mounts_by_source_timeout) treats timeout:0 as a valid zero-second timeout that fires immediately and is handled by on_timeout \u2014 exactly Reading B; with console.py/galaxy/wait_for all accepting 0 with defined meaning, rejecting 0 at the module boundary is an unstated choice and both readings are defensible."
  }
 }

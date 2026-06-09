@@ -47,5 +47,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test asserts the exact aggregate-present command order ['logging facility local0', host, ipv6 host]. The task prose never specifies that facility commands must precede host commands; it only requires the aggregate call to manage facilities and hosts and return necessary idempotent commands. A reasonable ICX implementation could canonicalize global facility first, matching the test, while another could preserve aggregate traversal or emit destination commands before global facility commands, still achieving the requested configuration. The Ansible base source reinforces that both styles are live in comparable network logging modules: EOS/IOS emit facility before host, while IOS XR appends aggregate wants in input order and emits host commands in the destination branch, with facility commands only for global/facility entries. Therefore the hidden test grades an unstated ordering choice."
+ },
+ "refutation": {
+  "slug": "ansible_b6e71c5f",
+  "verdict": "survives",
+  "axis_attacked": "prose",
+  "attack": "Prose only says aggregate 'should support... setting facilities and adding or removing IPv4/IPv6 hosts in one call' and generate 'only necessary commands' idempotently; it never fixes the ordering of facility vs host commands in the returned list. EOS/IOS emit facility-before-host; IOS XR preserves want-traversal so a host can precede a later facility \u2014 both achieve identical idempotent device state.",
+  "why": "No ordering contract in prose; sibling network logging modules diverge on facility/host order while both reach the target state."
  }
 }

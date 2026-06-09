@@ -58,5 +58,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test adds user2 as a member of room2, renders a pill in room1, and expects a UserPill showing \"User 2\", so it enforces the any-shared-room reading. But the task prose never explicitly states that pill rendering for a target room must accept another shared room as sufficient, and the base source contains live comparable precedents on both sides: permalink lookup already falls back outside the target room, editor pills require current-room membership, and spotlight uses any joined room. Two reasonable experts could implement the store faithfully while choosing different integration behavior for pills; the hidden test grades that unstated choice."
+ },
+ "refutation": {
+  "slug": "element-hq_1c039fcd",
+  "verdict": "survives",
+  "axis_attacked": "prose",
+  "attack": "The required-edit surface is the store/cache (`UserProfilesStore.ts`, `LruCache.ts`, `SDKContext.ts`); the prose names pills only as a motivating example and never states the target-room pill must accept any-shared-room membership. Source has live precedents on both sides: usePermalinkMember falls back outside the target room, editor parts.ts uses only `this.room.getMember(userId)`.",
+  "why": "Prose specifies a cache API, not a pill UI membership rule; the test grades an any-shared-room integration choice the prose leaves open, with precedents both ways."
  }
 }

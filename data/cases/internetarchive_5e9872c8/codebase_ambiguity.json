@@ -47,5 +47,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test asserts list(process_facet('has_fulltext', [('false', 46), ('true', 2)])) == [('true','yes',2), ('false','no',46)]. That is a reasonable preservation of the old code.py XML facet behavior, but it is not selected by the prose, which only says to handle boolean facets and return triples. A second expert could reasonably preserve the raw JSON facet value/count order and use the raw boolean string as display, especially given the subjects.py has_fulltext precedent. The test therefore grades an unstated representation choice."
+ },
+ "refutation": {
+  "slug": "internetarchive_5e9872c8",
+  "verdict": "survives",
+  "axis_attacked": "none",
+  "attack": "The interface says only 'handling boolean facets (has_fulltext)' and output triple '(key, display, count)'; it never specifies the 'yes'/'no' display strings, forced true-before-false ordering, or zero-count synthesis. The test asserts exactly [('true','yes',2),('false','no',46)], reordering input and relabeling. A new-JSON expert could preserve raw value/count order with the raw boolean string as display, matching the live subjects.py has_fulltext precedent ('return [value, count]').",
+  "why": "Display labels and canonical ordering are unstated; same-codebase precedent (subjects.py) preserves raw value/count, so both representations are requirement-faithful."
  }
 }

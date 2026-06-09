@@ -58,5 +58,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test grades an unstated representation choice: it expects nil when removeInactives removes every package. The task prose only requires excluding packages whose status is \"inactive\" and never selects nil versus empty non-nil zero-length WordPressPackages. A nil-returning implementation using a named result and append, and an empty-slice implementation using make or []models.WordPressPackages{}, would both satisfy the functional requirement and behave the same under FillWordPress iteration. The base source also contains live comparable filtering precedents on both sides, including WordPressPackages.Plugins returning nil on no matches and other filters initializing empty slices. Therefore two reasonable experts could implement different accepted versions, one passing and one failing the hidden reflect.DeepEqual test."
+ },
+ "refutation": {
+  "slug": "future-architect_835dc080",
+  "verdict": "survives",
+  "axis_attacked": "none",
+  "attack": "Tried MISLOCATED: confirmed the test really does pin nil \u2014 `expected: nil` with `reflect.DeepEqual(actual, tt.expected)`, which returns false for an empty non-nil slice. Tried PROSE: the requirement only says \"return a filtered list of WordPressPackages, excluding any packages with a status of inactive\" \u2014 silent on nil vs empty. Tried SOURCE: nil precedent is the sibling `Plugins()` in the same file (named-result append), but empty non-nil is also live in oval/debian.go and scan/debian.go.",
+  "why": "reflect.DeepEqual distinguishes nil from empty; prose never specifies the zero-length representation, and both idioms are live in-repo, so an empty-slice implementation is professionally defensible and would fail."
  }
 }

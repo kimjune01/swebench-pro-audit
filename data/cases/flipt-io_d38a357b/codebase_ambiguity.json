@@ -47,5 +47,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test requires YAML pool_size to populate RedisCacheConfig.PoolSize. The task prose says Redis options must support file-based configuration but does not choose snake_case versus camelCase key spelling. The base code also contains live, comparable config precedents for both snake_case mapstructure keys and camelCase mapstructure keys on multiword Go fields. Thus one expert could reasonably implement pool_size while another implements poolSize; the hidden test would pass only the snake_case implementation."
+ },
+ "refutation": {
+  "slug": "flipt-io_d38a357b",
+  "verdict": "refuted",
+  "axis_attacked": "source",
+  "attack": "The camelCase precedent is a lookalike: it's a lone storage read-only flag (`readOnly`), not connection tuning. The governing precedent for exactly this category \u2014 pool/idle/timeout fields \u2014 is uniform snake_case in database.go: `mapstructure:\"max_idle_conn\"`, `\"max_open_conn\"`, `\"conn_max_lifetime\"`. A world-class engineer adding Redis PoolSize/MinIdleConn/ConnMaxIdleTime would mirror the identical existing DB pool-tuning fields, yielding snake_case.",
+  "why": "Closest-pattern convention (DB connection pool tuning) is uniformly snake_case; camelCase precedent is a different-context flag, so no real expert splits here."
  }
 }

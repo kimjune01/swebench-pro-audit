@@ -58,5 +58,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-source",
   "why": "The hidden test imports cleanMarkdown directly from ./markdown, but the task only declares fixNestedLists as a new public interface. A reasonable implementation can satisfy the stated cleanup behavior with cleanMarkdown kept private, matching existing private helper precedents in textToHtml.ts and transformLinks.ts. Another reasonable implementation can export the helper, matching esBuild.ts. Because the codebase contains live, comparable precedents on both sides and the prose is silent on cleanMarkdown exportability, the hidden test grades an unstated source-convention choice."
+ },
+ "refutation": {
+  "slug": "protonmail_1c1b09fb",
+  "verdict": "survives",
+  "axis_attacked": "none",
+  "attack": "The INTERFACE declares exactly one new public interface \u2014 'Name: fixNestedLists' \u2014 and never names cleanMarkdown or requires any cleanup helper to be directly importable. The required cleanup behavior can be delivered through htmlToMarkdown with the helper kept module-local, matching live private-helper precedents (textToHtml.ts generatePlaceHolder, transformLinks.ts sanitizeRelativeHttpLinks). The hidden test imports cleanMarkdown directly from ./markdown, grading an export/name choice the prose is silent on.",
+  "why": "Prose declares only fixNestedLists public; cleanMarkdown's existence/export is unstated and a private helper is a live in-codebase pattern, so the test pins an unstated source convention."
  }
 }

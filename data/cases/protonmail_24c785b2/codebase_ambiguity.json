@@ -47,5 +47,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-source",
   "why": "The hidden test imports `useShouldMoveOut` as a default export, but the task never states an export/import style. The codebase has live, comparable non-test hook modules using both styles for the same module-interface decision. A reasonable expert could follow the default-export single-hook precedent and pass the hidden test; another could follow the named-export hook precedent, or preserve the existing named-export shape while implementing the required behavior, and fail only because the test pins an unstated export convention."
+ },
+ "refutation": {
+  "slug": "protonmail_24c785b2",
+  "verdict": "survives",
+  "axis_attacked": "none",
+  "attack": "Tried to refute via 'preserve existing export, avoid unrelated changes' \u2014 the hook pre-exists ('The hook responsible for deciding when to exit ... relies on labels'), so an engineer would keep its current export form rather than switch styles. But I cannot verify the current export form from the materials, and the two cited hook modules (useDelaySendSeconds default, useResizeMessageView named) show both styles coexisting with no governing convention, so nothing pins the choice. The hidden test imports useShouldMoveOut as a default export while the prose is fully silent on export style.",
+  "why": "Prose names the hook/behavior but never the export form; live hook modules use both default and named with no convention, so the test grades an unstated choice (weak survivor \u2014 could refute if the existing export form were verifiable)."
  }
 }

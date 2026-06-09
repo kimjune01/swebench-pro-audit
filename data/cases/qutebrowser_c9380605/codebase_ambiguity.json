@@ -58,5 +58,12 @@
   "two_expert_split": true,
   "verdict": "ambiguous-both",
   "why": "The hidden test specifically changes startup command behavior from `message-i: no such command` to `message-i: no such command (did you mean :message-info?)`, pinning suggestions-on-by-default for CommandRunner/startup paths. The task prose requires a find_similar switch but does not state its default or identify startup commands as a path that must opt in. The base source already has both comparable patterns live: the interactive main window opts into forgiving command-name matching, while CommandRunner itself defaults to exact matching and startup commands use that default. Thus two expert implementations can both be faithful: one makes CommandRunner suggestions default-on for all command-running paths; another preserves exact defaults and enables suggestions only where explicitly configured."
+ },
+ "refutation": {
+  "slug": "qutebrowser_c9380605",
+  "verdict": "survives",
+  "axis_attacked": "prose",
+  "attack": "Tried to argue 'the system should show... a suggestion' pins default-on. But that prose is in an interactive-entry reproduction context; the requirement 'CommandParser should accept a find_similar boolean... CommandRunner should propagate this' never states the default. The existing parallel switch partial_match defaults False and is opted in only at the main window, so preserving exact defaults for startup is faithful \u2014 yet the test pins suggestions-on for startup commands.",
+  "why": "Test pins the default of an explicitly-configurable switch for a non-interactive (startup) path the prose never addresses; base source has both default-off and opt-in precedents."
  }
 }

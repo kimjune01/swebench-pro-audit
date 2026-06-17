@@ -27,6 +27,7 @@ authors:
     given-names: June
     alias: kimjune01
 license: CC-BY-SA-4.0
+doi: 10.5281/zenodo.20738219   # concept DOI (all versions); v1.0.0 = 10.5281/zenodo.20738220
 repository-code: "https://github.com/kimjune01/swebench-pro-audit"
 version: "1.0.0"
 date-released: "2026-06-09"

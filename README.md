@@ -2,6 +2,8 @@
 
 **June Kim** · [`kimjune01`](https://github.com/kimjune01) · 2026-06-09
 
+*Archived on Zenodo: [doi.org/10.5281/zenodo.20738219](https://doi.org/10.5281/zenodo.20738219). Submitted to the SWE-bench Pro maintainers for right of reply at [scaleapi/SWE-bench_Pro-os#108](https://github.com/scaleapi/SWE-bench_Pro-os/issues/108); no response received, and the offer to incorporate corrections stands.*
+
 A construct-validity audit of **SWE-bench Pro**, the contamination-resistant benchmark OpenAI now recommends in place of Verified. The question is not whether Pro is contaminated (it is resistant by design, and that holds up). The question is **how much of the public set is determinate enough that passing the hidden test means solving the problem as stated.**
 
 ## Abstract

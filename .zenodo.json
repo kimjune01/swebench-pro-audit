@@ -14,5 +14,10 @@
     "specification underdetermination",
     "LLM code generation",
     "construct validity"
+  ],
+  "related_identifiers": [
+    { "relation": "isSupplementTo", "identifier": "https://june.kim/the-hypothesis-graph-semantic-memory-methodeutics", "resource_type": "publication-preprint", "scheme": "url" },
+    { "relation": "isDocumentedBy", "identifier": "https://github.com/kimjune01/swebench-pro-audit", "scheme": "url" },
+    { "relation": "references", "identifier": "https://github.com/scaleapi/SWE-bench_Pro-os", "scheme": "url" }
   ]
 }

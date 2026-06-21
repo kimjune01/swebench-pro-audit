@@ -38,15 +38,31 @@ We measure it conservatively, separating what is provable from committed receipt
 
 Full annotations and confidence flags: [`docs/PRIOR-ART.md`](docs/PRIOR-ART.md).
 
+*Benchmark flaws documented (the "that it misgrades" line).*
+
 - **SWE-bench** (Jimenez et al., ICLR 2024) builds tasks from public issues and PRs, the contamination surface later work exploits.
 - **SWE-Bench+** (Aleithan et al., 2024) manually audited tasks: 32.67% solution leakage, 31% weak tests; filtering dropped a representative agent from 12.47% to 3.97%.
 - **OpenAI, *Why SWE-bench Verified no longer measures frontier coding capabilities*** (Feb 2026): a majority of audited Verified tasks have flawed tests, plus exact-gold reproduction; recommends Pro.
+- **EvalPlus** (Liu et al., NeurIPS 2023): far stronger tests expose that HumanEval's suites are too weak and that ~11% of its *reference solutions are themselves buggy*. The closest ancestor for auditing gold/oracle quality in code generation; we differ by grading gold against the benchmark's *shipped* verifier rather than tougher tests we add, and on agentic, multi-file tasks.
 - **Wang, Pradel, Liu** (ICSE 2026) use differential testing to show plausible patches pass tests yet diverge from developer intent. Adjacent to us: their axis is patches that pass but are wrong; ours is tasks whose materials do not determine which passing behavior is intended.
+
+*Score attribution and the conceptual umbrella.*
+
 - **SWE-agent** (Yang et al., NeurIPS 2024): scaffold design materially moves scores, so a raw number conflates model and harness.
-- **SWE-bench Pro** (Deng et al., Scale AI, 2025): the benchmark we audit; long-horizon, multi-file, contamination-resistant. Not an external audit of its own construct validity.
+- **Position: Coding Benchmarks Are Misaligned with Agentic SE** (Gorinova et al., 2026) argues a score "conflates the model with the rest of the harness" and that grading against a single reference solution "penalises equally valid alternatives" — the conceptual umbrella for our oracle-vs-capability bracket and our determinacy finding, argued as position rather than measured.
+
+*Construct-validity and oracle-problem roots.*
+
+- **Construct validity in measurement** (Jacobs & Wallach, *Measurement and Fairness*, FAccT 2021; Freiesleben & Zezulka, *The Benchmarking Epistemology*, 2025): a score is valid only when the operationalization captures the intended construct. This audit supplies the missing *executable* construct-validity measurement for one coding benchmark.
+- **The oracle problem** (Barr et al., IEEE TSE 2015): deciding whether observed behavior is correct requires an oracle that is frequently unavailable or partial. A hidden test that silently resolves an underdetermined spec is the oracle problem relocated inside a benchmark.
+
+*Auditing the benchmark itself (the method precedent).*
+
+- **BenchGuard** (Tu et al., 2026) uses frontier LLMs as auditors of agent-benchmark infrastructure, flagging golds misaligned with their evaluators under a taxonomy, cheaply and reproducibly — on science and bioinformatics agents. The closest method precedent. We differ on two axes: it is an *LLM auditor* (≈83% agreement with expert-identified issues, a judgment surface), whereas our gold-passes-grader and codebase-determinacy tiers are *deterministic execution and grep, with no judgment surface*; and it targets science agents, where we target the SWE-bench coding family. Cheapness and agent-runnability are shared, so we claim neither as novelty.
+- **SWE-bench Pro** (Deng et al., Scale AI, 2025): the benchmark we audit; long-horizon, multi-file, contamination-resistant. Not an external audit of its own construct validity. Its only Pro-specific external critique to date is Datacurve's verifier audit (non-peer-reviewed, by a vendor selling a competing benchmark); see [`docs/PRIOR-ART.md`](docs/PRIOR-ART.md).
 - **Our DeepSWE audit** (june.kim/auditing-deepswe, 2026): on a different benchmark, established the techniques reused here (gold-passes-own-verifier with isolation, denominator hygiene, retrievable per-case receipts, the per-task specification-lottery case).
 
-OpenAI debunked Verified, not Pro, and recommends Pro; the contamination story is Verified's and does not transfer. The construct-validity question on Pro is thinly examined; this audit addresses it over the whole public set and needs no contamination claim.
+The work above documents *that* these benchmarks misgrade — weak tests, leaked solutions, flawed golds, divergent patches. What no prior audit examines is *what the brokenness buys*: whether the above-baseline harness lift is reasoning or search-against-the-oracle, and how much of a contamination-*resistant* benchmark is underdetermined independent of any contamination claim. Two distinctions keep this audit out of the prior work's shadow. First, it is **model-free**: the mechanical tiers run shipped golds through the benchmark's own verifier and grep the base-commit source, so a finding is a measured execution fact, not an LLM judgment — the failure mode of the auditor genre. Second, because Pro is contamination-resistant by construction, the determinacy question is isolated from recall; the contamination story is Verified's and does not transfer. This audit addresses construct validity over the whole public set and needs no contamination claim.
 
 ## 3. The Benchmark and Audit Object
 
